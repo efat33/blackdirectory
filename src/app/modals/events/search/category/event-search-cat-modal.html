@@ -1,0 +1,36 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>Category</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <input matInput class="listingRadioSearch" #listingCategoryFilterInput placeholder="Search Category" />
+        <mat-radio-group [(ngModel)]="chosenCategory" class="vertical-radio-group">
+          <mat-radio-button class="vertical-radio-button" color='primary'
+            *ngFor="let category of filteredListingCategories(listingCategoryFilterInput.value)"
+            [value]="category.value">
+            {{category.viewValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div data-v-50937791="" class="filter_footer__104sU clearfix">
+        <div data-v-50937791="" class="wil-float-left">
+          <a (click)="onClear()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--sm">
+            <span class="">Clear</span>
+          </a>
+        </div>
+        <div data-v-50937791="" class="wil-float-right">
+          <a (click)="onApply()" class="wil-btn wil-btn--secondary wil-btn--round wil-btn--sm">
+            <span class="">Apply</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

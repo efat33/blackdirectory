@@ -1,0 +1,65 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>Event Ticket</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input required matInput formControlName="title" placeholder="Title" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price" placeholder="Price" />
+                <mat-hint>Leave blank for free</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Capacity</mat-label>
+                <input matInput formControlName="capacity" placeholder="Capacity" />
+                <mat-hint>Leave blank for unlimited</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput [ngxMatDatetimePicker]="start_sale_picker" placeholder="Start sale"
+                  (focus)="start_sale_picker.open()" formControlName="start_sale">
+                <mat-datepicker-toggle matSuffix [for]="start_sale_picker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #start_sale_picker></ngx-mat-datetime-picker>
+                <mat-hint>If you leave blank, tickets will be available immediately.</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput [ngxMatDatetimePicker]="end_sale_picker" placeholder="End sale"
+                  (focus)="end_sale_picker.open()" formControlName="end_sale">
+                <mat-datepicker-toggle matSuffix [for]="end_sale_picker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #end_sale_picker></ngx-mat-datetime-picker>
+                <mat-hint>If you leave blank, tickets will be available until the event begins.</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field class="invisible">
+                <input matInput formControlName="id">
+              </mat-form-field>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round mt-20"
+                type="submit" [disabled]="!ticketForm.valid">
+                {{data.edit ? 'Update' : 'Add'}} Ticket
+              </button>
+
+              <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+
+::ng-deep {
+    .jobsearch-banner-search .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+    .jobsearch-row .mat-expansion-panel-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-label {
+        margin-top: 0;
+    }
+    .jobsearch-banner-search .mat-form-field-label {
+        color: #70778b;
+    }
+    .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-gap {
+        border-color: #ececec !important;
+    }
+    .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-start, 
+    .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-end {
+        border-color: #ececec !important;
+    }
+    .jobsearch-banner-search .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap {
+        border-top-color: transparent !important;
+    }
+}
+
+.jobsearch-banner-search ul li {
+    padding: 0 5px;
+}
+.jobsearch-banner-search ul li.jobsearch-banner-submit i {
+    height: 52px;
+    padding-top: 13px;
+    border-radius: 5px;
+    margin: .1em 0;
+}
+
+.email-me-top,.job-alert-box input[type=text],.jobalert-submit,.job-alert-box input[type=email],.job-alert-box .alerts-fields,.job-alerts-sec .error,.job-alerts-sec .success{float:left;width:100%}.email-jobs-top,.jobsearch-typo-wrap .email-jobs-top{display:inline-block;width:100%;padding:17px 19px;color:#fff;font-size:17px;text-align:left;text-transform:capitalize;border:none;}.email-jobs-top i,.jobsearch-typo-wrap .email-jobs-top i{margin-right:5px;color:#fff}.job-alert-box input[type=text],.job-alert-box input[type=email]{height:39px;background-color:#fff;border:1px solid #eaeaea;margin-top:10px;padding:7px 14px}.job-alert-box input[type=text]:focus,.job-alert-box input[type=email]:focus{border-color:#eaeaea}.job-alert-box .alerts-fields{margin-bottom:5px}.job-alerts-sec .jobsearch-search-filter-wrap{background-color:#fcfcfc}.jobalert-submit,.jobsearch-typo-wrap .jobalert-submit{padding:8px 20px;text-transform:uppercase;color:#fff;border-radius:2px;font-size:15px;margin-top:11px;border:1px solid}.job-alerts-sec .jobsearch-search-filter-wrap{padding:0}.job-alerts-sec .jobsearch-search-filter-wrap .job-alert-container-top{padding-left:19px;padding-right:19px}.job-alerts-sec .jobsearch-add-padding.jobsearch-search-filter-wrap{padding-top:3px;padding-bottom:15px}.job-alerts-sec .error{padding:5px 14px;margin-top:8px;background-color:#e15440}.job-alerts-sec .success{padding:5px 14px;margin-top:8px;background-color:#53b427}.job-alerts-sec .error label,.job-alerts-sec .success label{color:#fff}.jobsearch-alert-in-content .alerts-fields ul{margin:0 -10px}.jobsearch-alert-in-content .alerts-fields ul li{float:left;width:33.3333%;list-style:none;padding:0 10px}.jobsearch-alert-in-content .job-alert-box .alerts-fields{margin-bottom:12px}.jobsearch-alert-in-content .alerts-fields ul li .jobalert-submit{padding:5px 20px}.jobsearch-alert-in-content .jobsearch-checkbox li{width:auto;line-height:1.5;margin-right:20px}.jobsearch-alert-in-content.job-alerts-sec{float:left;width:100%;margin-bottom:15px}.jobsearch-alert-in-content .jobsearch-checkbox input[type=checkbox]+label span,.jobsearch-alert-in-content .jobsearch-checkbox input[type=radio]+label span{top:5px}
+
+
+.jobsearch-row .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+.jobsearch-row .mat-expansion-panel-header {
+    padding-left: 0;
+    padding-right: 5px;
+}
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+    background: rgba(0, 0, 0, 0);
+}
+.mat-expansion-panel-header {
+    font-size: 14px;
+}
+
+.mat-expansion-panel {
+    color: #70778b;
+}
+.mat-expansion-panel-header.mat-expanded {
+    height: 48px;
+}
+.vertical-radio-group {
+    margin: 0;
+}
+
+::ng-deep {
+    .mat-radio-container {
+        width: 16px !important;
+        height: 16px !important;
+    }
+    .mat-radio-button .mat-radio-ripple {
+        left: calc(50% - 10px) !important;
+        top: calc(50% - 10px) !important;
+        height: 20px !important;
+        width: 20px !important;
+    }
+    .mat-radio-outer-circle {
+        height: 16px !important;
+        width: 16px !important;
+        border-width: 1px !important;
+        border-color: #c2d1d3 !important;
+    }
+    .mat-radio-inner-circle {
+        height: 16px !important;
+        width: 16px !important;
+    }
+}

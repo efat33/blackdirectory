@@ -1,0 +1,25 @@
+@import '../../../assets/css/events/new/tribe-events-community.min.css';
+@import '../../../assets/css/events/new/tickets-admin.min.css';
+@import '../../../assets/css/events/new/events-admin.min.css';
+@import '../../../assets/css/events/new/tickets-tables.min.css';
+
+.btn-new-organizer {
+    margin-left: 10px;
+}
+button#rsvp_form_toggle {
+    margin-left: 5px;
+}
+.tribe-community-events .tribe-section {
+    border: 0;
+}
+.tribe-tickets-editor-table .ticket_edit_button {
+    color: #666;
+}
+.tribe-tickets-editor-table .ticket_edit_button.ticket_delete_button {
+    color: #ff6d4a;
+    margin-left: 10px;
+}
+.tribe-community-events  .tribe-section {
+    margin: 0;
+    padding-bottom: 0;
+}

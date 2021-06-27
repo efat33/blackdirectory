@@ -1,0 +1,9 @@
+.jobsearch-applied-jobs > ul > li, .jobsearch-applied-jobs {
+    overflow: hidden;
+}
+.jobsearch-applied-jobs {
+    margin-bottom: 0px;
+}
+.jobsearch-applied-jobs > ul > li:last-child {
+    margin-bottom: 0px;
+}

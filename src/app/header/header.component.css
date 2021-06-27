@@ -1,0 +1,125 @@
+.bd-header-nav.header_navWrapper__B2C9n {
+    background: rgb(0, 102, 153);
+    float: none;
+}
+.bd-header-nav.header_navWrapper__B2C9n {
+  background: rgb(0, 102, 153);
+  float: none;
+  text-align: left;
+  position: relative;
+  z-index: 10;
+  padding-left: calc(2.27273vw - 3.18182px);
+  padding-right: calc(2.27273vw - 3.18182px);
+}
+.wil-nav .nav-menu > li > a {
+  line-height: 50px;
+}
+.wil-nav .nav-menu .sub-menu>li a {
+  font-weight: 400;
+}
+.header_module__Snpib .wil-tb__cell:nth-child(1) {
+  width: 100%;
+  text-align: center;
+}
+.header_logo__2HmDH.js-header-logo img {
+  max-width: 200px;
+}
+.wil-nav.wil-nav-mobile .nav-menu>li {
+  display: block;
+}
+.header_logo__2HmDH {
+  flex-grow: 1;
+  text-align: center;
+  max-width: unset;
+}
+.bd-header-area {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.header_module__Snpib {
+  height: 80px;
+  padding-top: 10px;
+}
+.bd-header-area button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  height: 26px;
+}
+.wil-nav.wil-nav-mobile .nav-menu {
+  display: block;
+}
+::ng-deep .cls-mainmenu .mat-menu-content,
+::ng-deep .cls-profilemenu-mbl .mat-menu-content {
+  background: rgb(0, 102, 153);
+}
+::ng-deep .cdk-overlay-backdrop.mainmenu-backdrop,
+::ng-deep .cdk-overlay-backdrop.profilemenu-backdrop-mbl  {
+  background: rgba(0, 0, 0, .4);
+}
+.bd-header-area a.bd-header-hamburger, .mbl-profileMenu-area {
+  display: none;
+}
+
+.header_login__1sQ6w {
+  padding: 2px 0;
+}
+.header_login__1sQ6w img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.wil-nav.wil-nav-mobile .nav-menu > li > a {
+  line-height: 40px;
+}
+.header_loginHead__3HoVP mat-icon, .bd-header-account mat-icon {
+  font-size: 37px;
+  width: 37px;
+  height: 37px;
+  color: #fff;
+}
+.bd-header-hamburger mat-icon {
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
+  color: #fff;
+}
+a.mat-menu-trigger.bd-header-hamburger {
+  line-height: 1;
+}
+a.bd-header-account {
+  display: block;
+  line-height: 1;
+}
+.header_loginHead__3HoVP {
+  line-height: 1;
+}
+.header_login__1sQ6w {
+  top: 0;
+}
+
+/* css for both mobile and tablet */
+@media only screen and (max-width: 991px) {
+  .bd-header-nav.header_navWrapper__B2C9n {
+    display: none;
+  }
+  .bd-header-area a.bd-header-hamburger, .mbl-profileMenu-area {
+    display: block;
+    line-height: 1;
+  }
+}
+
+/* css for only mobile */
+@media only screen and (max-width: 767px) {
+  .header_module__Snpib {
+    height: 70px;
+    padding-top: 0;
+  }
+  .header_login__1sQ6w.header_login__mbl  img {
+    width: 35px;
+    height: 35px;
+  }
+}
+

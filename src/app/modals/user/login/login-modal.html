@@ -1,0 +1,66 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><i class="la la la-unlock"></i> <span>Account</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" placeholder="Email" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Password" />
+              </mat-form-field>
+
+              <div class="o-hidden ws-nowrap">
+                <div class="checkbox_module__1K5IS mb-15 d-inline-block">
+                  <label class="checkbox_label__3cO9k"><input type="checkbox" true-value="yes" false-value="no"
+                      class="checkbox_inputcheck__1_X9Z"> <span
+                      class="checkbox_icon__28tFk bg-color-primary--checked-after bd-color-primary--checked"><i
+                        class="la la-check"></i> <span class="checkbox-iconBg"></span></span> <span
+                      class="checkbox_text__3Go1u text-ellipsis"><span>Remember me?</span> <span
+                        class="checkbox-border"></span></span></label>
+                </div>
+                <a href="#" target="_self" class="wil-float-right td-underline">
+                  <span class="">Forgotten Password?</span>
+                </a>
+              </div>
+
+              <div *ngIf="showError">
+                <p *ngFor="let errorMessage of errorMessage" class="errorMessage">{{ errorMessage }}</p>
+              </div>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!loginForm.valid">
+                Login
+              </button>
+            </form>
+          </div>
+          <div class="mt-15"><span>Don't have an account?</span>
+            <a (click)="registerClicked()" class="wil-float-right td-underline">Register</a>
+          </div>
+          <div>
+            <div class="divider-text_module__3vqhE divider-text_center__299NM mt-15 mb-15">
+              <span class="divider-text_text__2OtOt">Or Connect With</span>
+            </div>
+            <a href="#" target="_self"
+              class="mt-10 wil-btn wil-btn--facebook wil-btn--block wil-btn--md wil-btn--round">
+              <i class="fa fa-facebook"></i> <span class="">Login With Facebook</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

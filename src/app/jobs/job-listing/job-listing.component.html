@@ -1,0 +1,531 @@
+<div class="wil-content">
+    <div class="container">
+        <h2 class="has-text-align-center job-template-header-title">Jobs</h2>
+        <div class="wp-dp-job-content">
+            <form (ngSubmit)="onSubmit()" [formGroup]="jobFilterForm">
+                <div class="jobsearch-top-searchbar jobsearch-typo-wrap  ">
+                    <div class="jobsearch-subheader-form">
+                        <div class="jobsearch-banner-search   ">
+                            <ul class="jobsearch-jobs-topsrchul">
+                                <li>
+                                    <div class="jobsearch-sugges-search">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Job Title, Keywords, or Phrase</mat-label>
+                                            <input matInput formControlName="keyword" />
+                                        </mat-form-field>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="jobsearch_searchloc_div">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Location</mat-label>
+                                            <input matInput formControlName="location"
+                                                placeholder="Place or Postcode" />
+                                        </mat-form-field>
+                                        <input type="hidden" class="loc_search_keyword srch_autogeo_location"
+                                            name="location" value="">
+                                        <div class="careerfy-radius-tooltip">
+                                            <label>Radius ( miles )</label><input type="number"
+                                                formControlName="loc_radius" value="50" max="500">
+                                        </div>
+                                    </div>
+                                    <a href="javascript:void(0);" class="geolction-btn"><i
+                                            class="jobsearch-icon jobsearch-location"></i></a>
+                                </li>
+                                <li>
+                                    <div class="">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select Sector</mat-label>
+                                            <mat-select formControlName="sector" placeholder="Select Sector"
+                                                #singleSelect
+                                                (openedChange)="onSelectOpen($event, jobSectorFilterInput)">
+                                                <input class="selectSearch" #jobSectorFilterInput matInput
+                                                    placeholder="Job Title" />
+                                                <mat-option
+                                                    *ngFor="let jobSector of filteredJobSectors(jobSectorFilterInput.value)"
+                                                    [value]="jobSector.value">
+                                                    {{ jobSector.viewValue }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </li>
+                                <li class="jobsearch-banner-submit">
+                                    <button id="jobsearch-jobadvserach-submit" type="submit">
+                                        <i class="jobsearch-icon jobsearch-search"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="jobsearch-row">
+                <div class="jobsearch-column-3 jobsearch-typo-wrap">
+                    <div class="jobsearch-filter-responsive-wrap">
+                        <div
+                            class="jobsearch-search-filter-wrap jobsearch-search-filter-toggle jobsearch-remove-padding">
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <span>
+                                                Date Posted
+                                            </span>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <mat-radio-group class="vertical-radio-group">
+                                        <mat-radio-button class="vertical-radio-button" color='primary'
+                                            *ngFor="let datePosted of datePosted" [value]="datePosted.value">
+                                            {{datePosted.viewValue}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+
+                    <div class="jobsearch-filter-responsive-wrap">
+                        <div
+                            class="jobsearch-search-filter-wrap jobsearch-search-filter-toggle jobsearch-remove-padding">
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <span>
+                                                Job Type
+                                            </span>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <mat-radio-group class="vertical-radio-group">
+                                        <mat-radio-button class="vertical-radio-button" color='primary'
+                                            *ngFor="let jobType of jobTypes" [value]="jobType.value">
+                                            {{jobType.viewValue}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+
+                    <div class="jobsearch-filter-responsive-wrap job-alerts-sec">
+                        <div class="email-me-top">
+                            <button class="email-jobs-top"><i class="fa fa-envelope"></i> Email me new jobs</button>
+                        </div>
+                        <div class="jobsearch-search-filter-wrap jobsearch-without-toggle jobsearch-add-padding">
+                            <div class="job-alert-box job-alert job-alert-container-top">
+                                <div class="alerts-fields">
+                                    <input name="alerts-name" placeholder="Name" class="name-input-top" maxlength="75"
+                                        type="text">
+                                    <input type="email" class="email-input-top alerts-email" placeholder="Enter"
+                                        email="" name="alerts-email" value="admin@blackdirectory.co.uk"
+                                        disabled="disabled">
+                                </div>
+                                <div class="alert-frequency">
+                                    <ul class="jobsearch-checkbox">
+                                        <li><input id="frequency47943020" name="alert-frequency" class="radio-frequency"
+                                                maxlength="75" type="radio" value="job_alerts_frequency_daily"
+                                                checked="checked"> <label
+                                                for="frequency47943020"><span></span>Daily</label></li>
+                                        <li><input id="frequency15661330" name="alert-frequency" class="radio-frequency"
+                                                maxlength="75" type="radio" value="job_alerts_frequency_weekly"> <label
+                                                for="frequency15661330"><span></span>Weekly</label></li>
+                                        <li><input id="frequency20140351" name="alert-frequency" class="radio-frequency"
+                                                maxlength="75" type="radio" value="job_alerts_frequency_fortnightly">
+                                            <label for="frequency20140351"><span></span>Fortnightly</label>
+                                        </li>
+                                        <li><input id="frequency73017117" name="alert-frequency" class="radio-frequency"
+                                                maxlength="75" type="radio" value="job_alerts_frequency_monthly"> <label
+                                                for="frequency73017117"><span></span>Monthly</label></li>
+                                    </ul>
+                                </div>
+                                <div class="validation error" style="display:none;">
+                                    <label for="alerts-email-top"></label>
+                                </div>
+                                <button class="jobalert-submit" type="submit">Create Alert</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="jobsearch-column-9 jobsearch-typo-wrap">
+                    <div class="wp-jobsearch-job-content jobsearch-listing-maincon wp-jobsearch-dev-job-content">
+
+                        <div class="sortfiltrs-contner with-rssfeed-enable">
+                            <div class="jobsearch-filterable jobsearch-filter-sortable jobsearch-topfound-title">
+                                <h2 class="jobsearch-fltcount-title">
+                                    84&nbsp;Jobs Found <div class="displayed-here">Displayed Here: 81 - 84 Jobs</div>
+                                </h2>
+                            </div>
+                            <div class="jobsearch-topsort-holder">
+                                <div class="jobsearch-filterable jobsearch-filter-sortable">
+                                    <ul class="jobsearch-sort-section">
+                                        <li>
+                                            <i class="jobsearch-icon jobsearch-sort"></i>
+                                            <div class="jobsearch-filterable-select">
+                                                <select name="sort-by" class="selectize-select selectized"
+                                                    onchange="jobsearch_job_content_load('4105')"
+                                                    placeholder="Most Recent" tabindex="-1" style="display: none;">
+                                                    <option value="recent" selected="selected">Most Recent</option>
+                                                </select>
+                                                <div
+                                                    class="selectize-control selectize-select single plugin-remove_button">
+                                                    <div class="selectize-input items full has-options has-items">
+                                                        <div class="item" data-value="recent">Most Recent</div><input
+                                                            type="text" autocomplete="off" tabindex=""
+                                                            style="width: 4px;">
+                                                    </div>
+                                                    <div class="selectize-dropdown single selectize-select plugin-remove_button"
+                                                        style="display: none; width: 151px; top: 22px; left: 0px;">
+                                                        <div class="selectize-dropdown-content"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <i class="jobsearch-icon jobsearch-sort"></i>
+                                            <div class="jobsearch-filterable-select">
+                                                <select name="per-page" class="sort-records-per-page selectized"
+                                                    onchange="jobsearch_job_content_load('4105')"
+                                                    placeholder="Records Per Page" tabindex="-1" style="display: none;">
+                                                    <option value="10" selected="selected">10 Per Page</option>
+                                                </select>
+                                                <div class="selectize-control sort-records-per-page single">
+                                                    <div class="selectize-input items full has-options has-items">
+                                                        <div class="item" data-value="10">10 Per Page</div><input
+                                                            type="text" autocomplete="off" tabindex=""
+                                                            style="width: 4px;">
+                                                    </div>
+                                                    <div class="selectize-dropdown single sort-records-per-page"
+                                                        style="display: none; width: 123px; top: 22px; left: 0px;">
+                                                        <div class="selectize-dropdown-content"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><a href="https://www.blackdirectory.co.uk/?feed=job_feed&amp;job_page=9&amp;per-page=10&amp;sort-by=recent&amp;posted=all&amp;sh_atts=display_per_page:yes|job_list_type:all|job_alerts_top:no|job_alerts_bottom:no|featured_only:no|job_alerts:yes|job_custom_fields_switch:no|quick_apply_job:off|job_deadline_switch:no|job_filters:yes|job_filters_count:no|job_filters_keyword:no|job_filters_loc:yes|job_filters_loc_collapse:no|job_filters_loc_view:checkboxes|job_filters_date:yes|job_filters_date_collapse:no|job_filters_type:yes|job_filters_type_collapse:no|job_filters_sector:yes|job_filters_sector_collapse:no|job_top_map:no|job_top_map_height:450|job_top_map_zoom:8|job_feat_jobs_top:no|num_of_feat_jobs:5|job_top_search:yes|job_top_search_view:simple|top_search_title:yes|top_search_location:yes|top_search_sector:yes|top_search_autofill:yes|job_sort_by:yes|job_rss_feed:yes|jobs_emp_base:no|job_excerpt:20|job_order:DESC|job_orderby:ID|job_pagination:yes|job_per_page:10|job_view:view-default"
+                                                class="jobsearch-rssfeed-btn"><i class="fa fa-feed"></i> RSS Feed </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div><!-- sortfiltrs-contner -->
+
+                        <div class="jobsearch-job jobsearch-joblisting-classic" id="jobsearch-job-4105">
+                            <ul class="jobsearch-row">
+                                <li class="jobsearch-column-12">
+                                    <div class="jobsearch-joblisting-classic-wrap">
+                                        <figure>
+                                            <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/"
+                                                data-job-id="17505" class="">
+                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download-150x150.png"
+                                                    alt="">
+                                            </a>
+                                        </figure>
+                                        <div class="jobsearch-joblisting-text">
+                                            <div class="jobsearch-table-layer">
+                                                <div class="jobsearch-table-row">
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-list-option">
+                                                            <h2 class="jobsearch-pst-title " data-job-id="17505">
+                                                                <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/"
+                                                                    title="Goldman Sachs Engineering Virtual Programme">
+                                                                    Goldman Sachs Engineering Virtual Programme </a>
+                                                            </h2>
+                                                            <ul>
+                                                                <li class="job-company-name"><a
+                                                                        href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">@
+                                                                        Goldman Sachs</a></li>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-maps-and-flags"></i>London,
+                                                                    UK
+                                                                </li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-calendar"></i>Published
+                                                                    5 months ago
+                                                                </li>
+                                                                <li><i
+                                                                        class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                                                                    <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=banking&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Banking </a>
+                                                                    , <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=digital-creative&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Digital &amp; Creative </a>
+                                                                    , <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=engineering-manufacturing&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Engineering &amp; Manufacturing </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-job-userlist">
+                                                            <a class="jobsearch-option-btn"
+                                                                style="background-color: #f1630d; color: #ffffff;">
+                                                                Part Time </a>
+                                                            <div class="like-btn ">
+                                                                <a href="javascript:void(0);"
+                                                                    class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                                                                    data-id="17505" data-before-icon="fa fa-heart-o"
+                                                                    data-after-icon="fa fa-heart">
+                                                                    <i class="jobsearch-icon jobsearch-heart"></i>
+                                                                </a>
+                                                                <span class="job-to-fav-msg-con"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="jobsearch-column-12">
+                                    <div class="jobsearch-joblisting-classic-wrap">
+                                        <figure>
+                                            <a href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/"
+                                                data-job-id="17489" class="">
+                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download-150x150.png"
+                                                    alt="">
+                                            </a>
+                                        </figure>
+                                        <div class="jobsearch-joblisting-text">
+                                            <div class="jobsearch-table-layer">
+                                                <div class="jobsearch-table-row">
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-list-option">
+                                                            <h2 class="jobsearch-pst-title " data-job-id="17489">
+                                                                <a href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/"
+                                                                    title="Summer Analyst Programme Internship">
+                                                                    Summer Analyst Programme Internship </a>
+                                                            </h2>
+                                                            <ul>
+                                                                <li class="job-company-name"><a
+                                                                        href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">@
+                                                                        Goldman Sachs</a></li>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-maps-and-flags"></i>London,
+                                                                    UK
+                                                                </li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-calendar"></i>Published
+                                                                    5 months ago
+                                                                </li>
+                                                                <li><i
+                                                                        class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                                                                    <a href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/?sector_cat=banking&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Banking </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-job-userlist">
+                                                            <a class="jobsearch-option-btn">
+                                                                Internship </a>
+                                                            <div class="like-btn ">
+                                                                <a href="javascript:void(0);"
+                                                                    class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                                                                    data-id="17489" data-before-icon="fa fa-heart-o"
+                                                                    data-after-icon="fa fa-heart">
+                                                                    <i class="jobsearch-icon jobsearch-heart"></i>
+                                                                </a>
+                                                                <span class="job-to-fav-msg-con"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="jobsearch-column-12">
+                                    <div class="jobsearch-joblisting-classic-wrap">
+                                        <figure>
+                                            <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/"
+                                                data-job-id="17498" class="">
+                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download-150x150.png"
+                                                    alt="">
+                                            </a>
+                                        </figure>
+                                        <div class="jobsearch-joblisting-text">
+                                            <div class="jobsearch-table-layer">
+                                                <div class="jobsearch-table-row">
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-list-option">
+                                                            <h2 class="jobsearch-pst-title " data-job-id="17498">
+                                                                <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/"
+                                                                    title="Goldman Sachs Internships">
+                                                                    Goldman Sachs Internships </a>
+                                                            </h2>
+                                                            <ul>
+                                                                <li class="job-company-name"><a
+                                                                        href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">@
+                                                                        Goldman Sachs</a></li>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-maps-and-flags"></i>London,
+                                                                    UK
+                                                                </li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-calendar"></i>Published
+                                                                    5 months ago
+                                                                </li>
+                                                                <li><i
+                                                                        class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                                                                    <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/?sector_cat=banking&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Banking </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-job-userlist">
+                                                            <a class="jobsearch-option-btn">
+                                                                Internship </a>
+                                                            <div class="like-btn ">
+                                                                <a href="javascript:void(0);"
+                                                                    class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                                                                    data-id="17498" data-before-icon="fa fa-heart-o"
+                                                                    data-after-icon="fa fa-heart">
+                                                                    <i class="jobsearch-icon jobsearch-heart"></i>
+                                                                </a>
+                                                                <span class="job-to-fav-msg-con"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="jobsearch-column-12">
+                                    <div class="jobsearch-joblisting-classic-wrap">
+                                        <figure>
+                                            <a href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/"
+                                                data-job-id="17486" class="">
+                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download-150x150.png"
+                                                    alt="">
+                                            </a>
+                                        </figure>
+                                        <div class="jobsearch-joblisting-text">
+                                            <div class="jobsearch-table-layer">
+                                                <div class="jobsearch-table-row">
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-list-option">
+                                                            <h2 class="jobsearch-pst-title " data-job-id="17486">
+                                                                <a href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/"
+                                                                    title="Graduate New Analyst Programme">
+                                                                    Graduate New Analyst Programme </a>
+                                                            </h2>
+                                                            <ul>
+                                                                <li class="job-company-name"><a
+                                                                        href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">@
+                                                                        Goldman Sachs</a></li>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-maps-and-flags"></i>London,
+                                                                    UK
+                                                                </li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>
+                                                                    <i
+                                                                        class="jobsearch-icon jobsearch-calendar"></i>Published
+                                                                    5 months ago
+                                                                </li>
+                                                                <li><i
+                                                                        class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                                                                    <a href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/?sector_cat=accountancy-finance&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Accounting &amp; Finance </a>
+                                                                    , <a href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/?sector_cat=banking&amp;ajax_filter=true"
+                                                                        class="">
+                                                                        Banking </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="jobsearch-table-cell">
+                                                        <div class="jobsearch-job-userlist">
+                                                            <a class="jobsearch-option-btn"
+                                                                style="background-color: #186fc9; color: #ffffff;">
+                                                                Full Time </a>
+                                                            <div class="like-btn ">
+                                                                <a href="javascript:void(0);"
+                                                                    class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                                                                    data-id="17486" data-before-icon="fa fa-heart-o"
+                                                                    data-after-icon="fa fa-heart">
+                                                                    <i class="jobsearch-icon jobsearch-heart"></i>
+                                                                </a>
+                                                                <span class="job-to-fav-msg-con"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- wp-jobsearch-job-content -->
+
+                    <div class="jobsearch-pagination-blog">
+                        <ul class="jobsearch-page-numbers">
+                            <li><a class="prev jobsearch-page-numbers"
+                                    onclick="jobsearch_job_pagenation_ajax('job_page', '8', '4105', 'true', '');"
+                                    href="javascript:void(0);"><span><i
+                                            class="jobsearch-icon jobsearch-arrows4"></i><i></i></span></a></li>
+                            <li><a class="jobsearch-page-numbers"
+                                    onclick="jobsearch_job_pagenation_ajax('job_page', '1', '4105', 'true', '');"
+                                    href="javascript:void(0);">1</a></li>
+                            <li class="disabled"><span>. . .</span></li>
+                            <li><a class="jobsearch-page-numbers"
+                                    onclick="jobsearch_job_pagenation_ajax('job_page', '5', '4105', 'true', '');"
+                                    href="javascript:void(0);">5</a></li>
+                            <li><a class="jobsearch-page-numbers"
+                                    onclick="jobsearch_job_pagenation_ajax('job_page', '6', '4105', 'true', '');"
+                                    href="javascript:void(0);">6</a></li>
+                            <li><a class="jobsearch-page-numbers"
+                                    onclick="jobsearch_job_pagenation_ajax('job_page', '7', '4105', 'true', '');"
+                                    href="javascript:void(0);">7</a></li>
+                            <li><a class="jobsearch-page-numbers"
+                                    onclick="jobsearch_job_pagenation_ajax('job_page', '8', '4105', 'true', '');"
+                                    href="javascript:void(0);">8</a></li>
+                            <li><span class="jobsearch-page-numbers current">9</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div><!-- jobsearch-row -->
+
+        </div><!-- wp-dp-job-content -->
+    </div>
+</div>

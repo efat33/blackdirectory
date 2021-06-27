@@ -1,0 +1,572 @@
+<div id="wil-search-v2" class="wil-content container-fullwidth">
+    <div class="searchbox_module__3ZYKm">
+        <div class="container">
+            <form [formGroup]="listingSearchForm" (ngSubmit)="onSubmitListingForm()">
+                <div class="searchbox_wrap__37JXq">
+                    <div class="searchbox_searchInput__2p4ds">
+                        <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+                            <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+                                <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
+                                    <div id="autosuggest">
+                                        <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                                            aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
+                                            <input formControlName="keyword" type="text" autocomplete="off"
+                                                placeholder="Search for listing ..." class="field_field__3U_Rt">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="searchbox_searchButton__1c9iK">
+                        <button class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="submit"
+                            [disabled]="!listingSearchForm.valid">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <section class="wil-section bg-color-gray-2 pt-0">
+        <div class="listing-bar_module__2BCsi js-listing-bar-sticky">
+            <div class="container">
+                <div class="listing-bar_resuilt__R8pwY">
+                    We found <span class="color-primary">422 Listings</span> <a href="#"
+                        class="wil-btn wil-btn--border wil-btn--round wil-btn--xs"><i
+                            class="color-primary la la-share"></i>
+                        Reset </a></div>
+                <ul class="wil-tab-filters list-utility_module__32oNg list-none list-utility_style2__3Gfxe">
+                    <li class="list-utility_list__1DzGk"><a href="#" target="_self"
+                            class="wil-btn wil-btn--round wil-btn--sm wil-btn--primary wil-switch-post-type-listing disable"
+                            style="background-color: rgb(240, 98, 146);"> <i class="la la-list"></i> <span
+                                class="">Listing</span>
+
+                        </a></li>
+                    <li class="list-utility_list__1DzGk"><a href="#" target="_self"
+                            class="wil-btn wil-btn--round wil-btn--sm wil-btn--primary wil-switch-post-type-event"
+                            style="background-color: rgb(89, 224, 255);"> <i class="la la-calendar-o"></i> <span
+                                class="">Event</span>
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="filter_module__p0Iwz filter-bar gray js-listing-bar-sticky" style="min-height: 59px;">
+            <div class="container">
+                <div class="">
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-nearbyme" field="[object Object]"><a
+                            href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Near Me</span>
+                        </a></div>
+                    <div data-v-50937791="" class="filter_item__tjou1 mt-10">
+                        <a (click)="openListingCategoryModal()" class="filter_button__lo852"
+                            [ngClass]="{'wil-btn--primary': queryParams.category != null}">
+                            <span class="">{{selectedCategory != null ? 'Category: '+selectedCategory :
+                                'Category'}}</span>
+                        </a>
+                    </div>
+                    <div data-v-50937791="" class="filter_item__tjou1 mt-10">
+                        <a (click)="openListingPriceModal()" class="filter_button__lo852"
+                            [ngClass]="{'wil-btn--primary': queryParams.price != null}">
+                            <span class="">{{selectedPrice != null ? 'Price: '+selectedPrice :
+                                'Price'}}</span>
+                        </a>
+                    </div>
+                    <div data-v-50937791="" class="filter_item__tjou1 mt-10">
+                        <a (click)="openListingSortModal()" class="filter_button__lo852"
+                            [ngClass]="{'wil-btn--primary': queryParams.sortby != null}">
+                            <span class="">{{selectedSort != null ? 'Sort By: '+selectedSort :
+                                'Sort By'}}</span>
+                        </a>
+                    </div>
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-open_now" field="[object Object]"><a
+                            href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Open Now</span>
+                        </a></div>
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-best_viewed" field="[object Object]">
+                        <a href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Most Viewed</span>
+                        </a>
+                    </div>
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-newest" field="[object Object]"><a
+                            href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Newest</span>
+                        </a></div>
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-recommended" field="[object Object]">
+                        <a href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Recommended</span>
+                        </a>
+                    </div>
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-best_rated" field="[object Object]"><a
+                            href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Rating</span>
+                        </a></div>
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-discount" field="[object Object]"><a
+                            href="#" target="_self" class="filter_button__lo852 ">
+                            <span class="">Discount</span>
+                        </a></div>
+                </div>
+                <div class="wil-map-btn checkbox_module__1K5IS checkbox_toggle__vd6vd"><label
+                        class="checkbox_label__3cO9k"><input type="checkbox" true-value="true"
+                            class="checkbox_inputcheck__1_X9Z"> <span class="checkbox_text__3Go1u text-ellipsis"><span
+                                class="">Map</span> <span class="checkbox-border"></span></span> <span
+                            class="checkbox_icon__28tFk bg-color-primary--checked-after bd-color-primary--checked"><i
+                                class="la la-check"></i> <span class="checkbox-iconBg"></span></span></label></div>
+            </div>
+        </div>
+
+        <div id="wil-results-wrapper" class="container mt-30">
+            <div class="row flex-sm">
+                <div class="w-100 flex-lg wil-page-content" style="order: 0;">
+                    <div data-v-101044c0="" class="w-100">
+                        <div data-v-101044c0="" class="wil-grid-wrapper">
+                            <div data-col-xs-gap="10" data-col-sm-gap="10" data-col-md-gap="15"
+                                class="wil-flex-wrap row js-listing-grid">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                    <article data-v-101044c0=""
+                                        class="listing_module__2EnGq wil-shadow js-listing-module wil-flex-column-between wil-shadow wil-flex-column-between">
+                                        <div class="listing_firstWrap__36UOZ">
+                                            <div class="wil-grid-header-wrapper"> <a
+                                                    href="https://www.blackdirectory.co.uk/listing/black-owned-businesses/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5">
+                                                    <i class="la la-eye"></i> <span class="">1 view</span>
+                                                </a><a
+                                                    href="https://www.blackdirectory.co.uk/listing/black-owned-businesses/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6 mb-10 mr-5 is-event wil-favorite-btn wil-favorite-20570"
+                                                    data-post-id="20570" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a> </div>
+                                            <header class="listing_header__2pt4D is-verified"
+                                                settings="[object Object]">
+                                                <a
+                                                    href="https://www.blackdirectory.co.uk/listing/black-owned-businesses/"><span
+                                                        class="wilcity-slider-gradient-before"></span>
+                                                    <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/logo_BlackDollaz_BlackOwnedBusiness.png&quot;);">
+                                                        <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/logo_BlackDollaz_BlackOwnedBusiness.png"
+                                                            alt="Black Owned Businesses">
+                                                    </div> <span class="wilcity-slider-gradient-after"></span>
+                                                </a> <span class="wil-verified-wrap wil-verified">Verified</span>
+                                            </header>
+                                            <div data-v-24992896="" class="listing_body__31ndf"
+                                                settings="[object Object]"> <a data-v-24992896=""
+                                                    href="https://www.blackdirectory.co.uk/listing/black-owned-businesses/"
+                                                    class="listing_goo__3r7Tj">
+                                                    <div data-v-24992896="" class="listing_logo__PIZwf bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/logo_BlackDollaz_BlackOwnedBusiness.png&quot;);">
+                                                    </div>
+                                                </a>
+                                                <h2 data-v-24992896="" class="listing_title__2920A text-ellipsis"><a
+                                                        data-v-24992896=""
+                                                        href="https://www.blackdirectory.co.uk/listing/black-owned-businesses/">Black
+                                                        Owned Businesses</a></h2>
+                                                <div data-v-24992896="" class="listing_tagline__1cOB3 text-ellipsis">
+                                                    Black Own Products and Services</div>
+                                                <div data-v-24992896="" class="listing_meta__6BbCG"
+                                                    style="position: relative;"><a data-v-24992896=""
+                                                        href="https://www.google.com/maps/search/134+North+7th+Ave"
+                                                        target="_blank"
+                                                        class="grid-body-item-google_address text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-map-marker color-primary"></i> <span
+                                                            class="">134 North 7th Ave</span>
+                                                    </a><a data-v-24992896="" href="tel: 914-512-1810" target="_self"
+                                                        class="grid-body-item-phone text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-phone color-primary"></i> <span
+                                                            class="">914-512-1810</span>
+                                                    </a></div>
+                                            </div>
+                                        </div>
+                                        <footer class="listing_footer__1PzMC">
+                                            <div class="text-ellipsis">
+                                                <div
+                                                    class="icon-box-1_module__uyg5F text-ellipsis icon-box-1_style2__1EMOP">
+                                                    <div class="icon-box-1_block1__bJ25J"><a
+                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=625"
+                                                            class="text-ellipsis">
+                                                            <div class="icon-box-1_icon__3V5c0 rounded-circle"><img
+                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-add-shopping-cart-100.png"
+                                                                    alt="Shopping &amp;amp; Marketplace"></div> <span
+                                                                class="icon-box-1_text__3R39g">Shopping &amp;
+                                                                Marketplace</span>
+                                                        </a></div>
+                                                    <div data-v-a4e38890="" class="icon-box-1_block2__1y3h0"><span
+                                                            data-v-a4e38890=""
+                                                            class="color-secondary wil-grid-business-hour"
+                                                            style="font-size: 13px;">Open 24/7</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="listing_footerRight__2398w">
+                                                <a href="https://www.blackdirectory.co.uk/listing/black-owned-businesses/"
+                                                    target="_self" class="wil-favorite-btn wil-favorite-20570"
+                                                    data-post-id="20570" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a>
+                                            </div>
+                                        </footer>
+                                    </article>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                    <article data-v-101044c0=""
+                                        class="listing_module__2EnGq wil-shadow js-listing-module wil-flex-column-between wil-shadow wil-flex-column-between">
+                                        <div class="listing_firstWrap__36UOZ">
+                                            <div class="wil-grid-header-wrapper"> <a
+                                                    href="https://www.blackdirectory.co.uk/listing/professional-home-maintenance/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5">
+                                                    <i class="la la-eye"></i> <span class="">11 views</span>
+                                                </a><a
+                                                    href="https://www.blackdirectory.co.uk/listing/professional-home-maintenance/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6 mb-10 mr-5 is-event wil-favorite-btn wil-favorite-20550"
+                                                    data-post-id="20550" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a> </div>
+                                            <header class="listing_header__2pt4D is-verified"
+                                                settings="[object Object]">
+                                                <a
+                                                    href="https://www.blackdirectory.co.uk/listing/professional-home-maintenance/"><span
+                                                        class="wilcity-slider-gradient-before"></span>
+                                                    <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/IMG_20171123_095308-1024x768.jpg&quot;);">
+                                                        <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/IMG_20171123_095308-1024x768.jpg"
+                                                            alt="Professional Home Maintenance">
+                                                    </div> <span class="wilcity-slider-gradient-after"></span>
+                                                </a> <span class="wil-verified-wrap wil-verified">Verified</span>
+                                            </header>
+                                            <div data-v-24992896="" class="listing_body__31ndf"
+                                                settings="[object Object]"> <a data-v-24992896=""
+                                                    href="https://www.blackdirectory.co.uk/listing/professional-home-maintenance/"
+                                                    class="listing_goo__3r7Tj">
+                                                    <div data-v-24992896="" class="listing_logo__PIZwf bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/Logo.jpg&quot;);">
+                                                    </div>
+                                                </a>
+                                                <h2 data-v-24992896="" class="listing_title__2920A text-ellipsis"><a
+                                                        data-v-24992896=""
+                                                        href="https://www.blackdirectory.co.uk/listing/professional-home-maintenance/">Professional
+                                                        Home Maintenance</a></h2>
+                                                <div data-v-24992896="" class="listing_tagline__1cOB3 text-ellipsis">Our
+                                                    success has grown due to a</div>
+                                                <div data-v-24992896="" class="listing_meta__6BbCG"
+                                                    style="position: relative;"><a data-v-24992896=""
+                                                        href="https://www.google.com/maps/search/121+Lordship+Ln%2C+East+Dulwich%2C+London+SE22+8HU"
+                                                        target="_blank"
+                                                        class="grid-body-item-google_address text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-map-marker color-primary"></i> <span
+                                                            class="">121 Lordship Ln, East Dulwich, London SE22
+                                                            8HU</span>
+                                                    </a><a data-v-24992896="" href="tel: 0208 881 2491" target="_self"
+                                                        class="grid-body-item-phone text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-phone color-primary"></i> <span class="">0208
+                                                            881 2491</span>
+                                                    </a></div>
+                                            </div>
+                                        </div>
+                                        <footer class="listing_footer__1PzMC">
+                                            <div class="text-ellipsis">
+                                                <div
+                                                    class="icon-box-1_module__uyg5F text-ellipsis icon-box-1_style2__1EMOP">
+                                                    <div class="icon-box-1_block1__bJ25J"><a
+                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=577"
+                                                            class="text-ellipsis">
+                                                            <div class="icon-box-1_icon__3V5c0 rounded-circle"><img
+                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/house.png"
+                                                                    alt="Property Maintenance"></div> <span
+                                                                class="icon-box-1_text__3R39g">Property
+                                                                Maintenance</span>
+                                                        </a></div>
+                                                </div>
+                                            </div>
+                                            <div class="listing_footerRight__2398w"><a href="#" target="_self"
+                                                    data-tooltip-placement="top" data-tooltip="Gallery"
+                                                    class="wil-trigger-gallery-btn"> <i class="la la-search-plus"></i>
+                                                </a><a
+                                                    href="https://www.blackdirectory.co.uk/listing/professional-home-maintenance/"
+                                                    target="_self" class="wil-favorite-btn wil-favorite-20550"
+                                                    data-post-id="20550" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a></div>
+                                        </footer>
+                                    </article>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                    <article data-v-101044c0=""
+                                        class="listing_module__2EnGq wil-shadow js-listing-module wil-flex-column-between wil-shadow wil-flex-column-between">
+                                        <div class="listing_firstWrap__36UOZ">
+                                            <div class="wil-grid-header-wrapper"> <a
+                                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5">
+                                                    <i class="la la-eye"></i> <span class="">2 views</span>
+                                                </a><a href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6 mb-10 mr-5 is-event wil-favorite-btn wil-favorite-20533"
+                                                    data-post-id="20533" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a> </div>
+                                            <header class="listing_header__2pt4D is-verified"
+                                                settings="[object Object]">
+                                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/"><span
+                                                        class="wilcity-slider-gradient-before"></span>
+                                                    <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/toyota-prius-hatchback-1887-2-1024x684.png&quot;);">
+                                                        <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/toyota-prius-hatchback-1887-2-1024x684.png"
+                                                            alt="Auto For Trade">
+                                                    </div> <span class="wilcity-slider-gradient-after"></span>
+                                                </a> <span class="wil-verified-wrap wil-verified">Verified</span>
+                                            </header>
+                                            <div data-v-24992896="" class="listing_body__31ndf"
+                                                settings="[object Object]"> <a data-v-24992896=""
+                                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/"
+                                                    class="listing_goo__3r7Tj">
+                                                    <div data-v-24992896="" class="listing_logo__PIZwf bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/5933d7643f00c7affca429989dccb0ee.jpg&quot;);">
+                                                    </div>
+                                                </a>
+                                                <h2 data-v-24992896="" class="listing_title__2920A text-ellipsis"><a
+                                                        data-v-24992896=""
+                                                        href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/">Auto
+                                                        For Trade</a></h2>
+                                                <div data-v-24992896="" class="listing_tagline__1cOB3 text-ellipsis">Buy
+                                                    Used Cars In South Africa, Buy Used Cars In United ringdown, Buy
+                                                    Used Cars In South kebaya</div>
+                                                <div data-v-24992896="" class="listing_meta__6BbCG"
+                                                    style="position: relative;"><a data-v-24992896=""
+                                                        href="https://www.google.com/maps/search/4+Humber+Cl%2C+Leicester+LE5+1DE"
+                                                        target="_blank"
+                                                        class="grid-body-item-google_address text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-map-marker color-primary"></i> <span class="">4
+                                                            Humber Cl, Leicester LE5 1DE</span>
+                                                    </a><a data-v-24992896="" href="tel: 44 8000 061314" target="_self"
+                                                        class="grid-body-item-phone text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-phone color-primary"></i> <span class="">44
+                                                            8000 061314</span>
+                                                    </a></div>
+                                            </div>
+                                        </div>
+                                        <footer class="listing_footer__1PzMC">
+                                            <div class="text-ellipsis">
+                                                <div
+                                                    class="icon-box-1_module__uyg5F text-ellipsis icon-box-1_style2__1EMOP">
+                                                    <div class="icon-box-1_block1__bJ25J"><a
+                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
+                                                            class="text-ellipsis">
+                                                            <div class="icon-box-1_icon__3V5c0 rounded-circle"><img
+                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
+                                                                    alt="Car Dealerships"></div> <span
+                                                                class="icon-box-1_text__3R39g">Car Dealerships</span>
+                                                        </a></div>
+                                                    <div data-v-a4e38890="" class="icon-box-1_block2__1y3h0"><span
+                                                            data-v-a4e38890=""
+                                                            class="color-quaternary wil-grid-business-hour"
+                                                            style="font-size: 13px;">Closed</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="listing_footerRight__2398w"><a href="#" target="_self"
+                                                    data-tooltip-placement="top" data-tooltip="Gallery"
+                                                    class="wil-trigger-gallery-btn"> <i class="la la-search-plus"></i>
+                                                </a><a href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/"
+                                                    target="_self" class="wil-favorite-btn wil-favorite-20533"
+                                                    data-post-id="20533" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a></div>
+                                        </footer>
+                                    </article>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                    <article data-v-101044c0=""
+                                        class="listing_module__2EnGq wil-shadow js-listing-module wil-flex-column-between wil-shadow wil-flex-column-between">
+                                        <div class="listing_firstWrap__36UOZ">
+                                            <div class="wil-grid-header-wrapper"> <a
+                                                    href="https://www.blackdirectory.co.uk/listing/delis-co-jewellery/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5">
+                                                    <i class="la la-eye"></i> <span class="">6 views</span>
+                                                </a><a
+                                                    href="https://www.blackdirectory.co.uk/listing/delis-co-jewellery/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6 mb-10 mr-5 is-event wil-favorite-btn wil-favorite-20519"
+                                                    data-post-id="20519" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a> </div>
+                                            <header class="listing_header__2pt4D is-verified"
+                                                settings="[object Object]">
+                                                <a href="https://www.blackdirectory.co.uk/listing/delis-co-jewellery/"><span
+                                                        class="wilcity-slider-gradient-before"></span>
+                                                    <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/03/womens-cropped-sweatshirt-brick-front-6053cbfacf513.jpg&quot;);">
+                                                        <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/03/womens-cropped-sweatshirt-brick-front-6053cbfacf513.jpg"
+                                                            alt="Delis &amp; Co. Jewellery">
+                                                    </div> <span class="wilcity-slider-gradient-after"></span>
+                                                </a> <span class="wil-verified-wrap wil-verified">Verified</span>
+                                            </header>
+                                            <div data-v-24992896="" class="listing_body__31ndf"
+                                                settings="[object Object]"> <a data-v-24992896=""
+                                                    href="https://www.blackdirectory.co.uk/listing/delis-co-jewellery/"
+                                                    class="listing_goo__3r7Tj">
+                                                    <div data-v-24992896="" class="listing_logo__PIZwf bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/03/delis-and-co-jewellery-logo-circle-320px.jpg&quot;);">
+                                                    </div>
+                                                </a>
+                                                <h2 data-v-24992896="" class="listing_title__2920A text-ellipsis"><a
+                                                        data-v-24992896=""
+                                                        href="https://www.blackdirectory.co.uk/listing/delis-co-jewellery/">Delis
+                                                        &amp; Co. Jewellery</a></h2>
+                                                <div data-v-24992896="" class="listing_tagline__1cOB3 text-ellipsis">
+                                                    Jewellery For Good!</div>
+                                                <div data-v-24992896="" class="listing_meta__6BbCG"
+                                                    style="position: relative;"><a data-v-24992896=""
+                                                        href="https://www.google.com/maps/search/18+Napier%2C+The+Concourse"
+                                                        target="_blank"
+                                                        class="grid-body-item-google_address text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-map-marker color-primary"></i> <span
+                                                            class="">18 Napier, The Concourse</span>
+                                                    </a><a data-v-24992896="" href="tel: 0737 595 4097" target="_self"
+                                                        class="grid-body-item-phone text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-phone color-primary"></i> <span class="">0737
+                                                            595 4097</span>
+                                                    </a></div>
+                                            </div>
+                                        </div>
+                                        <footer class="listing_footer__1PzMC">
+                                            <div class="text-ellipsis">
+                                                <div
+                                                    class="icon-box-1_module__uyg5F text-ellipsis icon-box-1_style2__1EMOP">
+                                                    <div class="icon-box-1_block1__bJ25J"><a
+                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=441"
+                                                            class="text-ellipsis">
+                                                            <div class="icon-box-1_icon__3V5c0 rounded-circle"><img
+                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/accessories.png"
+                                                                    alt="Jewellery"></div> <span
+                                                                class="icon-box-1_text__3R39g">Jewellery</span>
+                                                        </a></div>
+                                                    <div data-v-a4e38890="" class="icon-box-1_block2__1y3h0"><span
+                                                            data-v-a4e38890=""
+                                                            class="color-secondary wil-grid-business-hour"
+                                                            style="font-size: 13px;">Open 24/7</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="listing_footerRight__2398w"><a href="#" target="_self"
+                                                    data-tooltip-placement="top" data-tooltip="Gallery"
+                                                    class="wil-trigger-gallery-btn"> <i class="la la-search-plus"></i>
+                                                </a><a
+                                                    href="https://www.blackdirectory.co.uk/listing/delis-co-jewellery/"
+                                                    target="_self" class="wil-favorite-btn wil-favorite-20519"
+                                                    data-post-id="20519" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a></div>
+                                        </footer>
+                                    </article>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                    <article data-v-101044c0=""
+                                        class="listing_module__2EnGq wil-shadow js-listing-module wil-flex-column-between wil-shadow wil-flex-column-between">
+                                        <div class="listing_firstWrap__36UOZ">
+                                            <div class="wil-grid-header-wrapper"> <a
+                                                    href="https://www.blackdirectory.co.uk/listing/gleaux-beauty/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5">
+                                                    <i class="la la-eye"></i> <span class="">13 views</span>
+                                                </a><a href="https://www.blackdirectory.co.uk/listing/gleaux-beauty/"
+                                                    target="_self"
+                                                    class="utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6 mb-10 mr-5 is-event wil-favorite-btn wil-favorite-20451"
+                                                    data-post-id="20451" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a> </div>
+                                            <header class="listing_header__2pt4D is-verified"
+                                                settings="[object Object]">
+                                                <a href="https://www.blackdirectory.co.uk/listing/gleaux-beauty/"><span
+                                                        class="wilcity-slider-gradient-before"></span>
+                                                    <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/03/Gleaux-Kidz-1024x1024.png&quot;);">
+                                                        <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/03/Gleaux-Kidz-1024x1024.png"
+                                                            alt="Gleaux Beauty">
+                                                    </div> <span class="wilcity-slider-gradient-after"></span>
+                                                </a> <span class="wil-verified-wrap wil-verified">Verified</span>
+                                            </header>
+                                            <div data-v-24992896="" class="listing_body__31ndf"
+                                                settings="[object Object]"> <a data-v-24992896=""
+                                                    href="https://www.blackdirectory.co.uk/listing/gleaux-beauty/"
+                                                    class="listing_goo__3r7Tj">
+                                                    <div data-v-24992896="" class="listing_logo__PIZwf bg-cover"
+                                                        style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/03/Gleaux-Kidz.png&quot;);">
+                                                    </div>
+                                                </a>
+                                                <h2 data-v-24992896="" class="listing_title__2920A text-ellipsis"><a
+                                                        data-v-24992896=""
+                                                        href="https://www.blackdirectory.co.uk/listing/gleaux-beauty/">Gleaux
+                                                        Beauty</a></h2>
+                                                <div data-v-24992896="" class="listing_tagline__1cOB3 text-ellipsis">
+                                                    Vegan cosmetics company based in</div>
+                                                <div data-v-24992896="" class="listing_meta__6BbCG"
+                                                    style="position: relative;"><a data-v-24992896=""
+                                                        href="https://www.google.com/maps/search/Dudley+Rd"
+                                                        target="_blank"
+                                                        class="grid-body-item-google_address text-ellipsis w-100"
+                                                        style="padding-right: 60px;"> <i
+                                                            class="la la-map-marker color-primary"></i> <span
+                                                            class="">Dudley Rd</span>
+                                                    </a></div>
+                                            </div>
+                                        </div>
+                                        <footer class="listing_footer__1PzMC">
+                                            <div class="text-ellipsis">
+                                                <div
+                                                    class="icon-box-1_module__uyg5F text-ellipsis icon-box-1_style2__1EMOP">
+                                                    <div class="icon-box-1_block1__bJ25J"><a
+                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=2803"
+                                                            class="text-ellipsis">
+                                                            <div class="icon-box-1_icon__3V5c0 rounded-circle"><img
+                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/favicon-2.png"
+                                                                    alt="Beauty Products"></div> <span
+                                                                class="icon-box-1_text__3R39g">Beauty Products</span>
+                                                        </a></div>
+                                                </div>
+                                            </div>
+                                            <div class="listing_footerRight__2398w">
+                                                <a href="https://www.blackdirectory.co.uk/listing/gleaux-beauty/"
+                                                    target="_self" class="wil-favorite-btn wil-favorite-20451"
+                                                    data-post-id="20451" data-tooltip="Save to my favorites"
+                                                    data-tooltip-placement="top"> <i class="la la-heart-o"></i>
+                                                </a>
+                                            </div>
+                                        </footer>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="mt-20 mb-20" name="after-grid">
+                            <ul class="pagination_module__1NBfW">
+                                <li class="pagination_pageItem__3SatM current"><span
+                                        class="pagination_pageLink__2UQhK">1</span></li>
+                                <li class="pagination_pageItem__3SatM"><a href="#"
+                                        class="pagination_pageLink__2UQhK"><span>2</span></a></li>
+                                <li class="pagination_pageItem__3SatM"><a href="#"
+                                        class="pagination_pageLink__2UQhK"><span>3</span></a></li>
+                                <li class="pagination_pageItem__3SatM"><a href="#"
+                                        class="pagination_pageLink__2UQhK"><span>4</span></a></li>
+                                <li class="pagination_pageItem__3SatM disable"><a href="#"
+                                        class="pagination_pageLink__2UQhK"><span class="pagination_pageLink__2UQhK"><i
+                                                class="la la-ellipsis-h"></i></span></a></li>
+                                <li class="pagination_pageItem__3SatM"><a href="#" class="pagination_pageLink__2UQhK"><i
+                                            class="la la-angle-double-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

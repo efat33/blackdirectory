@@ -1,0 +1,60 @@
+@media screen and (min-width:768px) and (max-width:1024px) {
+    .single-mobile-coln.mobile-link a {
+        padding: .7em .5em;
+    }
+
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .header_btnGroup__3L61P .wil-btn i {
+        margin-right: 0px;
+    }
+    .display-mobiles-area .jobsearch-column-9.jobsearch-typo-wrap {
+        margin-top: 30px;
+    }
+    .mobiles-sim-sidebar-col {
+        padding-right: 15px;
+    }
+    .filter-provider-options a {
+        width: 20%;
+    }
+    .block-home-event article.tribe-common-g-col {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1024px) {
+   
+}
+
+@media screen and (max-width:767px) {
+    .header_btnGroup__3L61P .wil-btn i {
+        margin-right: 0px;
+    }
+    .wilcity-hero-header .col-md-9 {
+        width: 100% !important;
+    }
+    .wilcity-hero-header .col-md-6 {
+        width: 100% !important;
+    }
+    .wilcity-hero-header .col-md-3 {
+        width: 100% !important;
+    }
+    ul.jobsearch-jobdetail-media {
+        margin-top: 10px;
+    }
+    .display-mobiles-area .jobsearch-column-9.jobsearch-typo-wrap {
+        margin-top: 25px;
+    }
+    .single-mobile-top > div {
+        width: 32%;
+        margin-bottom: 15px;
+    }
+    .block-home-event article.tribe-common-g-col {
+        width: 100% !important;
+    }
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}

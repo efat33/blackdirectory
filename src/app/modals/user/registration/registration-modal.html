@@ -1,0 +1,78 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><i class="la la la-user-plus"></i> <span>Register</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" placeholder="Username" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="Email" />
+              </mat-form-field>
+              <p class="form-error" *ngIf="registrationForm.get('email').hasError('email')">Please provide a valid email
+              </p>
+
+              <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Password" />
+              </mat-form-field>
+              <p class="form-error" *ngIf="registrationForm.get('password').hasError('pattern')">Password must be at
+                least 8 characters, must contain one lowercase, one uppercase and one number</p>
+
+              <section class="mb-10">
+                <mat-checkbox class="" color='primary' formControlName="agreed">I agree to the <a
+                    href="https://www.blackdirectory.co.uk/privacy-policy/" target="_blank">Privacy Policy</a> and
+                  <a href="https://www.blackdirectory.co.uk/term-of-services/" target="_blank">T&amp;C's</a>
+                </mat-checkbox>
+              </section>
+              <p class="form-error" *ngIf="submitted && !f.agreed.value">You must agree to
+                the terms
+              </p>
+
+              <section class="mb-10">
+                <mat-checkbox class="" color='primary' formControlName="job_employer">
+                  Sign up as Job Employer (Optional)
+                </mat-checkbox>
+              </section>
+
+              <div *ngIf="showError">
+                <p *ngFor="let errorMessage of errorMessage" class="errorMessage">{{ errorMessage }}</p>
+              </div>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!registrationForm.valid">
+                Register
+              </button>
+
+            </form>
+          </div>
+          <div class="mt-15"><span>Already have an account?</span>
+            <a (click)="accountLinkClicked()" class="wil-float-right td-underline">Account</a>
+          </div>
+          <div>
+            <div class="divider-text_module__3vqhE divider-text_center__299NM mt-15 mb-15">
+              <span class="divider-text_text__2OtOt">Or Connect With</span>
+            </div>
+            <a href="#" target="_self"
+              class="mt-10 wil-btn wil-btn--facebook wil-btn--block wil-btn--md wil-btn--round">
+              <i class="fa fa-facebook"></i> <span class="">Login With Facebook</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

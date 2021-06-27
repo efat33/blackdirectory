@@ -1,0 +1,34 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>Job Application</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="jobApplyForm" (ngSubmit)="onSubmit()">
+
+              <mat-form-field>
+                <mat-label>Cover Letter</mat-label>
+                <textarea matInput formControlName="cover_letter" rows="5"></textarea>
+              </mat-form-field>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!jobApplyForm.valid">
+                Apply for the job
+              </button>
+
+              <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

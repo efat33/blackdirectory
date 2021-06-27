@@ -1,0 +1,49 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><i class="la la la-unlock"></i> <span>New Organizer</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="organizerForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input required matInput formControlName="name" placeholder="Name" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input required matInput formControlName="phone" placeholder="Phone" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Website</mat-label>
+                <input matInput formControlName="website" placeholder="Website" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Email" />
+              </mat-form-field>
+
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!organizerForm.valid">
+                Add Organizer
+              </button>
+
+              <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

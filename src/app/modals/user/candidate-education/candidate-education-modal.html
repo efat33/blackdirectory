@@ -1,0 +1,55 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><i class="la la la-unlock"></i> <span>Candidate Education</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                <mat-label>Title *</mat-label>
+                <input matInput formControlName="title" placeholder="Title" />
+              </mat-form-field>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Year *</mat-label>
+                    <input matInput formControlName="year" placeholder="Year" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Institute *</mat-label>
+                    <input matInput formControlName="institute" placeholder="Institute" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" rows="5"></textarea>
+              </mat-form-field>
+              <mat-form-field class="invisible">
+                <input matInput formControlName="id">
+              </mat-form-field>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!educationForm.valid">
+                {{data.edit ? 'Update' : 'Add'}} Education
+              </button>
+
+              <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

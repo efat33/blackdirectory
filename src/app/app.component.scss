@@ -1,0 +1,163 @@
+.loading-spinner-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 9999999999;
+  
+    @keyframes ldio-v4reu5effxf {
+      0% {
+        opacity: 1;
+        backface-visibility: hidden;
+        transform: translateZ(0) scale(1.5, 1.5);
+      }
+      100% {
+        opacity: 0;
+        backface-visibility: hidden;
+        transform: translateZ(0) scale(1, 1);
+      }
+    }
+    .ldio-v4reu5effxf div > div {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      animation: ldio-v4reu5effxf 0.6666666666666666s linear infinite;
+    }
+    .ldio-v4reu5effxf div:nth-child(1) > div {
+      left: 154px;
+      top: 94px;
+      animation-delay: -0.6111111111111112s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(1) {
+      transform: rotate(0deg);
+      transform-origin: 160px 100px;
+    }
+    .ldio-v4reu5effxf div:nth-child(2) > div {
+      left: 146px;
+      top: 124px;
+      animation-delay: -0.5555555555555556s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(2) {
+      transform: rotate(30deg);
+      transform-origin: 152px 130px;
+    }
+    .ldio-v4reu5effxf div:nth-child(3) > div {
+      left: 124px;
+      top: 146px;
+      animation-delay: -0.5s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(3) {
+      transform: rotate(60deg);
+      transform-origin: 130px 152px;
+    }
+    .ldio-v4reu5effxf div:nth-child(4) > div {
+      left: 94px;
+      top: 154px;
+      animation-delay: -0.4444444444444444s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(4) {
+      transform: rotate(90deg);
+      transform-origin: 100px 160px;
+    }
+    .ldio-v4reu5effxf div:nth-child(5) > div {
+      left: 64px;
+      top: 146px;
+      animation-delay: -0.3888888888888889s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(5) {
+      transform: rotate(120deg);
+      transform-origin: 70px 152px;
+    }
+    .ldio-v4reu5effxf div:nth-child(6) > div {
+      left: 42px;
+      top: 124px;
+      animation-delay: -0.3333333333333333s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(6) {
+      transform: rotate(150deg);
+      transform-origin: 48px 130px;
+    }
+    .ldio-v4reu5effxf div:nth-child(7) > div {
+      left: 34px;
+      top: 94px;
+      animation-delay: -0.2777777777777778s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(7) {
+      transform: rotate(180deg);
+      transform-origin: 40px 100px;
+    }
+    .ldio-v4reu5effxf div:nth-child(8) > div {
+      left: 42px;
+      top: 64px;
+      animation-delay: -0.2222222222222222s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(8) {
+      transform: rotate(210deg);
+      transform-origin: 48px 70px;
+    }
+    .ldio-v4reu5effxf div:nth-child(9) > div {
+      left: 64px;
+      top: 42px;
+      animation-delay: -0.16666666666666666s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(9) {
+      transform: rotate(240deg);
+      transform-origin: 70px 48px;
+    }
+    .ldio-v4reu5effxf div:nth-child(10) > div {
+      left: 94px;
+      top: 34px;
+      animation-delay: -0.1111111111111111s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(10) {
+      transform: rotate(270deg);
+      transform-origin: 100px 40px;
+    }
+    .ldio-v4reu5effxf div:nth-child(11) > div {
+      left: 124px;
+      top: 42px;
+      animation-delay: -0.05555555555555555s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(11) {
+      transform: rotate(300deg);
+      transform-origin: 130px 48px;
+    }
+    .ldio-v4reu5effxf div:nth-child(12) > div {
+      left: 146px;
+      top: 64px;
+      animation-delay: 0s;
+    }
+    .ldio-v4reu5effxf > div:nth-child(12) {
+      transform: rotate(330deg);
+      transform-origin: 152px 70px;
+    }
+    .loadingio-spinner-spin-pilfpgewbk {
+      width: 200px;
+      height: 200px;
+      display: block;
+      overflow: hidden;
+      background: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    .ldio-v4reu5effxf {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      transform-origin: 0 0; /* see note above */
+    }
+    .ldio-v4reu5effxf div {
+      box-sizing: content-box;
+    }
+}
+  

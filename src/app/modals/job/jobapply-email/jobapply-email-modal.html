@@ -1,0 +1,131 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>Job Application</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="jobApplyForm" (ngSubmit)="onSubmit()">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="first_name" placeholder="First Name" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="last_name" placeholder="Last Name" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input required type="email" matInput formControlName="email" placeholder="Email" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone" placeholder="Phone" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Current Job Title</mat-label>
+                    <input matInput formControlName="job_title" placeholder="Current Job Title" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Current Salary</mat-label>
+                    <input matInput formControlName="current_salary" placeholder="Current Salary" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Academic Level</mat-label>
+                    <mat-select required formControlName="academics" multiple>
+                      <mat-option *ngFor="let academic of academics" [value]="academic.value">
+                        {{academic.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Age</mat-label>
+                    <mat-select formControlName="age">
+                      <mat-option *ngFor="let age of ages" [value]="age.value">
+                        {{age.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Industry</mat-label>
+                    <mat-select formControlName="industry">
+                      <mat-option *ngFor="let industry of industries" [value]="industry.value">
+                        {{industry.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender">
+                      <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                        {{gender.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <section class="section-mat-form-field">
+                <mat-label>Resume</mat-label>
+                <input accept=".doc,.docx,.pdf" type="file" formControlName="resume" />
+              </section>
+
+
+              <mat-form-field>
+                <mat-label>Message</mat-label>
+                <textarea matInput formControlName="message" rows="5"></textarea>
+              </mat-form-field>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!jobApplyForm.valid">
+                Apply for the job
+              </button>
+
+              <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
