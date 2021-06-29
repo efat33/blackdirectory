@@ -6,15 +6,15 @@ import { NewsListComponent } from './news-lists/news-lists.component';
 
 const routes: Routes = [
   {
-    path: 'news',
+    path: '',
     component: NewsListComponent
   },
   {
-    path: 'news/:cat-slug',
+    path: ':cat-slug',
     component: NewsListComponent
   },
   {
-    path: 'news/details/:news-slug',
+    path: 'details/:news-slug',
     component: NewsDetailsComponent
   }
 ];

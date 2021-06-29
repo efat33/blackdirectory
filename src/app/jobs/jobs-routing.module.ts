@@ -6,11 +6,11 @@ import { JobListingComponent } from './job-listing/job-listing.component';
 
 const routes: Routes = [
   {
-    path: 'jobs',
+    path: '',
     component: JobListingComponent
   },
   {
-    path: 'job-details',
+    path: 'details/:job-slug',
     component: JobDetailsComponent
   },
 ];
