@@ -44,15 +44,10 @@ export const DATE_FORMATS = {
     AppRoutingModule,
     SharedModule,
     HomeModule,
-    ListingModule,
-    JobsModule,
     UserModule,
-    DashboardModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MomentDateModule,
-    EventsModule,
-    NewsModule
+    MomentDateModule
   ],
   providers: [
     {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
