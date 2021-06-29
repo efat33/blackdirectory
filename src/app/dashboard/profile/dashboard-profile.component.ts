@@ -77,7 +77,7 @@ export class DashboardProfileComponent implements OnInit {
   ];
 
   subscriptions: Subscription = new Subscription();
-  
+
   profileForm: FormGroup;
   showError = false;
   errorMessage = '';
@@ -98,7 +98,7 @@ export class DashboardProfileComponent implements OnInit {
   submitted = false;
   profileImageSrc: string;
   coverImageSrc: string;
-  userType = 'candidate';
+  userType = this.helperservice.currentUserInfo.role;
   candidateEducations: FormArray;
   removedEducations: any = [];
   candidateExperiences: FormArray;
@@ -133,7 +133,7 @@ export class DashboardProfileComponent implements OnInit {
   get f() { return this.profileForm.controls; }
 
   ngOnInit() {
-    
+
     // initiate form fields
     this.setupFormFields();
 
@@ -161,8 +161,8 @@ export class DashboardProfileComponent implements OnInit {
       }
     );
 
-    
-    
+
+
 
   }
 
@@ -200,7 +200,9 @@ export class DashboardProfileComponent implements OnInit {
       this.profileForm.get('gender').patchValue(this.helperservice.getMetaData(this.userMeta, 'gender'));
       this.profileForm.get('availble_now').patchValue(this.helperservice.getMetaData(this.userMeta, 'availble_now'));
       this.profileForm.get('cover_letter').patchValue(this.helperservice.getMetaData(this.userMeta, 'cover_letter'));
-    
+
+      this.profileForm.get('candidate_cv_name').patchValue(this.helperservice.getMetaData(this.userMeta, 'candidate_cv'));
+
       if(this.helperservice.getMetaData(this.userMeta, 'academics') != ''){
         this.profileForm.get('academics').patchValue(JSON.parse(this.helperservice.getMetaData(this.userMeta, 'academics')));
       }
@@ -218,15 +220,13 @@ export class DashboardProfileComponent implements OnInit {
     if(this.userDetails.cover_photo != ''){
       this.coverImageSrc = this.helperservice.getImageUrl(this.userDetails.cover_photo, 'users', 'thumb');
     }
-    
-    this.profileForm.get('candidate_cv_name').patchValue(this.helperservice.getMetaData(this.userMeta, 'candidate_cv'));
-    
+
     // set candidate educations
     if(this.userProfile.educations && this.userProfile.educations.length > 0){
       for (const item of this.userProfile.educations) {
         const variationGroup = new FormGroup({
           id: new FormControl(item.id),
-          user_id: new FormControl(item.user_id),  
+          user_id: new FormControl(item.user_id),
           title: new FormControl(item.title),
           institute: new FormControl(item.institute),
           year: new FormControl(item.year),
@@ -241,7 +241,7 @@ export class DashboardProfileComponent implements OnInit {
       for (const item of this.userProfile.experiences) {
         const variationGroup = new FormGroup({
           id: new FormControl(item.id),
-          user_id: new FormControl(item.user_id),  
+          user_id: new FormControl(item.user_id),
           title: new FormControl(item.title),
           start_date: new FormControl(item.start_date),
           end_date: new FormControl(item.end_date),
@@ -258,7 +258,7 @@ export class DashboardProfileComponent implements OnInit {
       for (const item of this.userProfile.portfolios) {
         const variationGroup = new FormGroup({
           id: new FormControl(item.id),
-          user_id: new FormControl(item.user_id),  
+          user_id: new FormControl(item.user_id),
           title: new FormControl(item.title),
           image: new FormControl(''),
           image_name: new FormControl(item.image),
@@ -295,7 +295,7 @@ export class DashboardProfileComponent implements OnInit {
       twitter_link: new FormControl(''),
       linkedin_link: new FormControl(''),
       instagram_link: new FormControl(''),
-      
+
     });
 
     // add candidate fields
@@ -336,7 +336,7 @@ export class DashboardProfileComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     const formData = this.profileForm.value;
-  
+
     // remove timezone from date, using moment
     formData.dob = moment(formData.dob).format("YYYY-MM-DD");
 
@@ -373,7 +373,7 @@ export class DashboardProfileComponent implements OnInit {
     this.formCustomvalidation.profileImage.message = '';
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -384,14 +384,14 @@ export class DashboardProfileComponent implements OnInit {
         this.formCustomvalidation.profileImage.message = res.message;
         return;
       }
-      
+
       this.profileImageSrc = URL.createObjectURL(file);
 
       // send image to the server
       const fd = new FormData();
       fd.append("image", file, file.name);
       fd.append("resize", 'yes');
-   
+
       // this.uploadService.uploadImage(fd, 'user').subscribe(
       //   (res: any) => {
       //     this.profileForm.get('profile_photo_name').patchValue(res.data.filename);
@@ -402,7 +402,7 @@ export class DashboardProfileComponent implements OnInit {
       // );
 
       this.uploadService.uploadImage(fd, 'user').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressProfileImg = Math.round(event.loaded / event.total * 100);
@@ -434,7 +434,7 @@ export class DashboardProfileComponent implements OnInit {
     this.formCustomvalidation.coverImage.message = '';
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -445,7 +445,7 @@ export class DashboardProfileComponent implements OnInit {
         this.formCustomvalidation.coverImage.message = res.message;
         return;
       }
-      
+
       this.coverImageSrc = URL.createObjectURL(file);
 
       // send image to the server
@@ -454,7 +454,7 @@ export class DashboardProfileComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'user').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressCoverImg = Math.round(event.loaded / event.total * 100);
@@ -477,7 +477,7 @@ export class DashboardProfileComponent implements OnInit {
         }
 
       });
-   
+
     }
   }
 
@@ -487,7 +487,7 @@ export class DashboardProfileComponent implements OnInit {
     this.formCustomvalidation.candidateCV.message = '';
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -498,15 +498,15 @@ export class DashboardProfileComponent implements OnInit {
         this.formCustomvalidation.candidateCV.message = res.message;
         return;
       }
-      
+
       // send image to the server
       const fd = new FormData();
       fd.append("file", file, file.name);
 
       this.uploadService.uploadFile(fd, 'user').subscribe(
-        
+
         (event: HttpEvent<any>) => {
-         
+
           switch (event.type) {
             case HttpEventType.UploadProgress:
               this.progressCandidateCV = Math.round(event.loaded / event.total * 100);
@@ -521,7 +521,7 @@ export class DashboardProfileComponent implements OnInit {
             else{
               this.profileForm.get('candidate_cv_name').patchValue(event.body.data.filename);
             }
-            
+
             // hide progress bar
             setTimeout(() => {
               this.progressCandidateCV = 0;
@@ -533,7 +533,7 @@ export class DashboardProfileComponent implements OnInit {
         console.log(res);
       }
       );
-   
+
     }
   }
 
@@ -556,7 +556,7 @@ export class DashboardProfileComponent implements OnInit {
      else{
       const variationGroup = new FormGroup({
         id: new FormControl(formData.id || ''),
-        user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),  
+        user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
         title: new FormControl(formData.title || ''),
         institute: new FormControl(formData.institute || ''),
         year: new FormControl(formData.year || ''),
@@ -564,14 +564,14 @@ export class DashboardProfileComponent implements OnInit {
       });
       this.candidateEducations.push(variationGroup);
      }
-    
+
   }
 
   // remove candidate education from Form Array
   removeCandidateEducation(index: number, education?: any) {
-    this.candidateEducations.removeAt(index); 
+    this.candidateEducations.removeAt(index);
     this.removedEducations.push(education);
-    
+
     this.profileForm.get('removedEducations').patchValue(JSON.stringify(this.removedEducations));
   }
 
@@ -616,7 +616,7 @@ export class DashboardProfileComponent implements OnInit {
     else{
      const variationGroup = new FormGroup({
        id: new FormControl(formData.id || ''),
-       user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),  
+       user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
        title: new FormControl(formData.title || ''),
        start_date: new FormControl(formData.start_date || ''),
        end_date: new FormControl(formData.end_date || ''),
@@ -626,12 +626,12 @@ export class DashboardProfileComponent implements OnInit {
      });
      this.candidateExperiences.push(variationGroup);
     }
-   
+
  }
 
   // remove candidate education from Form Array
   removeCandidateExperience(index: number, experience?: any) {
-    this.candidateExperiences.removeAt(index); 
+    this.candidateExperiences.removeAt(index);
     this.removedExperiences.push(experience);
 
     this.profileForm.get('removedExperiences').patchValue(JSON.stringify(this.removedExperiences));
@@ -678,7 +678,7 @@ export class DashboardProfileComponent implements OnInit {
     else{
      const variationGroup = new FormGroup({
        id: new FormControl(formData.id || ''),
-       user_id: new FormControl(this.helperservice.currentUserInfo.id),  
+       user_id: new FormControl(this.helperservice.currentUserInfo.id),
        title: new FormControl(formData.title || ''),
        image: new FormControl(formData.image || ''),
        image_name: new FormControl(formData.image_name || ''),
@@ -688,12 +688,12 @@ export class DashboardProfileComponent implements OnInit {
      });
      this.candidatePortfolios.push(variationGroup);
     }
-   
+
  }
 
   // remove candidate education from Form Array
   removeCandidatePortfolio(index: number, experience?: any) {
-    this.candidatePortfolios.removeAt(index); 
+    this.candidatePortfolios.removeAt(index);
     this.removedPortfolios.push(experience);
 
     this.profileForm.get('removedPortfolios').patchValue(JSON.stringify(this.removedPortfolios));
