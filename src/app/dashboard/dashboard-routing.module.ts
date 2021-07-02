@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: 'all-applicants', component:  AllApplicantsComponent},
       { path: 'manage-jobs', component:  ManageJobsComponent},
       { path: 'new-job', component:  NewJobComponent},
+      { path: 'edit-job/:job_id', component:  NewJobComponent},
       { path: 'followers', component:  UserFollowerComponent},
       { path: 'following', component:  UserFollowingComponent},
       { path: 'change-password', component:  ChangePasswordComponent},
