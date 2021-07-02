@@ -6,8 +6,7 @@ import { RouterModule } from '@angular/router';
 // import all component
 import { HeaderComponent } from '.././header/header.component';
 import { FooterComponent } from '.././footer/footer.component';
-import { DashboardSidebarComponent } from "../dashboard/sidebar/sidebar.component";
-
+import { DashboardSidebarComponent } from '../dashboard/sidebar/sidebar.component';
 
 // import all modals
 import { RegistrationModal } from '../modals/user/registration/registration-modal';
@@ -33,38 +32,58 @@ import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal
 // import all modules
 import { SwiperModule } from 'swiper/angular';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { imageSrc } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
-
-
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
-    HeaderComponent, FooterComponent, RegistrationModal, LoginModal, CandidateEducationModal,
-    ConfirmationDialog, CandidateExperienceModal, CandidatePortfolioModal, DashboardSidebarComponent,
-    JobApplyInternalModal, JobApplyEmailModal, ContactEmployerModal, ListingSearchCatModal,
-    ListingSearchPriceModal, ListingSearchSortModal, EventSearchCatModal, EventSearchOrganizersModal,
-    EventSearchVenueModal, EventSearchCityModal, NewOrganizerModal, EventTicketModal, EventRsvpModal,
-    imageSrc
+    HeaderComponent,
+    FooterComponent,
+    RegistrationModal,
+    LoginModal,
+    CandidateEducationModal,
+    ConfirmationDialog,
+    CandidateExperienceModal,
+    CandidatePortfolioModal,
+    DashboardSidebarComponent,
+    JobApplyInternalModal,
+    JobApplyEmailModal,
+    ContactEmployerModal,
+    ListingSearchCatModal,
+    ListingSearchPriceModal,
+    ListingSearchSortModal,
+    EventSearchCatModal,
+    EventSearchOrganizersModal,
+    EventSearchVenueModal,
+    EventSearchCityModal,
+    NewOrganizerModal,
+    EventTicketModal,
+    EventRsvpModal,
+    imageSrc,
   ],
   imports: [
     CommonModule,
@@ -95,6 +114,7 @@ import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
     MatSnackBarModule,
     MatProgressBarModule,
     NgxStickySidebarModule,
+    MatSliderModule,
   ],
   exports: [
     FormsModule,
@@ -128,12 +148,28 @@ import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
     MatProgressBarModule,
     imageSrc,
     NgxStickySidebarModule,
+    MatSliderModule,
   ],
   entryComponents: [
-    RegistrationModal, LoginModal, CandidateEducationModal, ConfirmationDialog, CandidateExperienceModal,
-    CandidatePortfolioModal, JobApplyInternalModal, JobApplyEmailModal, ContactEmployerModal, ListingSearchCatModal,
-    ListingSearchPriceModal, ListingSearchSortModal, EventSearchCatModal, EventSearchOrganizersModal, EventSearchVenueModal,
-    EventSearchCityModal, NewOrganizerModal, EventTicketModal, EventRsvpModal
+    RegistrationModal,
+    LoginModal,
+    CandidateEducationModal,
+    ConfirmationDialog,
+    CandidateExperienceModal,
+    CandidatePortfolioModal,
+    JobApplyInternalModal,
+    JobApplyEmailModal,
+    ContactEmployerModal,
+    ListingSearchCatModal,
+    ListingSearchPriceModal,
+    ListingSearchSortModal,
+    EventSearchCatModal,
+    EventSearchOrganizersModal,
+    EventSearchVenueModal,
+    EventSearchCityModal,
+    NewOrganizerModal,
+    EventTicketModal,
+    EventRsvpModal,
   ],
 })
 export class SharedModule {}
