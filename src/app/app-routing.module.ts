@@ -8,6 +8,26 @@ const routes: Routes = [
   {
     path: "",
     component: HomeComponent
+  },
+  {
+    path: "news",
+    loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
+  },
+  {
+    path: "events",
+    loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+  },
+  {
+    path: "jobs",
+    loadChildren: () => import('./jobs/jobs.module').then(m => m.JobsModule)
+  },
+  {
+    path: "listing",
+    loadChildren: () => import('./listing/listing.module').then(m => m.ListingModule)
+  },
+  {
+    path: "dashboard",
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }
 ];
 

@@ -18,7 +18,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     component: DashboardComponent,
     children: [
       { path: "", redirectTo: "profile", pathMatch: "full" },
@@ -29,12 +29,13 @@ const routes: Routes = [
       { path: 'all-applicants', component:  AllApplicantsComponent},
       { path: 'manage-jobs', component:  ManageJobsComponent},
       { path: 'new-job', component:  NewJobComponent},
+      { path: 'edit-job/:job_id', component:  NewJobComponent},
       { path: 'followers', component:  UserFollowerComponent},
       { path: 'following', component:  UserFollowingComponent},
       { path: 'change-password', component:  ChangePasswordComponent},
     ],
   }
-  
+
 ];
 
 @NgModule({
