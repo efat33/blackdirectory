@@ -15,6 +15,7 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
   subsciptions: Subscription = new Subscription();
 
   jobs: any = [];
+  searchKeyword: string = '';
 
   constructor(
     private jobService: JobService,
@@ -63,6 +64,10 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
     );
 
     this.subsciptions.add(getJobsSubscription);
+  }
+
+  matchSearch(job: any) {
+    return job.title.toLowerCase().includes(this.searchKeyword.toLowerCase());
   }
 
   ngOnDestroy() {
