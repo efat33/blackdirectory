@@ -29,8 +29,26 @@ export class JobService {
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
 
+  editJob(jobId: number, body: any): Observable<any> {
+    const url = `api/jobs/update-job/${jobId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteJob(jobId: number): Observable<any> {
+    const url = `api/jobs/delete-job/${jobId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
   getUserJobs(): Observable<Sector> {
     const url = "api/jobs/get-user-jobs";
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  getUserJob(jobId: number): Observable<Sector> {
+    const url = `api/jobs/get-user-job/${jobId}`;
 
     return this.httpClient.get<any>(url, this.headerOptions);
   }

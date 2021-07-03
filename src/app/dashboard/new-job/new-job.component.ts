@@ -10,6 +10,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HelperService } from 'src/app/shared/helper.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare const google: any;
 
@@ -60,6 +61,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
 
   subsciptions: Subscription = new Subscription();
 
+  editJobId: number = null;
   jobForm: FormGroup;
   showError = false;
   errorMessage = '';
@@ -71,6 +73,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
       message: '',
     },
   };
+
+  map: any;
+  mapMarker: any;
 
   ckEditor = ClassicEditor;
   ckConfig = {
@@ -85,6 +90,8 @@ export class NewJobComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private jobService: JobService,
     private uploadService: UploadService,
     private helperService: HelperService,
@@ -97,10 +104,30 @@ export class NewJobComponent implements OnInit, OnDestroy {
     this.initializeForm();
     this.getJobServices();
     this.initializeGoogleMap();
+
+    const jobId = this.route.snapshot.paramMap.get('job_id');
+    if (jobId != null) {
+      this.editJobId = parseInt(jobId);
+
+      this.spinnerService.show();
+      this.jobService.getUserJob(this.editJobId).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+
+          this.prepareForm(result.data);
+        },
+        (error) => {
+          this.spinnerService.hide();
+
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+    }
   }
 
   initializeForm() {
     this.jobForm = new FormGroup({
+      id: new FormControl(''),
       title: new FormControl('', Validators.required),
       description: new FormControl(''),
       deadline: new FormControl('', Validators.required),
@@ -119,6 +146,30 @@ export class NewJobComponent implements OnInit, OnDestroy {
     });
   }
 
+  prepareForm(job: any) {
+    this.jobForm.patchValue({
+      id: job.id,
+      title: job.title,
+      description: job.description,
+      deadline: job.deadline,
+      job_sector_id: job.job_sector_id,
+      job_type: job.job_type,
+      job_apply_type: job.job_apply_type,
+      job_industry: job.job_industry,
+      experience: job.experience,
+      salary: job.salary,
+
+      address: job.address,
+      latitude: job.latitude,
+      longitude: job.longitude,
+
+      attachment: job.attachment,
+    });
+
+    this.map.setCenter({ lat: job.latitude, lng: job.longitude });
+    this.mapMarker.setPosition({ lat: job.latitude, lng: job.longitude });
+  }
+
   initializeGoogleMap() {
     const latitude = this.jobForm.get('latitude');
     const longitude = this.jobForm.get('longitude');
@@ -129,40 +180,34 @@ export class NewJobComponent implements OnInit, OnDestroy {
       zoomControl: true,
     };
 
-    const map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+    this.map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
     const geocoder = new google.maps.Geocoder();
     const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
     const address = this.jobForm.get('address');
-    const marker = new google.maps.Marker({
-      map,
+    this.mapMarker = new google.maps.Marker({
+      map: this.map,
       anchorPoint: new google.maps.Point(0, -29),
     });
 
-    let initialLat = parseFloat(latitude.value);
-    let initialLng = parseFloat(longitude.value);
+    let initialLat = 52.49840357809672;
+    let initialLng = -1.4366882483060417;
 
-    if (initialLat && initialLng) {
-      marker.setPosition({ lat: initialLat, lng: initialLng });
-    } else {
-      initialLat = 52.49840357809672;
-      initialLng = -1.4366882483060417;
-    }
-
-    map.setCenter({ lat: initialLat, lng: initialLng });
+    this.map.setCenter({ lat: initialLat, lng: initialLng });
+    this.mapMarker.setPosition({ lat: 23, lng: 90 });
 
     const autocompleteOptions = {
       fields: ['formatted_address', 'geometry', 'name'],
-      origin: map.getCenter(),
+      origin: this.map.getCenter(),
       strictBounds: false,
     };
 
-    google.maps.event.addListener(map, 'click', (event: any) => {
+    google.maps.event.addListener(this.map, 'click', (event: any) => {
       let lat = event.latLng.lat(); // lat of clicked point
       let lng = event.latLng.lng(); // lng of clicked point
 
       const latlng = { lat, lng };
 
-      marker.setPosition(latlng);
+      this.mapMarker.setPosition(latlng);
 
       latitude.setValue(lat);
       longitude.setValue(lng);
@@ -182,11 +227,11 @@ export class NewJobComponent implements OnInit, OnDestroy {
     });
 
     const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions);
-    autocomplete.bindTo('bounds', map);
+    autocomplete.bindTo('bounds', this.map);
 
     autocomplete.addListener('place_changed', () => {
       // infowindow.close();
-      marker.setVisible(false);
+      this.mapMarker.setVisible(false);
       const place = autocomplete.getPlace();
 
       if (!place.geometry || !place.geometry.location) {
@@ -196,14 +241,14 @@ export class NewJobComponent implements OnInit, OnDestroy {
 
       // If the place has a geometry, then present it on a map.
       if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
+        this.map.fitBounds(place.geometry.viewport);
       } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(17);
       }
 
-      marker.setPosition(place.geometry.location);
-      marker.setVisible(true);
+      this.mapMarker.setPosition(place.geometry.location);
+      this.mapMarker.setVisible(true);
 
       address.setValue(place.formatted_address);
       latitude.setValue(place.geometry.location.lat());
@@ -223,7 +268,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
       (error) => {
         this.spinnerService.hide();
 
-        this.snackbar.openSnackBar(error.message, 'Close', 'warn');
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
 
@@ -283,6 +328,14 @@ export class NewJobComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (this.editJobId == null) {
+      this.createJob();
+    } else {
+      this.updateJob();
+    }
+  }
+
+  createJob() {
     const formValues = this.jobForm.value;
 
     this.spinnerService.show();
@@ -291,16 +344,39 @@ export class NewJobComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
         // console.log(result);
 
+        this.router.navigate(['/dashboard/manage-jobs']);
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {
         this.spinnerService.hide();
 
-        this.snackbar.openSnackBar(error.message, 'Close', 'warn');
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
 
     this.subsciptions.add(newJobSubscription);
+  }
+
+  updateJob() {
+    const formValues = this.jobForm.value;
+
+    this.spinnerService.show();
+    const updateJobSubscription = this.jobService.editJob(this.editJobId, formValues).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        // console.log(result);
+
+        this.router.navigate(['/dashboard/manage-jobs']);
+        this.snackbar.openSnackBar(result.message);
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(updateJobSubscription);
   }
 
   formatSalarySliderLabel(value: number) {

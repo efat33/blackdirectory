@@ -27,7 +27,7 @@
             </div>
 
 
-            <div *ngFor="let job of jobs" class="jobsearch-mangjobs-list-inner">
+            <div *ngFor="let job of jobs; let index = index" class="jobsearch-mangjobs-list-inner">
               <div class="jobsearch-recent-applicants-nav">
                 <ul>
                   <li><a
@@ -60,7 +60,7 @@
                       <li>
                         <div class="jobsearch-filledjobs-links">
                           <span>Fill Job</span>
-                          <a href="javascript:void(0);" title="Fill this Job" data-id="17361"
+                          <a href="javascript:void(0);" title="Fill this Job"
                             class="jobsearch-fill-the-job ajax-enable"><span></span><span
                               class="fill-job-loader"></span></a>
                         </div>
@@ -83,7 +83,7 @@
                         class="jobsearch-icon jobsearch-view jobsearch-mangjob-act" title="View Job"></a>
                       <a [routerLink]="['/dashboard/edit-job/', job.id]"
                         title="Edit Job" class="jobsearch-icon jobsearch-edit jobsearch-mangjob-act"></a>
-                      <a href="javascript:void(0);" data-id="17361"
+                      <a (click)="deleteJob(job.id, index)"
                         class="jobsearch-icon jobsearch-rubbish jobsearch-trash-job jobsearch-mangjob-act"
                         title="Delete Job"></a>
 
