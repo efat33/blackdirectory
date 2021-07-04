@@ -55,6 +55,15 @@ export class JobService {
     { value: '8-years-+', viewValue: '8 Years +' },
   ];
 
+  datePosted = [
+    { value: '1hour', viewValue: 'Last Hour'},
+    { value: '24hours', viewValue: 'Last 24 hours'},
+    { value: '7days', viewValue: 'Last 7 days'},
+    { value: '14days', viewValue: 'Last 14 days'},
+    { value: '30days', viewValue: 'Last 30 days'},
+    { value: 'all', viewValue: 'All'},
+  ];
+
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   getSectors(): Observable<Sector> {
@@ -97,5 +106,17 @@ export class JobService {
     const url = `api/jobs/get-job/${slug}`;
 
     return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  getJobs(filter: any = {}, page: number = 1, limit: number = 10): Observable<Sector> {
+    const url = `api/jobs/get-jobs?page=${page}&limit=${limit}`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(filter), this.headerOptions);
+  }
+
+  getJobCount(filter: any = {}): Observable<Sector> {
+    const url = 'api/jobs/get-job-count';
+
+    return this.httpClient.post<any>(url, JSON.stringify(filter), this.headerOptions);
   }
 }

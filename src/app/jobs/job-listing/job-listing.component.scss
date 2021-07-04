@@ -16,7 +16,7 @@
     .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-gap {
         border-color: #ececec !important;
     }
-    .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-start, 
+    .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-start,
     .jobsearch-banner-search .mat-form-field-appearance-outline .mat-form-field-outline-end {
         border-color: #ececec !important;
     }
@@ -83,4 +83,28 @@
         height: 16px !important;
         width: 16px !important;
     }
+}
+
+.jobsearch-option-btn {
+  color: #fff;
+
+  &.contract {
+    background-color: #186FC9;
+  }
+
+  &.full-time {
+    background-color: #186FC9;
+  }
+
+  &.internship {
+    background-color: #53B427;
+  }
+
+  &.part-time {
+    background-color: #f1630d;
+  }
+
+  &.temporary {
+    background-color: #f1630d;
+  }
 }
