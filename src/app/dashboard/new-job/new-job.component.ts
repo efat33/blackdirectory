@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -19,44 +19,7 @@ declare const google: any;
   templateUrl: './new-job.component.html',
   styleUrls: ['./new-job.component.scss'],
 })
-export class NewJobComponent implements OnInit, OnDestroy {
-  jobIndustrys = [
-    { value: 'Arts & Media', viewValue: 'Arts & Media' },
-    { value: 'Education', viewValue: 'Education' },
-    {
-      value: 'Accounting/ Finance/ Legal',
-      viewValue: 'Accounting/ Finance/ Legal',
-    },
-    { value: 'Medical/Healthcare', viewValue: 'Medical/Healthcare' },
-    { value: 'Business Services', viewValue: 'Business Services' },
-    { value: 'Retail/Sales', viewValue: 'Retail/Sales' },
-    { value: 'Information Technology', viewValue: 'Information Technology' },
-    { value: 'Other', viewValue: 'Other' },
-  ];
-  jobTypes = [
-    { value: 'contract', viewValue: 'Contract' },
-    { value: 'full-time', viewValue: 'Full Time' },
-    { value: 'internship', viewValue: 'Internship' },
-    { value: 'part-time', viewValue: 'Part Time' },
-    { value: 'temporary', viewValue: 'Temporary' },
-  ];
-  jobApplyTypes = [
-    { value: 'internal', viewValue: 'Internal (Receive Applications Here)' },
-    { value: 'external', viewValue: 'External URL' },
-    { value: 'with_email', viewValue: 'By Email' },
-  ];
-  jobExperiences = [
-    { value: 'no-experience', viewValue: 'No Experience' },
-    { value: 'less-than-1-year', viewValue: 'Less Than 1 Year' },
-    { value: '2-years', viewValue: '2 Years' },
-    { value: '3-years', viewValue: '3 Years' },
-    { value: '4-years', viewValue: '4 Years' },
-    { value: '5-years', viewValue: '5 Years' },
-    { value: '6-years', viewValue: '6 Years' },
-    { value: '7-years', viewValue: '7 Years' },
-    { value: '8-years-+', viewValue: '8 Years +' },
-  ];
-
+export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   jobSectors = [];
 
   subsciptions: Subscription = new Subscription();
@@ -92,7 +55,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jobService: JobService,
+    public jobService: JobService,
     private uploadService: UploadService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
@@ -125,6 +88,28 @@ export class NewJobComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit() {
+    const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe(val => {
+      if (val === 'with_email') {
+        this.jobForm.get('job_apply_email').setValidators([Validators.required]);
+        this.jobForm.get('external_url').clearValidators();
+      } else if (val === 'external') {
+        this.jobForm.get('external_url').setValidators([Validators.required]);
+        this.jobForm.get('job_apply_email').clearValidators();
+      } else {
+        this.jobForm.get('job_apply_email').clearValidators();
+        this.jobForm.get('external_url').clearValidators();
+      }
+
+      this.jobForm.get('job_apply_email').updateValueAndValidity();
+      this.jobForm.get('external_url').updateValueAndValidity();
+
+      this.cdk.detectChanges();
+    });
+
+    this.subsciptions.add(valueChangeSub);
+  }
+
   initializeForm() {
     this.jobForm = new FormGroup({
       id: new FormControl(''),
@@ -143,6 +128,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
       longitude: new FormControl(''),
 
       attachment: new FormControl(''),
+
+      job_apply_email: new FormControl(''),
+      external_url: new FormControl(''),
     });
   }
 
@@ -164,6 +152,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
       longitude: job.longitude,
 
       attachment: job.attachment,
+
+      job_apply_email: job.job_meta?.job_apply_email,
+      external_url: job.job_meta?.external_url,
     });
 
     this.map.setCenter({ lat: job.latitude, lng: job.longitude });

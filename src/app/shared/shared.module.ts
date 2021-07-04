@@ -58,6 +58,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { imageSrc } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { TimeUntilPipe } from './pipes/time-until.pipe';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { MatSliderModule } from '@angular/material/slider';
     EventTicketModal,
     EventRsvpModal,
     imageSrc,
+    TimeAgoPipe,
+    TimeUntilPipe,
   ],
   imports: [
     CommonModule,
@@ -149,6 +153,8 @@ import { MatSliderModule } from '@angular/material/slider';
     imageSrc,
     NgxStickySidebarModule,
     MatSliderModule,
+    TimeAgoPipe,
+    TimeUntilPipe,
   ],
   entryComponents: [
     RegistrationModal,

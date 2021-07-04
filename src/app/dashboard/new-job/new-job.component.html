@@ -41,7 +41,7 @@
                     <mat-form-field>
                         <mat-label>Job Type</mat-label>
                         <mat-select formControlName="job_type" required>
-                            <mat-option *ngFor="let jobType of jobTypes" [value]="jobType.value">
+                            <mat-option *ngFor="let jobType of jobService.jobTypes" [value]="jobType.value">
                                 {{jobType.viewValue}}
                             </mat-option>
                         </mat-select>
@@ -54,14 +54,22 @@
                     <mat-form-field>
                         <mat-label>Job Apply Type</mat-label>
                         <mat-select formControlName="job_apply_type">
-                            <mat-option *ngFor="let jobApplyType of jobApplyTypes" [value]="jobApplyType.value">
+                            <mat-option *ngFor="let jobApplyType of jobService.jobApplyTypes" [value]="jobApplyType.value">
                                 {{jobApplyType.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
+                  <mat-form-field *ngIf="f.job_apply_type.value === 'with_email'">
+                      <mat-label>Email</mat-label>
+                      <input matInput type="email" formControlName="job_apply_email" />
+                  </mat-form-field>
 
+                  <mat-form-field *ngIf="f.job_apply_type.value === 'external'">
+                    <mat-label>External URL</mat-label>
+                    <input matInput formControlName="external_url" />
+                  </mat-form-field>
                 </div>
             </div>
 
@@ -82,7 +90,7 @@
                     <mat-form-field>
                         <mat-label>Industry</mat-label>
                         <mat-select formControlName="job_industry">
-                            <mat-option *ngFor="let jobIndustry of jobIndustrys" [value]="jobIndustry.value">
+                            <mat-option *ngFor="let jobIndustry of jobService.jobIndustrys" [value]="jobIndustry.value">
                                 {{jobIndustry.viewValue}}
                             </mat-option>
                         </mat-select>
@@ -92,7 +100,7 @@
                     <mat-form-field>
                         <mat-label>Experience</mat-label>
                         <mat-select formControlName="experience" required>
-                            <mat-option *ngFor="let jobExperience of jobExperiences" [value]="jobExperience.value">
+                            <mat-option *ngFor="let jobExperience of jobService.jobExperiences" [value]="jobExperience.value">
                                 {{jobExperience.viewValue}}
                             </mat-option>
                         </mat-select>
