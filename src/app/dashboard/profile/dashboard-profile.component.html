@@ -81,7 +81,7 @@
                     <mat-form-field>
                         <mat-label>Sector</mat-label>
                         <mat-select formControlName="job_sectors_id" required>
-                            <mat-option *ngFor="let sector of sectors" [value]="sector.id">
+                            <mat-option *ngFor="let sector of userService.sectors" [value]="sector.id">
                                 {{sector.value}}
                             </mat-option>
                         </mat-select>
@@ -89,7 +89,7 @@
                     <mat-form-field>
                         <mat-label>Profile for Public View</mat-label>
                         <mat-select formControlName="pubic_view">
-                            <mat-option *ngFor="let publicView of publicViews" [value]="publicView.value">
+                            <mat-option *ngFor="let publicView of userService.publicViews" [value]="publicView.value">
                                 {{publicView.viewValue}}
                             </mat-option>
                         </mat-select>
@@ -219,7 +219,7 @@
                             <mat-form-field>
                                 <mat-label>Industry</mat-label>
                                 <mat-select formControlName="job_industry">
-                                    <mat-option *ngFor="let jobIndustry of jobIndustrys" [value]="jobIndustry.value">
+                                    <mat-option *ngFor="let jobIndustry of userService.jobIndustrys" [value]="jobIndustry.value">
                                         {{jobIndustry.viewValue}}
                                     </mat-option>
                                 </mat-select>
@@ -231,7 +231,7 @@
                             <mat-form-field>
                                 <mat-label>Salary Type</mat-label>
                                 <mat-select formControlName="salary_type">
-                                    <mat-option *ngFor="let salaryType of salaryTypes" [value]="salaryType.value">
+                                    <mat-option *ngFor="let salaryType of userService.salaryTypes" [value]="salaryType.value">
                                         {{salaryType.viewValue}}
                                     </mat-option>
                                 </mat-select>
@@ -249,7 +249,7 @@
                             <mat-form-field>
                                 <mat-label>Age</mat-label>
                                 <mat-select formControlName="age">
-                                    <mat-option *ngFor="let candidateAge of candidateAges" [value]="candidateAge.value">
+                                    <mat-option *ngFor="let candidateAge of userService.candidateAges" [value]="candidateAge.value">
                                         {{candidateAge.viewValue}}
                                     </mat-option>
                                 </mat-select>
@@ -259,7 +259,7 @@
                             <mat-form-field>
                                 <mat-label>Gender</mat-label>
                                 <mat-select formControlName="gender">
-                                    <mat-option *ngFor="let candidateGender of candidateGenders"
+                                    <mat-option *ngFor="let candidateGender of userService.candidateGenders"
                                         [value]="candidateGender.value">
                                         {{candidateGender.viewValue}}
                                     </mat-option>
@@ -279,7 +279,7 @@
                             <mat-form-field>
                                 <mat-label>Academic Level</mat-label>
                                 <mat-select formControlName="academics" multiple>
-                                    <mat-option *ngFor="let academic of academics" [value]="academic.value">
+                                    <mat-option *ngFor="let academic of userService.academics" [value]="academic.value">
                                         {{academic.viewValue}}
                                     </mat-option>
                                 </mat-select>

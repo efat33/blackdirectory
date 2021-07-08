@@ -11,7 +11,10 @@
     <div class="jobsearch-typo-wrap">
       <div id="dashboard-tab-manage-jobs">
 
-        TODO: add search filter for managing jobs
+        <form method="get" class="jobsearch-employer-search">
+          <input placeholder="Search job" name="keyword" type="text" [(ngModel)]="searchKeyword">
+          <i class="jobsearch-icon jobsearch-search"></i>
+        </form>
 
         <div class="jobsearch-jobs-list-holder">
           <div class="jobsearch-managejobs-list">
@@ -27,11 +30,14 @@
             </div>
 
 
-            <div *ngFor="let job of jobs" class="jobsearch-mangjobs-list-inner">
+            <ng-container *ngFor="let job of jobs; let index = index">
+
+            <div *ngIf="!searchKeyword || matchSearch(job)" class="jobsearch-mangjobs-list-inner">
               <div class="jobsearch-recent-applicants-nav">
                 <ul>
                   <li><a
-                      href="http://nirectory.com/user-dashboard/?tab=manage-jobs&amp;view=applicants&amp;job_id=17361"><span>{{job.applicants_number || 0}}</span>
+                      href="http://nirectory.com/user-dashboard/?tab=manage-jobs&amp;view=applicants&amp;job_id=17361"><span>{{job.applicants_number
+                        || 0}}</span>
                       <small>Total applicants</small></a></li>
                   <li><span>{{job.views || 0}}</span> <small>Total visits</small></li>
                   <li><small>Expiry Date: {{job.expiry_date | date:'MMM d, y'}}</small></li>
@@ -60,7 +66,7 @@
                       <li>
                         <div class="jobsearch-filledjobs-links">
                           <span>Fill Job</span>
-                          <a href="javascript:void(0);" title="Fill this Job" data-id="17361"
+                          <a href="javascript:void(0);" title="Fill this Job"
                             class="jobsearch-fill-the-job ajax-enable"><span></span><span
                               class="fill-job-loader"></span></a>
                         </div>
@@ -76,14 +82,15 @@
                       class="jobsearch-featureto-job" title="Make Featured Job"><i class="fa fa-star-o"></i></a>
                   </div>
                   <div class="jobsearch-table-cell stuts-tabl-cell"><span
-                      class="jobsearch-managejobs-option active">{{job.status === 'approved' ? 'Approved' : 'Pending'}}</span></div>
+                      class="jobsearch-managejobs-option active">{{job.status === 'approved' ? 'Approved' :
+                      'Pending'}}</span></div>
                   <div class="jobsearch-table-cell">
                     <div class="jobsearch-managejobs-links">
                       <a [routerLink]="['/jobs/details/', job.slug]"
                         class="jobsearch-icon jobsearch-view jobsearch-mangjob-act" title="View Job"></a>
-                      <a [routerLink]="['/dashboard/edit-job/', job.id]"
-                        title="Edit Job" class="jobsearch-icon jobsearch-edit jobsearch-mangjob-act"></a>
-                      <a href="javascript:void(0);" data-id="17361"
+                      <a [routerLink]="['/dashboard/edit-job/', job.id]" title="Edit Job"
+                        class="jobsearch-icon jobsearch-edit jobsearch-mangjob-act"></a>
+                      <a (click)="deleteJob(job.id, index)"
                         class="jobsearch-icon jobsearch-rubbish jobsearch-trash-job jobsearch-mangjob-act"
                         title="Delete Job"></a>
 
@@ -92,6 +99,7 @@
                 </div>
               </div>
             </div>
+          </ng-container>
           </div>
         </div>
 

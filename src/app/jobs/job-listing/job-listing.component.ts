@@ -1,63 +1,99 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
+import { HelperService } from 'src/app/shared/helper.service';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { SpinnerService } from 'src/app/shared/spinner.service';
+import { JobService } from '../jobs.service';
 
+declare const google: any;
 
 @Component({
   selector: 'app-job-listing',
   templateUrl: './job-listing.component.html',
-  styleUrls: ['./job-listing.component.scss']
+  styleUrls: ['./job-listing.component.scss'],
 })
+export class JobListingComponent implements OnInit, OnDestroy {
+  subsciptions: Subscription = new Subscription();
 
-export class JobListingComponent implements OnInit {
-
-  sectors = [
-    { value: 1, viewValue: 'Arts & Media'},
-    { value: 2, viewValue: 'Education'},
-    { value: 3, viewValue: 'Accounting/ Finance/ Legal'},
-    { value: 4, viewValue: 'Medical/Healthcare'},
-    { value: 5, viewValue: 'Business Services'},
-    { value: 6, viewValue: 'Retail/Sales'},
-    { value: 7, viewValue: 'Information Technology'},
-    { value: 8, viewValue: 'Other'},
-  ];
-  datePosted = [
-    { value: '1hour', viewValue: 'Last Hour'},
-    { value: '24hours', viewValue: 'Last 24 hours'},
-    { value: '7days', viewValue: 'Last 7 days'},
-    { value: '14days', viewValue: 'Last 14 days'},
-    { value: '30days', viewValue: 'Last 30 days'},
-    { value: 'all', viewValue: 'All'},
-  ];
-  jobTypes = [
-    { value: 'apprenticeship', viewValue: 'Apprenticeship'},
-    { value: 'contract', viewValue: 'Contract'},
-    { value: 'freelance', viewValue: 'Freelance'},
-    { value: 'full-time', viewValue: 'Full Time'},
-    { value: 'graduate-scheme', viewValue: 'Graduate Scheme'},
-    { value: 'internship', viewValue: 'Internship'},
-    { value: 'part-time', viewValue: 'Part Time'},
-    { value: 'temporary', viewValue: 'Temporary'}
-  ];
+  sectors = [];
+  jobs = [];
+  jobCount = 0;
+  pageSize = 10;
 
   jobFilterForm: FormGroup;
   showError = false;
   errorMessage = '';
 
-  constructor() { }
+  locationModified = false;
 
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.jobFilterForm.controls;
+  }
+
+  constructor(
+    public jobService: JobService,
+    public helperService: HelperService,
+    private spinnerService: SpinnerService,
+    private snackbar: SnackBarService
+  ) {}
 
   ngOnInit() {
+    this.initializeFilterForm();
+    this.getJobSectors();
+    this.getJobs();
+    this.getJobCount();
+    this.initializeGoogleMap();
+  }
+
+  initializeFilterForm() {
     this.jobFilterForm = new FormGroup({
       keyword: new FormControl(''),
       location: new FormControl(''),
-      loc_radius: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+      loc_radius: new FormControl(50),
       sector: new FormControl(''),
-      
+      datePosted: new FormControl(''),
+      jobType: new FormControl(''),
+      salary: new FormControl([5000, 250000]),
     });
   }
 
   onSubmit() {
-    
+    this.getJobCount();
+    this.getJobs(1);
+  }
+
+  initializeGoogleMap() {
+    const latitude = this.jobFilterForm.get('latitude');
+    const longitude = this.jobFilterForm.get('longitude');
+
+    const input = document.querySelector('input[formControlName=location]') as HTMLInputElement;
+    const address = this.jobFilterForm.get('location');
+
+    const autocompleteOptions = {
+      fields: ['formatted_address', 'geometry', 'name'],
+    };
+
+    const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions);
+
+    autocomplete.addListener('place_changed', () => {
+      // infowindow.close();
+      const place = autocomplete.getPlace();
+
+      if (!place.geometry || !place.geometry.location) {
+        // window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+
+      address.setValue(place.formatted_address);
+      latitude.setValue(place.geometry.location.lat());
+      longitude.setValue(place.geometry.location.lng());
+      this.locationModified = false;
+    });
   }
 
   onSelectOpen(opened: boolean, searchInput: any) {
@@ -66,14 +102,87 @@ export class JobListingComponent implements OnInit {
     }
   }
 
+  onLocationBlur() {
+    if (this.locationModified) {
+      this.jobFilterForm.patchValue({
+        latitude: '',
+        longitude: '',
+        location: '',
+      });
+    }
+  }
+
+  getJobSectors() {
+    this.spinnerService.show();
+    const getSectorsSubscription = this.jobService.getSectors().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.sectors = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(getSectorsSubscription);
+  }
+
+  getJobs(page: number = 1) {
+    this.spinnerService.show();
+    const getJobsSubscription = this.jobService.getJobs(this.jobFilterForm.value, page, this.pageSize).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.jobs = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(getJobsSubscription);
+  }
+
+  getJobCount() {
+    this.spinnerService.show();
+    const getJobsSubscription = this.jobService.getJobCount(this.jobFilterForm.value).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.jobCount = result.data.count;
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(getJobsSubscription);
+  }
+
   filteredJobSectors(searchString: any) {
-    if (this.sectors) {
-      return this.sectors.filter((sector) => sector.viewValue.toLowerCase().includes(searchString.toLowerCase()));
+    if (this.sectors.length > 0) {
+      return this.sectors.filter((sector) => sector.title.toLowerCase().includes(searchString.toLowerCase()));
     }
 
     return [];
   }
 
+  getJobType(job: any) {
+    const jobType = this.jobService.jobTypes.find((type) => type.value === job.job_type)?.viewValue;
 
+    return jobType || '';
+  }
+
+  onPageChange(event: PageEvent) {
+    const page = event.pageIndex + 1;
+    this.getJobs(page);
+  }
+
+  ngOnDestroy() {
+    this.subsciptions.unsubscribe();
+  }
 }
-

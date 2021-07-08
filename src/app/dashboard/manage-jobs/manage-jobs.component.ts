@@ -15,6 +15,7 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
   subsciptions: Subscription = new Subscription();
 
   jobs: any = [];
+  searchKeyword: string = '';
 
   constructor(
     private jobService: JobService,
@@ -32,16 +33,41 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
     const getJobsSubscription = this.jobService.getUserJobs().subscribe(
       (result: any) => {
         this.spinnerService.hide();
-        console.log("🚀 ~ file: manage-jobs.component.ts ~ line 32 ~ ManageJobsComponent ~ getUserJobs ~ result", result)
 
         this.jobs = result.data;
       },
       (error) => {
         this.spinnerService.hide();
 
-        this.snackbar.openSnackBar(error.message, 'Close', 'warn');
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
+
+    this.subsciptions.add(getJobsSubscription);
+  }
+
+  deleteJob(jobId: number, index: number) {
+    this.spinnerService.show();
+
+    const getJobsSubscription = this.jobService.deleteJob(jobId).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.jobs.splice(index, 1);
+        this.snackbar.openSnackBar(result.message);
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(getJobsSubscription);
+  }
+
+  matchSearch(job: any) {
+    return job.title.toLowerCase().includes(this.searchKeyword.toLowerCase());
   }
 
   ngOnDestroy() {
