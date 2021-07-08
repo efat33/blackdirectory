@@ -23,59 +23,6 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 })
 
 export class DashboardProfileComponent implements OnInit {
-
-  sectors = [
-    { id: 1, value: 'steak-0'},
-    { id: 2, value: 'pizza-1'},
-    { id: 3, value: 'tacos-2'}
-  ];
-  publicViews = [
-    { value: 1, viewValue: 'Yes'},
-    { value: 0, viewValue: 'No'}
-  ];
-  jobIndustrys = [
-    { value: 'Arts & Media', viewValue: 'Arts & Media'},
-    { value: 'Education', viewValue: 'Education'},
-    { value: 'Accounting/ Finance/ Legal', viewValue: 'Accounting/ Finance/ Legal'},
-    { value: 'Medical/Healthcare', viewValue: 'Medical/Healthcare'},
-    { value: 'Business Services', viewValue: 'Business Services'},
-    { value: 'Retail/Sales', viewValue: 'Retail/Sales'},
-    { value: 'Information Technology', viewValue: 'Information Technology'},
-    { value: 'Other', viewValue: 'Other'},
-  ];
-  salaryTypes = [
-    { value: 'Monthly', viewValue: 'Monthly'},
-    { value: 'Weekly', viewValue: 'Weekly'},
-    { value: 'Hourly', viewValue: 'Hourly'},
-    { value: 'Annually', viewValue: 'Annually'},
-  ];
-  candidateAges = [
-    { value: '16 - 18 Years', viewValue: '16 - 18 Years'},
-    { value: '19 - 22 Years', viewValue: '19 - 22 Years'},
-    { value: '23 - 27 Years', viewValue: '23 - 27 Years'},
-    { value: '28 - 35 Years', viewValue: '28 - 35 Years'},
-    { value: '36 - 45 Years', viewValue: '36 - 45 Years'},
-    { value: '46 - 55 Years', viewValue: '46 - 55 Years'},
-    { value: '56 - 65 Years', viewValue: '56 - 65 Years'},
-    { value: 'Above 65 Years', viewValue: 'Above 65 Years'},
-  ];
-  candidateGenders = [
-    { value: 'Male', viewValue: 'Male'},
-    { value: 'Female', viewValue: 'Female'},
-    { value: 'Transgender', viewValue: 'Transgender'},
-    { value: 'Non-Binary', viewValue: 'Non-Binary'},
-    { value: 'Prefer Not To Say', viewValue: 'Prefer Not To Say'},
-  ];
-  academics = [
-    { value: '\GCSE\'s/ Equivalent', viewValue: '\GCSE\'s/ Equivalent'},
-    { value: 'A-Levels', viewValue: 'A-Levels'},
-    { value: 'Apprenticeship', viewValue: 'Apprenticeship'},
-    { value: 'Undergraduate Degree', viewValue: 'Undergraduate Degree'},
-    { value: 'Master’s Degree', viewValue: 'Master’s Degree'},
-    { value: 'Doctorate', viewValue: 'Doctorate'},
-    { value: 'Other', viewValue: 'Other'}
-  ];
-
   subscriptions: Subscription = new Subscription();
 
   profileForm: FormGroup;
@@ -122,7 +69,7 @@ export class DashboardProfileComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private helperservice: HelperService,
-    private userService: UserService,
+    public userService: UserService,
     private spinnerService: SpinnerService,
     private router: Router,
     private snackbar: SnackBarService,

@@ -9,6 +9,7 @@ import { JobApplyInternalModal } from 'src/app/modals/job/jobapply-internal/joba
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
+import { UserService } from 'src/app/user/user.service';
 import { JobService } from '../jobs.service';
 
 declare const google: any;
@@ -21,14 +22,15 @@ declare const google: any;
 export class JobDetailsComponent implements OnInit, OnDestroy {
   subsciptions: Subscription = new Subscription();
 
-  dialogJobApplyModal: any;
-
   job: any = {};
+  coverLetter: string;
+  applied: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private jobService: JobService,
+    private userService: UserService,
     private spinnerService: SpinnerService,
     private helperService: HelperService,
     private snackbar: SnackBarService
@@ -37,6 +39,14 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('job-slug');
 
+    this.getJobDetails(slug);
+
+    if (this.helperService.currentUserInfo) {
+      this.getUserDetails();
+    }
+  }
+
+  getJobDetails(slug: string) {
     this.spinnerService.show();
     const getJobSubscription = this.jobService.getJob(slug).subscribe(
       (result: any) => {
@@ -46,6 +56,10 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.processJob();
         this.initializeGoogleMap();
 
+        if (this.helperService.currentUserInfo) {
+          this.getUserApplicationStatus(this.job.id);
+        }
+
         console.log(this.job);
       },
       (error) => {
@@ -54,6 +68,27 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
+
+    this.subsciptions.add(getJobSubscription);
+  }
+
+  getUserApplicationStatus(jobId: number) {
+    this.spinnerService.show();
+    const userApplicationSubscription = this.jobService.getUserApplicationStatus(jobId).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (result.data.length) {
+          this.applied = true;
+        }
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(userApplicationSubscription);
   }
 
   processJob() {
@@ -77,6 +112,23 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     if (this.job.user.cover_photo) {
       this.job.user.cover_photo = this.helperService.getImageUrl(this.job.user.cover_photo, 'users');
     }
+  }
+
+  getUserDetails() {
+    this.spinnerService.show();
+    const getUserSubscription = this.userService.getDetails().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.coverLetter = result.data.meta_data?.find((data: any) => data.meta_key === 'cover_letter')?.meta_value;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(getUserSubscription);
   }
 
   initializeGoogleMap() {
@@ -103,28 +155,89 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   applyForJob(): void {
-    console.log(this.job.job_meta);
     if (this.job.job_apply_type == 'External URL') {
-      window.open(this.job.job_meta?.external_url, "_blank");
-    } else if (this.job.job_apply_type == 'By Email') {
-      this.dialogJobApplyModal = this.dialog.open(JobApplyEmailModal, {
+      window.open(this.job.job_meta?.external_url, '_blank');
+      return;
+    }
+
+    if (this.helperService.currentUserInfo?.role !== 'candidate') {
+      this.snackbar.openSnackBar('Requires "Candidate" login', 'Close', 'warn');
+      return;
+    }
+
+    if (this.job.job_apply_type == 'By Email') {
+      const dialogConfig = {
         width: '550px',
         data: {
-          email: this.job.job_meta?.job_apply_email
-        }
-      });
+          job: this.job,
+        },
+      };
+
+      const dialogSubscription = this.dialog
+        .open(JobApplyEmailModal, dialogConfig)
+        .afterClosed()
+        .subscribe((result: any) => {
+          if (result) {
+            this.applied = true;
+            this.snackbar.openSnackBar('Applied successfully');
+          }
+        });
+
+      this.subsciptions.add(dialogSubscription);
     } else {
       // internal
-      this.dialogJobApplyModal = this.dialog.open(JobApplyInternalModal, {
+      const dialogConfig = {
         width: '550px',
-      });
+        data: {
+          coverLetter: this.coverLetter,
+        },
+      };
+
+      const dialogSubscription = this.dialog
+        .open(JobApplyInternalModal, dialogConfig)
+        .afterClosed()
+        .subscribe((result: any) => {
+          if (result) {
+            this.createInternalJobApplication(result);
+          }
+        });
+
+      this.subsciptions.add(dialogSubscription);
     }
   }
 
   openContactEmployerModal(): void {
-    this.dialogJobApplyModal = this.dialog.open(ContactEmployerModal, {
+    this.dialog.open(ContactEmployerModal, {
       width: '550px',
     });
+  }
+
+  createInternalJobApplication(coverLetter: string) {
+    const body = {
+      job_id: this.job.id,
+      employer_id: this.job.user_id,
+      cover_letter: coverLetter,
+    };
+
+    this.spinnerService.show();
+    const newJobSubscription = this.jobService.newJobApplication(body).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.applied = true;
+        this.snackbar.openSnackBar('Applied successfully');
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(newJobSubscription);
+  }
+
+  isDeadlineOver(job: any) {
+    return new Date(job.deadline).getTime() < Date.now();
   }
 
   ngOnDestroy() {}

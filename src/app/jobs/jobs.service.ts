@@ -119,4 +119,22 @@ export class JobService {
 
     return this.httpClient.post<any>(url, JSON.stringify(filter), this.headerOptions);
   }
+
+  newJobApplication(body: any): Observable<any> {
+    const url = 'api/jobs/new-application';
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  getUserApplicationStatus(jobId: number): Observable<any> {
+    const url = `api/jobs/get-application-status/${jobId}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  sendMail(emailOptions: any): Observable<any> {
+    const url = `api/mail/send`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(emailOptions), this.headerOptions);
+  }
 }

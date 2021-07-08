@@ -64,7 +64,7 @@
                   <mat-form-field>
                     <mat-label>Academic Level</mat-label>
                     <mat-select required formControlName="academics" multiple>
-                      <mat-option *ngFor="let academic of academics" [value]="academic.value">
+                      <mat-option *ngFor="let academic of userService.academics" [value]="academic.value">
                         {{academic.viewValue}}
                       </mat-option>
                     </mat-select>
@@ -74,7 +74,7 @@
                   <mat-form-field>
                     <mat-label>Age</mat-label>
                     <mat-select formControlName="age">
-                      <mat-option *ngFor="let age of ages" [value]="age.value">
+                      <mat-option *ngFor="let age of userService.candidateAges" [value]="age.value">
                         {{age.viewValue}}
                       </mat-option>
                     </mat-select>
@@ -87,7 +87,7 @@
                   <mat-form-field>
                     <mat-label>Industry</mat-label>
                     <mat-select formControlName="industry">
-                      <mat-option *ngFor="let industry of industries" [value]="industry.value">
+                      <mat-option *ngFor="let industry of userService.jobIndustrys" [value]="industry.value">
                         {{industry.viewValue}}
                       </mat-option>
                     </mat-select>
@@ -97,7 +97,7 @@
                   <mat-form-field>
                     <mat-label>Gender</mat-label>
                     <mat-select formControlName="gender">
-                      <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                      <mat-option *ngFor="let gender of userService.candidateGenders" [value]="gender.value">
                         {{gender.viewValue}}
                       </mat-option>
                     </mat-select>
@@ -105,10 +105,19 @@
                 </div>
               </div>
 
-              <section class="section-mat-form-field">
-                <mat-label>Resume</mat-label>
-                <input accept=".doc,.docx,.pdf" type="file" formControlName="resume" />
-              </section>
+              <div class="">
+                <section class="section-mat-form-field section-field-file">
+                    <mat-label>Resume</mat-label>
+                    <input accept=".doc,.docx,.pdf" type="file" #inputResume (change)="onResumeChange($event)" />
+                    <span *ngIf="f.resume.value">{{f.resume.value}}</span>
+                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                        (click)="inputResume.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressResume" mode="determinate" [value]="progressResume" class="mb-15">
+                </mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.resume.validated">
+                    {{formCustomvalidation.resume.message}}</p>
+            </div>
 
 
               <mat-form-field>

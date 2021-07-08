@@ -1,5 +1,4 @@
-<div class="jobsearch-job-subheader"
-  style="background:url({{job.user?.cover_photo}}) center/cover no-repeat">
+<div class="jobsearch-job-subheader" style="background:url({{job.user?.cover_photo}}) center/cover no-repeat">
   <span class="jobsearch-banner-transparent" style="background: rgb(48, 56, 68, 0.50)"></span>
 </div>
 
@@ -31,8 +30,7 @@
                 <ul class="jobsearch-jobdetail-options">
                   <li>
                     <i class="fa fa-map-marker"></i> {{job.address}}
-                    <a
-                      *ngIf="job.latitude && job.longitude"
+                    <a *ngIf="job.latitude && job.longitude"
                       href="https://www.google.com/maps/search/{{job.latitude}}%2C{{job.longitude}}" target="_blank"
                       class="jobsearch-jobdetail-view">View on Map</a>
                   </li>
@@ -199,9 +197,20 @@
         <aside class="jobsearch-column-4 jobsearch-typo-wrap">
           <div class="jobsearch_side_box jobsearch_apply_job">
             <div class="jobsearch_apply_job_wrap">
-              <a (click)="applyForJob()" class="jobsearch-applyjob-btn">Apply for
-                the job</a>
-              <span>Application ends in {{job.deadline | timeUntil}}</span>
+              <ng-container *ngIf="!isDeadlineOver(job)">
+                <ng-container *ngIf="!applied">
+                  <a (click)="applyForJob()" class="jobsearch-applyjob-btn">Apply for
+                    the job</a>
+                  <span>Application ends in {{job.deadline | timeUntil}}</span>
+                </ng-container>
+
+                <ng-container *ngIf="applied">
+                  <span>You have applied for this job.</span>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="isDeadlineOver(job)">
+                <span>Application deadline has ended.</span>
+              </ng-container>
             </div>
             <a (click)="openContactEmployerModal()"
               class="jobsearch-sendmessage-btn jobsearch-sendmessage-messsage-popup-btn"><i

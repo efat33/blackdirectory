@@ -304,9 +304,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
               }
 
               // hide progress bar
-              console.log('here');
               setTimeout(() => {
-                console.log('here 2');
                 this.progressAttachment = 0;
               }, 1500);
           }
@@ -328,6 +326,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createJob() {
     const formValues = this.jobForm.value;
+    formValues.deadline = formValues.deadline.toLocaleDateString();
 
     this.spinnerService.show();
     const newJobSubscription = this.jobService.newJob(formValues).subscribe(
@@ -350,6 +349,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateJob() {
     const formValues = this.jobForm.value;
+    formValues.deadline = formValues.deadline.toLocaleDateString();
 
     this.spinnerService.show();
     const updateJobSubscription = this.jobService.editJob(this.editJobId, formValues).subscribe(
