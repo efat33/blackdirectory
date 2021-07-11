@@ -16,13 +16,14 @@ import { UserFollowerComponent } from './followers/followers.component';
 import { UserFollowingComponent } from './following/following.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ManageJobComponent } from './manage-job/manage-job.component';
 
 
 @NgModule({
   declarations: [
     DashboardProfileComponent, DashboardComponent, AllApplicantsComponent, AppliedJobsComponent,
     FavoriteJobsComponent, ManageJobsComponent, NewJobComponent, SavedJobsComponent, UserFollowerComponent,
-    UserFollowingComponent, ChangePasswordComponent
+    UserFollowingComponent, ChangePasswordComponent, ManageJobComponent
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule]
 })

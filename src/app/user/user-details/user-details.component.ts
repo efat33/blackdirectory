@@ -11,6 +11,7 @@ import { Sector } from "../../jobs/jobs";
 import { JobService } from 'src/app/jobs/jobs.service';
 import { PipeTransform } from '@angular/core';
 import { Pipe } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -40,6 +41,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
     private helperService: HelperService,
     private userService: UserService,
     private spinnerService: SpinnerService,
@@ -47,14 +50,19 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    
+    const username = this.route.snapshot.paramMap.get('username');
+
+    if (!username) {
+      this.router.navigate(['/']);
+    }
+
     this.setupContactForm();
 
     // show spinner, wait until user data is fetched
     this.spinnerService.show();
 
     // get current user detail
-    this.userService.getDetails().subscribe(
+    this.userService.getDetails(username).subscribe(
       (res: any) => {
         this.currentUser = res.data.data;
         this.userType = res.data.data.role;
@@ -63,7 +71,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
         // populdate data
         this.populateData();
-        
+
         // hide spinner
         this.spinnerService.hide();
       },
@@ -75,23 +83,23 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
 
     );
-    
+
 
   }
 
   populateData():void {
-    
+
     if(this.currentUser.profile_photo != '') this.profileImage = this.helperService.getImageUrl(this.currentUser.profile_photo, 'users', 'medium')
     if(this.currentUser.cover_photo != '') this.coverImage = this.helperService.getImageUrl(this.currentUser.cover_photo, 'users')
     if(this.userMeta.academics) this.academics = JSON.parse(this.userMeta.academics);
-    
+
     // set image url in portfolios array
     if(this.userProfile.portfolios){
       this.userProfile.portfolios.map(portfolio => {
         portfolio.image = this.helperService.getImageUrl(portfolio.image, 'users', 'thumb');
       });
     }
-    
+
   }
 
   setupContactForm():void {
@@ -119,7 +127,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    
+
   }
 
 

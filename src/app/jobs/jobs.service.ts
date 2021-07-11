@@ -126,8 +126,26 @@ export class JobService {
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
 
+  getJobApplications(): Observable<any> {
+    const url = 'api/jobs/get-applications';
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
   getUserApplicationStatus(jobId: number): Observable<any> {
     const url = `api/jobs/get-application-status/${jobId}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  updateJobApplication(applicationId: number, body: any): Observable<any> {
+    const url = `api/jobs/update-job-appliation/${applicationId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  getAppliedJobs(): Observable<any> {
+    const url = `api/jobs/get-applied-jobs`;
 
     return this.httpClient.get<any>(url, this.headerOptions);
   }

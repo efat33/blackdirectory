@@ -116,7 +116,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
   getUserDetails() {
     this.spinnerService.show();
-    const getUserSubscription = this.userService.getDetails().subscribe(
+    const getUserSubscription = this.userService.getDetails(this.helperService.currentUserInfo.username).subscribe(
       (result: any) => {
         this.spinnerService.hide();
 

@@ -13,6 +13,7 @@ import { NewJobComponent } from './new-job/new-job.component';
 import { UserFollowerComponent } from './followers/followers.component';
 import { UserFollowingComponent } from './following/following.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ManageJobComponent } from './manage-job/manage-job.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'favorite-jobs', component:  FavoriteJobsComponent},
       { path: 'saved-jobs', component:  SavedJobsComponent},
       { path: 'all-applicants', component:  AllApplicantsComponent},
+      { path: 'manage-job/:job_id', component:  ManageJobComponent},
       { path: 'manage-jobs', component:  ManageJobsComponent},
       { path: 'new-job', component:  NewJobComponent},
       { path: 'edit-job/:job_id', component:  NewJobComponent},

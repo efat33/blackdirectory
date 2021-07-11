@@ -107,8 +107,8 @@ export class UserService {
       .get<UserAPIReponse>(url, this.headerOptions);
   }
 
-  getDetails(): Observable<UserAPIReponse> {
-    const url = 'api/users/user-details';
+  getDetails(username: string): Observable<UserAPIReponse> {
+    const url = `api/users/user-details/${username}`;
 
     return this.httpClient
       .get<UserAPIReponse>(url, this.headerOptions);
