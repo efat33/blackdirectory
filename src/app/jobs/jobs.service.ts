@@ -150,6 +150,50 @@ export class JobService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
+  saveCandidate(candidate_id: number): Observable<any> {
+    const url = `api/jobs/save-candidate`;
+
+    const body = {
+      candidate_id
+    };
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  getSavedCandidates(): Observable<any> {
+    const url = `api/jobs/get-saved-candidates`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  deleteSavedCandidate(candidate_id: number): Observable<any> {
+    const url = `api/jobs/delete-saved-candidate/${candidate_id}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
+  saveFavoriteJob(job_id: number): Observable<any> {
+    const url = `api/jobs/save-favorite-job`;
+
+    const body = {
+      job_id
+    };
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  getFavoriteJobs(): Observable<any> {
+    const url = `api/jobs/get-favorite-jobs`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  deleteFavoriteJob(job_id: number): Observable<any> {
+    const url = `api/jobs/delete-favorite-job/${job_id}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
   sendMail(emailOptions: any): Observable<any> {
     const url = `api/mail/send`;
 

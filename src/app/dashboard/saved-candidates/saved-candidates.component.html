@@ -1,0 +1,47 @@
+<div class="content-box_module__333d9 content-box_lg__3v3a-">
+  <header _ngcontent-bps-c143="" class="content-box_header__xPnGx clearfix">
+    <div _ngcontent-bps-c143="" class="wil-float-left">
+      <h4 _ngcontent-bps-c143="" class="content-box_title__1gBHS">
+        <span _ngcontent-bps-c143="">Saved Candidates</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <div class="jobsearch-typo-wrap">
+      <div class="jobsearch-profile-actreslis">
+        <div class="jobsearch-employer-resumes">
+          <ul class="jobsearch-row">
+            <li class="jobsearch-column-6" *ngFor="let savedCandidate of savedCandidates; let index = index">
+              <div class="jobsearch-employer-resumes-wrap">
+                <a (click)="deleteSavedCandidate(savedCandidate, index)"
+                  class="jobsearch-rem-empresmue jobsearch-remresmuesh-item-cc modeledelitm-btn-75304465"><i
+                    class="fa fa-times"></i></a>
+                <figure>
+                  <a [routerLink]="['/user-details/', savedCandidate.candidate_username]"
+                    class="jobsearch-resumes-thumb"><img [src]="getUserProfilePicture(savedCandidate)"></a>
+                  <figcaption>
+                    <h2 class="jobsearch-pst-title">
+                      <a
+                        [routerLink]="['/user-details/', savedCandidate.candidate_username]">{{savedCandidate.candidate_display_name}}</a>
+                    </h2>
+                    <ul>
+                    </ul>
+                  </figcaption>
+                </figure>
+                <ul class="jobsearch-resumes-options">
+                  <li><a href="javascript:void(0);" class="jobsearch-modelemail-btn-75304465"><i
+                        class="jobsearch-icon jobsearch-mail"></i> Message</a></li>
+                  <li><a [routerLink]="['/user-details/', savedCandidate.candidate_username]"><i
+                        class="jobsearch-icon jobsearch-user-1"></i>
+                      View Profile</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

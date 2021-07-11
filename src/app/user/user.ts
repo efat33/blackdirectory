@@ -14,7 +14,7 @@ export class CurrentUser {
   email: string;
   featured: string;
   first_name: string;
-  id: string;
+  id: number;
   job_sectors_id: string;
   last_name: string;
   latitude: string;
