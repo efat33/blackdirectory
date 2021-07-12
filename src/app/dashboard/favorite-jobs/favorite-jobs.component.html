@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let job of favoriteJobs">
+            <tr *ngFor="let job of favoriteJobs; let index = index">
               <td>
                 <a class="jobsearch-savedjobs-thumb" [routerLink]="['/jobs/details/', job.job_slug]"><img
                     [src]="getUserProfilePicture(job)"></a>
@@ -30,7 +30,7 @@
               <td><span>@ {{job.employer_display_name}}</span></td>
               <td>{{job.job_created_at | date:'MMMM d, yyyy'}}</td>
               <td>
-                <a (click)="deleteFavoriteJob(job)" class="jobsearch-savedjobs-links jobsearch-delete-fav-job"><i
+                <a (click)="deleteFavoriteJob(job, index)" class="jobsearch-savedjobs-links jobsearch-delete-fav-job"><i
                     class="jobsearch-icon jobsearch-rubbish"></i></a>
                 <a [routerLink]="['/jobs/details/', job.job_slug]" class="jobsearch-savedjobs-links"><i
                     class="jobsearch-icon jobsearch-view"></i></a>

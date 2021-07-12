@@ -1,0 +1,119 @@
+<div class="jobsearch-typo-wrap">
+  <div id="dashboard-tab-settings" class="main-tab-section"></div>
+  <div id="dashboard-tab-manage-jobs" class="main-tab-section">
+    <div class="jobsearch-employer-dasboard jobsearch-injobapplics-con">
+      <div class="jobsearch-employer-box-section">
+        <div class="jobsearch-profile-title">
+          <h2>"{{jobApplications[0]?.job?.title}}" Applicants</h2>
+        </div>
+        <div class="jobsearch-applicants-tabs">
+          <ul class="tabs-list app_tabs_count_3">
+            <li [ngClass]="{'active': selectedTab === 0}"><a (click)="selectedTab = 0">Applicants
+                ({{jobApplications.length}})</a>
+            </li>
+            <li [ngClass]="{'active': selectedTab === 1}"><a (click)="selectedTab = 1">Shortlisted
+                for Interview ({{shortlistedApplications.length}})</a>
+            </li>
+            <li [ngClass]="{'active': selectedTab === 2}"><a (click)="selectedTab = 2">Rejected
+                ({{rejectedApplications.length}})</a>
+            </li>
+          </ul>
+
+          <div class="jobsearch-applied-jobs ">
+            <ul class="jobsearch-row">
+              <li class="jobsearch-column-12">
+                <ng-container *ngIf="selectedTab === 0">
+                  <ng-container *ngFor="let application of jobApplications">
+                    <ng-container *ngTemplateOutlet="applicationTemplate; context:{application: application}">
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="selectedTab === 1">
+                  <ng-container *ngFor="let application of jobApplications">
+                    <ng-container *ngIf="application.shortlisted">
+                      <ng-container *ngTemplateOutlet="applicationTemplate; context:{application: application}">
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="selectedTab === 2">
+                  <ng-container *ngFor="let application of jobApplications">
+                    <ng-container *ngIf="application.rejected">
+                      <ng-container *ngTemplateOutlet="applicationTemplate; context:{application: application}">
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #applicationTemplate let-application='application'>
+  <div class="jobsearch-applied-jobs-wrap">
+    <a class="jobsearch-applied-jobs-thumb">
+      <img [src]="getUserProfilePicture(application.user)" alt="">
+    </a>
+
+    <div class="jobsearch-applied-jobs-text">
+      <div class="jobsearch-applied-jobs-left">
+        <small class="profile-view"
+          [ngClass]="application.viewed ? 'color-success' : 'color-danger'">{{application.viewed ?
+          '(Viewed)' :
+          '(Unviewed)'}}</small>
+        <small *ngIf="application.shortlisted" class="profile-view color-success">
+          (Shortlisted)</small>
+        <small *ngIf="application.rejected" class="profile-view color-danger"> (Rejected)</small>
+
+        <h2>
+          <a (click)="goToUserDetails(application)">{{application.user.display_name}}</a>
+        </h2>
+
+        <ul>
+          <li><i class="jobsearch-icon jobsearch-calendar"></i> Applied at: {{application.created_at |
+            date:'MMM d, y h:mm a'}}</li>
+        </ul>
+      </div>
+      <div class="jobsearch-applied-job-btns">
+        <ul>
+          <li>
+            <a (click)="goToUserDetails(application)" class="preview-candidate-profile"><i class="fa fa-eye"></i>
+              Preview</a>
+          </li>
+          <li>
+            <div class="candidate-more-acts-con">
+              <a class="more-actions" (click)="dropdown.style.display = 'block'"
+                (clickOutside)="dropdown.style.display = 'none'">Actions
+                <i class="fa fa-angle-down"></i></a>
+              <ul #dropdown>
+                <li><a class="jobsearch-modelcvrltr-btn-580809">View
+                    Cover Letter</a></li>
+                <li>
+                  <a class="jobsearch-modelemail-btn-580809">Email to
+                    Candidate</a>
+                </li>
+                <li *ngIf="!application.rejected">
+                  <a class="shortlist-cand-to-intrview ajax-enable"
+                    (click)="shortlistApplication(application)">{{application.shortlisted ?
+                    'Shortlisted' :
+                    'Shortlist for Interview'}}</a>
+                </li>
+                <li>
+                  <a class="reject-cand-to-intrview ajax-enable"
+                    (click)="rejectApplication(application)">{{application.rejected ? 'Rejected' :
+                    'Reject'}}</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-template>

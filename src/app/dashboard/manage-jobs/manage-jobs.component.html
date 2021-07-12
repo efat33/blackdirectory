@@ -36,14 +36,10 @@
                 <div class="jobsearch-recent-applicants-nav">
                   <ul>
                     <li>
-                      <a *ngIf="job.job_apply_type == 'internal'"
-                        [routerLink]="['/dashboard/manage-job/', job.id]"><span>{{job.applicants_number
+                      <a [routerLink]="job.job_apply_type == 'internal' ? ['/dashboard/manage-job/', job.id] : null"><span>{{job.applicants_number
                           || 0}}</span>
                         <small> Total applicants</small>
                       </a>
-                      <span *ngIf="job.job_apply_type != 'internal'"><span>{{job.applicants_number
-                          || 0}}</span>
-                        <small> Total applicants</small></span>
                     </li>
                     <li><span>{{job.views || 0}}</span> <small>Total visits</small></li>
                     <li><small>Expiry Date: {{job.expiry_date | date:'MMM d, y'}}</small></li>
@@ -81,7 +77,7 @@
                     </div>
 
                     <div class="jobsearch-table-cell jobapps-tabl-cell"><a
-                        [routerLink]="['/dashboard/manage-job/', job.id]"
+                        [routerLink]="job.job_apply_type == 'internal' ? ['/dashboard/manage-job/', job.id] : null"
                         class="jobsearch-managejobs-appli">{{job.applicants_number || 0}} Application(s)</a></div>
                     <div class="jobsearch-table-cell">
                       <a href="http://nirectory.com/user-dashboard/?tab=user-job&amp;job_id=17361&amp;action=update&amp;step=package"

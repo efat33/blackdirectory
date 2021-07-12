@@ -126,8 +126,12 @@ export class JobService {
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
 
-  getJobApplications(): Observable<any> {
-    const url = 'api/jobs/get-applications';
+  getJobApplications(jobId: number = null): Observable<any> {
+    let url = 'api/jobs/get-applications';
+
+    if (jobId) {
+      url += `/${jobId}`;
+    }
 
     return this.httpClient.get<any>(url, this.headerOptions);
   }
