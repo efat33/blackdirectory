@@ -28,7 +28,8 @@
                       class="jobsearch-icon jobsearch-linkedin-button"></a>
                   </li>
                 </ul>
-                <a (click)="updateSaveCandidateStatus()" class="jobsearch-candidate-default-btn jobsearch-add-resume-to-list"><i
+                <a (click)="updateSaveCandidateStatus()"
+                  class="jobsearch-candidate-default-btn jobsearch-add-resume-to-list"><i
                     class="jobsearch-icon jobsearch-add-list"></i> {{candidateSaved ? 'Saved' : 'Save Candidate'}}</a>
 
                 <div *ngIf="currentUser.phone" class="jobsearch-whatsapp-msgcon jobsearch_whatsap_view_1">
@@ -222,7 +223,7 @@
                     <i class="jobsearch-icon jobsearch-technology"></i> Telephone: 8801777560000
                   </li>
                 </ul>
-                <a href="javascript:void(0);" data-target="add_review_form_sec"
+                <a (click)="scrollIntoView(reviewList)"
                   class="jobsearch-go-to-review-form jobsearch-employerdetail-btn" data-post_id="17320"><i
                     class="jobsearch-icon jobsearch-add"></i> Add a review </a>
                 <a href="javascript:void(0);" class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn"
@@ -279,183 +280,123 @@
                 <p>Description ………….</p>
               </div>
             </div>
-            <div class="dash-reviews-list jobsearch-employer-wrap-section">
+
+            <div #reviewList class="dash-reviews-list jobsearch-employer-wrap-section">
               <div class="jobsearch-content-title jobsearch-addmore-space">
                 <h2>Company Reviews</h2>
               </div>
 
               <div class="jobsearch-company-review">
-                <div class="reviw-mainitem-con ">
-                  <div class="review-detail-popover">
+                <div *ngFor="let review of reviews" class="reviw-mainitem-con ">
+                  <div #ratingDetails class="review-detail-popover">
                     <div class="rating-detail-item">
                       <span class="rating-title">Quality</span>
                       <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                          style="width: 80%;"></span>
+                          [style.width.%]="review.rating_quality*20"></span>
                       </div>
                     </div>
                     <div class="rating-detail-item">
                       <span class="rating-title">Communication</span>
                       <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                          style="width: 100%;"></span>
+                          [style.width.%]="review.rating_communication*20"></span>
                       </div>
                     </div>
                     <div class="rating-detail-item">
                       <span class="rating-title">Goodwill</span>
                       <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                          style="width: 100%;"></span>
+                          [style.width.%]="review.rating_goodwill*20"></span>
                       </div>
                     </div>
                   </div>
+
                   <figure>
-                    <a href="http://nirectory.com/candidate/efat-ctet01/" class="company-review-thumb"><img
-                        src="http://2.gravatar.com/avatar/5901fc7e6cb8df5c3333903ef90fc418?s=60&amp;d=http%3A%2F%2Fwilcity.blackdirectory.co.uk%2Fwp-content%2Fplugins%2Fwp-jobsearch%2Fimages%2Fno-image.jpg&amp;r=g"
-                        alt=""></a>
+                    <a [routerLink]="['/user-details/', review.candidate_username]" class="company-review-thumb"><img
+                        [src]="getUserProfilePicture(review.candidate_profile_photo)"></a>
                     <figcaption>
                       <div class="jobsearch-company-review-left">
-                        <a href="http://nirectory.com/candidate/efat-ctet01/" class="reviewr-user-name">efat.ctet01</a>
-                        <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                            style="width: 93.333333333334%;"></span></div>
-                        <small>4.7</small>
+                        <a [routerLink]="['/user-details/', review.candidate_username]"
+                          class="reviewr-user-name">{{review.candidate_display_name}}</a>
+
+                        <div class="jobsearch-company-rating" (mouseenter)="showDetailRating(ratingDetails)"
+                          (mouseleave)="hideDetailRating(ratingDetails)">
+                          <span class="jobsearch-company-rating-box" style="width: 93.333333333334%;"></span>
+                        </div>
+
+                        <small>{{review.rating_overall}}</small>
                       </div>
-                      <time datetime="May 5, 2021 11:54 am">May 5, 2021</time>
-                      <a href="javascript:void(0);" class="update-cuser-review" data-id="65"><i
-                          class="fa fa-pencil"></i> Update</a>
+
+                      <time>{{review.created_at | date:"MMMM d, yyyy"}}</time>
                     </figcaption>
                   </figure>
+
                   <div class="reviw-contntholdr-con">
-                    <div class="jobsearch-company-review-text">
-                      <p>Nice</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="reviw-mainitem-con ">
-                  <div class="review-detail-popover">
-                    <div class="rating-detail-item">
-                      <span class="rating-title">Quality</span>
-                      <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                          style="width: 100%;"></span>
-                      </div>
-                    </div>
-                    <div class="rating-detail-item">
-                      <span class="rating-title">Communication</span>
-                      <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                          style="width: 100%;"></span>
-                      </div>
-                    </div>
-                    <div class="rating-detail-item">
-                      <span class="rating-title">Goodwill</span>
-                      <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                          style="width: 100%;"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <figure>
-                    <a href="http://nirectory.com/candidate/zakaria/" class="company-review-thumb"><img
-                        src="http://1.gravatar.com/avatar/a08b0cbe90a997c9e6290247dbfe4c54?s=60&amp;d=http%3A%2F%2Fwilcity.blackdirectory.co.uk%2Fwp-content%2Fplugins%2Fwp-jobsearch%2Fimages%2Fno-image.jpg&amp;r=g"
-                        alt=""></a>
-                    <figcaption>
-                      <div class="jobsearch-company-review-left">
-                        <a href="http://nirectory.com/candidate/zakaria/" class="reviewr-user-name">zakaria</a>
-                        <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                            style="width: 100%;"></span></div>
-                        <small>5.0</small>
-                      </div>
-                      <time datetime="May 2, 2021 8:17 am">May 2, 2021</time>
-                    </figcaption>
-                  </figure>
-                  <div class="reviw-contntholdr-con">
-                    <div class="jobsearch-company-review-text">
-                      <p>Test</p>
+                    <div class="jobsearch-company-review-text" [innerHTML]="review.review">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div id="add_review_form_sec" class="jobsearch-employer-wrap-section jobsearch-margin-bottom">
+
+            <div *ngIf="ifShowAddReviewForm()" id="add_review_form_sec"
+              class="jobsearch-employer-wrap-section jobsearch-margin-bottom">
               <div class="jobsearch-content-title jobsearch-addmore-space">
                 <h2>Leave Your Review</h2>
               </div>
               <div class="jobsearch-add-review-con">
 
-                <form id="jobsearch-review-form" class="jobsearch-addreview-form" method="post">
+                <form [formGroup]="reviewForm" id="jobsearch-review-form" class="jobsearch-addreview-form" method="post"
+                  (ngSubmit)="onReviewSubmit()">
                   <ul>
                     <li>
                       <div class="review-stars-sec">
 
                         <div class="review-stars-holder">
                           <label>Quality</label>
-                          <div class="br-wrapper br-theme-fontawesome-stars"><select id="review-stars-selector-1"
-                              name="user_rating_1" autocomplete="off" style="display: none;">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
-                            <div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"
-                                class="br-selected br-current"></a><a href="#" data-rating-value="2"
-                                data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a
-                                href="#" data-rating-value="4" data-rating-text="4"></a><a href="#"
-                                data-rating-value="5" data-rating-text="5"></a>
+                          <div class="br-wrapper br-theme-fontawesome-stars">
+                            <div class="br-widget">
+                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_quality}"
+                                (click)="setRating(rating, 'rating_quality')"></a>
                             </div>
                           </div>
                         </div>
 
                         <div class="review-stars-holder">
                           <label>Communication</label>
-                          <div class="br-wrapper br-theme-fontawesome-stars"><select id="review-stars-selector-2"
-                              name="user_rating_2" autocomplete="off" style="display: none;">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
-                            <div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"
-                                class="br-selected br-current"></a><a href="#" data-rating-value="2"
-                                data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a
-                                href="#" data-rating-value="4" data-rating-text="4"></a><a href="#"
-                                data-rating-value="5" data-rating-text="5"></a>
+                          <div class="br-wrapper br-theme-fontawesome-stars">
+                            <div class="br-widget">
+                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_communication}"
+                                (click)="setRating(rating, 'rating_communication')"></a>
                             </div>
                           </div>
                         </div>
 
                         <div class="review-stars-holder">
                           <label>Goodwill</label>
-                          <div class="br-wrapper br-theme-fontawesome-stars"><select id="review-stars-selector-3"
-                              name="user_rating_3" autocomplete="off" style="display: none;">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
-                            <div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"
-                                class="br-selected br-current"></a><a href="#" data-rating-value="2"
-                                data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a
-                                href="#" data-rating-value="4" data-rating-text="4"></a><a href="#"
-                                data-rating-value="5" data-rating-text="5"></a>
+                          <div class="br-wrapper br-theme-fontawesome-stars">
+                            <div class="br-widget">
+                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_goodwill}"
+                                (click)="setRating(rating, 'rating_goodwill')"></a>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="review-overall-stars-sec">
                         <span class="rating-text">Overall Rating</span>
-                        <span class="rating-num">0</span>
+                        <span class="rating-num">{{reviewForm.value.rating_overall}}</span>
                         <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                            style="width: 20%;"></span>
+                            [style.width.%]="reviewForm.value.rating_overall*20"></span>
                         </div>
                       </div>
                     </li>
                     <li>
-                      <textarea name="user_comment" placeholder="Your Review"></textarea>
+                      <textarea name="user_comment" placeholder="Your Review" formControlName="review"></textarea>
                     </li>
                     <li>
-                      <input type="hidden" name="review_post" value="17320">
-                      <input type="hidden" name="action" value="jobsearch_user_review_post">
-                      <input type="submit" id="jobsearch-review-submit-btn" value="Submit now">
-                      <span class="jobsearch-review-loader"></span>
-                      <span class="jobsearch-review-msg"></span>
+                      <input type="submit" id="jobsearch-review-submit-btn" value="Submit now"
+                        [disabled]="!reviewForm.valid">
                     </li>
                   </ul>
                 </form>

@@ -80,8 +80,9 @@
                         [routerLink]="job.job_apply_type == 'internal' ? ['/dashboard/manage-job/', job.id] : null"
                         class="jobsearch-managejobs-appli">{{job.applicants_number || 0}} Application(s)</a></div>
                     <div class="jobsearch-table-cell">
-                      <a href="http://nirectory.com/user-dashboard/?tab=user-job&amp;job_id=17361&amp;action=update&amp;step=package"
-                        class="jobsearch-featureto-job" title="Make Featured Job"><i class="fa fa-star-o"></i></a>
+                      <a (click)="featureJob(job)" [ngStyle]="{'color': job.featured ? 'gold' : 'inherit'}"
+                        class="jobsearch-featureto-job" title="Make Featured Job"><i class="fa"
+                          [ngClass]="job.featured ? 'fa-star' : 'fa-star-o'"></i></a>
                     </div>
                     <div class="jobsearch-table-cell stuts-tabl-cell"><span
                         class="jobsearch-managejobs-option active">{{job.status === 'approved' ? 'Approved' :

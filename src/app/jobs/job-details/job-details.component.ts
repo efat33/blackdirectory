@@ -124,7 +124,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
         this.coverLetter = result.data.meta_data?.find((data: any) => data.meta_key === 'cover_letter')?.meta_value;
 
-        if(this.helperService.currentUserInfo?.role === 'candidate') {
+        if(this.helperService.isCandidate()) {
           this.getFavoriteJobs();
         }
       },
@@ -138,7 +138,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   getFavoriteJobs() {
-    if (this.helperService.currentUserInfo?.role != 'candidate') {
+    if (!this.helperService.isCandidate()) {
       return;
     }
 
@@ -193,7 +193,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.helperService.currentUserInfo?.role !== 'candidate') {
+    if (!this.helperService.isCandidate()) {
       this.snackbar.openSnackBar('Requires "Candidate" login', 'Close', 'warn');
       return;
     }
@@ -274,7 +274,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateFavoriteJob() {
-    if (this.helperService.currentUserInfo?.role !== 'candidate') {
+    if (!this.helperService.isCandidate()) {
       this.snackbar.openSnackBar(`Requires 'Candidate' login`, 'Close', 'warn');
       return;
     }

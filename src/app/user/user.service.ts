@@ -175,4 +175,16 @@ export class UserService {
   }
 
 
+  getReviews(id: number): Observable<any> {
+    const url = `api/users/user-review/${id}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  newReview(id: number, body: any): Observable<any> {
+    const url = `api/users/user-review/${id}`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
 }

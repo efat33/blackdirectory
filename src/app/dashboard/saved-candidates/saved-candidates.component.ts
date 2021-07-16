@@ -28,7 +28,7 @@ export class SavedCandidatesComponent implements OnInit, OnDestroy {
   }
 
   getSavedCandidates() {
-    if (this.helperService.currentUserInfo?.role != 'employer') {
+    if (!this.helperService.isEmployer()) {
       return;
     }
 

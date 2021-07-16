@@ -29,7 +29,7 @@ export class FavoriteJobsComponent implements OnInit, OnDestroy {
   }
 
   getFavoriteJobs() {
-    if (this.helperService.currentUserInfo?.role != 'candidate') {
+    if (!this.helperService.isCandidate()) {
       return;
     }
 

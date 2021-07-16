@@ -19,7 +19,7 @@
                 <span>
                   <small> <a class="jobsearch-jobdetail-type">
                       {{job.job_type}} </a>
-                  </small><a href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">{{job.user?.username}}</a>
+                  </small><a [routerLink]="['/user-details/', job.user?.username]">{{job.user?.username}}</a>
                   <small class="jobsearch-jobdetail-postinfo"> posted {{job.created_at | timeAgo}}</small>
                   <small class="post-in-category"> in <a
                       href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/?sector_cat=banking&amp;ajax_filter=true"

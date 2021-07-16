@@ -41,6 +41,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   showEmployerError = false;
   errorMessageEmployer = '';
 
+  reviewForm: FormGroup;
+  reviews: any[] = [];
+
   candidateSaved: boolean = false;
 
   constructor(
@@ -62,8 +65,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     }
 
     this.setupContactForm();
+    this.setupReviewForm();
     this.getUserDetails();
-
   }
 
   getUserDetails() {
@@ -84,7 +87,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         // hide spinner
         this.spinnerService.hide();
 
-        if(this.helperService.currentUserInfo?.role === 'employer') {
+        this.getReviews();
+
+        if (this.helperService.isEmployer()) {
           this.getSavedCandidates();
         }
       },
@@ -99,8 +104,26 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.subsciptions.add(getUserSubscription);
   }
 
+  getReviews() {
+    this.spinnerService.show();
+
+    const getReviewsSubscription = this.userService.getReviews(this.currentUser.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.reviews = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(getReviewsSubscription);
+  }
+
   getSavedCandidates() {
-    if (this.helperService.currentUserInfo?.role != 'employer') {
+    if (!this.helperService.isEmployer()) {
       return;
     }
 
@@ -156,8 +179,18 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  setupReviewForm() {
+    this.reviewForm = new FormGroup({
+      review: new FormControl('', Validators.required),
+      rating_quality: new FormControl(1, Validators.required),
+      rating_communication: new FormControl(1, Validators.required),
+      rating_goodwill: new FormControl(1, Validators.required),
+      rating_overall: new FormControl(1, Validators.required),
+    });
+  }
+
   updateSaveCandidateStatus() {
-    if (this.helperService.currentUserInfo?.role !== 'employer') {
+    if (!this.helperService.isEmployer()) {
       this.snackbar.openSnackBar(`Requires 'Employer' login`, 'Close', 'warn');
       return;
     }
@@ -208,6 +241,74 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   onSubmitCandidate() {}
 
   onSubmitEmployer() {}
+
+  onReviewSubmit() {
+    const review = this.reviewForm.value;
+
+    this.spinnerService.show();
+    const reviewSubscription = this.userService.newReview(this.currentUser.id, review).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar('Review Added');
+
+        this.getReviews();
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subsciptions.add(reviewSubscription);
+  }
+
+  setRating(rating: number, control: string) {
+    this.reviewForm.get(control).setValue(rating);
+
+    const overallRating =
+      (parseInt(this.reviewForm.value.rating_quality) +
+        parseInt(this.reviewForm.value.rating_communication) +
+        parseInt(this.reviewForm.value.rating_goodwill)) /
+      3;
+
+    this.reviewForm.get('rating_overall').setValue(Math.round(overallRating * 10) / 10);
+  }
+
+  ifShowAddReviewForm() {
+    if (!this.helperService.currentUserInfo) {
+      return false;
+    }
+
+    if (this.helperService.currentUserInfo?.id == this.currentUser?.id) {
+      return false;
+    }
+
+    return true;
+  }
+
+  getUserProfilePicture(profilePhoto: string) {
+    if (profilePhoto) {
+      return this.helperService.getImageUrl(profilePhoto, 'users', 'thumb');
+    }
+
+    return 'assets/img/avatar-default.png';
+  }
+
+  showDetailRating(detailElement: any) {
+    detailElement.style.display = 'block';
+  }
+
+  hideDetailRating(detailElement: any) {
+    detailElement.style.display = 'none';
+  }
+
+  scrollIntoView(element: any) {
+    try {
+      window.scrollTo({ left: 0, top: element.offsetTop - 20, behavior: 'smooth' });
+    } catch (e) {
+      window.scrollTo(0, element.offsetTop - 20);
+    }
+  }
 
   ngOnDestroy() {
     this.subsciptions.unsubscribe();
