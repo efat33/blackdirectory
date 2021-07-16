@@ -223,12 +223,11 @@
                     <i class="jobsearch-icon jobsearch-technology"></i> Telephone: 8801777560000
                   </li>
                 </ul>
-                <a (click)="scrollIntoView(reviewList)"
-                  class="jobsearch-go-to-review-form jobsearch-employerdetail-btn" data-post_id="17320"><i
-                    class="jobsearch-icon jobsearch-add"></i> Add a review </a>
-                <a href="javascript:void(0);" class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn"
-                  data-id="17320" data-beforelbl="Follow" data-afterlbl="Followed"><i class="fa fa-user-plus"></i>
-                  Follow</a>
+                <a (click)="scrollIntoView(reviewList)" class="jobsearch-go-to-review-form jobsearch-employerdetail-btn"
+                  data-post_id="17320"><i class="jobsearch-icon jobsearch-add"></i> Add a review </a>
+                <a (click)="followEmployer()" class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn"><i
+                    class="fa fa-user-plus"></i>
+                  {{followingEmployer ? 'Following' : 'Follow'}}</a>
                 <ul class="jobsearch-jobdetail-media jobsearch-add-space">
                   <li><span>Social Links:</span></li>
                   <li><a href="https://twitter.com/GSCareers" target="_blank" data-original-title="twitter"

@@ -15,7 +15,7 @@ declare const google: any;
   styleUrls: ['./job-listing.component.scss'],
 })
 export class JobListingComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   sectors = [];
   jobs = [];
@@ -126,7 +126,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getSectorsSubscription);
+    this.subscriptions.add(getSectorsSubscription);
   }
 
   getJobs(page: number = 1) {
@@ -143,7 +143,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getJobsSubscription);
+    this.subscriptions.add(getJobsSubscription);
   }
 
   getJobCount() {
@@ -160,7 +160,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getJobsSubscription);
+    this.subscriptions.add(getJobsSubscription);
   }
 
   filteredJobSectors(searchString: any) {
@@ -183,6 +183,6 @@ export class JobListingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

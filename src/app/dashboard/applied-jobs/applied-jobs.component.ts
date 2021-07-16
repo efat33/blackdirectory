@@ -14,7 +14,7 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
   styleUrls: ['./applied-jobs.component.css'],
 })
 export class AppliedJobsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   internalJobs: any = [];
   emailJobs: any = [];
@@ -43,7 +43,7 @@ export class AppliedJobsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getJobsSubscription);
+    this.subscriptions.add(getJobsSubscription);
   }
 
   getUserProfilePicture(job: any) {
@@ -55,6 +55,6 @@ export class AppliedJobsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

@@ -12,7 +12,7 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
   styleUrls: ['./manage-jobs.component.css'],
 })
 export class ManageJobsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   jobs: any = [];
   searchKeyword: string = '';
@@ -43,7 +43,7 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getJobsSubscription);
+    this.subscriptions.add(getJobsSubscription);
   }
 
   matchSearch(job: any) {
@@ -64,10 +64,10 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(featureJobSubs);
+    this.subscriptions.add(featureJobSubs);
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

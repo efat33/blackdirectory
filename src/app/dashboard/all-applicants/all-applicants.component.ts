@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-applicants.component.css'],
 })
 export class AllApplicantsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   searchString: string = '';
 
@@ -53,7 +53,7 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getApplicationSubscriptions);
+    this.subscriptions.add(getApplicationSubscriptions);
   }
 
   processJobApplications(applications: any) {
@@ -124,7 +124,7 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.subsciptions.add(updateApplicationSubscription);
+    this.subscriptions.add(updateApplicationSubscription);
   }
 
   rejectApplication(jobApplication: any) {
@@ -146,7 +146,7 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.subsciptions.add(updateApplicationSubscription);
+    this.subscriptions.add(updateApplicationSubscription);
   }
 
   updateTotalCount() {
@@ -172,6 +172,6 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
   onSubmit() {}
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

@@ -20,7 +20,7 @@ declare const google: any;
   styleUrls: ['./job-details.component.scss'],
 })
 export class JobDetailsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   job: any = {};
   coverLetter: string;
@@ -71,7 +71,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getJobSubscription);
+    this.subscriptions.add(getJobSubscription);
   }
 
   getUserApplicationStatus(jobId: number) {
@@ -90,7 +90,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(userApplicationSubscription);
+    this.subscriptions.add(userApplicationSubscription);
   }
 
   processJob() {
@@ -134,7 +134,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getUserSubscription);
+    this.subscriptions.add(getUserSubscription);
   }
 
   getFavoriteJobs() {
@@ -161,7 +161,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getFavoriteJobsSubs);
+    this.subscriptions.add(getFavoriteJobsSubs);
   }
 
   initializeGoogleMap() {
@@ -216,7 +216,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
           }
         });
 
-      this.subsciptions.add(dialogSubscription);
+      this.subscriptions.add(dialogSubscription);
     } else {
       // internal
       const dialogConfig = {
@@ -235,7 +235,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
           }
         });
 
-      this.subsciptions.add(dialogSubscription);
+      this.subscriptions.add(dialogSubscription);
     }
   }
 
@@ -266,7 +266,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(newJobSubscription);
+    this.subscriptions.add(newJobSubscription);
   }
 
   isDeadlineOver(job: any) {
@@ -301,7 +301,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(saveFavoriteSubscription);
+    this.subscriptions.add(saveFavoriteSubscription);
   }
 
   deleteFavoriteJob() {
@@ -319,7 +319,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(saveFavoriteSubscription);
+    this.subscriptions.add(saveFavoriteSubscription);
   }
 
   ngOnDestroy() {}

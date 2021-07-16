@@ -79,8 +79,7 @@
           <mat-form-field>
             <mat-label>Sector</mat-label>
             <mat-select formControlName="job_sectors_id" required>
-              <mat-option *ngFor="let sector of userService.sectors" [value]="sector.id">
-                {{sector.value}}
+              <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
               </mat-option>
             </mat-select>
           </mat-form-field>

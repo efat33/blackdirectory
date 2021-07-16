@@ -20,7 +20,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
   styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   username: string;
   userType: string;
@@ -45,6 +45,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   reviews: any[] = [];
 
   candidateSaved: boolean = false;
+  followingEmployer: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -91,6 +92,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
         if (this.helperService.isEmployer()) {
           this.getSavedCandidates();
+        } else if (this.helperService.isCandidate()) {
+          this.getFollowingEmployers();
         }
       },
       (res: any) => {
@@ -101,7 +104,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getUserSubscription);
+    this.subscriptions.add(getUserSubscription);
   }
 
   getReviews() {
@@ -119,7 +122,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getReviewsSubscription);
+    this.subscriptions.add(getReviewsSubscription);
   }
 
   getSavedCandidates() {
@@ -146,7 +149,34 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getCandidatesSubs);
+    this.subscriptions.add(getCandidatesSubs);
+  }
+
+  getFollowingEmployers() {
+    if (!this.helperService.isCandidate()) {
+      return;
+    }
+
+    this.spinnerService.show();
+    const subscription = this.userService.getFollowingEmployers().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (result.data.length > 0) {
+          const employer = result.data.find((data: any) => data.employer_id == this.currentUser.id);
+
+          if (employer) {
+            this.followingEmployer = true;
+          }
+        }
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   populateData(): void {
@@ -217,7 +247,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(saveCandidateSubscription);
+    this.subscriptions.add(saveCandidateSubscription);
   }
 
   deleteSavedCandidate() {
@@ -235,7 +265,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(saveCandidateSubscription);
+    this.subscriptions.add(saveCandidateSubscription);
   }
 
   onSubmitCandidate() {}
@@ -259,7 +289,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(reviewSubscription);
+    this.subscriptions.add(reviewSubscription);
   }
 
   setRating(rating: number, control: string) {
@@ -310,7 +340,48 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  followEmployer() {
+    if (!this.helperService.currentUserInfo) {
+      this.snackbar.openSnackBar('Requires login', 'Close', 'warn');
+      return;
+    }
+
+    this.spinnerService.show();
+
+    if (this.followingEmployer) {
+      const subscription = this.userService.unfollowEmployer(this.currentUser.id).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar('Employer unfollowed');
+
+          this.followingEmployer = false;
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+
+      this.subscriptions.add(subscription);
+    } else {
+      const subscription = this.userService.followEmployer(this.currentUser.id).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar('Following successful');
+
+          this.followingEmployer = true;
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+
+      this.subscriptions.add(subscription);
+    }
+  }
+
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

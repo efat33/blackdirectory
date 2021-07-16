@@ -13,7 +13,7 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
   styleUrls: ['./favorite-jobs.component.css'],
 })
 export class FavoriteJobsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   favoriteJobs: any[] = [];
 
@@ -45,7 +45,7 @@ export class FavoriteJobsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getCandidatesSubs);
+    this.subscriptions.add(getCandidatesSubs);
   }
 
   getUserProfilePicture(job: any) {
@@ -71,10 +71,10 @@ export class FavoriteJobsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(saveCandidateSubscription);
+    this.subscriptions.add(saveCandidateSubscription);
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
