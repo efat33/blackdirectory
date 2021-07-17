@@ -5,6 +5,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subscription } from 'rxjs';
 import { ListingService } from '../listing.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -158,6 +159,13 @@ export class ListingEditComponent implements OnInit {
     { value: '23:45', viewValue: '23:45'},
   ];
 
+  ckEditor = ClassicEditor;
+  ckConfig = {
+    placeholder: 'Job Description',
+    height: 200,
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
+  };
+
 
   subscriptions: Subscription = new Subscription();
 
@@ -198,9 +206,9 @@ export class ListingEditComponent implements OnInit {
   videoURLs: FormArray;
   selectedBushinessHour: string;
 
-  galleryImages = {}
+  galleryImages = []
   progressGalleryImages = {}
-  menuItemImages = {}
+  menuItemImages = []
   progressMenuImages = {}
   
   constructor(
@@ -261,22 +269,314 @@ export class ListingEditComponent implements OnInit {
 
   populateFormData() {
     const listing = this.listing.listing;
-    console.log(this.listing);
 
     this.listingForm.patchValue({
+      id: listing.id,
+      user_id: listing.user_id,
+      claimer_id: listing.claimer_id,
       title: listing.title,
       tagline: listing.tagline,
+      logo: listing.logo,
+      cover_img: listing.cover_img,
+      description: listing.description,
+      address: listing.address,
+      lat: listing.lat,
+      lng: listing.lng,
+
+      price_range: listing.price_range,
+      price_min: listing.price_min,
+      price_max: listing.price_max,
+
+      featured_img: listing.featured_img,
+
+      business_hour: listing.business_hour,
+      button_icon: listing.button_icon,
+      button_link: listing.button_link,
+      button_name: listing.button_name,
+
+      coupon_title: listing.coupon_title,
+      coupon_description: listing.coupon_description,
+      coupon_image: listing.coupon_image,
+      coupon_code: listing.coupon_code,
+      coupon_popup_desc: listing.coupon_popup_desc,
+      coupon_link: listing.coupon_link,
+      coupon_expiry_date: listing.coupon_expiry_date,
+
+      products: JSON.parse(listing.products),
+
     });
+
+    this.selectedBushinessHour = listing.business_hour;
+
+    // set images url
+    if(listing.logo != ''){
+      this.logoImageSrc = this.helperservice.getImageUrl(listing.logo, 'listing', 'thumb');
+    }
+    if(listing.cover_img != ''){
+      this.coverImageSrc = this.helperservice.getImageUrl(listing.cover_img, 'listing', 'thumb');
+    }
+    if(listing.featured_img != ''){
+      this.featuredImageSrc = this.helperservice.getImageUrl(listing.featured_img, 'listing', 'thumb');
+    }
+
+    // set coupon image
+    if(listing.coupon_image != ''){
+      this.couponImageSrc = this.helperservice.getImageUrl(listing.coupon_image, 'listing', 'thumb');
+    }
+
+    // set gallery images
+    const galleries = JSON.parse(listing.galleries);
+    if(galleries && galleries.length > 0){
+      for (const item of galleries) {
+        const variationGroup = new FormGroup({
+          image_input: new FormControl(''),
+          image: new FormControl(item)
+        });
+        (this.listingForm.get('galleries') as FormArray).push(variationGroup);
+        this.galleryImages.push(this.helperservice.getImageUrl(item, 'listing', 'thumb'));
+      }
+    }
+
+    // set videos
+    const videos = JSON.parse(listing.video_urls);
+    if(videos && videos.length > 0){
+      for (const item of videos) {
+        (this.listingForm.get('video_urls') as FormArray ).push( new FormControl(item) );
+      }
+    }
+
+    // set categories
+    if(this.listing.categories && this.listing.categories.length > 0){
+      const categories = this.listing.categories;
+      const categories_ids = [];
+      for (const item of categories) {
+        categories_ids.push(item.listing_categories_id);
+      }
+      this.listingForm.get('categories').patchValue(categories_ids);
+
+    }
+
+    // set contact Information
+    if(this.listing.contacts && Object.keys(this.listing.contacts).length > 0){
+      const contact = this.listing.contacts;
+      this.listingForm.patchValue({
+        email: contact.email,
+        phone: contact.phone,
+        website: contact.website,
+        facebook: contact.facebook,
+        tiktok: contact.tiktok,
+        twitter: contact.twitter,
+        linkedin: contact.linkedin,
+  
+      });
+    }
+
+    // set menu items
+    if(this.listing.menus && this.listing.menus.length > 0){
+      for (const [res, menu] of this.listing.menus.entries()) {
+        const variationGroup = new FormGroup({
+          title: new FormControl(menu.title),
+          description: new FormControl(menu.description),
+          icon: new FormControl(menu.icon),
+          items: new FormArray([])
+        });
+
+        if(menu.items && menu.items.length > 0){
+          for (const [i, item] of menu.items.entries()) {
+            const item_group = new FormGroup({
+              title: new FormControl(item.title),
+              description: new FormControl(item.description),
+              image_input: new FormControl(''),
+              image: new FormControl(item.image),
+              price: new FormControl(item.price),
+              link: new FormControl(item.link),
+              is_new_window: new FormControl(item.open_new_window)
+            });
+
+            (variationGroup.get('items') as FormArray).push(item_group);
+
+            // set the image
+            const imageSrc = 'menu_img_'+res+'_'+i;
+            this.menuItemImages[imageSrc] = this.helperservice.getImageUrl(item.image, 'listing', 'thumb');
+          }
+
+        }
+
+        (this.listingForm.get('restaurants') as FormArray).push(variationGroup);
+      }
+    }
+
+    // set hours
+    if(listing.business_hour == 'open_for_selected_hours' && this.listing.hours && this.listing.hours.length > 0){
+
+      // set monday hour
+      const monday = this.listing.hours[0];
+      
+      const groupMonday = this.listingForm.get('businsessHourMonday') as FormGroup;     
+      const groupMondayTimes = groupMonday.get('times') as FormArray;
+      groupMonday.get('is_open').patchValue(monday.is_open);
+      groupMonday.get('id').patchValue(monday.id);
+      
+      (groupMondayTimes.controls[0] as FormGroup).get('open').patchValue(monday.first_hour_start);
+      (groupMondayTimes.controls[0] as FormGroup).get('closes').patchValue(monday.first_hour_end);
+
+      if(monday.second_hour_start && monday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(monday.second_hour_start),
+          closes: new FormControl(monday.second_hour_end)
+        });
+
+        groupMondayTimes.push(second_hour_group);
+
+      }
+
+
+      // set tuesday hour
+      const tuesday = this.listing.hours[1];
+      
+      const groupTuesday = this.listingForm.get('businsessHourTuesday') as FormGroup;     
+      const groupTuesdayTimes = groupTuesday.get('times') as FormArray;
+      groupTuesday.get('id').patchValue(tuesday.id);
+      groupTuesday.get('is_open').patchValue(tuesday.is_open);
+      
+      (groupTuesdayTimes.controls[0] as FormGroup).get('open').patchValue(tuesday.first_hour_start);
+      (groupTuesdayTimes.controls[0] as FormGroup).get('closes').patchValue(tuesday.first_hour_end);
+
+      if(tuesday.second_hour_start && tuesday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(tuesday.second_hour_start),
+          closes: new FormControl(tuesday.second_hour_end)
+        });
+
+        groupTuesdayTimes.push(second_hour_group);
+
+      }
+
+
+      // set wednesday hour
+      const wednesday = this.listing.hours[2];
+      
+      const groupWednesday = this.listingForm.get('businsessHourWednesday') as FormGroup;     
+      const groupWednesdayTimes = groupWednesday.get('times') as FormArray;
+      groupWednesday.get('id').patchValue(wednesday.id);
+      groupWednesday.get('is_open').patchValue(wednesday.is_open);
+      
+      (groupWednesdayTimes.controls[0] as FormGroup).get('open').patchValue(wednesday.first_hour_start);
+      (groupWednesdayTimes.controls[0] as FormGroup).get('closes').patchValue(wednesday.first_hour_end);
+
+      if(wednesday.second_hour_start && wednesday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(wednesday.second_hour_start),
+          closes: new FormControl(wednesday.second_hour_end)
+        });
+
+        groupWednesdayTimes.push(second_hour_group);
+
+      }
+
+      // set thursday hour
+      const thursday = this.listing.hours[3];
+      
+      const groupThursday = this.listingForm.get('businsessHourThursday') as FormGroup;     
+      const groupThursdayTimes = groupThursday.get('times') as FormArray;
+      groupThursday.get('id').patchValue(thursday.id);
+      groupThursday.get('is_open').patchValue(thursday.is_open);
+      
+      (groupThursdayTimes.controls[0] as FormGroup).get('open').patchValue(thursday.first_hour_start);
+      (groupThursdayTimes.controls[0] as FormGroup).get('closes').patchValue(thursday.first_hour_end);
+
+      if(thursday.second_hour_start && thursday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(thursday.second_hour_start),
+          closes: new FormControl(thursday.second_hour_end)
+        });
+
+        groupThursdayTimes.push(second_hour_group);
+
+      }
+
+      // set friday hour
+      const friday = this.listing.hours[4];
+      
+      const groupFriday = this.listingForm.get('businsessHourFriday') as FormGroup;     
+      const groupFridayTimes = groupFriday.get('times') as FormArray;
+      groupFriday.get('id').patchValue(friday.id);
+      groupFriday.get('is_open').patchValue(friday.is_open);
+      
+      (groupFridayTimes.controls[0] as FormGroup).get('open').patchValue(friday.first_hour_start);
+      (groupFridayTimes.controls[0] as FormGroup).get('closes').patchValue(friday.first_hour_end);
+
+      if(friday.second_hour_start && friday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(friday.second_hour_start),
+          closes: new FormControl(friday.second_hour_end)
+        });
+
+        groupFridayTimes.push(second_hour_group);
+
+      }
+
+      // set saturday hour
+      const saturday = this.listing.hours[5];
+      
+      const groupSaturday = this.listingForm.get('businsessHourSaturday') as FormGroup;     
+      const groupSaturdayTimes = groupSaturday.get('times') as FormArray;
+      groupSaturday.get('id').patchValue(saturday.id);
+      groupSaturday.get('is_open').patchValue(saturday.is_open);
+      
+      (groupSaturdayTimes.controls[0] as FormGroup).get('open').patchValue(saturday.first_hour_start);
+      (groupSaturdayTimes.controls[0] as FormGroup).get('closes').patchValue(saturday.first_hour_end);
+
+      if(saturday.second_hour_start && saturday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(saturday.second_hour_start),
+          closes: new FormControl(saturday.second_hour_end)
+        });
+
+        groupSaturdayTimes.push(second_hour_group);
+
+      }
+
+      // set sunday hour
+      const sunday = this.listing.hours[6];
+      
+      const groupSunday = this.listingForm.get('businsessHourSunday') as FormGroup;     
+      const groupSundayTimes = groupSunday.get('times') as FormArray;
+      groupSunday.get('id').patchValue(sunday.id);
+      groupSunday.get('is_open').patchValue(sunday.is_open);
+      
+      (groupSundayTimes.controls[0] as FormGroup).get('open').patchValue(sunday.first_hour_start);
+      (groupSundayTimes.controls[0] as FormGroup).get('closes').patchValue(sunday.first_hour_end);
+
+      if(sunday.second_hour_start && sunday.second_hour_end){
+        const second_hour_group = new FormGroup({
+          open: new FormControl(sunday.second_hour_start),
+          closes: new FormControl(sunday.second_hour_end)
+        });
+
+        groupSundayTimes.push(second_hour_group);
+
+      }
+
+
+    }
+    
+
 
   }
 
+  
+
   setupFormData() {
     this.listingForm = new FormGroup({
+      id: new FormControl('', Validators.required),
+      user_id: new FormControl('', Validators.required),
+      claimer_id: new FormControl(''),
       title: new FormControl('', Validators.required),
       tagline: new FormControl(''),
-      logo_input: new FormControl('', Validators.required),
+      logo_input: new FormControl(''),
       logo: new FormControl('', Validators.required),
-      cover_img_input: new FormControl('', Validators.required),
+      cover_img_input: new FormControl(''),
       cover_img: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -289,15 +589,10 @@ export class ListingEditComponent implements OnInit {
       price_min: new FormControl(null),
       price_max: new FormControl(null),
 
-      featured_img_input: new FormControl('', Validators.required),
+      featured_img_input: new FormControl(''),
       featured_img: new FormControl('', Validators.required),
 
-      galleries: new FormArray([
-        new FormGroup({
-          image_input: new FormControl(''),
-          image: new FormControl('')
-        })
-      ]),
+      galleries: new FormArray([]),
 
       business_hour: new FormControl(''),
       button_icon: new FormControl(''),
@@ -321,13 +616,12 @@ export class ListingEditComponent implements OnInit {
       coupon_link: new FormControl(''),
       coupon_expiry_date: new FormControl(''),
 
-      video_urls: new FormArray([
-        new FormControl('')
-      ]),
+      video_urls: new FormArray([]),
 
       restaurants: new FormArray([]),
 
       businsessHourSunday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -337,6 +631,7 @@ export class ListingEditComponent implements OnInit {
         ])
       }),
       businsessHourMonday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -346,6 +641,7 @@ export class ListingEditComponent implements OnInit {
         ])
       }),
       businsessHourTuesday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -355,6 +651,7 @@ export class ListingEditComponent implements OnInit {
         ])
       }),
       businsessHourWednesday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -364,6 +661,7 @@ export class ListingEditComponent implements OnInit {
         ])
       }),
       businsessHourThursday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -373,6 +671,7 @@ export class ListingEditComponent implements OnInit {
         ])
       }),
       businsessHourFriday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -382,6 +681,7 @@ export class ListingEditComponent implements OnInit {
         ])
       }),
       businsessHourSaturday: new FormGroup({
+        id: new FormControl(''),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -408,16 +708,16 @@ export class ListingEditComponent implements OnInit {
     // remove timezone from date, using moment
     formData.coupon_expiry_date = moment(formData.coupon_expiry_date).format("YYYY-MM-DD HH:mm:ss");
     
-    // console.log(JSON.stringify(formData));
+    // console.log(formData);
     // return;
     this.spinnerService.show();
-    const subscriptionAddlisting = this.listingService.addListing(formData).subscribe(
+    const subscriptionAddlisting = this.listingService.updateListing(formData).subscribe(
       (res:any) => {
         console.log(res);
         this.spinnerService.hide();
 
         // redirect to listing details page
-        this.router.navigate([`listing/${res.data.slug}`]);
+        window.location.replace(`${this.helperservice.siteUrl}/listing/${this.listing_slug}`);
       },
       (res:any) => {
         if(res.status == 401){
@@ -472,8 +772,8 @@ export class ListingEditComponent implements OnInit {
       const times =  (this.listingForm.get(business_hour).get('times') as FormArray);
       times.clear();
       const variationGroup = new FormGroup({
-        open: new FormControl(''),
-        closes: new FormControl('')
+        open: new FormControl(null),
+        closes: new FormControl(null)
       });
       times.push(variationGroup);
     }

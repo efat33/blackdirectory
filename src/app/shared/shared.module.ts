@@ -55,7 +55,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc } from './custom-pipes';
+import { imageSrc, encodeURL } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 
@@ -84,6 +84,7 @@ import { MatSliderModule } from '@angular/material/slider';
     EventTicketModal,
     EventRsvpModal,
     imageSrc,
+    encodeURL
   ],
   imports: [
     CommonModule,
@@ -147,6 +148,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatSnackBarModule,
     MatProgressBarModule,
     imageSrc,
+    encodeURL,
     NgxStickySidebarModule,
     MatSliderModule,
   ],
