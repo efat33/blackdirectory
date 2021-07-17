@@ -6,13 +6,14 @@ import { DashboardProfileComponent } from "./profile/dashboard-profile.component
 import { DashboardComponent } from './dashboard.component';
 import { AppliedJobsComponent } from './applied-jobs/applied-jobs.component';
 import { FavoriteJobsComponent } from './favorite-jobs/favorite-jobs.component';
-import { SavedJobsComponent } from './saved-jobs/saved-jobs.component';
+import { SavedCandidatesComponent } from './saved-candidates/saved-candidates.component';
 import { AllApplicantsComponent } from './all-applicants/all-applicants.component';
 import { ManageJobsComponent } from './manage-jobs/manage-jobs.component';
 import { NewJobComponent } from './new-job/new-job.component';
 import { UserFollowerComponent } from './followers/followers.component';
 import { UserFollowingComponent } from './following/following.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ManageJobComponent } from './manage-job/manage-job.component';
 
 
 
@@ -25,8 +26,9 @@ const routes: Routes = [
       { path: 'profile', component:  DashboardProfileComponent},
       { path: 'applied-jobs', component:  AppliedJobsComponent},
       { path: 'favorite-jobs', component:  FavoriteJobsComponent},
-      { path: 'saved-jobs', component:  SavedJobsComponent},
+      { path: 'saved-candidates', component:  SavedCandidatesComponent},
       { path: 'all-applicants', component:  AllApplicantsComponent},
+      { path: 'manage-job/:job_id', component:  ManageJobComponent},
       { path: 'manage-jobs', component:  ManageJobsComponent},
       { path: 'new-job', component:  NewJobComponent},
       { path: 'edit-job/:job_id', component:  NewJobComponent},

@@ -1,14 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'theme.scss';
+@import "~nouislider/dist/nouislider.min.css";
 
 
 .section-wrapper {
     padding-top: 55px;
     padding-bottom: 30px;
 }
-.mat-form-field input[type=email], 
-.mat-form-field input[type=number], 
-.mat-form-field input[type=password], 
-input[type=file], 
+.mat-form-field input[type=email],
+.mat-form-field input[type=number],
+.mat-form-field input[type=password],
+input[type=file],
 .mat-form-field input[type=text] {
     line-height: normal;
     height: auto;
@@ -130,7 +132,7 @@ ul.page-numbers .current {
 }
 .color-primary--hover:hover i, .color-primary--hover:hover {
     color: #069!important;
-}   
+}
 .imageCover_img__3pxw7 img {
     cursor: pointer;
 }
@@ -268,12 +270,12 @@ ul.page-numbers .current {
     display: flex;
     flex-direction: column;
 }
-  
+
 .vertical-radio-button {
     margin: 5px;
 }
 
-.mat-expansion-indicator::after {   
+.mat-expansion-indicator::after {
     margin-top: -6px;
 }
 .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
@@ -360,3 +362,14 @@ ul.page-numbers .current {
     padding: 0;
 }
 
+.noUi-connect {
+  background: mat-color($primary);
+}
+
+.color-success {
+  color: #49a74c;
+}
+
+.color-danger {
+  color: #ff2424;
+}

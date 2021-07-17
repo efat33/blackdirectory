@@ -22,7 +22,7 @@ export class HelperService {
     toIndex: number
   ): void {
     const dir = toIndex > fromIndex ? 1 : -1;
-  
+
     const item = formArray.at(fromIndex);
     for (let i = fromIndex; i * dir < toIndex * dir; i = i + dir) {
       const current = formArray.at(i + dir);
@@ -46,7 +46,7 @@ export class HelperService {
     try {
       if(JSON.parse(currentUserStr)) this.currentUserInfo = JSON.parse(currentUserStr);
     } catch (e) {
-      
+
     }
   }
 
@@ -67,7 +67,7 @@ export class HelperService {
       validated: true,
       message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB'
     }
-    
+
     if((image.type != "image/jpeg" && image.type != "image/png"  && image.type != 'image/jpg') || (image.size / (1024*1024)) > 1) {
       obj.validated = false;
     }
@@ -78,12 +78,12 @@ export class HelperService {
 
   fileValidation(file:File): any {
     const ext = file.name.substring(file.name.lastIndexOf('.') + 1);
-    
+
     const obj = {
       validated: true,
       message: 'Supported file type are doc, docx, pdf and file size cannot be greater than 5MB'
     }
-    
+
     if((ext != "pdf" && ext != "doc"  && ext != 'docx') || (file.size / (1024*1024)) > 5) {
       obj.validated = false;
     }
@@ -104,5 +104,12 @@ export class HelperService {
 
     return `${this.apiUrl}/${folder}/${image}`;
   }
-  
+
+  isEmployer() {
+    return this.currentUserInfo?.role === 'employer';
+  }
+
+  isCandidate() {
+    return this.currentUserInfo?.role === 'candidate';
+  }
 }

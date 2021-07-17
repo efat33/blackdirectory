@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -15,6 +15,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import * as moment from 'moment';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { JobService } from 'src/app/jobs/jobs.service';
 
 @Component({
   selector: 'app-dashboard-profile',
@@ -22,61 +23,10 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   styleUrls: ['./dashboard-profile.component.scss']
 })
 
-export class DashboardProfileComponent implements OnInit {
-
-  sectors = [
-    { id: 1, value: 'steak-0'},
-    { id: 2, value: 'pizza-1'},
-    { id: 3, value: 'tacos-2'}
-  ];
-  publicViews = [
-    { value: 1, viewValue: 'Yes'},
-    { value: 0, viewValue: 'No'}
-  ];
-  jobIndustrys = [
-    { value: 'Arts & Media', viewValue: 'Arts & Media'},
-    { value: 'Education', viewValue: 'Education'},
-    { value: 'Accounting/ Finance/ Legal', viewValue: 'Accounting/ Finance/ Legal'},
-    { value: 'Medical/Healthcare', viewValue: 'Medical/Healthcare'},
-    { value: 'Business Services', viewValue: 'Business Services'},
-    { value: 'Retail/Sales', viewValue: 'Retail/Sales'},
-    { value: 'Information Technology', viewValue: 'Information Technology'},
-    { value: 'Other', viewValue: 'Other'},
-  ];
-  salaryTypes = [
-    { value: 'Monthly', viewValue: 'Monthly'},
-    { value: 'Weekly', viewValue: 'Weekly'},
-    { value: 'Hourly', viewValue: 'Hourly'},
-    { value: 'Annually', viewValue: 'Annually'},
-  ];
-  candidateAges = [
-    { value: '16 - 18 Years', viewValue: '16 - 18 Years'},
-    { value: '19 - 22 Years', viewValue: '19 - 22 Years'},
-    { value: '23 - 27 Years', viewValue: '23 - 27 Years'},
-    { value: '28 - 35 Years', viewValue: '28 - 35 Years'},
-    { value: '36 - 45 Years', viewValue: '36 - 45 Years'},
-    { value: '46 - 55 Years', viewValue: '46 - 55 Years'},
-    { value: '56 - 65 Years', viewValue: '56 - 65 Years'},
-    { value: 'Above 65 Years', viewValue: 'Above 65 Years'},
-  ];
-  candidateGenders = [
-    { value: 'Male', viewValue: 'Male'},
-    { value: 'Female', viewValue: 'Female'},
-    { value: 'Transgender', viewValue: 'Transgender'},
-    { value: 'Non-Binary', viewValue: 'Non-Binary'},
-    { value: 'Prefer Not To Say', viewValue: 'Prefer Not To Say'},
-  ];
-  academics = [
-    { value: '\GCSE\'s/ Equivalent', viewValue: '\GCSE\'s/ Equivalent'},
-    { value: 'A-Levels', viewValue: 'A-Levels'},
-    { value: 'Apprenticeship', viewValue: 'Apprenticeship'},
-    { value: 'Undergraduate Degree', viewValue: 'Undergraduate Degree'},
-    { value: 'Master’s Degree', viewValue: 'Master’s Degree'},
-    { value: 'Doctorate', viewValue: 'Doctorate'},
-    { value: 'Other', viewValue: 'Other'}
-  ];
-
+export class DashboardProfileComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
+
+  jobSectors = [];
 
   profileForm: FormGroup;
   showError = false;
@@ -122,11 +72,12 @@ export class DashboardProfileComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private helperservice: HelperService,
-    private userService: UserService,
+    public userService: UserService,
     private spinnerService: SpinnerService,
     private router: Router,
     private snackbar: SnackBarService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private jobService: JobService
     ) { }
 
   // convenience getter for easy access to form fields
@@ -136,6 +87,8 @@ export class DashboardProfileComponent implements OnInit {
 
     // initiate form fields
     this.setupFormFields();
+
+    this.getJobSectors();
 
     // show spinner, wait until user data is fetched
     this.spinnerService.show();
@@ -331,6 +284,23 @@ export class DashboardProfileComponent implements OnInit {
       this.profileForm.addControl('website', new FormControl(''));
       this.profileForm.addControl('founded_date', new FormControl(''));
     }
+  }
+
+  getJobSectors() {
+    this.spinnerService.show();
+    const getSectorsSubscription = this.jobService.getSectors().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.jobSectors = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getSectorsSubscription);
   }
 
   onSubmit() {

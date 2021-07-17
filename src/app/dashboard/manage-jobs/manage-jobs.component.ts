@@ -12,9 +12,10 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
   styleUrls: ['./manage-jobs.component.css'],
 })
 export class ManageJobsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   jobs: any = [];
+  searchKeyword: string = '';
 
   constructor(
     private jobService: JobService,
@@ -32,19 +33,41 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
     const getJobsSubscription = this.jobService.getUserJobs().subscribe(
       (result: any) => {
         this.spinnerService.hide();
-        console.log("🚀 ~ file: manage-jobs.component.ts ~ line 32 ~ ManageJobsComponent ~ getUserJobs ~ result", result)
 
         this.jobs = result.data;
       },
       (error) => {
         this.spinnerService.hide();
 
-        this.snackbar.openSnackBar(error.message, 'Close', 'warn');
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
+
+    this.subscriptions.add(getJobsSubscription);
+  }
+
+  matchSearch(job: any) {
+    return job.title.toLowerCase().includes(this.searchKeyword.toLowerCase());
+  }
+
+  featureJob(job: any) {
+    this.spinnerService.show();
+
+    const featureJobSubs = this.jobService.updateJobProperty(job.id, {featured: !job.featured}).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        job.featured = !job.featured;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(featureJobSubs);
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

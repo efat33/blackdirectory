@@ -11,18 +11,19 @@ import { AppliedJobsComponent } from './applied-jobs/applied-jobs.component';
 import { FavoriteJobsComponent } from './favorite-jobs/favorite-jobs.component';
 import { ManageJobsComponent } from './manage-jobs/manage-jobs.component';
 import { NewJobComponent } from './new-job/new-job.component';
-import { SavedJobsComponent } from './saved-jobs/saved-jobs.component';
+import { SavedCandidatesComponent } from './saved-candidates/saved-candidates.component';
 import { UserFollowerComponent } from './followers/followers.component';
 import { UserFollowingComponent } from './following/following.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ManageJobComponent } from './manage-job/manage-job.component';
 
 
 @NgModule({
   declarations: [
     DashboardProfileComponent, DashboardComponent, AllApplicantsComponent, AppliedJobsComponent,
-    FavoriteJobsComponent, ManageJobsComponent, NewJobComponent, SavedJobsComponent, UserFollowerComponent,
-    UserFollowingComponent, ChangePasswordComponent
+    FavoriteJobsComponent, ManageJobsComponent, NewJobComponent, SavedCandidatesComponent, UserFollowerComponent,
+    UserFollowingComponent, ChangePasswordComponent, ManageJobComponent
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule]
 })

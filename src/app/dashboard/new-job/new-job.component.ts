@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HelperService } from 'src/app/shared/helper.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare const google: any;
 
@@ -18,48 +19,12 @@ declare const google: any;
   templateUrl: './new-job.component.html',
   styleUrls: ['./new-job.component.scss'],
 })
-export class NewJobComponent implements OnInit, OnDestroy {
-  jobIndustrys = [
-    { value: 'Arts & Media', viewValue: 'Arts & Media' },
-    { value: 'Education', viewValue: 'Education' },
-    {
-      value: 'Accounting/ Finance/ Legal',
-      viewValue: 'Accounting/ Finance/ Legal',
-    },
-    { value: 'Medical/Healthcare', viewValue: 'Medical/Healthcare' },
-    { value: 'Business Services', viewValue: 'Business Services' },
-    { value: 'Retail/Sales', viewValue: 'Retail/Sales' },
-    { value: 'Information Technology', viewValue: 'Information Technology' },
-    { value: 'Other', viewValue: 'Other' },
-  ];
-  jobTypes = [
-    { value: 'contract', viewValue: 'Contract' },
-    { value: 'full-time', viewValue: 'Full Time' },
-    { value: 'internship', viewValue: 'Internship' },
-    { value: 'part-time', viewValue: 'Part Time' },
-    { value: 'temporary', viewValue: 'Temporary' },
-  ];
-  jobApplyTypes = [
-    { value: 'internal', viewValue: 'Internal (Receive Applications Here)' },
-    { value: 'external', viewValue: 'External URL' },
-    { value: 'with_email', viewValue: 'By Email' },
-  ];
-  jobExperiences = [
-    { value: 'no-experience', viewValue: 'No Experience' },
-    { value: 'less-than-1-year', viewValue: 'Less Than 1 Year' },
-    { value: '2-years', viewValue: '2 Years' },
-    { value: '3-years', viewValue: '3 Years' },
-    { value: '4-years', viewValue: '4 Years' },
-    { value: '5-years', viewValue: '5 Years' },
-    { value: '6-years', viewValue: '6 Years' },
-    { value: '7-years', viewValue: '7 Years' },
-    { value: '8-years-+', viewValue: '8 Years +' },
-  ];
-
+export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   jobSectors = [];
 
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
+  editJobId: number = null;
   jobForm: FormGroup;
   showError = false;
   errorMessage = '';
@@ -71,6 +36,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
       message: '',
     },
   };
+
+  map: any;
+  mapMarker: any;
 
   ckEditor = ClassicEditor;
   ckConfig = {
@@ -85,7 +53,9 @@ export class NewJobComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private jobService: JobService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public jobService: JobService,
     private uploadService: UploadService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
@@ -95,12 +65,54 @@ export class NewJobComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-    this.getJobServices();
+    this.getJobSectors();
     this.initializeGoogleMap();
+
+    const jobId = this.route.snapshot.paramMap.get('job_id');
+    if (jobId != null) {
+      this.editJobId = parseInt(jobId);
+
+      this.spinnerService.show();
+      this.jobService.getUserJob(this.editJobId).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+
+          this.prepareForm(result.data);
+        },
+        (error) => {
+          this.spinnerService.hide();
+
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+    }
+  }
+
+  ngAfterViewInit() {
+    const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe(val => {
+      if (val === 'with_email') {
+        this.jobForm.get('job_apply_email').setValidators([Validators.required]);
+        this.jobForm.get('external_url').clearValidators();
+      } else if (val === 'external') {
+        this.jobForm.get('external_url').setValidators([Validators.required]);
+        this.jobForm.get('job_apply_email').clearValidators();
+      } else {
+        this.jobForm.get('job_apply_email').clearValidators();
+        this.jobForm.get('external_url').clearValidators();
+      }
+
+      this.jobForm.get('job_apply_email').updateValueAndValidity();
+      this.jobForm.get('external_url').updateValueAndValidity();
+
+      this.cdk.detectChanges();
+    });
+
+    this.subscriptions.add(valueChangeSub);
   }
 
   initializeForm() {
     this.jobForm = new FormGroup({
+      id: new FormControl(''),
       title: new FormControl('', Validators.required),
       description: new FormControl(''),
       deadline: new FormControl('', Validators.required),
@@ -116,7 +128,37 @@ export class NewJobComponent implements OnInit, OnDestroy {
       longitude: new FormControl(''),
 
       attachment: new FormControl(''),
+
+      job_apply_email: new FormControl(''),
+      external_url: new FormControl(''),
     });
+  }
+
+  prepareForm(job: any) {
+    this.jobForm.patchValue({
+      id: job.id,
+      title: job.title,
+      description: job.description,
+      deadline: job.deadline,
+      job_sector_id: job.job_sector_id,
+      job_type: job.job_type,
+      job_apply_type: job.job_apply_type,
+      job_industry: job.job_industry,
+      experience: job.experience,
+      salary: job.salary,
+
+      address: job.address,
+      latitude: job.latitude,
+      longitude: job.longitude,
+
+      attachment: job.attachment,
+
+      job_apply_email: job.job_meta?.job_apply_email,
+      external_url: job.job_meta?.external_url,
+    });
+
+    this.map.setCenter({ lat: job.latitude, lng: job.longitude });
+    this.mapMarker.setPosition({ lat: job.latitude, lng: job.longitude });
   }
 
   initializeGoogleMap() {
@@ -129,40 +171,34 @@ export class NewJobComponent implements OnInit, OnDestroy {
       zoomControl: true,
     };
 
-    const map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+    this.map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
     const geocoder = new google.maps.Geocoder();
     const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
     const address = this.jobForm.get('address');
-    const marker = new google.maps.Marker({
-      map,
+    this.mapMarker = new google.maps.Marker({
+      map: this.map,
       anchorPoint: new google.maps.Point(0, -29),
     });
 
-    let initialLat = parseFloat(latitude.value);
-    let initialLng = parseFloat(longitude.value);
+    let initialLat = 52.49840357809672;
+    let initialLng = -1.4366882483060417;
 
-    if (initialLat && initialLng) {
-      marker.setPosition({ lat: initialLat, lng: initialLng });
-    } else {
-      initialLat = 52.49840357809672;
-      initialLng = -1.4366882483060417;
-    }
-
-    map.setCenter({ lat: initialLat, lng: initialLng });
+    this.map.setCenter({ lat: initialLat, lng: initialLng });
+    this.mapMarker.setPosition({ lat: 23, lng: 90 });
 
     const autocompleteOptions = {
       fields: ['formatted_address', 'geometry', 'name'],
-      origin: map.getCenter(),
+      origin: this.map.getCenter(),
       strictBounds: false,
     };
 
-    google.maps.event.addListener(map, 'click', (event: any) => {
+    google.maps.event.addListener(this.map, 'click', (event: any) => {
       let lat = event.latLng.lat(); // lat of clicked point
       let lng = event.latLng.lng(); // lng of clicked point
 
       const latlng = { lat, lng };
 
-      marker.setPosition(latlng);
+      this.mapMarker.setPosition(latlng);
 
       latitude.setValue(lat);
       longitude.setValue(lng);
@@ -182,11 +218,11 @@ export class NewJobComponent implements OnInit, OnDestroy {
     });
 
     const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions);
-    autocomplete.bindTo('bounds', map);
+    autocomplete.bindTo('bounds', this.map);
 
     autocomplete.addListener('place_changed', () => {
       // infowindow.close();
-      marker.setVisible(false);
+      this.mapMarker.setVisible(false);
       const place = autocomplete.getPlace();
 
       if (!place.geometry || !place.geometry.location) {
@@ -196,14 +232,14 @@ export class NewJobComponent implements OnInit, OnDestroy {
 
       // If the place has a geometry, then present it on a map.
       if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
+        this.map.fitBounds(place.geometry.viewport);
       } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(17);
       }
 
-      marker.setPosition(place.geometry.location);
-      marker.setVisible(true);
+      this.mapMarker.setPosition(place.geometry.location);
+      this.mapMarker.setVisible(true);
 
       address.setValue(place.formatted_address);
       latitude.setValue(place.geometry.location.lat());
@@ -213,7 +249,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
     });
   }
 
-  getJobServices() {
+  getJobSectors() {
     this.spinnerService.show();
     const getSectorsSubscription = this.jobService.getSectors().subscribe(
       (result: any) => {
@@ -223,11 +259,11 @@ export class NewJobComponent implements OnInit, OnDestroy {
       (error) => {
         this.spinnerService.hide();
 
-        this.snackbar.openSnackBar(error.message, 'Close', 'warn');
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
 
-    this.subsciptions.add(getSectorsSubscription);
+    this.subscriptions.add(getSectorsSubscription);
   }
 
   onAttachmentChange(event) {
@@ -268,9 +304,7 @@ export class NewJobComponent implements OnInit, OnDestroy {
               }
 
               // hide progress bar
-              console.log('here');
               setTimeout(() => {
-                console.log('here 2');
                 this.progressAttachment = 0;
               }, 1500);
           }
@@ -283,7 +317,16 @@ export class NewJobComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (this.editJobId == null) {
+      this.createJob();
+    } else {
+      this.updateJob();
+    }
+  }
+
+  createJob() {
     const formValues = this.jobForm.value;
+    formValues.deadline = formValues.deadline.toLocaleDateString();
 
     this.spinnerService.show();
     const newJobSubscription = this.jobService.newJob(formValues).subscribe(
@@ -291,16 +334,40 @@ export class NewJobComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
         // console.log(result);
 
+        this.router.navigate(['/dashboard/manage-jobs']);
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {
         this.spinnerService.hide();
 
-        this.snackbar.openSnackBar(error.message, 'Close', 'warn');
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
 
-    this.subsciptions.add(newJobSubscription);
+    this.subscriptions.add(newJobSubscription);
+  }
+
+  updateJob() {
+    const formValues = this.jobForm.value;
+    formValues.deadline = formValues.deadline.toLocaleDateString();
+
+    this.spinnerService.show();
+    const updateJobSubscription = this.jobService.editJob(this.editJobId, formValues).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        // console.log(result);
+
+        this.router.navigate(['/dashboard/manage-jobs']);
+        this.snackbar.openSnackBar(result.message);
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(updateJobSubscription);
   }
 
   formatSalarySliderLabel(value: number) {
@@ -308,6 +375,6 @@ export class NewJobComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

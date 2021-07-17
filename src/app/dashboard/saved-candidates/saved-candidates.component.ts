@@ -8,36 +8,35 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
 @Component({
-  selector: 'app-favorite-jobs',
-  templateUrl: './favorite-jobs.component.html',
-  styleUrls: ['./favorite-jobs.component.css'],
+  selector: 'app-saved-candidates',
+  templateUrl: './saved-candidates.component.html',
+  styleUrls: ['./saved-candidates.component.css'],
 })
-export class FavoriteJobsComponent implements OnInit, OnDestroy {
+export class SavedCandidatesComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
-  favoriteJobs: any[] = [];
+  savedCandidates: any[] = [];
 
   constructor(
     private helperService: HelperService,
     private spinnerService: SpinnerService,
     private jobService: JobService,
-    private snackbar: SnackBarService
-  ) {}
+    private snackbar: SnackBarService) {}
 
   ngOnInit() {
-    this.getFavoriteJobs();
+    this.getSavedCandidates();
   }
 
-  getFavoriteJobs() {
-    if (!this.helperService.isCandidate()) {
+  getSavedCandidates() {
+    if (!this.helperService.isEmployer()) {
       return;
     }
 
     this.spinnerService.show();
-    const getCandidatesSubs = this.jobService.getFavoriteJobs().subscribe(
+    const getCandidatesSubs = this.jobService.getSavedCandidates().subscribe(
       (result: any) => {
         this.spinnerService.hide();
-        this.favoriteJobs = result.data;
+        this.savedCandidates = result.data;
       },
       (error) => {
         this.spinnerService.hide();
@@ -48,22 +47,22 @@ export class FavoriteJobsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(getCandidatesSubs);
   }
 
-  getUserProfilePicture(job: any) {
-    if (job.employer_profile_photo) {
-      return this.helperService.getImageUrl(job.employer_profile_photo, 'users', 'thumb');
+  getUserProfilePicture(user: any) {
+    if (user.candidate_profile_photo) {
+      return this.helperService.getImageUrl(user.candidate_profile_photo, 'users', 'thumb');
     }
 
     return 'assets/img/avatar-default.png';
   }
 
-  deleteFavoriteJob(job: any, index: number) {
+  deleteSavedCandidate(candidate: any, index: number) {
     this.spinnerService.show();
-    const saveCandidateSubscription = this.jobService.deleteFavoriteJob(job.job_id).subscribe(
+    const saveCandidateSubscription = this.jobService.deleteSavedCandidate(candidate.candidate_id).subscribe(
       (result: any) => {
         this.spinnerService.hide();
-        this.snackbar.openSnackBar('Job removed from favorites');
+        this.snackbar.openSnackBar('Candidate unsaved successfully');
 
-        this.favoriteJobs.splice(index, 1);
+        this.savedCandidates.splice(index, 1);
       },
       (error) => {
         this.spinnerService.hide();

@@ -1,787 +1,682 @@
 <div class="jobsearch-job-subheader" [style.background-image]="coverImage ? 'url(' + coverImage + ')' : ''">
-    <span class="jobsearch-banner-transparent"></span>
+  <span class="jobsearch-banner-transparent"></span>
 </div>
 
 <div *ngIf="userType == 'candidate'" class="candidate-details">
-    <div class="jobsearch-main-content">
-        <div class="jobsearch-main-section">
-            <div class="jobsearch-plugin-default-container">
-                <div class="jobsearch-row">
-                    <aside class="jobsearch-column-4 jobsearch-typo-wrap">
-                        <div class="jobsearch_side_box jobsearch_box_candidate_info">
-                            <div class="jobsearch_candidate_info">
+  <div class="jobsearch-main-content">
+    <div class="jobsearch-main-section">
+      <div class="jobsearch-plugin-default-container">
+        <div class="jobsearch-row">
+          <aside class="jobsearch-column-4 jobsearch-typo-wrap">
+            <div class="jobsearch_side_box jobsearch_box_candidate_info">
+              <div class="jobsearch_candidate_info">
 
-                                <figure><img [src]="profileImage" alt=""></figure>
-                                <h2>{{currentUser.display_name || currentUser.username}}</h2>
-                                <p *ngIf="userMeta.job_title">{{userMeta.job_title}}</p>
-                                <p [innerHTML]="currentUser.sector"></p>
-                                <p *ngIf="userMeta.salary_amount && userMeta.salary_type">Salary:
-                                    £{{userMeta.salary_amount | number}} / {{userMeta.salary_type}}</p>
-                                <small>Member Since, {{currentUser.created_at | date:'longDate'}}</small>
-                                <ul>
-                                    <li *ngIf="userMeta.facebook_link">
-                                        <a [href]="userMeta.facebook_link" data-original-title="facebook"
-                                            target="_blank" class="jobsearch-icon jobsearch-facebook-logo"></a>
-                                    </li>
-                                    <li *ngIf="userMeta.linkedin_link">
-                                        <a [href]="userMeta.linkedin_link" target="_blank"
-                                            data-original-title="linkedin"
-                                            class="jobsearch-icon jobsearch-linkedin-button"></a>
-                                    </li>
-                                </ul>
-                                <a href="javascript:void(0);"
-                                    class="jobsearch-candidate-default-btn jobsearch-add-resume-to-list"
-                                    data-download=""><i class="jobsearch-icon jobsearch-add-list"></i> Save
-                                    Candidate</a>
+                <figure><img [src]="profileImage" alt=""></figure>
+                <h2>{{currentUser.display_name || currentUser.username}}</h2>
+                <p *ngIf="userMeta.job_title">{{userMeta.job_title}}</p>
+                <p [innerHTML]="currentUser.sector"></p>
+                <p *ngIf="userMeta.salary_amount && userMeta.salary_type">Salary:
+                  £{{userMeta.salary_amount | number}} / {{userMeta.salary_type}}</p>
+                <small>Member Since, {{currentUser.created_at | date:'longDate'}}</small>
+                <ul>
+                  <li *ngIf="userMeta.facebook_link">
+                    <a [href]="userMeta.facebook_link" data-original-title="facebook" target="_blank"
+                      class="jobsearch-icon jobsearch-facebook-logo"></a>
+                  </li>
+                  <li *ngIf="userMeta.linkedin_link">
+                    <a [href]="userMeta.linkedin_link" target="_blank" data-original-title="linkedin"
+                      class="jobsearch-icon jobsearch-linkedin-button"></a>
+                  </li>
+                </ul>
+                <a (click)="updateSaveCandidateStatus()"
+                  class="jobsearch-candidate-default-btn jobsearch-add-resume-to-list"><i
+                    class="jobsearch-icon jobsearch-add-list"></i> {{candidateSaved ? 'Saved' : 'Save Candidate'}}</a>
 
-                                <div *ngIf="currentUser.phone"
-                                    class="jobsearch-whatsapp-msgcon jobsearch_whatsap_view_1">
-                                    <a [href]="'https://wa.me/' + currentUser.phone +'?text=Hi'" target="_blank">
-                                        <i class="fa fa-whatsapp"></i>
-                                        <small>WhatsApp</small>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="jobsearch_side_box jobsearch_box_map">
-                            <div class="jobsearch-map">
-                                <h3>map goes here</h3>
-                            </div>
-                        </div>
-                        <div class="jobsearch_side_box jobsearch_box_contact_form">
-                            <div class="jobsearch-wdg-box-title">
-                                <h2>Contact Form</h2>
-                            </div>
-                            <form [formGroup]="contactCandidateForm" (ngSubmit)="onSubmitCandidate()">
-
-                                <mat-form-field>
-                                    <mat-label>Name</mat-label>
-                                    <input matInput formControlName="name" placeholder="Name" />
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Email</mat-label>
-                                    <input required matInput formControlName="email" placeholder="Email" />
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Phone</mat-label>
-                                    <input matInput formControlName="phone" placeholder="Phone" />
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Message</mat-label>
-                                    <textarea matInput formControlName="message" rows="5"></textarea>
-                                </mat-form-field>
-
-                                <button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
-                                    type="submit" [disabled]="!contactCandidateForm.valid">
-                                    Send
-                                </button>
-
-                                <p *ngIf="showCandidateError" class="errorMessage">{{ errorMessageCandidate }}</p>
-                            </form>
-                        </div>
-                    </aside>
-
-                    <div class="jobsearch-column-8 jobsearch-typo-wrap">
-                        <div class="container-wrapper container-wrapper-view1">
-                            <div class="jobsearch-candidate-editor">
-                                <div class="jobsearch-content-title">
-                                    <h2>About {{currentUser.display_name || currentUser.username}}</h2>
-                                </div>
-                                <div class="jobsearch-jobdetail-services">
-                                    <ul class="jobsearch-row">
-                                        <li *ngIf="academics" class="jobsearch-column-4"> <i
-                                                class="jobsearch-icon jobsearch-mortarboard"></i>
-                                            <div class="jobsearch-services-text">Academic Level
-                                                <small *ngFor="let item of academics">{{item}}</small>
-                                            </div>
-                                        </li>
-                                        <li *ngIf="userMeta.age" class="jobsearch-column-4"> <i
-                                                class="jobsearch-icon jobsearch-user-2"></i>
-                                            <div class="jobsearch-services-text">Age <small>{{userMeta.age}}</small>
-                                            </div>
-                                        </li>
-                                        <li *ngIf="userMeta.job_industry" class="jobsearch-column-4"> <i
-                                                class="jobsearch-icon jobsearch-network"></i>
-                                            <div class="jobsearch-services-text">Industry
-                                                <small>{{userMeta.job_industry}}</small>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div *ngIf="currentUser.description">
-                                    <div class="jobsearch-content-title">
-                                        <h2>Description</h2>
-                                    </div>
-                                    <div class="jobsearch-description">
-                                        {{currentUser.description}}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div *ngIf="userProfile.educations">
-                                <div class="jobsearch-candidate-title">
-                                    <h2><i class="jobsearch-icon jobsearch-mortarboard"></i> Education </h2>
-                                </div>
-                                <div class="jobsearch-candidate-timeline">
-                                    <ul class="jobsearch-row">
-                                        <li *ngFor="let item of userProfile.educations" class="jobsearch-column-12">
-                                            <small>{{item.year}}</small>
-                                            <div class="jobsearch-candidate-timeline-text">
-                                                <span>{{item.institute}}</span>
-                                                <h2>{{item.title}}</h2>
-                                                <p *ngIf="item.description">{{item.description}}</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div *ngIf="userProfile.experiences">
-                                <div class="jobsearch-candidate-title">
-                                    <h2>
-                                        <i class="jobsearch-icon jobsearch-social-media"></i> Experience
-                                    </h2>
-                                </div>
-                                <div class="jobsearch-candidate-timeline">
-                                    <ul class="jobsearch-row">
-                                        <li *ngFor="let item of userProfile.experiences" class="jobsearch-column-12">
-                                            <small>{{item.start_date | date: 'yyyy'}} -
-                                                {{item.present ? 'Present' : item.end_date | date:
-                                                'yyyy'}}</small>
-                                            <div class="jobsearch-candidate-timeline-text">
-                                                <span>{{item.company}}</span>
-                                                <h2>{{item.title}}</h2>
-                                                <p *ngIf="item.description">{{item.description}}</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div *ngIf="userProfile.portfolios">
-                                <div class="jobsearch-candidate-title">
-                                    <h2><i class="jobsearch-icon jobsearch-briefcase"></i> Portfolio </h2>
-                                </div>
-                                <div class="jobsearch-gallery candidate_portfolio">
-                                    <ul class="jobsearch-row grid" style="position: relative; height: 202px;">
-                                        <li *ngFor="let item of userProfile.portfolios"
-                                            class="grid-item jobsearch-column-3">
-                                            <figure>
-                                                <span class="grid-item-thumb"><small
-                                                        [ngStyle]="{'background-image': 'url('+ item.image  +')'}"></small></span>
-                                                <figcaption>
-                                                    <div class="img-icons">
-                                                        <a *ngIf="item.youtube_url" target="_blank"
-                                                            [href]="item.youtube_url" class="fancybox-video"><i
-                                                                class="fa fa-play"></i></a>
-                                                        <a *ngIf="item.site_url" [href]="item.site_url"
-                                                            target="_blank"><i class="fa fa-chain"></i></a>
-                                                    </div>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                <div *ngIf="currentUser.phone" class="jobsearch-whatsapp-msgcon jobsearch_whatsap_view_1">
+                  <a [href]="'https://wa.me/' + currentUser.phone +'?text=Hi'" target="_blank">
+                    <i class="fa fa-whatsapp"></i>
+                    <small>WhatsApp</small>
+                  </a>
                 </div>
+              </div>
             </div>
-        </div> <!-- Main Section -->
-    </div>
+
+            <div class="jobsearch_side_box jobsearch_box_map">
+              <div class="jobsearch-map">
+                <h3>map goes here</h3>
+              </div>
+            </div>
+            <div class="jobsearch_side_box jobsearch_box_contact_form">
+              <div class="jobsearch-wdg-box-title">
+                <h2>Contact Form</h2>
+              </div>
+              <form [formGroup]="contactCandidateForm" (ngSubmit)="onSubmitCandidate()">
+
+                <mat-form-field>
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name" placeholder="Name" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input required matInput formControlName="email" placeholder="Email" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone" placeholder="Phone" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Message</mat-label>
+                  <textarea matInput formControlName="message" rows="5"></textarea>
+                </mat-form-field>
+
+                <button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
+                  [disabled]="!contactCandidateForm.valid">
+                  Send
+                </button>
+
+                <p *ngIf="showCandidateError" class="errorMessage">{{ errorMessageCandidate }}</p>
+              </form>
+            </div>
+          </aside>
+
+          <div class="jobsearch-column-8 jobsearch-typo-wrap">
+            <div class="container-wrapper container-wrapper-view1">
+              <div class="jobsearch-candidate-editor">
+                <div class="jobsearch-content-title">
+                  <h2>About {{currentUser.display_name || currentUser.username}}</h2>
+                </div>
+                <div class="jobsearch-jobdetail-services">
+                  <ul class="jobsearch-row">
+                    <li *ngIf="academics" class="jobsearch-column-4"> <i
+                        class="jobsearch-icon jobsearch-mortarboard"></i>
+                      <div class="jobsearch-services-text">Academic Level
+                        <small *ngFor="let item of academics">{{item}}</small>
+                      </div>
+                    </li>
+                    <li *ngIf="userMeta.age" class="jobsearch-column-4"> <i class="jobsearch-icon jobsearch-user-2"></i>
+                      <div class="jobsearch-services-text">Age <small>{{userMeta.age}}</small>
+                      </div>
+                    </li>
+                    <li *ngIf="userMeta.job_industry" class="jobsearch-column-4"> <i
+                        class="jobsearch-icon jobsearch-network"></i>
+                      <div class="jobsearch-services-text">Industry
+                        <small>{{userMeta.job_industry}}</small>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="currentUser.description">
+                  <div class="jobsearch-content-title">
+                    <h2>Description</h2>
+                  </div>
+                  <div class="jobsearch-description">
+                    {{currentUser.description}}
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="userProfile.educations">
+                <div class="jobsearch-candidate-title">
+                  <h2><i class="jobsearch-icon jobsearch-mortarboard"></i> Education </h2>
+                </div>
+                <div class="jobsearch-candidate-timeline">
+                  <ul class="jobsearch-row">
+                    <li *ngFor="let item of userProfile.educations" class="jobsearch-column-12">
+                      <small>{{item.year}}</small>
+                      <div class="jobsearch-candidate-timeline-text">
+                        <span>{{item.institute}}</span>
+                        <h2>{{item.title}}</h2>
+                        <p *ngIf="item.description">{{item.description}}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div *ngIf="userProfile.experiences">
+                <div class="jobsearch-candidate-title">
+                  <h2>
+                    <i class="jobsearch-icon jobsearch-social-media"></i> Experience
+                  </h2>
+                </div>
+                <div class="jobsearch-candidate-timeline">
+                  <ul class="jobsearch-row">
+                    <li *ngFor="let item of userProfile.experiences" class="jobsearch-column-12">
+                      <small>{{item.start_date | date: 'yyyy'}} -
+                        {{item.present ? 'Present' : item.end_date | date:
+                        'yyyy'}}</small>
+                      <div class="jobsearch-candidate-timeline-text">
+                        <span>{{item.company}}</span>
+                        <h2>{{item.title}}</h2>
+                        <p *ngIf="item.description">{{item.description}}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div *ngIf="userProfile.portfolios">
+                <div class="jobsearch-candidate-title">
+                  <h2><i class="jobsearch-icon jobsearch-briefcase"></i> Portfolio </h2>
+                </div>
+                <div class="jobsearch-gallery candidate_portfolio">
+                  <ul class="jobsearch-row grid" style="position: relative; height: 202px;">
+                    <li *ngFor="let item of userProfile.portfolios" class="grid-item jobsearch-column-3">
+                      <figure>
+                        <span class="grid-item-thumb"><small
+                            [ngStyle]="{'background-image': 'url('+ item.image  +')'}"></small></span>
+                        <figcaption>
+                          <div class="img-icons">
+                            <a *ngIf="item.youtube_url" target="_blank" [href]="item.youtube_url"
+                              class="fancybox-video"><i class="fa fa-play"></i></a>
+                            <a *ngIf="item.site_url" [href]="item.site_url" target="_blank"><i
+                                class="fa fa-chain"></i></a>
+                          </div>
+                        </figcaption>
+                      </figure>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- Main Section -->
+  </div>
 </div>
 
 <div *ngIf="userType == 'employer'" class="employer-details single-employer">
-    <div class="jobsearch-main-content">
-        <div class="jobsearch-main-section">
-            <div class="jobsearch-plugin-default-container">
-                <div class="jobsearch-row">
+  <div class="jobsearch-main-content">
+    <div class="jobsearch-main-section">
+      <div class="jobsearch-plugin-default-container">
+        <div class="jobsearch-row">
 
-                    <div class="jobsearch-column-12 jobsearch-typo-wrap">
-                        <figure class="jobsearch-jobdetail-list">
-                            <span class="jobsearch-jobdetail-listthumb">
-                                <img src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
-                                    alt="">
-                            </span>
-                            <figcaption>
-                                <div class="jobsearch-detrating-con">
-                                    <div class="jobsearch-rating-info">4.8</div>
-                                    <div class="jobsearch-rating">
-                                        <small class="jobsearch-rating-box" style="width:96.666666666666%"></small>
-                                    </div>
-                                </div>
-                                <h2>efat.butex333</h2>
-                                <ul class="jobsearch-jobdetail-options">
-                                    <li>
-                                        <i class="fa fa-map-marker"></i> 25 Shoe Lane, London, UK <a
-                                            href="https://www.google.com/maps/search/51.51658159999999%2C-0.106066"
-                                            target="_blank" class="jobsearch-jobdetail-view">View on Map</a>
-                                    </li>
-                                    <li>
-                                        <i class="jobsearch-icon jobsearch-mail"></i> <a
-                                            href="mailto:efat.butex333@gmail.com">Email: efat.butex333@gmail.com</a>
-                                    </li>
-                                    <li>
-                                        <i class="jobsearch-icon jobsearch-technology"></i> Telephone: 8801777560000
-                                    </li>
-                                </ul>
-                                <a href="javascript:void(0);" data-target="add_review_form_sec"
-                                    class="jobsearch-go-to-review-form jobsearch-employerdetail-btn"
-                                    data-post_id="17320"><i class="jobsearch-icon jobsearch-add"></i> Add a review </a>
-                                <a href="javascript:void(0);"
-                                    class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn" data-id="17320"
-                                    data-beforelbl="Follow" data-afterlbl="Followed"><i class="fa fa-user-plus"></i>
-                                    Follow</a>
-                                <ul class="jobsearch-jobdetail-media jobsearch-add-space">
-                                    <li><span>Social Links:</span></li>
-                                    <li><a href="https://twitter.com/GSCareers" target="_blank"
-                                            data-original-title="twitter"
-                                            class="jobsearch-icon jobsearch-twitter-logo"></a></li>
-                                    <li><a href="https://www.linkedin.com/company/goldman-sachs/jobs" target="_blank"
-                                            data-original-title="linkedin" class=""><i
-                                                class="jobsearch-icon jobsearch-linkedin-button"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com/goldmansachs/?hl=en" target="_blank"
-                                            class="jobsearch-icon jobsearch-instagram-logo"></a>
-                                    </li>
-                                </ul>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <!-- Job Detail List -->
-
-                    <!-- Job Detail Content -->
-                    <div class="jobsearch-column-8 jobsearch-typo-wrap">
-                        <div class="jobsearch-jobdetail-content jobsearch-employerdetail-content">
-                            <div class="jobsearch-content-title">
-                                <h2>Overview</h2>
-                            </div>
-                            <div class="jobsearch-jobdetail-services">
-                                <ul class="jobsearch-row">
-                                    <li class="jobsearch-column-4">
-                                        <i class="jobsearch-icon jobsearch-folder"></i>
-                                        <div class="jobsearch-services-text">Sectors<small>
-                                                Banking
-                                            </small></div>
-                                    </li>
-                                    <li class="jobsearch-column-4">
-                                        <i class="jobsearch-icon jobsearch-briefcase"></i>
-                                        <div class="jobsearch-services-text">Posted Jobs <small>6</small>
-                                        </div>
-                                    </li>
-                                    <li class="jobsearch-column-4">
-                                        <i class="jobsearch-icon jobsearch-view"></i>
-                                        <div class="jobsearch-services-text">Viewed <small>19</small>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="jobsearch-content-title">
-                                <h2>Company Description</h2>
-                            </div>
-                            <div class="jobsearch-description">
-                                <p>Description ………….</p>
-                            </div>
-                        </div>
-                        <div class="dash-reviews-list jobsearch-employer-wrap-section">
-                            <div class="jobsearch-content-title jobsearch-addmore-space">
-                                <h2>Company Reviews</h2>
-                            </div>
-
-                            <div class="jobsearch-company-review">
-                                <div class="reviw-mainitem-con ">
-                                    <div class="review-detail-popover">
-                                        <div class="rating-detail-item">
-                                            <span class="rating-title">Quality</span>
-                                            <div class="jobsearch-company-rating"><span
-                                                    class="jobsearch-company-rating-box" style="width: 80%;"></span>
-                                            </div>
-                                        </div>
-                                        <div class="rating-detail-item">
-                                            <span class="rating-title">Communication</span>
-                                            <div class="jobsearch-company-rating"><span
-                                                    class="jobsearch-company-rating-box" style="width: 100%;"></span>
-                                            </div>
-                                        </div>
-                                        <div class="rating-detail-item">
-                                            <span class="rating-title">Goodwill</span>
-                                            <div class="jobsearch-company-rating"><span
-                                                    class="jobsearch-company-rating-box" style="width: 100%;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <figure>
-                                        <a href="http://nirectory.com/candidate/efat-ctet01/"
-                                            class="company-review-thumb"><img
-                                                src="http://2.gravatar.com/avatar/5901fc7e6cb8df5c3333903ef90fc418?s=60&amp;d=http%3A%2F%2Fwilcity.blackdirectory.co.uk%2Fwp-content%2Fplugins%2Fwp-jobsearch%2Fimages%2Fno-image.jpg&amp;r=g"
-                                                alt=""></a>
-                                        <figcaption>
-                                            <div class="jobsearch-company-review-left">
-                                                <a href="http://nirectory.com/candidate/efat-ctet01/"
-                                                    class="reviewr-user-name">efat.ctet01</a>
-                                                <div class="jobsearch-company-rating"><span
-                                                        class="jobsearch-company-rating-box"
-                                                        style="width: 93.333333333334%;"></span></div>
-                                                <small>4.7</small>
-                                            </div>
-                                            <time datetime="May 5, 2021 11:54 am">May 5, 2021</time>
-                                            <a href="javascript:void(0);" class="update-cuser-review" data-id="65"><i
-                                                    class="fa fa-pencil"></i> Update</a>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="reviw-contntholdr-con">
-                                        <div class="jobsearch-company-review-text">
-                                            <p>Nice</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="reviw-mainitem-con ">
-                                    <div class="review-detail-popover">
-                                        <div class="rating-detail-item">
-                                            <span class="rating-title">Quality</span>
-                                            <div class="jobsearch-company-rating"><span
-                                                    class="jobsearch-company-rating-box" style="width: 100%;"></span>
-                                            </div>
-                                        </div>
-                                        <div class="rating-detail-item">
-                                            <span class="rating-title">Communication</span>
-                                            <div class="jobsearch-company-rating"><span
-                                                    class="jobsearch-company-rating-box" style="width: 100%;"></span>
-                                            </div>
-                                        </div>
-                                        <div class="rating-detail-item">
-                                            <span class="rating-title">Goodwill</span>
-                                            <div class="jobsearch-company-rating"><span
-                                                    class="jobsearch-company-rating-box" style="width: 100%;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <figure>
-                                        <a href="http://nirectory.com/candidate/zakaria/"
-                                            class="company-review-thumb"><img
-                                                src="http://1.gravatar.com/avatar/a08b0cbe90a997c9e6290247dbfe4c54?s=60&amp;d=http%3A%2F%2Fwilcity.blackdirectory.co.uk%2Fwp-content%2Fplugins%2Fwp-jobsearch%2Fimages%2Fno-image.jpg&amp;r=g"
-                                                alt=""></a>
-                                        <figcaption>
-                                            <div class="jobsearch-company-review-left">
-                                                <a href="http://nirectory.com/candidate/zakaria/"
-                                                    class="reviewr-user-name">zakaria</a>
-                                                <div class="jobsearch-company-rating"><span
-                                                        class="jobsearch-company-rating-box"
-                                                        style="width: 100%;"></span></div>
-                                                <small>5.0</small>
-                                            </div>
-                                            <time datetime="May 2, 2021 8:17 am">May 2, 2021</time>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="reviw-contntholdr-con">
-                                        <div class="jobsearch-company-review-text">
-                                            <p>Test</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="add_review_form_sec" class="jobsearch-employer-wrap-section jobsearch-margin-bottom">
-                            <div class="jobsearch-content-title jobsearch-addmore-space">
-                                <h2>Leave Your Review</h2>
-                            </div>
-                            <div class="jobsearch-add-review-con">
-
-                                <form id="jobsearch-review-form" class="jobsearch-addreview-form" method="post">
-                                    <ul>
-                                        <li>
-                                            <div class="review-stars-sec">
-
-                                                <div class="review-stars-holder">
-                                                    <label>Quality</label>
-                                                    <div class="br-wrapper br-theme-fontawesome-stars"><select
-                                                            id="review-stars-selector-1" name="user_rating_1"
-                                                            autocomplete="off" style="display: none;">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                        <div class="br-widget"><a href="#" data-rating-value="1"
-                                                                data-rating-text="1"
-                                                                class="br-selected br-current"></a><a href="#"
-                                                                data-rating-value="2" data-rating-text="2"></a><a
-                                                                href="#" data-rating-value="3"
-                                                                data-rating-text="3"></a><a href="#"
-                                                                data-rating-value="4" data-rating-text="4"></a><a
-                                                                href="#" data-rating-value="5" data-rating-text="5"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="review-stars-holder">
-                                                    <label>Communication</label>
-                                                    <div class="br-wrapper br-theme-fontawesome-stars"><select
-                                                            id="review-stars-selector-2" name="user_rating_2"
-                                                            autocomplete="off" style="display: none;">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                        <div class="br-widget"><a href="#" data-rating-value="1"
-                                                                data-rating-text="1"
-                                                                class="br-selected br-current"></a><a href="#"
-                                                                data-rating-value="2" data-rating-text="2"></a><a
-                                                                href="#" data-rating-value="3"
-                                                                data-rating-text="3"></a><a href="#"
-                                                                data-rating-value="4" data-rating-text="4"></a><a
-                                                                href="#" data-rating-value="5" data-rating-text="5"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="review-stars-holder">
-                                                    <label>Goodwill</label>
-                                                    <div class="br-wrapper br-theme-fontawesome-stars"><select
-                                                            id="review-stars-selector-3" name="user_rating_3"
-                                                            autocomplete="off" style="display: none;">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                        <div class="br-widget"><a href="#" data-rating-value="1"
-                                                                data-rating-text="1"
-                                                                class="br-selected br-current"></a><a href="#"
-                                                                data-rating-value="2" data-rating-text="2"></a><a
-                                                                href="#" data-rating-value="3"
-                                                                data-rating-text="3"></a><a href="#"
-                                                                data-rating-value="4" data-rating-text="4"></a><a
-                                                                href="#" data-rating-value="5" data-rating-text="5"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review-overall-stars-sec">
-                                                <span class="rating-text">Overall Rating</span>
-                                                <span class="rating-num">0</span>
-                                                <div class="jobsearch-company-rating"><span
-                                                        class="jobsearch-company-rating-box" style="width: 20%;"></span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <textarea name="user_comment" placeholder="Your Review"></textarea>
-                                        </li>
-                                        <li>
-                                            <input type="hidden" name="review_post" value="17320">
-                                            <input type="hidden" name="action" value="jobsearch_user_review_post">
-                                            <input type="submit" id="jobsearch-review-submit-btn" value="Submit now">
-                                            <span class="jobsearch-review-loader"></span>
-                                            <span class="jobsearch-review-msg"></span>
-                                        </li>
-                                    </ul>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="jobsearch-margin-top">
-                            <div class="jobsearch-section-title">
-                                <h2>Active Jobs From efat.butex333</h2>
-                            </div>
-                            <div
-                                class="jobsearch-job jobsearch-joblisting-classic jobsearch-jobdetail-joblisting jobsearch-empdetail-activejobs">
-                                <ul class="jobsearch-row">
-                                    <li class="jobsearch-column-12">
-                                        <div class="jobsearch-joblisting-classic-wrap">
-                                            <figure>
-                                                <a href="http://nirectory.com/job/email-job-01/"><img
-                                                        src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
-                                                        alt=""></a>
-                                            </figure>
-                                            <div class="jobsearch-joblisting-text">
-                                                <div class="jobsearch-list-option">
-                                                    <h2 class="jobsearch-pst-title">
-                                                        <a href="http://nirectory.com/job/email-job-01/">Email Job
-                                                            01</a>
-                                                    </h2>
-                                                    <ul>
-                                                        <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
-                                                                efat.butex333</a></li>
-                                                        <li>
-                                                            <i
-                                                                class="jobsearch-icon jobsearch-maps-and-flags"></i>United
-                                                            Kingdom
-                                                        </li>
-                                                        <li><i
-                                                                class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
-                                                            <a href="http://nirectory.com/job/email-job-01/?sector_cat=accountancy-finance&amp;ajax_filter=true"
-                                                                class="">
-                                                                Accounting &amp; Finance </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="jobsearch-job-userlist">
-                                                    <a class="jobsearch-option-btn"
-                                                        style="background-color: #53b427; color: #ffffff;">
-                                                        Contract </a>
-                                                    <div class="like-btn ">
-                                                        <a href="javascript:void(0);"
-                                                            class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
-                                                            data-id="17380" data-before-icon="fa fa-heart-o"
-                                                            data-after-icon="fa fa-heart">
-                                                            <i class="jobsearch-icon jobsearch-heart"></i>
-                                                        </a>
-                                                        <span class="job-to-fav-msg-con"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="jobsearch-column-12">
-                                        <div class="jobsearch-joblisting-classic-wrap">
-                                            <figure>
-                                                <a href="http://nirectory.com/job/cover-job-01/"><img
-                                                        src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
-                                                        alt=""></a>
-                                            </figure>
-                                            <div class="jobsearch-joblisting-text">
-                                                <div class="jobsearch-list-option">
-                                                    <h2 class="jobsearch-pst-title">
-                                                        <a href="http://nirectory.com/job/cover-job-01/">Cover Job
-                                                            01</a>
-                                                    </h2>
-                                                    <ul>
-                                                        <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
-                                                                efat.butex333</a></li>
-                                                        <li>
-                                                            <i
-                                                                class="jobsearch-icon jobsearch-maps-and-flags"></i>United
-                                                            Kingdom
-                                                        </li>
-                                                        <li><i
-                                                                class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
-                                                            <a href="http://nirectory.com/job/cover-job-01/?sector_cat=banking&amp;ajax_filter=true"
-                                                                class="">
-                                                                Banking </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="jobsearch-job-userlist">
-                                                    <a class="jobsearch-option-btn"
-                                                        style="background-color: #186fc9; color: #ffffff;">
-                                                        Full Time </a>
-                                                    <div class="like-btn ">
-                                                        <a href="javascript:void(0);"
-                                                            class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
-                                                            data-id="17378" data-before-icon="fa fa-heart-o"
-                                                            data-after-icon="fa fa-heart">
-                                                            <i class="jobsearch-icon jobsearch-heart"></i>
-                                                        </a>
-                                                        <span class="job-to-fav-msg-con"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="jobsearch-column-12">
-                                        <div class="jobsearch-joblisting-classic-wrap">
-                                            <figure>
-                                                <a href="http://nirectory.com/job/job-by-email/"><img
-                                                        src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
-                                                        alt=""></a>
-                                            </figure>
-                                            <div class="jobsearch-joblisting-text">
-                                                <div class="jobsearch-list-option">
-                                                    <h2 class="jobsearch-pst-title">
-                                                        <a href="http://nirectory.com/job/job-by-email/">Job by
-                                                            Email</a>
-                                                    </h2>
-                                                    <ul>
-                                                        <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
-                                                                efat.butex333</a></li>
-                                                        <li>
-                                                            <i
-                                                                class="jobsearch-icon jobsearch-maps-and-flags"></i>United
-                                                            Kingdom
-                                                        </li>
-                                                        <li><i
-                                                                class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
-                                                            <a href="http://nirectory.com/job/job-by-email/?sector_cat=business-management-consulting&amp;ajax_filter=true"
-                                                                class="">
-                                                                Business Management &amp; Consulting </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="jobsearch-job-userlist">
-                                                    <a class="jobsearch-option-btn">
-                                                        Internship </a>
-                                                    <div class="like-btn ">
-                                                        <a href="javascript:void(0);"
-                                                            class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
-                                                            data-id="17370" data-before-icon="fa fa-heart-o"
-                                                            data-after-icon="fa fa-heart">
-                                                            <i class="jobsearch-icon jobsearch-heart"></i>
-                                                        </a>
-                                                        <span class="job-to-fav-msg-con"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="jobsearch-column-12">
-                                        <div class="jobsearch-joblisting-classic-wrap">
-                                            <figure>
-                                                <a href="http://nirectory.com/job/premium-job/"><img
-                                                        src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
-                                                        alt=""></a>
-                                            </figure>
-                                            <div class="jobsearch-joblisting-text">
-                                                <div class="jobsearch-list-option">
-                                                    <h2 class="jobsearch-pst-title">
-                                                        <a href="http://nirectory.com/job/premium-job/">Premium Job</a>
-                                                    </h2>
-                                                    <ul>
-                                                        <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
-                                                                efat.butex333</a></li>
-                                                        <li>
-                                                            <i
-                                                                class="jobsearch-icon jobsearch-maps-and-flags"></i>United
-                                                            Kingdom
-                                                        </li>
-                                                        <li><i
-                                                                class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
-                                                            <a href="http://nirectory.com/job/premium-job/?sector_cat=charity-nonprofit&amp;ajax_filter=true"
-                                                                class="">
-                                                                Charity &amp; Non-Profit </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="jobsearch-job-userlist">
-                                                    <a class="jobsearch-option-btn">
-                                                        Internship </a>
-                                                    <div class="like-btn ">
-                                                        <a href="javascript:void(0);"
-                                                            class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
-                                                            data-id="17361" data-before-icon="fa fa-heart-o"
-                                                            data-after-icon="fa fa-heart">
-                                                            <i class="jobsearch-icon jobsearch-heart"></i>
-                                                        </a>
-                                                        <span class="job-to-fav-msg-con"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="jobsearch-column-12">
-                                        <div class="jobsearch-joblisting-classic-wrap">
-                                            <figure>
-                                                <a href="http://nirectory.com/job/test-job-02/"><img
-                                                        src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
-                                                        alt=""></a>
-                                            </figure>
-                                            <div class="jobsearch-joblisting-text">
-                                                <div class="jobsearch-list-option">
-                                                    <h2 class="jobsearch-pst-title">
-                                                        <a href="http://nirectory.com/job/test-job-02/">Test Job 02</a>
-                                                    </h2>
-                                                    <ul>
-                                                        <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
-                                                                efat.butex333</a></li>
-                                                        <li>
-                                                            <i
-                                                                class="jobsearch-icon jobsearch-maps-and-flags"></i>United
-                                                            Kingdom
-                                                        </li>
-                                                        <li><i
-                                                                class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
-                                                            <a href="http://nirectory.com/job/test-job-02/?sector_cat=advertising-branding-media&amp;ajax_filter=true"
-                                                                class="">
-                                                                Advertising, Branding &amp; Media </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="jobsearch-job-userlist">
-                                                    <a class="jobsearch-option-btn">
-                                                        Internship </a>
-                                                    <div class="like-btn ">
-                                                        <a href="javascript:void(0);"
-                                                            class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
-                                                            data-id="17357" data-before-icon="fa fa-heart-o"
-                                                            data-after-icon="fa fa-heart">
-                                                            <i class="jobsearch-icon jobsearch-heart"></i>
-                                                        </a>
-                                                        <span class="job-to-fav-msg-con"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="lodmore-jobs-btnsec">
-                                    <a href="javascript:void(0);" class="lodmore-empactjobs-btn jobsearch-bgcolor"
-                                        data-id="17320" data-tpages="2" data-gtopage="2">Load More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Job Detail Content -->
-                    <!-- Job Detail SideBar -->
-                    <aside class="jobsearch-column-4 jobsearch-typo-wrap">
-
-                        <div class="jobsearch_side_box jobsearch_box_contact_form">
-                            <div class="jobsearch-wdg-box-title">
-                                <h2>Contact Form</h2>
-                            </div>
-                            <form [formGroup]="contactEmployerForm" (ngSubmit)="onSubmitEmployer()">
-
-                                <mat-form-field>
-                                    <mat-label>Name</mat-label>
-                                    <input matInput formControlName="name" placeholder="Name" />
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Email</mat-label>
-                                    <input required matInput formControlName="email" placeholder="Email" />
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Phone</mat-label>
-                                    <input matInput formControlName="phone" placeholder="Phone" />
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <mat-label>Message</mat-label>
-                                    <textarea matInput formControlName="message" rows="5"></textarea>
-                                </mat-form-field>
-
-                                <button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
-                                    type="submit" [disabled]="!contactEmployerForm.valid">
-                                    Send
-                                </button>
-
-                                <p *ngIf="showEmployerError" class="errorMessage">{{ errorMessageEmployer }}</p>
-                            </form>
-                        </div>
-                        <div class="jobsearch_side_box jobsearch_box_map">
-                            <div class="jobsearch-map">
-                                <h3>map goes here</h3>
-                            </div>
-                        </div>
-
-                    </aside>
-
+          <div class="jobsearch-column-12 jobsearch-typo-wrap">
+            <figure class="jobsearch-jobdetail-list">
+              <span class="jobsearch-jobdetail-listthumb">
+                <img src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg" alt="">
+              </span>
+              <figcaption>
+                <div class="jobsearch-detrating-con">
+                  <div class="jobsearch-rating-info">4.8</div>
+                  <div class="jobsearch-rating">
+                    <small class="jobsearch-rating-box" style="width:96.666666666666%"></small>
+                  </div>
                 </div>
+                <h2>efat.butex333</h2>
+                <ul class="jobsearch-jobdetail-options">
+                  <li>
+                    <i class="fa fa-map-marker"></i> 25 Shoe Lane, London, UK <a
+                      href="https://www.google.com/maps/search/51.51658159999999%2C-0.106066" target="_blank"
+                      class="jobsearch-jobdetail-view">View on Map</a>
+                  </li>
+                  <li>
+                    <i class="jobsearch-icon jobsearch-mail"></i> <a href="mailto:efat.butex333@gmail.com">Email:
+                      efat.butex333@gmail.com</a>
+                  </li>
+                  <li>
+                    <i class="jobsearch-icon jobsearch-technology"></i> Telephone: 8801777560000
+                  </li>
+                </ul>
+                <a (click)="scrollIntoView(reviewList)" class="jobsearch-go-to-review-form jobsearch-employerdetail-btn"
+                  data-post_id="17320"><i class="jobsearch-icon jobsearch-add"></i> Add a review </a>
+                <a (click)="followEmployer()" class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn"><i
+                    class="fa fa-user-plus"></i>
+                  {{followingEmployer ? 'Following' : 'Follow'}}</a>
+                <ul class="jobsearch-jobdetail-media jobsearch-add-space">
+                  <li><span>Social Links:</span></li>
+                  <li><a href="https://twitter.com/GSCareers" target="_blank" data-original-title="twitter"
+                      class="jobsearch-icon jobsearch-twitter-logo"></a></li>
+                  <li><a href="https://www.linkedin.com/company/goldman-sachs/jobs" target="_blank"
+                      data-original-title="linkedin" class=""><i
+                        class="jobsearch-icon jobsearch-linkedin-button"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://www.instagram.com/goldmansachs/?hl=en" target="_blank"
+                      class="jobsearch-icon jobsearch-instagram-logo"></a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+          </div>
+          <!-- Job Detail List -->
+
+          <!-- Job Detail Content -->
+          <div class="jobsearch-column-8 jobsearch-typo-wrap">
+            <div class="jobsearch-jobdetail-content jobsearch-employerdetail-content">
+              <div class="jobsearch-content-title">
+                <h2>Overview</h2>
+              </div>
+              <div class="jobsearch-jobdetail-services">
+                <ul class="jobsearch-row">
+                  <li class="jobsearch-column-4">
+                    <i class="jobsearch-icon jobsearch-folder"></i>
+                    <div class="jobsearch-services-text">Sectors<small>
+                        Banking
+                      </small></div>
+                  </li>
+                  <li class="jobsearch-column-4">
+                    <i class="jobsearch-icon jobsearch-briefcase"></i>
+                    <div class="jobsearch-services-text">Posted Jobs <small>6</small>
+                    </div>
+                  </li>
+                  <li class="jobsearch-column-4">
+                    <i class="jobsearch-icon jobsearch-view"></i>
+                    <div class="jobsearch-services-text">Viewed <small>19</small>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="jobsearch-content-title">
+                <h2>Company Description</h2>
+              </div>
+              <div class="jobsearch-description">
+                <p>Description ………….</p>
+              </div>
             </div>
-        </div><!-- Main Section -->
-    </div>
+
+            <div #reviewList class="dash-reviews-list jobsearch-employer-wrap-section">
+              <div class="jobsearch-content-title jobsearch-addmore-space">
+                <h2>Company Reviews</h2>
+              </div>
+
+              <div class="jobsearch-company-review">
+                <div *ngFor="let review of reviews" class="reviw-mainitem-con ">
+                  <div #ratingDetails class="review-detail-popover">
+                    <div class="rating-detail-item">
+                      <span class="rating-title">Quality</span>
+                      <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
+                          [style.width.%]="review.rating_quality*20"></span>
+                      </div>
+                    </div>
+                    <div class="rating-detail-item">
+                      <span class="rating-title">Communication</span>
+                      <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
+                          [style.width.%]="review.rating_communication*20"></span>
+                      </div>
+                    </div>
+                    <div class="rating-detail-item">
+                      <span class="rating-title">Goodwill</span>
+                      <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
+                          [style.width.%]="review.rating_goodwill*20"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <figure>
+                    <a [routerLink]="['/user-details/', review.candidate_username]" class="company-review-thumb"><img
+                        [src]="getUserProfilePicture(review.candidate_profile_photo)"></a>
+                    <figcaption>
+                      <div class="jobsearch-company-review-left">
+                        <a [routerLink]="['/user-details/', review.candidate_username]"
+                          class="reviewr-user-name">{{review.candidate_display_name}}</a>
+
+                        <div class="jobsearch-company-rating" (mouseenter)="showDetailRating(ratingDetails)"
+                          (mouseleave)="hideDetailRating(ratingDetails)">
+                          <span class="jobsearch-company-rating-box" style="width: 93.333333333334%;"></span>
+                        </div>
+
+                        <small>{{review.rating_overall}}</small>
+                      </div>
+
+                      <time>{{review.created_at | date:"MMMM d, yyyy"}}</time>
+                    </figcaption>
+                  </figure>
+
+                  <div class="reviw-contntholdr-con">
+                    <div class="jobsearch-company-review-text" [innerHTML]="review.review">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="ifShowAddReviewForm()" id="add_review_form_sec"
+              class="jobsearch-employer-wrap-section jobsearch-margin-bottom">
+              <div class="jobsearch-content-title jobsearch-addmore-space">
+                <h2>Leave Your Review</h2>
+              </div>
+              <div class="jobsearch-add-review-con">
+
+                <form [formGroup]="reviewForm" id="jobsearch-review-form" class="jobsearch-addreview-form" method="post"
+                  (ngSubmit)="onReviewSubmit()">
+                  <ul>
+                    <li>
+                      <div class="review-stars-sec">
+
+                        <div class="review-stars-holder">
+                          <label>Quality</label>
+                          <div class="br-wrapper br-theme-fontawesome-stars">
+                            <div class="br-widget">
+                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_quality}"
+                                (click)="setRating(rating, 'rating_quality')"></a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="review-stars-holder">
+                          <label>Communication</label>
+                          <div class="br-wrapper br-theme-fontawesome-stars">
+                            <div class="br-widget">
+                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_communication}"
+                                (click)="setRating(rating, 'rating_communication')"></a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="review-stars-holder">
+                          <label>Goodwill</label>
+                          <div class="br-wrapper br-theme-fontawesome-stars">
+                            <div class="br-widget">
+                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_goodwill}"
+                                (click)="setRating(rating, 'rating_goodwill')"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="review-overall-stars-sec">
+                        <span class="rating-text">Overall Rating</span>
+                        <span class="rating-num">{{reviewForm.value.rating_overall}}</span>
+                        <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
+                            [style.width.%]="reviewForm.value.rating_overall*20"></span>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <textarea name="user_comment" placeholder="Your Review" formControlName="review"></textarea>
+                    </li>
+                    <li>
+                      <input type="submit" id="jobsearch-review-submit-btn" value="Submit now"
+                        [disabled]="!reviewForm.valid">
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+            <div class="jobsearch-margin-top">
+              <div class="jobsearch-section-title">
+                <h2>Active Jobs From efat.butex333</h2>
+              </div>
+              <div
+                class="jobsearch-job jobsearch-joblisting-classic jobsearch-jobdetail-joblisting jobsearch-empdetail-activejobs">
+                <ul class="jobsearch-row">
+                  <li class="jobsearch-column-12">
+                    <div class="jobsearch-joblisting-classic-wrap">
+                      <figure>
+                        <a href="http://nirectory.com/job/email-job-01/"><img
+                            src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
+                            alt=""></a>
+                      </figure>
+                      <div class="jobsearch-joblisting-text">
+                        <div class="jobsearch-list-option">
+                          <h2 class="jobsearch-pst-title">
+                            <a href="http://nirectory.com/job/email-job-01/">Email Job
+                              01</a>
+                          </h2>
+                          <ul>
+                            <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
+                                efat.butex333</a></li>
+                            <li>
+                              <i class="jobsearch-icon jobsearch-maps-and-flags"></i>United
+                              Kingdom
+                            </li>
+                            <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                              <a href="http://nirectory.com/job/email-job-01/?sector_cat=accountancy-finance&amp;ajax_filter=true"
+                                class="">
+                                Accounting &amp; Finance </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="jobsearch-job-userlist">
+                          <a class="jobsearch-option-btn" style="background-color: #53b427; color: #ffffff;">
+                            Contract </a>
+                          <div class="like-btn ">
+                            <a href="javascript:void(0);"
+                              class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17380"
+                              data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                              <i class="jobsearch-icon jobsearch-heart"></i>
+                            </a>
+                            <span class="job-to-fav-msg-con"></span>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="jobsearch-column-12">
+                    <div class="jobsearch-joblisting-classic-wrap">
+                      <figure>
+                        <a href="http://nirectory.com/job/cover-job-01/"><img
+                            src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
+                            alt=""></a>
+                      </figure>
+                      <div class="jobsearch-joblisting-text">
+                        <div class="jobsearch-list-option">
+                          <h2 class="jobsearch-pst-title">
+                            <a href="http://nirectory.com/job/cover-job-01/">Cover Job
+                              01</a>
+                          </h2>
+                          <ul>
+                            <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
+                                efat.butex333</a></li>
+                            <li>
+                              <i class="jobsearch-icon jobsearch-maps-and-flags"></i>United
+                              Kingdom
+                            </li>
+                            <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                              <a href="http://nirectory.com/job/cover-job-01/?sector_cat=banking&amp;ajax_filter=true"
+                                class="">
+                                Banking </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="jobsearch-job-userlist">
+                          <a class="jobsearch-option-btn" style="background-color: #186fc9; color: #ffffff;">
+                            Full Time </a>
+                          <div class="like-btn ">
+                            <a href="javascript:void(0);"
+                              class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17378"
+                              data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                              <i class="jobsearch-icon jobsearch-heart"></i>
+                            </a>
+                            <span class="job-to-fav-msg-con"></span>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="jobsearch-column-12">
+                    <div class="jobsearch-joblisting-classic-wrap">
+                      <figure>
+                        <a href="http://nirectory.com/job/job-by-email/"><img
+                            src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
+                            alt=""></a>
+                      </figure>
+                      <div class="jobsearch-joblisting-text">
+                        <div class="jobsearch-list-option">
+                          <h2 class="jobsearch-pst-title">
+                            <a href="http://nirectory.com/job/job-by-email/">Job by
+                              Email</a>
+                          </h2>
+                          <ul>
+                            <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
+                                efat.butex333</a></li>
+                            <li>
+                              <i class="jobsearch-icon jobsearch-maps-and-flags"></i>United
+                              Kingdom
+                            </li>
+                            <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                              <a href="http://nirectory.com/job/job-by-email/?sector_cat=business-management-consulting&amp;ajax_filter=true"
+                                class="">
+                                Business Management &amp; Consulting </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="jobsearch-job-userlist">
+                          <a class="jobsearch-option-btn">
+                            Internship </a>
+                          <div class="like-btn ">
+                            <a href="javascript:void(0);"
+                              class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17370"
+                              data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                              <i class="jobsearch-icon jobsearch-heart"></i>
+                            </a>
+                            <span class="job-to-fav-msg-con"></span>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="jobsearch-column-12">
+                    <div class="jobsearch-joblisting-classic-wrap">
+                      <figure>
+                        <a href="http://nirectory.com/job/premium-job/"><img
+                            src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
+                            alt=""></a>
+                      </figure>
+                      <div class="jobsearch-joblisting-text">
+                        <div class="jobsearch-list-option">
+                          <h2 class="jobsearch-pst-title">
+                            <a href="http://nirectory.com/job/premium-job/">Premium Job</a>
+                          </h2>
+                          <ul>
+                            <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
+                                efat.butex333</a></li>
+                            <li>
+                              <i class="jobsearch-icon jobsearch-maps-and-flags"></i>United
+                              Kingdom
+                            </li>
+                            <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                              <a href="http://nirectory.com/job/premium-job/?sector_cat=charity-nonprofit&amp;ajax_filter=true"
+                                class="">
+                                Charity &amp; Non-Profit </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="jobsearch-job-userlist">
+                          <a class="jobsearch-option-btn">
+                            Internship </a>
+                          <div class="like-btn ">
+                            <a href="javascript:void(0);"
+                              class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17361"
+                              data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                              <i class="jobsearch-icon jobsearch-heart"></i>
+                            </a>
+                            <span class="job-to-fav-msg-con"></span>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="jobsearch-column-12">
+                    <div class="jobsearch-joblisting-classic-wrap">
+                      <figure>
+                        <a href="http://nirectory.com/job/test-job-02/"><img
+                            src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg"
+                            alt=""></a>
+                      </figure>
+                      <div class="jobsearch-joblisting-text">
+                        <div class="jobsearch-list-option">
+                          <h2 class="jobsearch-pst-title">
+                            <a href="http://nirectory.com/job/test-job-02/">Test Job 02</a>
+                          </h2>
+                          <ul>
+                            <li><a href="http://nirectory.com/employer/efat-butex333-2/">@
+                                efat.butex333</a></li>
+                            <li>
+                              <i class="jobsearch-icon jobsearch-maps-and-flags"></i>United
+                              Kingdom
+                            </li>
+                            <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                              <a href="http://nirectory.com/job/test-job-02/?sector_cat=advertising-branding-media&amp;ajax_filter=true"
+                                class="">
+                                Advertising, Branding &amp; Media </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="jobsearch-job-userlist">
+                          <a class="jobsearch-option-btn">
+                            Internship </a>
+                          <div class="like-btn ">
+                            <a href="javascript:void(0);"
+                              class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17357"
+                              data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                              <i class="jobsearch-icon jobsearch-heart"></i>
+                            </a>
+                            <span class="job-to-fav-msg-con"></span>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <div class="lodmore-jobs-btnsec">
+                  <a href="javascript:void(0);" class="lodmore-empactjobs-btn jobsearch-bgcolor" data-id="17320"
+                    data-tpages="2" data-gtopage="2">Load More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Job Detail Content -->
+          <!-- Job Detail SideBar -->
+          <aside class="jobsearch-column-4 jobsearch-typo-wrap">
+
+            <div class="jobsearch_side_box jobsearch_box_contact_form">
+              <div class="jobsearch-wdg-box-title">
+                <h2>Contact Form</h2>
+              </div>
+              <form [formGroup]="contactEmployerForm" (ngSubmit)="onSubmitEmployer()">
+
+                <mat-form-field>
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name" placeholder="Name" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input required matInput formControlName="email" placeholder="Email" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone" placeholder="Phone" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Message</mat-label>
+                  <textarea matInput formControlName="message" rows="5"></textarea>
+                </mat-form-field>
+
+                <button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
+                  [disabled]="!contactEmployerForm.valid">
+                  Send
+                </button>
+
+                <p *ngIf="showEmployerError" class="errorMessage">{{ errorMessageEmployer }}</p>
+              </form>
+            </div>
+            <div class="jobsearch_side_box jobsearch_box_map">
+              <div class="jobsearch-map">
+                <h3>map goes here</h3>
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
+      </div>
+    </div><!-- Main Section -->
+  </div>
 </div>
