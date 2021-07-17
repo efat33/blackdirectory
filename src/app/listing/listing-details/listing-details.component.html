@@ -3,9 +3,7 @@
         <div class="listing-detail_module__2-bfH">
             <header class="listing-detail_header__18Cfs">
                 <div class="listing-detail_img__3DyYX pos-a-full bg-cover"
-                    style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/ca88a05d539e67e5722abc9546e69cbd.jpg);">
-                    <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/ca88a05d539e67e5722abc9546e69cbd.jpg"
-                        alt="Auto For Trade">
+                    [ngStyle]="{'background-image': 'url(' + cover_img + ')'}">
                 </div>
                 <div class="wil-header-btn-wrapper" style="z-index: 1;"><a href="#" target="_self"
                         class="wil-btn wil-btn--overlay-dark wil-btn--sm wil-btn--round" post-id="20533"> <span
@@ -21,19 +19,20 @@
                     <div class="listing-detail_left__22FMI">
                         <div class="listing-detail_goo__1A8J-">
                             <div class="listing-detail_logo__3fI4O bg-cover"
-                                style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/5933d7643f00c7affca429989dccb0ee-150x150.jpg&quot;);">
-                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/"><img
-                                        src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/5933d7643f00c7affca429989dccb0ee-150x150.jpg"
-                                        alt="Auto For Trade" class="hidden"></a>
+                                [ngStyle]="{'background-image': 'url(' + logo + ')'}">
+                                <a href="#"><img [src]="logo" alt="Auto For Trade" class="hidden"></a>
                             </div>
                         </div>
                         <div class="listing-detail_titleWrap__2A2Mm js-titleWrap-detail">
-                            <h1 class="listing-detail_title__2cR-R"><span class="listing-detail_text__31u2P">Auto For
-                                    Trade <span class="listing-detail_claim__10fsw color-primary"><i
-                                            class="la la-check"></i><span>
-                                            Claimed</span></span></span></h1> <span
-                                class="listing-detail_tagline__3u_9y">Buy Used Cars In South Africa, Buy Used Cars In
-                                United ringdown, Buy Used Cars In South kebaya</span>
+                            <h1 class="listing-detail_title__2cR-R">
+                                <span class="listing-detail_text__31u2P">
+                                    {{ listing.title }}
+
+                                    <span *ngIf="listing.claimer_id" class="listing-detail_claim__10fsw color-primary">
+                                        <i class="la la-check"></i><span>Claimed</span>
+                                    </span>
+                                </span>
+                            </h1> <span class="listing-detail_tagline__3u_9y">{{ listing.tagline }}</span>
                         </div>
                     </div>
                     <div class="listing-detail_right__2KHL5">
@@ -61,11 +60,11 @@
 
             <div class="detail-navtop_module__zo_OS js-detail-navtop">
                 <div class="container">
-                    <div class="detail-navtop_right__KPAlw"><a rel="nofollow" target="http://_blank>"
-                            href="https://www.autofortrade.com/country/south-africa/"
-                            class="wil-btn wil-btn--primary2 wil-btn--round wil-btn--md wil-btn--block"><i
-                                class="la la-link"></i>
-                            Used Car sale in south Africa </a>
+                    <div *ngIf="listing.button_name && listing.button_link" class="detail-navtop_right__KPAlw">
+                        <a rel="nofollow" target="_blank" href="{{ listing.button_link }}"
+                            class="wil-btn wil-btn--primary2 wil-btn--round wil-btn--md wil-btn--block">
+                            <i *ngIf="listing.button_icon" class="la la-{{ listing.button_icon }}"></i>
+                            {{ listing.button_name }} </a>
                     </div>
                     <nav class="detail-navtop_nav__1j1Ti" style="min-height: 73px;">
                         <ul class="list_module__1eis9 list-none list_horizontal__7fIr5">
@@ -134,14 +133,14 @@
                                         class="list_text__35R07">Listing Features</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-nav-listing-settings"><a
+                            <!-- <li class="list_item__3YghP wil-single-nav-listing-settings"><a
                                     href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=listing-settings"
                                     target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
                                     post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-cog"></i></span> <span
                                         class="list_text__35R07">Listing Settings</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </nav>
                 </div>
@@ -162,15 +161,7 @@
                                     </header>
                                     <div class="content-box_body__3tSRB">
                                         <div>
-                                            <p>Auto For Trade is one of the most leading brand names of the online car
-                                                trading industry in the world, delivering the highest quality cars in
-                                                the most affordable prices to clients across the planet. We have been
-                                                delivering impeccable cars to our clients for over eight years and we
-                                                understand what our clients are looking for in a car. We ensure that
-                                                every car we sell is flawless and offers our clients with best driving
-                                                experience. We have some of the best cars in our stock just waiting for
-                                                you, so contact us and we will bring them right to your doorstep.&nbsp;
-                                            </p>
+                                            {{ listing.description }}
                                         </div>
                                     </div>
                                 </div>
@@ -245,75 +236,57 @@
                                 </div>
                             </div>
                             <div data-tab-key="home" class="wil-colSmall wilcity-js-toggle-group">
-                                <div class="listing-hours_module__38Iy5">
+                                <div *ngIf="listing.business_hour == 'open_for_selected_hours' || listing.business_hour == 'always_open' || listing.business_hour == 'business_closures'"
+                                    class="listing-hours_module__38Iy5">
                                     <header data-toggle-button="hour" data-toggle-effect="slide"
-                                        class="listing-hours_header__1uH8N clearfix active close">
+                                        [ngClass]="{'open': isTodayOpen, 'close': !isTodayOpen, 'active': listing.business_hour == 'open_for_selected_hours'}"
+                                        class="listing-hours_header__1uH8N clearfix ">
                                         <div class="wil-float-left">
                                             <h4 class="listing-hours_title__sRfK7"><i class="la la-clock-o"></i>
-                                                <span>Today</span> <span
-                                                    class="listing-hours_status__dQ6Z9 close">Closed</span>
+                                                <span>{{ listing.business_hour == 'open_for_selected_hours' ? 'Today' :
+                                                    'BUSINESS HOURS' }}</span>
+                                                <span *ngIf="listing.business_hour == 'open_for_selected_hours'"
+                                                    [ngClass]="isTodayOpen ? 'open' : 'close'"
+                                                    class="listing-hours_status__dQ6Z9">{{ isTodayOpen ? 'Open now' :
+                                                    'Closed' }}</span>
                                             </h4>
                                         </div>
-                                        <div class="wil-float-right"><span class="listing-hours_todayhour__1iK4_"><span
+                                        <!-- <div class="wil-float-right"><span class="listing-hours_todayhour__1iK4_"><span
                                                     class="listing-hours_todayhouritem__2WBlQ">08:00 -
                                                     17:00</span></span>
-                                            <div data-toggle-button="dropdown" class="listing-hours_threeDots__27IFT">
-                                                <span class="listing-hours_dot__3xWqn bg-color-primary"></span> <span
-                                                    class="listing-hours_dot__3xWqn bg-color-primary"></span> <span
-                                                    class="listing-hours_dot__3xWqn bg-color-primary"></span>
-                                            </div>
-                                        </div>
+                                        </div> -->
                                     </header>
-                                    <div data-toggle-content="hour" class="listing-hours_body__3StC3 active"
+                                    <div *ngIf="listing.business_hour == 'business_closures'"
+                                        class="content-box_body__3tSRB">
+                                        <h3 class="business-closures wil-btn wil-btn--block wil-btn--round"
+                                            style="font-weight: bold; color: red;">Business Closures</h3>
+                                    </div>
+                                    <div *ngIf="listing.business_hour == 'always_open'" class="content-box_body__3tSRB">
+                                        <h3 class="alway-open wil-btn wil-btn--block wil-btn--secondary wil-btn--round">
+                                            Open 24/7</h3>
+                                    </div>
+                                    <div *ngIf="listing.business_hour == 'open_for_selected_hours'"
+                                        data-toggle-content="hour" class="listing-hours_body__3StC3 active"
                                         style="display: block;">
                                         <ul class="listing-hours_listhours__270Nz list-none">
-                                            <li class="listing-hours_item__1B8Vv close"><span
-                                                    class="listing-hours_day__2Opo_">
-                                                    Monday </span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">
-                                                        08:00 - 17:00 </span></div>
+                                            <li *ngFor="let item of listing_hours;  let i = index"
+                                                [ngClass]="current_weekday == i ? (isTodayOpen ? 'open' : 'close') : ''"
+                                                class="listing-hours_item__1B8Vv ">
+                                                <span class="listing-hours_day__2Opo_">{{ item.day_of_week }}</span>
+                                                <div class="listing-hours_hour__1OuD9">
+                                                    <span *ngIf="item.is_open != 1; else openToday"
+                                                        class="listing-hours_houritem__3cCSp">Day Off</span>
+                                                    <ng-template #openToday>
+                                                        <span class="listing-hours_houritem__3cCSp">{{
+                                                            item.first_hour_start }} - {{ item.first_hour_end }}</span>
+                                                        <span *ngIf="item.second_hour_start && item.second_hour_end"
+                                                            class="listing-hours_houritem__3cCSp">{{
+                                                            item.second_hour_start }} - {{ item.second_hour_end
+                                                            }}</span>
+                                                    </ng-template>
+                                                </div>
                                             </li>
-                                            <li class="listing-hours_item__1B8Vv"><span
-                                                    class="listing-hours_day__2Opo_">
-                                                    Tuesday </span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">
-                                                        08:00 - 17:00 </span></div>
-                                            </li>
-                                            <li class="listing-hours_item__1B8Vv"><span
-                                                    class="listing-hours_day__2Opo_">
-                                                    Wednesday </span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">
-                                                        08:00 - 17:00 </span></div>
-                                            </li>
-                                            <li class="listing-hours_item__1B8Vv"><span
-                                                    class="listing-hours_day__2Opo_">
-                                                    Thursday </span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">
-                                                        08:00 - 17:00 </span></div>
-                                            </li>
-                                            <li class="listing-hours_item__1B8Vv"><span
-                                                    class="listing-hours_day__2Opo_">
-                                                    Friday </span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">
-                                                        08:00 - 17:00 </span></div>
-                                            </li>
-                                            <li class="listing-hours_item__1B8Vv"><span
-                                                    class="listing-hours_day__2Opo_">
-                                                    Saturday </span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">
-                                                        08:00 - 17:00 </span></div>
-                                            </li>
-                                            <li class="listing-hours_item__1B8Vv"><span
-                                                    class="listing-hours_day__2Opo_">Sunday</span>
-                                                <div class="listing-hours_hour__1OuD9"><span
-                                                        class="listing-hours_houritem__3cCSp">Day Off</span></div>
-                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -325,40 +298,43 @@
                                         </div>
                                     </header>
                                     <div class="content-box_body__3tSRB">
-                                        <div
+                                        <div *ngIf="listing_contact.email"
                                             class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-email">
                                             <div class="icon-box-1_block1__bJ25J"><a
-                                                    href="mailto:info@autofortrade.com">
+                                                    href="mailto:{{ listing_contact.email }}">
                                                     <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                             class="la la-envelope"></i></div>
-                                                    <div class="icon-box-1_text__3R39g">info@autofortrade.com</div>
+                                                    <div class="icon-box-1_text__3R39g">{{ listing_contact.email }}
+                                                    </div>
                                                 </a></div>
                                         </div>
-                                        <div
+                                        <div *ngIf="listing_contact.phone"
                                             class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-phone">
-                                            <div class="icon-box-1_block1__bJ25J"><a href="tel:44 8000 061314">
+                                            <div class="icon-box-1_block1__bJ25J"><a
+                                                    href="tel:{{ listing_contact.phone }}">
                                                     <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                             class="la la-phone"></i></div>
-                                                    <div class="icon-box-1_text__3R39g">44 8000 061314</div>
+                                                    <div class="icon-box-1_text__3R39g">{{ listing_contact.phone }}
+                                                    </div>
                                                 </a></div>
                                         </div>
-                                        <div
+                                        <div *ngIf="listing_contact.website"
                                             class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-website">
                                             <div class="icon-box-1_block1__bJ25J"><a target="_blank"
-                                                    href="https://www.autofortrade.com/" rel="nofollow">
+                                                    href="{{ listing_contact.website }}" rel="nofollow">
                                                     <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                             class="la la-globe"></i></div>
-                                                    <div class="icon-box-1_text__3R39g">https://www.autofortrade.com/
+                                                    <div class="icon-box-1_text__3R39g">{{ listing_contact.website }}
                                                     </div>
                                                 </a></div>
                                         </div>
                                         <div
                                             class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 text-pre wil-listing-address">
                                             <div class="icon-box-1_block1__bJ25J"><a target="_blank"
-                                                    href="https://www.google.com/maps/search/4%20Humber%20Cl,%20Leicester%20LE5%201DE">
+                                                    href="https://www.google.com/maps/search/{{ listing.address | encodeURL }}">
                                                     <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                             class="la la-map-marker"></i></div>
-                                                    <div class="icon-box-1_text__3R39g">4 Humber Cl, Leicester LE5 1DE
+                                                    <div class="icon-box-1_text__3R39g">{{ listing.address }}
                                                     </div>
                                                 </a></div>
                                         </div> <a href="#" target="_self" class="wilcity-inbox-btn wil-btn wil-btn--block mt-20

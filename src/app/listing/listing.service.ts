@@ -31,6 +31,14 @@ export class ListingService {
       .pipe(map((body: APIReponse) => body));
   }
 
+  updateListing(body: any): Observable<APIReponse> {
+    const url = 'api/listings/update-listing';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
   getListing(slug): Observable<APIReponse> {
     const url = `api/listings/${slug}`;
 
@@ -44,6 +52,7 @@ export class ListingService {
       .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
       .pipe(map((body: APIReponse) => body));
   }
-
+  
   
 }
+
