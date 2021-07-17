@@ -55,7 +55,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc } from './custom-pipes';
+import { imageSrc, encodeURL } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -92,6 +92,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     imageSrc,
     TimeAgoPipe,
     TimeUntilPipe,
+    encodeURL
   ],
   imports: [
     CommonModule,
@@ -158,6 +159,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     MatSnackBarModule,
     MatProgressBarModule,
     imageSrc,
+    encodeURL,
     NgxStickySidebarModule,
     MatSliderModule,
     TimeAgoPipe,

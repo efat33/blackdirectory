@@ -398,7 +398,7 @@ export class ListingNewComponent implements OnInit {
     this.errorMessage = [];
   }
 
-  // add times to business hours
+  // add gallery image
   addGalleryImage() {
     const variationGroup = new FormGroup({
       image_input: new FormControl(''),
@@ -407,7 +407,7 @@ export class ListingNewComponent implements OnInit {
     (this.listingForm.get('galleries') as FormArray).push(variationGroup);
   }
 
-  // remove times from business hours
+  // remove gallery image
   removeGalleryImage(Index: number) {
     (this.listingForm.get('galleries') as FormArray).removeAt(Index);
   }

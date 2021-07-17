@@ -16,3 +16,10 @@ export class imageSrc implements PipeTransform {
     return `http://localhost:3000/${folder}/${image}`;
   }
 }
+
+@Pipe({name: 'encodeURL'})
+export class encodeURL implements PipeTransform {
+  transform(url: string): any {
+    return  encodeURIComponent(url);
+  }
+}

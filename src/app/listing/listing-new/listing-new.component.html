@@ -137,7 +137,7 @@
                             class="content-box_module__333d9 content-box_lg__3v3a- enable">
                             <header class="content-box_header__xPnGx clearfix">
                                 <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS required"><i class="la la-file-text"></i>
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
                                         <span>Listing Content</span>
                                     </h4>
                                 </div>
@@ -146,7 +146,7 @@
                                 <div class="content-box_body__3tSRB">
                                     <mat-form-field>
                                         <mat-label>Description</mat-label>
-                                        <textarea matInput rows="5" formControlName="description"></textarea>
+                                        <textarea required matInput rows="5" formControlName="description"></textarea>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                             class="content-box_module__333d9 content-box_lg__3v3a- enable">
                             <header class="content-box_header__xPnGx clearfix">
                                 <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS required"><i class="la la-file-text"></i>
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
                                         <span>Category</span>
                                     </h4>
                                 </div>
@@ -495,14 +495,14 @@
                             class="content-box_module__333d9 content-box_lg__3v3a- enable">
                             <header class="content-box_header__xPnGx clearfix">
                                 <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS required"><i class="la la-image"></i>
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
                                         <span>Featured Image</span>
                                     </h4>
                                 </div>
                             </header>
                             <div class="content-box_body__3tSRB">
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Featured Image</mat-label>
+                                    <mat-label>Featured Image *</mat-label>
                                     <input required accept="image/*" type="file" formControlName="featured_img_input"
                                         #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
                                     <span *ngIf="featuredImageSrc"
@@ -1137,7 +1137,7 @@
 
                         <button mat-raised-button
                             class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
-                            type="submit" [disabled]="!listingForm.valid">
+                            type="submit" [disabled]="listingForm.invalid">
                             Save & Preview
                         </button>
                         <!-- <button mat-raised-button
