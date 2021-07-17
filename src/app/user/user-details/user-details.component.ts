@@ -6,26 +6,29 @@ import { Subscription } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from '../user.service';
-import { CurrentUser } from "../user";
-import { Sector } from "../../jobs/jobs";
+import { CurrentUser } from '../user';
+import { Sector } from '../../jobs/jobs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { PipeTransform } from '@angular/core';
 import { Pipe } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss']
+  styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
-  userType:string;
+  username: string;
+  userType: string;
   currentUser: CurrentUser;
   userMeta: any;
   userProfile: any;
-  profileImage:string = `${this.helperService.siteUrl}/assets/img/avatar-default.png`;
-  coverImage:string;
+  profileImage: string = `${this.helperService.siteUrl}/assets/img/avatar-default.png`;
+  coverImage: string;
   candidateInfo: any;
   employerInfo: any;
   academics: string[];
@@ -38,23 +41,41 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   showEmployerError = false;
   errorMessageEmployer = '';
 
+  reviewForm: FormGroup;
+  reviews: any[] = [];
+
+  candidateSaved: boolean = false;
+  followingEmployer: boolean = false;
+
   constructor(
     public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
     private helperService: HelperService,
     private userService: UserService,
     private spinnerService: SpinnerService,
-    private jobService: JobService
-  ) { }
+    private jobService: JobService,
+    private snackbar: SnackBarService
+  ) {}
 
   ngOnInit() {
-    
-    this.setupContactForm();
+    this.username = this.route.snapshot.paramMap.get('username');
 
+    if (!this.username) {
+      this.router.navigate(['/']);
+    }
+
+    this.setupContactForm();
+    this.setupReviewForm();
+    this.getUserDetails();
+  }
+
+  getUserDetails() {
     // show spinner, wait until user data is fetched
     this.spinnerService.show();
 
     // get current user detail
-    this.userService.getDetails().subscribe(
+    const getUserSubscription = this.userService.getDetails(this.username).subscribe(
       (res: any) => {
         this.currentUser = res.data.data;
         this.userType = res.data.data.role;
@@ -63,38 +84,117 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
         // populdate data
         this.populateData();
-        
+
         // hide spinner
         this.spinnerService.hide();
+
+        this.getReviews();
+
+        if (this.helperService.isEmployer()) {
+          this.getSavedCandidates();
+        } else if (this.helperService.isCandidate()) {
+          this.getFollowingEmployers();
+        }
       },
       (res: any) => {
         // if unauthorised, then logout and redirect to home page
-        if(res.status == 401){
+        if (res.status == 401) {
           this.userService.logout();
         }
       }
-
     );
-    
 
+    this.subscriptions.add(getUserSubscription);
   }
 
-  populateData():void {
-    
-    if(this.currentUser.profile_photo != '') this.profileImage = this.helperService.getImageUrl(this.currentUser.profile_photo, 'users', 'medium')
-    if(this.currentUser.cover_photo != '') this.coverImage = this.helperService.getImageUrl(this.currentUser.cover_photo, 'users')
-    if(this.userMeta.academics) this.academics = JSON.parse(this.userMeta.academics);
-    
+  getReviews() {
+    this.spinnerService.show();
+
+    const getReviewsSubscription = this.userService.getReviews(this.currentUser.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.reviews = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getReviewsSubscription);
+  }
+
+  getSavedCandidates() {
+    if (!this.helperService.isEmployer()) {
+      return;
+    }
+
+    this.spinnerService.show();
+    const getCandidatesSubs = this.jobService.getSavedCandidates().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (result.data.length > 0) {
+          const candidate = result.data.find((data: any) => data.candidate_id == this.currentUser.id);
+
+          if (candidate) {
+            this.candidateSaved = true;
+          }
+        }
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getCandidatesSubs);
+  }
+
+  getFollowingEmployers() {
+    if (!this.helperService.isCandidate()) {
+      return;
+    }
+
+    this.spinnerService.show();
+    const subscription = this.userService.getFollowingEmployers().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (result.data.length > 0) {
+          const employer = result.data.find((data: any) => data.employer_id == this.currentUser.id);
+
+          if (employer) {
+            this.followingEmployer = true;
+          }
+        }
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
+
+  populateData(): void {
+    if (this.currentUser.profile_photo != '')
+      this.profileImage = this.helperService.getImageUrl(this.currentUser.profile_photo, 'users', 'medium');
+    if (this.currentUser.cover_photo != '')
+      this.coverImage = this.helperService.getImageUrl(this.currentUser.cover_photo, 'users');
+    if (this.userMeta.academics) this.academics = JSON.parse(this.userMeta.academics);
+
     // set image url in portfolios array
-    if(this.userProfile.portfolios){
-      this.userProfile.portfolios.map(portfolio => {
+    if (this.userProfile.portfolios) {
+      this.userProfile.portfolios.map((portfolio) => {
         portfolio.image = this.helperService.getImageUrl(portfolio.image, 'users', 'thumb');
       });
     }
-    
   }
 
-  setupContactForm():void {
+  setupContactForm(): void {
     this.contactCandidateForm = new FormGroup({
       name: new FormControl(''),
       email: new FormControl('', Validators.required),
@@ -109,21 +209,179 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmitCandidate() {
-
+  setupReviewForm() {
+    this.reviewForm = new FormGroup({
+      review: new FormControl('', Validators.required),
+      rating_quality: new FormControl(1, Validators.required),
+      rating_communication: new FormControl(1, Validators.required),
+      rating_goodwill: new FormControl(1, Validators.required),
+      rating_overall: new FormControl(1, Validators.required),
+    });
   }
 
-  onSubmitEmployer() {
+  updateSaveCandidateStatus() {
+    if (!this.helperService.isEmployer()) {
+      this.snackbar.openSnackBar(`Requires 'Employer' login`, 'Close', 'warn');
+      return;
+    }
 
+    if (this.candidateSaved) {
+      this.deleteSavedCandidate();
+    } else {
+      this.saveCandidate();
+    }
   }
 
+  saveCandidate() {
+    this.spinnerService.show();
+    const saveCandidateSubscription = this.jobService.saveCandidate(this.currentUser.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar('Candidate saved successfully');
+        this.candidateSaved = true;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(saveCandidateSubscription);
+  }
+
+  deleteSavedCandidate() {
+    this.spinnerService.show();
+    const saveCandidateSubscription = this.jobService.deleteSavedCandidate(this.currentUser.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar('Candidate unsaved successfully');
+        this.candidateSaved = false;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(saveCandidateSubscription);
+  }
+
+  onSubmitCandidate() {}
+
+  onSubmitEmployer() {}
+
+  onReviewSubmit() {
+    const review = this.reviewForm.value;
+
+    this.spinnerService.show();
+    const reviewSubscription = this.userService.newReview(this.currentUser.id, review).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar('Review Added');
+
+        this.getReviews();
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(reviewSubscription);
+  }
+
+  setRating(rating: number, control: string) {
+    this.reviewForm.get(control).setValue(rating);
+
+    const overallRating =
+      (parseInt(this.reviewForm.value.rating_quality) +
+        parseInt(this.reviewForm.value.rating_communication) +
+        parseInt(this.reviewForm.value.rating_goodwill)) /
+      3;
+
+    this.reviewForm.get('rating_overall').setValue(Math.round(overallRating * 10) / 10);
+  }
+
+  ifShowAddReviewForm() {
+    if (!this.helperService.currentUserInfo) {
+      return false;
+    }
+
+    if (this.helperService.currentUserInfo?.id == this.currentUser?.id) {
+      return false;
+    }
+
+    return true;
+  }
+
+  getUserProfilePicture(profilePhoto: string) {
+    if (profilePhoto) {
+      return this.helperService.getImageUrl(profilePhoto, 'users', 'thumb');
+    }
+
+    return 'assets/img/avatar-default.png';
+  }
+
+  showDetailRating(detailElement: any) {
+    detailElement.style.display = 'block';
+  }
+
+  hideDetailRating(detailElement: any) {
+    detailElement.style.display = 'none';
+  }
+
+  scrollIntoView(element: any) {
+    try {
+      window.scrollTo({ left: 0, top: element.offsetTop - 20, behavior: 'smooth' });
+    } catch (e) {
+      window.scrollTo(0, element.offsetTop - 20);
+    }
+  }
+
+  followEmployer() {
+    if (!this.helperService.currentUserInfo) {
+      this.snackbar.openSnackBar('Requires login', 'Close', 'warn');
+      return;
+    }
+
+    this.spinnerService.show();
+
+    if (this.followingEmployer) {
+      const subscription = this.userService.unfollowEmployer(this.currentUser.id).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar('Employer unfollowed');
+
+          this.followingEmployer = false;
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+
+      this.subscriptions.add(subscription);
+    } else {
+      const subscription = this.userService.followEmployer(this.currentUser.id).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar('Following successful');
+
+          this.followingEmployer = true;
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+
+      this.subscriptions.add(subscription);
+    }
+  }
 
   ngOnDestroy() {
-    
+    this.subscriptions.unsubscribe();
   }
-
-
 }
-
-
-

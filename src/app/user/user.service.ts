@@ -107,8 +107,8 @@ export class UserService {
       .get<UserAPIReponse>(url, this.headerOptions);
   }
 
-  getDetails(): Observable<UserAPIReponse> {
-    const url = 'api/users/user-details';
+  getDetails(username: string): Observable<UserAPIReponse> {
+    const url = `api/users/user-details/${username}`;
 
     return this.httpClient
       .get<UserAPIReponse>(url, this.headerOptions);
@@ -175,4 +175,39 @@ export class UserService {
   }
 
 
+  getReviews(id: number): Observable<any> {
+    const url = `api/users/user-review/${id}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  newReview(id: number, body: any): Observable<any> {
+    const url = `api/users/user-review/${id}`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  getFollowingEmployers(): Observable<any> {
+    const url = `api/users/get-followings`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  getFollowers(): Observable<any> {
+    const url = `api/users/get-followers`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  followEmployer(employer_id: number): Observable<any> {
+    const url = `api/users/follow/${employer_id}`;
+
+    return this.httpClient.post<any>(url, JSON.stringify({}), this.headerOptions);
+  }
+
+  unfollowEmployer(employer_id: number): Observable<any> {
+    const url = `api/users/unfollow/${employer_id}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
 }

@@ -19,7 +19,7 @@
                 <span>
                   <small> <a class="jobsearch-jobdetail-type">
                       {{job.job_type}} </a>
-                  </small><a href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">{{job.user?.username}}</a>
+                  </small><a [routerLink]="['/user-details/', job.user?.username]">{{job.user?.username}}</a>
                   <small class="jobsearch-jobdetail-postinfo"> posted {{job.created_at | timeAgo}}</small>
                   <small class="post-in-category"> in <a
                       href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/?sector_cat=banking&amp;ajax_filter=true"
@@ -44,8 +44,8 @@
                     <a><i class="jobsearch-icon jobsearch-view"></i> View(s) {{job.views}} </a>
                   </li>
                 </ul>
-                <a href="javascript:void(0);" class="jobsearch-add-job-to-favourite careerfy-jobdetail-btn active">
-                  Shortlist </a>
+                <a (click)="updateFavoriteJob()" class="jobsearch-add-job-to-favourite careerfy-jobdetail-btn active">
+                  {{isJobFavorite ? 'Shortlisted' : 'Shortlist'}} </a>
                 <a href="javascript:void(0);" class=" active jobsearch-send-email-popup-btn"><i
                     class="jobsearch-icon jobsearch-envelope"></i> Email Job </a>
                 <ul class="jobsearch-jobdetail-media">

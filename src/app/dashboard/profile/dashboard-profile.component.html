@@ -1,449 +1,446 @@
 <div class="pos-r">
-    <div class="wil-view-profile-btn-wrapper content-box_module__333d9 mb-10">
-        <div class="content-box_body__3tSRB">
-            <div class="promo-item_module__24ZhT">
-                <div class="promo-item_group__2ZJhC">
-                    <p class="promo-item_description__2nc26"></p>
-                </div>
-                <div class="promo-item_action__pd8hZ"><a class="wil-btn wil-btn--xs wil-btn--primary wil-btn--round"
-                        href="https://www.blackdirectory.co.uk/author/black-directory/"><i class="la la-user"></i>
-                        <span>View Profile</span></a></div>
-            </div>
+  <div class="wil-view-profile-btn-wrapper content-box_module__333d9 mb-10">
+    <div class="content-box_body__3tSRB">
+      <div class="promo-item_module__24ZhT">
+        <div class="promo-item_group__2ZJhC">
+          <p class="promo-item_description__2nc26"></p>
         </div>
+        <div class="promo-item_action__pd8hZ"><a class="wil-btn wil-btn--xs wil-btn--primary wil-btn--round"
+            [routerLink]="['/user-details/', userDetails?.username]"><i class="la la-user"></i>
+            <span>View Profile</span></a></div>
+      </div>
     </div>
+  </div>
 
-    <div>
-        <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+  <div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
 
-            <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Basic Info</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <mat-form-field>
-                        <mat-label>First Name</mat-label>
-                        <input matInput formControlName="first_name" />
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Last Name</mat-label>
-                        <input matInput formControlName="last_name" />
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Display Name</mat-label>
-                        <input matInput formControlName="display_name" />
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Phone</mat-label>
-                        <input matInput formControlName="phone" />
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Date of Birth</mat-label>
-                        <input matInput formControlName="dob" [matDatepicker]="date_birth" (focus)="date_birth.open()">
-                        <mat-datepicker-toggle matSuffix [for]="date_birth"></mat-datepicker-toggle>
-                        <mat-datepicker #date_birth></mat-datepicker>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Description</mat-label>
-                        <textarea matInput rows="5" formControlName="description"></textarea>
-                    </mat-form-field>
-                    <section class="section-mat-form-field section-field-file section-field-preview-img">
-                        <mat-label>Avatar</mat-label>
-                        <input accept="image/*" type="file" formControlName="profile_photo" #inputProfileImage
-                            (change)="onProfileImageChange($event)" />
-                        <span *ngIf="profileImageSrc"
-                            [ngStyle]="{'background-image': 'url('+profileImageSrc+')'}"></span>
-                        <!-- <img *ngIf="profileImageSrc" [src]="profileImageSrc"> -->
-                        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                            (click)="inputProfileImage.click()">Upload</a>
-                    </section>
-                    <mat-progress-bar *ngIf="progressProfileImg > 0" mode="determinate" [value]="progressProfileImg"
-                        class="mb-15"></mat-progress-bar>
-                    <p class="form-error" *ngIf="!formCustomvalidation.profileImage.validated">
-                        {{formCustomvalidation.profileImage.message}}</p>
+      <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Basic Info</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="first_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="last_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Display Name</mat-label>
+            <input matInput formControlName="display_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Date of Birth</mat-label>
+            <input matInput formControlName="dob" [matDatepicker]="date_birth" (focus)="date_birth.open()">
+            <mat-datepicker-toggle matSuffix [for]="date_birth"></mat-datepicker-toggle>
+            <mat-datepicker #date_birth></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="5" formControlName="description"></textarea>
+          </mat-form-field>
+          <section class="section-mat-form-field section-field-file section-field-preview-img">
+            <mat-label>Avatar</mat-label>
+            <input accept="image/*" type="file" formControlName="profile_photo" #inputProfileImage
+              (change)="onProfileImageChange($event)" />
+            <span *ngIf="profileImageSrc" [ngStyle]="{'background-image': 'url('+profileImageSrc+')'}"></span>
+            <!-- <img *ngIf="profileImageSrc" [src]="profileImageSrc"> -->
+            <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+              (click)="inputProfileImage.click()">Upload</a>
+          </section>
+          <mat-progress-bar *ngIf="progressProfileImg > 0" mode="determinate" [value]="progressProfileImg"
+            class="mb-15"></mat-progress-bar>
+          <p class="form-error" *ngIf="!formCustomvalidation.profileImage.validated">
+            {{formCustomvalidation.profileImage.message}}</p>
 
-                    <section class="section-mat-form-field section-field-file section-field-preview-img">
-                        <mat-label>Cover Image</mat-label>
-                        <input accept="image/*" type="file" formControlName="cover_photo" #inputCoverImage
-                            (change)="onCoverImageChange($event)" />
-                        <span *ngIf="coverImageSrc" [ngStyle]="{'background-image': 'url('+coverImageSrc+')'}"></span>
-                        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                            (click)="inputCoverImage.click()">Upload</a>
-                    </section>
-                    <mat-progress-bar *ngIf="progressCoverImg > 0" mode="determinate" [value]="progressCoverImg"
-                        class="mb-15"></mat-progress-bar>
-                    <p class="form-error" *ngIf="!formCustomvalidation.coverImage.validated">
-                        {{formCustomvalidation.coverImage.message}}</p>
+          <section class="section-mat-form-field section-field-file section-field-preview-img">
+            <mat-label>Cover Image</mat-label>
+            <input accept="image/*" type="file" formControlName="cover_photo" #inputCoverImage
+              (change)="onCoverImageChange($event)" />
+            <span *ngIf="coverImageSrc" [ngStyle]="{'background-image': 'url('+coverImageSrc+')'}"></span>
+            <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputCoverImage.click()">Upload</a>
+          </section>
+          <mat-progress-bar *ngIf="progressCoverImg > 0" mode="determinate" [value]="progressCoverImg" class="mb-15">
+          </mat-progress-bar>
+          <p class="form-error" *ngIf="!formCustomvalidation.coverImage.validated">
+            {{formCustomvalidation.coverImage.message}}</p>
 
-                    <mat-form-field>
-                        <mat-label>Sector</mat-label>
-                        <mat-select formControlName="job_sectors_id" required>
-                            <mat-option *ngFor="let sector of userService.sectors" [value]="sector.id">
-                                {{sector.value}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Profile for Public View</mat-label>
-                        <mat-select formControlName="pubic_view">
-                            <mat-option *ngFor="let publicView of userService.publicViews" [value]="publicView.value">
-                                {{publicView.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div> <!-- dashboard-section-basic-info-info -->
+          <mat-form-field>
+            <mat-label>Sector</mat-label>
+            <mat-select formControlName="job_sectors_id" required>
+              <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Profile for Public View</mat-label>
+            <mat-select formControlName="pubic_view">
+              <mat-option *ngFor="let publicView of userService.publicViews" [value]="publicView.value">
+                {{publicView.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div> <!-- dashboard-section-basic-info-info -->
 
-            <div id="dashboard-section-address-location" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Address / Location</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <mat-form-field>
-                        <mat-label>Full Address</mat-label>
-                        <input matInput formControlName="address" />
-                    </mat-form-field>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Latitude</mat-label>
-                                <input matInput formControlName="latitude" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Longitude</mat-label>
-                                <input matInput formControlName="longitude" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- dashboard-section-address-location -->
+      <div id="dashboard-section-address-location" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Address / Location</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <mat-form-field>
+            <mat-label>Full Address</mat-label>
+            <input matInput formControlName="address" />
+          </mat-form-field>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Latitude</mat-label>
+                <input matInput formControlName="latitude" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Longitude</mat-label>
+                <input matInput formControlName="longitude" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div><!-- dashboard-section-address-location -->
 
-            <div id="dashboard-section-social-links" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Social Links</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Facebook</mat-label>
-                                <input matInput formControlName="facebook_link" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Twitter</mat-label>
-                                <input matInput formControlName="twitter_link" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Linkedin</mat-label>
-                                <input matInput formControlName="linkedin_link" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Instagram</mat-label>
-                                <input matInput formControlName="instagram_link" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- dashboard-section-social-links -->
+      <div id="dashboard-section-social-links" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Social Links</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Facebook</mat-label>
+                <input matInput formControlName="facebook_link" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Twitter</mat-label>
+                <input matInput formControlName="twitter_link" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Linkedin</mat-label>
+                <input matInput formControlName="linkedin_link" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Instagram</mat-label>
+                <input matInput formControlName="instagram_link" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div><!-- dashboard-section-social-links -->
 
-            <div *ngIf="userType=='employer'" id="dashboard-section-other-info"
-                class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Other Information</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Website</mat-label>
-                                <input matInput formControlName="website" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Founded Date</mat-label>
-                                <input matInput formControlName="founded_date" [matDatepicker]="founded_date"
-                                    (focus)="founded_date.open()">
-                                <mat-datepicker-toggle matSuffix [for]="founded_date">
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #founded_date></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- dashboard-section-other-info ~ employer -->
+      <div *ngIf="userType=='employer'" id="dashboard-section-other-info"
+        class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Other Information</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Website</mat-label>
+                <input matInput formControlName="website" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Founded Date</mat-label>
+                <input matInput formControlName="founded_date" [matDatepicker]="founded_date"
+                  (focus)="founded_date.open()">
+                <mat-datepicker-toggle matSuffix [for]="founded_date">
+                </mat-datepicker-toggle>
+                <mat-datepicker #founded_date></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div><!-- dashboard-section-other-info ~ employer -->
 
-            <div *ngIf="userType=='candidate'" id="dashboard-section-other-info"
-                class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Other Information</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Job Title</mat-label>
-                                <input matInput formControlName="job_title" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Industry</mat-label>
-                                <mat-select formControlName="job_industry">
-                                    <mat-option *ngFor="let jobIndustry of userService.jobIndustrys" [value]="jobIndustry.value">
-                                        {{jobIndustry.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Salary Type</mat-label>
-                                <mat-select formControlName="salary_type">
-                                    <mat-option *ngFor="let salaryType of userService.salaryTypes" [value]="salaryType.value">
-                                        {{salaryType.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Salary Amount</mat-label>
-                                <input matInput formControlName="salary_amount" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Age</mat-label>
-                                <mat-select formControlName="age">
-                                    <mat-option *ngFor="let candidateAge of userService.candidateAges" [value]="candidateAge.value">
-                                        {{candidateAge.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Gender</mat-label>
-                                <mat-select formControlName="gender">
-                                    <mat-option *ngFor="let candidateGender of userService.candidateGenders"
-                                        [value]="candidateGender.value">
-                                        {{candidateGender.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <section class="section-mat-form-field ">
-                                <mat-checkbox class="" color='primary' formControlName="availble_now">
-                                    Available Now
-                                </mat-checkbox>
-                            </section>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field>
-                                <mat-label>Academic Level</mat-label>
-                                <mat-select formControlName="academics" multiple>
-                                    <mat-option *ngFor="let academic of userService.academics" [value]="academic.value">
-                                        {{academic.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <mat-form-field>
-                        <mat-label>Cover Letter</mat-label>
-                        <textarea matInput rows="5" formControlName="cover_letter"></textarea>
-                    </mat-form-field>
-                    <section class="section-mat-form-field section-field-file">
-                        <mat-label>CV</mat-label>
-                        <input accept=".doc,.docx,.pdf" type="file" formControlName="candidate_cv" #inputCandidateCV
-                            (change)="onCandidateCVChange($event)" />
-                        <span *ngIf="f.candidate_cv_name.value != ''">{{f.candidate_cv_name.value}}</span>
-                        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                            (click)="inputCandidateCV.click()">Upload</a>
-                    </section>
-                    <mat-progress-bar *ngIf="progressCandidateCV > 0" mode="determinate" [value]="progressCandidateCV"
-                        class="mb-15"></mat-progress-bar>
-                    <p class="form-error" *ngIf="!formCustomvalidation.candidateCV.validated">
-                        {{formCustomvalidation.candidateCV.message}}</p>
-                </div>
-            </div><!-- dashboard-section-other-info ~ candidate -->
+      <div *ngIf="userType=='candidate'" id="dashboard-section-other-info"
+        class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Other Information</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Job Title</mat-label>
+                <input matInput formControlName="job_title" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Industry</mat-label>
+                <mat-select formControlName="job_industry">
+                  <mat-option *ngFor="let jobIndustry of userService.jobIndustrys" [value]="jobIndustry.value">
+                    {{jobIndustry.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Salary Type</mat-label>
+                <mat-select formControlName="salary_type">
+                  <mat-option *ngFor="let salaryType of userService.salaryTypes" [value]="salaryType.value">
+                    {{salaryType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Salary Amount</mat-label>
+                <input matInput formControlName="salary_amount" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Age</mat-label>
+                <mat-select formControlName="age">
+                  <mat-option *ngFor="let candidateAge of userService.candidateAges" [value]="candidateAge.value">
+                    {{candidateAge.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option *ngFor="let candidateGender of userService.candidateGenders"
+                    [value]="candidateGender.value">
+                    {{candidateGender.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <section class="section-mat-form-field ">
+                <mat-checkbox class="" color='primary' formControlName="availble_now">
+                  Available Now
+                </mat-checkbox>
+              </section>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Academic Level</mat-label>
+                <mat-select formControlName="academics" multiple>
+                  <mat-option *ngFor="let academic of userService.academics" [value]="academic.value">
+                    {{academic.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-form-field>
+            <mat-label>Cover Letter</mat-label>
+            <textarea matInput rows="5" formControlName="cover_letter"></textarea>
+          </mat-form-field>
+          <section class="section-mat-form-field section-field-file">
+            <mat-label>CV</mat-label>
+            <input accept=".doc,.docx,.pdf" type="file" formControlName="candidate_cv" #inputCandidateCV
+              (change)="onCandidateCVChange($event)" />
+            <span *ngIf="f.candidate_cv_name.value != ''">{{f.candidate_cv_name.value}}</span>
+            <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+              (click)="inputCandidateCV.click()">Upload</a>
+          </section>
+          <mat-progress-bar *ngIf="progressCandidateCV > 0" mode="determinate" [value]="progressCandidateCV"
+            class="mb-15"></mat-progress-bar>
+          <p class="form-error" *ngIf="!formCustomvalidation.candidateCV.validated">
+            {{formCustomvalidation.candidateCV.message}}</p>
+        </div>
+      </div><!-- dashboard-section-other-info ~ candidate -->
 
-            <div *ngIf="userType=='candidate'" id="dashboard-section-candidate-education"
-                class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Education</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <div class="wrapper-jobsearch-resume-addbtn">
-                        <a (click)="openEducationModal()" class="jobsearch-resume-addbtn">
-                            <span class="fa fa-plus"></span>
-                            Add education
-                        </a>
-                    </div>
+      <div *ngIf="userType=='candidate'" id="dashboard-section-candidate-education"
+        class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Education</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <div class="wrapper-jobsearch-resume-addbtn">
+            <a (click)="openEducationModal()" class="jobsearch-resume-addbtn">
+              <span class="fa fa-plus"></span>
+              Add education
+            </a>
+          </div>
 
-                    <div *ngIf="candidateEducations.value.length > 0" cdkDropList class="candidate-feature-list"
-                        (cdkDropListDropped)="dropCandidateEducation($event)">
-                        <div *ngFor="let education of candidateEducations.value; let index=index"
-                            class="candidate-feature-box" cdkDrag>
-                            <div class="candidate-feature-left">
-                                <small>{{education.year}}</small>
-                                <h2 class="jobsearch-pst-title">
-                                    <a>{{education.title}}</a>
-                                </h2>
-                                <span>{{education.institute}}</span>
-                            </div>
-                            <div class="candidate-feature-btn">
-                                <a cdkDragHandle>
-                                    <i class="fa fa-arrows-alt"></i>
-                                </a>
-                                <a (click)="openEducationModal(education, index)">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a (click)="removeCandidateEducation(index, education)">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- dashboard-section-candidate-education -->
+          <div *ngIf="candidateEducations.value.length > 0" cdkDropList class="candidate-feature-list"
+            (cdkDropListDropped)="dropCandidateEducation($event)">
+            <div *ngFor="let education of candidateEducations.value; let index=index" class="candidate-feature-box"
+              cdkDrag>
+              <div class="candidate-feature-left">
+                <small>{{education.year}}</small>
+                <h2 class="jobsearch-pst-title">
+                  <a>{{education.title}}</a>
+                </h2>
+                <span>{{education.institute}}</span>
+              </div>
+              <div class="candidate-feature-btn">
+                <a cdkDragHandle>
+                  <i class="fa fa-arrows-alt"></i>
+                </a>
+                <a (click)="openEducationModal(education, index)">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <a (click)="removeCandidateEducation(index, education)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- dashboard-section-candidate-education -->
 
-            <div *ngIf="userType=='candidate'" id="dashboard-section-candidate-experience"
-                class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Experience</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <div class="wrapper-jobsearch-resume-addbtn">
-                        <a (click)="openExperienceModal()" class="jobsearch-resume-addbtn">
-                            <span class="fa fa-plus"></span>
-                            Add experience
-                        </a>
-                    </div>
+      <div *ngIf="userType=='candidate'" id="dashboard-section-candidate-experience"
+        class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Experience</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <div class="wrapper-jobsearch-resume-addbtn">
+            <a (click)="openExperienceModal()" class="jobsearch-resume-addbtn">
+              <span class="fa fa-plus"></span>
+              Add experience
+            </a>
+          </div>
 
-                    <div *ngIf="candidateExperiences.value.length > 0" cdkDropList class="candidate-feature-list"
-                        (cdkDropListDropped)="dropCandidateExperience($event)">
-                        <div *ngFor="let experience of candidateExperiences.value; let index=index"
-                            class="candidate-feature-box" cdkDrag>
-                            <div class="candidate-feature-left">
-                                <small>{{experience.start_date | date: 'longDate'}} -
-                                    {{experience.present ? 'Present' : experience.end_date | date: 'longDate'}}</small>
-                                <h2 class="jobsearch-pst-title">
-                                    <a>{{experience.title}}</a>
-                                </h2>
-                                <span>{{experience.company}}</span>
-                            </div>
-                            <div class="candidate-feature-btn">
-                                <a cdkDragHandle>
-                                    <i class="fa fa-arrows-alt"></i>
-                                </a>
-                                <a (click)="openExperienceModal(experience, index)">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a (click)="removeCandidateExperience(index, experience)">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- dashboard-section-candidate-experience -->
+          <div *ngIf="candidateExperiences.value.length > 0" cdkDropList class="candidate-feature-list"
+            (cdkDropListDropped)="dropCandidateExperience($event)">
+            <div *ngFor="let experience of candidateExperiences.value; let index=index" class="candidate-feature-box"
+              cdkDrag>
+              <div class="candidate-feature-left">
+                <small>{{experience.start_date | date: 'longDate'}} -
+                  {{experience.present ? 'Present' : experience.end_date | date: 'longDate'}}</small>
+                <h2 class="jobsearch-pst-title">
+                  <a>{{experience.title}}</a>
+                </h2>
+                <span>{{experience.company}}</span>
+              </div>
+              <div class="candidate-feature-btn">
+                <a cdkDragHandle>
+                  <i class="fa fa-arrows-alt"></i>
+                </a>
+                <a (click)="openExperienceModal(experience, index)">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <a (click)="removeCandidateExperience(index, experience)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- dashboard-section-candidate-experience -->
 
-            <div *ngIf="userType=='candidate'" id="dashboard-section-candidate-portfolio"
-                class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-                <header class="content-box_header__xPnGx clearfix">
-                    <div class="wil-float-left">
-                        <h4 class="content-box_title__1gBHS">
-                            <span>Portfolio</span>
-                        </h4>
-                    </div>
-                </header>
-                <div class="content-box_body__3tSRB">
-                    <div class="wrapper-jobsearch-resume-addbtn">
-                        <a (click)="openPortfolioModal()" class="jobsearch-resume-addbtn">
-                            <span class="fa fa-plus"></span>
-                            Add Portfolio
-                        </a>
-                    </div>
+      <div *ngIf="userType=='candidate'" id="dashboard-section-candidate-portfolio"
+        class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Portfolio</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <div class="wrapper-jobsearch-resume-addbtn">
+            <a (click)="openPortfolioModal()" class="jobsearch-resume-addbtn">
+              <span class="fa fa-plus"></span>
+              Add Portfolio
+            </a>
+          </div>
 
-                    <div *ngIf="candidatePortfolios.value.length > 0" cdkDropList class="candidate-feature-list"
-                        (cdkDropListDropped)="dropCandidatePortfolio($event)">
-                        <div *ngFor="let portfolio of candidatePortfolios.value; let index=index"
-                            class="candidate-feature-box" cdkDrag>
-                            <div class="candidate-feature-left">
-                                <h2 class="jobsearch-pst-title">
-                                    <a>{{portfolio.title}}</a>
-                                </h2>
-                                <img *ngIf="portfolio.image_src != ''" [src]="portfolio.image_src" alt="">
-                            </div>
-                            <div class="candidate-feature-btn">
-                                <a cdkDragHandle>
-                                    <i class="fa fa-arrows-alt"></i>
-                                </a>
-                                <a (click)="openPortfolioModal(portfolio, index)">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a (click)="removeCandidatePortfolio(index, portfolio)">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- dashboard-section-candidate-portfolio -->
+          <div *ngIf="candidatePortfolios.value.length > 0" cdkDropList class="candidate-feature-list"
+            (cdkDropListDropped)="dropCandidatePortfolio($event)">
+            <div *ngFor="let portfolio of candidatePortfolios.value; let index=index" class="candidate-feature-box"
+              cdkDrag>
+              <div class="candidate-feature-left">
+                <h2 class="jobsearch-pst-title">
+                  <a>{{portfolio.title}}</a>
+                </h2>
+                <img *ngIf="portfolio.image_src != ''" [src]="portfolio.image_src" alt="">
+              </div>
+              <div class="candidate-feature-btn">
+                <a cdkDragHandle>
+                  <i class="fa fa-arrows-alt"></i>
+                </a>
+                <a (click)="openPortfolioModal(portfolio, index)">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <a (click)="removeCandidatePortfolio(index, portfolio)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- dashboard-section-candidate-portfolio -->
 
-            <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
-                color="primary" type="submit" [disabled]="!profileForm.valid">
-                Save Changes
-            </button>
-            <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+      <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+        color="primary" type="submit" [disabled]="!profileForm.valid">
+        Save Changes
+      </button>
+      <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 
-        </form> <!-- profile form -->
-    </div>
+    </form> <!-- profile form -->
+  </div>
 
 </div>

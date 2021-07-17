@@ -10,14 +10,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit, OnDestroy {
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   changePasswordForm: FormGroup;
   showError = false;
   errorMessage = '';
 
   constructor(
-    
+
   ) { }
 
   ngOnInit() {
@@ -25,16 +25,16 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       password: new FormControl('', Validators.required),
       new_password: new FormControl('', Validators.required),
       confirm_password: new FormControl('', Validators.required),
-      
+
     });
   }
 
   onSubmit() {
-    
+
   }
 
   ngOnDestroy() {
-    
+
   }
 
 

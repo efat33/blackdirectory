@@ -62,6 +62,8 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { ClickOutsideModule } from 'ng-click-outside';
+
 
 @NgModule({
   declarations: [
@@ -123,6 +125,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSliderModule,
     NouisliderModule,
     MatPaginatorModule,
+    ClickOutsideModule,
   ],
   exports: [
     FormsModule,
@@ -161,6 +164,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     TimeUntilPipe,
     NouisliderModule,
     MatPaginatorModule,
+    ClickOutsideModule,
   ],
   entryComponents: [
     RegistrationModal,

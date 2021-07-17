@@ -16,8 +16,8 @@ import { HelperService } from '../shared/helper.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   menuItems = MenuItems;
   profileMenus = ProfileMenus;
-  
-  subsciptions: Subscription = new Subscription();
+
+  subscriptions: Subscription = new Subscription();
 
   dialogRefReg: any;
   dialogRefLogin: any;
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    
+
     if(this.helperService.isUserLoggedIn()) this.isLoggedIn = true;
 
     if(this.helperService.isUserLoggedIn() && this.helperService.currentUserInfo.profile_photo != ''){
@@ -44,15 +44,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.dialogRefLogin.close();
       this.openRegistrationModal();
     });
-    
-    this.subsciptions.add(subClickedRegisterLinkModal);
+
+    this.subscriptions.add(subClickedRegisterLinkModal);
 
     const subsclickedLoginLinkModal = this.userService.clickedLoginLinkModal.subscribe( () => {
       this.dialogRefReg.close();
       this.openLoginModal();
     });
 
-    this.subsciptions.add(subsclickedLoginLinkModal);
+    this.subscriptions.add(subsclickedLoginLinkModal);
   }
 
   logUserOut(): void {
@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
 

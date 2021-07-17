@@ -22,7 +22,7 @@ declare const google: any;
 export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   jobSectors = [];
 
-  subsciptions: Subscription = new Subscription();
+  subscriptions: Subscription = new Subscription();
 
   editJobId: number = null;
   jobForm: FormGroup;
@@ -65,7 +65,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-    this.getJobServices();
+    this.getJobSectors();
     this.initializeGoogleMap();
 
     const jobId = this.route.snapshot.paramMap.get('job_id');
@@ -107,7 +107,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cdk.detectChanges();
     });
 
-    this.subsciptions.add(valueChangeSub);
+    this.subscriptions.add(valueChangeSub);
   }
 
   initializeForm() {
@@ -249,7 +249,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  getJobServices() {
+  getJobSectors() {
     this.spinnerService.show();
     const getSectorsSubscription = this.jobService.getSectors().subscribe(
       (result: any) => {
@@ -263,7 +263,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(getSectorsSubscription);
+    this.subscriptions.add(getSectorsSubscription);
   }
 
   onAttachmentChange(event) {
@@ -344,7 +344,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(newJobSubscription);
+    this.subscriptions.add(newJobSubscription);
   }
 
   updateJob() {
@@ -367,7 +367,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
-    this.subsciptions.add(updateJobSubscription);
+    this.subscriptions.add(updateJobSubscription);
   }
 
   formatSalarySliderLabel(value: number) {
@@ -375,6 +375,6 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsciptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
