@@ -24,4 +24,8 @@ export class AppComponent {
     });
   }
 
+  onActivate(event: Event) {
+    window.scrollTo(0, 0);
+  }
+
 }
