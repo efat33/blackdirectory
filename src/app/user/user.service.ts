@@ -199,14 +199,32 @@ export class UserService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
-  followEmployer(employer_id: number): Observable<any> {
-    const url = `api/users/follow/${employer_id}`;
+  followEmployer(employerId: number): Observable<any> {
+    const url = `api/users/follow/${employerId}`;
 
     return this.httpClient.post<any>(url, JSON.stringify({}), this.headerOptions);
   }
 
-  unfollowEmployer(employer_id: number): Observable<any> {
-    const url = `api/users/unfollow/${employer_id}`;
+  unfollowEmployer(employerId: number): Observable<any> {
+    const url = `api/users/unfollow/${employerId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
+  getNotifications(): Observable<any> {
+    const url = `api/users/get-notifications`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  updateNotification(notificationId: number, body: any): Observable<any> {
+    const url = `api/users/update-notification/${notificationId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  removeNotification(notificationId: number): Observable<any> {
+    const url = `api/users/notification/${notificationId}`;
 
     return this.httpClient.delete<any>(url, this.headerOptions);
   }

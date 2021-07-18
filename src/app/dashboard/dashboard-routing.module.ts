@@ -14,6 +14,7 @@ import { UserFollowerComponent } from './followers/followers.component';
 import { UserFollowingComponent } from './following/following.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ManageJobComponent } from './manage-job/manage-job.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'edit-job/:job_id', component:  NewJobComponent},
       { path: 'followers', component:  UserFollowerComponent},
       { path: 'following', component:  UserFollowingComponent},
+      { path: 'notifications', component:  NotificationsComponent},
       { path: 'change-password', component:  ChangePasswordComponent},
     ],
   }
