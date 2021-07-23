@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -17,7 +18,11 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
   jobs: any = [];
   searchKeyword: string = '';
 
+  currentPackage: any;
+  featuredJobCount: number = 0;
+
   constructor(
+    private router: Router,
     private jobService: JobService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
@@ -25,6 +30,7 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getUserJobs();
+    this.getCurrentPackage();
   }
 
   getUserJobs() {
@@ -46,17 +52,53 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(getJobsSubscription);
   }
 
+  getCurrentPackage() {
+    this.spinnerService.show();
+    const subscription = this.jobService.getCurrentPackage().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.currentPackage = result.data.currentPackage;
+        this.featuredJobCount = result.data.jobs?.filter((job: any) => job.featured).length;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
+
   matchSearch(job: any) {
     return job.title.toLowerCase().includes(this.searchKeyword.toLowerCase());
   }
 
   featureJob(job: any) {
-    this.spinnerService.show();
+    if (!job.featured) {
+      if (!this.currentPackage) {
+        this.router.navigate(['dashboard/packages']);
+        return;
+      }
 
-    const featureJobSubs = this.jobService.updateJobProperty(job.id, {featured: !job.featured}).subscribe(
+      if (this.featuredJobCount >= this.currentPackage.featured_jobs) {
+        this.router.navigate(['dashboard/packages']);
+        return;
+      }
+    }
+
+    this.spinnerService.show();
+    const featureJobSubs = this.jobService.updateJobProperty(job.id, { featured: !job.featured }).subscribe(
       (result: any) => {
         this.spinnerService.hide();
+
         job.featured = !job.featured;
+
+        if (job.featured) {
+          this.featuredJobCount++;
+        } else {
+          this.featuredJobCount--;
+        }
       },
       (error) => {
         this.spinnerService.hide();

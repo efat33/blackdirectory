@@ -1,0 +1,18 @@
+<div class="content-box_module__333d9 content-box_lg__3v3a-">
+  <header _ngcontent-bps-c143="" class="content-box_header__xPnGx clearfix">
+    <div _ngcontent-bps-c143="" class="wil-float-left">
+      <h4 _ngcontent-bps-c143="" class="content-box_title__1gBHS">
+        <span _ngcontent-bps-c143="">Job Packages</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <div style="text-align: center; padding: 10px 0;">
+      <p *ngIf="success">Package updated successfully.</p>
+      <p *ngIf="!success">Payment cancelled.</p>
+
+      <a [routerLink]="['/dashboard/packages/']">Go Back</a>
+    </div>
+  </div>
+</div>

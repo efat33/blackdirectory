@@ -18,6 +18,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ManageJobComponent } from './manage-job/manage-job.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { JobPackagesComponent } from './job-packages/job-packages.component';
+import { JobPackagesReturnComponent } from './job-packages/job-packages-return/job-packages-return.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ChangePasswordComponent,
     ManageJobComponent,
     NotificationsComponent,
+    JobPackagesComponent,
+    JobPackagesReturnComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

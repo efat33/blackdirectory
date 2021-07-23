@@ -166,11 +166,11 @@ export class JobService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
-  saveCandidate(candidate_id: number): Observable<any> {
+  saveCandidate(candidateId: number): Observable<any> {
     const url = `api/jobs/save-candidate`;
 
     const body = {
-      candidate_id
+      candidateId
     };
 
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
@@ -182,17 +182,17 @@ export class JobService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
-  deleteSavedCandidate(candidate_id: number): Observable<any> {
-    const url = `api/jobs/delete-saved-candidate/${candidate_id}`;
+  deleteSavedCandidate(candidateId: number): Observable<any> {
+    const url = `api/jobs/delete-saved-candidate/${candidateId}`;
 
     return this.httpClient.delete<any>(url, this.headerOptions);
   }
 
-  saveFavoriteJob(job_id: number): Observable<any> {
+  saveFavoriteJob(jobId: number): Observable<any> {
     const url = `api/jobs/save-favorite-job`;
 
     const body = {
-      job_id
+      jobId
     };
 
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
@@ -204,15 +204,33 @@ export class JobService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
-  deleteFavoriteJob(job_id: number): Observable<any> {
-    const url = `api/jobs/delete-favorite-job/${job_id}`;
+  getJobPackages(): Observable<any> {
+    const url = `api/jobs/get-job-packages`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  deleteFavoriteJob(jobId: number): Observable<any> {
+    const url = `api/jobs/delete-favorite-job/${jobId}`;
 
     return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
+  getCurrentPackage(): Observable<any> {
+    const url = `api/jobs/get-current-package`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
   }
 
   sendMail(emailOptions: any): Observable<any> {
     const url = `api/mail/send`;
 
     return this.httpClient.post<any>(url, JSON.stringify(emailOptions), this.headerOptions);
+  }
+
+  createStripeCheckoutSession(body: any): Observable<any> {
+    const url = `api/jobs/create-checkout-session`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
 }
