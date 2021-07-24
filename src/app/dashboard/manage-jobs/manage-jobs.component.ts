@@ -109,6 +109,23 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(featureJobSubs);
   }
 
+  fillJob(job: any) {
+    this.spinnerService.show();
+    const filledJobSubs = this.jobService.updateJobProperty(job.id, { filled: !job.filled }).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        job.filled = !job.filled;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(filledJobSubs);
+  }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }

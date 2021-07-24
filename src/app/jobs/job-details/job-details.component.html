@@ -197,19 +197,25 @@
         <aside class="jobsearch-column-4 jobsearch-typo-wrap">
           <div class="jobsearch_side_box jobsearch_apply_job">
             <div class="jobsearch_apply_job_wrap">
-              <ng-container *ngIf="!isDeadlineOver(job)">
-                <ng-container *ngIf="!applied">
-                  <a (click)="applyForJob()" class="jobsearch-applyjob-btn">Apply for
-                    the job</a>
-                  <span>Application ends in {{job.deadline | timeUntil}}</span>
-                </ng-container>
-
-                <ng-container *ngIf="applied">
-                  <span>You have applied for this job.</span>
-                </ng-container>
+              <ng-container *ngIf="job.filled">
+                <span>Job application is filled.</span>
               </ng-container>
-              <ng-container *ngIf="isDeadlineOver(job)">
-                <span>Application deadline has ended.</span>
+
+              <ng-container *ngIf="!job.filled">
+                <ng-container *ngIf="!isDeadlineOver(job)">
+                  <ng-container *ngIf="!applied">
+                    <a (click)="applyForJob()" class="jobsearch-applyjob-btn">Apply for
+                      the job</a>
+                    <span>Application ends in {{job.deadline | timeUntil}}</span>
+                  </ng-container>
+
+                  <ng-container *ngIf="applied">
+                    <span>You have applied for this job.</span>
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngIf="isDeadlineOver(job)">
+                  <span>Application deadline has ended.</span>
+                </ng-container>
               </ng-container>
             </div>
             <a (click)="openContactEmployerModal()"

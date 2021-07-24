@@ -87,28 +87,32 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
           this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
         }
       );
-    } else {
-      this.spinnerService.show();
-      const subscription = this.jobService.getCurrentPackage().subscribe(
-        (result: any) => {
-          this.spinnerService.hide();
-
-          if (result.data.currentPackage?.number_of_jobs > 0 && result.data.currentPackage?.number_of_jobs <= result.data.jobs?.length) {
-            this.router.navigate(['dashboard/packages']);
-            return;
-          }
-
-          const expiry = result.data.currentPackage?.job_expiry || 14;
-          this.maxDeadlineDate = moment().add(expiry, 'days').toDate();
-        },
-        (error) => {
-          this.spinnerService.hide();
-          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-        }
-      );
-
-      this.subscriptions.add(subscription);
     }
+
+    this.spinnerService.show();
+    const subscription = this.jobService.getCurrentPackage().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (
+          jobId == null &&
+          result.data.currentPackage?.number_of_jobs > 0 &&
+          result.data.currentPackage?.number_of_jobs <= result.data.jobs?.length
+        ) {
+          this.router.navigate(['dashboard/packages']);
+          return;
+        }
+
+        const expiry = result.data.currentPackage?.job_expiry || 14;
+        this.maxDeadlineDate = moment().add(expiry, 'days').toDate();
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   ngAfterViewInit() {
