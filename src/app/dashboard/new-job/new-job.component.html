@@ -22,7 +22,7 @@
                     <mat-form-field>
                         <mat-label>Application Deadline</mat-label>
                         <input required matInput formControlName="deadline" [matDatepicker]="app_deadline"
-                            (focus)="app_deadline.open()">
+                            (focus)="app_deadline.open()" [min]="minDeadlineDate" [max]="maxDeadlineDate">
                         <mat-datepicker-toggle matSuffix [for]="app_deadline"></mat-datepicker-toggle>
                         <mat-datepicker #app_deadline></mat-datepicker>
                     </mat-form-field>
@@ -185,7 +185,7 @@
 
     <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
         type="submit" [disabled]="!jobForm.valid">
-        Post Job
+        {{editJobId ? 'Update Job' : 'Post Job'}}
     </button>
     <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 

@@ -1,0 +1,83 @@
+<div class="content-box_module__333d9 content-box_lg__3v3a-">
+  <header _ngcontent-bps-c143="" class="content-box_header__xPnGx clearfix">
+    <div _ngcontent-bps-c143="" class="wil-float-left">
+      <h4 _ngcontent-bps-c143="" class="content-box_title__1gBHS">
+        <span _ngcontent-bps-c143="">Messages</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+
+    <div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>Recent</h4>
+            </div>
+          </div>
+
+          <div class="inbox_chat">
+            <div *ngFor="let conversation of allConversations" class="chat_list"
+              [ngClass]="{'active_chat': selectedConversation === conversation, 'unread': !conversation.seen && conversation.lastMessageSenderId !== userId}"
+              (click)="loadConversation(conversation)">
+              <div class="chat_people">
+                <div class="chat_img">
+                  <div class="chat_img_ratio"></div>
+                  <img [src]="conversation.image">
+                </div>
+                <div class="chat_ib">
+                  <h5>
+                    <span class="chat_name">{{conversation.name || ''}}</span>
+                    <span class="chat_date">{{getDate(conversation.timestamp)}}</span>
+                  </h5>
+                  <p>{{conversation.lastMessage}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="mesgs">
+          <div #messages class="msg_history">
+            <ng-container *ngIf="selectedConversation.messages">
+              <div *ngFor="let message of selectedConversation.messages">
+                <div *ngIf="message.sender != userId" class="incoming_msg">
+                  <div class="incoming_msg_img">
+                    <div class="incoming_msg_img_ratio"></div>
+                    <img [src]="selectedConversation.image ? selectedConversation.image : 'assets/img/avatar-default.png'">
+                  </div>
+                  <div class="received_msg">
+                    <div class="received_withd_msg">
+                      <p>{{message.message}}</p>
+                      <span class="time_date">{{getDateTime(message.timestamp)}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="message.sender == userId" class="outgoing_msg">
+                  <div class="sent_msg">
+                    <p>{{message.message}}</p>
+                    <span class="time_date">{{getDateTime(message.timestamp)}}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="newMessage"
+                (keydown.enter)="sendMessage()" />
+              <button class="msg_send_btn" type="button" (click)="sendMessage()">
+                <mat-icon>send</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

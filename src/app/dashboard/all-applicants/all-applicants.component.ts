@@ -9,6 +9,7 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
 import * as lodash from 'lodash';
 import { HelperService } from 'src/app/shared/helper.service';
 import { Router } from '@angular/router';
+import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
 
 @Component({
   selector: 'app-all-applicants',
@@ -30,7 +31,8 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
     private jobService: JobService,
     private spinnerService: SpinnerService,
     private helperService: HelperService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -154,7 +156,7 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
     this.shortlistedApplications = 0;
     this.rejectedApplications = 0;
 
-    this.jobApplications.forEach(group => {
+    this.jobApplications.forEach((group) => {
       group.applications.forEach((application: any) => {
         this.totalApplications++;
 
@@ -167,6 +169,18 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  sendMessage(application: any) {
+    const dialogConfig = {
+      width: '400px',
+      data: {
+        candidateId: application.user.id,
+        employerId: application.employer_id
+      },
+    };
+
+    this.dialog.open(SendMessageModalComponent, dialogConfig);
   }
 
   onSubmit() {}

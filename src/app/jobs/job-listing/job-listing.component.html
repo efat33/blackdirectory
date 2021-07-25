@@ -279,9 +279,9 @@
                                 <a class="jobsearch-option-btn" [class]="job.job_type">
                                   {{getJobType(job)}} </a>
                                 <div class="like-btn ">
-                                  <a href="javascript:void(0);"
-                                    class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17505"
-                                    data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                                  <a (click)="updateFavoriteJob(job)"
+                                    class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                                    [ngClass]="{'jobsearch-job-favorite': isFavoriteJob(job)}">
                                     <i class="jobsearch-icon jobsearch-heart"></i>
                                   </a>
                                   <span class="job-to-fav-msg-con"></span>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DashboardProfileComponent } from "./profile/dashboard-profile.component";
+import { DashboardProfileComponent } from './profile/dashboard-profile.component';
 import { DashboardComponent } from './dashboard.component';
 import { AppliedJobsComponent } from './applied-jobs/applied-jobs.component';
 import { FavoriteJobsComponent } from './favorite-jobs/favorite-jobs.component';
@@ -14,6 +14,10 @@ import { UserFollowerComponent } from './followers/followers.component';
 import { UserFollowingComponent } from './following/following.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ManageJobComponent } from './manage-job/manage-job.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { JobPackagesComponent } from './job-packages/job-packages.component';
+import { JobPackagesReturnComponent } from './job-packages/job-packages-return/job-packages-return.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 
@@ -22,7 +26,7 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
-      { path: "", redirectTo: "profile", pathMatch: "full" },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component:  DashboardProfileComponent},
       { path: 'applied-jobs', component:  AppliedJobsComponent},
       { path: 'favorite-jobs', component:  FavoriteJobsComponent},
@@ -34,6 +38,10 @@ const routes: Routes = [
       { path: 'edit-job/:job_id', component:  NewJobComponent},
       { path: 'followers', component:  UserFollowerComponent},
       { path: 'following', component:  UserFollowingComponent},
+      { path: 'notifications', component:  NotificationsComponent},
+      { path: 'packages', component:  JobPackagesComponent},
+      { path: 'packages/return', component:  JobPackagesReturnComponent},
+      { path: 'messages', component:  MessagesComponent},
       { path: 'change-password', component:  ChangePasswordComponent},
     ],
   }

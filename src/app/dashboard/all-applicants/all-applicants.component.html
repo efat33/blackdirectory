@@ -111,6 +111,9 @@
                                     <a class="jobsearch-modelemail-btn-580809">Email to
                                       Candidate</a>
                                   </li>
+                                  <li>
+                                    <a (click)="sendMessage(application)" class="jobsearch-modelemail-btn-580809">Send Message</a>
+                                  </li>
                                   <li *ngIf="!application.rejected">
                                     <a class="shortlist-cand-to-intrview ajax-enable"
                                       (click)="shortlistApplication(application)">{{application.shortlisted ?
