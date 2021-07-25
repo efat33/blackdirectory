@@ -12,13 +12,13 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
 import { HomeModule } from './home/home.module';
-import { ListingModule } from "./listing/listing.module";
-import { DashboardModule } from "./dashboard/dashboard.module";
-import { JobsModule } from './jobs/jobs.module';
 import { UserModule } from './user/user.module';
-import { EventsModule } from './events/events.module';
-import { NewsModule } from './news/news.module';
 import { APIInterceptor } from './api-interceptor';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
 // change date format through out the site
@@ -40,6 +40,9 @@ export const DATE_FORMATS = {
     AppComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
     BrowserModule,
     AppRoutingModule,
     SharedModule,

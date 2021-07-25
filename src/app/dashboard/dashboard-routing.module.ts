@@ -17,6 +17,7 @@ import { ManageJobComponent } from './manage-job/manage-job.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { JobPackagesComponent } from './job-packages/job-packages.component';
 import { JobPackagesReturnComponent } from './job-packages/job-packages-return/job-packages-return.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'notifications', component:  NotificationsComponent},
       { path: 'packages', component:  JobPackagesComponent},
       { path: 'packages/return', component:  JobPackagesReturnComponent},
+      { path: 'messages', component:  MessagesComponent},
       { path: 'change-password', component:  ChangePasswordComponent},
     ],
   }

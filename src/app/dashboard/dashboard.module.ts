@@ -20,6 +20,7 @@ import { ManageJobComponent } from './manage-job/manage-job.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { JobPackagesComponent } from './job-packages/job-packages.component';
 import { JobPackagesReturnComponent } from './job-packages/job-packages-return/job-packages-return.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { JobPackagesReturnComponent } from './job-packages/job-packages-return/j
     NotificationsComponent,
     JobPackagesComponent,
     JobPackagesReturnComponent,
+    MessagesComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

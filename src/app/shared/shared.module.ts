@@ -63,6 +63,7 @@ import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { SendMessageModalComponent } from '../modals/job/send-message/send-message-modal';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     imageSrc,
     TimeAgoPipe,
     TimeUntilPipe,
-    encodeURL
+    encodeURL,
+    SendMessageModalComponent
   ],
   imports: [
     CommonModule,
@@ -188,6 +190,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NewOrganizerModal,
     EventTicketModal,
     EventRsvpModal,
+    SendMessageModalComponent,
   ],
 })
 export class SharedModule {}
