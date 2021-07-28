@@ -64,6 +64,10 @@ import { NouisliderModule } from 'ng2-nouislider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SendMessageModalComponent } from '../modals/job/send-message/send-message-modal';
+import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -94,7 +98,8 @@ import { SendMessageModalComponent } from '../modals/job/send-message/send-messa
     TimeAgoPipe,
     TimeUntilPipe,
     encodeURL,
-    SendMessageModalComponent
+    SendMessageModalComponent,
+    AdminSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -129,6 +134,9 @@ import { SendMessageModalComponent } from '../modals/job/send-message/send-messa
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
   ],
   exports: [
     FormsModule,
@@ -169,6 +177,10 @@ import { SendMessageModalComponent } from '../modals/job/send-message/send-messa
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
+    AdminSidebarComponent,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
   ],
   entryComponents: [
     RegistrationModal,
