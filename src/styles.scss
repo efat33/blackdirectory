@@ -373,3 +373,17 @@ ul.page-numbers .current {
 .color-danger {
   color: #ff2424;
 }
+
+/*
+    Angular Material is using transform: translate3d(0,0,0); in components styles. Unfortunately transform changes positioning context and 
+    preview won't work properly. To avoid this situation material styles needs to be overriden
+*/ 
+.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
+    transform: none !important;
+}
+
+.ngx-gallery .ngx-gallery-thumbnails .ngx-gallery-thumbnail.ngx-gallery-active {
+    border: 1px double #006699 !important;
+}
+/********/ 
+

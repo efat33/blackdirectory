@@ -5,3 +5,31 @@
 .listing-hours_day__2Opo_ {
     text-transform: capitalize;
 }
+.single-listing-category {
+    width: 50%;
+    padding: 0 15px;
+}
+::ng-deep .listing-gallery-panel .mat-dialog-container {
+    background: rgba(255, 255, 255, 0);
+    box-shadow: none;
+}
+::ng-deep header.popup_header__2QTxC.listing-gallery-popup-header {
+    background: none;
+    border: 0;
+    color: #fff;
+}
+::ng-deep .listing-gallery-panel .mat-dialog-content {
+    max-height: 100vh !important;
+}
+
+::ng-deep .cdk-overlay-backdrop.listing-gallery-backdrop {
+    background: rgba(0, 0, 0, .6);
+}
+.utility-box-1_avatar__DB9c_.show-image img {
+    display: block;
+}
+[data-v-7b959e52] .dropdown_module__J_Zpj {
+	position: absolute;
+	top: 18px;
+	right: 20px;
+}

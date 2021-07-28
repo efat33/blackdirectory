@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { CurrentUser } from "../user/user";
@@ -11,9 +12,18 @@ export class HelperService {
   currentUserInfo: CurrentUser;
   apiUrl = 'http://localhost:3000';
   siteUrl = 'http://localhost:4200';
+  assetUrl = 'http://localhost:4200/assets';
 
-  constructor() {
+  constructor(
+    private http:HttpClient
+  ) {
     this.setCurrentUserInfo();
+  }
+
+  getClientIP() {
+    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
+      return res.ip;
+    });
   }
 
   moveItemInFormArray(
@@ -111,5 +121,20 @@ export class HelperService {
 
   isCandidate() {
     return this.currentUserInfo?.role === 'candidate';
+  }
+
+  dateTimeNow() {
+    const currentdate = new Date();
+
+    const year = currentdate.getUTCFullYear();
+    const month = (currentdate.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = currentdate.getUTCDate().toString().padStart(2, '0');
+    const hour = currentdate.getUTCHours().toString().padStart(2, '0');
+    const min = currentdate.getUTCMinutes().toString().padStart(2, '0');
+    const sec = currentdate.getUTCSeconds().toString().padStart(2, '0');
+
+    const datetime = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+
+    return datetime;
   }
 }

@@ -28,6 +28,7 @@ import { EventSearchCityModal } from '../modals/events/search/cities/event-searc
 import { NewOrganizerModal } from '../modals/events/new/new-organizer/new-organizer-modal';
 import { EventTicketModal } from '../modals/events/new/event-ticket/event-ticket-modal';
 import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal';
+import { ContactOwnerModal } from '../modals/listing/details/contact-owner/contact-owner-modal';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -55,7 +56,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -63,6 +64,13 @@ import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
+import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
+import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
+import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
+
+
 
 
 @NgModule({
@@ -79,6 +87,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     JobApplyInternalModal,
     JobApplyEmailModal,
     ContactEmployerModal,
+    ContactOwnerModal,
     ListingSearchCatModal,
     ListingSearchPriceModal,
     ListingSearchSortModal,
@@ -92,7 +101,12 @@ import { ClickOutsideModule } from 'ng-click-outside';
     imageSrc,
     TimeAgoPipe,
     TimeUntilPipe,
-    encodeURL
+    encodeURL,
+    pluralPipe,
+    ListingGalleryModal,
+    ListingVideoModal,
+    CouponModal,
+    ListingReviewModal
   ],
   imports: [
     CommonModule,
@@ -127,6 +141,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
+    NgxGalleryModule
   ],
   exports: [
     FormsModule,
@@ -167,6 +182,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
+    pluralPipe,
+    NgxGalleryModule
   ],
   entryComponents: [
     RegistrationModal,
@@ -178,6 +195,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     JobApplyInternalModal,
     JobApplyEmailModal,
     ContactEmployerModal,
+    ContactOwnerModal,
     ListingSearchCatModal,
     ListingSearchPriceModal,
     ListingSearchSortModal,
@@ -188,6 +206,10 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NewOrganizerModal,
     EventTicketModal,
     EventRsvpModal,
+    ListingGalleryModal,
+    ListingVideoModal,
+    CouponModal,
+    ListingReviewModal
   ],
 })
 export class SharedModule {}
