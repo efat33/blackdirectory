@@ -107,6 +107,13 @@ export class UserService {
     return this.httpClient.get<UserAPIReponse>(url, this.headerOptions);
   }
 
+  getDetailsByID(id: string): Observable<UserAPIReponse> {
+    const url = `api/users/user-details-by-id/${id}`;
+
+    return this.httpClient
+      .get<UserAPIReponse>(url, this.headerOptions);
+  }
+
   logout(): void {
     const url = 'api/users/logout';
 
@@ -138,7 +145,7 @@ export class UserService {
       () => {}
     );
   }
-
+  
   checkAuthentication(): void {
     const url = 'api/users/authenticated';
 
