@@ -41,18 +41,15 @@
                         <small> Total applicants</small>
                       </a>
                     </li>
-                    <li><span>{{job.views || 0}}</span> <small>Total visits</small></li>
+                    <li><span>{{job.views || 0}}</span> <small> Total visits</small></li>
                     <li><small>Expiry Date: {{job.expiry_date | date:'MMM d, y'}}</small></li>
-                    <li class="job-instamatch-total"><a
-                        href="http://nirectory.com/user-dashboard/?tab=manage-jobs&amp;view=applicants&amp;job_id=17361&amp;mod=insta_match">Insta
-                        Match: 0</a></li>
                   </ul>
                 </div>
                 <div class="jobsearch-table-layer jobsearch-managejobs-tbody">
                   <div class="jobsearch-table-row">
                     <div class="jobsearch-table-cell">
                       <h6 class="jobsearch-pst-title"><a [routerLink]="['/jobs/details/', job.slug]">{{job.title}}</a>
-                        <span class="job-filled"></span>
+                        <span *ngIf="job.filled" class="job-filled"> (Filled)</span>
                       </h6>
                       <ul>
                         <li><i class="jobsearch-icon jobsearch-calendar"></i> Created:
@@ -68,9 +65,10 @@
                         <li>
                           <div class="jobsearch-filledjobs-links">
                             <span>Fill Job</span>
-                            <a href="javascript:void(0);" title="Fill this Job"
-                              class="jobsearch-fill-the-job ajax-enable"><span></span><span
-                                class="fill-job-loader"></span></a>
+                            <a (click)="fillJob(job)" title="Fill this Job"
+                              class="jobsearch-fill-the-job ajax-enable">
+                              <i *ngIf="job.filled" class="fa fa-check"></i>
+                            </a>
                           </div>
                         </li>
                       </ul>

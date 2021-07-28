@@ -63,6 +63,11 @@ import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { SendMessageModalComponent } from '../modals/job/send-message/send-message-modal';
+import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -92,7 +97,9 @@ import { ClickOutsideModule } from 'ng-click-outside';
     imageSrc,
     TimeAgoPipe,
     TimeUntilPipe,
-    encodeURL
+    encodeURL,
+    SendMessageModalComponent,
+    AdminSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -127,6 +134,9 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
   ],
   exports: [
     FormsModule,
@@ -167,6 +177,10 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
+    AdminSidebarComponent,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
   ],
   entryComponents: [
     RegistrationModal,
@@ -188,6 +202,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NewOrganizerModal,
     EventTicketModal,
     EventRsvpModal,
+    SendMessageModalComponent,
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,85 @@
+<div class="content-box_module__333d9 content-box_lg__3v3a-">
+  <header _ngcontent-bps-c143="" class="content-box_header__xPnGx clearfix">
+    <div _ngcontent-bps-c143="" class="wil-float-left">
+      <h4 _ngcontent-bps-c143="" class="content-box_title__1gBHS">
+        <span _ngcontent-bps-c143="">Job Packages</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+
+    <div *ngIf="currentPackage" class="current-package mb-3">
+      <div class="current-package-summary px-3 py-2 d-flex justify-content-between">
+        <span>Current package: {{currentPackage.title}}</span>
+        <span>Expiry: {{currentPackagePrice.validity}}
+          {currentPackagePrice.validity, plural, =1 {Month} other {Months}}</span>
+        <span></span>
+      </div>
+
+      <table class="current-package-detail">
+        <tbody>
+          <tr class="">
+            <th>Jobs you can post</th>
+            <td>Total: {{currentPackage.number_of_jobs}}</td>
+            <td>Used: {{jobsPosted}}</td>
+            <td>Remaininig: {{currentPackage.total_jobs == 'UNLIMITED' ? '-' : currentPackage.number_of_jobs - jobsPosted}}
+            </td>
+          </tr>
+          <tr class="">
+            <th>Featured job credits</th>
+            <td>Total: {{currentPackage.featured_jobs}}</td>
+            <td>Used: {{featuredJobs}}</td>
+            <td>Remaininig: {{currentPackage.featured_jobs == 'UNLIMITED' ? '-' : currentPackage.featured_jobs -
+              featuredJobs}}</td>
+          </tr>
+          <tr class="">
+            <th>Download candidate CVs from database</th>
+            <td>Total: {{currentPackage.cv_download}}</td>
+            <td>Used: 0</td>
+            <td class="">Remaininig: 0</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="package-dates d-flex font-size-14 text-center">
+        <span class="w-100 w-md-50 py-2 text-white bg-primary"><i class="far fa-calendar-alt mr-1"></i> Purchase
+          Date: {{purchaseDate|date:"MMMM d, yyyy"}}</span>
+        <span class="w-100 w-md-50 py-2 text-white bg-secondary"><i class="far fa-calendar-alt mr-1"></i> Expiry
+          Date: {{expiryDate|date:"MMMM d, yyyy"}}</span>
+      </div>
+    </div>
+
+    <div class="row py-3 package-wrapper">
+      <div *ngFor="let package of packages" class="col-12 col-md-3 mb-4">
+        <div class="package text-center py-2 h-100" style="--package-color: {{package.color}}">
+          <h4>{{package.title}}</h4>
+          <p class="py-2 mb-1 package-price font-weight-500">
+            <span *ngIf="package.selectedPrice">£{{package.selectedPrice.price / package.selectedPrice.validity |
+              number: '1.0-2'}}</span>
+
+            /month
+          </p>
+          <div class="package-prices btn-group btn-group-toggle pb-3 pt-2" data-toggle="buttons">
+            <ng-container>
+              <label *ngFor="let price of package.prices" class="btn"
+                [ngClass]="{'active': package.selectedPrice === price}" (click)="package.selectedPrice = price">
+                <input type="radio" name="{{package.id}}-price">
+                {{price.validity}} {price.validity, plural, =1 {Month} other {Months}}
+              </label>
+            </ng-container>
+          </div>
+
+          <p>No. of Jobs: <span>{{package.number_of_jobs === -1 ? 'UNLIMITED' : package.number_of_jobs}}</span></p>
+          <p>Job Expiry: <span>{{package.job_expiry}} days</span></p>
+          <p *ngIf="package.featured_jobs !== 0">Featured Jobs: <span>{{package.featured_jobs}}</span></p>
+          <p *ngIf="package.cv_download !== 0">CV Download: <span>{{package.cv_download === -1 ? 'UNLIMITED' :
+              package.cv_download}}</span></p>
+
+          <button *ngIf="package.title !== 'Free'" class="btn  mb-2 package-buy-now" (click)="buyPackage(package)">BUY
+            NOW</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

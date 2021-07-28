@@ -1,7 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-
-import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -11,6 +9,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 declare const google: any;
 
@@ -29,6 +28,9 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   showError = false;
   errorMessage = '';
   progressAttachment: number = 0;
+
+  minDeadlineDate = new Date();
+  maxDeadlineDate: any = new Date();
 
   formCustomvalidation = {
     attachment: {
@@ -86,10 +88,35 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
     }
+
+    this.spinnerService.show();
+    const subscription = this.jobService.getCurrentPackage().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (
+          jobId == null &&
+          result.data.currentPackage?.number_of_jobs > 0 &&
+          result.data.currentPackage?.number_of_jobs <= result.data.jobs?.length
+        ) {
+          this.router.navigate(['dashboard/packages']);
+          return;
+        }
+
+        const expiry = result.data.currentPackage?.job_expiry || 14;
+        this.maxDeadlineDate = moment().add(expiry, 'days').toDate();
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   ngAfterViewInit() {
-    const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe(val => {
+    const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe((val) => {
       if (val === 'with_email') {
         this.jobForm.get('job_apply_email').setValidators([Validators.required]);
         this.jobForm.get('external_url').clearValidators();

@@ -6,28 +6,32 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: HomeComponent
   },
   {
-    path: "news",
+    path: 'news',
     loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
   },
   {
-    path: "events",
+    path: 'events',
     loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
   {
-    path: "jobs",
+    path: 'jobs',
     loadChildren: () => import('./jobs/jobs.module').then(m => m.JobsModule)
   },
   {
-    path: "listing",
+    path: 'listing',
     loadChildren: () => import('./listing/listing.module').then(m => m.ListingModule)
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   }
 ];
 

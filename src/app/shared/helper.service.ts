@@ -112,4 +112,12 @@ export class HelperService {
   isCandidate() {
     return this.currentUserInfo?.role === 'candidate';
   }
+
+  isAdmin() {
+    return this.currentUserInfo?.role === 'admin';
+  }
+
+  isAdminOrEmployer() {
+    return this.isAdmin() || this.isEmployer();
+  }
 }

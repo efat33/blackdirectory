@@ -61,8 +61,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         if (this.helperService.currentUserInfo) {
           this.getUserApplicationStatus(this.job.id);
         }
-
-        console.log(this.job);
       },
       (error) => {
         this.spinnerService.hide();

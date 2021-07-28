@@ -1,0 +1,37 @@
+<div class="content-box_module__333d9 content-box_lg__3v3a-">
+  <header _ngcontent-bps-c143="" class="content-box_header__xPnGx clearfix">
+    <div _ngcontent-bps-c143="" class="wil-float-left">
+      <h4 _ngcontent-bps-c143="" class="content-box_title__1gBHS">
+        <span _ngcontent-bps-c143="">Notifications</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <div class="jobsearch-notifics-loistitms">
+      <div class="jobsearch-notifics-listcon">
+        <ul class="jobsearch-dashnotifics-list notification-list">
+          <li *ngFor="let notification of notifications; let index = index" class="jobsearch-notification-item {{notification.class}}"
+            [ngClass]="{
+              'unread-notific': !notification.is_read,
+              'read-notific': notification.is_read
+            }">
+            <div class="notificate-item-inner">
+              <span class="notific-check-icon"><i class="{{notification.icon}}"></i></span>
+
+              <strong>
+                <span class="notific-onlmsg-con" (click)="processLink($event)"
+                  [innerHTML]="notification.is_read ? notification.fullText : notification.shortText"></span>
+                <span class="notific-item-datetime">{{notification.created_at | date:'MMMM d, yyyy'}}</span>
+                <a *ngIf="!notification.is_read" (click)="readNotification(notification)"
+                  class="readmore-notific-btn btn-readmore-mode">Read more</a>
+              </strong>
+
+              <a (click)="removeNotification(notification, index)" class="close-notific-item"><i class="fa fa-close"></i></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
