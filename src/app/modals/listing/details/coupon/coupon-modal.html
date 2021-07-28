@@ -1,0 +1,23 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>Coupon</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div class="wilcity-coupon-image wil-text-center"><img src="{{ coupon.image | imageSrc : 'listing' : 'thumb' }}"
+            alt="{{ coupon.code }}">
+        </div>
+        <div class="wilcity-coupon-code color-secondary"><span>{{ coupon.code }}</span></div>
+        <div class="wilcity-coupon-description">
+          {{ coupon.popup_desc }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
