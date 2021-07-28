@@ -1,0 +1,73 @@
+<div data-margin-top="0" class="dashboard__sidebar js-sticky"
+  style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+  <div class="theiaStickySidebar"
+    style="padding-top: 0px; padding-bottom: 0px; position: static; transform: none; top: 0px; left: 0px;">
+    <div class="utility-box-1_module__MYXpX wil-text-center dashboard-profile-img">
+      <div class="utility-box-1_avatar__DB9c_ rounded-circle" [ngStyle]="{'background-image': 'url('+profileImage+')'}">
+        <img [src]="profileImage" alt="">
+      </div>
+      <div class="utility-box-1_body__8qd9j">
+        <div *ngIf="currentUser.display_name" class="utility-box-1_group__2ZPA2">
+          <h3 class="utility-box-1_title__1I925">{{currentUser.display_name}}</h3>
+        </div>
+        <div class="utility-box-1_description__2VDJ6">
+          <div class="utility-box-1_description__2VDJ6"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-nav_module__3c0Pb list-none mt-20 mb-30 pos-r">
+      <ul>
+        <!-- news menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">News</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['news-add']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Add News</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['news-all']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">All News</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['news-categories']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Categories</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+
+        <!-- <li class="dashboard-nav_item__2798B wilcity-dashboard-route-notifications"><span><a
+              [routerLink]="['notifications']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-bell"></i></span> <span
+                class="dashboard-nav_text__x-_IZ">Notifications</span> <span
+                class="dashboard-nav_number__5N1Ch color-primary"></span></a></span></li> -->
+
+      </ul>
+    </div>
+  </div>
+</div>

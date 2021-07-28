@@ -11,11 +11,11 @@ import { HelperService } from '../shared/helper.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   menuItems = MenuItems;
-  profileMenus = ProfileMenus;
+  profileMenus: any[] = ProfileMenus;
 
   subscriptions: Subscription = new Subscription();
 
@@ -25,29 +25,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   profileImage: string;
 
-
-  constructor(
-    public dialog: MatDialog,
-    private userService: UserService,
-    private helperService: HelperService
-  ) { }
+  constructor(public dialog: MatDialog, private userService: UserService, private helperService: HelperService) {}
 
   ngOnInit() {
-
-    if(this.helperService.isUserLoggedIn()) this.isLoggedIn = true;
-
-    if(this.helperService.isUserLoggedIn() && this.helperService.currentUserInfo.profile_photo != ''){
-      this.profileImage = this.helperService.getImageUrl(this.helperService.currentUserInfo.profile_photo, 'users', 'thumb');
+    if (this.helperService.isUserLoggedIn()) {
+      this.isLoggedIn = true;
     }
 
-    const subClickedRegisterLinkModal = this.userService.clickedRegisterLinkModal.subscribe( () => {
+    if (this.helperService.isAdmin()) {
+      this.profileMenus.unshift({
+        title: 'Admin',
+        route: 'admin',
+      });
+    }
+
+    if (this.helperService.isUserLoggedIn() && this.helperService.currentUserInfo.profile_photo != '') {
+      this.profileImage = this.helperService.getImageUrl(
+        this.helperService.currentUserInfo.profile_photo,
+        'users',
+        'thumb'
+      );
+    }
+
+    const subClickedRegisterLinkModal = this.userService.clickedRegisterLinkModal.subscribe(() => {
       this.dialogRefLogin.close();
       this.openRegistrationModal();
     });
 
     this.subscriptions.add(subClickedRegisterLinkModal);
 
-    const subsclickedLoginLinkModal = this.userService.clickedLoginLinkModal.subscribe( () => {
+    const subsclickedLoginLinkModal = this.userService.clickedLoginLinkModal.subscribe(() => {
       this.dialogRefReg.close();
       this.openLoginModal();
     });
@@ -61,21 +68,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openRegistrationModal(): void {
     this.dialogRefReg = this.dialog.open(RegistrationModal, {
-      width: '400px'
+      width: '400px',
     });
-
   }
 
   openLoginModal(): void {
     this.dialogRefLogin = this.dialog.open(LoginModal, {
-      width: '400px'
+      width: '400px',
     });
-
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
-
 }

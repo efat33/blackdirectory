@@ -1,64 +1,367 @@
-.sidebar-1_module__1x2S9 .widget-title {
-    margin-bottom: 10px;
-    color: #fff;
-    background: #006699;
-    font-size: 18px;
-    padding: 8px;
-}
-.single-newslist > h2 {
-    font-size: 18px;
-    line-height: 1.3;
-}
-.single-newslist {
-    margin-bottom: 20px;
-}
-.single-newslist-content {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-.single-newslist-content > div {
-    width: 50%;
-}
-.single-newslist-content > div:first-child {
-    padding-right: 5px;
-}
-.single-newslist-content > div:last-child {
-    padding-left: 5px;
-    font-size: 12px;
-    line-height: 1.3;
-}
-.single-newslist-footer {
-    display: flex;
-    align-items: center;
-}
-.single-newslist-footer .social-icon_item__3SLnb i {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 14px;
-    margin: 0 3px 10px;
-}
-.single-newslist-footer-meta {
-    margin-left: auto;
+a,
+blockquote,
+body,
+code,
+dd,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+legend,
+ol,
+p,
+pre,
+td,
+textarea,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+  min-height: 1px;
+  line-height: 1em;
 }
 
-// news sidebar style
-ul.news-sidebar-ul li a {
-    display: flex;
-    background: #f3f3f6;
+h2 {
+  font-weight: 700;
 }
-ul.news-sidebar-ul li a:hover {
-    background: #006699;
+
+.article {
+  margin-bottom: 15px;
+  font-size: 1em;
 }
-ul.news-sidebar-ul li a:hover h4 {
-    color: #fff;
+
+.article-large h2,
+.article-tri-headline h1,
+.article-tri-headline h2 {
+  margin-bottom: 10px;
 }
-ul.news-sidebar-ul li a > * {
-    width: 50%;
+
+.article-large h2,
+.article-topstory h2,
+.article-tri-headline h1,
+.article-tri-headline h2 {
+  margin: 5px 0 0;
+  font-size: 2em;
 }
-ul.news-sidebar-ul li a h4 {
-    margin: 0;
-    padding: 5px;
-    font-size: 12px;
+
+.article a {
+  color: var(--color-primary);
 }
+
+fieldset,
+img {
+  border: 0;
+}
+
+.article .articletext {
+  padding: 5px 0 4px;
+}
+
+.article .articletext p {
+  margin-top: 8px;
+  min-height: auto;
+}
+
+div.article-icon-links-container {
+  clear: both;
+  margin-top: 8px;
+}
+
+.cleared {
+  min-height: 1px;
+}
+
+.article-icon-links-container .article-icon-links li.facebook,
+.article-icon-links-container .article-icon-links li.twitter {
+  height: 30px;
+}
+
+.article-icon-links-container .article-icon-links li {
+  padding: 0;
+}
+
+div.article-icon-links-container ul.article-icon-links li {
+  padding: 0 5px 0 3px;
+  float: left;
+  list-style-type: none;
+  white-space: nowrap;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+div.article-icon-links-container ul.article-icon-links li a {
+  color: #000;
+  line-height: 16px;
+  position: relative;
+  padding-right: 2px;
+  display: block;
+  z-index: 10;
+}
+
+.article-icon-links-container[data-social-first-article-links] .article-icon-links li:not(:first-of-type) {
+  margin-left: 18px;
+}
+
+.article-icon-links-container[data-social-first-article-links] .article-icon-links li a,
+.article-icon-links-container[data-social-first-article-links] .article-icon-links li button {
+  line-height: 30px;
+}
+
+.article-icon-links-container[data-social-first-article-links] .article-icon-links li .comments-link {
+  min-width: 16px;
+  height: 30px;
+}
+
+.article-icon-links-container[data-social-first-article-links] .article-icon-links li .comments-link .icon {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjE1IiB2aWV3Qm94PSIwIDAgMTYgMTUiIHdpZHRoPSIxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTA1Ljk5OTA3MSAyYy00LjQxNjQ4MiAwLTcuOTk5MDcxIDIuNjk5MjIzOC03Ljk5OTA3MSA2LjAyOTEwNzM3IDAgMi44MzUwNTgyMyAyLjU5NjQwMiA1LjIxNDEwMDkzIDYuMDk1NDE1IDUuODU4MzQ0MTMuNzU0MDM0IDEuMTcyMDU2OSAyLjUyMzk3IDMuMTEyNTQ4NSA1Ljk5ODgzOSAzLjExMjU0ODUgMCAwLTEuMDM0NDc1LS43NzgxMzcxLTEuNjc1MjE3LTMuMjIxMjE2IDMuMjM3MTQ0LS43NzQyNTYyIDUuNTgwOTYzLTMuMDUyMzkzMyA1LjU4MDk2My01Ljc0OTY3NjYzIDAtMy4zMjk4ODM1Ny0zLjU4MjU4OS02LjAyOTEwNzM3LTguMDAwOTI5LTYuMDI5MTA3Mzd6IiBmaWxsPSIjMDBhYWQyIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05OCAtMikiLz48L3N2Zz4=);
+  background-size: 16px 15px;
+  background-repeat: no-repeat;
+  background-position: 0 center !important;
+  height: 30px;
+  width: 16px;
+  margin-top: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+div.article-icon-links-container ul.article-icon-links li a .icon {
+  position: absolute;
+  margin-top: 2px;
+  left: 0;
+  height: 13px;
+  width: 18px;
+  background-color: transparent;
+  background-image: url(//i.dailymail.co.uk/i/furniture/spt_previewlinks_12.png);
+}
+
+div.article-icon-links-container ul.article-icon-links li a .linktext {
+  padding-left: 22px;
+}
+
+.article-tri-headline .article-icon-links-container[data-social-first-article-links] .article-icon-links li .linktext {
+  font-size: 14px;
+}
+
+.bold,
+.generic h3 {
+  font-weight: 700;
+}
+
+.cleared:after,
+.page:after {
+  content: '.';
+  display: block;
+  line-height: 0;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.item {
+  font-size: 1em;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.thick-split,
+.thin-split {
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+}
+
+.bdrcc,
+.linkro-bdrcc:hover,
+a.link-bdrcc,
+a:hover .linkro-bdrcc,
+body .home .bdrcc,
+body .home .linkro-bdrcc:hover,
+body .home a.link-bdrcc,
+body .home a:hover .linkro-bdrcc {
+  border: 1px solid #004db3;
+}
+
+.ccox,
+.link-ccox a,
+.linkro-ccox a:hover,
+body .home .ccox,
+body .home .link-ccox a,
+body .home .linkro-ccox a:hover {
+  color: #004db3;
+}
+
+.gradient-split h6,
+.thick-split h6,
+.thin-split h6 {
+  font-size: 1.5em;
+  padding: 3px 5px 1px;
+}
+
+.article-large .articletext .morelinks,
+.article-large img {
+  width: 100%;
+  float: left;
+}
+
+.beta .article-large .articletext-holder,
+.column-split .article-large .articletext-holder {
+  padding: 8px 0;
+}
+
+.article-large .articletext-holder {
+  margin-top: 10px;
+  float: left;
+  width: 100%;
+}
+
+.article-small,
+.item .article-small {
+  margin-bottom: 10px;
+}
+
+.article-small h2 {
+  margin: 0;
+}
+
+.article-small h2,
+.article-smallslant h2,
+.article-star-search h2,
+.article-star-search h3 {
+  margin: 5px 0 0;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.article-large h2,
+.article-tri-headline h1,
+.article-tri-headline h2 {
+  margin-bottom: 10px;
+}
+
+.bl,
+.br,
+.tl,
+.tr {
+  background-image: url(//i.dailymail.co.uk/i/furniture/corners/spt_rndcorner_4.png);
+  position: absolute;
+  _font-size: 1px;
+  _line-height: 1px;
+  width: 8px;
+  height: 8px;
+}
+
+.tl {
+  background-position: 0 0;
+}
+
+.tl {
+  top: 0;
+  left: 0;
+}
+
+.tr {
+  background-position: -10px 0;
+}
+
+.tr {
+  top: 0;
+  right: 0;
+}
+
+.tlc-femail .link-wocc a,
+.tlc-femail .linkro-wocc a:hover,
+.tlc-femail .wocc,
+.femail .link-wocc a,
+.femail .linkro-wocc a:hover,
+.femail .wocc {
+  color: #fff;
+  background-color: #c562a5;
+}
+
+.puff h3 {
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  padding: 4px 5px 2px;
+  margin-bottom: 5px;
+}
+
+.puff a {
+  display: block;
+  min-height: 115px;
+  margin-bottom: 5px;
+}
+
+.bogr2,
+.link-bogr2 a,
+.linkro-bogr2 a:hover {
+  color: #000;
+  background-color: #e3e3e3;
+}
+
+.puff img {
+  float: right;
+}
+
+.puff a .pufftext {
+  display: block;
+  padding: 5px 5px 5px 7px;
+  width: 50%;
+}
+
+.puff a .pufftext span {
+  margin-right: 3px;
+}
+
+.puff a strong {
+  display: block;
+  color: var(--color-primary);
+}
+
+.arrow-small-l, .arrow-small-r {
+  display: inline-block;
+  height: 0;
+  font-size: 1em;
+  line-height: 1em;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.arrow-small-r {
+  border: 0;
+  border-left: 5px solid currentcolor;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+}
+
+.arrow-large-d, .arrow-large-l, .arrow-large-r, .arrow-large-u, .arrow-small-d, .arrow-small-l, .arrow-small-r, .arrow-small-u {
+  float: left;
+}
+
+.puff a .arrow-small-r {
+  color: #004db3;
+}
+
+.puff .linkro-wocc a:hover strong, .puff .alt-wodg strong {
+  color: #fff;
+}
+
+.puff a:hover .arrow-small-r {
+  color: #fff;
+}
+
+
+
+
