@@ -21,6 +21,12 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { JobPackagesComponent } from './job-packages/job-packages.component';
 import { JobPackagesReturnComponent } from './job-packages/job-packages-return/job-packages-return.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductsNewComponent } from './products-new/products-new.component';
+import { ProductsEditComponent } from './products-edit/products-edit.component';
+import { OrdersComponent } from './orders/orders.component';
+import { StoreSettingsComponent } from './store-settings/store-settings.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +46,12 @@ import { MessagesComponent } from './messages/messages.component';
     JobPackagesComponent,
     JobPackagesReturnComponent,
     MessagesComponent,
+    ProductsComponent,
+    ProductsNewComponent,
+    ProductsEditComponent,
+    OrdersComponent,
+    StoreSettingsComponent,
+    WithdrawComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

@@ -18,8 +18,12 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { JobPackagesComponent } from './job-packages/job-packages.component';
 import { JobPackagesReturnComponent } from './job-packages/job-packages-return/job-packages-return.component';
 import { MessagesComponent } from './messages/messages.component';
-
-
+import { ProductsComponent } from './products/products.component';
+import { ProductsNewComponent } from './products-new/products-new.component';
+import { ProductsEditComponent } from './products-edit/products-edit.component';
+import { StoreSettingsComponent } from './store-settings/store-settings.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
   {
@@ -27,30 +31,35 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'profile', component:  DashboardProfileComponent},
-      { path: 'applied-jobs', component:  AppliedJobsComponent},
-      { path: 'favorite-jobs', component:  FavoriteJobsComponent},
-      { path: 'saved-candidates', component:  SavedCandidatesComponent},
-      { path: 'all-applicants', component:  AllApplicantsComponent},
-      { path: 'manage-job/:job_id', component:  ManageJobComponent},
-      { path: 'manage-jobs', component:  ManageJobsComponent},
-      { path: 'new-job', component:  NewJobComponent},
-      { path: 'edit-job/:job_id', component:  NewJobComponent},
-      { path: 'followers', component:  UserFollowerComponent},
-      { path: 'following', component:  UserFollowingComponent},
-      { path: 'notifications', component:  NotificationsComponent},
-      { path: 'packages', component:  JobPackagesComponent},
-      { path: 'packages/return', component:  JobPackagesReturnComponent},
-      { path: 'messages', component:  MessagesComponent},
-      { path: 'change-password', component:  ChangePasswordComponent},
+      { path: 'profile', component: DashboardProfileComponent },
+      { path: 'applied-jobs', component: AppliedJobsComponent },
+      { path: 'favorite-jobs', component: FavoriteJobsComponent },
+      { path: 'saved-candidates', component: SavedCandidatesComponent },
+      { path: 'all-applicants', component: AllApplicantsComponent },
+      { path: 'manage-job/:job_id', component: ManageJobComponent },
+      { path: 'manage-jobs', component: ManageJobsComponent },
+      { path: 'new-job', component: NewJobComponent },
+      { path: 'edit-job/:job_id', component: NewJobComponent },
+      { path: 'followers', component: UserFollowerComponent },
+      { path: 'following', component: UserFollowingComponent },
+      { path: 'notifications', component: NotificationsComponent },
+      { path: 'packages', component: JobPackagesComponent },
+      { path: 'packages/return', component: JobPackagesReturnComponent },
+      { path: 'messages', component: MessagesComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'products/new', component: ProductsNewComponent },
+      { path: 'products/edit/:id', component: ProductsEditComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: 'withdraw', component: WithdrawComponent },
+      { path: 'store-settings', component: StoreSettingsComponent },
     ],
-  }
-
+  },
 ];
 
 @NgModule({
   declarations: [],
   imports: [CommonModule, RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class DashboardRoutingModule {}
