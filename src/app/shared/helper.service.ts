@@ -1,6 +1,7 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { CurrentUser } from "../user/user";
+import { environment } from 'src/environments/environment';
+import { CurrentUser } from '../user/user';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +10,29 @@ import { CurrentUser } from "../user/user";
 export class HelperService {
 
   currentUserInfo: CurrentUser;
-  apiUrl = 'http://localhost:3000';
-  siteUrl = 'http://localhost:4200';
+  apiUrl: string;
+  siteUrl: string;
 
   constructor() {
+    this.setApiUrl();
+    this.setSiteUrl();
     this.setCurrentUserInfo();
+  }
+
+  setApiUrl() {
+    if (environment.production) {
+      this.apiUrl = `https://68.66.248.49/~blackdir/api`;
+    } else {
+      this.apiUrl = `http://localhost:3000`;
+    }
+  }
+
+  setSiteUrl() {
+    if (environment.production) {
+      this.siteUrl = `https://68.66.248.49/~blackdir`;
+    } else {
+      this.siteUrl = `http://localhost:4200`;
+    }
   }
 
   moveItemInFormArray(

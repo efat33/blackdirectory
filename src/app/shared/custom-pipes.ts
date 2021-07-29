@@ -1,9 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { HelperService } from './helper.service';
 
 
 
 @Pipe({name: 'imageSrc'})
 export class imageSrc implements PipeTransform {
+  constructor(private helperService: HelperService) {}
+
   transform(value: string, folder: string, imgSize: string): string {
     const size = imgSize ? imgSize : 'full';
 
@@ -13,7 +16,7 @@ export class imageSrc implements PipeTransform {
       image = `${size}-${image}`;
     }
 
-    return `http://localhost:3000/${folder}/${image}`;
+    return `${this.helperService.apiUrl}/${folder}/${image}`;
   }
 }
 
