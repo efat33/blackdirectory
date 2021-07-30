@@ -1,7 +1,163 @@
-<!-- ---- title, price, discounted_price, discount_start, discount_end, ---- -->
-<!-- --- category, tags, image, galleries, short_desc, description, sku, --- -->
-<!-- --- stock_status, enable stock management checkbox stock_quantity, ---- -->
-<!-- ---------- purchase_note. Downloadable & Virtual checkboxes ----------- -->
-<!-- ----------------------- https://prnt.sc/1hlcrab ----------------------- -->
-<!-- ----------- if downloadable, then it'd allow to add files. ------------ -->
-<p>products-new works!</p>
+<!-- --- image, galleries --- -->
+
+<div class="pos-r">
+  <div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="productForm">
+      <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Add New Product</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matInput type="number" formControlName="price" />
+            <span matPrefix>£&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Discounted Price</mat-label>
+            <input matInput type="number" formControlName="discounted_price" />
+            <span matPrefix>£&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Discount Schedule</mat-label>
+            <mat-date-range-input [rangePicker]="discount_date">
+              <input matStartDate formControlName="discount_start" placeholder="Start date" />
+              <input matEndDate formControlName="discount_end" placeholder="End date" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="discount_date"></mat-datepicker-toggle>
+            <mat-date-range-picker #discount_date></mat-date-range-picker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <input matInput [formControl]="categoryInput" [matAutocomplete]="categoryAuto" (blur)="checkCategory()" />
+            <mat-autocomplete #categoryAuto="matAutocomplete" (optionSelected)="selectCategory($event.option.value)">
+              <mat-option *ngFor="let category of categories$ | async" [value]="category">
+                {{ category }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tags">
+              <mat-chip
+                *ngFor="let tag of selectedTags"
+                [selectable]="false"
+                [removable]="true"
+                (removed)="removeTag(tag)"
+              >
+                {{ tag }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input
+                #fruitInput
+                [formControl]="tagInput"
+                [value]="tagInput.value"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+              />
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addTag($event.option.value)">
+              <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+                {{ tag }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Short Description</mat-label>
+            <input matInput formControlName="short_desc" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="5" formControlName="description"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Purchase Note</mat-label>
+            <textarea matInput rows="3" formControlName="purchase_note"></textarea>
+          </mat-form-field>
+          <div class="checkboxes-container">
+            <mat-checkbox formControlName="downloadable">
+              Downloadable
+              <span class="help-icon" matTooltip="Downloadable products give access to a file upon purchase.">
+                <mat-icon>help_outline</mat-icon>
+              </span>
+            </mat-checkbox>
+            <mat-checkbox formControlName="virtual">
+              Virtual
+              <span class="help-icon" matTooltip="Virtual products are intangible and aren't shipped.">
+                <mat-icon>help_outline</mat-icon>
+              </span>
+            </mat-checkbox>
+          </div>
+          <div *ngIf="isDownloadable">
+            <section class="section-mat-form-field section-field-file">
+              <mat-label>File</mat-label>
+              <input accept="*" type="file" formControlName="file" #inputFile (change)="onFileChange($event)" />
+              <span *ngIf="fileName != ''">{{ fileName }}</span>
+              <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputFile.click()">Upload</a>
+            </section>
+            <mat-progress-bar
+              *ngIf="progressFile > 0"
+              mode="determinate"
+              [value]="progressFile"
+              class="mb-15"
+            ></mat-progress-bar>
+            <p class="form-error" *ngIf="!formCustomvalidation.file.validated">
+              {{ formCustomvalidation.file.message }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+        <header class="content-box_header__xPnGx clearfix">
+          <div class="wil-float-left">
+            <h4 class="content-box_title__1gBHS">
+              <span>Stock Management</span>
+            </h4>
+          </div>
+        </header>
+        <div class="content-box_body__3tSRB">
+          <mat-checkbox formControlName="stock_management_enabled">Enable stock management</mat-checkbox>
+          <div *ngIf="isStockManagementEnabled">
+            <mat-form-field>
+              <mat-label>SKU (Stock Keeping Unit)</mat-label>
+              <input matInput formControlName="sku" />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Stock Status</mat-label>
+              <mat-select formControlName="stock_status">
+                <mat-option value="in_stock">In Stock</mat-option>
+                <mat-option value="no_stock">Out of Stock</mat-option>
+                <mat-option value="backorder">On Backorder</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Stock Quantity</mat-label>
+              <input matInput type="number" formControlName="stock_quantity" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+      <button
+        mat-raised-button
+        class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+        color="primary"
+        type="submit"
+        [disabled]="!productForm.valid"
+      >
+        Save Product
+      </button>
+    </form>
+  </div>
+</div>

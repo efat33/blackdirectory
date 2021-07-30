@@ -43,6 +43,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   NgxMatDatetimePickerModule,
   NgxMatTimepickerModule,
@@ -62,7 +65,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SendMessageModalComponent } from '../modals/job/send-message/send-message-modal';
 import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
@@ -74,9 +77,6 @@ import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-g
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
-
-
-
 
 @NgModule({
   declarations: [
@@ -113,7 +113,7 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
-    ListingReviewModal
+    ListingReviewModal,
   ],
   imports: [
     CommonModule,
@@ -145,13 +145,16 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatProgressBarModule,
     NgxStickySidebarModule,
     MatSliderModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
     MatTableModule,
     MatButtonModule,
     MatSortModule,
-    NgxGalleryModule
+    NgxGalleryModule,
   ],
   exports: [
     FormsModule,
@@ -176,6 +179,9 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     FlexLayoutModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
@@ -197,7 +203,7 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatButtonModule,
     MatSortModule,
     pluralPipe,
-    NgxGalleryModule
+    NgxGalleryModule,
   ],
   entryComponents: [
     RegistrationModal,
@@ -224,7 +230,7 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
-    ListingReviewModal
+    ListingReviewModal,
   ],
 })
 export class SharedModule {}
