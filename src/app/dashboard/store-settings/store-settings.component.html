@@ -1,1 +1,161 @@
-<p>store-settings works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="settingsForm">
+  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Store Settings</span>
+        </h4>
+      </div>
+    </header>
+    <div class="content-box_body__3tSRB">
+      <mat-form-field>
+        <mat-label>Store Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <section class="section-mat-form-field section-field-file section-field-preview-img">
+        <mat-label>Profile Image</mat-label>
+        <input
+          accept="image/*"
+          type="file"
+          formControlName="profile_image"
+          #inputProfileImage
+          (change)="onProfileImageChange($event)"
+        />
+        <span *ngIf="profileImageSrc" [ngStyle]="{ 'background-image': 'url(' + profileImageSrc + ')' }"></span>
+        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputProfileImage.click()"> Upload </a>
+      </section>
+      <mat-progress-bar
+        *ngIf="progressProfileImg > 0"
+        mode="determinate"
+        [value]="progressProfileImg"
+        class="mb-15"
+      ></mat-progress-bar>
+      <p class="form-error" *ngIf="!formCustomvalidation.profileImage.validated">
+        {{ formCustomvalidation.profileImage.message }}
+      </p>
+
+      <section class="section-mat-form-field section-field-file section-field-preview-img">
+        <mat-label>Banner Image (625x300 pixels) </mat-label>
+        <input
+          accept="image/*"
+          type="file"
+          formControlName="banner_image"
+          #inputBannerImage
+          (change)="onBannerImageChange($event)"
+        />
+        <span *ngIf="bannerImageSrc" [ngStyle]="{ 'background-image': 'url(' + bannerImageSrc + ')' }"></span>
+        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputBannerImage.click()">Upload</a>
+      </section>
+      <mat-progress-bar *ngIf="progressBannerImg > 0" mode="determinate" [value]="progressBannerImg" class="mb-15">
+      </mat-progress-bar>
+      <p class="form-error" *ngIf="!formCustomvalidation.bannerImage.validated">
+        {{ formCustomvalidation.bannerImage.message }}
+      </p>
+      <mat-form-field>
+        <mat-label>Store Product Per Page</mat-label>
+        <input matInput type="number" formControlName="product_per_page" />
+      </mat-form-field>
+      <mat-checkbox formControlName="enable_tab"> Enable tab on product single page view </mat-checkbox>
+    </div>
+  </div>
+
+  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Contact</span>
+        </h4>
+      </div>
+    </header>
+    <div class="content-box_body__3tSRB">
+      <mat-form-field>
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Street 2</mat-label>
+        <input matInput formControlName="street_2" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Post / ZIP Code</mat-label>
+        <input matInput formControlName="zip" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <input matInput formControlName="state" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country.code"> {{ country.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone" placeholder="+123456..." />
+      </mat-form-field>
+      <mat-checkbox formControlName="show_email"> Show email address in store </mat-checkbox>
+    </div>
+  </div>
+
+  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Uptime</span>
+        </h4>
+      </div>
+    </header>
+    <div class="content-box_body__3tSRB" formGroupName="uptime">
+      <mat-checkbox formControlName="show_uptime"> Show store opening closing time widget in store page </mat-checkbox>
+      <ng-container *ngIf="settingsForm.get('uptime.show_uptime').value">
+        <div *ngFor="let day of days" class="uptime-container" [formGroupName]="day.value">
+          <mat-form-field>
+            <mat-label>{{ day.label }}</mat-label>
+            <mat-select formControlName="up">
+              <mat-option [value]="false">Close</mat-option>
+              <mat-option [value]="true">Open</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="getUptimeDayCtrl(day.value + '.up').value">
+            <mat-label>Opens at</mat-label>
+            <mat-select formControlName="opens">
+              <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="getUptimeDayCtrl(day.value + '.up').value">
+            <mat-label>Closes at</mat-label>
+            <mat-select formControlName="closes">
+              <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-form-field>
+          <mat-label>Store Open Notice</mat-label>
+          <input matInput formControlName="open_notice" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Store Close Notice</mat-label>
+          <input matInput formControlName="close_notice" />
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </div>
+
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+  <button
+    mat-raised-button
+    class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+    color="primary"
+    type="submit"
+    [disabled]="!settingsForm.valid"
+  >
+    Save Settings
+  </button>
+</form>

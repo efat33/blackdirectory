@@ -46,6 +46,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 import {
   NgxMatDatetimePickerModule,
   NgxMatTimepickerModule,
@@ -148,6 +149,7 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatChipsModule,
     MatAutocompleteModule,
     MatTooltipModule,
+    MatTabsModule,
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
@@ -182,6 +184,7 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatChipsModule,
     MatAutocompleteModule,
     MatTooltipModule,
+    MatTabsModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
