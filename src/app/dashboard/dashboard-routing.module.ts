@@ -24,6 +24,7 @@ import { ProductsEditComponent } from './products-edit/products-edit.component';
 import { StoreSettingsComponent } from './store-settings/store-settings.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ProductResolver } from './products-edit/product-edit.resolver';
 
 const routes: Routes = [
   {
@@ -49,7 +50,7 @@ const routes: Routes = [
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/new', component: ProductsNewComponent },
-      { path: 'products/edit/:id', component: ProductsEditComponent },
+      { path: 'products/edit/:id', component: ProductsEditComponent, resolve: { product: ProductResolver } },
       { path: 'orders', component: OrdersComponent },
       { path: 'withdraw', component: WithdrawComponent },
       { path: 'store-settings', component: StoreSettingsComponent },
