@@ -1,0 +1,29 @@
+.confirmation-dialog-title {
+    margin: 0;
+}
+.mat-form-field {
+    width: 100%;
+}
+
+::ng-deep {
+    .iframe-wrapper {
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        padding-top: 56.25%;
+        position: relative;
+    }
+    .iframe-wrapper iframe {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+        background: #000;
+    }
+    header.popup_header__2QTxC.listing-gallery-popup-header.video-popup-header {
+        padding-right: 0;
+    }
+}

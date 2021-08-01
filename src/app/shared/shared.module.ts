@@ -28,6 +28,7 @@ import { EventSearchCityModal } from '../modals/events/search/cities/event-searc
 import { NewOrganizerModal } from '../modals/events/new/new-organizer/new-organizer-modal';
 import { EventTicketModal } from '../modals/events/new/event-ticket/event-ticket-modal';
 import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal';
+import { ContactOwnerModal } from '../modals/listing/details/contact-owner/contact-owner-modal';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -55,7 +56,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -71,6 +72,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { ShareModule } from 'ngx-sharebuttons';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
+import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
+import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
+import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
+
+
 
 
 @NgModule({
@@ -87,6 +95,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     JobApplyInternalModal,
     JobApplyEmailModal,
     ContactEmployerModal,
+    ContactOwnerModal,
     ListingSearchCatModal,
     ListingSearchPriceModal,
     ListingSearchSortModal,
@@ -102,7 +111,12 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     TimeUntilPipe,
     encodeURL,
     SendMessageModalComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    pluralPipe,
+    ListingGalleryModal,
+    ListingVideoModal,
+    CouponModal,
+    ListingReviewModal
   ],
   imports: [
     CommonModule,
@@ -143,6 +157,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     ShareModule,
     ShareButtonsModule,
     ShareIconsModule,
+    NgxGalleryModule
   ],
   exports: [
     FormsModule,
@@ -190,6 +205,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     ShareModule,
     ShareButtonsModule,
     ShareIconsModule,
+    pluralPipe,
+    NgxGalleryModule
   ],
   entryComponents: [
     RegistrationModal,
@@ -201,6 +218,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     JobApplyInternalModal,
     JobApplyEmailModal,
     ContactEmployerModal,
+    ContactOwnerModal,
     ListingSearchCatModal,
     ListingSearchPriceModal,
     ListingSearchSortModal,
@@ -212,6 +230,10 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     EventTicketModal,
     EventRsvpModal,
     SendMessageModalComponent,
+    ListingGalleryModal,
+    ListingVideoModal,
+    CouponModal,
+    ListingReviewModal
   ],
 })
 export class SharedModule {}

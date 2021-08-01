@@ -26,3 +26,10 @@ export class encodeURL implements PipeTransform {
     return  encodeURIComponent(url);
   }
 }
+
+@Pipe({ name: 'pluralPipe' })
+export class pluralPipe implements PipeTransform {
+  transform(input: number, customPluralForm: string = 's'): string {
+    return input > 1 ? customPluralForm : ''
+  }
+}

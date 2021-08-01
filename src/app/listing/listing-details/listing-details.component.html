@@ -5,11 +5,10 @@
                 <div class="listing-detail_img__3DyYX pos-a-full bg-cover"
                     [ngStyle]="{'background-image': 'url(' + cover_img + ')'}">
                 </div>
-                <div class="wil-header-btn-wrapper" style="z-index: 1;"><a href="#" target="_self"
-                        class="wil-btn wil-btn--overlay-dark wil-btn--sm wil-btn--round" post-id="20533"> <span
-                            class="list_icon__2YpTp"><i class="la la-photo"></i></span> <span class="">Tour this
+                <div class="wil-header-btn-wrapper" style="z-index: 1;">
+                    <a (click)="openGalleryModal()" class="wil-btn wil-btn--overlay-dark wil-btn--sm wil-btn--round">
+                        <span class="list_icon__2YpTp"><i class="la la-photo"></i></span> <span class="">Tour this
                             Listing</span>
-                        <div class="v-portal" style="display: none;"></div>
                     </a>
                 </div>
             </header>
@@ -20,7 +19,7 @@
                         <div class="listing-detail_goo__1A8J-">
                             <div class="listing-detail_logo__3fI4O bg-cover"
                                 [ngStyle]="{'background-image': 'url(' + logo + ')'}">
-                                <a href="#"><img [src]="logo" alt="Auto For Trade" class="hidden"></a>
+                                <a href="#"><img [src]="logo" alt="{{ listing.title }}" class="hidden"></a>
                             </div>
                         </div>
                         <div class="listing-detail_titleWrap__2A2Mm js-titleWrap-detail">
@@ -43,8 +42,9 @@
                                         icon="la la-heart-o"> <i class="la color-quaternary la la-heart-o"></i> <span
                                             class="">Favorite</span>
                                     </a></div>
-                                <div class="listing-detail_rightItem__2CjTS wilcity-single-tool-inbox"><a href="#"
-                                        target="_self" class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"> <i
+                                <div class="listing-detail_rightItem__2CjTS wilcity-single-tool-inbox"><a
+                                        (click)="openContactOwnerModal()"
+                                        class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"> <i
                                             class="la la-envelope color-1"></i> <span class="">Message</span>
                                     </a></div>
                                 <div class="listing-detail_rightItem__2CjTS wil-single-tool-share"><a href="#"
@@ -58,6 +58,7 @@
                 </div>
             </div>
 
+            <!-- navigation -->
             <div class="detail-navtop_module__zo_OS js-detail-navtop">
                 <div class="container">
                     <div *ngIf="listing.button_name && listing.button_link" class="detail-navtop_right__KPAlw">
@@ -68,51 +69,42 @@
                     </div>
                     <nav class="detail-navtop_nav__1j1Ti" style="min-height: 73px;">
                         <ul class="list_module__1eis9 list-none list_horizontal__7fIr5">
-                            <li class="list_item__3YghP"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=home"
-                                    target="_self"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover color-primary"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                            <li class="list_item__3YghP"><a (click)="onChangeTab('home')"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                    [ngClass]="{'color-primary': current_tab === 'home'}"
+                                    btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-home"></i></span> <span
                                         class="list_text__35R07">Home</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-navcontent"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=content"
-                                    target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                            <li class="list_item__3YghP wil-single-navcontent"><a (click)="onChangeTab('description')"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                    [ngClass]="{'color-primary': current_tab === 'description'}"
+                                    btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-file-text"></i></span> <span
                                         class="list_text__35R07">Description</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-navphotos"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=photos"
-                                    target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                            <li class="list_item__3YghP wil-single-navphotos"><a (click)="onChangeTab('photos')"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                    [ngClass]="{'color-primary': current_tab === 'photos'}"
+                                    btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-image"></i></span> <span
                                         class="list_text__35R07">Photos</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-navvideos"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=videos"
-                                    target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                            <li class="list_item__3YghP wil-single-navvideos"><a (click)="onChangeTab('videos')"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                    [ngClass]="{'color-primary': current_tab === 'videos'}"
+                                    btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-video-camera"></i></span> <span
                                         class="list_text__35R07">Videos</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-navevents"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=events"
-                                    target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
-                                    <span class="list_icon__2YpTp"><i class="la la-calendar-check-o"></i></span> <span
-                                        class="list_text__35R07">Events</span>
-                                </a>
-                            </li>
-                            <li class="list_item__3YghP wil-single-navreviews"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=reviews"
-                                    target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                            <li class="list_item__3YghP wil-single-navreviews"><a (click)="onChangeTab('reviews')"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                    [ngClass]="{'color-primary': current_tab === 'reviews'}"
+                                    btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-star-o"></i></span> <span
                                         class="list_text__35R07">Reviews</span>
                                 </a>
@@ -120,23 +112,23 @@
                             <li class="list_item__3YghP wil-single-navmy_products"><a
                                     href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=my_products"
                                     target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                    btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-shopping-cart"></i></span> <span
                                         class="list_text__35R07">My Shop</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-navlisting_tag"><a
+                            <!-- <li class="list_item__3YghP wil-single-navlisting_tag"><a
                                     href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=listing_tag"
                                     target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                     btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-list-alt"></i></span> <span
                                         class="list_text__35R07">Listing Features</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <!-- <li class="list_item__3YghP wil-single-nav-listing-settings"><a
                                     href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=listing-settings"
                                     target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                    post-id="20533" btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                     btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-cog"></i></span> <span
                                         class="list_text__35R07">Listing Settings</span>
                                 </a>
@@ -148,9 +140,66 @@
 
             <div id="wil-home-section-wrapper" class="listing-detail_body__287ZB">
                 <div class="container">
-                    <div id="single-home" data-tab-key="home" class="single-tab-content wilcity-js-toggle-group">
+
+                    <!-- current tab = home -->
+                    <div *ngIf="current_tab == 'home'" id="single-home" data-tab-key="home"
+                        class="single-tab-content wilcity-js-toggle-group">
                         <div class="listing-detail_row__2UU6R clearfix">
                             <div class="wil-colLarge wil-sidebarRight">
+
+                                <!-- listing average review -->
+                                <div *ngIf="listing.no_of_rating > 0"
+                                    class="wilcity-single-listing-average-review-box content-box_module__333d9">
+                                    <header class="content-box_header__xPnGx clearfix">
+                                        <div class="wil-float-left">
+                                            <h4 class="content-box_title__1gBHS"><i class="la la-star-o"></i>
+                                                <span>Average Reviews</span>
+                                            </h4>
+                                        </div>
+                                    </header>
+                                    <div class="content-box_body__3tSRB">
+                                        <div class="average-rating-info_module__TOHeu">
+                                            <div class="average-rating-info_left__255Tl">
+                                                <div class="rated-small_module__1vw2B">
+                                                    <div [attr.data-rated]="listing.avg_rating"
+                                                        class="rated-small_wrap__2Eetz">
+                                                        <div class="rated-small_overallRating__oFmKR">{{
+                                                            listing.avg_rating }}</div>
+                                                        <div class="rated-small_ratingWrap__3lzhB">
+                                                            <div class="rated-small_maxRating__2D9mI">10</div>
+                                                            <div class="rated-small_ratingOverview__2kCI_">{{
+                                                                fnReviewComment(listing.avg_rating) }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="average-rating-info_right__3xLnz">
+                                                <div class="average-rating-info_item__2yvNR">
+                                                    <div class="average-rating-info_item__2yvNR_item"><span
+                                                            class="average-rating-info_text__3Cq-a">How
+                                                            Would You Rate This Business?</span>
+                                                        <div
+                                                            class="rated-small_module__1vw2B rated-small_style-4__VTQSw">
+                                                            <div [attr.data-rated]="listing.avg_rating"
+                                                                class="rated-small_wrap__2Eetz">
+                                                                <div class="rated-small_overallRating__oFmKR">
+                                                                    {{ listing.avg_rating }}/10
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <footer class="content-box_footer__kswf3"><a (click)="openReviewModal()"
+                                            class="content-box_link__2K0Ib wil-text-center"> <i
+                                                class="la la-star-o"></i> <span class="">Add a
+                                                review</span>
+                                        </a></footer> -->
+                                </div>
+
+                                <!-- listing description -->
                                 <div class="content-box_module__333d9 wilcity-single-listing-content-box">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
@@ -165,7 +214,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="content-box_module__333d9">
+
+                                <!-- listing photos -->
+                                <div *ngIf="listing_galleries.length > 0" class="content-box_module__333d9">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
                                             <h2 class="content-box_title__1gBHS"><i class="la la-image"></i>
@@ -174,31 +225,16 @@
                                         </div>
                                     </header>
                                     <div>
-                                        <div data-v-610369f6="" class="content-box_body__3tSRB">
-                                            <div data-v-610369f6="" data-col-xs-gap="5" data-col-sm-gap="10"
-                                                class="row">
-                                                <div data-v-610369f6="" class="col-xs-6 col-sm-3">
-                                                    <div data-v-610369f6="" class="gallery-item_module__1wn6T">
-                                                        <div data-v-610369f6="" class="imageCover_module__1VM4k">
-                                                            <div data-v-610369f6="" class="imageCover_img__3pxw7"
-                                                                style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/toyota-prius-hatchback-1887-2-1024x684.png&quot;);">
-                                                                <img data-v-610369f6=""
-                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/toyota-prius-hatchback-1887-2-1024x684.png"
-                                                                    alt="toyota-prius-hatchback-1887-2"
-                                                                    class="cursor-pointer">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div data-v-610369f6="" class="col-xs-6 col-sm-3">
-                                                    <div data-v-610369f6="" class="gallery-item_module__1wn6T">
-                                                        <div data-v-610369f6="" class="imageCover_module__1VM4k">
-                                                            <div data-v-610369f6="" class="imageCover_img__3pxw7"
-                                                                style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/land-rover-dsiscovery-3-suv-1955-3-1024x683.png&quot;);">
-                                                                <img data-v-610369f6=""
-                                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2021/04/land-rover-dsiscovery-3-suv-1955-3-1024x683.png"
-                                                                    alt="land-rover-dsiscovery-3-suv-1955-3"
-                                                                    class="cursor-pointer">
+                                        <div class="content-box_body__3tSRB">
+                                            <div data-col-xs-gap="5" data-col-sm-gap="10" class="row">
+                                                <div *ngFor="let item of listing_galleries; let index = index"
+                                                    class="col-xs-6 col-sm-3">
+                                                    <div class="gallery-item_module__1wn6T">
+                                                        <div class="imageCover_module__1VM4k">
+                                                            <div class="imageCover_img__3pxw7"
+                                                                (click)="openGalleryModal(index)"
+                                                                [ngStyle]="{'background-image': 'url(' + item.small + ')'}">
+                                                                <img [src]="item.small" class="cursor-pointer">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -206,36 +242,414 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <footer class="content-box_footer__kswf3"><a
-                                            href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=photos"
-                                            target="_self"
+                                    <footer class="content-box_footer__kswf3"><a (click)="onChangeTab('photos')"
                                             class="list_link__2rDA1 text-ellipsis color-primary--hover wil-text-center"
-                                            post-id="20533"
                                             btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                             <span class="">See All</span>
                                         </a></footer>
                                 </div>
+
+                                <!-- listing videos -->
+                                <div *ngIf="listing_videos.length > 0" class="content-box_module__333d9">
+                                    <header class="content-box_header__xPnGx clearfix">
+                                        <div class="wil-float-left">
+                                            <h2 class="content-box_title__1gBHS"><i class="la la-video-camera"></i>
+                                                <span>Videos</span>
+                                            </h2>
+                                        </div>
+                                    </header>
+                                    <div class="content-box_body__3tSRB">
+                                        <div class="gallery_module__2AbLA">
+                                            <div>
+                                                <div data-col-xs-gap="5" data-col-sm-gap="10" class="row">
+                                                    <div *ngFor="let item of listing_videos; let index = index"
+                                                        class="col-xs-12 col-sm-4">
+                                                        <div class="gallery-item_module__1wn6T">
+                                                            <div
+                                                                class="video-popup_module__2P6ZG video-popup_sm__11-9c">
+                                                                <div class="video-popup_media__dEwwq">
+                                                                    <div class="video-popup_img__3zV5d bg-cover"
+                                                                        [ngStyle]="{'background-image': 'url(' + item.image + ')'}">
+                                                                    </div>
+                                                                    <a (click)="openVideoModal(index)"
+                                                                        class="video-popup_popup__17b-F js-video-popup"><i
+                                                                            class="la la-play"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="content-box_footer__kswf3"><a (click)="onChangeTab('videos')"
+                                            class="list_link__2rDA1 text-ellipsis color-primary--hover wil-text-center"
+                                            btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                            <span class="">See All</span>
+                                        </a></footer>
+                                </div>
+
+                                <!-- listing menus -->
+                                <div *ngIf="listing_menus.length > 0" id="single-home-restaurant-menu-section"
+                                    class="single-tab-content">
+                                    <div class="content-box_module__333d9 pos-r">
+                                        <header class="content-box_header__xPnGx clearfix">
+                                            <div class="wil-float-left">
+                                                <h4 class="content-box_title__1gBHS"><i class="la la-cutlery"></i>
+                                                    <span>Restaurant Menu</span>
+                                                </h4>
+                                            </div>
+                                        </header>
+                                        <div class="content-box_body__3tSRB">
+                                            <div data-col-xs-gap="10" class="row wil-flex-wrap">
+                                                <div *ngFor="let menu of listing_menus; let index = index"
+                                                    class="col-md-12 col-xs-12">
+                                                    <div class="">
+                                                        <div class="mb-20 pt-10 wil-text-center">
+                                                            <h5 class="mt-0 mb-0">{{ menu.title }}</h5>
+                                                            <p class="fs-13">{{ menu.description }}</p> <i
+                                                                class="fs-32 color-primary la la-{{ menu.icon }}"></i>
+                                                        </div>
+                                                        <ul *ngIf="menu.items.length > 0" class="list-none mb-20">
+                                                            <li *ngFor="let item of menu.items" class="no-style">
+                                                                <div
+                                                                    class="utility-box-1_module__MYXpX utility-box-1_menus__17rbu">
+                                                                    <div
+                                                                        class="utility-box-1_avatar__DB9c_ rounded-circle show-image">
+                                                                        <img [src]="item.image | imageSrc : 'listing' : 'thumb'"
+                                                                            class="display-block cursor-pointer">
+                                                                    </div>
+                                                                    <a href="{{ item.link }}"
+                                                                        target="{{ item.open_new_window == 'yes' ? '_blank' : '_self' }}"
+                                                                        class="no-style" rel="nofollow">
+                                                                        <div class="utility-box-1_body__8qd9j">
+                                                                            <div class="utility-box-1_group__2ZPA2">
+                                                                                <h3 class="utility-box-1_title__1I925">
+                                                                                    {{ item.title }}</h3>
+                                                                                <div
+                                                                                    class="utility-box-1_content__3jEL7">
+                                                                                    {{ item.description }}</div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="utility-box-1_description__2VDJ6">
+                                                                                £{{ item.price }}</div>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- listing coupon -->
+                                <div *ngIf="listing_coupon.valid">
+                                    <header class="content-box_header__xPnGx clearfix">
+                                        <div class="wil-float-left">
+                                            <h2 class="content-box_title__1gBHS"><i class="la la-tag"></i>
+                                                <span>Coupon</span>
+                                            </h2>
+                                        </div>
+                                    </header>
+                                    <div class="content-box_module__333d9">
+                                        <div class="content-box_body__3tSRB">
+                                            <div class="col-md-12">
+                                                <a (click)="openCouponModal()" class="wilcity-get-counpon">
+                                                    <h4 class="color-quaternary mt-0 mb-0">{{ listing_coupon.title }}
+                                                    </h4>
+                                                    <div>{{ listing_coupon.description }}</div>
+                                                    <div><span>Expiry Date: </span> <span>{{ listing_coupon.expire
+                                                            }}</span></div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- listing review -->
                                 <div>
                                     <div class="add-review_module__2KOQC">
                                         <header class="add-review_wrap__K1JtF">
                                             <div class="add-review_left__ziIv1">
-                                                <h3 class="add-review_title__3ePFu"><span class="color-primary">0 Review
-                                                        For</span>
-                                                    Auto For Trade
+                                                <h3 class="add-review_title__3ePFu"><span class="color-primary">{{
+                                                        listing_reviews.length }}
+                                                        Review{{ listing_reviews.length | pluralPipe : 's' }} For</span>
+                                                    {{ listing.title }}
                                                 </h3>
                                             </div>
-                                            <div class="wil-float-right"><a href="#" target="_self"
+                                            <div *ngIf="currentUserCanReview" class="wil-float-right"><a
+                                                    (click)="openReviewModal()"
                                                     class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"> <i
                                                         class="la la-star-o"></i> <span class="">Add a review</span>
                                                 </a></div>
                                         </header>
                                     </div>
-                                    <div data-v-0af02974="" id="wilcity-review-wrapper" class="pos-r">
 
+                                    <div *ngIf="listing_reviews.length > 0" data-v-0af02974=""
+                                        id="wilcity-review-wrapper" class="pos-r">
+                                        <div data-v-0af02974="">
+
+                                            <div *ngFor="let item of listing_reviews; let index=index"
+                                                class="comment-review_module__-Z5tr" data-v-0af02974="">
+                                                <div class="comment-review_header__1si3M">
+                                                    <div
+                                                        class="utility-box-1_module__MYXpX utility-box-1_boxLeft__3iS6b clearfix utility-box-1_sm__mopok review-author-avatar">
+                                                        <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                                            [ngStyle]="{'background-image': 'url(' + getReviewAvatar(item.profile_photo) + ')'}">
+                                                            <img src="{{  item.profile_photo | imageSrc : 'users' : 'thumb' }}"
+                                                                alt="{{ item.display_name != '' ? item.display_name : item.username }}"></a>
+                                                        <div class="utility-box-1_body__8qd9j">
+                                                            <div class="utility-box-1_group__2ZPA2">
+                                                                <h3 class="utility-box-1_title__1I925"><a>{{
+                                                                        item.display_name != '' ? item.display_name :
+                                                                        item.username }}</a>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="utility-box-1_description__2VDJ6">{{
+                                                                item.created_at | date: 'longDate' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-review_abs__9mb1G pos-a-center-right"><span
+                                                            class="comment-review_sticky__3iQ8y color-primary fs-20 v-middle visible-hidden"><i
+                                                                class="la la-thumb-tack"></i></span>
+                                                        <div class="rated-small_module__1vw2B">
+                                                            <div [attr.data-rated]="item.rating"
+                                                                class="rated-small_wrap__2Eetz">
+                                                                <div class="rated-small_overallRating__oFmKR">{{
+                                                                    item.rating }}</div>
+                                                                <div class="rated-small_ratingWrap__3lzhB">
+                                                                    <div class="rated-small_maxRating__2D9mI">10</div>
+                                                                    <div class="rated-small_ratingOverview__2kCI_">{{
+                                                                        review_comment[item.rating] }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="userCanEditReview(item.id)"
+                                                            class="dropdown_module__J_Zpj ml-20">
+                                                            <div (click)="isReviewDotsClicked[item.id] = (isReviewDotsClicked[item.id] ? false : true )"
+                                                                class="dropdown_threeDots__3fa2o"><span
+                                                                    class="dropdown_dot__3I1Rn"></span> <span
+                                                                    class="dropdown_dot__3I1Rn"></span> <span
+                                                                    class="dropdown_dot__3I1Rn"></span></div>
+                                                            <div [ngClass]="{'active':isReviewDotsClicked[item.id]}"
+                                                                class="dropdown_itemsWrap__2fuze">
+                                                                <ul data-v-52d0a98f=""
+                                                                    class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                                                                    has-wrap-for-icon="true">
+                                                                    <li class="list_item__3YghP"><a data-v-52d0a98f=""
+                                                                            (click)="openReviewModal(item)"
+                                                                            class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                                                            span-classes="list_text__35R07"
+                                                                            review-id="17458"> <span
+                                                                                class="list_icon__2YpTp"><i
+                                                                                    class="la la-edit"></i></span> <span
+                                                                                class="list_text__35R07">Edit
+                                                                                review</span>
+                                                                        </a></li>
+                                                                    <li class="list_item__3YghP"><a data-v-52d0a98f=""
+                                                                            (click)="onDeleteReview(item.id)"
+                                                                            class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                                                            span-classes="list_text__35R07"
+                                                                            review-id="17458"> <span
+                                                                                class="list_icon__2YpTp"><i
+                                                                                    class="la la-trash"></i></span>
+                                                                            <span class="list_text__35R07">Delete</span>
+                                                                        </a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-review_body__qhUqq">
+                                                    <div class="comment-review_content__1jFfZ">
+                                                        <h3 class="comment-review_title__2WbAh">{{ item.title }}</h3>
+                                                        <div
+                                                            class="wilcity-review-content wilcity-review-content-17458">
+                                                            <div>
+                                                                <p>{{ item.description }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-review_meta__1chzm"><span>{{ item.likes }}
+                                                            Like{{ item.likes | pluralPipe : 's' }}</span>
+                                                        <span>{{ item.comments }} Comment{{ item.comments | pluralPipe :
+                                                            's' }}</span> <span>{{ item.shares }} Share{{ item.shares |
+                                                            pluralPipe : 's' }}</span>
+                                                    </div>
+                                                </div>
+                                                <footer data-v-52d0a98f="" class="comment-review_footer__3XR0_">
+                                                    <div data-v-52d0a98f="" class="comment-review_btnGroup__1PqPh">
+                                                        <div data-v-52d0a98f="" class="comment-review_btn__32CMP"><a
+                                                                (click)="onClickLikeReview(item.id, index)"
+                                                                class="utility-meta_module__mfOnV "
+                                                                [ngClass]="{'color-primary':userHasLikedReview(item)}"
+                                                                btn-classes="'no-style'"
+                                                                socials="facebook,twitter,linkedin,whatsapp"> <i
+                                                                    class="la la-thumbs-up"></i>
+                                                                <span class="">Like</span>
+                                                            </a></div>
+                                                        <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
+                                                            <div data-v-52d0a98f="" class="utility-meta_module__mfOnV"
+                                                                icon="la la-share-square-o" btn-name="Share"><a href="#"
+                                                                    target="_self" class="'no-style'"> <i
+                                                                        class="color-primary la la-share"></i> <span
+                                                                        class="">Share</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="min-height: 100px;" data-v-52d0a98f="">
+                                                        <div>
+                                                            <ul *ngIf="item.comment_list.length > 0"
+                                                                class="comment-review_commentlist__1LH_D list-none">
+                                                                <li *ngFor="let comment of item.comment_list"
+                                                                    class="comment-review_commentlistItem__2DILM js-review-discussion-17459">
+                                                                    <div data-v-7b959e52="" class="">
+                                                                        <div
+                                                                            class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt utility-box-1_boxLeft__3iS6b clearfix">
+                                                                            <a data-v-7b959e52=""
+                                                                                [ngStyle]="{'background-image': 'url(' + getReviewAvatar(comment.profile_photo) + ')'}"
+                                                                                class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
+                                                                                <img src="{{  comment.profile_photo | imageSrc : 'users' : 'thumb' }}"
+                                                                                    alt=""></a>
+                                                                            <div data-v-7b959e52=""
+                                                                                class="utility-box-1_body__8qd9j">
+                                                                                <div data-v-7b959e52=""
+                                                                                    class="utility-box-1_group__2ZPA2">
+                                                                                    <h3 data-v-7b959e52=""
+                                                                                        class="utility-box-1_title__1I925">
+                                                                                        <a data-v-7b959e52="">{{
+                                                                                            comment.display_name != '' ?
+                                                                                            comment.display_name :
+                                                                                            comment.username }}</a>
+                                                                                    </h3>
+                                                                                    <div data-v-7b959e52=""
+                                                                                        class="utility-box-1_content__3jEL7">
+                                                                                        {{ comment.description }}</div>
+                                                                                </div>
+                                                                                <div data-v-7b959e52=""
+                                                                                    class="utility-box-1_description__2VDJ6">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div *ngIf="isCommentEditClicked[comment.id]"
+                                                                                class="comment-review_comment__dJNqv mt-10">
+                                                                                <div
+                                                                                    class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
+                                                                                    <div class="field_wrap__Gv92k">
+                                                                                        <textarea #commentField
+                                                                                            (keyup)="onKeydownCommentField($event, item.id, comment.id)"
+                                                                                            data-height-default="22"
+                                                                                            class="field_field__3U_Rt">{{ comment.description }}</textarea>
+                                                                                        <span
+                                                                                            class="field_label__2eCP7 text-ellipsis">Type
+                                                                                            a message...</span> <span
+                                                                                            class="bg-color-primary"></span>
+                                                                                        <div
+                                                                                            class="field_rightButton__1GGWz js-field-rightButton active">
+                                                                                            <span
+                                                                                                (click)="onSubmitComment(item.id, commentField.value, comment.id)"
+                                                                                                class="field_iconButton__2p3sr bg-color-primary"><i
+                                                                                                    class="la la-arrow-up"></i></span>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="mt-10 pos-a review-cancel">
+                                                                                            <a (click)="onCloseCommentEdit(comment.id)"
+                                                                                                title="Cancel"><i
+                                                                                                    class="la la-times-circle"></i></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div *ngIf="userCanEditComment(comment)"
+                                                                            class="dropdown_module__J_Zpj">
+                                                                            <div (click)="isCommentDotsClicked[comment.id] = (isCommentDotsClicked[comment.id] ? false : true )"
+                                                                                class="dropdown_threeDots__3fa2o"><span
+                                                                                    class="dropdown_dot__3I1Rn"></span>
+                                                                                <span
+                                                                                    class="dropdown_dot__3I1Rn"></span>
+                                                                                <span
+                                                                                    class="dropdown_dot__3I1Rn"></span>
+                                                                            </div>
+                                                                            <div [ngClass]="{'active':isCommentDotsClicked[comment.id]}"
+                                                                                class="dropdown_itemsWrap__2fuze">
+                                                                                <ul data-v-7b959e52=""
+                                                                                    class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                                                                                    has-wrap-for-icon="true">
+                                                                                    <li class="list_item__3YghP"><a
+                                                                                            (click)="onClickCommentEdit(comment.id)"
+                                                                                            class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                                                                            <span
+                                                                                                class="list_icon__2YpTp"><i
+                                                                                                    class="la la-edit"></i></span>
+                                                                                            <span
+                                                                                                class="list_text__35R07">Edit</span>
+                                                                                        </a></li>
+                                                                                    <li class="list_item__3YghP"><a
+                                                                                            (click)="onDeleteComment(comment.id)"
+                                                                                            class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                                                                            <span
+                                                                                                class="list_icon__2YpTp"><i
+                                                                                                    class="la la-trash"></i></span>
+                                                                                            <span
+                                                                                                class="list_text__35R07">Delete</span>
+                                                                                        </a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="comment-review_form__20wWm">
+                                                                <div
+                                                                    class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt d-inline-block mr-10 wil-float-left">
+                                                                    <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                                                        [ngStyle]="{'background-image': 'url('+ assetUrl +'/img/avatar-default.png)'}"><img
+                                                                            src="{{ assetUrl +'/img/avatar-default.png' }}"
+                                                                            alt=""></a>
+                                                                </div>
+                                                                <div class="comment-review_comment__dJNqv">
+                                                                    <div
+                                                                        class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
+                                                                        <div class="field_wrap__Gv92k">
+                                                                            <textarea #commentField
+                                                                                (keyup)="onKeydownCommentField($event, item.id)"
+                                                                                data-height-default="22"
+                                                                                class="field_field__3U_Rt"></textarea>
+                                                                            <span
+                                                                                class="field_label__2eCP7 text-ellipsis">Type
+                                                                                a message...</span> <span
+                                                                                class="bg-color-primary"></span>
+                                                                            <div
+                                                                                class="field_rightButton__1GGWz js-field-rightButton">
+                                                                                <span
+                                                                                    (click)="onSubmitComment(item.id, commentField.value)"
+                                                                                    class="field_iconButton__2p3sr bg-color-primary"><i
+                                                                                        class="la la-arrow-up"></i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </footer>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
+
+                            <!-- listing sidebar -->
                             <div data-tab-key="home" class="wil-colSmall wilcity-js-toggle-group">
+
+                                <!-- listing hours -->
                                 <div *ngIf="listing.business_hour == 'open_for_selected_hours' || listing.business_hour == 'always_open' || listing.business_hour == 'business_closures'"
                                     class="listing-hours_module__38Iy5">
                                     <header data-toggle-button="hour" data-toggle-effect="slide"
@@ -290,6 +704,8 @@
                                         </ul>
                                     </div>
                                 </div>
+
+                                <!-- listing contact info -->
                                 <div class="wilcity-sidebar-item-business-info content-box_module__333d9">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
@@ -337,13 +753,16 @@
                                                     <div class="icon-box-1_text__3R39g">{{ listing.address }}
                                                     </div>
                                                 </a></div>
-                                        </div> <a href="#" target="_self" class="wilcity-inbox-btn wil-btn wil-btn--block mt-20
+                                        </div> <a (click)="openContactOwnerModal()" class="wilcity-inbox-btn wil-btn wil-btn--block mt-20
                                                  wil-btn--border wil-btn--round wil-listing-inbox"> <i
                                                 class="la la-envelope color-1"></i> <span class="">Inbox</span>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="wilcity-sidebar-item-price-range content-box_module__333d9">
+
+                                <!-- listing price -->
+                                <div *ngIf="listing.price_min || listing.price_max"
+                                    class="wilcity-sidebar-item-price-range content-box_module__333d9">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
                                             <h4 class="content-box_title__1gBHS"><i
@@ -356,16 +775,18 @@
                                             <div class="price-range_group__23kMb">
                                                 <div class="price-range_range__19Fut color-primary">
                                                     <div class="price-range_from__3iV-6">
-                                                        £10.00 </div>
+                                                        £{{ listing.price_min | number: '1.2-2' }} </div>
                                                     <div class="price-range_arrow__3LnNe"><i
                                                             class="la la-arrow-right"></i></div>
                                                     <div class="price-range_to__2Tf3W">
-                                                        £14.00 </div>
+                                                        £{{ listing.price_max | number: '1.2-2' }} </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- listing categories -->
                                 <div
                                     class="content-box_module__333d9 wilcity-sidebar-item-term-box wilcity-sidebar-item-listing_cat">
                                     <header class="content-box_header__xPnGx clearfix">
@@ -375,38 +796,27 @@
                                         </div>
                                     </header>
                                     <div class="content-box_body__3tSRB">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-sm-6-clear">
-                                                <div class="icon-box-1_module__uyg5F two-text-ellipsis mt-20 mt-sm-15">
+                                        <div class="row row-listing-categories d-flex">
+                                            <div *ngFor="let item of listing_categories"
+                                                class="single-listing-category">
+                                                <div class="icon-box-1_module__uyg5F two-text-ellipsis mb-20 mb-sm-15">
                                                     <div class="icon-box-1_block1__bJ25J"><a
-                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=2792"
+                                                            href="{{ siteUrl }}/listing/search/?postType=listing&amp;listing_cat={{ item.listing_categories_id }}"
                                                             title="Beard Care">
                                                             <div
                                                                 class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/favicon-2.png"
-                                                                    alt="Beard Care">
+                                                                <img src="{{ item.image | imageSrc : 'listing' }}"
+                                                                    alt="{{ item.title }}">
                                                             </div>
-                                                            <div class="icon-box-1_text__3R39g">Beard Care</div>
-                                                        </a></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-sm-6-clear">
-                                                <div class="icon-box-1_module__uyg5F two-text-ellipsis mt-20 mt-sm-15">
-                                                    <div class="icon-box-1_block1__bJ25J"><a
-                                                            href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
-                                                            title="Car Dealerships">
-                                                            <div
-                                                                class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                                    alt="Car Dealerships">
-                                                            </div>
-                                                            <div class="icon-box-1_text__3R39g">Car Dealerships</div>
+                                                            <div class="icon-box-1_text__3R39g">{{ item.title }}</div>
                                                         </a></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- listing statistics -->
                                 <div class="wilcity-sidebar-item-statistic content-box_module__333d9">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
@@ -421,7 +831,9 @@
                                                     <div class="icon-box-1_block1__bJ25J">
                                                         <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                                 class="la la-eye"></i></div>
-                                                        <div class="icon-box-1_text__3R39g">3 Views</div>
+                                                        <div class="icon-box-1_text__3R39g">{{ listing.view }} View{{
+                                                            listing.view | pluralPipe }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -430,7 +842,8 @@
                                                     <div class="icon-box-1_block1__bJ25J">
                                                         <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                                 class="la la-star-o"></i></div>
-                                                        <div class="icon-box-1_text__3R39g">0 Rating</div>
+                                                        <div class="icon-box-1_text__3R39g">{{ listing.no_of_rating }}
+                                                            Rating</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -439,7 +852,9 @@
                                                     <div class="icon-box-1_block1__bJ25J">
                                                         <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                                 class="la la-heart-o"></i></div>
-                                                        <div class="icon-box-1_text__3R39g">0 Favorite</div>
+                                                        <div class="icon-box-1_text__3R39g">{{ listing.favorites }}
+                                                            Favorite{{
+                                                            listing.favorites | pluralPipe }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -448,13 +863,16 @@
                                                     <div class="icon-box-1_block1__bJ25J">
                                                         <div class="icon-box-1_icon__3V5c0 rounded-circle"><i
                                                                 class="la la-share"></i></div>
-                                                        <div class="icon-box-1_text__3R39g">0 Share</div>
+                                                        <div class="icon-box-1_text__3R39g">{{ listing.share }} Share{{
+                                                            listing.share | pluralPipe }}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- listing map -->
                                 <div class="content-box_module__333d9">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
@@ -466,483 +884,467 @@
                                     <div class="content-box_body__3tSRB pos-r">
                                         <div class="pos-r"
                                             style="background-color: rgb(243, 243, 246); max-height: 400px;">
-                                            <div id="wil-googlemap-1619418028462" class="wil-full-width wil-map-show"
-                                                style="height: 100%; position: relative; overflow: hidden;">
-                                                <div
-                                                    style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
-                                                    <div class="gm-style"
-                                                        style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px;">
-                                                        <div tabindex="0" aria-label="Map" aria-roledescription="map"
-                                                            role="group"
-                                                            style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default; touch-action: pan-x pan-y;">
-                                                            <div
-                                                                style="z-index: 1; position: absolute; left: 50%; top: 50%; width: 100%; transform: translate(0px, 0px);">
-                                                                <div
-                                                                    style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;">
-                                                                    <div
-                                                                        style="position: absolute; left: 0px; top: 0px; z-index: 0;">
-                                                                        <div
-                                                                            style="position: absolute; z-index: 986; transform: matrix(1, 0, 0, 1, -67, -148);">
-                                                                            <div
-                                                                                style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px;">
-                                                                                <div
-                                                                                    style="width: 256px; height: 256px;">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                style="position: absolute; left: -256px; top: 0px; width: 256px; height: 256px;">
-                                                                                <div
-                                                                                    style="width: 256px; height: 256px;">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                style="position: absolute; left: -256px; top: -256px; width: 256px; height: 256px;">
-                                                                                <div
-                                                                                    style="width: 256px; height: 256px;">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                style="position: absolute; left: 0px; top: -256px; width: 256px; height: 256px;">
-                                                                                <div
-                                                                                    style="width: 256px; height: 256px;">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                style="position: absolute; left: 0px; top: 256px; width: 256px; height: 256px;">
-                                                                                <div
-                                                                                    style="width: 256px; height: 256px;">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                style="position: absolute; left: -256px; top: 256px; width: 256px; height: 256px;">
-                                                                                <div
-                                                                                    style="width: 256px; height: 256px;">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    style="position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;">
-                                                                </div>
-                                                                <div
-                                                                    style="position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;">
-                                                                </div>
-                                                                <div
-                                                                    style="position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;">
-                                                                    <div
-                                                                        style="position: absolute; left: 0px; top: 0px; z-index: -1;">
-                                                                        <div
-                                                                            style="position: absolute; z-index: 986; transform: matrix(1, 0, 0, 1, -67, -148);">
-                                                                            <div
-                                                                                style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 0px; top: 0px;">
-                                                                            </div>
-                                                                            <div
-                                                                                style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -256px; top: 0px;">
-                                                                            </div>
-                                                                            <div
-                                                                                style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -256px; top: -256px;">
-                                                                            </div>
-                                                                            <div
-                                                                                style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 0px; top: -256px;">
-                                                                            </div>
-                                                                            <div
-                                                                                style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 0px; top: 256px;">
-                                                                            </div>
-                                                                            <div
-                                                                                style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -256px; top: 256px;">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div
-                                                                        style="width: 36px; height: 36px; overflow: hidden; position: absolute; left: -18px; top: -18px; z-index: 0;">
-                                                                        <img alt=""
-                                                                            src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                                            draggable="false"
-                                                                            style="position: absolute; left: 0px; top: 0px; width: 36px; height: 36px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    style="position: absolute; left: 0px; top: 0px; z-index: 0;">
-                                                                    <div
-                                                                        style="position: absolute; z-index: 986; transform: matrix(1, 0, 0, 1, -67, -148);">
-                                                                        <div
-                                                                            style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; transition: opacity 200ms linear 0s;">
-                                                                            <img draggable="false" alt=""
-                                                                                role="presentation"
-                                                                                src="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i14!2i8143!3i5363!4i256!2m3!1e0!2sm!3i554277604!3m17!2sen-GB!3sUS!5e18!12m4!1e68!2m2!1sset!2sRoadmap!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjE3fHMuZTpnfHAudjpzaW1wbGlmaWVkfHAuaDojZmYwMDAw!4e0&amp;key=AIzaSyAxSz1eexGCFkRTERuHhdNWuYDCMXr9yBo&amp;token=34442"
-                                                                                style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                        <div
-                                                                            style="position: absolute; left: -256px; top: 0px; width: 256px; height: 256px; transition: opacity 200ms linear 0s;">
-                                                                            <img draggable="false" alt=""
-                                                                                role="presentation"
-                                                                                src="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i14!2i8142!3i5363!4i256!2m3!1e0!2sm!3i554277664!3m17!2sen-GB!3sUS!5e18!12m4!1e68!2m2!1sset!2sRoadmap!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjE3fHMuZTpnfHAudjpzaW1wbGlmaWVkfHAuaDojZmYwMDAw!4e0&amp;key=AIzaSyAxSz1eexGCFkRTERuHhdNWuYDCMXr9yBo&amp;token=40216"
-                                                                                style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                        <div
-                                                                            style="position: absolute; left: -256px; top: -256px; width: 256px; height: 256px; transition: opacity 200ms linear 0s;">
-                                                                            <img draggable="false" alt=""
-                                                                                role="presentation"
-                                                                                src="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i14!2i8142!3i5362!4i256!2m3!1e0!2sm!3i554277640!3m17!2sen-GB!3sUS!5e18!12m4!1e68!2m2!1sset!2sRoadmap!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjE3fHMuZTpnfHAudjpzaW1wbGlmaWVkfHAuaDojZmYwMDAw!4e0&amp;key=AIzaSyAxSz1eexGCFkRTERuHhdNWuYDCMXr9yBo&amp;token=75721"
-                                                                                style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                        <div
-                                                                            style="position: absolute; left: 0px; top: -256px; width: 256px; height: 256px; transition: opacity 200ms linear 0s;">
-                                                                            <img draggable="false" alt=""
-                                                                                role="presentation"
-                                                                                src="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i14!2i8143!3i5362!4i256!2m3!1e0!2sm!3i554277604!3m17!2sen-GB!3sUS!5e18!12m4!1e68!2m2!1sset!2sRoadmap!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjE3fHMuZTpnfHAudjpzaW1wbGlmaWVkfHAuaDojZmYwMDAw!4e0&amp;key=AIzaSyAxSz1eexGCFkRTERuHhdNWuYDCMXr9yBo&amp;token=82673"
-                                                                                style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                        <div
-                                                                            style="position: absolute; left: 0px; top: 256px; width: 256px; height: 256px; transition: opacity 200ms linear 0s;">
-                                                                            <img draggable="false" alt=""
-                                                                                role="presentation"
-                                                                                src="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i14!2i8143!3i5364!4i256!2m3!1e0!2sm!3i554277544!3m17!2sen-GB!3sUS!5e18!12m4!1e68!2m2!1sset!2sRoadmap!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjE3fHMuZTpnfHAudjpzaW1wbGlmaWVkfHAuaDojZmYwMDAw!4e0&amp;key=AIzaSyAxSz1eexGCFkRTERuHhdNWuYDCMXr9yBo&amp;token=118321"
-                                                                                style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                        <div
-                                                                            style="position: absolute; left: -256px; top: 256px; width: 256px; height: 256px; transition: opacity 200ms linear 0s;">
-                                                                            <img draggable="false" alt=""
-                                                                                role="presentation"
-                                                                                src="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i14!2i8142!3i5364!4i256!2m3!1e0!2sm!3i554277664!3m17!2sen-GB!3sUS!5e18!12m4!1e68!2m2!1sset!2sRoadmap!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjE3fHMuZTpnfHAudjpzaW1wbGlmaWVkfHAuaDojZmYwMDAw!4e0&amp;key=AIzaSyAxSz1eexGCFkRTERuHhdNWuYDCMXr9yBo&amp;token=123056"
-                                                                                style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="gm-style-pbc"
-                                                                style="z-index: 2; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; opacity: 0;">
-                                                                <p class="gm-style-pbt"></p>
-                                                            </div>
-                                                            <div
-                                                                style="z-index: 3; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; touch-action: pan-x pan-y;">
-                                                                <div
-                                                                    style="z-index: 4; position: absolute; left: 50%; top: 50%; width: 100%; transform: translate(0px, 0px);">
-                                                                    <div
-                                                                        style="position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;">
-                                                                    </div>
-                                                                    <div
-                                                                        style="position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;">
-                                                                    </div>
-                                                                    <div
-                                                                        style="position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;">
-                                                                        <div title="" tabindex="-1"
-                                                                            style="width: 36px; height: 36px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: -18px; top: -18px; z-index: 0;">
-                                                                            <img alt=""
-                                                                                src="https://maps.gstatic.com/mapfiles/transparent.png"
-                                                                                draggable="false"
-                                                                                style="width: 36px; height: 36px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div
-                                                                        style="position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div><iframe aria-hidden="true" frameborder="0" tabindex="-1"
-                                                            style="z-index: -1; position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; border: none;"></iframe>
-                                                        <div
-                                                            style="pointer-events: none; width: 100%; height: 100%; box-sizing: border-box; position: absolute; z-index: 1000002; opacity: 0; border: 2px solid rgb(26, 115, 232);">
-                                                        </div>
-                                                        <div>
-                                                            <div class="gmnoprint"
-                                                                style="margin: 10px; z-index: 0; position: absolute; cursor: pointer; left: 0px; top: 0px;">
-                                                                <div class="gm-style-mtc"
-                                                                    style="float: left; position: relative;"><button
-                                                                        draggable="false" title="Show street map"
-                                                                        aria-label="Show street map" type="button"
-                                                                        aria-pressed="true"
-                                                                        id="FDDEEFCE-B890-479D-A769-F96BE1789163"
-                                                                        aria-expanded="false"
-                                                                        style="background: none padding-box rgb(255, 255, 255); display: table-cell; border: 0px; margin: 0px; padding: 0px 17px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; direction: ltr; overflow: hidden; text-align: center; height: 40px; vertical-align: middle; color: rgb(0, 0, 0); font-family: Roboto, Arial, sans-serif; font-size: 18px; border-bottom-left-radius: 2px; border-top-left-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; font-weight: 500;">Map</button>
-                                                                    <ul role="menu"
-                                                                        aria-labelledby="FDDEEFCE-B890-479D-A769-F96BE1789163"
-                                                                        style="background-color: white; list-style: none; padding: 2px; margin: 0px; z-index: -1; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; position: absolute; left: 0px; top: 0px; text-align: left; display: none;">
-                                                                        <li tabindex="-1" role="menuitemcheckbox"
-                                                                            aria-label="Show street map with terrain"
-                                                                            draggable="false"
-                                                                            title="Show street map with terrain"
-                                                                            aria-checked="false"
-                                                                            style="color: black; font-family: Roboto, Arial, sans-serif; user-select: none; font-size: 18px; background-color: rgb(255, 255, 255); padding: 5px 8px 5px 5px; direction: ltr; text-align: left; white-space: nowrap;">
-                                                                            <span><img
-                                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M19%203H5c-1.11%200-2%20.9-2%202v14c0%201.1.89%202%202%202h14c1.11%200%202-.9%202-2V5c0-1.1-.89-2-2-2zm-9%2014l-5-5%201.41-1.41L10%2014.17l7.59-7.59L19%208l-9%209z%22/%3E%3C/svg%3E"
-                                                                                    alt=""
-                                                                                    style="height: 1em; width: 1em; transform: translateY(0.15em); display: none;"><img
-                                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M19%205v14H5V5h14m0-2H5c-1.1%200-2%20.9-2%202v14c0%201.1.9%202%202%202h14c1.1%200%202-.9%202-2V5c0-1.1-.9-2-2-2z%22/%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22/%3E%3C/svg%3E"
-                                                                                    alt=""
-                                                                                    style="height: 1em; width: 1em; transform: translateY(0.15em);"></span><label
-                                                                                style="cursor: inherit;">Terrain</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="gm-style-mtc"
-                                                                    style="float: left; position: relative;"><button
-                                                                        draggable="false" title="Show satellite imagery"
-                                                                        aria-label="Show satellite imagery"
-                                                                        type="button" aria-pressed="false"
-                                                                        id="1C7A7E80-0ACB-4A5F-AA67-F9850193DCBD"
-                                                                        aria-expanded="false"
-                                                                        style="background: none padding-box rgb(255, 255, 255); display: table-cell; border: 0px; margin: 0px; padding: 0px 17px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; direction: ltr; overflow: hidden; text-align: center; height: 40px; vertical-align: middle; color: rgb(86, 86, 86); font-family: Roboto, Arial, sans-serif; font-size: 18px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;">Satellite</button>
-                                                                    <ul role="menu"
-                                                                        aria-labelledby="1C7A7E80-0ACB-4A5F-AA67-F9850193DCBD"
-                                                                        style="background-color: white; list-style: none; padding: 2px; margin: 0px; z-index: -1; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; position: absolute; right: 0px; top: 0px; text-align: left; display: none;">
-                                                                        <li tabindex="-1" role="menuitemcheckbox"
-                                                                            aria-label="Show imagery with street names"
-                                                                            draggable="false"
-                                                                            title="Show imagery with street names"
-                                                                            aria-checked="true"
-                                                                            style="color: black; font-family: Roboto, Arial, sans-serif; user-select: none; font-size: 18px; background-color: rgb(255, 255, 255); padding: 5px 8px 5px 5px; direction: ltr; text-align: left; white-space: nowrap;">
-                                                                            <span><img
-                                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M19%203H5c-1.11%200-2%20.9-2%202v14c0%201.1.89%202%202%202h14c1.11%200%202-.9%202-2V5c0-1.1-.89-2-2-2zm-9%2014l-5-5%201.41-1.41L10%2014.17l7.59-7.59L19%208l-9%209z%22/%3E%3C/svg%3E"
-                                                                                    alt=""
-                                                                                    style="height: 1em; width: 1em; transform: translateY(0.15em);"><img
-                                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M19%205v14H5V5h14m0-2H5c-1.1%200-2%20.9-2%202v14c0%201.1.9%202%202%202h14c1.1%200%202-.9%202-2V5c0-1.1-.9-2-2-2z%22/%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22/%3E%3C/svg%3E"
-                                                                                    alt=""
-                                                                                    style="height: 1em; width: 1em; transform: translateY(0.15em); display: none;"></span><label
-                                                                                style="cursor: inherit;">Labels</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="wil-get-direction-button-wrapper"
-                                                                style="top: 0px; left: 20px; z-index: 0; position: absolute;">
-                                                                <i class="fa fa-map wil-get-direction-icon"></i><a
-                                                                    href="https://www.google.com/maps/search/4+Humber+Cl%2C+Leicester+LE5+1DE"
-                                                                    target="_blank"
-                                                                    style="color: rgb(255, 255, 255);">Get Direction</a>
-                                                            </div>
-                                                        </div>
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div><button draggable="false" title="Toggle fullscreen view"
-                                                                aria-label="Toggle fullscreen view" type="button"
-                                                                class="gm-control-active gm-fullscreen-control"
-                                                                style="background: none rgb(255, 255, 255); border: 0px; margin: 10px; padding: 0px; text-transform: none; appearance: none; position: absolute; cursor: pointer; user-select: none; border-radius: 2px; height: 40px; width: 40px; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; overflow: hidden; top: 0px; right: 0px;"><img
-                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M0%200v6h2V2h4V0H0zm16%200h-4v2h4v4h2V0h-2zm0%2016h-4v2h6v-6h-2v4zM2%2012H0v6h6v-2H2v-4z%22/%3E%3C/svg%3E"
-                                                                    alt="" style="height: 18px; width: 18px;"><img
-                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M0%200v6h2V2h4V0H0zm16%200h-4v2h4v4h2V0h-2zm0%2016h-4v2h6v-6h-2v4zM2%2012H0v6h6v-2H2v-4z%22/%3E%3C/svg%3E"
-                                                                    alt="" style="height: 18px; width: 18px;"><img
-                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23111%22%20d%3D%22M0%200v6h2V2h4V0H0zm16%200h-4v2h4v4h2V0h-2zm0%2016h-4v2h6v-6h-2v4zM2%2012H0v6h6v-2H2v-4z%22/%3E%3C/svg%3E"
-                                                                    alt="" style="height: 18px; width: 18px;"></button>
-                                                        </div>
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div>
-                                                            <div class="gmnoprint gm-bundled-control gm-bundled-control-on-bottom"
-                                                                draggable="false" controlwidth="40" controlheight="153"
-                                                                style="margin: 10px; user-select: none; position: absolute; bottom: 167px; right: 40px;">
-                                                                <div class="gmnoprint" controlwidth="40"
-                                                                    controlheight="40"
-                                                                    style="display: none; position: absolute;">
-                                                                    <div
-                                                                        style="background-color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; border-radius: 2px; width: 40px; height: 40px;">
-                                                                        <button draggable="false"
-                                                                            title="Rotate map clockwise"
-                                                                            aria-label="Rotate map clockwise"
-                                                                            type="button" class="gm-control-active"
-                                                                            style="background: none; display: none; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; left: 0px; top: 0px; overflow: hidden; width: 40px; height: 40px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h24v24H0V0z%22/%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M12.06%209.06l4-4-4-4-1.41%201.41%201.59%201.59h-.18c-2.3%200-4.6.88-6.35%202.64-3.52%203.51-3.52%209.21%200%2012.72%201.5%201.5%203.4%202.36%205.36%202.58v-2.02c-1.44-.21-2.84-.86-3.95-1.97-2.73-2.73-2.73-7.17%200-9.9%201.37-1.37%203.16-2.05%204.95-2.05h.17l-1.59%201.59%201.41%201.41zm8.94%203c-.19-1.74-.88-3.32-1.91-4.61l-1.43%201.43c.69.92%201.15%202%201.32%203.18H21zm-7.94%207.92V22c1.74-.19%203.32-.88%204.61-1.91l-1.43-1.43c-.91.68-2%201.15-3.18%201.32zm4.6-2.74l1.43%201.43c1.04-1.29%201.72-2.88%201.91-4.61h-2.02c-.17%201.18-.64%202.27-1.32%203.18z%22/%3E%3C/svg%3E"
-                                                                                style="width: 20px; height: 20px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h24v24H0V0z%22/%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M12.06%209.06l4-4-4-4-1.41%201.41%201.59%201.59h-.18c-2.3%200-4.6.88-6.35%202.64-3.52%203.51-3.52%209.21%200%2012.72%201.5%201.5%203.4%202.36%205.36%202.58v-2.02c-1.44-.21-2.84-.86-3.95-1.97-2.73-2.73-2.73-7.17%200-9.9%201.37-1.37%203.16-2.05%204.95-2.05h.17l-1.59%201.59%201.41%201.41zm8.94%203c-.19-1.74-.88-3.32-1.91-4.61l-1.43%201.43c.69.92%201.15%202%201.32%203.18H21zm-7.94%207.92V22c1.74-.19%203.32-.88%204.61-1.91l-1.43-1.43c-.91.68-2%201.15-3.18%201.32zm4.6-2.74l1.43%201.43c1.04-1.29%201.72-2.88%201.91-4.61h-2.02c-.17%201.18-.64%202.27-1.32%203.18z%22/%3E%3C/svg%3E"
-                                                                                style="width: 20px; height: 20px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h24v24H0V0z%22/%3E%3Cpath%20fill%3D%22%23111%22%20d%3D%22M12.06%209.06l4-4-4-4-1.41%201.41%201.59%201.59h-.18c-2.3%200-4.6.88-6.35%202.64-3.52%203.51-3.52%209.21%200%2012.72%201.5%201.5%203.4%202.36%205.36%202.58v-2.02c-1.44-.21-2.84-.86-3.95-1.97-2.73-2.73-2.73-7.17%200-9.9%201.37-1.37%203.16-2.05%204.95-2.05h.17l-1.59%201.59%201.41%201.41zm8.94%203c-.19-1.74-.88-3.32-1.91-4.61l-1.43%201.43c.69.92%201.15%202%201.32%203.18H21zm-7.94%207.92V22c1.74-.19%203.32-.88%204.61-1.91l-1.43-1.43c-.91.68-2%201.15-3.18%201.32zm4.6-2.74l1.43%201.43c1.04-1.29%201.72-2.88%201.91-4.61h-2.02c-.17%201.18-.64%202.27-1.32%203.18z%22/%3E%3C/svg%3E"
-                                                                                style="width: 20px; height: 20px;"></button>
-                                                                        <div
-                                                                            style="position: relative; overflow: hidden; width: 30px; height: 1px; margin: 0px 5px; background-color: rgb(230, 230, 230); display: none;">
-                                                                        </div><button draggable="false"
-                                                                            title="Rotate map counterclockwise"
-                                                                            aria-label="Rotate map counterclockwise"
-                                                                            type="button" class="gm-control-active"
-                                                                            style="background: none; display: none; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; left: 0px; top: 0px; overflow: hidden; width: 40px; height: 40px; transform: scaleX(-1);"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h24v24H0V0z%22/%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M12.06%209.06l4-4-4-4-1.41%201.41%201.59%201.59h-.18c-2.3%200-4.6.88-6.35%202.64-3.52%203.51-3.52%209.21%200%2012.72%201.5%201.5%203.4%202.36%205.36%202.58v-2.02c-1.44-.21-2.84-.86-3.95-1.97-2.73-2.73-2.73-7.17%200-9.9%201.37-1.37%203.16-2.05%204.95-2.05h.17l-1.59%201.59%201.41%201.41zm8.94%203c-.19-1.74-.88-3.32-1.91-4.61l-1.43%201.43c.69.92%201.15%202%201.32%203.18H21zm-7.94%207.92V22c1.74-.19%203.32-.88%204.61-1.91l-1.43-1.43c-.91.68-2%201.15-3.18%201.32zm4.6-2.74l1.43%201.43c1.04-1.29%201.72-2.88%201.91-4.61h-2.02c-.17%201.18-.64%202.27-1.32%203.18z%22/%3E%3C/svg%3E"
-                                                                                style="width: 20px; height: 20px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h24v24H0V0z%22/%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M12.06%209.06l4-4-4-4-1.41%201.41%201.59%201.59h-.18c-2.3%200-4.6.88-6.35%202.64-3.52%203.51-3.52%209.21%200%2012.72%201.5%201.5%203.4%202.36%205.36%202.58v-2.02c-1.44-.21-2.84-.86-3.95-1.97-2.73-2.73-2.73-7.17%200-9.9%201.37-1.37%203.16-2.05%204.95-2.05h.17l-1.59%201.59%201.41%201.41zm8.94%203c-.19-1.74-.88-3.32-1.91-4.61l-1.43%201.43c.69.92%201.15%202%201.32%203.18H21zm-7.94%207.92V22c1.74-.19%203.32-.88%204.61-1.91l-1.43-1.43c-.91.68-2%201.15-3.18%201.32zm4.6-2.74l1.43%201.43c1.04-1.29%201.72-2.88%201.91-4.61h-2.02c-.17%201.18-.64%202.27-1.32%203.18z%22/%3E%3C/svg%3E"
-                                                                                style="width: 20px; height: 20px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h24v24H0V0z%22/%3E%3Cpath%20fill%3D%22%23111%22%20d%3D%22M12.06%209.06l4-4-4-4-1.41%201.41%201.59%201.59h-.18c-2.3%200-4.6.88-6.35%202.64-3.52%203.51-3.52%209.21%200%2012.72%201.5%201.5%203.4%202.36%205.36%202.58v-2.02c-1.44-.21-2.84-.86-3.95-1.97-2.73-2.73-2.73-7.17%200-9.9%201.37-1.37%203.16-2.05%204.95-2.05h.17l-1.59%201.59%201.41%201.41zm8.94%203c-.19-1.74-.88-3.32-1.91-4.61l-1.43%201.43c.69.92%201.15%202%201.32%203.18H21zm-7.94%207.92V22c1.74-.19%203.32-.88%204.61-1.91l-1.43-1.43c-.91.68-2%201.15-3.18%201.32zm4.6-2.74l1.43%201.43c1.04-1.29%201.72-2.88%201.91-4.61h-2.02c-.17%201.18-.64%202.27-1.32%203.18z%22/%3E%3C/svg%3E"
-                                                                                style="width: 20px; height: 20px;"></button>
-                                                                        <div
-                                                                            style="position: relative; overflow: hidden; width: 30px; height: 1px; margin: 0px 5px; background-color: rgb(230, 230, 230); display: none;">
-                                                                        </div><button draggable="false" title="Tilt map"
-                                                                            aria-label="Tilt map" type="button"
-                                                                            class="gm-tilt gm-control-active"
-                                                                            style="background: none; display: block; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; top: 0px; left: 0px; overflow: hidden; width: 40px; height: 40px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2016%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M0%2016h8V9H0v7zm10%200h8V9h-8v7zM0%207h8V0H0v7zm10-7v7h8V0h-8z%22/%3E%3C/svg%3E"
-                                                                                style="width: 18px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2016%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M0%2016h8V9H0v7zm10%200h8V9h-8v7zM0%207h8V0H0v7zm10-7v7h8V0h-8z%22/%3E%3C/svg%3E"
-                                                                                style="width: 18px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2016%22%3E%3Cpath%20fill%3D%22%23111%22%20d%3D%22M0%2016h8V9H0v7zm10%200h8V9h-8v7zM0%207h8V0H0v7zm10-7v7h8V0h-8z%22/%3E%3C/svg%3E"
-                                                                                style="width: 18px;"></button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="gm-svpc" dir="ltr"
-                                                                    title="Drag Pegman onto the map to open Street View"
-                                                                    controlwidth="40" controlheight="40"
-                                                                    style="background-color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; border-radius: 2px; width: 40px; height: 40px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default; touch-action: none; position: absolute; left: 0px; top: 0px;">
-                                                                    <div
-                                                                        style="position: absolute; left: 50%; top: 50%;">
-                                                                    </div>
-                                                                    <div
-                                                                        style="position: absolute; left: 50%; top: 50%;">
-                                                                        <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2023%2038%22%3E%3Cpath%20d%3D%22M16.6%2038.1h-5.5l-.2-2.9-.2%202.9h-5.5L5%2025.3l-.8%202a1.53%201.53%200%2001-1.9.9l-1.2-.4a1.58%201.58%200%2001-1-1.9v-.1c.3-.9%203.1-11.2%203.1-11.2a2.66%202.66%200%20012.3-2l.6-.5a6.93%206.93%200%20014.7-12%206.8%206.8%200%20014.9%202%207%207%200%20012%204.9%206.65%206.65%200%2001-2.2%205l.7.5a2.78%202.78%200%20012.4%202s2.9%2011.2%202.9%2011.3a1.53%201.53%200%2001-.9%201.9l-1.3.4a1.63%201.63%200%2001-1.9-.9l-.7-1.8-.1%2012.7zm-3.6-2h1.7L14.9%2020.3l1.9-.3%202.4%206.3.3-.1c-.2-.8-.8-3.2-2.8-10.9a.63.63%200%2000-.6-.5h-.6l-1.1-.9h-1.9l-.3-2a4.83%204.83%200%20003.5-4.7A4.78%204.78%200%200011%202.3H10.8a4.9%204.9%200%2000-1.4%209.6l-.3%202h-1.9l-1%20.9h-.6a.74.74%200%2000-.6.5c-2%207.5-2.7%2010-3%2010.9l.3.1L4.8%2020l1.9.3.2%2015.8h1.6l.6-8.4a1.52%201.52%200%20011.5-1.4%201.5%201.5%200%20011.5%201.4l.9%208.4zm-10.9-9.6zm17.5-.1z%22%20style%3D%22isolation%3Aisolate%22%20fill%3D%22%23333%22%20opacity%3D%22.7%22/%3E%3Cpath%20d%3D%22M5.9%2013.6l1.1-.9h7.8l1.2.9%22%20fill%3D%22%23ce592c%22/%3E%3Cellipse%20cx%3D%2210.9%22%20cy%3D%2213.1%22%20rx%3D%222.7%22%20ry%3D%22.3%22%20style%3D%22isolation%3Aisolate%22%20fill%3D%22%23ce592c%22%20opacity%3D%22.5%22/%3E%3Cpath%20d%3D%22M20.6%2026.1l-2.9-11.3a1.71%201.71%200%2000-1.6-1.2H5.699999999999999a1.69%201.69%200%2000-1.5%201.3l-3.1%2011.3a.61.61%200%2000.3.7l1.1.4a.61.61%200%2000.7-.3l2.7-6.7.2%2016.8h3.6l.6-9.3a.47.47%200%2001.44-.5h.06c.4%200%20.4.2.5.5l.6%209.3h3.6L15.7%2020.3l2.5%206.6a.52.52%200%2000.66.31l1.2-.4a.57.57%200%2000.5-.7z%22%20fill%3D%22%23fdbf2d%22/%3E%3Cpath%20d%3D%22M7%2013.6l3.9%206.7%203.9-6.7%22%20style%3D%22isolation%3Aisolate%22%20fill%3D%22%23cf572e%22%20opacity%3D%22.6%22/%3E%3Ccircle%20cx%3D%2210.9%22%20cy%3D%227%22%20r%3D%225.9%22%20fill%3D%22%23fdbf2d%22/%3E%3C/svg%3E"
-                                                                            aria-label="Street View Pegman Control"
-                                                                            style="height: 30px; width: 30px; position: absolute; transform: translate(-50%, -50%); pointer-events: none;"><img
-                                                                            src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2038%22%3E%3Cpath%20d%3D%22M22%2026.6l-2.9-11.3a2.78%202.78%200%2000-2.4-2l-.7-.5a6.82%206.82%200%20002.2-5%206.9%206.9%200%2000-13.8%200%207%207%200%20002.2%205.1l-.6.5a2.55%202.55%200%2000-2.3%202s-3%2011.1-3%2011.2v.1a1.58%201.58%200%20001%201.9l1.2.4a1.63%201.63%200%20001.9-.9l.8-2%20.2%2012.8h11.3l.2-12.6.7%201.8a1.54%201.54%200%20001.5%201%201.09%201.09%200%2000.5-.1l1.3-.4a1.85%201.85%200%2000.7-2zm-1.2.9l-1.2.4a.61.61%200%2001-.7-.3l-2.5-6.6-.2%2016.8h-9.4L6.6%2021l-2.7%206.7a.52.52%200%2001-.66.31l-1.1-.4a.52.52%200%2001-.31-.66l3.1-11.3a1.69%201.69%200%20011.5-1.3h.2l1-.9h2.3a5.9%205.9%200%20113.2%200h2.3l1.1.9h.2a1.71%201.71%200%20011.6%201.2l2.9%2011.3a.84.84%200%2001-.4.7z%22%20fill%3D%22%23333%22%20fill-opacity%3D%22.2%22/%3E%26quot%3B%3C/svg%3E"
-                                                                            aria-label="Pegman is on top of the Map"
-                                                                            style="display: none; height: 30px; width: 30px; position: absolute; transform: translate(-50%, -50%); pointer-events: none;"><img
-                                                                            src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2050%22%3E%3Cpath%20d%3D%22M34-30.4l-2.9-11.3a2.78%202.78%200%2000-2.4-2l-.7-.5a6.82%206.82%200%20002.2-5%206.9%206.9%200%2000-13.8%200%207%207%200%20002.2%205.1l-.6.5a2.55%202.55%200%2000-2.3%202s-3%2011.1-3%2011.2v.1a1.58%201.58%200%20001%201.9l1.2.4a1.63%201.63%200%20001.9-.9l.8-2%20.2%2012.8h11.3l.2-12.6.7%201.8a1.54%201.54%200%20001.5%201%201.09%201.09%200%2000.5-.1l1.3-.4a1.85%201.85%200%2000.7-2zm-1.2.9l-1.2.4a.61.61%200%2001-.7-.3L28.4-36l-.2%2016.8h-9.4L18.6-36l-2.7%206.7a.52.52%200%2001-.66.31l-1.1-.4a.52.52%200%2001-.31-.66l3.1-11.3a1.69%201.69%200%20011.5-1.3h.2l1-.9h2.3a5.9%205.9%200%20113.2%200h2.3l1.1.9h.2a1.71%201.71%200%20011.6%201.2l2.9%2011.3a.84.84%200%2001-.4.7zM34%2029.6l-2.9-11.3a2.78%202.78%200%2000-2.4-2l-.7-.5a6.82%206.82%200%20002.2-5%206.9%206.9%200%2000-13.8%200%207%207%200%20002.2%205.1l-.6.5a2.55%202.55%200%2000-2.3%202s-3%2011.1-3%2011.2v.1a1.58%201.58%200%20001%201.9l1.2.4a1.63%201.63%200%20001.9-.9l.8-2%20.2%2012.8h11.3l.2-12.6.7%201.8a1.54%201.54%200%20001.5%201%201.09%201.09%200%2000.5-.1l1.3-.4a1.85%201.85%200%2000.7-2zm-1.2.9l-1.2.4a.61.61%200%2001-.7-.3L28.4%2024l-.2%2016.8h-9.4L18.6%2024l-2.7%206.7a.52.52%200%2001-.66.31l-1.1-.4a.52.52%200%2001-.31-.66l3.1-11.3a1.69%201.69%200%20011.5-1.3h.2l1-.9h2.3a5.9%205.9%200%20113.2%200h2.3l1.1.9h.2a1.71%201.71%200%20011.6%201.2l2.9%2011.3a.84.84%200%2001-.4.7z%22%20fill%3D%22%23333%22%20fill-opacity%3D%22.2%22/%3E%3Cpath%20d%3D%22M15.4%2038.8h-4a1.64%201.64%200%2001-1.4-1.1l-3.1-8a.9.9%200%2001-.5.1l-1.4.1a1.62%201.62%200%2001-1.6-1.4L2.3%2015.4l1.6-1.3a6.87%206.87%200%2001-3-4.6A7.14%207.14%200%20012%204a7.6%207.6%200%20014.7-3.1A7.14%207.14%200%200112.2%202a7.28%207.28%200%20012.3%209.6l2.1-.1.1%201c0%20.2.1.5.1.8a2.41%202.41%200%20011%201s1.9%203.2%202.8%204.9c.7%201.2%202.1%204.2%202.8%205.9a2.1%202.1%200%2001-.8%202.6l-.6.4a1.63%201.63%200%2001-1.5.2l-.6-.3a8.93%208.93%200%2000.5%201.3%207.91%207.91%200%20001.8%202.6l.6.3v4.6l-4.5-.1a7.32%207.32%200%2001-2.5-1.5l-.4%203.6zm-10-19.2l3.5%209.8%202.9%207.5h1.6V35l-1.9-9.4%203.1%205.4a8.24%208.24%200%20003.8%203.8h2.1v-1.4a14%2014%200%2001-2.2-3.1%2044.55%2044.55%200%2001-2.2-8l-1.3-6.3%203.2%205.6c.6%201.1%202.1%203.6%202.8%204.9l.6-.4c-.8-1.6-2.1-4.6-2.8-5.8-.9-1.7-2.8-4.9-2.8-4.9a.54.54%200%2000-.4-.3l-.7-.1-.1-.7a4.33%204.33%200%2000-.1-.5l-5.3.3%202.2-1.9a4.3%204.3%200%2000.9-1%205.17%205.17%200%2000.8-4%205.67%205.67%200%2000-2.2-3.4%205.09%205.09%200%2000-4-.8%205.67%205.67%200%2000-3.4%202.2%205.17%205.17%200%2000-.8%204%205.67%205.67%200%20002.2%203.4%203.13%203.13%200%20001%20.5l1.6.6-3.2%202.6%201%2011.5h.4l-.3-8.2z%22%20fill%3D%22%23333%22/%3E%3Cpath%20d%3D%22M3.35%2015.9l1.1%2012.5a.39.39%200%2000.36.42h.14l1.4-.1a.66.66%200%2000.5-.4l-.2-3.8-3.3-8.6z%22%20fill%3D%22%23fdbf2d%22/%3E%3Cpath%20d%3D%22M5.2%2028.8l1.1-.1a.66.66%200%2000.5-.4l-.2-3.8-1.2-3.1z%22%20fill%3D%22%23ce592b%22%20fill-opacity%3D%22.25%22/%3E%3Cpath%20d%3D%22M21.4%2035.7l-3.8-1.2-2.7-7.8L12%2015.5l3.4-2.9c.2%202.4%202.2%2014.1%203.7%2017.1%200%200%201.3%202.6%202.3%203.1v2.9m-8.4-8.1l-2-.3%202.5%2010.1.9.4v-2.9%22%20fill%3D%22%23e5892b%22/%3E%3Cpath%20d%3D%22M17.8%2025.4c-.4-1.5-.7-3.1-1.1-4.8-.1-.4-.1-.7-.2-1.1l-1.1-2-1.7-1.6s.9%205%202.4%207.1a19.12%2019.12%200%20001.7%202.4z%22%20style%3D%22isolation%3Aisolate%22%20fill%3D%22%23cf572e%22%20opacity%3D%22.6%22/%3E%3Cpath%20d%3D%22M14.4%2037.8h-3a.43.43%200%2001-.4-.4l-3-7.8-1.7-4.8-3-9%208.9-.4s2.9%2011.3%204.3%2014.4c1.9%204.1%203.1%204.7%205%205.8h-3.2s-4.1-1.2-5.9-7.7a.59.59%200%2000-.6-.4.62.62%200%2000-.3.7s.5%202.4.9%203.6a34.87%2034.87%200%20002%206z%22%20fill%3D%22%23fdbf2d%22/%3E%3Cpath%20d%3D%22M15.4%2012.7l-3.3%202.9-8.9.4%203.3-2.7%22%20fill%3D%22%23ce592b%22/%3E%3Cpath%20d%3D%22M9.1%2021.1l1.4-6.2-5.9.5%22%20style%3D%22isolation%3Aisolate%22%20fill%3D%22%23cf572e%22%20opacity%3D%22.6%22/%3E%3Cpath%20d%3D%22M12%2013.5a4.75%204.75%200%2001-2.6%201.1c-1.5.3-2.9.2-2.9%200s1.1-.6%202.7-1%22%20fill%3D%22%23bb3d19%22/%3E%3Ccircle%20cx%3D%227.92%22%20cy%3D%228.19%22%20r%3D%226.3%22%20fill%3D%22%23fdbf2d%22/%3E%3Cpath%20d%3D%22M4.7%2013.6a6.21%206.21%200%20008.4-1.9v-.1a8.89%208.89%200%2001-8.4%202z%22%20fill%3D%22%23ce592b%22%20fill-opacity%3D%22.25%22/%3E%3Cpath%20d%3D%22M21.2%2027.2l.6-.4a1.09%201.09%200%2000.4-1.3c-.7-1.5-2.1-4.6-2.8-5.8-.9-1.7-2.8-4.9-2.8-4.9a1.6%201.6%200%2000-2.17-.65l-.23.15a1.68%201.68%200%2000-.4%202.1s2.3%203.9%203.1%205.3c.6%201%202.1%203.7%202.9%205.1a.94.94%200%20001.24.49l.16-.09z%22%20fill%3D%22%23fdbf2d%22/%3E%3Cpath%20d%3D%22M19.4%2019.8c-.9-1.7-2.8-4.9-2.8-4.9a1.6%201.6%200%2000-2.17-.65l-.23.15-.3.3c1.1%201.5%202.9%203.8%203.9%205.4%201.1%201.8%202.9%205%203.8%206.7l.1-.1a1.09%201.09%200%2000.4-1.3%2057.67%2057.67%200%2000-2.7-5.6z%22%20fill%3D%22%23ce592b%22%20fill-opacity%3D%22.25%22/%3E%3C/svg%3E"
-                                                                            aria-label="Street View Pegman Control"
-                                                                            style="display: none; height: 40px; width: 40px; position: absolute; transform: translate(-60%, -45%); pointer-events: none;">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="gmnoprint" controlwidth="40"
-                                                                    controlheight="81"
-                                                                    style="position: absolute; left: 0px; top: 72px;">
-                                                                    <div draggable="false"
-                                                                        style="user-select: none; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; border-radius: 2px; cursor: pointer; background-color: rgb(255, 255, 255); width: 40px; height: 81px;">
-                                                                        <button draggable="false" title="Zoom in"
-                                                                            aria-label="Zoom in" type="button"
-                                                                            class="gm-control-active"
-                                                                            style="background: none; display: block; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; overflow: hidden; width: 40px; height: 40px; top: 0px; left: 0px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M18%207h-7V0H7v7H0v4h7v7h4v-7h7z%22/%3E%3C/svg%3E"
-                                                                                alt=""
-                                                                                style="height: 18px; width: 18px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M18%207h-7V0H7v7H0v4h7v7h4v-7h7z%22/%3E%3C/svg%3E"
-                                                                                alt=""
-                                                                                style="height: 18px; width: 18px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23111%22%20d%3D%22M18%207h-7V0H7v7H0v4h7v7h4v-7h7z%22/%3E%3C/svg%3E"
-                                                                                alt=""
-                                                                                style="height: 18px; width: 18px;"></button>
-                                                                        <div
-                                                                            style="position: relative; overflow: hidden; width: 30px; height: 1px; margin: 0px 5px; background-color: rgb(230, 230, 230); top: 0px;">
-                                                                        </div><button draggable="false" title="Zoom out"
-                                                                            aria-label="Zoom out" type="button"
-                                                                            class="gm-control-active"
-                                                                            style="background: none; display: block; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; overflow: hidden; width: 40px; height: 40px; top: 0px; left: 0px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M0%207h18v4H0V7z%22/%3E%3C/svg%3E"
-                                                                                alt=""
-                                                                                style="height: 18px; width: 18px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M0%207h18v4H0V7z%22/%3E%3C/svg%3E"
-                                                                                alt=""
-                                                                                style="height: 18px; width: 18px;"><img
-                                                                                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2018%2018%22%3E%3Cpath%20fill%3D%22%23111%22%20d%3D%22M0%207h18v4H0V7z%22/%3E%3C/svg%3E"
-                                                                                alt=""
-                                                                                style="height: 18px; width: 18px;"></button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <div
-                                                                style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;">
-                                                                <a target="_blank" rel="noopener"
-                                                                    href="https://maps.google.com/maps?ll=52.6487,-1.0709&amp;z=14&amp;t=m&amp;hl=en-GB&amp;gl=US&amp;mapclient=apiv3"
-                                                                    title="Open this area in Google Maps (opens a new window)"
-                                                                    style="position: static; overflow: visible; float: none; display: inline;">
-                                                                    <div
-                                                                        style="width: 66px; height: 26px; cursor: pointer;">
-                                                                        <img alt=""
-                                                                            src="https://maps.gstatic.com/mapfiles/api-3/images/google_white5.png"
-                                                                            draggable="false"
-                                                                            style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; user-select: none; border: 0px; padding: 0px; margin: 0px;">
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div></div>
-                                                        <div>
-                                                            <div class="gmnoprint"
-                                                                style="z-index: 1000001; position: absolute; right: 174px; bottom: 0px; width: 91px;">
-                                                                <div draggable="false" class="gm-style-cc"
-                                                                    style="user-select: none; height: 14px; line-height: 14px;">
-                                                                    <div
-                                                                        style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
-                                                                        <div style="width: 1px;"></div>
-                                                                        <div
-                                                                            style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div
-                                                                        style="position: relative; padding-right: 6px; padding-left: 6px; box-sizing: border-box; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(0, 0, 0); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;">
-                                                                        <button draggable="false" title="Map Data"
-                                                                            aria-label="Map Data" type="button"
-                                                                            style="background: none; display: none; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; color: rgb(0, 0, 0); font-family: inherit;">Map
-                                                                            Data</button><span>Map data ©2021</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="gmnoprint gm-style-cc" draggable="false"
-                                                                style="z-index: 1000001; user-select: none; height: 14px; line-height: 14px; position: absolute; right: 100px; bottom: 0px;">
-                                                                <div
-                                                                    style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
-                                                                    <div style="width: 1px;"></div>
-                                                                    <div
-                                                                        style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;">
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    style="position: relative; padding-right: 6px; padding-left: 6px; box-sizing: border-box; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(0, 0, 0); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;">
-                                                                    <a href="https://www.google.com/intl/en-GB_US/help/terms_maps.html"
-                                                                        target="_blank" rel="noopener"
-                                                                        style="text-decoration: none; cursor: pointer; color: rgb(0, 0, 0);">Terms
-                                                                        of Use</a>
-                                                                </div>
-                                                            </div>
-                                                            <div draggable="false" class="gm-style-cc"
-                                                                style="user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;">
-                                                                <div
-                                                                    style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
-                                                                    <div style="width: 1px;"></div>
-                                                                    <div
-                                                                        style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;">
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    style="position: relative; padding-right: 6px; padding-left: 6px; box-sizing: border-box; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(0, 0, 0); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;">
-                                                                    <a target="_blank" rel="noopener"
-                                                                        title="Report errors in the road map or imagery to Google"
-                                                                        dir="ltr"
-                                                                        href="https://www.google.com/maps/@52.6487,-1.0709,14z/data=!10m1!1e1!12b1?source=apiv3&amp;rapsrc=apiv3"
-                                                                        style="font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(0, 0, 0); text-decoration: none; position: relative;">Report
-                                                                        a map error</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="gmnoscreen"
-                                                                style="position: absolute; right: 0px; bottom: 0px;">
-                                                                <div
-                                                                    style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(0, 0, 0); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">
-                                                                    Map data ©2021</div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            style="background-color: white; padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); box-sizing: border-box; box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 300px; height: 180px; position: absolute; left: 36px; top: 60px;">
-                                                            <div
-                                                                style="padding: 0px 0px 10px; font-size: 16px; box-sizing: border-box;">
-                                                                Map Data</div>
-                                                            <div style="font-size: 13px;">Map data ©2021</div><button
-                                                                draggable="false" title="Close" aria-label="Close"
-                                                                type="button" class="gm-ui-hover-effect"
-                                                                style="background: none; display: block; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: absolute; cursor: pointer; user-select: none; top: 0px; right: 0px; width: 37px; height: 37px;"><img
-                                                                    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M19%206.41L17.59%205%2012%2010.59%206.41%205%205%206.41%2010.59%2012%205%2017.59%206.41%2019%2012%2013.41%2017.59%2019%2019%2017.59%2013.41%2012z%22/%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22/%3E%3C/svg%3E"
-                                                                    alt=""
-                                                                    style="pointer-events: none; display: block; width: 13px; height: 13px; margin: 12px;"></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <h3>Map goes here</h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- current tab = description -->
+                    <div *ngIf="current_tab == 'description'" class="single-tab-content">
+                        <div class="content-box_module__333d9 pos-r">
+                            <header class="content-box_header__xPnGx clearfix">
+                                <div class="wil-float-left">
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
+                                        <span>Description</span>
+                                    </h4>
+                                </div>
+                            </header>
+                            <div class="content-box_body__3tSRB">
+                                <div class="full-load" style="height: auto; display: none;">
+                                    <div class="pill-loading_module__3LZ6v pos-a-center">
+                                        <div class="pill-loading_loader__3LOnT"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    {{ listing.description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- current tab = photos -->
+                    <div *ngIf="current_tab == 'photos'" id="single-photos" class="single-tab-content">
+                        <div class="content-box_module__333d9 pos-r">
+                            <header class="content-box_header__xPnGx clearfix">
+                                <div class="wil-float-left">
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-image"></i> <span>Photos</span>
+                                    </h4>
+                                </div>
+                            </header>
+                            <div class="content-box_body__3tSRB">
+                                <div *ngIf="listing_galleries.length > 0; else templateNoPhoto" class="">
+                                    <div data-col-xs-gap="5" data-col-sm-gap="10" class="row">
+                                        <div *ngFor="let item of listing_galleries; let index = index"
+                                            class="col-xs-6 col-sm-3">
+                                            <div class="gallery-item_module__1wn6T">
+                                                <div class="imageCover_module__1VM4k">
+                                                    <div class="imageCover_img__3pxw7" (click)="openGalleryModal(index)"
+                                                        [ngStyle]="{'background-image': 'url(' + item.small + ')'}">
+                                                        <img [src]="item.small" class="cursor-pointer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #templateNoPhoto>
+                                    <div class="alert_module__Q4QZx" style="padding-left: 15px;">
+                                        <div class="alert_content__1ntU3">There are no photos</div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- current tab = videos -->
+                    <div *ngIf="current_tab == 'videos'" id="single-nav-videos" class="single-tab-content">
+                        <div class="content-box_module__333d9 pos-r">
+                            <header class="content-box_header__xPnGx clearfix">
+                                <div class="wil-float-left">
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-video-camera"></i>
+                                        <span>Videos</span>
+                                    </h4>
+                                </div>
+                            </header>
+                            <div class="content-box_body__3tSRB">
+                                <div class="gallery_module__2AbLA">
+                                    <div *ngIf="listing_videos.length > 0; else templateNoVideo">
+                                        <div data-col-xs-gap="5" data-col-sm-gap="10" class="row">
+                                            <div *ngFor="let item of listing_videos; let index = index"
+                                                class="col-xs-12 col-sm-4">
+                                                <div class="gallery-item_module__1wn6T">
+                                                    <div class="video-popup_module__2P6ZG video-popup_sm__11-9c">
+                                                        <div class="video-popup_media__dEwwq">
+                                                            <div class="video-popup_img__3zV5d bg-cover"
+                                                                [ngStyle]="{'background-image': 'url(' + item.image + ')'}">
+                                                            </div>
+                                                            <a (click)="openVideoModal(index)"
+                                                                class="video-popup_popup__17b-F js-video-popup"><i
+                                                                    class="la la-play"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #templateNoVideo>
+                                        <div class="alert_module__Q4QZx" style="padding-left: 15px;">
+                                            <div class="alert_content__1ntU3">There are no videos</div>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- current tab = reviews -->
+                    <div *ngIf="current_tab == 'reviews'" id="single-nav-reviews" class="single-tab-content">
+                        <div class="content-box_module__333d9 pos-r">
+                            <header class="content-box_header__xPnGx clearfix">
+                                <div class="wil-float-left">
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-star-o"></i>
+                                        <span>Reviews</span>
+                                    </h4>
+                                </div>
+                            </header>
+                            <div class="listing-detail_row__2UU6R">
+                                <div class="wil-colLarge js-sticky pos-r">
+                                    <div class="pos-r wil-reviews-tab">
+                                        <div *ngIf="listing_reviews.length > 0" data-v-0af02974="" id="" class="pos-r">
+                                            <div data-v-0af02974="">
+
+                                                <div *ngFor="let item of listing_reviews; let index=index"
+                                                    class="comment-review_module__-Z5tr" data-v-0af02974="">
+                                                    <div class="comment-review_header__1si3M">
+                                                        <div
+                                                            class="utility-box-1_module__MYXpX utility-box-1_boxLeft__3iS6b clearfix utility-box-1_sm__mopok review-author-avatar">
+                                                            <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                                                [ngStyle]="{'background-image': 'url(' + getReviewAvatar(item.profile_photo) + ')'}">
+                                                                <img src="{{  item.profile_photo | imageSrc : 'users' : 'thumb' }}"
+                                                                    alt="{{ item.display_name != '' ? item.display_name : item.username }}"></a>
+                                                            <div class="utility-box-1_body__8qd9j">
+                                                                <div class="utility-box-1_group__2ZPA2">
+                                                                    <h3 class="utility-box-1_title__1I925"><a>{{
+                                                                            item.display_name != '' ? item.display_name
+                                                                            :
+                                                                            item.username }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                                <div class="utility-box-1_description__2VDJ6">{{
+                                                                    item.created_at | date: 'longDate' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="comment-review_abs__9mb1G pos-a-center-right"><span
+                                                                class="comment-review_sticky__3iQ8y color-primary fs-20 v-middle visible-hidden"><i
+                                                                    class="la la-thumb-tack"></i></span>
+                                                            <div class="rated-small_module__1vw2B">
+                                                                <div [attr.data-rated]="item.rating"
+                                                                    class="rated-small_wrap__2Eetz">
+                                                                    <div class="rated-small_overallRating__oFmKR">{{
+                                                                        item.rating }}</div>
+                                                                    <div class="rated-small_ratingWrap__3lzhB">
+                                                                        <div class="rated-small_maxRating__2D9mI">10
+                                                                        </div>
+                                                                        <div class="rated-small_ratingOverview__2kCI_">
+                                                                            {{
+                                                                            review_comment[item.rating] }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="userCanEditReview(item.id)"
+                                                                class="dropdown_module__J_Zpj ml-20">
+                                                                <div (click)="isReviewDotsClicked[item.id] = (isReviewDotsClicked[item.id] ? false : true )"
+                                                                    class="dropdown_threeDots__3fa2o"><span
+                                                                        class="dropdown_dot__3I1Rn"></span> <span
+                                                                        class="dropdown_dot__3I1Rn"></span> <span
+                                                                        class="dropdown_dot__3I1Rn"></span></div>
+                                                                <div [ngClass]="{'active':isReviewDotsClicked[item.id]}"
+                                                                    class="dropdown_itemsWrap__2fuze">
+                                                                    <ul data-v-52d0a98f=""
+                                                                        class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                                                                        has-wrap-for-icon="true">
+                                                                        <li class="list_item__3YghP"><a
+                                                                                data-v-52d0a98f=""
+                                                                                (click)="openReviewModal(item)"
+                                                                                class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                                                                span-classes="list_text__35R07"
+                                                                                review-id="17458"> <span
+                                                                                    class="list_icon__2YpTp"><i
+                                                                                        class="la la-edit"></i></span>
+                                                                                <span class="list_text__35R07">Edit
+                                                                                    review</span>
+                                                                            </a></li>
+                                                                        <li class="list_item__3YghP"><a
+                                                                                data-v-52d0a98f=""
+                                                                                (click)="onDeleteReview(item.id)"
+                                                                                class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                                                                                span-classes="list_text__35R07"
+                                                                                review-id="17458"> <span
+                                                                                    class="list_icon__2YpTp"><i
+                                                                                        class="la la-trash"></i></span>
+                                                                                <span
+                                                                                    class="list_text__35R07">Delete</span>
+                                                                            </a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-review_body__qhUqq">
+                                                        <div class="comment-review_content__1jFfZ">
+                                                            <h3 class="comment-review_title__2WbAh">{{ item.title }}
+                                                            </h3>
+                                                            <div
+                                                                class="wilcity-review-content wilcity-review-content-17458">
+                                                                <div>
+                                                                    <p>{{ item.description }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="comment-review_meta__1chzm"><span>{{ item.likes }}
+                                                                Like{{ item.likes | pluralPipe : 's' }}</span>
+                                                            <span>{{ item.comments }} Comment{{ item.comments |
+                                                                pluralPipe :
+                                                                's' }}</span> <span>{{ item.shares }} Share{{
+                                                                item.shares |
+                                                                pluralPipe : 's' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <footer data-v-52d0a98f="" class="comment-review_footer__3XR0_">
+                                                        <div data-v-52d0a98f="" class="comment-review_btnGroup__1PqPh">
+                                                            <div data-v-52d0a98f="" class="comment-review_btn__32CMP"><a
+                                                                    (click)="onClickLikeReview(item.id, index)"
+                                                                    class="utility-meta_module__mfOnV "
+                                                                    [ngClass]="{'color-primary':userHasLikedReview(item)}"
+                                                                    btn-classes="'no-style'"
+                                                                    socials="facebook,twitter,linkedin,whatsapp"> <i
+                                                                        class="la la-thumbs-up"></i>
+                                                                    <span class="">Like</span>
+                                                                </a></div>
+                                                            <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
+                                                                <div data-v-52d0a98f=""
+                                                                    class="utility-meta_module__mfOnV"
+                                                                    icon="la la-share-square-o" btn-name="Share"><a
+                                                                        href="#" target="_self" class="'no-style'"> <i
+                                                                            class="color-primary la la-share"></i> <span
+                                                                            class="">Share</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="min-height: 100px;" data-v-52d0a98f="">
+                                                            <div>
+                                                                <ul *ngIf="item.comment_list.length > 0"
+                                                                    class="comment-review_commentlist__1LH_D list-none">
+                                                                    <li *ngFor="let comment of item.comment_list"
+                                                                        class="comment-review_commentlistItem__2DILM js-review-discussion-17459">
+                                                                        <div data-v-7b959e52="" class="">
+                                                                            <div
+                                                                                class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt utility-box-1_boxLeft__3iS6b clearfix">
+                                                                                <a data-v-7b959e52=""
+                                                                                    [ngStyle]="{'background-image': 'url(' + getReviewAvatar(comment.profile_photo) + ')'}"
+                                                                                    class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
+                                                                                    <img src="{{  comment.profile_photo | imageSrc : 'users' : 'thumb' }}"
+                                                                                        alt=""></a>
+                                                                                <div data-v-7b959e52=""
+                                                                                    class="utility-box-1_body__8qd9j">
+                                                                                    <div data-v-7b959e52=""
+                                                                                        class="utility-box-1_group__2ZPA2">
+                                                                                        <h3 data-v-7b959e52=""
+                                                                                            class="utility-box-1_title__1I925">
+                                                                                            <a data-v-7b959e52="">{{
+                                                                                                comment.display_name !=
+                                                                                                '' ?
+                                                                                                comment.display_name :
+                                                                                                comment.username }}</a>
+                                                                                        </h3>
+                                                                                        <div data-v-7b959e52=""
+                                                                                            class="utility-box-1_content__3jEL7">
+                                                                                            {{ comment.description }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div data-v-7b959e52=""
+                                                                                        class="utility-box-1_description__2VDJ6">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div *ngIf="isCommentEditClicked[comment.id]"
+                                                                                    class="comment-review_comment__dJNqv mt-10">
+                                                                                    <div
+                                                                                        class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
+                                                                                        <div class="field_wrap__Gv92k">
+                                                                                            <textarea #commentField
+                                                                                                (keyup)="onKeydownCommentField($event, item.id, comment.id)"
+                                                                                                data-height-default="22"
+                                                                                                class="field_field__3U_Rt">{{ comment.description }}</textarea>
+                                                                                            <span
+                                                                                                class="field_label__2eCP7 text-ellipsis">Type
+                                                                                                a message...</span>
+                                                                                            <span
+                                                                                                class="bg-color-primary"></span>
+                                                                                            <div
+                                                                                                class="field_rightButton__1GGWz js-field-rightButton active">
+                                                                                                <span
+                                                                                                    (click)="onSubmitComment(item.id, commentField.value, comment.id)"
+                                                                                                    class="field_iconButton__2p3sr bg-color-primary"><i
+                                                                                                        class="la la-arrow-up"></i></span>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="mt-10 pos-a review-cancel">
+                                                                                                <a (click)="onCloseCommentEdit(comment.id)"
+                                                                                                    title="Cancel"><i
+                                                                                                        class="la la-times-circle"></i></a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div *ngIf="userCanEditComment(comment)"
+                                                                                class="dropdown_module__J_Zpj">
+                                                                                <div (click)="isCommentDotsClicked[comment.id] = (isCommentDotsClicked[comment.id] ? false : true )"
+                                                                                    class="dropdown_threeDots__3fa2o">
+                                                                                    <span
+                                                                                        class="dropdown_dot__3I1Rn"></span>
+                                                                                    <span
+                                                                                        class="dropdown_dot__3I1Rn"></span>
+                                                                                    <span
+                                                                                        class="dropdown_dot__3I1Rn"></span>
+                                                                                </div>
+                                                                                <div [ngClass]="{'active':isCommentDotsClicked[comment.id]}"
+                                                                                    class="dropdown_itemsWrap__2fuze">
+                                                                                    <ul data-v-7b959e52=""
+                                                                                        class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                                                                                        has-wrap-for-icon="true">
+                                                                                        <li class="list_item__3YghP"><a
+                                                                                                (click)="onClickCommentEdit(comment.id)"
+                                                                                                class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                                                                                <span
+                                                                                                    class="list_icon__2YpTp"><i
+                                                                                                        class="la la-edit"></i></span>
+                                                                                                <span
+                                                                                                    class="list_text__35R07">Edit</span>
+                                                                                            </a></li>
+                                                                                        <li class="list_item__3YghP"><a
+                                                                                                (click)="onDeleteComment(comment.id)"
+                                                                                                class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                                                                                <span
+                                                                                                    class="list_icon__2YpTp"><i
+                                                                                                        class="la la-trash"></i></span>
+                                                                                                <span
+                                                                                                    class="list_text__35R07">Delete</span>
+                                                                                            </a></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="comment-review_form__20wWm">
+                                                                    <div
+                                                                        class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt d-inline-block mr-10 wil-float-left">
+                                                                        <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                                                            [ngStyle]="{'background-image': 'url('+ assetUrl +'/img/avatar-default.png)'}"><img
+                                                                                src="{{ assetUrl +'/img/avatar-default.png' }}"
+                                                                                alt=""></a>
+                                                                    </div>
+                                                                    <div class="comment-review_comment__dJNqv">
+                                                                        <div
+                                                                            class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
+                                                                            <div class="field_wrap__Gv92k">
+                                                                                <textarea #commentField
+                                                                                    (keyup)="onKeydownCommentField($event, item.id)"
+                                                                                    data-height-default="22"
+                                                                                    class="field_field__3U_Rt"></textarea>
+                                                                                <span
+                                                                                    class="field_label__2eCP7 text-ellipsis">Type
+                                                                                    a message...</span> <span
+                                                                                    class="bg-color-primary"></span>
+                                                                                <div
+                                                                                    class="field_rightButton__1GGWz js-field-rightButton">
+                                                                                    <span
+                                                                                        (click)="onSubmitComment(item.id, commentField.value)"
+                                                                                        class="field_iconButton__2p3sr bg-color-primary"><i
+                                                                                            class="la la-arrow-up"></i></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wil-colSmall js-sticky">
+                                    <div>
+                                        <div class="content-box_module__333d9">
+                                            <header class="content-box_header__xPnGx clearfix">
+                                                <div class="wil-float-left">
+                                                    <h4 class="content-box_title__1gBHS"><i class="la la-star-o"></i>
+                                                        <span><span class="color-primary">{{ listing.avg_rating }}
+                                                                average for </span> <span> {{ listing.title
+                                                                }}</span></span>
+                                                    </h4>
+                                                </div>
+                                            </header>
+                                            <div class="content-box_body__3tSRB">
+                                                <div class="rated-info-group_module__20kAf">
+                                                    <div class="rated-info-group_body__2yvB5">
+                                                        <div class="rated-info_module__KsMQP">
+                                                            <div class="rated-info_title__2Oido">How Would You Rate This
+                                                                Business?</div>
+                                                            <div class="rated-info_wrap__AI5nf">
+                                                                <div class="rated-info_progressBar__1pCWE">
+                                                                    <div class="rated-info_bar__1T7U7"
+                                                                        [ngStyle]="{'left': listing.avg_rating * 10 + '%'}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="rated-info_overallRating__1Js4A">{{
+                                                                listing.avg_rating }}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rated-info-group_footer__2mcef">
+                                                        <h3>Average Rating</h3>
+                                                        <div
+                                                            class="rated-small_module__1vw2B rated-info-group_rated__29vEF pos-a-center-right">
+                                                            <div [attr.data-rated]="listing.avg_rating"
+                                                                class="rated-small_wrap__2Eetz">
+                                                                <div class="rated-small_overallRating__oFmKR">{{
+                                                                    listing.avg_rating }}</div>
+                                                                <div class="rated-small_ratingWrap__3lzhB">
+                                                                    <div class="rated-small_maxRating__2D9mI">10</div>
+                                                                    <div class="rated-small_ratingOverview__2kCI_">
+                                                                        {{ fnReviewComment(listing.avg_rating) }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a *ngIf="currentUserCanReview;else tmpUserCanEditReview"
+                                            (click)="openReviewModal()"
+                                            class="wil-btn wil-btn--primary wil-btn--round wil-btn--md wil-btn--block">
+                                            <span class="">Add review</span>
+                                        </a>
+                                        <ng-template #tmpUserCanEditReview>
+                                            <a (click)="openReviewModal(currentUserReview)"
+                                                class="wil-btn wil-btn--primary wil-btn--round wil-btn--md wil-btn--block">
+                                                <span class="">Edit review</span>
+                                            </a>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
+
         </div>
+
+
+
         <div class="btn-group-fixed_module__3qULF pos-f-right-bottom text-right">
             <a *ngIf="showEditButton" id="wil-edit-listing-btn" [routerLink]="['/listing/edit/'+listing_slug]"
                 class="wil-btn wil-btn--secondary wil-btn--round wil-btn--md wil-edit-listing-btn"><i
