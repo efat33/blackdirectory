@@ -15,7 +15,7 @@ export class HelperService {
   siteUrl: string;
   assetUrl = 'http://localhost:4200/assets';
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
     this.setApiUrl();
     this.setSiteUrl();
     this.setCurrentUserInfo();
@@ -35,12 +35,6 @@ export class HelperService {
     } else {
       this.siteUrl = `http://localhost:4200`;
     }
-  }
-
-  getClientIP() {
-    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
-      return res.ip;
-    });
   }
 
   moveItemInFormArray(
@@ -147,7 +141,7 @@ export class HelperService {
   isAdminOrEmployer() {
     return this.isAdmin() || this.isEmployer();
   }
-  
+
   dateTimeNow() {
     const currentdate = new Date();
 

@@ -28,8 +28,8 @@ export class NewsService {
     return this.httpClient.post<any>(url, JSON.stringify(filter), this.headerOptions);
   }
 
-  getSingleNews(newsId: number): Observable<any> {
-    const url = `api/news/get-news/${newsId}`;
+  getSingleNews(newsIdOrSlug: any): Observable<any> {
+    const url = `api/news/get-news/${newsIdOrSlug}`;
 
     return this.httpClient.get<any>(url, this.headerOptions);
   }
@@ -84,6 +84,36 @@ export class NewsService {
 
   updateTopNews(body: any): Observable<any> {
     const url = `api/news/update-top-news`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  addNewComment(body: any) {
+    const url = `api/news/add-comment`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteNewsComment(commentId: number): Observable<any> {
+    const url = `api/news/delete-comment/${commentId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
+  updateNewsComment(commentId: number, body: any): Observable<any> {
+    const url = `api/news/update-comment/${commentId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  getUserCommentLikes(userId: string | number): Observable<any> {
+    const url = `api/news/get-comment-likes/${userId}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  updateCommentLike(body: any) {
+    const url = `api/news/update-comment-like/`;
 
     return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
   }

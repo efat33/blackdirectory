@@ -25,6 +25,7 @@
 ::ng-deep .article-body {
   font-size: 16px;
   line-height: 23px;
+  margin-bottom: 20px;
 
   a {
     color: var(--color-primary);
@@ -39,10 +40,26 @@
   padding: 5px 0;
 }
 
+.comment-reply .dropdown_module__J_Zpj {
+	position: absolute;
+	top: 18px;
+	right: 20px;
+}
 
+.comment-review_commentlistItem__2DILM {
+  padding: 15px 50px 10px 20px;
+}
 
+.review-cancel {
+  line-height: 1.78;
+}
 
-
+.edit-comment-field {
+  padding: 5px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
 
 
 

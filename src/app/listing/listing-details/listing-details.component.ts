@@ -30,7 +30,7 @@ export class ListingDetailsComponent implements OnInit {
   assetUrl: string;
 
   subscriptions: Subscription = new Subscription();
-  
+
   listing_slug:string;
   showEditButton:boolean = false;
   showSubmitButton:boolean = false;
@@ -93,8 +93,12 @@ export class ListingDetailsComponent implements OnInit {
     this.siteUrl = this.helperservice.siteUrl;
     this.assetUrl = this.helperservice.assetUrl;
 
-    // set client ip address 
-    this.clientIP = this.helperservice.getClientIP();
+    // set client ip address
+    const ipSub = this.userService.clientIp.subscribe((ip: string) => {
+      this.clientIP = ip;
+    });
+
+    this.subscriptions.add(ipSub);
 
     // get the today weekday to calculate if today is open or not
     const today = new Date();
@@ -104,16 +108,16 @@ export class ListingDetailsComponent implements OnInit {
     this.listing_slug = this.activatedRoute.snapshot.paramMap.get('slug');
     if (this.listing_slug != null) {
       this.spinnerService.show();
-      
+
       const subscriptionGetlisting = this.listingService.getListing(this.listing_slug).subscribe(
         (res:any) => {
-          
+
           this.listing = res.data.listing;
           this.listing_categories = res.data.categories;
           this.listing_contact = res.data.contacts;
           this.listing_hours = res.data.hours;
           this.listing_menus = res.data.menus;
-          
+
           // set images path
           this.setImagesPath();
           this.isTodayOpen = this.calTodayOpen();
@@ -124,11 +128,11 @@ export class ListingDetailsComponent implements OnInit {
           // set video urls
           this.setVideoUrls();
 
-          // set coupon data 
+          // set coupon data
           this.setCoupon();
 
           // display edit or submit button
-          if(this.helperservice.isUserLoggedIn() && (this.helperservice.currentUserInfo.id == res.data.listing.user_id || this.helperservice.currentUserInfo.id == res.data.listing.claimer_id) ){
+          if(this.helperservice.isUserLoggedIn() && (this.helperservice.currentUserInfo?.id == res.data.listing.user_id || this.helperservice.currentUserInfo?.id == res.data.listing.claimer_id) ){
             this.showEditButton = true;
             if(res.data.listing.status == 'draft') this.showSubmitButton = true;
           }
@@ -138,14 +142,14 @@ export class ListingDetailsComponent implements OnInit {
 
           // get listing reviews
           this.setListingReviews();
-  
+
         },
         (res:any) => {
           this.spinnerService.hide();
           // TODO: redirect to 404 page
         }
       );
-  
+
       this.subscriptions.add(subscriptionGetlisting);
 
     }
@@ -173,32 +177,32 @@ export class ListingDetailsComponent implements OnInit {
           (res:any) => {
 
             this.setListingReviews();
-        
+
           },
           (res:any) => {
-            
+
           }
         );
-        
+
         this.subscriptions.add(subscriptionDeleteComment);
       }
     });
 
     this.subscriptions.add(dialogCloseSubscription);
-    
-    
+
+
   }
 
   onSubmitComment(review_id, comment, comment_id = '') {
 
     const data = {
       'listing_id': this.listing.id,
-      'user_id': this.helperservice.currentUserInfo.id,
+      'user_id': this.helperservice.currentUserInfo?.id,
       'review_id': review_id,
       'comment': comment,
       'comment_id': comment_id
     }
-    
+
     const subscriptionSubmitComment = this.listingService.submitComment(data).subscribe(
       (res:any) => {
         if(res.status != 200){
@@ -216,14 +220,14 @@ export class ListingDetailsComponent implements OnInit {
         this.snackbar.openSnackBar(res.error.message, 'Close', 'warn');
       }
     );
-    
+
     this.subscriptions.add(subscriptionSubmitComment);
 
-    
+
   }
 
   onKeydownCommentField(event, review_id = '', comment_id = '') {
-    
+
     const comment = event.target.value;
     const textarea = event.target;
     const textarea_wrapper = textarea.closest(".field_module__1H6kT");
@@ -238,7 +242,7 @@ export class ListingDetailsComponent implements OnInit {
       textarea_wrapper.classList.remove("active");
       btn_comment_submit.classList.remove("active");
     }
-    
+
     // submit comment
     if (event.key === "Enter") {
 
@@ -249,7 +253,7 @@ export class ListingDetailsComponent implements OnInit {
       textarea_wrapper.classList.remove("active");
       btn_comment_submit.classList.remove("active");
     }
-    
+
   }
 
   onDeleteReview(review_id:number) {
@@ -262,27 +266,27 @@ export class ListingDetailsComponent implements OnInit {
       if (result) {
         const subscriptionDeleteReview = this.listingService.deleteReview(review_id).subscribe(
           (res:any) => {
-        
+
             this.setListingReviews();
-        
+
           },
           (res:any) => {
-            
+
           }
         );
-        
+
         this.subscriptions.add(subscriptionDeleteReview);
       }
     });
 
     this.subscriptions.add(dialogCloseSubscription);
-    
-    
+
+
   }
 
   onClickLikeReview(review_id, index) {
-    const user_id = this.helperservice.currentUserInfo.id ? this.helperservice.currentUserInfo.id : this.clientIP;
-    
+    const user_id = this.helperservice.currentUserInfo?.id ? this.helperservice.currentUserInfo?.id : this.clientIP;
+
     const data = {
       'review_id': review_id,
       'listing_id': this.listing.id,
@@ -298,9 +302,9 @@ export class ListingDetailsComponent implements OnInit {
 
       }
     );
-    
+
     this.subscriptions.add(subscriptionLikeReview);
-    
+
 
   }
 
@@ -308,7 +312,7 @@ export class ListingDetailsComponent implements OnInit {
     if(image) {
       return this.helperservice.getImageUrl(image, 'users', 'thumb');
     }
-    
+
     return this.assetUrl + '/img/avatar-default.png';
   }
 
@@ -316,28 +320,28 @@ export class ListingDetailsComponent implements OnInit {
 
     const review = this.listing_reviews.find(r => r.id == review_id);
 
-    if(review.user_id == this.helperservice.currentUserInfo.id) return true;
+    if(review.user_id == this.helperservice.currentUserInfo?.id) return true;
 
     return false;
   }
 
   userCanEditComment(comment:any):boolean {
 
-    if(comment.user_id == this.helperservice.currentUserInfo.id) return true;
+    if(comment.user_id == this.helperservice.currentUserInfo?.id) return true;
 
     return false;
   }
 
   userHasLikedReview(review:any):boolean {
-    
+
     if(review.like_list.length == 0) return false;
 
     const likes = review.like_list;
 
-    const user_id = this.helperservice.currentUserInfo.id ? this.helperservice.currentUserInfo.id : this.clientIP;
+    const user_id = this.helperservice.currentUserInfo?.id ? this.helperservice.currentUserInfo?.id : this.clientIP;
 
     const like = likes.find(l => l.user_id == user_id);
-    
+
     if(like) return true;
 
     return false;
@@ -348,11 +352,11 @@ export class ListingDetailsComponent implements OnInit {
   }
 
   setListingReviews() {
-    
+
     const subscriptionListingReviews = this.listingService.getReviews(this.listing.id).subscribe(
       (res:any) => {
         this.listing_reviews = res.data;
-        
+
         // update average listing review
         if(this.listing_reviews.length > 0){
           let total_rating = this.listing_reviews.reduce( (accumulator, currentValue) => accumulator + currentValue.rating, 0);
@@ -365,23 +369,23 @@ export class ListingDetailsComponent implements OnInit {
         this.doReviewCalculation();
       },
       (res:any) => {
-        
+
       }
     );
-    
+
     this.subscriptions.add(subscriptionListingReviews);
   }
 
   doReviewCalculation() {
 
     // check if current user has already posted review
-    const user_id = this.helperservice.currentUserInfo.id;
+    const user_id = this.helperservice.currentUserInfo?.id;
     const currentUserReview = this.listing_reviews.filter(review => review.user_id == user_id);
-    
+
     if(currentUserReview.length > 0){
       this.currentUserReview = currentUserReview[0];
       this.currentUserCanReview = false;
-    } 
+    }
     else{
       this.currentUserCanReview = true;
     }
@@ -390,25 +394,25 @@ export class ListingDetailsComponent implements OnInit {
 
   openReviewModal(review:any = ''): void {
 
-    // check if the user is logged in 
+    // check if the user is logged in
     this.userService.isAuthenticated().then(
       (res) => {
         this.dialogReview = this.dialog.open(ListingReviewModal, {
           width: '600px',
-          data: { listing_id: this.listing.id, user_id: this.helperservice.currentUserInfo.id, review: review}
+          data: { listing_id: this.listing.id, user_id: this.helperservice.currentUserInfo?.id, review: review}
         });
 
         this.dialogReview.afterClosed().subscribe((result) => {
-          // update review data 
+          // update review data
           this.setListingReviews();
 
-          // hide tooltip edit/delete 
+          // hide tooltip edit/delete
           if(review){
             this.currentUserReview = review;
             this.isReviewDotsClicked[review.id] = false;
           }
         });
-    
+
         this.subscriptions.add(this.dialogReview);
 
       },
@@ -418,7 +422,7 @@ export class ListingDetailsComponent implements OnInit {
         });
       }
     );
-    
+
   }
 
   onChangeTab(tab:string = 'home') {
@@ -434,7 +438,7 @@ export class ListingDetailsComponent implements OnInit {
 
   setCoupon() {
 
-    // first check if coupon expiry date exists and greated than today 
+    // first check if coupon expiry date exists and greated than today
     if(this.listing.coupon_expiry_date == ''){
       this.listing_coupon.valid = false;
       return;
@@ -447,7 +451,7 @@ export class ListingDetailsComponent implements OnInit {
       this.listing_coupon.valid = false;
       return;
     }
-    
+
     // coupon is available
     this.listing_coupon.valid = true;
     this.listing_coupon.title = this.listing.coupon_title;
@@ -508,7 +512,7 @@ export class ListingDetailsComponent implements OnInit {
           medium: this.helperservice.getImageUrl(item, 'listing', 'medium'),
           big: this.helperservice.getImageUrl(item, 'listing')
         }
-  
+
         this.listing_galleries.push(obj);
       }
     }
@@ -519,7 +523,7 @@ export class ListingDetailsComponent implements OnInit {
     const hours = d.getUTCHours();
     const mins = d.getUTCMinutes();
     const listing_time = this.listing_hours[this.current_weekday];
-    
+
     if (listing_time.is_open != 1) return false;
 
     const first_start_hour = listing_time.first_hour_start.split(':')[0];
@@ -527,7 +531,7 @@ export class ListingDetailsComponent implements OnInit {
     const first_end_hour = listing_time.first_hour_end.split(':')[0];
     const first_end_minute = listing_time.first_hour_end.split(':')[1];
 
-    if( ( first_start_hour < hours || (first_start_hour == hours && first_start_minute <= mins) ) && 
+    if( ( first_start_hour < hours || (first_start_hour == hours && first_start_minute <= mins) ) &&
       (hours < first_end_hour || hours == first_end_hour && mins <= first_end_minute) ){
         return true;
     }
@@ -538,9 +542,9 @@ export class ListingDetailsComponent implements OnInit {
       const end_hour = listing_time.second_hour_end.split(':')[0];
       const end_minute = listing_time.second_hour_end.split(':')[1];
 
-      if( ( start_hour < hours || (start_hour == hours && start_minute <= mins) ) && 
+      if( ( start_hour < hours || (start_hour == hours && start_minute <= mins) ) &&
         (hours < end_hour || hours == end_hour && mins <= end_minute) ){
-          
+
           return true;
       }
 
@@ -572,7 +576,7 @@ export class ListingDetailsComponent implements OnInit {
         this.snackbar.openSnackBar(res.error.message, 'Close', 'warn');
       }
     );
-  
+
     this.subscriptions.add(subscriptionPublishListing);
 
   }
@@ -581,12 +585,12 @@ export class ListingDetailsComponent implements OnInit {
 
     if(this.listing_owner && Object.keys(this.listing_owner).length == 0){
       this.spinnerService.show();
-      
+
       const subscriptionListingOwner = this.userService.getDetailsByID(this.listing.user_id).subscribe(
         (res:any) => {
-      
+
           this.spinnerService.hide();
-          
+
           this.listing_owner = res.data.data;
           this.dialog.open(ContactOwnerModal, {
             width: '550px',
@@ -597,7 +601,7 @@ export class ListingDetailsComponent implements OnInit {
           this.spinnerService.hide();
         }
       );
-      
+
       this.subscriptions.add(subscriptionListingOwner);
     }
     else{
@@ -608,7 +612,7 @@ export class ListingDetailsComponent implements OnInit {
     }
 
   }
-  
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
