@@ -7,7 +7,7 @@ import { HelperService } from './helper.service';
 export class imageSrc implements PipeTransform {
   constructor(private helperService: HelperService) {}
 
-  transform(value: string, folder: string, imgSize: string): string {
+  transform(value: string, folder: string, imgSize: string = null): string {
     const size = imgSize ? imgSize : 'full';
 
     let image = value;

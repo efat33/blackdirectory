@@ -68,6 +68,9 @@ import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
+import { ShareModule } from 'ngx-sharebuttons';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 
 @NgModule({
@@ -137,6 +140,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    ShareModule,
+    ShareButtonsModule,
+    ShareIconsModule,
   ],
   exports: [
     FormsModule,
@@ -181,6 +187,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    ShareModule,
+    ShareButtonsModule,
+    ShareIconsModule,
   ],
   entryComponents: [
     RegistrationModal,
