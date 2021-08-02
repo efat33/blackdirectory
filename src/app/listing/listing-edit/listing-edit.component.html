@@ -148,7 +148,7 @@
                                         <mat-label>Description</mat-label>
                                         <textarea matInput rows="5" formControlName="description"></textarea>
                                     </mat-form-field> -->
-                                    <ckeditor [editor]="ckEditor" [config]="ckConfig" formControlName="description">
+                                    <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)" formControlName="description">
                                     </ckeditor>
                                 </div>
                             </div>

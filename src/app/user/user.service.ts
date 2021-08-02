@@ -5,6 +5,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { UserAPIReponse } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { InterceptorService } from '../interceptor.service';
 
 @Injectable({
   providedIn: 'root',
@@ -79,8 +80,17 @@ export class UserService {
   clickedRegisterLinkModal: EventEmitter<any> = new EventEmitter();
   clickedLoginLinkModal: EventEmitter<any> = new EventEmitter();
 
-  constructor(private httpClient: HttpClient, private router: Router, private auth: AngularFireAuth) {
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private auth: AngularFireAuth,
+    private interceptorService: InterceptorService
+  ) {
     this.getClientIP();
+
+    this.interceptorService.logout.subscribe(() => {
+      this.logout();
+    });
   }
 
   getClientIP() {
@@ -120,8 +130,7 @@ export class UserService {
   getDetailsByID(id: string): Observable<UserAPIReponse> {
     const url = `api/users/user-details-by-id/${id}`;
 
-    return this.httpClient
-      .get<UserAPIReponse>(url, this.headerOptions);
+    return this.httpClient.get<UserAPIReponse>(url, this.headerOptions);
   }
 
   logout(): void {
