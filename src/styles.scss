@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'theme.scss';
 @import "~nouislider/dist/nouislider.min.css";
-
+@import '~ngx-sharebuttons/themes/material/material-dark-theme';
 
 .section-wrapper {
     padding-top: 55px;
@@ -377,6 +377,24 @@ ul.page-numbers .current {
 .mat-icon {
   font-family: 'Material Icons' !important;
 }
+
+.selectSearch {
+  padding: 16px;
+  width: calc(100% - 32px);
+}
+
+.inner-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  width: 100%;
+
+  i {
+    font-size: 50px;
+  }
+}
+
 /*
     Angular Material is using transform: translate3d(0,0,0); in components styles. Unfortunately transform changes positioning context and 
     preview won't work properly. To avoid this situation material styles needs to be overriden

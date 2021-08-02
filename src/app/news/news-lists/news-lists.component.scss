@@ -190,7 +190,7 @@ body .home .bdrcc,
 body .home .linkro-bdrcc:hover,
 body .home a.link-bdrcc,
 body .home a:hover .linkro-bdrcc {
-  border: 1px solid #004db3;
+  border: 1px solid var(--color-primary);
 }
 
 .ccox,
@@ -199,7 +199,7 @@ body .home a:hover .linkro-bdrcc {
 body .home .ccox,
 body .home .link-ccox a,
 body .home .linkro-ccox a:hover {
-  color: #004db3;
+  color: var(--color-primary);
 }
 
 .gradient-split h6,
@@ -313,6 +313,9 @@ body .home .linkro-ccox a:hover {
 
 .puff img {
   float: right;
+  max-height: 115px;
+  max-width: 154px;
+  object-fit: contain;
 }
 
 .puff a .pufftext {
@@ -330,7 +333,8 @@ body .home .linkro-ccox a:hover {
   color: var(--color-primary);
 }
 
-.arrow-small-l, .arrow-small-r {
+.arrow-small-l,
+.arrow-small-r {
   display: inline-block;
   height: 0;
   font-size: 1em;
@@ -346,15 +350,23 @@ body .home .linkro-ccox a:hover {
   border-top: 5px solid transparent;
 }
 
-.arrow-large-d, .arrow-large-l, .arrow-large-r, .arrow-large-u, .arrow-small-d, .arrow-small-l, .arrow-small-r, .arrow-small-u {
+.arrow-large-d,
+.arrow-large-l,
+.arrow-large-r,
+.arrow-large-u,
+.arrow-small-d,
+.arrow-small-l,
+.arrow-small-r,
+.arrow-small-u {
   float: left;
 }
 
 .puff a .arrow-small-r {
-  color: #004db3;
+  color: var(--color-primary);
 }
 
-.puff .linkro-wocc a:hover strong, .puff .alt-wodg strong {
+.puff .linkro-wocc a:hover strong,
+.puff .alt-wodg strong {
   color: #fff;
 }
 
@@ -362,6 +374,43 @@ body .home .linkro-ccox a:hover {
   color: #fff;
 }
 
+.link-wocc a,
+.linkro-wocc a:hover,
+.wocc {
+  color: #fff;
+  background-color: var(--color-primary);
+}
 
+.gradient-split {
+  padding: 5px 0;
+  position: relative;
+  overflow: hidden;
+}
 
+.gradient-split h6,
+.thick-split h6,
+.thin-split h6 {
+  font-size: 1.4em;
+  padding: 3px 5px 1px;
+  color: #ffffff;
+  font-weight: 600;
+}
 
+.gradient-split div {
+  background-image: url('/assets/img/whiteGradient.png');
+  background-position: 100% 0;
+  background-repeat: repeat-y;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 180px;
+}
+
+.article.article-small .articletext img {
+  float: left;
+  margin: 0 8px 5px 0;
+  max-height: 115px;
+  max-width: 154px;
+  object-fit: contain;
+}
