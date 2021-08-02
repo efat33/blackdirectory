@@ -5,7 +5,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subscription } from 'rxjs';
 import { ListingService } from '../listing.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -159,7 +159,7 @@ export class ListingEditComponent implements OnInit {
     { value: '23:45', viewValue: '23:45'},
   ];
 
-  ckEditor = ClassicEditor;
+  ckEditor = DocumentEditor;
   ckConfig = {
     placeholder: 'Job Description',
     height: 200,
@@ -210,7 +210,7 @@ export class ListingEditComponent implements OnInit {
   progressGalleryImages = {}
   menuItemImages = []
   progressMenuImages = {}
-  
+
   constructor(
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
@@ -230,27 +230,27 @@ export class ListingEditComponent implements OnInit {
   ngOnInit() {
 
     this.listing_slug = this.activatedRoute.snapshot.paramMap.get('slug');
-    
+
     // check user authentication first
     this.userService.checkAuthentication();
 
     // initialise form data
     this.setupFormData();
-    
+
     // retrieve the listing
     this.spinnerService.show();
 
     const subscriptionGetlisting = this.listingService.getListing(this.listing_slug).subscribe(
       (res:any) => {
-        
+
         this.listing = res.data;
-        
+
         // redirect to home page if listing user_id OR claimer_id not equal to current user id
-        if(this.helperservice.currentUserInfo.id != this.listing.listing.user_id || 
+        if(this.helperservice.currentUserInfo.id != this.listing.listing.user_id ||
           this.helperservice.currentUserInfo.id != this.listing.listing.claimer_id){
             this.router.navigate(['home']);
         }
-        
+
         this.populateFormData();
         this.spinnerService.hide();
 
@@ -265,6 +265,12 @@ export class ListingEditComponent implements OnInit {
     this.subscriptions.add(subscriptionGetlisting);
 
 
+  }
+
+  onCkeditorReady(editor: DocumentEditor): void {
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
   }
 
   populateFormData() {
@@ -367,7 +373,7 @@ export class ListingEditComponent implements OnInit {
         tiktok: contact.tiktok,
         twitter: contact.twitter,
         linkedin: contact.linkedin,
-  
+
       });
     }
 
@@ -411,12 +417,12 @@ export class ListingEditComponent implements OnInit {
 
       // set monday hour
       const monday = this.listing.hours[0];
-      
-      const groupMonday = this.listingForm.get('businsessHourMonday') as FormGroup;     
+
+      const groupMonday = this.listingForm.get('businsessHourMonday') as FormGroup;
       const groupMondayTimes = groupMonday.get('times') as FormArray;
       groupMonday.get('is_open').patchValue(monday.is_open);
       groupMonday.get('id').patchValue(monday.id);
-      
+
       (groupMondayTimes.controls[0] as FormGroup).get('open').patchValue(monday.first_hour_start);
       (groupMondayTimes.controls[0] as FormGroup).get('closes').patchValue(monday.first_hour_end);
 
@@ -433,12 +439,12 @@ export class ListingEditComponent implements OnInit {
 
       // set tuesday hour
       const tuesday = this.listing.hours[1];
-      
-      const groupTuesday = this.listingForm.get('businsessHourTuesday') as FormGroup;     
+
+      const groupTuesday = this.listingForm.get('businsessHourTuesday') as FormGroup;
       const groupTuesdayTimes = groupTuesday.get('times') as FormArray;
       groupTuesday.get('id').patchValue(tuesday.id);
       groupTuesday.get('is_open').patchValue(tuesday.is_open);
-      
+
       (groupTuesdayTimes.controls[0] as FormGroup).get('open').patchValue(tuesday.first_hour_start);
       (groupTuesdayTimes.controls[0] as FormGroup).get('closes').patchValue(tuesday.first_hour_end);
 
@@ -455,12 +461,12 @@ export class ListingEditComponent implements OnInit {
 
       // set wednesday hour
       const wednesday = this.listing.hours[2];
-      
-      const groupWednesday = this.listingForm.get('businsessHourWednesday') as FormGroup;     
+
+      const groupWednesday = this.listingForm.get('businsessHourWednesday') as FormGroup;
       const groupWednesdayTimes = groupWednesday.get('times') as FormArray;
       groupWednesday.get('id').patchValue(wednesday.id);
       groupWednesday.get('is_open').patchValue(wednesday.is_open);
-      
+
       (groupWednesdayTimes.controls[0] as FormGroup).get('open').patchValue(wednesday.first_hour_start);
       (groupWednesdayTimes.controls[0] as FormGroup).get('closes').patchValue(wednesday.first_hour_end);
 
@@ -476,12 +482,12 @@ export class ListingEditComponent implements OnInit {
 
       // set thursday hour
       const thursday = this.listing.hours[3];
-      
-      const groupThursday = this.listingForm.get('businsessHourThursday') as FormGroup;     
+
+      const groupThursday = this.listingForm.get('businsessHourThursday') as FormGroup;
       const groupThursdayTimes = groupThursday.get('times') as FormArray;
       groupThursday.get('id').patchValue(thursday.id);
       groupThursday.get('is_open').patchValue(thursday.is_open);
-      
+
       (groupThursdayTimes.controls[0] as FormGroup).get('open').patchValue(thursday.first_hour_start);
       (groupThursdayTimes.controls[0] as FormGroup).get('closes').patchValue(thursday.first_hour_end);
 
@@ -497,12 +503,12 @@ export class ListingEditComponent implements OnInit {
 
       // set friday hour
       const friday = this.listing.hours[4];
-      
-      const groupFriday = this.listingForm.get('businsessHourFriday') as FormGroup;     
+
+      const groupFriday = this.listingForm.get('businsessHourFriday') as FormGroup;
       const groupFridayTimes = groupFriday.get('times') as FormArray;
       groupFriday.get('id').patchValue(friday.id);
       groupFriday.get('is_open').patchValue(friday.is_open);
-      
+
       (groupFridayTimes.controls[0] as FormGroup).get('open').patchValue(friday.first_hour_start);
       (groupFridayTimes.controls[0] as FormGroup).get('closes').patchValue(friday.first_hour_end);
 
@@ -518,12 +524,12 @@ export class ListingEditComponent implements OnInit {
 
       // set saturday hour
       const saturday = this.listing.hours[5];
-      
-      const groupSaturday = this.listingForm.get('businsessHourSaturday') as FormGroup;     
+
+      const groupSaturday = this.listingForm.get('businsessHourSaturday') as FormGroup;
       const groupSaturdayTimes = groupSaturday.get('times') as FormArray;
       groupSaturday.get('id').patchValue(saturday.id);
       groupSaturday.get('is_open').patchValue(saturday.is_open);
-      
+
       (groupSaturdayTimes.controls[0] as FormGroup).get('open').patchValue(saturday.first_hour_start);
       (groupSaturdayTimes.controls[0] as FormGroup).get('closes').patchValue(saturday.first_hour_end);
 
@@ -539,12 +545,12 @@ export class ListingEditComponent implements OnInit {
 
       // set sunday hour
       const sunday = this.listing.hours[6];
-      
-      const groupSunday = this.listingForm.get('businsessHourSunday') as FormGroup;     
+
+      const groupSunday = this.listingForm.get('businsessHourSunday') as FormGroup;
       const groupSundayTimes = groupSunday.get('times') as FormArray;
       groupSunday.get('id').patchValue(sunday.id);
       groupSunday.get('is_open').patchValue(sunday.is_open);
-      
+
       (groupSundayTimes.controls[0] as FormGroup).get('open').patchValue(sunday.first_hour_start);
       (groupSundayTimes.controls[0] as FormGroup).get('closes').patchValue(sunday.first_hour_end);
 
@@ -560,12 +566,12 @@ export class ListingEditComponent implements OnInit {
 
 
     }
-    
+
 
 
   }
 
-  
+
 
   setupFormData() {
     this.listingForm = new FormGroup({
@@ -690,8 +696,8 @@ export class ListingEditComponent implements OnInit {
           })
         ])
       }),
-      
-      
+
+
     });
   }
 
@@ -704,10 +710,10 @@ export class ListingEditComponent implements OnInit {
     if(this.listingForm.invalid) return;
 
     const formData = this.listingForm.value;
-  
+
     // remove timezone from date, using moment
     formData.coupon_expiry_date = moment(formData.coupon_expiry_date).format("YYYY-MM-DD HH:mm:ss");
-    
+
     // console.log(formData);
     // return;
     this.spinnerService.show();
@@ -732,7 +738,7 @@ export class ListingEditComponent implements OnInit {
         else{
             this.errorMessage.push(res.error.message);
         }
-        
+
         this.showError = true;
         this.spinnerService.hide();
       }
@@ -812,7 +818,7 @@ export class ListingEditComponent implements OnInit {
   // remove fields from restaurants items FormArray
   removeRestaurantMenuItem(resIndex: number, itemIndex: number) {
     const resGroup =  (this.listingForm.get('restaurants') as FormArray ).at(resIndex) as FormGroup;
-    (resGroup.get('items') as FormArray ).removeAt(itemIndex); 
+    (resGroup.get('items') as FormArray ).removeAt(itemIndex);
   }
 
   // add fields to restaurants FormArray
@@ -838,16 +844,16 @@ export class ListingEditComponent implements OnInit {
 
   // remove fields from restaurants FormArray
   removeRestaurantMenu(index: number) {
-    (this.listingForm.get('restaurants') as FormArray ).removeAt(index); 
+    (this.listingForm.get('restaurants') as FormArray ).removeAt(index);
   }
 
   onMenuItemImageChange(event, imageSrc:string, menuNumber:any, itemNumber:any) {
-    
+
     // reset validation
     this.formCustomvalidation.menuImage[imageSrc] = false;
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -857,7 +863,7 @@ export class ListingEditComponent implements OnInit {
         this.formCustomvalidation.menuImage[imageSrc] = true;
         return;
       }
-      
+
       this.menuItemImages[imageSrc] = URL.createObjectURL(file);
 
       // send image to the server
@@ -866,7 +872,7 @@ export class ListingEditComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'listing').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressMenuImages[imageSrc] = Math.round(event.loaded / event.total * 100);
@@ -889,7 +895,7 @@ export class ListingEditComponent implements OnInit {
         }
 
       });
-   
+
     }
 
 
@@ -897,7 +903,7 @@ export class ListingEditComponent implements OnInit {
 
   // remove url field from video_urls FormArray
   removeVideoURLs(index: number) {
-    (this.listingForm.get('video_urls') as FormArray ).removeAt(index); 
+    (this.listingForm.get('video_urls') as FormArray ).removeAt(index);
   }
 
   // add url field to video_urls FormArray
@@ -911,7 +917,7 @@ export class ListingEditComponent implements OnInit {
     this.formCustomvalidation.logo.validated = true;
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -922,7 +928,7 @@ export class ListingEditComponent implements OnInit {
         this.formCustomvalidation.logo.message = res.message;
         return;
       }
-      
+
       this.logoImageSrc = URL.createObjectURL(file);
 
       // send image to the server
@@ -931,7 +937,7 @@ export class ListingEditComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'listing').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressLogo = Math.round(event.loaded / event.total * 100);
@@ -954,7 +960,7 @@ export class ListingEditComponent implements OnInit {
         }
 
       });
-   
+
     }
 
 
@@ -966,7 +972,7 @@ export class ListingEditComponent implements OnInit {
     this.formCustomvalidation.coverImage.validated = true;
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -977,7 +983,7 @@ export class ListingEditComponent implements OnInit {
         this.formCustomvalidation.coverImage.message = res.message;
         return;
       }
-      
+
       this.coverImageSrc = URL.createObjectURL(file);
 
       // send image to the server
@@ -986,7 +992,7 @@ export class ListingEditComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'listing').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressCoverImg = Math.round(event.loaded / event.total * 100);
@@ -1009,7 +1015,7 @@ export class ListingEditComponent implements OnInit {
         }
 
       });
-   
+
     }
 
   }
@@ -1019,7 +1025,7 @@ export class ListingEditComponent implements OnInit {
     this.formCustomvalidation.featuredImage.validated = true;
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -1030,7 +1036,7 @@ export class ListingEditComponent implements OnInit {
         this.formCustomvalidation.featuredImage.message = res.message;
         return;
       }
-      
+
       this.featuredImageSrc = URL.createObjectURL(file);
 
       // send image to the server
@@ -1039,7 +1045,7 @@ export class ListingEditComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'listing').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressFeaturedImg = Math.round(event.loaded / event.total * 100);
@@ -1062,17 +1068,17 @@ export class ListingEditComponent implements OnInit {
         }
 
       });
-   
+
     }
 
   }
-  
+
   onCouponImageChange(event) {
 
     this.formCustomvalidation.couponImage.validated = true;
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -1083,7 +1089,7 @@ export class ListingEditComponent implements OnInit {
         this.formCustomvalidation.couponImage.message = res.message;
         return;
       }
-      
+
       this.couponImageSrc = URL.createObjectURL(file);
 
       // send image to the server
@@ -1092,7 +1098,7 @@ export class ListingEditComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'listing').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressCouponImg = Math.round(event.loaded / event.total * 100);
@@ -1115,17 +1121,17 @@ export class ListingEditComponent implements OnInit {
         }
 
       });
-   
+
     }
   }
 
   onGalleryImageChange(event, imageSrc) {
-    
+
     // reset validation
     this.formCustomvalidation.galleryImage[imageSrc] = false;
 
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
@@ -1135,7 +1141,7 @@ export class ListingEditComponent implements OnInit {
         this.formCustomvalidation.galleryImage[imageSrc] = true;
         return;
       }
-      
+
       this.galleryImages[imageSrc] = URL.createObjectURL(file);
 
       // send image to the server
@@ -1144,7 +1150,7 @@ export class ListingEditComponent implements OnInit {
       fd.append("resize", 'yes');
 
       this.uploadService.uploadImage(fd, 'listing').subscribe((event: HttpEvent<any>) => {
-        
+
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progressGalleryImages[imageSrc] = Math.round(event.loaded / event.total * 100);
@@ -1167,7 +1173,7 @@ export class ListingEditComponent implements OnInit {
         }
 
       });
-   
+
     }
 
 

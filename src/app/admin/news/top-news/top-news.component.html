@@ -1,0 +1,50 @@
+<div id="new-job-basic-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <header class="content-box_header__xPnGx clearfix">
+    <div class="wil-float-left">
+      <h4 class="content-box_title__1gBHS">
+        <span>Top News</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <div class="row">
+      <div class="col-md-3">
+        All
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>News</mat-label>
+          <mat-select [(ngModel)]="topNews[0]" (openedChange)="clearFilter($event, filterInput)">
+            <input class="selectSearch" #filterInput matInput placeholder="Filter" autocomplete="off"/>
+            <mat-option *ngFor="let singleNews of getNewsByFilter(null, filterInput.value)" [value]="singleNews.id">
+              {{singleNews.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngFor="let category of categories" class="row">
+      <div class="col-md-3">
+        {{category.name}}
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>News</mat-label>
+          <mat-select [(ngModel)]="topNews[category.id]" (openedChange)="clearFilter($event, filterInput)">
+            <input class="selectSearch" #filterInput matInput placeholder="Filter" autocomplete="off"/>
+            <mat-option *ngFor="let singleNews of getNewsByFilter(category, filterInput.value)" [value]="singleNews.id">
+              {{singleNews.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+      type="submit" (click)="updateTopNews()">
+      Update
+    </button>
+  </div>
+</div>

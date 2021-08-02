@@ -9,13 +9,21 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { NewsCategoriesComponent } from './news/news-categories/news-categories.component';
 import { AddNewsCategoryModalComponent } from './news/news-categories/add-news-category-modal/add-news-category-modal';
+import { ManageNewsComponent } from './news/manage-news/manage-news.component';
+import { TopNewsComponent } from './news/top-news/top-news.component';
+import { JobSectorsComponent } from './jobs/job-sectors/job-sectors.component';
+import { AddJobSectorModalComponent } from './jobs/job-sectors/add-job-sector-modal/add-job-sector-modal';
 
 @NgModule({
   declarations: [
     AdminComponent,
     NewNewsComponent,
     NewsCategoriesComponent,
-    AddNewsCategoryModalComponent
+    AddNewsCategoryModalComponent,
+    ManageNewsComponent,
+    TopNewsComponent,
+    JobSectorsComponent,
+    AddJobSectorModalComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

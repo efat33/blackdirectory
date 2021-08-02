@@ -1,29 +1,28 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { HelperService } from 'src/app/shared/helper.service';
-import { NewsService } from 'src/app/news/news.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { AddNewsCategoryModalComponent } from './add-news-category-modal/add-news-category-modal';
+import { AddJobSectorModalComponent } from './add-job-sector-modal/add-job-sector-modal';
+import { JobService } from 'src/app/jobs/jobs.service';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 
 declare const google: any;
 
 @Component({
-  selector: 'app-news-categories',
-  templateUrl: './news-categories.component.html',
-  styleUrls: ['./news-categories.component.scss'],
+  selector: 'app-job-sectors',
+  templateUrl: './job-sectors.component.html',
+  styleUrls: ['./job-sectors.component.scss'],
 })
-export class NewsCategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class JobSectorsComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
-  categories = [];
+  sectors = [];
 
-  displayedColumns: string[] = ['name', 'count', 'category_order', 'action'];
+  displayedColumns: string[] = ['title', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,14 +30,13 @@ export class NewsCategoriesComponent implements OnInit, AfterViewInit, OnDestroy
 
   constructor(
     private dialog: MatDialog,
-    private newsService: NewsService,
-    private helperService: HelperService,
+    private jobService: JobService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
   ) {}
 
   ngOnInit() {
-    this.getNewsCategories();
+    this.getJobSectors();
   }
 
   ngAfterViewInit() {
@@ -46,14 +44,14 @@ export class NewsCategoriesComponent implements OnInit, AfterViewInit, OnDestroy
     this.dataSource.sort = this.sort;
   }
 
-  getNewsCategories() {
+  getJobSectors() {
     this.spinnerService.show();
-    const subscription = this.newsService.getNewsCategories().subscribe(
+    const subscription = this.jobService.getSectors().subscribe(
       (result: any) => {
         this.spinnerService.hide();
 
-        this.categories = result.data;
-        this.dataSource.data = this.categories;
+        this.sectors = result.data;
+        this.dataSource.data = this.sectors;
       },
       (error) => {
         this.spinnerService.hide();
@@ -73,56 +71,56 @@ export class NewsCategoriesComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  addCategory() {
+  addSector() {
     const dialogConfig = {
       width: '550px',
     };
 
     const dialogSubscription = this.dialog
-      .open(AddNewsCategoryModalComponent, dialogConfig)
+      .open(AddJobSectorModalComponent, dialogConfig)
       .afterClosed()
       .subscribe((result: any) => {
         if (result) {
-          this.getNewsCategories();
+          this.getJobSectors();
         }
       });
 
     this.subscriptions.add(dialogSubscription);
   }
 
-  editCategory(category: any) {
+  editSector(sector: any) {
     const dialogConfig = {
       width: '550px',
       data: {
-        category,
+        sector,
       },
     };
 
     const dialogSubscription = this.dialog
-      .open(AddNewsCategoryModalComponent, dialogConfig)
+      .open(AddJobSectorModalComponent, dialogConfig)
       .afterClosed()
       .subscribe((result: any) => {
         if (result) {
-          this.getNewsCategories();
+          this.getJobSectors();
         }
       });
 
     this.subscriptions.add(dialogSubscription);
   }
 
-  deleteCategory(category: any) {
+  deleteSector(sector: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: { message: 'Are you sure to delete the category?' },
+      data: { message: 'Are you sure to delete the sector?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-        const subscription = this.newsService.deleteNewsCategory(category.id).subscribe(
+        const subscription = this.jobService.deleteJobSector(sector.id).subscribe(
           (result: any) => {
             this.spinnerService.hide();
 
-            this.getNewsCategories();
+            this.getJobSectors();
           },
           (error) => {
             this.spinnerService.hide();

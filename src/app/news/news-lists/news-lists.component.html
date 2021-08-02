@@ -1,1344 +1,191 @@
 <div class="wil-content wilcity-archive">
   <section class="wil-section">
     <div class="container">
-      <div class="row">
+      <div class="row" *ngIf="topNews">
+        <!-- Top News -->
+        <div class="col-xs-12 gamma">
+          <div class="article article-tri-headline">
+            <h2 class="linkro-darkred">
+              <a [routerLink]="['/news/details', topNews.slug]">
+                {{topNews.title}}
+              </a>
+            </h2>
+            <a [routerLink]="['/news/details', topNews.slug]">
+              <img [src]="topNews.featured_image | imageSrc:'news'">
+            </a>
+            <div class="articletext">
+              <div [innerHTML]="topNews.short_content">
+              </div>
+            </div>
 
-      <div class="col-xs-12 gamma">
-        <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-          class="article article-tri-headline">
-          <meta itemprop="position" content="1">
-          <h2 class="linkro-darkred">
-            <a itemprop="url"
-              href="/sport/sportsnews/article-9825497/Tokyo-Olympics-Great-Britain-claim-THREE-Olympic-golds-silver.html">Team
-              GB wins THREE gold medals in five hours! Olympic triumph for divers Tom Daley and Matty Lee, swimmer Adam
-              Peaty
-              and cross country cyclist Tom Pidcock as Britain enjoys stunning day in Tokyo </a>
-          </h2>
-          <a
-            href="/sport/sportsnews/article-9825497/Tokyo-Olympics-Great-Britain-claim-THREE-Olympic-golds-silver.html">
-            <img data-mol-fe-video-preview="" width="964" height="542"
-              data-video="https://video.dailymail.co.uk/preview/mol/2021/07/26/8389159795052266139/964x580_MP4_8389159795052266139.mp4"
-              data-film="https://video.dailymail.co.uk/preview/mol/2021/07/26/8389159795052266139/308x174_JPG_8389159795052266139.jpg"
-              data-frame-width="308" data-frame-height="172" data-frame-count="70" data-fps="7"
-              data-hd-film="https://video.dailymail.co.uk/preview/mol/2021/07/26/8389159795052266139/636x382_JPG-HD_8389159795052266139.jpg"
-              data-hd-frame-width="636" data-hd-frame-height="358" data-hd-frame-count="70" data-hd-fps="7"
-              src="https://video.dailymail.co.uk/preview/mol/2021/07/26/8389159795052266139/964x580_JPG-SINGLE_8389159795052266139.jpg"
-              class=" b-loaded">
+            <div class="article-icon-links-container" data-followbutton="MailSport" data-social-first-article-links="">
+              <ul class="article-icon-links cleared">
 
-          </a>
-          <div class="articletext">
-            <div>
-              <p>
-
-                Team GB had a sensational day in Tokyo on Monday as they claimed a string of Olympic medals. British
-                swimmer
-                Adam Peaty (left) made Olympic history by winning gold for the second time, before Tom Daley finally won
-                his
-                first Olympic gold alongside Matty Lee in the men's synchronised 10m platform (centre). Tom Pidcock
-                (right)
-                then capped off a marvellous Monday by winning gold in men's mountain bike cross-country cycling.
-                Earlier,
-                Brit Alex Yee began the medal flurry by claiming silver in the men's triathlon.
-              </p>
+                <li class="">
+                  <a class="comments-link"
+                    href="https://www.dailymail.co.uk/sport/sportsnews/article-9825497/Tokyo-Olympics-Great-Britain-claim-THREE-Olympic-golds-silver.html#comments"
+                    rel="nofollow">
+                    <span class="icon"></span>
+                    <span class="linktext">
+                      <span class="readerCommentNo bold" rel="9825497">{{topNews.total_comments}}</span> comments
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="article-icon-links-container" data-followbutton="MailSport" data-social-first-article-links="">
-            <ul class="article-icon-links cleared">
-
-              <li class="">
-                <a class="comments-link"
-                  href="https://www.dailymail.co.uk/sport/sportsnews/article-9825497/Tokyo-Olympics-Great-Britain-claim-THREE-Olympic-golds-silver.html#comments"
-                  rel="nofollow">
-                  <span class="icon"></span>
-                  <span class="linktext">
-                    <span class="readerCommentNo bold" rel="9825497">1.5k</span> comments
-                  </span>
-                </a>
-              </li>
-
-              <li class="">
-                <a class="videos-link"
-                  href="https://www.dailymail.co.uk/sport/sportsnews/article-9825497/Tokyo-Olympics-Great-Britain-claim-THREE-Olympic-golds-silver.html#video"
-                  rel="nofollow">
-                  <span class="icon"></span>
-                  <span class="linktext">
-                    <span class="bold">3</span> videos
-                  </span>
-                </a>
-              </li>
-
-            </ul>
-          </div>
-
         </div>
-
-
-
-        <!--[if !IE]><!-->
-        <!-- <link href="https://www.dailymail.co.uk/static/gunther/17.14.2/all--.css" media="all" rel="stylesheet"
-          type="text/css"> -->
-        <!--<![endif]-->
-
-
-
-
       </div>
-    </div>
 
       <div class="">
         <div class="home item thin_divide module">
           <div class="thin-split ccox link-ccox linkro-box bdrcc">
-            <h6>
-
-            </h6>
+            <h6></h6>
           </div>
-
         </div>
-
       </div>
 
       <div class="row cleared lead-alpha">
         <div class="col-md-8 col-xs-12">
+          <!-- All news -->
           <div class="row">
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-large cleared"
-                data-original-title="Police seize 48 terabytes of 'mostly adult' images and videos from Shilpa Shetty's home">
-                <meta itemprop="position" content="2">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9825705/Police-seize-48-terabytes-adult-images-videos-Bollywood-star-Shilpa-Shettys-home.html">Police
-                    seize 48 terabytes of 'mostly adult' images and videos in raid on Bollywood star Shilpa Shetty's
-                    home and
-                    plan to quiz the actress as part of probe into her husband's 'porn racket'</a>
-                </h2>
-                <a
-                  href="/news/article-9825705/Police-seize-48-terabytes-adult-images-videos-Bollywood-star-Shilpa-Shettys-home.html">
-                  <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45898641-0-image-m-11_1627292104627.jpg"
-                    height="473" width="308"
-                    alt="Police seize 48 terabytes of 'mostly adult' images and videos from Shilpa Shetty's home"
-                    style="max-width:100%" class=" b-loaded">
+            <ng-container *ngIf="allNews == null">
+              <div class="inner-spinner">
+                <i class="fa fa-spinner fa-spin"></i>
+              </div>
+            </ng-container>
 
+            <ng-container *ngIf="allNews">
+              <ng-container *ngFor="let news of allNews; let index = index">
+                <div class="col-xs-12" [ngClass]="{'col-md-6': index % 5 != 0}">
+                  <div class="article" [ngClass]="index % 5 == 0 ? 'article-tri-headline' : 'article-small'">
+                    <h2 class="linkro-darkred">
+                      <a [routerLink]="['/news/details', news.slug]">{{news.title}}</a>
+                    </h2>
 
+                    <div class="articletext">
+                      <a [routerLink]="['/news/details', news.slug]">
+                        <img [src]="news.featured_image | imageSrc:'news'">
+                      </a>
+                      <div [innerHTML]="news.short_content"></div>
+                    </div>
 
-
-                  <noscript>
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45898641-0-image-m-11_1627292104627.jpg"
-                      height="473" width="308"
-                      alt="Police seize 48 terabytes of 'mostly adult' images and videos from Shilpa Shetty's home" />
-
-                  </noscript>
-
-                </a>
-                <div class="articletext-holder">
-                  <p>
-
-                    Police have seized 48 terabytes of mostly adult images and videos in a raid on Bollywood star Shilpa
-                    Shetty's home as part of a probe into her husband's alleged connections to illegal porn films.
-                    Officers
-                    are now seeking to clone Ms Shetty's phone and may also bring her in for a second round of
-                    questioning,
-                    the Times of India reported. Husband Raj Kundra, 45, was arrested on July 19 in Mumbai by
-                    police who
-                    said they have 'sufficient evidence' that he is a 'key conspirator' in a porn production ring. Mr
-                    Kundra
-                    attended the search with officers on Friday and later had his police custody was extended until July
-                    27.
-                    Ms Shetty told police during questioning on Friday she believed Mr Kundra was innocent and
-                    claimed
-                    his co-accused Pradeep Bakshi was the one involved with mobile app 'Hotshots', which allegedly
-                    streamed pornographic content.
-                  </p>
-                  <div class="article-icon-links-container" data-followbutton="MailOnline"
-                    data-social-first-article-links="">
-                    <ul class="article-icon-links cleared">
-
-                      <li class="">
-                        <a class="comments-link"
-                          href="https://www.dailymail.co.uk/news/article-9825705/Police-seize-48-terabytes-adult-images-videos-Bollywood-star-Shilpa-Shettys-home.html#comments"
-                          rel="nofollow">
-                          <span class="icon"></span>
-                          <span class="linktext">
-                            <span class="readerCommentNo bold" rel="9825705">413</span> comments
-                          </span>
-                        </a>
-                      </li>
-
-                    </ul>
+                    <div class="article-icon-links-container" data-followbutton="DailyMailCeleb"
+                      data-social-first-article-links="">
+                      <ul class="article-icon-links cleared">
+                        <li class="">
+                          <a class="comments-link"
+                            href="https://www.dailymail.co.uk/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html#comments"
+                            rel="nofollow">
+                            <span class="icon"></span>
+                            <span class="linktext">
+                              <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span> comments
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-
-                </div>
-              </div>
-
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="3">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9825779/Double-jabbed-British-expats-travel-rules-eased-month.html">Double-jabbed
-                    British expats 'will be able to return to the UK to visit family quarantine-free from August 1'
-                    under
-                    plans to finally recognise vaccines administered overseas </a>
-                </h2>
-                <div class="articletext">
-                  <a href="/news/article-9825779/Double-jabbed-British-expats-travel-rules-eased-month.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45896977-0-image-a-9_1627290375915.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45896977-0-image-a-9_1627290375915.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    British expats who have received both doses of a coronavirus vaccine will be able to visit family in
-                    the
-                    UK without having to quarantine from next month, it was claimed today.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline"
-                  data-social-first-article-links="">
-                  <ul class="article-icon-links cleared">
-
-                    <li class="">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9825779/Double-jabbed-British-expats-travel-rules-eased-month.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9825779">406</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
                 </div>
 
-              </div>
-
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="4">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/femail/article-9824805/Health-coach-reveals-need-avoid-seven-deadly-Ss-optimal-health.html">Health
-                    coach reveals why you need to avoid the seven 'deadly Ss' to stay in shape and live longer - so how
-                    many
-                    are YOU guilty of?</a>
-                </h2>
-                <div class="articletext">
-                  <a href="/femail/article-9824805/Health-coach-reveals-need-avoid-seven-deadly-Ss-optimal-health.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/04/45888835-0-image-a-67_1627273433900.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/04/45888835-0-image-a-67_1627273433900.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    Soulla Chamberlain said the seven factors can lead to serious health-related consequences as each
-                    one
-                    opposes the eight foundations of health.
-                  </p>
+                <div *ngIf="index % 5 == 4" class="col-xs-12 home item thin_divide module">
+                  <div class="thin-split ccox link-ccox linkro-box bdrcc">
+                    <h6></h6>
+                  </div>
                 </div>
-                <div class="article-icon-links-container" data-followbutton="Femail" data-social-first-article-links="">
-                  <ul class="article-icon-links cleared">
-
-                    <li class="">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/femail/article-9824805/Health-coach-reveals-need-avoid-seven-deadly-Ss-optimal-health.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9824805">113</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="5">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9825589/Airport-border-officials-staff-redeployed-Channel-help-migrant-crisis.html">Airport
-                    border officials staff are 'redeployed to the Channel' to help with migrant crisis - causing travel
-                    chaos
-                    for holidaymakers at Heathrow</a>
-                </h2>
-                <div class="articletext">
-                  <a
-                    href="/news/article-9825589/Airport-border-officials-staff-redeployed-Channel-help-migrant-crisis.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45897805-0-image-m-7_1627290218117.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45897805-0-image-m-7_1627290218117.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    Agents from Border Force are reportedly leaving Heathrow and Gatwick to help with huge numbers of
-                    migrants
-                    arriving at Kent's coast despite airports suffering suffering passenger delays.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline"
-                  data-social-first-article-links="">
-                  <ul class="article-icon-links cleared">
-
-                    <li class="">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9825589/Airport-border-officials-staff-redeployed-Channel-help-migrant-crisis.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9825589">376</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
+              </ng-container>
+            </ng-container>
           </div>
 
-          <div class="row">
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="7">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9825771/Putin-orders-two-Doomsday-planes-allow-control-Russian-forces.html">Putin
-                    orders two more 'Doomsday' planes that would allow him to control Russian forces during nuclear
-                    war</a>
-                </h2>
-                <div class="articletext">
-                  <a href="/news/article-9825771/Putin-orders-two-Doomsday-planes-allow-control-Russian-forces.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45897155-0-image-m-86_1627289522406.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45897155-0-image-m-86_1627289522406.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    The adapted Ilyushin 96-400M's (pictured) allow the Russian leader Vladimir Putin to control troops
-                    and
-                    missiles during an atomic catastrophe.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline">
-                  <ul class="article-icon-links cleared">
-                    <li class="first">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9825771/Putin-orders-two-Doomsday-planes-allow-control-Russian-forces.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9825771">332</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                    <li class="">
-                      <a class="videos-link"
-                        href="https://www.dailymail.co.uk/news/article-9825771/Putin-orders-two-Doomsday-planes-allow-control-Russian-forces.html#video"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="bold">1</span> video
-                        </span>
-                      </a>
-                    </li>
-
-
-                  </ul>
+          <!-- Category News in Home page -->
+          <ng-container *ngIf="!categorySlug">
+            <ng-container *ngFor="let categoryItem of newsByCategory | keyvalue">
+              <div class="row">
+                <div class="home item gradient_divide module">
+                  <div class="gradient-split wocc link-wocc linkro-wocc">
+                    <h6>
+                      <a
+                        [routerLink]="['/news/', getCategory(categoryItem.key)?.slug]">{{getCategory(categoryItem.key)?.name}}</a>
+                    </h6>
+                    <div></div>
+                  </div>
                 </div>
 
+                <ng-container *ngIf="categoryItem.value == null">
+                  <div class="inner-spinner">
+                    <i class="fa fa-spinner fa-spin"></i>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="categoryItem.value">
+                  <ng-container *ngFor="let news of categoryItem.value; let index = index">
+                    <div class="col-xs-12" [ngClass]="{'col-md-6': index % 5 != 0}">
+                      <div class="article" [ngClass]="index % 5 == 0 ? 'article-tri-headline' : 'article-small'">
+                        <h2 class="linkro-darkred">
+                          <a [routerLink]="['/news/details', news.slug]">{{news.title}}</a>
+                        </h2>
+
+                        <div class="articletext">
+                          <a [routerLink]="['/news/details', news.slug]">
+                            <img [src]="news.featured_image | imageSrc:'news'">
+                          </a>
+                          <div [innerHTML]="news.short_content"></div>
+                        </div>
+
+                        <div class="article-icon-links-container" data-followbutton="DailyMailCeleb"
+                          data-social-first-article-links="">
+                          <ul class="article-icon-links cleared">
+                            <li class="">
+                              <a class="comments-link"
+                                href="https://www.dailymail.co.uk/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html#comments"
+                                rel="nofollow">
+                                <span class="icon"></span>
+                                <span class="linktext">
+                                  <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span> comments
+                                </span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="index % 5 == 4" class="col-xs-12 home item thin_divide module">
+                      <div class="thin-split ccox link-ccox linkro-box bdrcc">
+                        <h6></h6>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
               </div>
-
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="8">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9824569/Vladimir-Putin-boasts-hit-enemies-unpreventable-strike.html">Vladimir
-                    Putin
-                    boasts he can hit enemies with an 'unpreventable strike' just weeks after Russia fired warning shots
-                    in
-                    path of British warship </a>
-                </h2>
-                <div class="articletext">
-                  <a href="/news/article-9824569/Vladimir-Putin-boasts-hit-enemies-unpreventable-strike.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/01/45884895-0-image-m-132_1627258505597.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/01/45884895-0-image-m-132_1627258505597.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    Vladimir Putin said Russia had the power to launch a strike against its enemies. It comes as
-                    military
-                    officials announced tests of advanced new weapons.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline">
-                  <ul class="article-icon-links cleared">
-                    <li class="first">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9824569/Vladimir-Putin-boasts-hit-enemies-unpreventable-strike.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9824569">764</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="9">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/femail/article-9814895/Tricky-15-question-geography-quiz-knowledge-landmarks-languages-test.html">Tricky
-                    geography quiz will put your knowledge of landmarks and languages to the test - so, do YOU have what
-                    it
-                    takes to score full marks?</a>
-                </h2>
-                <div class="articletext">
-                  <a
-                    href="/femail/article-9814895/Tricky-15-question-geography-quiz-knowledge-landmarks-languages-test.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/22/16/45769069-0-image-a-44_1626967635163.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/22/16/45769069-0-image-a-44_1626967635163.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    A new quiz has been shared on US-based trivia platform Quizly to put your knowledge of geography to
-                    the
-                    test, including questions about population size, borders and languages.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="Femail" data-social-first-article-links="">
-                  <ul class="article-icon-links cleared">
-
-                    <li class="">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/femail/article-9814895/Tricky-15-question-geography-quiz-knowledge-landmarks-languages-test.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9814895">116</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="10">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9824299/More-250-people-convicted-child-sex-abuse-working-Scouts.html">More than
-                    250
-                    people have been convicted of child sex abuse while working with the Scouts, new figures
-                    show </a>
-                </h2>
-                <div class="articletext">
-                  <a href="/news/article-9824299/More-250-people-convicted-child-sex-abuse-working-Scouts.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/25/23/45881281-0-image-a-161_1627250583183.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/25/23/45881281-0-image-a-161_1627250583183.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    The convictions span from the 1950s to as recently as November last year when former Scout leader
-                    Graham
-                    Avison (pictured), of Tameside, was jailed for five years and seven months.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline">
-                  <ul class="article-icon-links cleared">
-                    <li class="first">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9824299/More-250-people-convicted-child-sex-abuse-working-Scouts.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9824299">183</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-          <div class="home item thin_divide module">
-            <div class="thin-split ccox link-ccox linkro-box bdrcc">
-              <h6>
-
-              </h6>
-            </div>
-
-          </div>
-
-          <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-            class="article article-tri-headline">
-            <meta itemprop="position" content="11">
-            <h2 class="linkro-darkred">
-              <a itemprop="url"
-                href="/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html">Home
-                and Away star Dieter Brummer dead at 45: Actor known for playing Shane Parrish on long-running
-                Australian soap
-                dies after quitting showbusiness to become a window cleaner </a>
-            </h2>
-            <div class="articletext">
-              <a
-                href="/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html">
-                <img src="https://i.dailymail.co.uk/1s/2021/07/26/06/45892177-0-image-a-30_1627279034812.jpg"
-                  height="382" width="636"
-                  alt="Dieter Brummer dead: Home and Away star known for playing Shane Parrish dies aged 45"
-                  style="max-width:100%" class=" b-loaded">
-
-
-
-
-                <noscript>
-
-                  <img src="https://i.dailymail.co.uk/1s/2021/07/26/06/45892177-0-image-a-30_1627279034812.jpg"
-                    height="382" width="636"
-                    alt="Dieter Brummer dead: Home and Away star known for playing Shane Parrish dies aged 45" />
-
-                </noscript>
-
-              </a>
-              <div>
-                <p>
-
-                  Australian actor Dieter Brummer, best known for playing Shane Parrish on Home and Away in
-                  the
-                  1990s, has died at the age of 45. The two-time Logie winner was found dead at a home
-                  in Glenhaven,
-                  in Sydney's north-west, on Saturday afternoon, NSW Police confirmed to Daily Mail Australia. His
-                  death
-                  is not being treated as suspicious. 'About 1.30pm (Saturday 24 July 2021), officers from The
-                  Hills
-                  Police Area Command responded to reports of a concern for welfare at a home on Glenhaven Road,
-                  Glenhaven,' a
-                  police spokesperson said. 'The body of a man was located inside the home. His death is not believed to
-                  be
-                  suspicious. A report will be prepared for the information of the Coroner.' Brummer, who also worked as
-                  a
-                  window cleaner, starred on Home and Away from 1992 to 1996, and later had roles in hospital drama
-                  Medivac and crime series Underbelly: A Tale of Two Cities.
-                </p>
-              </div>
-            </div>
-            <div class="article-icon-links-container" data-followbutton="DailyMailCeleb"
-              data-social-first-article-links="">
-              <ul class="article-icon-links cleared">
-                <li class="">
-                  <a class="comments-link"
-                    href="https://www.dailymail.co.uk/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html#comments"
-                    rel="nofollow">
-                    <span class="icon"></span>
-                    <span class="linktext">
-                      <span class="readerCommentNo bold" rel="9825193">490</span> comments
-                    </span>
-                  </a>
-                </li>
-
-                <li class="">
-                  <a class="videos-link"
-                    href="https://www.dailymail.co.uk/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html#video"
-                    rel="nofollow">
-                    <span class="icon"></span>
-                    <span class="linktext">
-                      <span class="bold">1</span> video
-                    </span>
-                  </a>
-                </li>
-
-              </ul>
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="12">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/tvshowbiz/article-9825315/How-Dieter-Brummers-onscreen-romance-Melissa-George-propelled-stardom-Home-Away.html">The
-                    truth about Shane and Angel's iconic on-screen romance on Home and Away... and why Dieter Brummer
-                    didn't
-                    get along with co-star Melissa George behind the scenes</a>
-                </h2>
-                <div class="articletext">
-                  <a
-                    href="/tvshowbiz/article-9825315/How-Dieter-Brummers-onscreen-romance-Melissa-George-propelled-stardom-Home-Away.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45896329-0-image-m-32_1627288373206.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45896329-0-image-m-32_1627288373206.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    Dieter Brummer captured hearts and imaginations with his on-screen romance with Melissa George, but
-                    it was
-                    a very different story off-camera.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="DailyMailCeleb">
-                  <ul class="article-icon-links cleared">
-                    <li class="first">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/tvshowbiz/article-9825315/How-Dieter-Brummers-onscreen-romance-Melissa-George-propelled-stardom-Home-Away.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9825315">1</span> comment
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="13">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9825871/Protesters-clash-Tunisia-president-FIRES-prime-minister-suspends-parliament.html">Protesters
-                    clash in Tunisia after president FIRES the prime minister and suspends parliament following Covid
-                    protests
-                    - sparking accusations of a 'coup d'etat' </a>
-                </h2>
-                <div class="articletext">
-                  <a
-                    href="/news/article-9825871/Protesters-clash-Tunisia-president-FIRES-prime-minister-suspends-parliament.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900243-0-image-a-20_1627294965944.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900243-0-image-a-20_1627294965944.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-                    <span class="tag-new" data-article-id="9825871">NEW</span>
-
-                    Tunisia's President Kais Saied sacked Prime Minister Hichem Mechichi and suspended parliament for 30
-                    days
-                    on Sunday, plunging the young democracy into a constitutional crisis.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline">
-                  <ul class="article-icon-links cleared">
-                    <li class="first">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9825871/Protesters-clash-Tunisia-president-FIRES-prime-minister-suspends-parliament.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9825871">3</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="14">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/news/article-9825847/Trans-woman-33-slams-Uber-refusing-let-change-account.html">Trans woman,
-                    33,
-                    slams Uber for refusing to let her change the name on her account meaning drivers constantly refer
-                    to her
-                    as 'sir' </a>
-                </h2>
-                <div class="articletext">
-                  <a href="/news/article-9825847/Trans-woman-33-slams-Uber-refusing-let-change-account.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45898503-0-image-m-36_1627291896448.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45898503-0-image-m-36_1627291896448.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    Charlie Hadley, 33, from Bristol, began transitioning a year ago and wanted to change her name on
-                    the app
-                    but her request was rejected.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="MailOnline"
-                  data-social-first-article-links="">
-                  <ul class="article-icon-links cleared">
-                    <li class="">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/news/article-9825847/Trans-woman-33-slams-Uber-refusing-let-change-account.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9825847">118</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-                class="article article-small">
-                <meta itemprop="position" content="15">
-                <h2 class="linkro-darkred">
-                  <a itemprop="url"
-                    href="/femail/article-9823617/Prince-Harry-ghostwriters-dream-loves-talk-feelings-says-author.html">'Rich
-                    and damaged' Prince Harry will 'need to be steered away from sounding bitter' by the co-author of
-                    his new
-                    memoir, professional ghostwriter claims</a>
-                </h2>
-                <div class="articletext">
-                  <a
-                    href="/femail/article-9823617/Prince-Harry-ghostwriters-dream-loves-talk-feelings-says-author.html">
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/25/17/45873597-0-image-a-197_1627229138546.jpg"
-                      height="115" width="154" alt="" style="max-width:100%" class=" b-loaded">
-
-
-
-
-                    <noscript>
-
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/25/17/45873597-0-image-a-197_1627229138546.jpg"
-                        height="115" width="154" alt="" />
-
-                    </noscript>
-
-                  </a>
-                  <p>
-
-                    Writing in The Sunday Times, Andrew Croft said the Duke of Sussex, 36, is a 'ghostwriter's dream'
-                    because
-                    he 'loves talking his feelings and being honest', but needs to avoid sounding bitter.
-                  </p>
-                </div>
-                <div class="article-icon-links-container" data-followbutton="Femail">
-                  <ul class="article-icon-links cleared">
-                    <li class="first">
-                      <a class="comments-link"
-                        href="https://www.dailymail.co.uk/femail/article-9823617/Prince-Harry-ghostwriters-dream-loves-talk-feelings-says-author.html#comments"
-                        rel="nofollow">
-                        <span class="icon"></span>
-                        <span class="linktext">
-                          <span class="readerCommentNo bold" rel="9823617">1.1k</span> comments
-                        </span>
-                      </a>
-                    </li>
-
-                  </ul>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-          <div class="home item thin_divide module">
-            <div class="thin-split ccox link-ccox linkro-box bdrcc">
-              <h6>
-
-              </h6>
-            </div>
-
-          </div>
-
-          <div itemscope="" itemtype="//schema.org/ListItem" itemprop="itemListElement"
-            class="article article-tri-headline">
-            <meta itemprop="position" content="16">
-            <h2 class="linkro-darkred">
-              <a itemprop="url"
-                href="/news/article-9824241/Semi-naked-women-pictured-hotel-room-Wayne-Rooney-Snapchat-model-friends.html">'If
-                that's a crime, sign me up!': Football fans mock Wayne Rooney for reporting Snapchat model and her two
-                friends
-                to police after they stripped to their underwear and filmed him asleep in hotel room following boozy
-                night
-                out </a>
-            </h2>
-            <div class="articletext">
-              <a
-                href="/news/article-9824241/Semi-naked-women-pictured-hotel-room-Wayne-Rooney-Snapchat-model-friends.html">
-                <img src="https://i.dailymail.co.uk/1s/2021/07/26/07/45892771-0-image-m-1_1627281288927.jpg"
-                  height="382" width="636"
-                  alt="Semi-naked women pictured in hotel room with Wayne Rooney are Snapchat model and her"
-                  style="max-width:100%" class=" b-loaded">
-
-
-
-
-                <noscript>
-
-                  <img src="https://i.dailymail.co.uk/1s/2021/07/26/07/45892771-0-image-m-1_1627281288927.jpg"
-                    height="382" width="636"
-                    alt="Semi-naked women pictured in hotel room with Wayne Rooney are Snapchat model and her" />
-
-                </noscript>
-
-              </a>
-              <div>
-                <p>
-
-                  Wayne Rooney was ridiculed this morning after claims he had reported three semi-naked girls he was
-                  pictured
-                  with in a hotel to police - with one stunned fan declaring 'If that's a crime, sign me up gaffer'.
-                  Ex-Manchester United ace Rooney, who is married to Coleen and has four sons with his childhood
-                  sweetheart,
-                  reportedly partied into the early hours of Sunday with model Tayler Ryan (main picture and right) and
-                  her
-                  friends Elise Melvin and Brooke Morgan, all 21. Friends of the three girls said that Derby County boss
-                  Mr
-                  Rooney, 35, and his friends had invited Tayler, Elise and Brooke to his VIP booth at the exclusive
-                  Chinawhite club for 'probably the wildest night of their lives'. The associate added: 'There was no
-                  sexual
-                  contact - it was just a great night'. Photos on social media show the retired England striker asleep
-                  in a
-                  chair as the girls stripped to their underwear at their £60-per-night hotel room in Manchester, with
-                  one
-                  flashing her bottom next to Rooney then posting it with the caption: 'Mooney Rooney'. Another photo
-                  which
-                  went viral on Sunday saw Rooney leaning in on one blonde woman at a nightclub (inset). Wayne was said
-                  to be
-                  angry that they had taken photos of him asleep and complained to Greater Manchester Police amid fears
-                  he had
-                  been 'set up'.
-                </p>
-              </div>
-            </div>
-            <div class="article-icon-links-container" data-followbutton="MailOnline" data-social-first-article-links="">
-              <ul class="article-icon-links cleared">
-                <li class="">
-                  <a class="comments-link"
-                    href="https://www.dailymail.co.uk/news/article-9824241/Semi-naked-women-pictured-hotel-room-Wayne-Rooney-Snapchat-model-friends.html#comments"
-                    rel="nofollow">
-                    <span class="icon"></span>
-                    <span class="linktext">
-                      <span class="readerCommentNo bold" rel="9824241">2.5k</span> comments
-                    </span>
-                  </a>
-                </li>
-
-              </ul>
-            </div>
-
-          </div>
-
+            </ng-container>
+          </ng-container>
         </div>
-        <div class="col-md-4 col-xs-12">
 
+        <div class="col-md-4 col-xs-12">
           <div class="femail item">
             <div class="puff cleared" id="p-716" data-track-module="llg-1000113^puff">
-
               <span class="tl"> </span>
               <span class="tr"> </span>
               <h3 class="wocc">DON'T MISS</h3>
-              <ul class="link-bogr2 linkro-wocc">
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/06/45891791-0-image-a-16_1627277916931.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/06/45891791-0-image-a-16_1627277916931.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
+              <ul *ngIf="featuredNews" class="link-bogr2 linkro-wocc">
+                <li *ngFor="let news of featuredNews">
+                  <a [routerLink]="['/news/details', news.slug]">
+                    <img [src]="news.featured_image | imageSrc:'news'">
 
                     <span class="pufftext">
                       <span class="arrow-small-r"></span>
                       <strong>
-                        Home and Away star Dieter Brummer dead at 45: Actor known for playing Shane Parrish on
-                        Australian soap
-                        dies after quitting showbusiness
+                        {{news.title}}
                       </strong>
-
-
                     </span>
                   </a>
                 </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825483/Sam-Taylor-Johnson-54-wows-low-cut-swimsuit-joins-ripped-husband-Sam-31.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/08/45894207-0-image-m-19_1627284931674.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/08/45894207-0-image-m-19_1627284931674.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Sam Taylor-Johnson, 54, wows in a swimsuit as she joins husband Aaron, 31, for a beach day with
-                        Gerard
-                        Butler, 51, and his girlfriend Morgan Brown, 50
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825535/First-Dates-Fred-Sirieix-gushes-pride-daughter-joins-Team-GB-Tokyo-2020-Olympics.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/08/45894731-0-image-a-9_1627285834642.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/08/45894731-0-image-a-9_1627285834642.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        'We are all so proud of you': First Dates' Fred Sirieix reveals his delight as his daughter
-                        Andrea,
-                        16, joins Team GB at the Tokyo Olympics
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825315/How-Dieter-Brummers-onscreen-romance-Melissa-George-propelled-stardom-Home-Away.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45896329-0-image-m-32_1627288373206.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45896329-0-image-m-32_1627288373206.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        The truth about Shane and Angel's iconic on-screen romance on Home and Away... and why Dieter
-                        Brummer
-                        didn't get along with co-star Melissa George behind the scenes
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825643/Maya-Jama-slips-busty-pink-mini-dress-heels-tease-fans-life-changing-announcement.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45896019-0-image-a-32_1627287053675.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/09/45896019-0-image-a-32_1627287053675.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Maya Jama slips into busty pink mini dress and heels as she laughs off pregnancy speculation
-                        after
-                        teasing 'life-changing' announcement
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li data-is-sponsored="true">
-                  <a href="/femail/article-9769585/Skin-hair-nail-supplements-pick-one-you.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/08/19/45208137-0-image-a-120_1625769505431.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/08/19/45208137-0-image-a-120_1625769505431.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Beauty comes from within: Skin, hair and nail supplements, what they are, and how to pick the
-                        one for
-                        you
-                      </strong>
-                      <span class="sponsored">Ad Feature</span>
-
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-
-                  <!-- ad: https://mads.dailymail.co.uk/v7/bd/home/none/channel/other/mpu_puff_5.html?id=mpu_puff_5 -->
-
-
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825191/Gerard-Butler-Morgan-Brown-enjoy-beach-day-Aaron-Taylor-Johnson-wife-Sam-LA.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/07/45892359-0-image-a-216_1627279275185.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/07/45892359-0-image-a-216_1627279275185.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Gerard Butler and his girlfriend Morgan Brown enjoy a fun-filled beach day with Aaron
-                        Taylor-Johnson
-                        and his filmmaker wife Sam in Malibu
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li class="exclusive">
-                  <a
-                    href="/tvshowbiz/article-9824171/Emily-Ratajkowski-sizzles-TINY-leopard-print-bikini-relaxes-beach-Italy.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/25/22/45880229-0-image-a-113_1627247055719.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/25/22/45880229-0-image-a-113_1627247055719.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Emily Ratajkowski sizzles in a TINY bikini as she relaxes with husband Sebastian Bear-McClard
-                        and son
-                        Sylvester in Italy
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9826037/Madonna-62-playfully-poses-tiny-denim-shorts-enjoys-family-BBQ-boyfriend-kids.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900065-0-image-a-112_1627294424643.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900065-0-image-a-112_1627294424643.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Madonna, 62, playfully poses in tiny denim shorts and fishnets as she enjoys 'family BBQ' with
-                        boyfriend Ahlamalik Williams, 27, and her kids
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="/tvshowbiz/article-9825475/Love-Island-sees-role-reversal-Hugo-hes-friend-zoned-Chloe.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/08/45894195-0-image-a-6_1627283962581.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/08/45894195-0-image-a-6_1627283962581.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        'It wouldn't be a romantic thing because of how close we are': Love Island sees a role reversal
-                        for
-                        Hugo as he's friend-zoned by Chloe
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="/tvshowbiz/article-9825943/TOWIEs-Kirk-Norcross-breaks-silence-father-Micks-suicide.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900927-0-image-m-96_1627295948724.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900927-0-image-m-96_1627295948724.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        'It still feels like a dream': TOWIE's Kirk Norcross breaks his silence on father Mick's suicide
-                        and
-                        claims 'thieving c***s' are to blame for his death
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
-                <li data-is-sponsored="true">
-                  <a href="/femail/article-9716445/Make-sure-pooch-travels-style-pick-best-cars-dogs-humans.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/06/11/45095155-0-image-a-6_1625568223505.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/06/11/45095155-0-image-a-6_1625568223505.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        Are you one of the UK's new 'lockdown puppy' owners? Make sure your pooch travels in style with
-                        our
-                        pick of the best cars for dogs (and their humans!)
-                      </strong>
-                      <span class="sponsored">Ad Feature</span>
-
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9826069/EastEnders-star-Ben-Champniss-welcomes-baby-boy-Shrimpy-actor-announces-wife-given-birth.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900491-0-image-a-126_1627295237137.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/11/45900491-0-image-a-126_1627295237137.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        EastEnders star Ben Champniss welcomes baby boy as Shrimpy actor announces his wife has given
-                        birth
-                      </strong>
-
-                      Joyous news
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="/tvshowbiz/article-9825805/Patsy-Palmer-49-strips-skimpy-bikini-inspired-Jennifer-Lopez.html">
-
-                    <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45897721-0-image-m-80_1627292217860.jpg"
-                      height="115" width="154" alt="" class=" b-loaded">
-                    <noscript>
-                      <img src="https://i.dailymail.co.uk/1s/2021/07/26/10/45897721-0-image-m-80_1627292217860.jpg"
-                        height="115" width="154" alt="" />
-                    </noscript>
-
-
-                    <span class="pufftext">
-                      <span class="arrow-small-r"></span>
-                      <strong>
-                        'Embrace your inner J Lo!' Patsy Palmer, 49, strips down to a skimpy bikini after being inspired
-                        by
-                        the singer's sexy snaps at 52
-                      </strong>
-
-
-                    </span>
-                  </a>
-                </li>
-
               </ul>
-
             </div>
-
           </div>
-
         </div>
       </div>
-
     </div>
   </section>
 </div>
