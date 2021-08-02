@@ -1,192 +1,65 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="jobForm">
-    <div id="new-job-basic-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-        <header class="content-box_header__xPnGx clearfix">
-            <div class="wil-float-left">
-                <h4 class="content-box_title__1gBHS">
-                    <span>Basic Info</span>
-                </h4>
-            </div>
-        </header>
-        <div class="content-box_body__3tSRB">
-            <mat-form-field>
-                <mat-label>Title</mat-label>
-                <input required matInput formControlName="title" />
-            </mat-form-field>
+<form (ngSubmit)="onSubmit()" [formGroup]="newsForm">
+  <div id="new-news-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <div class="content-box_body__3tSRB">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
 
-            <div class="job-description-ckeditor">
-                <ckeditor [editor]="ckEditor" [config]="ckConfig" formControlName="description"></ckeditor>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <mat-label>Application Deadline</mat-label>
-                        <input required matInput formControlName="deadline" [matDatepicker]="app_deadline"
-                            (focus)="app_deadline.open()" [min]="minDeadlineDate" [max]="maxDeadlineDate">
-                        <mat-datepicker-toggle matSuffix [for]="app_deadline"></mat-datepicker-toggle>
-                        <mat-datepicker #app_deadline></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <mat-label>Sector</mat-label>
-                        <mat-select formControlName="job_sector_id" required>
-                            <mat-option *ngFor="let sector of jobSectors" [value]="sector.id"
-                                [innerHTML]="sector.title">
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <mat-label>Job Type</mat-label>
-                        <mat-select formControlName="job_type" required>
-                            <mat-option *ngFor="let jobType of jobService.jobTypes" [value]="jobType.value">
-                                {{jobType.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <mat-label>Job Apply Type</mat-label>
-                        <mat-select formControlName="job_apply_type">
-                            <mat-option *ngFor="let jobApplyType of jobService.jobApplyTypes" [value]="jobApplyType.value">
-                                {{jobApplyType.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field *ngIf="f.job_apply_type.value === 'with_email'">
-                      <mat-label>Email</mat-label>
-                      <input matInput type="email" formControlName="job_apply_email" />
-                  </mat-form-field>
-
-                  <mat-form-field *ngIf="f.job_apply_type.value === 'external'">
-                    <mat-label>External URL</mat-label>
-                    <input matInput formControlName="external_url" />
-                  </mat-form-field>
-                </div>
-            </div>
-
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category_id">
+              <mat-option *ngFor="let category of newsCategories" [value]="category.id">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-    </div><!-- new-job-basic-info -->
 
-    <div id="new-job-other-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-        <header class="content-box_header__xPnGx clearfix">
-            <div class="wil-float-left">
-                <h4 class="content-box_title__1gBHS">
-                    <span>Other Information</span>
-                </h4>
-            </div>
-        </header>
-        <div class="content-box_body__3tSRB">
-            <div class="row">
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <mat-label>Industry</mat-label>
-                        <mat-select formControlName="job_industry">
-                            <mat-option *ngFor="let jobIndustry of jobService.jobIndustrys" [value]="jobIndustry.value">
-                                {{jobIndustry.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <mat-label>Experience</mat-label>
-                        <mat-select formControlName="experience" required>
-                            <mat-option *ngFor="let jobExperience of jobService.jobExperiences" [value]="jobExperience.value">
-                                {{jobExperience.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="salary-labels">
-                        <label>Salary (£) *</label>
-                        <label class="salary-value">{{f.salary.value || 0 | number}}</label>
-                    </div>
-
-                    <mat-slider thumbLabel [displayWith]="formatSalarySliderLabel" [max]="250000" [min]="5000"
-                        [step]="5000" formControlName="salary" color="primary">
-                    </mat-slider>
-                </div>
-            </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Featured</mat-label>
+            <mat-select formControlName="featured">
+              <mat-option [value]="1">Yes</mat-option>
+              <mat-option [value]="0">No</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-    </div><!-- new-job-other-info -->
+      </div>
 
-    <div id="new-job-address-location" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-        <header class="content-box_header__xPnGx clearfix">
-            <div class="wil-float-left">
-                <h4 class="content-box_title__1gBHS">
-                    <span>Address / Location</span>
-                </h4>
-            </div>
-        </header>
-        <div class="content-box_body__3tSRB">
-            <mat-form-field>
-                <mat-label>Full Address</mat-label>
-                <input required matInput formControlName="address" />
-            </mat-form-field>
-            <div class="row">
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <mat-label>Latitude</mat-label>
-                        <input matInput formControlName="latitude" readonly />
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <mat-label>Longitude</mat-label>
-                        <input matInput formControlName="longitude" readonly />
-                    </mat-form-field>
-                </div>
-            </div>
+      <div class="">
+        <section class="section-mat-form-field section-field-file section-field-preview-img">
+          <mat-label>Featured Image</mat-label>
+          <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
+          <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
+          <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputAttachment.click()">Upload</a>
+        </section>
+        <mat-progress-bar *ngIf="progressFeaturedImage" mode="determinate" [value]="progressFeaturedImage" class="mb-15">
+        </mat-progress-bar>
+        <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
+          {{formCustomvalidation.featuredImage.message}}</p>
+      </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="googleMap" style="width:100%;height:300px;"></div>
-                </div>
-            </div>
-        </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Short content</mat-label>
+          <textarea matInput placeholder="Short content" formControlName="short_content" rows="5"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="news-content-ckeditor">
+        <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)" formControlName="content">
+        </ckeditor>
+      </div>
     </div>
-    <!-- new-job-address-location -->
+  </div>
 
-    <div id="new-job-attachments" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
-        <header class="content-box_header__xPnGx clearfix">
-            <div class="wil-float-left">
-                <h4 class="content-box_title__1gBHS">
-                    <span>File Attachments</span>
-                </h4>
-            </div>
-        </header>
-        <div class="content-box_body__3tSRB">
-            <section class="section-mat-form-field section-field-file">
-                <mat-label>Attachment</mat-label>
-                <input accept=".doc,.docx,.pdf" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
-                <span *ngIf="f.attachment.value">{{f.attachment.value}}</span>
-                <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                    (click)="inputAttachment.click()">Upload</a>
-            </section>
-            <mat-progress-bar *ngIf="progressAttachment" mode="determinate" [value]="progressAttachment" class="mb-15">
-            </mat-progress-bar>
-            <p class="form-error" *ngIf="!formCustomvalidation.attachment.validated">
-                {{formCustomvalidation.attachment.message}}</p>
-        </div>
-    </div><!-- new-job-attachments -->
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!newsForm.valid">
+    {{editNewsId ? 'Update News' : 'Add News'}}
+  </button>
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 
-    <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
-        type="submit" [disabled]="!jobForm.valid">
-        {{editJobId ? 'Update Job' : 'Post Job'}}
-    </button>
-    <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
-
-</form><!-- job form -->
+</form>

@@ -69,6 +69,9 @@ import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
+import { ShareModule } from 'ngx-sharebuttons';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
@@ -151,6 +154,9 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    ShareModule,
+    ShareButtonsModule,
+    ShareIconsModule,
     NgxGalleryModule
   ],
   exports: [
@@ -196,6 +202,9 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    ShareModule,
+    ShareButtonsModule,
+    ShareIconsModule,
     pluralPipe,
     NgxGalleryModule
   ],
