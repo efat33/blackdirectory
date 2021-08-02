@@ -72,6 +72,24 @@ export class JobService {
     return this.httpClient.get<Sector>(url, this.headerOptions);
   }
 
+  addJobSector(body: any): Observable<any> {
+    const url = 'api/jobs/new-job-sector';
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  editJobSector(jobSectorId: number, body: any): Observable<any> {
+    const url = `api/jobs/update-job-sector/${jobSectorId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteJobSector(jobSectorId: number): Observable<any> {
+    const url = `api/jobs/delete-job-sector/${jobSectorId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
   newJob(body: any): Observable<any> {
     const url = 'api/jobs/new-job';
 
