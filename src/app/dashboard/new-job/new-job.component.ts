@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -42,7 +42,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   map: any;
   mapMarker: any;
 
-  ckEditor = ClassicEditor;
+  ckEditor = DocumentEditor;
   ckConfig = {
     placeholder: 'Job Description',
     height: 200,
@@ -135,6 +135,12 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.subscriptions.add(valueChangeSub);
+  }
+
+  onCkeditorReady(editor: DocumentEditor): void {
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
   }
 
   initializeForm() {
