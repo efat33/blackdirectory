@@ -8,6 +8,7 @@ import { NewsCategoriesComponent } from './news/news-categories/news-categories.
 import { ManageNewsComponent } from './news/manage-news/manage-news.component';
 import { TopNewsComponent } from './news/top-news/top-news.component';
 import { JobSectorsComponent } from './jobs/job-sectors/job-sectors.component';
+import { ListingCategoriesComponent } from './listing/listing-categories/listing-categories.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,8 @@ const routes: Routes = [
       { path: 'top-news', component: TopNewsComponent },
 
       { path: 'job-sectors', component: JobSectorsComponent },
+
+      { path: 'listing-categories', component: ListingCategoriesComponent },
     ],
   },
 ];

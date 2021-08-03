@@ -77,13 +77,13 @@ export class ListingService {
 
   deleteReview(id): Observable<APIReponse> {
     const url = `api/listings/delete-review/${id}`;
-  
+
     return this.httpClient.delete<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
 
   updateReviewLike(body: any): Observable<APIReponse> {
     const url = 'api/listings/update-review-like';
-  
+
     return this.httpClient
       .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
       .pipe(map((body: APIReponse) => body));
@@ -99,11 +99,33 @@ export class ListingService {
 
   deleteComment(id): Observable<APIReponse> {
     const url = `api/listings/delete-comment/${id}`;
-  
+
     return this.httpClient.delete<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
-  
-  
+
+  getListingCategories(): Observable<any> {
+    const url = `api/listings/get-categories`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  addListingCategory(body: any): Observable<any> {
+    const url = `api/listings/add-category`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  updateListingCategory(categoryId: number, body: any): Observable<any> {
+    const url = `api/listings/update-category/${categoryId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteListingCategory(categoryId: number): Observable<any> {
+    const url = `api/listings/delete-category/${categoryId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
 }
 
 

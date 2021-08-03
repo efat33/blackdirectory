@@ -13,6 +13,8 @@ import { ManageNewsComponent } from './news/manage-news/manage-news.component';
 import { TopNewsComponent } from './news/top-news/top-news.component';
 import { JobSectorsComponent } from './jobs/job-sectors/job-sectors.component';
 import { AddJobSectorModalComponent } from './jobs/job-sectors/add-job-sector-modal/add-job-sector-modal';
+import { AddListingCategoryModalComponent } from './listing/listing-categories/add-listing-category-modal/add-listing-category-modal';
+import { ListingCategoriesComponent } from './listing/listing-categories/listing-categories.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AddJobSectorModalComponent } from './jobs/job-sectors/add-job-sector-mo
     ManageNewsComponent,
     TopNewsComponent,
     JobSectorsComponent,
-    AddJobSectorModalComponent
+    AddJobSectorModalComponent,
+    ListingCategoriesComponent,
+    AddListingCategoryModalComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })
