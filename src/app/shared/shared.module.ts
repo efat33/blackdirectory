@@ -78,6 +78,8 @@ import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-g
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
+import { ImageInputComponent } from './components/image-input/image-input.component';
+import { DropFileDirective } from './components/image-input/drop-file.directive';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,8 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ListingVideoModal,
     CouponModal,
     ListingReviewModal,
+    ImageInputComponent,
+    DropFileDirective,
   ],
   imports: [
     CommonModule,
@@ -207,6 +211,8 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     MatSortModule,
     pluralPipe,
     NgxGalleryModule,
+    ImageInputComponent,
+    DropFileDirective,
   ],
   entryComponents: [
     RegistrationModal,

@@ -1,36 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { CurrentUser } from "../user/user";
+import { Observable } from 'rxjs';
+import { pluck, tap } from 'rxjs/operators';
+import { CurrentUser } from '../user/user';
+
+export interface ApiResponse<T> {
+  status: number;
+  message: string;
+  data: T;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class HelperService {
-
   currentUserInfo: CurrentUser;
   apiUrl = 'http://localhost:3000';
   siteUrl = 'http://localhost:4200';
   assetUrl = 'http://localhost:4200/assets';
 
-  constructor(
-    private http:HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     this.setCurrentUserInfo();
   }
 
   getClientIP() {
-    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
       return res.ip;
     });
   }
 
-  moveItemInFormArray(
-    formArray: FormArray,
-    fromIndex: number,
-    toIndex: number
-  ): void {
+  moveItemInFormArray(formArray: FormArray, fromIndex: number, toIndex: number): void {
     const dir = toIndex > fromIndex ? 1 : -1;
 
     const item = formArray.at(fromIndex);
@@ -44,7 +44,7 @@ export class HelperService {
   isUserLoggedIn(): boolean {
     const currentUserStr = localStorage.getItem('currentUserInfo');
     try {
-      if(JSON.parse(currentUserStr)) return true;
+      if (JSON.parse(currentUserStr)) return true;
     } catch (e) {
       return false;
     }
@@ -54,14 +54,12 @@ export class HelperService {
   setCurrentUserInfo(): void {
     const currentUserStr = localStorage.getItem('currentUserInfo');
     try {
-      if(JSON.parse(currentUserStr)) this.currentUserInfo = JSON.parse(currentUserStr);
-    } catch (e) {
-
-    }
+      if (JSON.parse(currentUserStr)) this.currentUserInfo = JSON.parse(currentUserStr);
+    } catch (e) {}
   }
 
   getMetaData(data, key): any {
-    return data.find(element => element.meta_key == key).meta_value;
+    return data.find((element) => element.meta_key == key).meta_value;
   }
 
   prepareMetaData(data): any {
@@ -72,43 +70,43 @@ export class HelperService {
     return metaData;
   }
 
-  imageValidation(image:File): any {
+  imageValidation(image: File): any {
     const obj = {
       validated: true,
-      message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB'
-    }
+      message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB',
+    };
 
-    if((image.type != "image/jpeg" && image.type != "image/png"  && image.type != 'image/jpg') || (image.size / (1024*1024)) > 1) {
+    if (
+      (image.type != 'image/jpeg' && image.type != 'image/png' && image.type != 'image/jpg') ||
+      image.size / (1024 * 1024) > 1
+    ) {
       obj.validated = false;
     }
-
 
     return obj;
   }
 
-  fileValidation(file:File): any {
+  fileValidation(file: File): any {
     const ext = file.name.substring(file.name.lastIndexOf('.') + 1);
 
     const obj = {
       validated: true,
-      message: 'Supported file type are doc, docx, pdf and file size cannot be greater than 5MB'
-    }
+      message: 'Supported file type are doc, docx, pdf and file size cannot be greater than 5MB',
+    };
 
-    if((ext != "pdf" && ext != "doc"  && ext != 'docx') || (file.size / (1024*1024)) > 5) {
+    if ((ext != 'pdf' && ext != 'doc' && ext != 'docx') || file.size / (1024 * 1024) > 5) {
       obj.validated = false;
     }
-
 
     return obj;
   }
 
-  getImageUrl(imageName:string, folder:string, imgSize?:string): string {
-
+  getImageUrl(imageName: string, folder: string, imgSize?: string): string {
     const size = imgSize ? imgSize : 'full';
 
     let image = imageName;
 
-    if(size != 'full'){
+    if (size != 'full') {
       image = `${size}-${image}`;
     }
 
@@ -130,7 +128,7 @@ export class HelperService {
   isAdminOrEmployer() {
     return this.isAdmin() || this.isEmployer();
   }
-  
+
   dateTimeNow() {
     const currentdate = new Date();
 
@@ -144,5 +142,32 @@ export class HelperService {
     const datetime = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
 
     return datetime;
+  }
+
+  getCategories() {
+    return this.http
+      .get<
+        ApiResponse<
+          {
+            id: number;
+            title: string;
+            image: string;
+          }[]
+        >
+      >('api/shop/product-categories')
+      .pipe(pluck('data'));
+  }
+
+  getTags() {
+    return this.http
+      .get<
+        ApiResponse<
+          {
+            id: number;
+            title: string;
+          }[]
+        >
+      >('api/shop/product-tags')
+      .pipe(pluck('data'));
   }
 }
