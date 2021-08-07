@@ -123,7 +123,7 @@ export class HelperService {
       image = `${size}-${image}`;
     }
 
-    return `${this.apiUrl}/${folder}/${image}`;
+    return `${this.apiUrl}/uploads/${folder}/${image}`;
   }
 
   isEmployer() {
