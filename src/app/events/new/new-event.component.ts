@@ -185,7 +185,7 @@ export class NewEventComponent implements OnInit {
       tickets: new FormArray([]),
       rsvp: new FormArray([]),
 
-      event_type: new FormControl(''),
+      event_type: new FormControl('one_time'),
       start_date: new FormControl(''),
       start_time: new FormControl(''),
       end_date: new FormControl(''),

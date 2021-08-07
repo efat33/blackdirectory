@@ -40,13 +40,13 @@
                             </header>
                             <div>
                                 <div class="content-box_body__3tSRB">
-                                    <mat-form-field>
+                                    <!-- <mat-form-field>
                                         <mat-label>Event Type</mat-label>
                                         <mat-select formControlName="event_type">
                                             <mat-option value="one_time">One Time</mat-option>
                                             <mat-option value="recurrence">Recurrence</mat-option>
                                         </mat-select>
-                                    </mat-form-field>
+                                    </mat-form-field> -->
 
                                     <!-- time details for one time event -->
                                     <div *ngIf="eventForm.get('event_type').value == 'one_time'"

@@ -27,6 +27,7 @@ export class HelperService {
     } else {
       this.apiUrl = `http://localhost:3000`;
     }
+    // this.apiUrl = `https://68.66.248.49/~blackdir/api`;
   }
 
   setSiteUrl() {
