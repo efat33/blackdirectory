@@ -16,6 +16,7 @@ import { ListingReviewModal } from 'src/app/modals/listing/details/review/listin
 import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -44,6 +45,8 @@ export class ListingDetailsComponent implements OnInit {
   listing_coupon:any = {};
   listing_hours:any = [];
   listing_menus:any = [];
+
+  favoriteListings:any = [];
 
   listing_reviews:any = [];
   review_comment = {
@@ -82,7 +85,7 @@ export class ListingDetailsComponent implements OnInit {
     private helperservice: HelperService,
     private userService: UserService,
     private spinnerService: SpinnerService,
-    private router: Router,
+    public router: Router,
     private snackbar: SnackBarService,
     private http:HttpClient
   ) { }
@@ -109,15 +112,19 @@ export class ListingDetailsComponent implements OnInit {
     if (this.listing_slug != null) {
       this.spinnerService.show();
 
-      const subscriptionGetlisting = this.listingService.getListing(this.listing_slug).subscribe(
-        (res:any) => {
+      const subsDetailsL = this.listingService.getListing(this.listing_slug);
+      const subsFavoritesL = this.listingService.getFavorites();
 
-          this.listing = res.data.listing;
-          this.listing_categories = res.data.categories;
-          this.listing_contact = res.data.contacts;
-          this.listing_hours = res.data.hours;
-          this.listing_menus = res.data.menus;
-
+      forkJoin([subsDetailsL, subsFavoritesL]).subscribe(
+        (res: any) => {
+  
+          this.listing = res[0].data.listing;
+          this.listing_categories = res[0].data.categories;
+          this.listing_contact = res[0].data.contacts;
+          this.listing_hours = res[0].data.hours;
+          this.listing_menus = res[0].data.menus;
+          this.favoriteListings = res[1].data;
+  
           // set images path
           this.setImagesPath();
           this.isTodayOpen = this.calTodayOpen();
@@ -132,9 +139,9 @@ export class ListingDetailsComponent implements OnInit {
           this.setCoupon();
 
           // display edit or submit button
-          if(this.helperservice.isUserLoggedIn() && (this.helperservice.currentUserInfo?.id == res.data.listing.user_id || this.helperservice.currentUserInfo?.id == res.data.listing.claimer_id) ){
+          if(this.helperservice.isUserLoggedIn() && (this.helperservice.currentUserInfo?.id == res[0].data.listing.user_id || this.helperservice.currentUserInfo?.id == res[0].data.listing.claimer_id) ){
             this.showEditButton = true;
-            if(res.data.listing.status == 'draft') this.showSubmitButton = true;
+            if(res[0].data.listing.status == 'draft') this.showSubmitButton = true;
           }
 
           this.spinnerService.hide();
@@ -143,15 +150,55 @@ export class ListingDetailsComponent implements OnInit {
           // get listing reviews
           this.setListingReviews();
 
+          // check if the listing is favorite
+          const fl = this.favoriteListings.find(l => l == this.listing.id);
+          if(fl) this.listing.is_favorite = true;
+
+          // update listing view 
+          this.updateListingView(this.listing.id);
+  
         },
-        (res:any) => {
+        (error) => {
           this.spinnerService.hide();
           // TODO: redirect to 404 page
         }
       );
+      
+      
 
-      this.subscriptions.add(subscriptionGetlisting);
+    }
 
+  }
+
+  updateListingView(id) {
+    const subsUpdateView = this.listingService.updateView(id).subscribe(
+      (res:any) => {
+      },
+      (res:any) => {
+      }
+    );
+    
+    this.subscriptions.add(subsUpdateView);
+  }
+
+  onClickListingFavorite(listing_id) {
+    
+    if(this.helperservice.currentUserInfo?.id){
+      const subsUpdateFavorite = this.listingService.updateFavorite(listing_id).subscribe(
+        (res:any) => {
+          this.listing.is_favorite = !this.listing.is_favorite;
+        },
+        (res:any) => {
+          
+        }
+      );
+      
+      this.subscriptions.add(subsUpdateFavorite);
+    }
+    else{
+      this.dialog.open(LoginModal, {
+        width: '400px'
+      });
     }
 
   }
@@ -338,7 +385,7 @@ export class ListingDetailsComponent implements OnInit {
 
     const likes = review.like_list;
 
-    const user_id = this.helperservice.currentUserInfo?.id ? this.helperservice.currentUserInfo?.id : this.clientIP;
+    const user_id = this.helperservice.currentUserInfo?.id ? this.helperservice.currentUserInfo.id : this.clientIP;
 
     const like = likes.find(l => l.user_id == user_id);
 
@@ -437,9 +484,9 @@ export class ListingDetailsComponent implements OnInit {
   }
 
   setCoupon() {
-
+    
     // first check if coupon expiry date exists and greated than today
-    if(this.listing.coupon_expiry_date == ''){
+    if(!this.listing.coupon_expiry_date){
       this.listing_coupon.valid = false;
       return;
     }
@@ -524,7 +571,7 @@ export class ListingDetailsComponent implements OnInit {
     const mins = d.getUTCMinutes();
     const listing_time = this.listing_hours[this.current_weekday];
 
-    if (listing_time.is_open != 1) return false;
+    if (listing_time?.is_open != 1) return false;
 
     const first_start_hour = listing_time.first_hour_start.split(':')[0];
     const first_start_minute = listing_time.first_hour_start.split(':')[1];

@@ -12,7 +12,7 @@
                     <div class="hero_text__3ENGw" style="font-size: 35px"></div>
                 </div>
                 <div id="wilcity-hero-search-form" class="tab_module__3fEXT wil-tab">
-                    <form action="https://www.blackdirectory.co.uk/search-v2/">
+                    <form [formGroup]="listingSearchForm" (ngSubmit)="onSubmitListingForm()">
                         <div class="wil-hero-form-wrapper">
                             <ul class="tab_nav__3YJph wil-tab__nav wil-text-left" style="display: none;">
                                 <li id="1617938518273-tab-filter-item-hero-tab-listing"
@@ -28,58 +28,41 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="field_module__1H6kT field_style2__2Znhe"
+                                                            [ngClass]="{'active': listingSearchForm.controls.keyword.value}"
                                                             name="hero-search-form-field-complex">
                                                             <div id="autosuggest">
                                                                 <div role="combobox" aria-expanded="false"
                                                                     aria-haspopup="listbox"
                                                                     aria-owns="autosuggest-autosuggest__results">
-                                                                    <input type="text" autocomplete="off"
-                                                                        aria-autocomplete="list"
-                                                                        aria-activedescendant=""
-                                                                        aria-controls="autosuggest-autosuggest__results"
-                                                                        id="autosuggest__input-1617938518274"
+                                                                    <input type="text" formControlName="keyword"
                                                                         placeholder="" class="field_field__3U_Rt">
                                                                 </div>
                                                                 <span class="field_label__2eCP7 text-ellipsis">What are
                                                                     you looking for?</span>
-                                                                <i class="fa fa-spinner fa-spin"
-                                                                    style="display: none;"></i>
-                                                                <div id="autosuggest-autosuggest__results"
-                                                                    class="autosuggest__results-container">
-                                                                    <!---->
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="field_module__1H6kT field_style2__2Znhe"
+                                                            [ngClass]="{'active': listingSearchForm.controls.address.value}"
                                                             name="hero-search-form-field-complex">
                                                             <div id="autosuggest">
                                                                 <div role="combobox" aria-expanded="false"
                                                                     aria-haspopup="listbox"
                                                                     aria-owns="autosuggest-autosuggest__results">
-                                                                    <input type="text" autocomplete="off"
-                                                                        aria-autocomplete="list"
-                                                                        aria-activedescendant=""
-                                                                        aria-controls="autosuggest-autosuggest__results"
-                                                                        id="listing_address_id" placeholder=""
-                                                                        class="field_field__3U_Rt">
+                                                                    <input type="text" formControlName="address"
+                                                                        placeholder="" class="field_field__3U_Rt">
                                                                 </div>
                                                                 <span
                                                                     class="field_label__2eCP7 text-ellipsis">Address</span>
-                                                                <i class="fa fa-spinner fa-spin"
-                                                                    style="display: none;"></i>
-                                                                <div id="autosuggest-autosuggest__results"
-                                                                    class="autosuggest__results-container">
-                                                                    <!---->
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <button class="wil-btn wil-btn--primary wil-btn--md wil-btn--round"><i
+                                                <button type="submit"
+                                                    class="wil-btn wil-btn--primary wil-btn--md wil-btn--round"><i
                                                         class="la la-search"></i>Search</button>
                                             </div>
                                         </div>
@@ -99,384 +82,104 @@
 
 <div class="section-wrapper section-trending-now">
     <div class="container">
-        <div class="heading_module__156eJ wil-text-center hide-bluemark hide-description ">
-            <h2 class="heading_title__1bzno">Trending Right Now</h2>
-        </div>
-        <div id="" class="wilcity-grid">
-            <div class="row row-clearfix wil-flex-wrap">
-                <div class="col-lg-3 col-md-3 col-sm-12 mb-30">
-                    <article
-                        class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
-                        data-id="16260">
-                        <div class="listing_firstWrap__36UOZ">
-                            <div style="position: absolute;top:10px;left:10px;z-index:99">
-                                <a class="wilcity-js-favorite utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6  mb-10 mr-5"
-                                    data-post-id="16260" href="#" data-tooltip="Save to my favorites"
-                                    data-tooltip-placement="top"><i class="la la-heart-o"></i></a>
-                                <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/"><i
-                                        class="la la-eye"></i>54 Views</a>
-                            </div>
-                            <header class="listing_header__2pt4D">
-                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg);">
-                                        <img class="hidden"
-                                            src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg"
-                                            alt="Auto For Trade">
-                                    </div>
-                                    <div class="listing_rated__1y7qV">
-                                        <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                            <div class="rated-small_wrap__2Eetz" data-rated="10" data-tenmode="10">
-                                                <div class="rated-small_overallRating__oFmKR">10.0</div>
-                                                <div class="rated-small_ratingWrap__3lzhB">
-                                                    <div class="rated-small_maxRating__2D9mI">10</div>
-                                                    <div class="rated-small_ratingOverview__2kCI_">Excellent</div>
+        <div *ngIf="trendingListings" class="wrapper-trending-listing">
+            <div class="heading_module__156eJ wil-text-center hide-bluemark hide-description ">
+                <h2 class="heading_title__1bzno">Trending Right Now</h2>
+            </div>
+            <div id="" class="wilcity-grid">
+                <div class="row row-clearfix wil-flex-wrap">
+                    <div *ngFor="let item of trendingListings; let index=index"
+                        class="col-lg-3 col-md-3 col-sm-12 mb-30">
+                        <article
+                            class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
+                            data-id="16260">
+                            <div class="listing_firstWrap__36UOZ">
+                                <div style="position: absolute;top:10px;left:10px;z-index:99">
+                                    <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
+                                        href="{{ siteUrl + '/listing/' + item.slug }}"><i class="la la-eye"></i>{{
+                                        item.view }} View{{ item.view | pluralPipe }}</a>
+                                </div>
+                                <header class="listing_header__2pt4D">
+                                    <a href="{{ siteUrl + '/listing/' + item.slug }}">
+                                        <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
+                                            [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
+                                            <img class="hidden"
+                                                src="{{ item.cover_img | imageSrc : 'listing' : 'medium' }}"
+                                                alt="{{ item.title }}">
+                                        </div>
+                                        <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
+                                            <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
+                                                <div class="rated-small_wrap__2Eetz"
+                                                    [attr.data-rated]="item.avg_rating">
+                                                    <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}
+                                                    </div>
+                                                    <div class="rated-small_ratingWrap__3lzhB">
+                                                        <div class="rated-small_maxRating__2D9mI">10</div>
+                                                        <div class="rated-small_ratingOverview__2kCI_">{{
+                                                            review_comment[item.avg_rating] }}</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                                <span
-                                    class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                            </header>
-                            <div class="listing_body__31ndf js-grid-item-body">
-                                <a class="listing_goo__3r7Tj"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_logo__PIZwf bg-cover"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download.jpg);">
-                                    </div>
-                                </a>
-                                <h2 class="listing_title__2920A text-ellipsis">
-                                    <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">Auto For
-                                        Trade</a>
-                                </h2>
-                                <div class="listing_tagline__1cOB3 text-ellipsis">If you ever find yourself in hassle to
-                                </div>
-                                <div class="listing_meta__6BbCG vertical">
-                                    <a style="position: relative; padding-right: 61px"
-                                        class="text-ellipsis google-address" data-latlng="&quot;&quot;"
-                                        href="https://www.blackdirectory.co.uk/listing/auto-for-trade/?title=Auto+For+Trade&amp;lat=52.648712&amp;lng=-1.070950&amp;type=listing"
-                                        data-tooltip="4 Humber Cl, Leicester LE5 1DE">
-                                        <span><i class="la la-map-marker color-primary"></i>4 Humber Cl, Leicester LE5
-                                            1DE</span>
                                     </a>
-                                    <a class="text-ellipsis phone-number" href="tel:44 8000 061314">
-                                        <i class="la la-phone color-primary"></i>44 8000 061314 </a>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="js-grid-item-footer listing_footer__1PzMC">
-                            <div class="text-ellipsis">
-                                <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
-                                    <div class="icon-box-1_block1__bJ25J">
-                                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
-                                            title="Car Dealerships">
-                                            <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                    alt="Car Dealerships">
-                                            </div>
-                                            <div class="icon-box-1_text__3R39g">Car Dealerships</div>
-                                        </a>
-                                    </div>
-                                    <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
-                                        <span class="color-secondary">Open now</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="listing_footerRight__2398w">
-                                <a class="wilcity-preview-gallery" href="#" data-tooltip="Gallery"
-                                    data-tooltip-placement="top"
-                                    data-gallery="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/only-1000-golf-r-units-coming-to-us-first-back-is-red-36422_1-1024x768.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/SDF.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/driving-safety-tips-1024x682-1.jpg">
-                                    <i class="la la-search-plus"></i>
-                                </a>
-                                <a class="wilcity-js-favorite" data-post-id="16260" href="#"
-                                    data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                        class="la la-heart-o"></i></a>
-                            </div>
-                        </footer>
-                    </article>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 mb-30">
-                    <article
-                        class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
-                        data-id="16260">
-                        <div class="listing_firstWrap__36UOZ">
-                            <div style="position: absolute;top:10px;left:10px;z-index:99">
-                                <a class="wilcity-js-favorite utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6  mb-10 mr-5"
-                                    data-post-id="16260" href="#" data-tooltip="Save to my favorites"
-                                    data-tooltip-placement="top"><i class="la la-heart-o"></i></a>
-                                <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/"><i
-                                        class="la la-eye"></i>54 Views</a>
-                            </div>
-                            <header class="listing_header__2pt4D">
-                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg);">
-                                        <img class="hidden"
-                                            src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg"
-                                            alt="Auto For Trade">
-                                    </div>
-                                    <div class="listing_rated__1y7qV">
-                                        <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                            <div class="rated-small_wrap__2Eetz" data-rated="10" data-tenmode="10">
-                                                <div class="rated-small_overallRating__oFmKR">10.0</div>
-                                                <div class="rated-small_ratingWrap__3lzhB">
-                                                    <div class="rated-small_maxRating__2D9mI">10</div>
-                                                    <div class="rated-small_ratingOverview__2kCI_">Excellent</div>
-                                                </div>
-                                            </div>
+                                </header>
+                                <div class="listing_body__31ndf js-grid-item-body">
+                                    <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
+                                        <div class="listing_logo__PIZwf bg-cover"
+                                            [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.logo, 'thumb') + ')'}">
                                         </div>
-                                    </div>
-                                </a>
-                                <span
-                                    class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                            </header>
-                            <div class="listing_body__31ndf js-grid-item-body">
-                                <a class="listing_goo__3r7Tj"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_logo__PIZwf bg-cover"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download.jpg);">
-                                    </div>
-                                </a>
-                                <h2 class="listing_title__2920A text-ellipsis">
-                                    <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">Auto For
-                                        Trade</a>
-                                </h2>
-                                <div class="listing_tagline__1cOB3 text-ellipsis">If you ever find yourself in hassle to
-                                </div>
-                                <div class="listing_meta__6BbCG vertical">
-                                    <a style="position: relative; padding-right: 61px"
-                                        class="text-ellipsis google-address" data-latlng="&quot;&quot;"
-                                        href="https://www.blackdirectory.co.uk/listing/auto-for-trade/?title=Auto+For+Trade&amp;lat=52.648712&amp;lng=-1.070950&amp;type=listing"
-                                        data-tooltip="4 Humber Cl, Leicester LE5 1DE">
-                                        <span><i class="la la-map-marker color-primary"></i>4 Humber Cl, Leicester LE5
-                                            1DE</span>
                                     </a>
-                                    <a class="text-ellipsis phone-number" href="tel:44 8000 061314">
-                                        <i class="la la-phone color-primary"></i>44 8000 061314 </a>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="js-grid-item-footer listing_footer__1PzMC">
-                            <div class="text-ellipsis">
-                                <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
-                                    <div class="icon-box-1_block1__bJ25J">
-                                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
-                                            title="Car Dealerships">
-                                            <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                    alt="Car Dealerships">
-                                            </div>
-                                            <div class="icon-box-1_text__3R39g">Car Dealerships</div>
+                                    <h2 class="listing_title__2920A text-ellipsis">
+                                        <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
+                                            }}</a>
+                                    </h2>
+                                    <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
+                                    </div>
+                                    <div class="listing_meta__6BbCG vertical">
+                                        <a style="position: relative; padding-right: 61px"
+                                            class="text-ellipsis google-address"
+                                            href="{{ siteUrl + '/listing/' + item.slug }}">
+                                            <span><i class="la la-map-marker color-primary"></i>{{ item.address
+                                                }}</span>
                                         </a>
-                                    </div>
-                                    <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
-                                        <span class="color-secondary">Open now</span>
+                                        <a *ngIf="item.contact && item.contact.phone != ''"
+                                            class="text-ellipsis phone-number" href="tel:{{ item.contact.phone }}">
+                                            <i class="la la-phone color-primary"></i>{{ item.contact.phone }} </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="listing_footerRight__2398w">
-                                <a class="wilcity-preview-gallery" href="#" data-tooltip="Gallery"
-                                    data-tooltip-placement="top"
-                                    data-gallery="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/only-1000-golf-r-units-coming-to-us-first-back-is-red-36422_1-1024x768.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/SDF.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/driving-safety-tips-1024x682-1.jpg">
-                                    <i class="la la-search-plus"></i>
-                                </a>
-                                <a class="wilcity-js-favorite" data-post-id="16260" href="#"
-                                    data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                        class="la la-heart-o"></i></a>
-                            </div>
-                        </footer>
-                    </article>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 mb-30">
-                    <article
-                        class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
-                        data-id="16260">
-                        <div class="listing_firstWrap__36UOZ">
-                            <div style="position: absolute;top:10px;left:10px;z-index:99">
-                                <a class="wilcity-js-favorite utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6  mb-10 mr-5"
-                                    data-post-id="16260" href="#" data-tooltip="Save to my favorites"
-                                    data-tooltip-placement="top"><i class="la la-heart-o"></i></a>
-                                <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/"><i
-                                        class="la la-eye"></i>54 Views</a>
-                            </div>
-                            <header class="listing_header__2pt4D">
-                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg);">
-                                        <img class="hidden"
-                                            src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg"
-                                            alt="Auto For Trade">
-                                    </div>
-                                    <div class="listing_rated__1y7qV">
-                                        <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                            <div class="rated-small_wrap__2Eetz" data-rated="10" data-tenmode="10">
-                                                <div class="rated-small_overallRating__oFmKR">10.0</div>
-                                                <div class="rated-small_ratingWrap__3lzhB">
-                                                    <div class="rated-small_maxRating__2D9mI">10</div>
-                                                    <div class="rated-small_ratingOverview__2kCI_">Excellent</div>
+                            <footer class="js-grid-item-footer listing_footer__1PzMC">
+                                <div *ngIf="item.categories.length > 0" class="text-ellipsis">
+                                    <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
+                                        <div class="icon-box-1_block1__bJ25J">
+                                            <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.categories[0].listing_categories_id }}"
+                                                title="{{ item.categories[0].title }}">
+                                                <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
+                                                    <img src="{{ item.categories[0].image | imageSrc : 'listing' : 'thumb' }}"
+                                                        alt="{{ item.categories[0].title }}">
                                                 </div>
-                                            </div>
+                                                <div class="icon-box-1_text__3R39g">{{ item.categories[0].title }}</div>
+                                            </a>
                                         </div>
+                                        <!-- <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
+                                            <span class="color-secondary">Open now</span>
+                                        </div> -->
                                     </div>
-                                </a>
-                                <span
-                                    class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                            </header>
-                            <div class="listing_body__31ndf js-grid-item-body">
-                                <a class="listing_goo__3r7Tj"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_logo__PIZwf bg-cover"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download.jpg);">
-                                    </div>
-                                </a>
-                                <h2 class="listing_title__2920A text-ellipsis">
-                                    <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">Auto For
-                                        Trade</a>
-                                </h2>
-                                <div class="listing_tagline__1cOB3 text-ellipsis">If you ever find yourself in hassle to
                                 </div>
-                                <div class="listing_meta__6BbCG vertical">
-                                    <a style="position: relative; padding-right: 61px"
-                                        class="text-ellipsis google-address" data-latlng="&quot;&quot;"
-                                        href="https://www.blackdirectory.co.uk/listing/auto-for-trade/?title=Auto+For+Trade&amp;lat=52.648712&amp;lng=-1.070950&amp;type=listing"
-                                        data-tooltip="4 Humber Cl, Leicester LE5 1DE">
-                                        <span><i class="la la-map-marker color-primary"></i>4 Humber Cl, Leicester LE5
-                                            1DE</span>
+                                <div class="listing_footerRight__2398w">
+                                    <a class="wilcity-js-favorite" (click)="onClickListingFavorite(item.id)">
+                                        <i [ngClass]="item.is_favorite ? 'la-heart color-primary' : 'la-heart-o'"
+                                            class="la "></i>
                                     </a>
-                                    <a class="text-ellipsis phone-number" href="tel:44 8000 061314">
-                                        <i class="la la-phone color-primary"></i>44 8000 061314 </a>
                                 </div>
-                            </div>
-                        </div>
-                        <footer class="js-grid-item-footer listing_footer__1PzMC">
-                            <div class="text-ellipsis">
-                                <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
-                                    <div class="icon-box-1_block1__bJ25J">
-                                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
-                                            title="Car Dealerships">
-                                            <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                    alt="Car Dealerships">
-                                            </div>
-                                            <div class="icon-box-1_text__3R39g">Car Dealerships</div>
-                                        </a>
-                                    </div>
-                                    <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
-                                        <span class="color-secondary">Open now</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="listing_footerRight__2398w">
-                                <a class="wilcity-preview-gallery" href="#" data-tooltip="Gallery"
-                                    data-tooltip-placement="top"
-                                    data-gallery="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/only-1000-golf-r-units-coming-to-us-first-back-is-red-36422_1-1024x768.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/SDF.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/driving-safety-tips-1024x682-1.jpg">
-                                    <i class="la la-search-plus"></i>
-                                </a>
-                                <a class="wilcity-js-favorite" data-post-id="16260" href="#"
-                                    data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                        class="la la-heart-o"></i></a>
-                            </div>
-                        </footer>
-                    </article>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 mb-30">
-                    <article
-                        class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
-                        data-id="16260">
-                        <div class="listing_firstWrap__36UOZ">
-                            <div style="position: absolute;top:10px;left:10px;z-index:99">
-                                <a class="wilcity-js-favorite utility-meta_module__mfOnV utility-meta_primary__2xTvX utility-meta_border__3O9g6  mb-10 mr-5"
-                                    data-post-id="16260" href="#" data-tooltip="Save to my favorites"
-                                    data-tooltip-placement="top"><i class="la la-heart-o"></i></a>
-                                <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/"><i
-                                        class="la la-eye"></i>54 Views</a>
-                            </div>
-                            <header class="listing_header__2pt4D">
-                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg);">
-                                        <img class="hidden"
-                                            src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE-300x173.jpg"
-                                            alt="Auto For Trade">
-                                    </div>
-                                    <div class="listing_rated__1y7qV">
-                                        <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                            <div class="rated-small_wrap__2Eetz" data-rated="10" data-tenmode="10">
-                                                <div class="rated-small_overallRating__oFmKR">10.0</div>
-                                                <div class="rated-small_ratingWrap__3lzhB">
-                                                    <div class="rated-small_maxRating__2D9mI">10</div>
-                                                    <div class="rated-small_ratingOverview__2kCI_">Excellent</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <span
-                                    class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                            </header>
-                            <div class="listing_body__31ndf js-grid-item-body">
-                                <a class="listing_goo__3r7Tj"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                    <div class="listing_logo__PIZwf bg-cover"
-                                        style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download.jpg);">
-                                    </div>
-                                </a>
-                                <h2 class="listing_title__2920A text-ellipsis">
-                                    <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">Auto For
-                                        Trade</a>
-                                </h2>
-                                <div class="listing_tagline__1cOB3 text-ellipsis">If you ever find yourself in hassle to
-                                </div>
-                                <div class="listing_meta__6BbCG vertical">
-                                    <a style="position: relative; padding-right: 61px"
-                                        class="text-ellipsis google-address" data-latlng="&quot;&quot;"
-                                        href="https://www.blackdirectory.co.uk/listing/auto-for-trade/?title=Auto+For+Trade&amp;lat=52.648712&amp;lng=-1.070950&amp;type=listing"
-                                        data-tooltip="4 Humber Cl, Leicester LE5 1DE">
-                                        <span><i class="la la-map-marker color-primary"></i>4 Humber Cl, Leicester LE5
-                                            1DE</span>
-                                    </a>
-                                    <a class="text-ellipsis phone-number" href="tel:44 8000 061314">
-                                        <i class="la la-phone color-primary"></i>44 8000 061314 </a>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="js-grid-item-footer listing_footer__1PzMC">
-                            <div class="text-ellipsis">
-                                <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
-                                    <div class="icon-box-1_block1__bJ25J">
-                                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
-                                            title="Car Dealerships">
-                                            <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                    alt="Car Dealerships">
-                                            </div>
-                                            <div class="icon-box-1_text__3R39g">Car Dealerships</div>
-                                        </a>
-                                    </div>
-                                    <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
-                                        <span class="color-secondary">Open now</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="listing_footerRight__2398w">
-                                <a class="wilcity-preview-gallery" href="#" data-tooltip="Gallery"
-                                    data-tooltip-placement="top"
-                                    data-gallery="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/only-1000-golf-r-units-coming-to-us-first-back-is-red-36422_1-1024x768.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/SDF.jpg,https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/driving-safety-tips-1024x682-1.jpg">
-                                    <i class="la la-search-plus"></i>
-                                </a>
-                                <a class="wilcity-js-favorite" data-post-id="16260" href="#"
-                                    data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                        class="la la-heart-o"></i></a>
-                            </div>
-                        </footer>
-                    </article>
+                            </footer>
+                        </article>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!trendingListings" class="section-loading">
+            <i class="fa fa-spinner fa-spin"></i>
         </div>
     </div>
 </div>
@@ -654,516 +357,85 @@
 <!-- Section ~ Featured Listings -->
 <div class="section-wrapper section-featured-listing">
     <div class="container">
-        <div class="heading_module__156eJ wil-text-center hide-bluemark">
-            <h2 class="heading_title__1bzno">Featured Listings</h2>
-        </div>
+        <div *ngIf="feautedListings" class="wrapper-featured-listing">
+            <div class="heading_module__156eJ wil-text-center hide-bluemark">
+                <h2 class="heading_title__1bzno">Featured Listings</h2>
+            </div>
 
-        <swiper [slidesPerView]="1" [spaceBetween]="20" [navigation]="true" [breakpoints]="breakpoints">
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D is-verified">
-                            <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <div class="listing_rated__1y7qV">
-                                    <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                        <div class="rated-small_wrap__2Eetz" data-rated="10" data-tenmode="10">
-                                            <div class="rated-small_overallRating__oFmKR">10.0</div>
-                                            <div class="rated-small_ratingWrap__3lzhB">
-                                                <div class="rated-small_maxRating__2D9mI">10</div>
-                                                <div class="rated-small_ratingOverview__2kCI_">Excellent</div>
+            <swiper [slidesPerView]="1" [spaceBetween]="20" [navigation]="true" [breakpoints]="breakpoints">
+                <ng-template *ngFor="let item of feautedListings; let index=index" swiperSlide>
+                    <article
+                        class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
+                        <div class="listing_firstWrap__36UOZ">
+                            <header class="listing_header__2pt4D is-verified">
+                                <a href="{{ siteUrl + '/listing/' + item.slug }}">
+                                    <span class="wilcity-slider-gradient-before"
+                                        style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
+                                    <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
+                                        [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
+                                    </div>
+                                    <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
+                                        <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
+                                            <div class="rated-small_wrap__2Eetz" [attr.data-rated]="item.avg_rating">
+                                                <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}
+                                                </div>
+                                                <div class="rated-small_ratingWrap__3lzhB">
+                                                    <div class="rated-small_maxRating__2D9mI">10</div>
+                                                    <div class="rated-small_ratingOverview__2kCI_">{{
+                                                        review_comment[item.avg_rating] }}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                            <span class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj"
-                                href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/auto-for-trade/">Auto For Trade</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">If you ever find yourself in hassle to
-                            </div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade/?title=Auto+For+Trade&amp;lat=52.648712&amp;lng=-1.070950&amp;type=listing"
-                                    data-tooltip="4 Humber Cl, Leicester LE5 1DE">
-                                    <span><i class="la la-map-marker color-primary"></i>4 Humber Cl, Leicester LE5
-                                        1DE</span>
+                                    <span class="wilcity-slider-gradient-after"></span>
                                 </a>
-                                <a class="text-ellipsis phone-number" href="tel:44 8000 061314">
-                                    <i class="la la-phone color-primary"></i>44 8000 061314 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=226"
-                                        title="Car Dealerships">
-                                        <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
-                                                src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                alt="Car Dealerships" class="lazyloaded"
-                                                data-ll-status="loaded"><noscript><img
-                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-sedan-100.png"
-                                                    alt="Car Dealerships"></noscript></div>
-                                        <div class="icon-box-1_text__3R39g">Car Dealerships</div>
-                                    </a></div>
-                                <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours"><span
-                                        class="color-quaternary">Closures</span>
+                            </header>
+                            <div class="listing_body__31ndf">
+                                <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
+                                    <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE.jpg"
+                                        class="listing_logo__PIZwf bg-cover rocket-lazyload"></div>
+                                </a>
+                                <h2 class="listing_title__2920A text-ellipsis">
+                                    <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
+                                        }}</a>
+                                </h2>
+                                <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
+                                </div>
+                                <div *ngIf="item.contact && item.contact.phone != ''" class="listing_meta__6BbCG">
+                                    <a class="text-ellipsis phone-number" href="tel:{{ item.contact.phone }}">
+                                        <i class="la la-phone color-primary"></i>{{ item.contact.phone }} </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="16260" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D is-verified">
-                            <a href="https://www.blackdirectory.co.uk/listing/ch45-ltd/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/CH45-Ltd.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                            <span class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj" href="https://www.blackdirectory.co.uk/listing/ch45-ltd/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/CH45-Ltd.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/ch45-ltd/">CH45 Ltd</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">Welcome to the world of Chilli</div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/ch45-ltd/?title=CH45+Ltd&amp;lat=53.426521&amp;lng=-3.066215&amp;type=listing"
-                                    data-tooltip="Wallasey, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>Wallasey, UK</span>
-                                </a>
-                                <a class="text-ellipsis phone-number" href="tel:07775 590 661">
-                                    <i class="la la-phone color-primary"></i>07775 590 661 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=51"
-                                        title="Food &amp; Drink">
-                                        <div class="icon-box-1_icon__3V5c0 rounded-circle"
-                                            style="background-color: #f95524"><i class="la la-coffee"></i></div>
-                                        <div class="icon-box-1_text__3R39g">Food &amp; Drink</div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="15159" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D">
-                            <a href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-3/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/805-Restaurants-Ltd-2.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj"
-                                href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-3/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/805-Restaurants-Ltd-2.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-3/">805
-                                    Restaurants Ltd</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">Since 2001 when Mr. and Mrs James opened
-                            </div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-3/?title=805+Restaurants+Ltd&amp;lat=51.582596&amp;lng=-0.230599&amp;type=listing"
-                                    data-tooltip="60 Vivian Avenue, Hendon, London NW4 3XH, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>60 Vivian Avenue, Hendon, London
-                                        NW4 3XH, UK</span>
-                                </a>
-                                <a class="text-ellipsis phone-number" href="tel:020 8202 9449">
-                                    <i class="la la-phone color-primary"></i>020 8202 9449 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=69"
-                                        title="Restaurants">
-                                        <div class="icon-box-1_icon__3V5c0 rounded-circle"
-                                            style="background-color: #006bf7"><i class="la la-cutlery"></i></div>
-                                        <div class="icon-box-1_text__3R39g">Restaurants</div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="15177" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D">
-                            <a href="https://www.blackdirectory.co.uk/listing/dougys/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/Dougys.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj" href="https://www.blackdirectory.co.uk/listing/dougys/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/Dougys.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/dougys/">Dougy’s</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">Dougy's Caribbean takeaway, a family</div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/dougys/?title=Dougy%26%238217%3Bs&amp;lat=53.456150&amp;lng=-2.239605&amp;type=listing"
-                                    data-tooltip="180 Great Western Street, Manchester M14 4LH, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>180 Great Western Street,
-                                        Manchester M14 4LH, UK</span>
-                                </a>
-                                <a class="text-ellipsis phone-number" href="tel:0161 312 8836">
-                                    <i class="la la-phone color-primary"></i>0161 312 8836 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=234"
-                                        title="Caribbean Cuisine">
-                                        <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
-                                                src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-restaurant-52.png"
-                                                alt="Caribbean Cuisine" class="lazyloaded"
-                                                data-ll-status="loaded"><noscript><img
-                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-restaurant-52.png"
-                                                    alt="Caribbean Cuisine"></noscript></div>
-                                        <div class="icon-box-1_text__3R39g">Caribbean Cuisine</div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="15171" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D">
-                            <a href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-2/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/805-Restaurants-Ltd-2.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj"
-                                href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-2/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/805-Restaurants-Ltd-2.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-2/">805
-                                    Restaurants Ltd</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">Since 2001 when Mr. and Mrs James opened
-                            </div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/805-restaurants-ltd-2/?title=805+Restaurants+Ltd&amp;lat=51.479973&amp;lng=-0.056734&amp;type=listing"
-                                    data-tooltip="805 Restaurants, Old Kent Road, London SE15 1NX, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>805 Restaurants, Old Kent Road,
-                                        London SE15 1NX, UK</span>
-                                </a>
-                                <a class="text-ellipsis phone-number" href="tel:020 7639 0808">
-                                    <i class="la la-phone color-primary"></i>020 7639 0808 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=69"
-                                        title="Restaurants">
-                                        <div class="icon-box-1_icon__3V5c0 rounded-circle"
-                                            style="background-color: #006bf7"><i class="la la-cutlery"></i></div>
-                                        <div class="icon-box-1_text__3R39g">Restaurants</div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="15176" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D is-verified">
-                            <a href="https://www.blackdirectory.co.uk/listing/kross-generation/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2021/01/Kross-Generation8.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                            <span class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj"
-                                href="https://www.blackdirectory.co.uk/listing/kross-generation/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2021/01/Kross-Generation8.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/kross-generation/">Kross
-                                    Generation</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">Kross Generation is a unisex clothing
-                            </div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/kross-generation/?title=Kross+Generation&amp;lat=51.507351&amp;lng=-0.127758&amp;type=listing"
-                                    data-tooltip="London, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>London, UK</span>
-                                </a>
-                                <a class="text-ellipsis phone-number" href="tel:07376 689552">
-                                    <i class="la la-phone color-primary"></i>07376 689552 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=258"
-                                        title="Clothing">
-                                        <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
-                                                src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-womens-suit-100.png"
-                                                alt="Clothing" class="lazyloaded" data-ll-status="loaded"><noscript><img
-                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-womens-suit-100.png"
-                                                    alt="Clothing"></noscript></div>
-                                        <div class="icon-box-1_text__3R39g">Clothing</div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="18574" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D">
-                            <a href="https://www.blackdirectory.co.uk/listing/fire-hut/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/Fire-Hut.png&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj" href="https://www.blackdirectory.co.uk/listing/fire-hut/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/Fire-Hut.png"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/fire-hut/">FIRE HUT</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">Makeup. Beauty treatments of all kind
-                            </div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/fire-hut/?title=FIRE+HUT&amp;lat=51.433697&amp;lng=0.016187&amp;type=listing"
-                                    data-tooltip="121 Pendragon Road, Bromley BR1 5LD, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>121 Pendragon Road, Bromley BR1
-                                        5LD, UK</span>
-                                </a>
-                                <a class="text-ellipsis phone-number" href="tel:07398 914329">
-                                    <i class="la la-phone color-primary"></i>07398 914329 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=401"
-                                        title="Hair &amp; Beauty Salons">
-                                        <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
-                                                src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-lipstick-100.png"
-                                                alt="Hair &amp; Beauty Salons" class="lazyloaded"
-                                                data-ll-status="loaded"><noscript><img
-                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/icons8-lipstick-100.png"
-                                                    alt="Hair &amp; Beauty Salons"></noscript></div>
-                                        <div class="icon-box-1_text__3R39g">Hair &amp; Beauty Salons</div>
-                                    </a></div>
-                                <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours"><span
-                                        class="color-quaternary">Closures</span>
+                        <footer class="listing_footer__1PzMC">
+                            <div *ngIf="item.categories.length > 0" class="text-ellipsis">
+                                <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
+                                    <div class="icon-box-1_block1__bJ25J"><a
+                                            href="{{ siteUrl }}/listing/search/?listing_cat={{ item.categories[0].listing_categories_id }}"
+                                            title="{{ item.categories[0].title }}">
+                                            <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
+                                                    src="{{ item.categories[0].image | imageSrc : 'listing' : 'thumb' }}"
+                                                    alt="{{ item.categories[0].title }}" class="lazyloaded">
+                                            </div>
+                                            <div class="icon-box-1_text__3R39g">{{ item.categories[0].title }}</div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="15153" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-            <ng-template swiperSlide>
-                <article
-                    class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                    <div class="listing_firstWrap__36UOZ">
-                        <header class="listing_header__2pt4D is-verified">
-                            <a href="https://www.blackdirectory.co.uk/listing/sasha-shantel/">
-                                <span class="wilcity-slider-gradient-before"
-                                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                    style="background-image: url(&quot;https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/sasha-shantel.jpg&quot;);"
-                                    data-ll-status="loaded"></div>
-                                <span class="wilcity-slider-gradient-after"></span>
-                            </a>
-                            <span class="wil-verified-badge wil-verified wil-verified-wrap wil-verified">Verified</span>
-                        </header>
-                        <div class="listing_body__31ndf">
-                            <a class="listing_goo__3r7Tj"
-                                href="https://www.blackdirectory.co.uk/listing/sasha-shantel/">
-                                <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/sasha-shantel.jpg"
-                                    class="listing_logo__PIZwf bg-cover rocket-lazyload" style=""></div>
-                            </a>
-                            <h2 class="listing_title__2920A text-ellipsis">
-                                <a href="https://www.blackdirectory.co.uk/listing/sasha-shantel/">Sasha Shantel</a>
-                            </h2>
-                            <div class="listing_tagline__1cOB3 text-ellipsis">LIFE, THOUGHTS &amp; REFLECTIONS.</div>
-                            <div class="listing_meta__6BbCG">
-                                <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
-                                    data-latlng="&quot;&quot;"
-                                    href="https://www.blackdirectory.co.uk/listing/sasha-shantel/?title=Sasha+Shantel&amp;lat=51.507351&amp;lng=-0.127758&amp;type=listing"
-                                    data-tooltip="London, UK">
-                                    <span><i class="la la-map-marker color-primary"></i>London, UK</span>
+                            <div class="listing_footerRight__2398w">
+                                <a class="wilcity-js-favorite" (click)="onClickListingFavorite(item.id)">
+                                    <i [ngClass]="item.is_favorite ? 'la-heart color-primary' : 'la-heart-o'"
+                                        class="la "></i>
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                    <footer class="listing_footer__1PzMC">
-                        <div class="text-ellipsis">
-                            <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                <div class="icon-box-1_block1__bJ25J"><a
-                                        href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=197"
-                                        title="Bloggers &amp; Vloggers">
-                                        <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
-                                                src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/writing.png"
-                                                alt="Bloggers &amp; Vloggers" class="lazyloaded"
-                                                data-ll-status="loaded"><noscript><img
-                                                    src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/writing.png"
-                                                    alt="Bloggers &amp; Vloggers"></noscript></div>
-                                        <div class="icon-box-1_text__3R39g">Bloggers &amp; Vloggers</div>
-                                    </a></div>
-                            </div>
-                        </div>
-                        <div class="listing_footerRight__2398w">
-                            <a class="wilcity-js-favorite" data-post-id="15879" href="#"
-                                data-tooltip="Save to my favorites" data-tooltip-placement="top"><i
-                                    class="la la-heart-o"></i></a>
-                        </div>
-                    </footer>
-
-                </article>
-            </ng-template>
-        </swiper>
-
+                        </footer>
+                    </article>
+                </ng-template>
+            </swiper>
+        </div>
+        <div *ngIf="!feautedListings" class="section-loading">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
     </div>
 </div>
 
