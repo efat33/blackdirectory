@@ -16,7 +16,7 @@ export class imageSrc implements PipeTransform {
       image = `${size}-${image}`;
     }
 
-    return `${this.helperService.apiUrl}/${folder}/${image}`;
+    return `${this.helperService.apiUrl}/uploads/${folder}/${image}`;
   }
 }
 
