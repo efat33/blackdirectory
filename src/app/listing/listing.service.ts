@@ -45,12 +45,50 @@ export class ListingService {
     return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
 
+  getListings(params): Observable<APIReponse> {
+    const url = `api/listings/get-listings/${params}`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
   publishListing(body: any): Observable<APIReponse> {
     const url = 'api/listings/publish-listing';
 
     return this.httpClient
       .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
       .pipe(map((body: APIReponse) => body));
+  }
+
+  searchListing(body: any): Observable<APIReponse> {
+    const url = 'api/listings/search-listing';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  getFavorites(): Observable<APIReponse> {
+    const url = `api/listings/favorites`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  updateFavorite(id): Observable<APIReponse> {
+    const url = `api/listings/update-favorite/${id}`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  getCategories(): Observable<APIReponse> {
+    const url = `api/listings/categories`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  updateView(id): Observable<APIReponse> {
+    const url = `api/listings/update-view/${id}`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
 
   newReview(body: any): Observable<APIReponse> {

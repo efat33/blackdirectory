@@ -2,9 +2,11 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 export interface DialogData {
-    category: number;
+    category: number,
+    categories: any
 }
 
 @Component({
@@ -15,13 +17,15 @@ export interface DialogData {
 
 export class ListingSearchCatModal implements OnInit {
 
+    subscriptions = new Subscription();
+
     categories = [
-        { value: 1, viewValue: 'Accommodation'},
-        { value: 2, viewValue: 'Accountants'},
-        { value: 3, viewValue: 'Energy Healing'},
-        { value: 4, viewValue: 'Estate Agents'},
-        { value: 5, viewValue: 'Food & Drink'},
-        { value: 6, viewValue: 'Restaurants'},
+        // { value: 1, viewValue: 'Accommodation'},
+        // { value: 2, viewValue: 'Accountants'},
+        // { value: 3, viewValue: 'Energy Healing'},
+        // { value: 4, viewValue: 'Estate Agents'},
+        // { value: 5, viewValue: 'Food & Drink'},
+        // { value: 6, viewValue: 'Restaurants'},
     ];
 
     chosenCategory: number = null;
@@ -37,7 +41,10 @@ export class ListingSearchCatModal implements OnInit {
        if(this.data.category != null){
            this.chosenCategory = this.data.category;
        }
+       this.categories = this.data.categories;
     }
+
+    
 
     onSubmit() {
         this.dialogRef.close();
