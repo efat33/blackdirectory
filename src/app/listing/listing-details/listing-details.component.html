@@ -5,7 +5,7 @@
                 <div class="listing-detail_img__3DyYX pos-a-full bg-cover"
                     [ngStyle]="{'background-image': 'url(' + cover_img + ')'}">
                 </div>
-                <div class="wil-header-btn-wrapper" style="z-index: 1;">
+                <div *ngIf="listing_galleries.length > 0" class="wil-header-btn-wrapper" style="z-index: 1;">
                     <a (click)="openGalleryModal()" class="wil-btn wil-btn--overlay-dark wil-btn--sm wil-btn--round">
                         <span class="list_icon__2YpTp"><i class="la la-photo"></i></span> <span class="">Tour this
                             Listing</span>
@@ -37,20 +37,34 @@
                     <div class="listing-detail_right__2KHL5">
                         <div class="listing-detail_rightButton__30xaS clearfix">
                             <div class="wil-lists-item">
-                                <div class="listing-detail_rightItem__2CjTS wilcity-single-tool-favorite"><a href="#"
-                                        target="_self" class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"
-                                        icon="la la-heart-o"> <i class="la color-quaternary la la-heart-o"></i> <span
-                                            class="">Favorite</span>
-                                    </a></div>
+                                <div class="listing-detail_rightItem__2CjTS wilcity-single-tool-favorite">
+                                    <a (click)="onClickListingFavorite(listing.id)"
+                                        class="wil-btn wil-btn--border wil-btn--round wil-btn--sm">
+                                        <i [ngClass]="listing.is_favorite ? 'la-heart color-primary' : 'color-quaternary la-heart-o'"
+                                            class="la "></i> <span class="">Favorite</span>
+                                    </a>
+                                </div>
                                 <div class="listing-detail_rightItem__2CjTS wilcity-single-tool-inbox"><a
                                         (click)="openContactOwnerModal()"
                                         class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"> <i
                                             class="la la-envelope color-1"></i> <span class="">Message</span>
                                     </a></div>
-                                <div class="listing-detail_rightItem__2CjTS wil-single-tool-share"><a href="#"
-                                        target="_self" class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"> <i
+                                <div class="listing-detail_rightItem__2CjTS wil-single-tool-share">
+                                    <a (click)="listing.show_share_options = !listing.show_share_options"
+                                        (clickOutside)="listing.show_share_options = false"
+                                        class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"> <i
                                             class="color-primary la la-share"></i> <span class="">Share</span>
                                     </a>
+                                    <div class="listing-detail_shareContent__2nr-2"
+                                        [ngClass]="{'active': listing.show_share_options}">
+                                        <div
+                                            class="list_module__1eis9 list-none list_social__31Q0V list_medium__1aT2c list_abs__OP7Og arrow--top-right">
+                                            <share-buttons [theme]="'material-dark'"
+                                                [include]="['facebook','twitter','linkedin','pinterest','email']"
+                                                [title]="listing.title" [url]="router.url" [image]="cover_img"
+                                                [autoSetMeta]="false"></share-buttons>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -430,6 +444,7 @@
                                                             </div>
                                                         </div>
                                                         <div *ngIf="userCanEditReview(item.id)"
+                                                            (clickOutside)="isReviewDotsClicked[item.id] = false"
                                                             class="dropdown_module__J_Zpj ml-20">
                                                             <div (click)="isReviewDotsClicked[item.id] = (isReviewDotsClicked[item.id] ? false : true )"
                                                                 class="dropdown_threeDots__3fa2o"><span
@@ -478,8 +493,7 @@
                                                     <div class="comment-review_meta__1chzm"><span>{{ item.likes }}
                                                             Like{{ item.likes | pluralPipe : 's' }}</span>
                                                         <span>{{ item.comments }} Comment{{ item.comments | pluralPipe :
-                                                            's' }}</span> <span>{{ item.shares }} Share{{ item.shares |
-                                                            pluralPipe : 's' }}</span>
+                                                            's' }}</span>
                                                     </div>
                                                 </div>
                                                 <footer data-v-52d0a98f="" class="comment-review_footer__3XR0_">
@@ -493,7 +507,7 @@
                                                                     class="la la-thumbs-up"></i>
                                                                 <span class="">Like</span>
                                                             </a></div>
-                                                        <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
+                                                        <!-- <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
                                                             <div data-v-52d0a98f="" class="utility-meta_module__mfOnV"
                                                                 icon="la la-share-square-o" btn-name="Share"><a href="#"
                                                                     target="_self" class="'no-style'"> <i
@@ -501,7 +515,7 @@
                                                                         class="">Share</span>
                                                                 </a>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <div style="min-height: 100px;" data-v-52d0a98f="">
                                                         <div>
@@ -567,6 +581,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div *ngIf="userCanEditComment(comment)"
+                                                                            (clickOutside)="isCommentDotsClicked[comment.id] = false;"
                                                                             class="dropdown_module__J_Zpj">
                                                                             <div (click)="isCommentDotsClicked[comment.id] = (isCommentDotsClicked[comment.id] ? false : true )"
                                                                                 class="dropdown_threeDots__3fa2o"><span
@@ -706,7 +721,8 @@
                                 </div>
 
                                 <!-- listing contact info -->
-                                <div class="wilcity-sidebar-item-business-info content-box_module__333d9">
+                                <div *ngIf="listing_contact"
+                                    class="wilcity-sidebar-item-business-info content-box_module__333d9">
                                     <header class="content-box_header__xPnGx clearfix">
                                         <div class="wil-float-left">
                                             <h4 class="content-box_title__1gBHS"><i
@@ -1047,6 +1063,7 @@
                                                                 </div>
                                                             </div>
                                                             <div *ngIf="userCanEditReview(item.id)"
+                                                                (clickOutside)="isReviewDotsClicked[item.id] = false"
                                                                 class="dropdown_module__J_Zpj ml-20">
                                                                 <div (click)="isReviewDotsClicked[item.id] = (isReviewDotsClicked[item.id] ? false : true )"
                                                                     class="dropdown_threeDots__3fa2o"><span
@@ -1100,9 +1117,7 @@
                                                                 Like{{ item.likes | pluralPipe : 's' }}</span>
                                                             <span>{{ item.comments }} Comment{{ item.comments |
                                                                 pluralPipe :
-                                                                's' }}</span> <span>{{ item.shares }} Share{{
-                                                                item.shares |
-                                                                pluralPipe : 's' }}</span>
+                                                                's' }}</span>
                                                         </div>
                                                     </div>
                                                     <footer data-v-52d0a98f="" class="comment-review_footer__3XR0_">
@@ -1116,16 +1131,6 @@
                                                                         class="la la-thumbs-up"></i>
                                                                     <span class="">Like</span>
                                                                 </a></div>
-                                                            <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
-                                                                <div data-v-52d0a98f=""
-                                                                    class="utility-meta_module__mfOnV"
-                                                                    icon="la la-share-square-o" btn-name="Share"><a
-                                                                        href="#" target="_self" class="'no-style'"> <i
-                                                                            class="color-primary la la-share"></i> <span
-                                                                            class="">Share</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                         <div style="min-height: 100px;" data-v-52d0a98f="">
                                                             <div>
@@ -1194,6 +1199,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div *ngIf="userCanEditComment(comment)"
+                                                                                (clickOutside)="isCommentDotsClicked[comment.id] = false;"
                                                                                 class="dropdown_module__J_Zpj">
                                                                                 <div (click)="isCommentDotsClicked[comment.id] = (isCommentDotsClicked[comment.id] ? false : true )"
                                                                                     class="dropdown_threeDots__3fa2o">
