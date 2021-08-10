@@ -1,0 +1,72 @@
+<div class="wil-content wilcity-archive">
+  <section class="wil-section">
+    <div class="container">
+      <div class="latest-deals-section" *ngIf="latestDeals.length > 0">
+        <h2>Latest Deals</h2>
+
+        <swiper [autoHeight]="true" [navigation]="true" [loop]="true" [autoplay]="{ delay: 5000, disableOnInteraction: false }">
+          <ng-template *ngFor="let deal of latestDeals; let index = index" swiperSlide>
+            <div class="single-mobile-row">
+              <div class="single-mobile-top">
+                <div class="single-mobile-coln mobile-network">
+                  <img [src]="deal.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
+                </div>
+
+                <div class="single-mobile-coln mobile-text">
+                  <h5 class="mobile-info-value">{{isUnlimited(deal.texts) ? 'Unltd' : deal.texts}}</h5>
+                  <p class="mobile-info-param">texts</p>
+                </div>
+
+                <div class="single-mobile-coln mobile-minutes">
+                  <h5 class="mobile-info-value">{{isUnlimited(deal.minutes) ? 'Unltd' : deal.minutes}}</h5>
+                  <p class="mobile-info-param">minutes</p>
+                </div>
+
+                <div class="single-mobile-coln single-mobile-coln-bg mobile-data">
+                  <h5 class="mobile-info-value">{{isUnlimited(deal.data) ? 'Unltd' : deal.data + 'GB'}}</h5>
+                  <p class="mobile-info-param">data</p>
+                </div>
+
+                <div class="single-mobile-coln single-mobile-coln-bg mobile-contract">
+                  <h5 class="mobile-info-value">{{deal.contract_length}}</h5>
+                  <p class="mobile-info-param">month<br>contract</p>
+                </div>
+
+                <div class="single-mobile-coln single-mobile-coln-bg mobile-price">
+                  <h5 class="mobile-info-value">£{{deal.cost}}</h5>
+                  <p class="mobile-info-param">per<br>month</p>
+                </div>
+
+                <div class="single-mobile-coln mobile-link">
+                  <a target="_blank" href="{{deal.link}}">Visit Now</a>
+                </div>
+              </div>
+
+              <div class="single-mobile-bottom" [innerHTML]="deal.description"></div>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+
+      <div class="sub-headings">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-card>
+              <h4><a [routerLink]="['contact-phones']">Contact Phones<br>Deals</a></h4>
+            </mat-card>
+          </div>
+          <div class="col-md-4">
+            <mat-card>
+              <h4><a [routerLink]="['sim-only']">Sim Only<br>Deals</a></h4>
+            </mat-card>
+          </div>
+          <div class="col-md-4">
+            <mat-card>
+              <h4><a [routerLink]="['upgrades']">Upgrades<br>Deals</a></h4>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

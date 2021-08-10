@@ -1,0 +1,121 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="mobilesForm">
+  <div id="new-mobiles-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <div class="content-box_body__3tSRB">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Provider</mat-label>
+            <mat-select formControlName="provider_id">
+              <mat-option *ngFor="let provider of mobilesProviders" [value]="provider.id">
+                {{provider.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category">
+              <mat-option *ngFor="let category of mobilesService.categories" [value]="category.value">
+                {{category.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Link</mat-label>
+            <input matInput formControlName="link" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Monthly Cost</mat-label>
+            <input matInput formControlName="cost" (keypress)="numericOnly($event)" />
+            <span matPrefix>£ &nbsp;</span>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <div class="flex">
+            <div>
+              <mat-form-field>
+                <mat-label>Data</mat-label>
+                <input matInput formControlName="data" (keypress)="numericOnly($event)" />
+                <span matSuffix>GB</span>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-slide-toggle color="primary" [checked]="isUnlimited('data')"
+                (change)="onToggleChange($event.checked, 'data')">Unlimited</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="flex">
+            <div>
+              <mat-form-field>
+                <mat-label>Minutes</mat-label>
+                <input matInput formControlName="minutes" (keypress)="numericOnly($event)" />
+                <span matSuffix></span>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-slide-toggle color="primary" [checked]="isUnlimited('minutes')"
+                (change)="onToggleChange($event.checked, 'minutes')">Unlimited</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="flex">
+            <div>
+              <mat-form-field>
+                <mat-label>Texts</mat-label>
+                <input matInput formControlName="texts" (keypress)="numericOnly($event)" />
+                <span matSuffix></span>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-slide-toggle color="primary" [checked]="isUnlimited('texts')"
+                (change)="onToggleChange($event.checked, 'texts')">Unlimited</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Contract Length</mat-label>
+            <input matInput formControlName="contract_length" (keypress)="numericOnly($event)" />
+            <span matSuffix>Month(s)</span>
+            <mat-hint align="start">Put 0 if 'No Contract'</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-checkbox formControlName="top_pick" color="primary">Top Pick</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="mobiles-content-ckeditor">
+        <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
+          formControlName="description">
+        </ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!mobilesForm.valid">
+    {{editMobilesId ? 'Update Mobile' : 'Add Mobile'}}
+  </button>
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+</form>

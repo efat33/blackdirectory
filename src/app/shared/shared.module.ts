@@ -62,7 +62,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SendMessageModalComponent } from '../modals/job/send-message/send-message-modal';
 import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
@@ -77,9 +77,8 @@ import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-g
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
-
-
-
+import { MatCardModule } from '@angular/material/card';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +115,8 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
-    ListingReviewModal
+    ListingReviewModal,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -157,7 +157,8 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ShareModule,
     ShareButtonsModule,
     ShareIconsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    MatCardModule,
   ],
   exports: [
     FormsModule,
@@ -206,7 +207,9 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ShareButtonsModule,
     ShareIconsModule,
     pluralPipe,
-    NgxGalleryModule
+    NgxGalleryModule,
+    MatCardModule,
+    PaginationComponent,
   ],
   entryComponents: [
     RegistrationModal,
@@ -233,7 +236,7 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
-    ListingReviewModal
+    ListingReviewModal,
   ],
 })
 export class SharedModule {}

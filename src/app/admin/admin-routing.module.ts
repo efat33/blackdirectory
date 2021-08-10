@@ -9,6 +9,9 @@ import { ManageNewsComponent } from './news/manage-news/manage-news.component';
 import { TopNewsComponent } from './news/top-news/top-news.component';
 import { JobSectorsComponent } from './jobs/job-sectors/job-sectors.component';
 import { ListingCategoriesComponent } from './listing/listing-categories/listing-categories.component';
+import { NewMobileComponent } from './mobiles/new-mobile/new-mobile.component';
+import { ManageMobilesComponent } from './mobiles/manage-mobiles/manage-mobiles.component';
+import { MobileProvidersComponent } from './mobiles/mobile-providers/mobile-providers.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,11 @@ const routes: Routes = [
       { path: 'job-sectors', component: JobSectorsComponent },
 
       { path: 'listing-categories', component: ListingCategoriesComponent },
+
+      { path: 'mobiles-add', component: NewMobileComponent },
+      { path: 'mobiles-edit/:mobile_id', component: NewMobileComponent },
+      { path: 'mobiles-all', component: ManageMobilesComponent },
+      { path: 'mobiles-providers', component: MobileProvidersComponent },
     ],
   },
 ];
