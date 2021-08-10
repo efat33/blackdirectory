@@ -71,8 +71,13 @@
                     <li class="menu-item " *ngFor="let item of menuItems">
                         <a [routerLink]="[item.route]" routerLinkActive="mainmenu-link-active"
                             style="color: rgb(255, 255, 255);">{{ item.title }}</a>
-                    </li>
 
+                        <ul *ngIf="item.children?.length" class="dropdown-menu">
+                          <li *ngFor="let child of item.children">
+                            <a [routerLink]="[child.route]" style="color: rgb(0, 0, 0);">{{ child.title }}</a>
+                          </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

@@ -1,28 +1,28 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { HelperService } from 'src/app/shared/helper.service';
-import { NewsService } from 'src/app/news/news.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
+import { AddMobileProviderModalComponent } from './add-mobile-providers-modal/add-mobile-providers-modal';
+import { MobilesService } from 'src/app/mobiles/mobiles.service';
 
 declare const google: any;
 
 @Component({
-  selector: 'app-manage-news',
-  templateUrl: './manage-news.component.html',
-  styleUrls: ['./manage-news.component.scss'],
+  selector: 'app-mobile-providers',
+  templateUrl: './mobile-providers.component.html',
+  styleUrls: ['./mobile-providers.component.scss'],
 })
-export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MobileProvidersComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
-  allNews = [];
+  providers = [];
 
-  displayedColumns: string[] = ['image', 'title', 'category', 'featured', 'updated_at', 'action'];
+  displayedColumns: string[] = ['title', 'logo', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,14 +30,13 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private newsService: NewsService,
-    private helperService: HelperService,
+    private mobilesService: MobilesService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
   ) {}
 
   ngOnInit() {
-    this.getNews();
+    this.getMobileProviders();
   }
 
   ngAfterViewInit() {
@@ -45,14 +44,14 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
-  getNews() {
+  getMobileProviders() {
     this.spinnerService.show();
-    const subscription = this.newsService.getNews().subscribe(
+    const subscription = this.mobilesService.getMobileProviders().subscribe(
       (result: any) => {
         this.spinnerService.hide();
 
-        this.allNews = result.data;
-        this.dataSource.data = this.allNews;
+        this.providers = result.data;
+        this.dataSource.data = this.providers;
       },
       (error) => {
         this.spinnerService.hide();
@@ -72,18 +71,56 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  deleteNews(news: any) {
+  addProvider() {
+    const dialogConfig = {
+      width: '550px',
+    };
+
+    const dialogSubscription = this.dialog
+      .open(AddMobileProviderModalComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+          this.getMobileProviders();
+        }
+      });
+
+    this.subscriptions.add(dialogSubscription);
+  }
+
+  editProvider(provider: any) {
+    const dialogConfig = {
+      width: '550px',
+      data: {
+        provider,
+      },
+    };
+
+    const dialogSubscription = this.dialog
+      .open(AddMobileProviderModalComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+          this.getMobileProviders();
+        }
+      });
+
+    this.subscriptions.add(dialogSubscription);
+  }
+
+  deleteProvider(provider: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: { message: 'Are you sure to delete the news?' },
+      data: { message: 'Are you sure to delete the provider?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-        const subscription = this.newsService.deleteNews(news.id).subscribe(
+        const subscription = this.mobilesService.deleteMobileProvider(provider.id).subscribe(
           (result: any) => {
             this.spinnerService.hide();
-            this.getNews();
+
+            this.getMobileProviders();
           },
           (error) => {
             this.spinnerService.hide();
@@ -96,23 +133,6 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.subscriptions.add(dialogCloseSubscription);
-  }
-
-  featureNews(news: any) {
-    this.spinnerService.show();
-    const featuredNewsSubs = this.newsService.updateNews(news.id, { featured: !news.featured }).subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
-
-        news.featured = !news.featured;
-      },
-      (error) => {
-        this.spinnerService.hide();
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-      }
-    );
-
-    this.subscriptions.add(featuredNewsSubs);
   }
 
   ngOnDestroy() {

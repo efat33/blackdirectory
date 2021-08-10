@@ -35,7 +35,7 @@ export class ListingSearchComponent implements OnInit {
   selectedCategory: string = null;
   selectedPrice: string = null;
   selectedSort: string = 'Descending';
-  queryParams = { 
+  queryParams = {
     keyword: '',
     lat: '',
     lng: '',
@@ -84,7 +84,7 @@ export class ListingSearchComponent implements OnInit {
     const listing_cat = this.route.snapshot.queryParamMap.get('listing_cat');
     if(listing_cat){
       this.queryParams.category = listing_cat;
-    } 
+    }
     const keyword = this.route.snapshot.queryParamMap.get('keyword');
     const address = this.route.snapshot.queryParamMap.get('address');
 
@@ -108,12 +108,12 @@ export class ListingSearchComponent implements OnInit {
         const listing_cat = this.route.snapshot.queryParamMap.get('listing_cat');
         if(listing_cat){
           this.selectedCategory = this.categories.find(c => c.value == listing_cat).viewValue;
-        } 
+        }
       },
       (res:any) => {
       }
     );
-    
+
     this.subscriptions.add(subsCategories);
 }
 
@@ -122,19 +122,19 @@ export class ListingSearchComponent implements OnInit {
   }
 
   onClickListingFavorite(listing_id) {
-    
+
     if(this.helperService.currentUserInfo?.id){
       const subsUpdateFavorite = this.listingService.updateFavorite(listing_id).subscribe(
         (res:any) => {
           const tl = this.listings.find(l => l.id == listing_id);
           tl.is_favorite = !tl.is_favorite;
-      
+
         },
         (res:any) => {
-          
+
         }
       );
-      
+
       this.subscriptions.add(subsUpdateFavorite);
     }
     else{
@@ -180,7 +180,7 @@ export class ListingSearchComponent implements OnInit {
 
     const subsSearchL = this.listingService.searchListing(this.queryParams);
     const subsFavoritesL = this.listingService.getFavorites();
-    
+
     this.spinnerService.show();
     forkJoin([subsSearchL, subsFavoritesL]).subscribe(
       (res: any) => {
@@ -194,7 +194,7 @@ export class ListingSearchComponent implements OnInit {
           const tl = this.listings.find(l => l.id == item);
           if(tl) tl.is_favorite = true;
         }
-        
+
         this.setPagination(this.totalListings, this.queryParams.page, this.queryParams.limit);
       },
       (error) => {
@@ -208,12 +208,12 @@ export class ListingSearchComponent implements OnInit {
     let totalPages = Math.ceil(totalItems / pageSize);
 
     // ensure current page isn't out of range
-    if (currentPage < 1) { 
-        currentPage = 1; 
-    } else if (currentPage > totalPages) { 
-        currentPage = totalPages; 
+    if (currentPage < 1) {
+        currentPage = 1;
+    } else if (currentPage > totalPages) {
+        currentPage = totalPages;
     }
-    
+
     let startPage: number, endPage: number;
     if (totalPages <= 10) {
         // less than 10 total pages so show all
