@@ -12,11 +12,14 @@ import { ListingCategoriesComponent } from './listing/listing-categories/listing
 import { NewMobileComponent } from './mobiles/new-mobile/new-mobile.component';
 import { ManageMobilesComponent } from './mobiles/manage-mobiles/manage-mobiles.component';
 import { MobileProvidersComponent } from './mobiles/mobile-providers/mobile-providers.component';
+import { AdminGuard } from '../shared/route-guards/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: [
       { path: '', redirectTo: 'news-add', pathMatch: 'full' },
       { path: 'news-add', component: NewNewsComponent },
