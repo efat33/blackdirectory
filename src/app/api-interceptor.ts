@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { environment } from '../environments/environment';
 import { HelperService } from './shared/helper.service';
 import { catchError } from 'rxjs/operators';
 import { InterceptorService } from './interceptor.service';
@@ -12,7 +11,8 @@ export class APIInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.startsWith('api')) {
-      const url = `${this.helperService.apiUrl}/${req.url.substr(4)}`;
+      const url = `https://68.66.248.49/~blackdir/api/${req.url.substr(4)}`;
+      // const url = `${this.helperService.apiUrl}/${req.url.substr(4)}`; // TODO:
 
       const apiReq = req.clone({
         url,

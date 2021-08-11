@@ -1,0 +1,17 @@
+<div
+  class="container"
+  (mouseenter)="showDelete = true"
+  (mouseleave)="showDelete = false"
+  dropFile
+  (fileDropped)="onFileDropped($event)"
+>
+  <div *ngIf="file && showDelete" class="delete-overlay" (click)="deleteImage()">
+    <mat-icon>highlight_off</mat-icon>
+  </div>
+  <img *ngIf="file" [src]="fileStr" />
+  <label *ngIf="!file">
+    <mat-icon color="primary">add_circle</mat-icon>
+    <div *ngIf="text">{{ text }}</div>
+    <input type="file" accept="image/*" (change)="onImageChange($event)" />
+  </label>
+</div>

@@ -1,0 +1,18 @@
+table {
+  width: 100%;
+}
+.filter-form {
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 500px) {
+  .filter-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+  }
+  .filter-form > mat-form-field {
+    width: auto;
+    margin-bottom: -1.75rem;
+  }
+}

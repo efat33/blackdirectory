@@ -44,6 +44,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 import {
   NgxMatDatetimePickerModule,
   NgxMatTimepickerModule,
@@ -78,6 +82,8 @@ import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-g
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
+import { ImageInputComponent } from './components/image-input/image-input.component';
+import { DropFileDirective } from './components/image-input/drop-file.directive';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CountdownModule } from 'ngx-countdown';
 import { MatCardModule } from '@angular/material/card';
@@ -120,6 +126,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     ListingVideoModal,
     CouponModal,
     ListingReviewModal,
+    ImageInputComponent,
+    DropFileDirective,
     RsvpApplyModal,
     PaginationComponent,
   ],
@@ -153,6 +161,10 @@ import { PaginationComponent } from './pagination/pagination.component';
     MatProgressBarModule,
     NgxStickySidebarModule,
     MatSliderModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
+    MatTabsModule,
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,
@@ -191,6 +203,10 @@ import { PaginationComponent } from './pagination/pagination.component';
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     FlexLayoutModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
+    MatTabsModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
@@ -215,6 +231,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     ShareButtonsModule,
     ShareIconsModule,
     pluralPipe,
+    NgxGalleryModule,
+    ImageInputComponent,
+    DropFileDirective,
     rsvpTimeLeft,
     NgxGalleryModule,
     OwlDateTimeModule,
@@ -249,7 +268,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     ListingVideoModal,
     CouponModal,
     ListingReviewModal,
-    RsvpApplyModal
+    RsvpApplyModal,
   ],
 })
 export class SharedModule {}
