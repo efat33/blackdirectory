@@ -444,3 +444,35 @@ ul.page-numbers .current {
 .listing-detail_shareContent__2nr-2 {
     min-width: 133px;
 }
+
+/**
+* owl date time picker customised
+*/ 
+.owl-dt-container-control-button {
+    font-size: 1.5em;
+}
+.owl-dt-container-buttons {
+    height: 3em;
+}
+.owl-dt-inline-container, .owl-dt-popup-container {
+    width: 24.5em;
+}
+.owl-dt-inline-container .owl-dt-calendar, .owl-dt-popup-container .owl-dt-calendar {
+    height: 25.25em;
+}
+.owl-dt-calendar-table .owl-dt-calendar-cell-content {
+    font-size: 1.2em;
+}
+.owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-weekdays th {
+    font-size: 1em;
+}
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected {
+    background-color: rgba(0,102,153,1);
+}
+// owl date time picker customised
+
+
+.mat-flat-button, .mat-raised-button.wil-btn--primary {
+    color: #fff;
+    background-color: rgba(0,102,153,1);
+}

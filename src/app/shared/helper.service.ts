@@ -157,4 +157,16 @@ export class HelperService {
 
     return datetime;
   }
+
+  dateNow() {
+    const currentdate = new Date();
+
+    const year = currentdate.getUTCFullYear();
+    const month = (currentdate.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = currentdate.getUTCDate().toString().padStart(2, '0');
+
+    const datetime = `${year}-${month}-${day}`;
+
+    return datetime;
+  }
 }

@@ -19,14 +19,7 @@ export class ListingSearchCatModal implements OnInit {
 
     subscriptions = new Subscription();
 
-    categories = [
-        // { value: 1, viewValue: 'Accommodation'},
-        // { value: 2, viewValue: 'Accountants'},
-        // { value: 3, viewValue: 'Energy Healing'},
-        // { value: 4, viewValue: 'Estate Agents'},
-        // { value: 5, viewValue: 'Food & Drink'},
-        // { value: 6, viewValue: 'Restaurants'},
-    ];
+    categories = [];
 
     chosenCategory: number = null;
 

@@ -25,18 +25,16 @@
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput [ngxMatDatetimePicker]="start_sale_picker" placeholder="Start sale"
-                  (focus)="start_sale_picker.open()" formControlName="start_sale">
-                <mat-datepicker-toggle matSuffix [for]="start_sale_picker"></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #start_sale_picker></ngx-mat-datetime-picker>
+                <input matInput formControlName="start_sale" autocomplete="off" placeholder="Start sale"
+                  [owlDateTimeTrigger]="start_sale" [owlDateTime]="start_sale">
+                <owl-date-time #start_sale></owl-date-time>
                 <mat-hint>If you leave blank, RSVP will be available immediately.</mat-hint>
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput [ngxMatDatetimePicker]="end_sale_picker" placeholder="End sale"
-                  (focus)="end_sale_picker.open()" formControlName="end_sale">
-                <mat-datepicker-toggle matSuffix [for]="end_sale_picker"></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #end_sale_picker></ngx-mat-datetime-picker>
+                <input matInput formControlName="end_sale" autocomplete="off" placeholder="End sale"
+                  [owlDateTimeTrigger]="end_sale" [owlDateTime]="end_sale">
+                <owl-date-time #end_sale></owl-date-time>
                 <mat-hint>If you leave blank, RSVP will be available until the event begins.</mat-hint>
               </mat-form-field>
 

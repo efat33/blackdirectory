@@ -29,6 +29,7 @@ import { NewOrganizerModal } from '../modals/events/new/new-organizer/new-organi
 import { EventTicketModal } from '../modals/events/new/event-ticket/event-ticket-modal';
 import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal';
 import { ContactOwnerModal } from '../modals/listing/details/contact-owner/contact-owner-modal';
+import { RsvpApplyModal } from '../modals/events/details/rsvp-apply/rsvp-apply-modal';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -56,7 +57,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -77,6 +78,8 @@ import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-g
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { CountdownModule } from 'ngx-countdown';
 
 
 
@@ -113,10 +116,12 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     SendMessageModalComponent,
     AdminSidebarComponent,
     pluralPipe,
+    rsvpTimeLeft,
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
-    ListingReviewModal
+    ListingReviewModal,
+    RsvpApplyModal
   ],
   imports: [
     CommonModule,
@@ -157,7 +162,10 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ShareModule,
     ShareButtonsModule,
     ShareIconsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    CountdownModule
   ],
   exports: [
     FormsModule,
@@ -206,7 +214,11 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ShareButtonsModule,
     ShareIconsModule,
     pluralPipe,
-    NgxGalleryModule
+    rsvpTimeLeft,
+    NgxGalleryModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    CountdownModule
   ],
   entryComponents: [
     RegistrationModal,
@@ -233,7 +245,8 @@ import { ListingReviewModal } from '../modals/listing/details/review/listing-rev
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
-    ListingReviewModal
+    ListingReviewModal,
+    RsvpApplyModal
   ],
 })
 export class SharedModule {}
