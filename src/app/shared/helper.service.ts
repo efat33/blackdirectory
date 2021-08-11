@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { CurrentUser } from '../user/user';
@@ -7,9 +7,7 @@ import { CurrentUser } from '../user/user';
 @Injectable({
   providedIn: 'root',
 })
-
 export class HelperService {
-
   currentUserInfo: CurrentUser;
   apiUrl: string;
   siteUrl: string;
@@ -38,11 +36,7 @@ export class HelperService {
     }
   }
 
-  moveItemInFormArray(
-    formArray: FormArray,
-    fromIndex: number,
-    toIndex: number
-  ): void {
+  moveItemInFormArray(formArray: FormArray, fromIndex: number, toIndex: number): void {
     const dir = toIndex > fromIndex ? 1 : -1;
 
     const item = formArray.at(fromIndex);
@@ -56,7 +50,7 @@ export class HelperService {
   isUserLoggedIn(): boolean {
     const currentUserStr = localStorage.getItem('currentUserInfo');
     try {
-      if(JSON.parse(currentUserStr)) return true;
+      if (JSON.parse(currentUserStr)) return true;
     } catch (e) {
       return false;
     }
@@ -66,14 +60,12 @@ export class HelperService {
   setCurrentUserInfo(): void {
     const currentUserStr = localStorage.getItem('currentUserInfo');
     try {
-      if(JSON.parse(currentUserStr)) this.currentUserInfo = JSON.parse(currentUserStr);
-    } catch (e) {
-
-    }
+      if (JSON.parse(currentUserStr)) this.currentUserInfo = JSON.parse(currentUserStr);
+    } catch (e) {}
   }
 
   getMetaData(data, key): any {
-    return data.find(element => element.meta_key == key).meta_value;
+    return data.find((element) => element.meta_key == key).meta_value;
   }
 
   prepareMetaData(data): any {
@@ -84,43 +76,43 @@ export class HelperService {
     return metaData;
   }
 
-  imageValidation(image:File): any {
+  imageValidation(image: File): any {
     const obj = {
       validated: true,
-      message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB'
-    }
+      message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB',
+    };
 
-    if((image.type != "image/jpeg" && image.type != "image/png"  && image.type != 'image/jpg') || (image.size / (1024*1024)) > 1) {
+    if (
+      (image.type != 'image/jpeg' && image.type != 'image/png' && image.type != 'image/jpg') ||
+      image.size / (1024 * 1024) > 1
+    ) {
       obj.validated = false;
     }
-
 
     return obj;
   }
 
-  fileValidation(file:File): any {
+  fileValidation(file: File): any {
     const ext = file.name.substring(file.name.lastIndexOf('.') + 1);
 
     const obj = {
       validated: true,
-      message: 'Supported file type are doc, docx, pdf and file size cannot be greater than 5MB'
-    }
+      message: 'Supported file type are doc, docx, pdf and file size cannot be greater than 5MB',
+    };
 
-    if((ext != "pdf" && ext != "doc"  && ext != 'docx') || (file.size / (1024*1024)) > 5) {
+    if ((ext != 'pdf' && ext != 'doc' && ext != 'docx') || file.size / (1024 * 1024) > 5) {
       obj.validated = false;
     }
-
 
     return obj;
   }
 
-  getImageUrl(imageName:string, folder:string, imgSize?:string): string {
-
+  getImageUrl(imageName: string, folder: string, imgSize?: string): string {
     const size = imgSize ? imgSize : 'full';
 
     let image = imageName;
 
-    if(size != 'full'){
+    if (size != 'full') {
       image = `${size}-${image}`;
     }
 
@@ -154,6 +146,18 @@ export class HelperService {
     const sec = currentdate.getUTCSeconds().toString().padStart(2, '0');
 
     const datetime = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+
+    return datetime;
+  }
+
+  dateNow() {
+    const currentdate = new Date();
+
+    const year = currentdate.getUTCFullYear();
+    const month = (currentdate.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = currentdate.getUTCDate().toString().padStart(2, '0');
+
+    const datetime = `${year}-${month}-${day}`;
 
     return datetime;
   }

@@ -1,10 +1,18 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import * as moment from 'moment';
+import { forkJoin } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { EventRsvpModal } from 'src/app/modals/events/new/event-rsvp/event-rsvp-modal';
 import { EventTicketModal } from 'src/app/modals/events/new/event-ticket/event-ticket-modal';
 import { NewOrganizerModal } from 'src/app/modals/events/new/new-organizer/new-organizer-modal';
+import { HelperService } from 'src/app/shared/helper.service';
+import { UploadService } from 'src/app/shared/services/upload.service';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { SpinnerService } from 'src/app/shared/spinner.service';
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-new-event',
@@ -118,30 +126,9 @@ export class NewEventComponent implements OnInit {
   rec_start_monthday = ['1st','2nd','3rd','4th','5th','6th'];
 
   formDropdown = {
-    categories: [
-      { value: 1, viewValue: 'Auto, Boat & Air'},
-      { value: 2, viewValue: 'Black History'},
-      { value: 3, viewValue: 'Charity & Causes'},
-      { value: 4, viewValue: 'Networking'},
-      { value: 5, viewValue: 'Science & Tech'},
-      { value: 6, viewValue: 'Travel & Outdoor'},
-    ],
-    tags: [
-      { value: 1, viewValue: 'Awards'},
-      { value: 2, viewValue: 'Ballet'},
-      { value: 3, viewValue: 'Classical Music'},
-      { value: 4, viewValue: 'Drama'},
-      { value: 5, viewValue: 'Investing'},
-      { value: 6, viewValue: 'Women Empowerment'},
-    ],
-    oranizers: [
-      { value: 1, viewValue: '10×10 VC'},
-      { value: 2, viewValue: 'Daliso Chaponda'},
-      { value: 3, viewValue: 'Savoy Theatre'},
-      { value: 4, viewValue: 'Ladysmith Black Mambazo'},
-      { value: 5, viewValue: 'Micaelia Clarke'},
-      { value: 6, viewValue: 'Goethe-Institut London'},
-    ]
+    categories: [],
+    tags: [],
+    oranizers: []
   };
   
 
@@ -154,22 +141,85 @@ export class NewEventComponent implements OnInit {
   dialogRefRsvp: any;
 
   featuredImageSrc: string;
+  progressFeaturedImg:number = 0;
   removedTickets: any = [];
   removedRsvp: any = [];
 
+  formCustomvalidation = {
+    featuredImage: {
+      validated: true,
+      message: ''
+    },
+  };
+
   constructor(
     public dialog: MatDialog,
+    public helperService: HelperService,
+    public uploadService: UploadService,
+    public eventService: EventService,
+    public spinnerService: SpinnerService,
+    public snackbarService: SnackBarService,
   ) { }
 
 
   ngOnInit() {
+    
+    this.setupEventForm();
+
+    this.prepareEventForm();
+    
+
+  }
+
+  prepareEventForm() {
+
+    this.spinnerService.show();
+
+    const subsCategories = this.eventService.getCategories();
+    const subsOrganisers = this.eventService.getOrganisers();
+    const subsTags = this.eventService.getTags();
+    
+    forkJoin([subsCategories, subsOrganisers, subsTags]).subscribe(
+      (res: any) => {
+
+        this.spinnerService.hide();
+
+        const categories = res[0].data;
+        const organisers = res[1].data;
+        const tags = res[2].data;
+
+        for (const item of categories) {
+          const tmp = { value: item.id, viewValue: item.title};
+          this.formDropdown.categories.push(tmp);
+        }
+
+        for (const item of organisers) {
+          const tmp = { value: item.id, viewValue: item.name};
+          this.formDropdown.oranizers.push(tmp);
+        }
+
+        for (const item of tags) {
+          const tmp = { value: item.id, viewValue: item.title};
+          this.formDropdown.tags.push(tmp);
+        }
+        
+
+      },
+      (error) => {
+        this.spinnerService.hide();
+      }
+    );
+  }
+
+  setupEventForm() {
     this.eventForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
+      featured_img_input: new FormControl('', Validators.required),
       featured_img: new FormControl('', Validators.required),
       category_id: new FormControl('', Validators.required),
       tag_id: new FormControl(''),
-      address: new FormControl('', Validators.required),
+      address: new FormControl(''),
       latitude: new FormControl(''),
       longitude: new FormControl(''),
       is_virtual: new FormControl(''),
@@ -177,18 +227,14 @@ export class NewEventComponent implements OnInit {
       website_url: new FormControl(''),
 
       organizers: new FormArray([
-        new FormGroup({
-          organizer_id: new FormControl('')
-        })
+        new FormControl('', Validators.required)
       ]),
 
       tickets: new FormArray([]),
       rsvp: new FormArray([]),
 
       event_type: new FormControl('one_time'),
-      start_date: new FormControl(''),
       start_time: new FormControl(''),
-      end_date: new FormControl(''),
       end_time: new FormControl(''),
 
       recurrence_type: new FormControl(''),
@@ -207,12 +253,48 @@ export class NewEventComponent implements OnInit {
 
 
     });
-
   }
 
-
   onSubmit() {
-    console.log(this.eventForm.value);
+
+    // reset form error
+    this.showError = false;
+    this.errorMessage = '';
+
+    const formData = this.eventForm.getRawValue();
+    formData.start_time = formData.start_time ? moment(formData.start_time).utc().format("YYYY-MM-DD HH:mm:ss") : '';
+    formData.end_time = formData.end_time ? moment(formData.end_time).utc().format("YYYY-MM-DD HH:mm:ss") : '';
+
+    for (let index = 0; index < formData.tickets.length; index++) {
+      const element = formData.tickets[index];
+      element.start_sale = element.start_sale ? moment(element.start_sale).utc().format("YYYY-MM-DD HH:mm:ss") : formData.start_time;
+      element.end_sale = element.end_sale ? moment(element.end_sale).utc().format("YYYY-MM-DD HH:mm:ss") : formData.end_time;
+    }
+    for (let index = 0; index < formData.rsvp.length; index++) {
+      const element = formData.rsvp[index];
+      element.start_sale = element.start_sale ? moment(element.start_sale).utc().format("YYYY-MM-DD HH:mm:ss") : formData.start_time;
+      element.end_sale = element.end_sale ? moment(element.end_sale).utc().format("YYYY-MM-DD HH:mm:ss") : formData.end_time;
+    }
+    
+
+    this.spinnerService.show();
+    
+    const subsNewEvent = this.eventService.newEvent(formData).subscribe(
+      (res:any) => {
+    
+        this.spinnerService.hide();
+
+        this.snackbarService.openSnackBar(res.message);
+    
+      },
+      (res:any) => {
+        this.spinnerService.hide();
+        this.showError = true;
+        this.errorMessage = res.error.message;
+      }
+    );
+    
+    this.subscriptions.add(subsNewEvent);
   }
 
 
@@ -339,17 +421,14 @@ export class NewEventComponent implements OnInit {
 
   }
 
-  // remove url field from video_urls FormArray
+  // remove organizer field from organizers FormArray
   removeOrganizerField(index: number) {
     (this.eventForm.get('organizers') as FormArray ).removeAt(index); 
   }
 
   // add more organizer dropdown field
   addOrganizerField(organizer_id?: number) {
-    const variationGroup = new FormGroup({
-      organizer_id: new FormControl(organizer_id || '')
-    });
-    (this.eventForm.get('organizers') as FormArray ).push(variationGroup);
+    (this.eventForm.get('organizers') as FormArray ).push( new FormControl(organizer_id ? organizer_id : '') );
   }
 
   // focus input search field when dropdown clicked
@@ -370,17 +449,53 @@ export class NewEventComponent implements OnInit {
 
   // featured image input change
   onFeaturedImageChange(event) {
+    // reset validation
+    this.formCustomvalidation.featuredImage.validated = true;
+
     const reader = new FileReader();
     
     if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-    
-      reader.onload = () => {
-   
-        this.featuredImageSrc = reader.result as string;
-   
-      };
+      const file = event.target.files[0];
+
+      // do validation
+      const res = this.helperService.imageValidation(file);
+      if(!res.validated) {
+        this.formCustomvalidation.featuredImage.validated = false;
+        this.formCustomvalidation.featuredImage.message = res.message;
+        return;
+      }
+      
+      this.featuredImageSrc = URL.createObjectURL(file);
+
+      // send image to the server
+      const fd = new FormData();
+      fd.append("image", file, file.name);
+      fd.append("resize", 'yes');
+
+      this.uploadService.uploadImage(fd, 'event').subscribe((event: HttpEvent<any>) => {
+        
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            this.progressFeaturedImg = Math.round(event.loaded / event.total * 100);
+            break;
+          case HttpEventType.Response:
+
+          // check for validation
+          if(event.body.data.fileValidationError){
+            this.formCustomvalidation.featuredImage.validated = false;
+            this.formCustomvalidation.featuredImage.message = event.body.data.fileValidationError;
+          }
+          else{
+            this.eventForm.get('featured_img').patchValue(event.body.data.filename);
+          }
+
+          // hide progress bar
+          setTimeout(() => {
+            this.progressFeaturedImg = 0;
+          }, 1000);
+        }
+
+      });
    
     }
 
