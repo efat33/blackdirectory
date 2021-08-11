@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { HelperService } from 'src/app/shared/helper.service';
-import { NewsService } from 'src/app/news/news.service';
+import { MobilesService } from 'src/app/mobiles/mobiles.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,16 +13,26 @@ import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmat
 declare const google: any;
 
 @Component({
-  selector: 'app-manage-news',
-  templateUrl: './manage-news.component.html',
-  styleUrls: ['./manage-news.component.scss'],
+  selector: 'app-manage-mobiles',
+  templateUrl: './manage-mobiles.component.html',
+  styleUrls: ['./manage-mobiles.component.scss'],
 })
-export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ManageMobilesComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
-  allNews = [];
+  allMobiles = [];
 
-  displayedColumns: string[] = ['image', 'title', 'category', 'featured', 'updated_at', 'action'];
+  displayedColumns: string[] = [
+    'provider_logo',
+    'category',
+    'cost',
+    'data',
+    'minutes',
+    'texts',
+    'contract_length',
+    'link',
+    'action',
+  ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,14 +40,14 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private newsService: NewsService,
+    private mobilesService: MobilesService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
   ) {}
 
   ngOnInit() {
-    this.getNews();
+    this.getMobiles();
   }
 
   ngAfterViewInit() {
@@ -45,14 +55,14 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
-  getNews() {
+  getMobiles() {
     this.spinnerService.show();
-    const subscription = this.newsService.getNews().subscribe(
+    const subscription = this.mobilesService.getMobiles().subscribe(
       (result: any) => {
         this.spinnerService.hide();
 
-        this.allNews = result.data;
-        this.dataSource.data = this.allNews;
+        this.allMobiles = result.data;
+        this.dataSource.data = this.allMobiles;
       },
       (error) => {
         this.spinnerService.hide();
@@ -72,18 +82,18 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  deleteNews(news: any) {
+  deleteMobiles(mobiles: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: { message: 'Are you sure to delete the news?' },
+      data: { message: 'Are you sure to delete?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-        const subscription = this.newsService.deleteNews(news.id).subscribe(
+        const subscription = this.mobilesService.deleteMobile(mobiles.id).subscribe(
           (result: any) => {
             this.spinnerService.hide();
-            this.getNews();
+            this.getMobiles();
           },
           (error) => {
             this.spinnerService.hide();
@@ -98,21 +108,14 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(dialogCloseSubscription);
   }
 
-  featureNews(news: any) {
-    this.spinnerService.show();
-    const featuredNewsSubs = this.newsService.updateNews(news.id, { featured: !news.featured }).subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
+  getCategoryName(mobile: any) {
+    const category = this.mobilesService.categories.find((category: any) => category.value === mobile.category);
 
-        news.featured = !news.featured;
-      },
-      (error) => {
-        this.spinnerService.hide();
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-      }
-    );
+    return category?.title || '';
+  }
 
-    this.subscriptions.add(featuredNewsSubs);
+  isUnlimited(value: any) {
+    return value === this.mobilesService.unlimitedNumber;
   }
 
   ngOnDestroy() {

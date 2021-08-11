@@ -63,7 +63,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { TimeUntilPipe } from './pipes/time-until.pipe';
 import { NouisliderModule } from 'ng2-nouislider';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SendMessageModalComponent } from '../modals/job/send-message/send-message-modal';
 import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
@@ -80,9 +80,8 @@ import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CountdownModule } from 'ngx-countdown';
-
-
-
+import { MatCardModule } from '@angular/material/card';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +120,8 @@ import { CountdownModule } from 'ngx-countdown';
     ListingVideoModal,
     CouponModal,
     ListingReviewModal,
-    RsvpApplyModal
+    RsvpApplyModal,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -165,7 +165,8 @@ import { CountdownModule } from 'ngx-countdown';
     NgxGalleryModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    CountdownModule
+    CountdownModule,
+    MatCardModule,
   ],
   exports: [
     FormsModule,
@@ -218,7 +219,9 @@ import { CountdownModule } from 'ngx-countdown';
     NgxGalleryModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    CountdownModule
+    CountdownModule,
+    MatCardModule,
+    PaginationComponent,
   ],
   entryComponents: [
     RegistrationModal,

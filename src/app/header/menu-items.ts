@@ -26,6 +26,20 @@ export const MenuItems = [
   {
     title: 'Mobiles',
     route: 'mobiles',
+    children: [
+      {
+        title: 'Contract Phones',
+        route: 'mobiles/contract-phones',
+      },
+      {
+        title: 'Sim Only',
+        route: 'mobiles/sim-only',
+      },
+      {
+        title: 'Upgrades',
+        route: 'mobiles/upgrades',
+      },
+    ]
   },
   {
     title: 'Travel',

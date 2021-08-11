@@ -100,6 +100,28 @@ a.bd-header-account {
   top: 0;
 }
 
+.menu-item .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+}
+
+.menu-item:hover .dropdown-menu {
+  display: block;
+}
+
+.menu-item .dropdown-menu li {
+  padding: 6px 10px;
+}
+
+.menu-item .dropdown-menu li a {
+  display: block;
+}
+
+.menu-item .dropdown-menu li:hover {
+  background: #eee;
+}
+
 /* css for both mobile and tablet */
 @media only screen and (max-width: 991px) {
   .bd-header-nav.header_navWrapper__B2C9n {
