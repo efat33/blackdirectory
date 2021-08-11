@@ -27,6 +27,7 @@ import { ProductsEditComponent } from './products-edit/products-edit.component';
 import { OrdersComponent } from './orders/orders.component';
 import { StoreSettingsComponent } from './store-settings/store-settings.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { FileInputComponent } from './file-input/file-input.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
     OrdersComponent,
     StoreSettingsComponent,
     WithdrawComponent,
+    FileInputComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

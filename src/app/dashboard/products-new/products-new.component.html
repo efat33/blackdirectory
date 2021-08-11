@@ -129,22 +129,51 @@
           </span>
         </mat-checkbox>
       </div>
-      <div *ngIf="isDownloadable">
-        <section class="section-mat-form-field section-field-file">
-          <mat-label>File</mat-label>
-          <input accept="*" type="file" formControlName="file" #inputFile (change)="onFileChange($event)" />
-          <span *ngIf="fileName != ''">{{ fileName }}</span>
-          <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputFile.click()">Upload</a>
-        </section>
-        <mat-progress-bar
-          *ngIf="progressFile > 0"
-          mode="determinate"
-          [value]="progressFile"
-          class="mb-15"
-        ></mat-progress-bar>
-        <p class="form-error" *ngIf="!formCustomvalidation.file.validated">
-          {{ formCustomvalidation.file.message }}
-        </p>
+      <div *ngIf="isDownloadable" formGroupName="download_files">
+        <div class="col-2">
+          <mat-form-field>
+            <mat-label>Download Limit</mat-label>
+            <input matInput type="number" formControlName="limit" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Download Expiry</mat-label>
+            <input matInput type="number" placeholder="Will expire in ... days" formControlName="expire_days" />
+          </mat-form-field>
+        </div>
+        <div formArrayName="files">
+          <ng-container *ngFor="let file of files.controls; let i = index">
+            <div style="display: flex; flex-flow: row nowrap; align-items: center">
+              <div style="flex-grow: 1">
+                <app-file-input uploadDirectory="user" [form]="file"></app-file-input>
+              </div>
+              <button mat-icon-button color="warn" (click)="removeFile(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <!-- <div class="col-2" [formGroupName]="i">
+              <mat-form-field>
+                <mat-label>File Name</mat-label>
+                <input matInput type="text" formControlName="name" />
+              </mat-form-field>
+              <section class="section-mat-form-field section-field-file">
+                <mat-label>File</mat-label>
+                <input accept="*" type="file" formControlName="file" #inputFile (change)="onFileChange($event)" />
+                <span *ngIf="true">{{ file.value.file }}</span>
+                <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputFile.click()">Upload</a>
+              </section>
+            </div>
+            <mat-progress-bar
+              *ngIf="progressFile > 0"
+              mode="determinate"
+              [value]="progressFile"
+              class="mb-15"
+            ></mat-progress-bar>
+            <p class="form-error" *ngIf="!formCustomvalidation.file.validated">
+              {{ formCustomvalidation.file.message }}
+            </p> -->
+          </ng-container>
+        </div>
+        <button mat-flat-button color="primary" (click)="addFile('', '')">ADD FILE</button>
       </div>
     </div>
   </div>

@@ -9,11 +9,12 @@ export class APIInterceptor implements HttpInterceptor {
     if (req.url.startsWith('api')) {
       let url = '';
 
-      if (environment.production) {
-        url = `https://68.66.248.49/~blackdir/api/${req.url.substr(4)}`;
-      } else {
-        url = `http://localhost:3000/${req.url.substr(4)}`;
-      }
+      // TODO: Revert back
+      // if (environment.production) {
+      url = `https://68.66.248.49/~blackdir/api/${req.url.substr(4)}`;
+      // } else {
+      //   url = `http://localhost:3000/${req.url.substr(4)}`;
+      // }
 
       const apiReq = req.clone({
         url,

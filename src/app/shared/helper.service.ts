@@ -1,15 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { pluck, tap } from 'rxjs/operators';
 import { CurrentUser } from '../user/user';
-
-export interface ApiResponse<T> {
-  status: number;
-  message: string;
-  data: T;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -142,32 +134,5 @@ export class HelperService {
     const datetime = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
 
     return datetime;
-  }
-
-  getCategories() {
-    return this.http
-      .get<
-        ApiResponse<
-          {
-            id: number;
-            title: string;
-            image: string;
-          }[]
-        >
-      >('api/shop/product-categories')
-      .pipe(pluck('data'));
-  }
-
-  getTags() {
-    return this.http
-      .get<
-        ApiResponse<
-          {
-            id: number;
-            title: string;
-          }[]
-        >
-      >('api/shop/product-tags')
-      .pipe(pluck('data'));
   }
 }

@@ -1,10 +1,11 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { filter, map, mergeMap, mergeMapTo, pluck, take, tap, withLatestFrom, startWith } from 'rxjs/operators';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helper.service';
 import { UploadService } from 'src/app/shared/services/upload.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-products-new',
@@ -29,15 +30,23 @@ export class ProductsNewComponent implements OnInit {
     purchase_note: new FormControl(''),
     virtual: new FormControl(false),
     downloadable: new FormControl(false),
-    file_name: new FormControl(''),
-    file: new FormControl(null),
+    download_files: new FormGroup({
+      limit: new FormControl(null),
+      expire_days: new FormControl(null),
+      files: new FormArray([
+        new FormGroup({
+          name: new FormControl(''),
+          file: new FormControl(''),
+        }),
+      ]),
+    }),
   });
 
-  categories$: Observable<{ id: number; title: string }[]> = this.helperService.getCategories();
+  categories$: Observable<{ id: number; title: string }[]> = this.productService.getCategories();
 
   // Tags autocomplete
   tagInput = new FormControl('');
-  private allTags$: Observable<{ id: number; title: string }[]> = this.helperService.getTags().pipe(take(1));
+  private allTags$: Observable<{ id: number; title: string }[]> = this.productService.getTags().pipe(take(1));
   tags$: Observable<{ id: number; title: string }[]> = (this.tagInput.valueChanges as Observable<string>).pipe(
     filter((value) => value != null && typeof value === 'string'),
     withLatestFrom(this.allTags$),
@@ -61,8 +70,11 @@ export class ProductsNewComponent implements OnInit {
       message: '',
     },
   };
+  get files(): FormArray {
+    return this.productForm.get('download_files.files') as FormArray;
+  }
   get fileName(): string {
-    return this.productForm.controls.file_name.value;
+    return this.productForm.controls.download_files.get('files').value;
   }
 
   get selectedTags(): { title: string; id: number }[] {
@@ -80,7 +92,11 @@ export class ProductsNewComponent implements OnInit {
     return this.productForm.controls.downloadable.value;
   }
 
-  constructor(private helperService: HelperService, private uploadService: UploadService) {}
+  constructor(
+    private helperService: HelperService,
+    private uploadService: UploadService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -97,6 +113,19 @@ export class ProductsNewComponent implements OnInit {
     const tags = this.selectedTags;
     const newTags = tags.filter((t) => t !== tag);
     this.productForm.controls.tags.setValue(newTags);
+  }
+
+  addFile(file: string, filename: string): any {
+    this.files.push(
+      new FormGroup({
+        name: new FormControl(file),
+        file: new FormControl(filename),
+      })
+    );
+  }
+
+  removeFile(index: number): void {
+    this.files.removeAt(index);
   }
 
   onFileChange(fileEvent) {

@@ -123,7 +123,7 @@ export class StoreSettingsComponent implements OnInit {
       fd.append('image', file, file.name);
       fd.append('resize', 'yes');
 
-      this.uploadService.uploadImage(fd, 'user').subscribe((httpEvent: HttpEvent<any>) => {
+      this.uploadService.uploadImage(fd, 'store').subscribe((httpEvent: HttpEvent<any>) => {
         switch (httpEvent.type) {
           case HttpEventType.UploadProgress:
             this.progressProfileImg = Math.round((httpEvent.loaded / httpEvent.total) * 100);
@@ -170,7 +170,7 @@ export class StoreSettingsComponent implements OnInit {
       fd.append('image', file, file.name);
       fd.append('resize', 'yes');
 
-      this.uploadService.uploadImage(fd, 'user').subscribe((httpEvent: HttpEvent<any>) => {
+      this.uploadService.uploadImage(fd, 'store').subscribe((httpEvent: HttpEvent<any>) => {
         switch (httpEvent.type) {
           case HttpEventType.UploadProgress:
             this.progressBannerImg = Math.round((httpEvent.loaded / httpEvent.total) * 100);
