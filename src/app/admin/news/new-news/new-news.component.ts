@@ -1,17 +1,15 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { JobService } from 'src/app/jobs/jobs.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
-
-declare const google: any;
+import { CustomUploadAdapter } from 'src/app/shared/ckeditorImageUploadAdapter';
+import { NewsService } from 'src/app/news/news.service';
 
 @Component({
   selector: 'app-new-news',
@@ -19,45 +17,40 @@ declare const google: any;
   styleUrls: ['./new-news.component.scss'],
 })
 export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
-  jobSectors = [];
-
   subscriptions: Subscription = new Subscription();
 
-  editJobId: number = null;
-  jobForm: FormGroup;
+  newsCategories = [];
+
+  featuredImageSrc: string;
+
+  editNewsId: number = null;
+  newsForm: FormGroup;
   showError = false;
   errorMessage = '';
-  progressAttachment: number = 0;
-
-  minDeadlineDate = new Date();
-  maxDeadlineDate: any = new Date();
+  progressFeaturedImage: number = 0;
 
   formCustomvalidation = {
-    attachment: {
+    featuredImage: {
       validated: true,
       message: '',
     },
   };
 
-  map: any;
-  mapMarker: any;
-
-  ckEditor = ClassicEditor;
   ckConfig = {
-    placeholder: 'Job Description',
-    height: 200,
-    toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
+    placeholder: 'Content',
   };
+
+  ckEditor = DocumentEditor;
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.jobForm.controls;
+    return this.newsForm.controls;
   }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public jobService: JobService,
+    private newsService: NewsService,
     private uploadService: UploadService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
@@ -67,173 +60,153 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-  }
+    this.getNewsCategories();
 
-  ngAfterViewInit() {
-    const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe((val) => {
-      if (val === 'with_email') {
-        this.jobForm.get('job_apply_email').setValidators([Validators.required]);
-        this.jobForm.get('external_url').clearValidators();
-      } else if (val === 'external') {
-        this.jobForm.get('external_url').setValidators([Validators.required]);
-        this.jobForm.get('job_apply_email').clearValidators();
-      } else {
-        this.jobForm.get('job_apply_email').clearValidators();
-        this.jobForm.get('external_url').clearValidators();
-      }
+    const newsId = this.route.snapshot.paramMap.get('news_id');
+    if (newsId != null) {
+      this.editNewsId = parseInt(newsId);
 
-      this.jobForm.get('job_apply_email').updateValueAndValidity();
-      this.jobForm.get('external_url').updateValueAndValidity();
+      this.spinnerService.show();
+      this.newsService.getSingleNews(this.editNewsId).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
 
-      this.cdk.detectChanges();
-    });
+          const news = result.data[0];
 
-    this.subscriptions.add(valueChangeSub);
-  }
+          if (news) {
+            this.prepareForm(news);
 
-  initializeForm() {
-    this.jobForm = new FormGroup({
-      id: new FormControl(''),
-      title: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      deadline: new FormControl('', Validators.required),
-      job_sector_id: new FormControl('', Validators.required),
-      job_type: new FormControl('', Validators.required),
-      job_apply_type: new FormControl(''),
-      job_industry: new FormControl(''),
-      experience: new FormControl(''),
-      salary: new FormControl(5000, Validators.required),
-
-      address: new FormControl('', Validators.required),
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
-
-      attachment: new FormControl(''),
-
-      job_apply_email: new FormControl(''),
-      external_url: new FormControl(''),
-    });
-  }
-
-  prepareForm(job: any) {
-    this.jobForm.patchValue({
-      id: job.id,
-      title: job.title,
-      description: job.description,
-      deadline: job.deadline,
-      job_sector_id: job.job_sector_id,
-      job_type: job.job_type,
-      job_apply_type: job.job_apply_type,
-      job_industry: job.job_industry,
-      experience: job.experience,
-      salary: job.salary,
-
-      address: job.address,
-      latitude: job.latitude,
-      longitude: job.longitude,
-
-      attachment: job.attachment,
-
-      job_apply_email: job.job_meta?.job_apply_email,
-      external_url: job.job_meta?.external_url,
-    });
-
-    this.map.setCenter({ lat: job.latitude, lng: job.longitude });
-    this.mapMarker.setPosition({ lat: job.latitude, lng: job.longitude });
-  }
-
-  onAttachmentChange(event) {
-    // reset validation
-    this.formCustomvalidation.attachment.validated = true;
-    this.formCustomvalidation.attachment.message = '';
-
-    const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const file = event.target.files[0];
-
-      // do validation
-      const res = this.helperService.fileValidation(file);
-      if (!res.validated) {
-        this.formCustomvalidation.attachment.validated = false;
-        this.formCustomvalidation.attachment.message = res.message;
-        return;
-      }
-
-      // send image to the server
-      const fd = new FormData();
-      fd.append('file', file, file.name);
-
-      this.uploadService.uploadFile(fd, 'job').subscribe(
-        (event: HttpEvent<any>) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              this.progressAttachment = Math.round((event.loaded / event.total) * 100);
-              break;
-            case HttpEventType.Response:
-              // check for validation
-              if (event.body.data.fileValidationError) {
-                this.formCustomvalidation.attachment.validated = false;
-                this.formCustomvalidation.attachment.message = event.body.data.fileValidationError;
-              } else {
-                this.jobForm.get('attachment').patchValue(event.body.data.filename);
-              }
-
-              // hide progress bar
-              setTimeout(() => {
-                this.progressAttachment = 0;
-              }, 1500);
+            if (news.featured_image) {
+              this.featuredImageSrc = this.helperService.getImageUrl(news.featured_image, 'news', 'thumb');
+            }
           }
         },
-        (res: any) => {
-          console.log(res);
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
         }
       );
     }
   }
 
-  onSubmit() {
-    if (this.editJobId == null) {
-      this.createJob();
-    } else {
-      this.updateJob();
+  ngAfterViewInit() {}
+
+  onCkeditorReady(editor: DocumentEditor): void {
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
+
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return new CustomUploadAdapter(loader, this.helperService.apiUrl, 'news', 'upload/image-news-ckeditor');
+    };
+  }
+
+  initializeForm() {
+    this.newsForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      content: new FormControl('', Validators.required),
+      short_content: new FormControl('', Validators.required),
+      category_id: new FormControl('', Validators.required),
+      featured_image: new FormControl('', Validators.required),
+      featured: new FormControl(0),
+    });
+  }
+
+  prepareForm(news: any) {
+    if (!news) {
+      return;
+    }
+
+    this.newsForm.patchValue({
+      title: news.title,
+      content: news.content,
+      short_content: news.short_content,
+      category_id: news.category_id,
+      featured_image: news.featured_image,
+      featured: news.featured,
+    });
+  }
+
+  getNewsCategories() {
+    this.spinnerService.show();
+    const getSectorsSubscription = this.newsService.getNewsCategories().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.newsCategories = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getSectorsSubscription);
+  }
+
+  onAttachmentChange(event) {
+    // reset validation
+    this.formCustomvalidation.featuredImage.validated = true;
+    this.formCustomvalidation.featuredImage.message = '';
+
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+
+      // do validation
+      const res = this.helperService.imageValidation(file);
+      if (!res.validated) {
+        this.formCustomvalidation.featuredImage.validated = false;
+        this.formCustomvalidation.featuredImage.message = res.message;
+        return;
+      }
+
+      this.featuredImageSrc = URL.createObjectURL(file);
+
+      // send image to the server
+      const fd = new FormData();
+      fd.append('image', file, file.name);
+      fd.append('resize', 'yes');
+
+      this.uploadService.uploadImage(fd, 'news').subscribe((result: HttpEvent<any>) => {
+        switch (result.type) {
+          case HttpEventType.UploadProgress:
+            this.progressFeaturedImage = Math.round((result.loaded / result.total) * 100);
+            break;
+          case HttpEventType.Response:
+            // check for validation
+            if (result.body.data.fileValidationError) {
+              this.formCustomvalidation.featuredImage.validated = false;
+              this.formCustomvalidation.featuredImage.message = result.body.data.fileValidationError;
+            } else {
+              this.newsForm.get('featured_image').patchValue(result.body.data.filename);
+            }
+
+            // hide progress bar
+            setTimeout(() => {
+              this.progressFeaturedImage = 0;
+            }, 1500);
+        }
+      });
     }
   }
 
-  createJob() {
-    const formValues = this.jobForm.value;
-    formValues.deadline = formValues.deadline.toLocaleDateString();
-
-    this.spinnerService.show();
-    const newJobSubscription = this.jobService.newJob(formValues).subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
-        // console.log(result);
-
-        this.router.navigate(['/dashboard/manage-jobs']);
-        this.snackbar.openSnackBar(result.message);
-      },
-      (error) => {
-        this.spinnerService.hide();
-
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-      }
-    );
-
-    this.subscriptions.add(newJobSubscription);
+  onSubmit() {
+    if (this.editNewsId == null) {
+      this.createNews();
+    } else {
+      this.updateNews();
+    }
   }
 
-  updateJob() {
-    const formValues = this.jobForm.value;
-    formValues.deadline = formValues.deadline.toLocaleDateString();
+  createNews() {
+    const formValues = this.newsForm.value;
 
     this.spinnerService.show();
-    const updateJobSubscription = this.jobService.editJob(this.editJobId, formValues).subscribe(
+    const newNewsSubscription = this.newsService.addNews(formValues).subscribe(
       (result: any) => {
         this.spinnerService.hide();
         // console.log(result);
 
-        this.router.navigate(['/dashboard/manage-jobs']);
+        this.router.navigate(['/admin/news-all']);
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {
@@ -243,7 +216,29 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
-    this.subscriptions.add(updateJobSubscription);
+    this.subscriptions.add(newNewsSubscription);
+  }
+
+  updateNews() {
+    const formValues = this.newsForm.value;
+
+    this.spinnerService.show();
+    const updateNewsSubscription = this.newsService.updateNews(this.editNewsId, formValues).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        // console.log(result);
+
+        this.router.navigate(['/admin/news-all']);
+        this.snackbar.openSnackBar(result.message);
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(updateNewsSubscription);
   }
 
   formatSalarySliderLabel(value: number) {

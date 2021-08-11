@@ -61,7 +61,8 @@ export class LoginModal implements OnInit, OnDestroy {
         // set current user to localstorage
         localStorage.setItem('currentUserInfo', JSON.stringify(result.data));
 
-        this.firebaseSignIn(result);
+        this.closeDialog(result.message);
+        // this.firebaseSignIn(result);
       },
       (result: any) => {
         if (result.error.errors) {

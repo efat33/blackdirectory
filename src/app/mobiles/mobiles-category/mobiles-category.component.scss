@@ -1,0 +1,31 @@
+.page-title {
+  text-align: center;
+}
+
+nouislider {
+  margin: auto;
+  text-align: center;
+  width: calc(100% - 80px);
+}
+
+::ng-deep .noUi-horizontal {
+  height: 10px;
+}
+
+::ng-deep .noUi-horizontal .noUi-handle {
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  top: -6px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.fcl-row {
+  flex-wrap: wrap;
+}
+
+.single-fcl {
+  margin-bottom: 5px;
+}
+

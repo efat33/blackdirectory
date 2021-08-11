@@ -1,10 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import * as moment from 'moment';
+import { HelperService } from './helper.service';
 
 
 
 @Pipe({name: 'imageSrc'})
 export class imageSrc implements PipeTransform {
-  transform(value: string, folder: string, imgSize: string = 'full'): string {
+  constructor(private helperService: HelperService) {}
+
+  transform(value: string, folder: string, imgSize: string = null): string {
     const size = imgSize ? imgSize : 'full';
 
     let image = value;
@@ -13,7 +17,7 @@ export class imageSrc implements PipeTransform {
       image = `${size}-${image}`;
     }
 
-    return `http://localhost:3000/${folder}/${image}`;
+    return `${this.helperService.apiUrl}/uploads/${folder}/${image}`;
   }
 }
 
@@ -28,5 +32,28 @@ export class encodeURL implements PipeTransform {
 export class pluralPipe implements PipeTransform {
   transform(input: number, customPluralForm: string = 's'): string {
     return input > 1 ? customPluralForm : ''
+  }
+}
+
+@Pipe({ name: 'rsvpTimeLeft' })
+export class rsvpTimeLeft implements PipeTransform {
+  constructor(private helperService: HelperService) {}
+
+  transform(end_time: any): string {
+    const today = this.helperService.dateNow();
+    const end_date = moment(end_time).format("YYYY-MM-DD");
+    const dayDiff = Math.abs(
+      moment(today, 'YYYY-MM-DD')
+        .startOf('day')
+        .diff(moment(end_date, 'YYYY-MM-DD').startOf('day'), 'days')
+    );
+
+    if(dayDiff == 0){
+      return 'Last day'
+    }
+    else{
+      const day_string = dayDiff > 1 ? 'days' : 'day';
+      return dayDiff + ' ' + day_string + ' left';
+    }
   }
 }

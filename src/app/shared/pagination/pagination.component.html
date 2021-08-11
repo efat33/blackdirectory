@@ -1,0 +1,22 @@
+<nav *ngIf="pages && pages.length > 1" class="mt-20 mb-20" name="after-grid">
+  <ul class="pagination_module__1NBfW">
+    <li *ngIf="currentPage != 1" class="pagination_pageItem__3SatM">
+      <a (click)="onClickPagination(1)" class="pagination_pageLink__2UQhK"><i class="la la-angle-double-left"></i></a>
+    </li>
+    <li *ngIf="totalPages > 1" [ngClass]="{'disable':currentPage === 1}" class="pagination_pageItem__3SatM">
+      <a (click)="onClickPagination(currentPage - 1)" class="pagination_pageLink__2UQhK"><i
+          class="la la-angle-left"></i></a>
+    </li>
+    <li *ngFor="let page of pages" [ngClass]="{'current':currentPage === page}" class="pagination_pageItem__3SatM">
+      <a (click)="onClickPagination(page)" class="pagination_pageLink__2UQhK"><span>{{page}}</span></a>
+    </li>
+    <li *ngIf="totalPages > 1" [ngClass]="{'disable':currentPage === totalPages}" class="pagination_pageItem__3SatM">
+      <a (click)="onClickPagination(currentPage + 1)" class="pagination_pageLink__2UQhK"><i
+          class="la la-angle-right"></i></a>
+    </li>
+    <li *ngIf="currentPage != totalPages" class="pagination_pageItem__3SatM">
+      <a (click)="onClickPagination(totalPages)" class="pagination_pageLink__2UQhK"><i
+          class="la la-angle-double-right"></i></a>
+    </li>
+  </ul>
+</nav>

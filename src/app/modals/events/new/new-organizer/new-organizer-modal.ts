@@ -2,6 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { EventService } from 'src/app/events/event.service';
+import { SpinnerService } from 'src/app/shared/spinner.service';
+import { Subscription } from 'rxjs';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
 
 
 @Component({
@@ -12,12 +16,16 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 export class NewOrganizerModal implements OnInit {
 
+    subscriptions = new Subscription()
     organizerForm: FormGroup;
     showError = false;
     errorMessage = '';
 
     constructor(
-        public dialogRef: MatDialogRef<NewOrganizerModal>
+        public dialogRef: MatDialogRef<NewOrganizerModal>,
+        private eventService: EventService,
+        private spinnerService: SpinnerService,
+        private snackbarService: SnackBarService,
     ) {
         
     }
@@ -32,10 +40,34 @@ export class NewOrganizerModal implements OnInit {
     }
 
     onSubmit() {
-        // TODO: insert organizer into database
+        this.spinnerService.show();
+        
+        const subsNewOrganiser = this.eventService.newOrganiser(this.organizerForm.value).subscribe(
+          (res:any) => {
+            this.spinnerService.hide();
 
-        // send data back to component
-        this.dialogRef.close({ value: 99, viewValue: this.organizerForm.get('name').value});
+            if(res.status == 200){
+
+                this.snackbarService.openSnackBar(res.message);
+
+                // send data back to component
+                this.dialogRef.close({ value: res.data, viewValue: this.organizerForm.get('name').value});
+            }
+          },
+          (res:any) => {
+            this.spinnerService.hide();
+            this.snackbarService.openSnackBar(res.error.message, '', 'warn');
+          }
+        );
+        
+        this.subscriptions.add(subsNewOrganiser);
+
+        
     }
     
+
+    ngOnDestroy() {
+      this.subscriptions.unsubscribe();
+    }
+
 }

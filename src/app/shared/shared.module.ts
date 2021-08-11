@@ -29,6 +29,7 @@ import { NewOrganizerModal } from '../modals/events/new/new-organizer/new-organi
 import { EventTicketModal } from '../modals/events/new/event-ticket/event-ticket-modal';
 import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal';
 import { ContactOwnerModal } from '../modals/listing/details/contact-owner/contact-owner-modal';
+import { RsvpApplyModal } from '../modals/events/details/rsvp-apply/rsvp-apply-modal';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -60,7 +61,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -73,6 +74,9 @@ import { AdminSidebarComponent } from '../admin/sidebar/sidebar.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
+import { ShareModule } from 'ngx-sharebuttons';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
@@ -80,6 +84,10 @@ import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from '../modals/listing/details/review/listing-review-modal';
 import { ImageInputComponent } from './components/image-input/image-input.component';
 import { DropFileDirective } from './components/image-input/drop-file.directive';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { CountdownModule } from 'ngx-countdown';
+import { MatCardModule } from '@angular/material/card';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -113,12 +121,15 @@ import { DropFileDirective } from './components/image-input/drop-file.directive'
     SendMessageModalComponent,
     AdminSidebarComponent,
     pluralPipe,
+    rsvpTimeLeft,
     ListingGalleryModal,
     ListingVideoModal,
     CouponModal,
     ListingReviewModal,
     ImageInputComponent,
     DropFileDirective,
+    RsvpApplyModal,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -160,7 +171,14 @@ import { DropFileDirective } from './components/image-input/drop-file.directive'
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    ShareModule,
+    ShareButtonsModule,
+    ShareIconsModule,
     NgxGalleryModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    CountdownModule,
+    MatCardModule,
   ],
   exports: [
     FormsModule,
@@ -209,10 +227,20 @@ import { DropFileDirective } from './components/image-input/drop-file.directive'
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    ShareModule,
+    ShareButtonsModule,
+    ShareIconsModule,
     pluralPipe,
     NgxGalleryModule,
     ImageInputComponent,
     DropFileDirective,
+    rsvpTimeLeft,
+    NgxGalleryModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    CountdownModule,
+    MatCardModule,
+    PaginationComponent,
   ],
   entryComponents: [
     RegistrationModal,
@@ -240,6 +268,7 @@ import { DropFileDirective } from './components/image-input/drop-file.directive'
     ListingVideoModal,
     CouponModal,
     ListingReviewModal,
+    RsvpApplyModal,
   ],
 })
 export class SharedModule {}

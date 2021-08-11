@@ -1,10 +1,11 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { UserAPIReponse } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { InterceptorService } from '../interceptor.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,8 @@ export class UserService {
       'Content-Type': 'application/json',
     }),
   };
+
+  clientIp: ReplaySubject<string> = new ReplaySubject(1);
 
   sectors = [
     { id: 1, value: 'steak-0' },
@@ -77,7 +80,24 @@ export class UserService {
   clickedRegisterLinkModal: EventEmitter<any> = new EventEmitter();
   clickedLoginLinkModal: EventEmitter<any> = new EventEmitter();
 
-  constructor(private httpClient: HttpClient, private router: Router, private auth: AngularFireAuth) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private auth: AngularFireAuth,
+    private interceptorService: InterceptorService
+  ) {
+    this.getClientIP();
+
+    this.interceptorService.logout.subscribe(() => {
+      this.logout();
+    });
+  }
+
+  getClientIP() {
+    this.httpClient.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.clientIp.next(res.ip);
+    });
+  }
 
   addUser(body: any): Observable<UserAPIReponse> {
     const url = 'api/users/register';
@@ -110,8 +130,7 @@ export class UserService {
   getDetailsByID(id: string): Observable<UserAPIReponse> {
     const url = `api/users/user-details-by-id/${id}`;
 
-    return this.httpClient
-      .get<UserAPIReponse>(url, this.headerOptions);
+    return this.httpClient.get<UserAPIReponse>(url, this.headerOptions);
   }
 
   logout(): void {
@@ -145,7 +164,7 @@ export class UserService {
       () => {}
     );
   }
-  
+
   checkAuthentication(): void {
     const url = 'api/users/authenticated';
 

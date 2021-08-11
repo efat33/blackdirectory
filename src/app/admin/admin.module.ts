@@ -9,13 +9,33 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { NewsCategoriesComponent } from './news/news-categories/news-categories.component';
 import { AddNewsCategoryModalComponent } from './news/news-categories/add-news-category-modal/add-news-category-modal';
+import { ManageNewsComponent } from './news/manage-news/manage-news.component';
+import { TopNewsComponent } from './news/top-news/top-news.component';
+import { JobSectorsComponent } from './jobs/job-sectors/job-sectors.component';
+import { AddJobSectorModalComponent } from './jobs/job-sectors/add-job-sector-modal/add-job-sector-modal';
+import { AddListingCategoryModalComponent } from './listing/listing-categories/add-listing-category-modal/add-listing-category-modal';
+import { ListingCategoriesComponent } from './listing/listing-categories/listing-categories.component';
+import { NewMobileComponent } from './mobiles/new-mobile/new-mobile.component';
+import { ManageMobilesComponent } from './mobiles/manage-mobiles/manage-mobiles.component';
+import { MobileProvidersComponent } from './mobiles/mobile-providers/mobile-providers.component';
+import { AddMobileProviderModalComponent } from './mobiles/mobile-providers/add-mobile-providers-modal/add-mobile-providers-modal';
 
 @NgModule({
   declarations: [
     AdminComponent,
     NewNewsComponent,
     NewsCategoriesComponent,
-    AddNewsCategoryModalComponent
+    AddNewsCategoryModalComponent,
+    ManageNewsComponent,
+    TopNewsComponent,
+    JobSectorsComponent,
+    AddJobSectorModalComponent,
+    ListingCategoriesComponent,
+    AddListingCategoryModalComponent,
+    NewMobileComponent,
+    ManageMobilesComponent,
+    MobileProvidersComponent,
+    AddMobileProviderModalComponent,
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

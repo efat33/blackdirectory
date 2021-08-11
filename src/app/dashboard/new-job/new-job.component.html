@@ -14,7 +14,7 @@
             </mat-form-field>
 
             <div class="job-description-ckeditor">
-                <ckeditor [editor]="ckEditor" [config]="ckConfig" formControlName="description"></ckeditor>
+                <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)" formControlName="description"></ckeditor>
             </div>
 
             <div class="row">

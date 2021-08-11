@@ -36,15 +36,15 @@
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
                     <a [routerLink]="['news-add']" routerLinkActive="dashboard-link-active"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
-                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i></span>
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-plus"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Add News</span> <span
                         class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
                     <a [routerLink]="['news-all']" routerLinkActive="dashboard-link-active"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
-                        class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i> </span>
-                      <span class="dashboard-nav_text__x-_IZ">All News</span> <span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Manage News</span> <span
                         class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
@@ -52,6 +52,114 @@
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
                         class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i> </span>
                       <span class="dashboard-nav_text__x-_IZ">Categories</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['top-news']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-arrow-circle-o-up"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Top News</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+
+        <!-- job menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Job</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['job-sectors']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Sectors</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+
+        <!-- listing menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Listing</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['listing-categories']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Categories</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+
+        <!-- mobiles menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Mobiles</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['mobiles-add']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-plus"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Add Mobiles</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['mobiles-all']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Manage Mobiles</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['mobiles-providers']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Providers</span> <span
                         class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
               </ul>

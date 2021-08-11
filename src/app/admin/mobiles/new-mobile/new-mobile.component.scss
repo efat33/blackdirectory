@@ -1,0 +1,20 @@
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 100px !important;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+
+  & > div:first-child {
+    flex-grow: 1;
+  }
+}
+
+mat-slide-toggle {
+  margin-left: 12px;
+}
+
+.mobiles-content-ckeditor {
+  margin-top: 20px;
+}

@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./listing/listing.module').then((m) => m.ListingModule),
   },
   {
+    path: 'mobiles',
+    loadChildren: () => import('./mobiles/mobiles.module').then(m => m.MobilesModule)
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },

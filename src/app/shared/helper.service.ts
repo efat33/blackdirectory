@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 import { CurrentUser } from '../user/user';
 
 @Injectable({
@@ -8,18 +9,31 @@ import { CurrentUser } from '../user/user';
 })
 export class HelperService {
   currentUserInfo: CurrentUser;
-  apiUrl = 'http://localhost:3000';
-  siteUrl = 'http://localhost:4200';
+  apiUrl: string;
+  siteUrl: string;
   assetUrl = 'http://localhost:4200/assets';
 
   constructor(private http: HttpClient) {
+    this.setApiUrl();
+    this.setSiteUrl();
     this.setCurrentUserInfo();
   }
 
-  getClientIP() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
-      return res.ip;
-    });
+  setApiUrl() {
+    if (environment.production) {
+      this.apiUrl = `https://68.66.248.49/~blackdir/api`;
+    } else {
+      this.apiUrl = `http://localhost:3000`;
+    }
+    // this.apiUrl = `https://68.66.248.49/~blackdir/api`;
+  }
+
+  setSiteUrl() {
+    if (environment.production) {
+      this.siteUrl = `https://68.66.248.49/~blackdir`;
+    } else {
+      this.siteUrl = `http://localhost:4200`;
+    }
   }
 
   moveItemInFormArray(formArray: FormArray, fromIndex: number, toIndex: number): void {
@@ -102,7 +116,7 @@ export class HelperService {
       image = `${size}-${image}`;
     }
 
-    return `${this.apiUrl}/${folder}/${image}`;
+    return `${this.apiUrl}/uploads/${folder}/${image}`;
   }
 
   isEmployer() {
@@ -132,6 +146,18 @@ export class HelperService {
     const sec = currentdate.getUTCSeconds().toString().padStart(2, '0');
 
     const datetime = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+
+    return datetime;
+  }
+
+  dateNow() {
+    const currentdate = new Date();
+
+    const year = currentdate.getUTCFullYear();
+    const month = (currentdate.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = currentdate.getUTCDate().toString().padStart(2, '0');
+
+    const datetime = `${year}-${month}-${day}`;
 
     return datetime;
   }

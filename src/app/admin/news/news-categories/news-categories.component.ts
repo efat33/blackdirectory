@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewsCategoryModalComponent } from './add-news-category-modal/add-news-category-modal';
+import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 
 declare const google: any;
 
@@ -110,20 +111,30 @@ export class NewsCategoriesComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   deleteCategory(category: any) {
-    this.spinnerService.show();
-    const subscription = this.newsService.deleteNewsCategory(category.id).subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: { message: 'Are you sure to delete the category?' },
+    });
 
-        this.getNewsCategories();
-      },
-      (error) => {
-        this.spinnerService.hide();
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+    const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.spinnerService.show();
+        const subscription = this.newsService.deleteNewsCategory(category.id).subscribe(
+          (result: any) => {
+            this.spinnerService.hide();
+
+            this.getNewsCategories();
+          },
+          (error) => {
+            this.spinnerService.hide();
+            this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+          }
+        );
+
+        this.subscriptions.add(subscription);
       }
-    );
+    });
 
-    this.subscriptions.add(subscription);
+    this.subscriptions.add(dialogCloseSubscription);
   }
 
   ngOnDestroy() {

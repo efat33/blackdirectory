@@ -1,3 +1,5 @@
+@import 'events/epta-style.css';
+
 body.popup-active::-webkit-scrollbar {
     display: none;
 }

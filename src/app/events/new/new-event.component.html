@@ -40,13 +40,13 @@
                             </header>
                             <div>
                                 <div class="content-box_body__3tSRB">
-                                    <mat-form-field>
+                                    <!-- <mat-form-field>
                                         <mat-label>Event Type</mat-label>
                                         <mat-select formControlName="event_type">
                                             <mat-option value="one_time">One Time</mat-option>
                                             <mat-option value="recurrence">Recurrence</mat-option>
                                         </mat-select>
-                                    </mat-form-field>
+                                    </mat-form-field> -->
 
                                     <!-- time details for one time event -->
                                     <div *ngIf="eventForm.get('event_type').value == 'one_time'"
@@ -54,27 +54,30 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <mat-form-field>
-                                                    <mat-label>Start Date</mat-label>
-                                                    <input matInput formControlName="start_date"
+                                                    <mat-label>Start Time</mat-label>
+                                                    <!-- <input matInput formControlName="start_date"
                                                         [matDatepicker]="event_start_date"
                                                         (focus)="event_start_date.open()">
                                                     <mat-datepicker-toggle matSuffix [for]="event_start_date">
                                                     </mat-datepicker-toggle>
-                                                    <mat-datepicker #event_start_date></mat-datepicker>
+                                                    <mat-datepicker #event_start_date></mat-datepicker> -->
+
+                                                    <input matInput formControlName="start_time" autocomplete="off"
+                                                        [owlDateTimeTrigger]="start_time" [owlDateTime]="start_time">
+                                                    <owl-date-time #start_time></owl-date-time>
                                                 </mat-form-field>
+
                                             </div>
                                             <div class="col-md-6">
                                                 <mat-form-field>
-                                                    <mat-label>Start Time</mat-label>
-                                                    <mat-select formControlName="start_time">
-                                                        <mat-option *ngFor="let hour of hours" [value]="hour.value">
-                                                            {{hour.viewValue}}
-                                                        </mat-option>
-                                                    </mat-select>
+                                                    <mat-label>End Time</mat-label>
+                                                    <input matInput formControlName="end_time" autocomplete="off"
+                                                        [owlDateTimeTrigger]="end_time" [owlDateTime]="end_time">
+                                                    <owl-date-time #end_time></owl-date-time>
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-6">
                                                 <mat-form-field>
                                                     <mat-label>End Date</mat-label>
@@ -96,7 +99,7 @@
                                                     </mat-select>
                                                 </mat-form-field>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <!-- time details for recurrence event -->
@@ -293,14 +296,18 @@
                             </header>
                             <div class="content-box_body__3tSRB">
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Featured Image</mat-label>
-                                    <input required accept="image/*" type="file" formControlName="featured_img"
+                                    <mat-label>Featured Image *</mat-label>
+                                    <input required accept="image/*" type="file" formControlName="featured_img_input"
                                         #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
                                     <span *ngIf="featuredImageSrc"
                                         [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
                                     <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
                                         (click)="fileInputFeaturedImg.click()">Upload</a>
                                 </section>
+                                <mat-progress-bar *ngIf="progressFeaturedImg > 0" mode="determinate"
+                                    [value]="progressFeaturedImg" class="mb-15"></mat-progress-bar>
+                                <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
+                                    {{formCustomvalidation.featuredImage.message}}</p>
                             </div>
                         </div><!-- wilcity-addevent-featured_image -->
 
@@ -430,7 +437,7 @@
                                     <div formArrayName="organizers" class="field_module__1H6kT field_style2__2Znhe">
 
                                         <div *ngFor="let organizer of eventForm.get('organizers')['controls']; index as i"
-                                            [formGroupName]="i" class="field-has-close">
+                                            class="field-has-close">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-12">
                                                     <div class="field_module__1H6kT field_style2__2Znhe mb-15">
@@ -438,7 +445,7 @@
                                                             <mat-label>Select Organizer</mat-label>
                                                             <mat-select required
                                                                 (openedChange)="onSelectOpen($event, eventOrganizerFilterInput)"
-                                                                formControlName="organizer_id">
+                                                                [formControl]="organizer">
                                                                 <input class="selectSearch" #eventOrganizerFilterInput
                                                                     matInput placeholder="Search Organizer" />
                                                                 <mat-option
@@ -507,18 +514,18 @@
                                                 <div id="tribe_panel_base" class="ticket_panel panel_base">
                                                     <div *ngIf="eventForm.get('tickets').value.length > 0 || eventForm.get('rsvp').value.length > 0"
                                                         class="tribe_sectionheader ticket_list_container">
-                                                        <div class="ticket_table_intro">
+                                                        <!-- <div class="ticket_table_intro">
                                                             <span id="ticket_form_total_capacity">
                                                                 Total Event Capacity: <span
                                                                     id="ticket_form_total_capacity_value">
                                                                     38 </span>
                                                             </span>
 
-                                                            <!-- <a href="#" class="button-secondary">
+                                                            <a href="#" class="button-secondary">
                                                                 View Orders </a>
                                                             <a class="button-secondary" href="#">
-                                                                View Attendees </a> -->
-                                                        </div>
+                                                                View Attendees </a>
+                                                        </div> -->
 
 
                                                         <table id="tribe_ticket_list_table"
@@ -565,11 +572,12 @@
                                                                     <td class="ticket_edit">
                                                                         <button
                                                                             (click)="openTicketModal(ticket.value, i)"
-                                                                            class="ticket_edit_button">
+                                                                            type="button" class="ticket_edit_button">
                                                                             <i class="fa fa-pencil"></i>
                                                                         </button>
                                                                         <button
                                                                             (click)="removeEventTicket(i, ticket.value)"
+                                                                            type="button"
                                                                             class="ticket_edit_button ticket_delete_button">
                                                                             <i class="fa fa-trash"></i>
                                                                         </button>
@@ -588,7 +596,7 @@
                                                                     </td>
 
                                                                     <td class="ticket_price" data-label="Price:">
-                                                                        RSVP</td>
+                                                                        FREE</td>
 
                                                                     <td class="ticket_capacity">
                                                                         <span class="tribe-mobile-only">Capacity:</span>
@@ -603,10 +611,11 @@
 
                                                                     <td class="ticket_edit">
                                                                         <button (click)="openRsvpModal(rsvp.value, i)"
-                                                                            class="ticket_edit_button">
+                                                                            type="button" class="ticket_edit_button">
                                                                             <i class="fa fa-pencil"></i>
                                                                         </button>
                                                                         <button (click)="removeEventRsvp(i, rsvp.value)"
+                                                                            type="button"
                                                                             class="ticket_edit_button ticket_delete_button">
                                                                             <i class="fa fa-trash"></i>
                                                                         </button>
@@ -639,13 +648,14 @@
                             </div>
                         </div><!-- wilcity-addevent-tickets -->
 
+                        <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 
                         <button mat-raised-button
                             class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
-                            type="submit">
+                            type="submit" [disabled]="eventForm.invalid">
                             Submit Event
                         </button>
-                        <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
 
                     </form>
                 </div>
