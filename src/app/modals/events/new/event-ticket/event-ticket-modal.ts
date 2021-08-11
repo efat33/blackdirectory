@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 export interface DialogData {
     formdata: any;
@@ -39,6 +40,10 @@ export class EventTicketModal implements OnInit {
     }
 
     onSubmit() {
+        // const formData = this.ticketForm.value;
+        // formData.start_sale = moment(formData.start_sale).toISOString();
+        // formData.end_sale = moment(formData.end_sale).toISOString();
+        
         this.dialogRef.close(this.ticketForm.value);
     }
     
