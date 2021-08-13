@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
+import { HelperService } from 'src/app/shared/helper.service';
 
 export interface ApiResponse<T> {
   status: number;
@@ -20,26 +21,46 @@ export interface Tag {
   title: string;
 }
 
-export interface PostNewProductBody {
+export type StockStatus = 'instock' | 'outstock' | 'backorder';
+
+interface ProductBase {
   title: string;
   price: number;
   category_id: number;
   image: string;
-  short_desc: string;
-  description: string;
-  stock_status: 'instock' | 'outstock' | 'backorder';
-  tags: number[];
   galleries: string[];
-  is_downloadable: 1 | 0;
-  is_virtual: 1 | 0;
-  discounted_price?: number;
-  discount_start?: Date;
-  discount_end?: Date;
+  description: string;
+  stock_status: StockStatus;
+  discounted_price: number | null;
+  discount_start: Date | null;
+  discount_end: Date | null;
+  short_desc?: string;
   sku?: string;
   purchase_note?: string;
+}
+
+export interface Product extends ProductBase {
+  id: number;
+  user_id: number;
+  category_name: string;
+  is_downloadable: boolean;
+  is_virtual: boolean;
+  slug: string;
+  status: 'publish';
+  views: number;
+  rating_average: number;
+  rating_total: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface PostNewProductBody extends ProductBase {
+  tags: number[];
+  is_downloadable: 1 | 0;
+  is_virtual: 1 | 0;
   download_files?: {
-    limit: number;
-    expire_days: number;
+    limit?: number;
+    expire_days?: number;
     files: {
       name: string;
       file: string;
@@ -56,9 +77,9 @@ export interface GetProductListBody {
   offset: number;
   orderby: string;
   order: 'DESC' | 'ASC';
-  params: {
-    keyword: string;
-    category: number;
+  params?: {
+    keyword?: string;
+    category?: number;
   };
 }
 
@@ -73,7 +94,7 @@ export interface ProductReview {
 export class ProductService {
   private BASE_URL = 'api/shop';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private helperService: HelperService) {}
 
   getCategories(): Observable<Category[]> {
     return this.http.get<ApiResponse<Category[]>>(`${this.BASE_URL}/product-categories`).pipe(pluck('data'));
@@ -95,15 +116,35 @@ export class ProductService {
     return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/product/${slug}`);
   }
 
-  getProductList(params: GetProductListBody): Observable<any> {
-    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, params);
+  getTotalNumberOfProducts(): Observable<number> {
+    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, {}).pipe(
+      pluck('data'),
+      map((products) => products.length)
+    );
+  }
+
+  getProductList(params: GetProductListBody): Observable<Product[]> {
+    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, params).pipe(
+      map((response) =>
+        response.data.map((p) => ({
+          ...p,
+          image: this.helperService.getImageUrl(p.image, 'product', 'medium'),
+          galleries: JSON.parse(p.galleries).map((gallery) => this.helperService.getImageUrl(gallery, 'product')),
+          is_downloadable: Boolean(p.is_downloadable),
+          is_virtual: Boolean(p.is_virtual),
+          created_at: new Date(p.created_at),
+          updated_at: new Date(p.updated_at),
+          rating_average: parseFloat(p.rating_average),
+        }))
+      )
+    );
   }
 
   getProductReview(id: number): Observable<ProductReview[]> {
-    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/details/3`).pipe(pluck('data'));
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/details/${id}`).pipe(pluck('data'));
   }
 
-  postNewProductReview(review: ProductReview): Observable<any> {
-    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/2/review`, review);
+  postNewProductReview(id: number, review: ProductReview): Observable<any> {
+    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/${id}/review`, review);
   }
 }
