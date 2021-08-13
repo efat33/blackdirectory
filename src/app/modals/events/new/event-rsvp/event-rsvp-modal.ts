@@ -30,9 +30,9 @@ export class EventRsvpModal implements OnInit {
     ngOnInit(): void {
         this.rsvpForm = new FormGroup({
             title: new FormControl(this.data.formdata?.title || '', Validators.required),
-            capacity: new FormControl(this.data.formdata?.institute || '', Validators.pattern('^[0-9.]*$')),
-            start_sale: new FormControl(this.data.formdata?.description || ''),
-            end_sale: new FormControl(this.data.formdata?.description || ''),
+            capacity: new FormControl(this.data.formdata?.capacity || '', Validators.pattern('^[0-9.]*$')),
+            start_sale: new FormControl(this.data.formdata?.start_sale || ''),
+            end_sale: new FormControl(this.data.formdata?.end_sale || ''),
             id: new FormControl(this.data.formdata?.id || ''),
           });
     }
