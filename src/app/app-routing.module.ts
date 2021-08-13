@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'mobiles',
-    loadChildren: () => import('./mobiles/mobiles.module').then(m => m.MobilesModule)
+    loadChildren: () => import('./mobiles/mobiles.module').then((m) => m.MobilesModule),
   },
   {
     path: 'dashboard',
