@@ -1,0 +1,16 @@
+<div class="col-2" [formGroup]="form">
+  <mat-form-field>
+    <mat-label>File Name</mat-label>
+    <input matInput type="text" formControlName="name" />
+  </mat-form-field>
+  <section class="section-mat-form-field section-field-file">
+    <mat-label *ngIf="!form.get('file').value">File</mat-label>
+    <input accept="*" type="file" #inputFile (change)="onFileChange($event)" />
+    <span *ngIf="form.get('file').value">{{ form.get('file').value }}</span>
+    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputFile.click()">Upload</a>
+  </section>
+</div>
+<mat-progress-bar *ngIf="progress > 0" mode="determinate" [value]="progress" class="mb-15"></mat-progress-bar>
+<p class="form-error" *ngIf="!validation.validated">
+  {{ validation.message }}
+</p>

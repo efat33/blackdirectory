@@ -38,6 +38,7 @@
               "src/assets/css/events/tickets/common-skeleton.min.css",
               "src/assets/css/events/common-full.min.css",
               "src/assets/css/events/pro-views-skeleton.min.css",
+              "./node_modules/ng-pick-datetime/assets/style/picker.min.css",
               "src/assets/css/app.min.css",
               "src/assets/css/jobsearch.css",
               "src/assets/css/style-wilcity.css",

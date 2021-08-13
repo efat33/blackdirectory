@@ -8,7 +8,7 @@ import { NewEventComponent } from "./new/new-event.component";
 const routes: Routes = [
   { path: "", redirectTo: "all", pathMatch: "full" },
   { path: "all", component: EventsAllComponent },
-  { path: "details", component: EventDetailsComponent },
+  { path: "details/:slug", component: EventDetailsComponent },
   { path: "new", component: NewEventComponent },
 ];
 

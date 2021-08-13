@@ -1,0 +1,55 @@
+.mat-date-range-input-start-wrapper {
+  flex-grow: 1;
+}
+.mat-checkbox {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.checkboxes-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.help-icon > mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+.featured-image-input {
+  height: 350px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+.gallery-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 1rem;
+}
+.gallery-image {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+@media (min-width: 1124px) {
+  .general-inputs {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+  }
+  .general-inputs > div {
+    width: calc(50% - 8px);
+  }
+  .featured-image-input {
+    height: 250px;
+  }
+  .gallery-image {
+    width: 125px;
+    height: 125px;
+  }
+}
+.col-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

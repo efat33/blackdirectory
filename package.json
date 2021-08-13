@@ -40,7 +40,9 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "ng-click-outside": "^8.0.0",
+    "ng-pick-datetime": "^7.0.0",
     "ng2-nouislider": "^1.8.3",
+    "ngx-countdown": "^12.0.1",
     "ngx-mat-select-search": "^3.2.0",
     "ngx-sharebuttons": "^8.0.5",
     "nouislider": "^15.2.0",
@@ -51,6 +53,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/architect": ">= 0.900 < 0.1300",
     "@angular-devkit/build-angular": "~0.1002.3",
     "@angular/cli": "~10.2.3",
     "@angular/compiler-cli": "~10.2.5",
@@ -61,23 +64,22 @@
     "@types/lodash": "^4.14.171",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "firebase-tools": "^8.0.0 || ^9.0.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
+    "jsonc-parser": "^3.0.0",
     "karma": "~5.0.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "open": "^7.0.3",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.7",
-    "@angular-devkit/architect": ">= 0.900 < 0.1300",
-    "firebase-tools": "^8.0.0 || ^9.0.0",
-    "fuzzy": "^0.1.3",
-    "inquirer": "^6.2.2",
-    "inquirer-autocomplete-prompt": "^1.0.1",
-    "open": "^7.0.3",
-    "jsonc-parser": "^3.0.0"
+    "typescript": "~4.0.7"
   }
 }
