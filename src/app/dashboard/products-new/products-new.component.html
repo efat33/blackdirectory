@@ -1,5 +1,3 @@
-<!-- --- TODO: image, galleries --- -->
-
 <form (ngSubmit)="onSubmit()" [formGroup]="productForm">
   <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
     <header class="content-box_header__xPnGx clearfix">
@@ -13,23 +11,21 @@
       <div class="general-inputs">
         <div>
           <div class="featured-image-input">
-            <app-image-input text="Add a Featured Image" (fileChange)="onFeaturedImageChange($event)"></app-image-input>
+            <app-image-input
+              uploadDirectory="product"
+              [control]="productForm.get('image')"
+              text="Add a Featured Image"
+            ></app-image-input>
           </div>
           <h6>Gallery Images</h6>
           <div class="gallery-container">
-            <div class="gallery-image" *ngFor="let image of galleryArr; let index = index; trackBy: trackByIdentity">
-              <app-image-input [value]="image" (fileChange)="galleryImageChange(index, $event)"></app-image-input>
+            <div class="gallery-image" *ngFor="let gallery of galleries.controls; let i = index">
+              <app-image-input
+                uploadDirectory="product"
+                [control]="productForm.get('galleries.' + i)"
+              ></app-image-input>
             </div>
           </div>
-          <mat-progress-bar
-            *ngIf="progressFeaturedImage > 0"
-            mode="determinate"
-            [value]="progressFeaturedImage"
-            class="mb-15"
-          ></mat-progress-bar>
-          <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
-            {{ formCustomvalidation.featuredImage.message }}
-          </p>
         </div>
         <div>
           <mat-form-field>
@@ -146,34 +142,13 @@
               <div style="flex-grow: 1">
                 <app-file-input uploadDirectory="user" [form]="file"></app-file-input>
               </div>
-              <button mat-icon-button color="warn" (click)="removeFile(i)">
+              <button mat-icon-button color="warn" [disabled]="files.length < 2" (click)="removeFile(i)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
-            <!-- <div class="col-2" [formGroupName]="i">
-              <mat-form-field>
-                <mat-label>File Name</mat-label>
-                <input matInput type="text" formControlName="name" />
-              </mat-form-field>
-              <section class="section-mat-form-field section-field-file">
-                <mat-label>File</mat-label>
-                <input accept="*" type="file" formControlName="file" #inputFile (change)="onFileChange($event)" />
-                <span *ngIf="true">{{ file.value.file }}</span>
-                <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputFile.click()">Upload</a>
-              </section>
-            </div>
-            <mat-progress-bar
-              *ngIf="progressFile > 0"
-              mode="determinate"
-              [value]="progressFile"
-              class="mb-15"
-            ></mat-progress-bar>
-            <p class="form-error" *ngIf="!formCustomvalidation.file.validated">
-              {{ formCustomvalidation.file.message }}
-            </p> -->
           </ng-container>
         </div>
-        <button mat-flat-button color="primary" (click)="addFile('', '')">ADD FILE</button>
+        <button mat-flat-button type="button" color="primary" (click)="addFile('', '')">ADD FILE</button>
       </div>
     </div>
   </div>

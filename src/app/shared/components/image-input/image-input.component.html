@@ -5,7 +5,10 @@
   dropFile
   (fileDropped)="onFileDropped($event)"
 >
-  <div *ngIf="file && showDelete" class="delete-overlay" (click)="deleteImage()">
+  <div class="overlay progress-overlay" *ngIf="progress > 0">
+    <mat-progress-spinner color="primary" mode="determinate" [value]="progress"> </mat-progress-spinner>
+  </div>
+  <div *ngIf="file && showDelete" class="overlay delete-overlay" (click)="deleteImage()">
     <mat-icon>highlight_off</mat-icon>
   </div>
   <img *ngIf="file" [src]="fileStr" />

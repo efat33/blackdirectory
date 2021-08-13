@@ -23,16 +23,21 @@ label {
   justify-content: center;
   align-items: center;
 }
-.delete-overlay {
+.overlay {
   position: absolute;
   left: 16px;
   top: 16px;
   right: 16px;
   bottom: 16px;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.progress-overlay {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.delete-overlay {
+  cursor: pointer;
   background-color: rgba(255, 50, 50, 0.151);
 }
 .delete-overlay mat-icon {
