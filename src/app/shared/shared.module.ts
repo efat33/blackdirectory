@@ -46,6 +46,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
@@ -163,6 +164,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     MatSliderModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     MatTabsModule,
     NouisliderModule,
@@ -205,6 +207,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     FlexLayoutModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     MatTabsModule,
     MatToolbarModule,

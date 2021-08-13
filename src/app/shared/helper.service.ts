@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -13,7 +12,7 @@ export class HelperService {
   siteUrl: string;
   assetUrl = 'http://localhost:4200/assets';
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.setApiUrl();
     this.setSiteUrl();
     this.setCurrentUserInfo();
@@ -25,7 +24,7 @@ export class HelperService {
     } else {
       this.apiUrl = `http://localhost:3000`;
     }
-    // this.apiUrl = `https://68.66.248.49/~blackdir/api`;
+    // this.apiUrl = `https://68.66.248.49/~blackdir/api`; // TODO:
   }
 
   setSiteUrl() {
