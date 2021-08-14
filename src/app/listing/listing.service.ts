@@ -59,6 +59,12 @@ export class ListingService {
       .pipe(map((body: APIReponse) => body));
   }
 
+  deleteListing(id): Observable<APIReponse> {
+    const url = `api/listings/delete-listing/${id}`;
+
+    return this.httpClient.delete<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
   searchListing(body: any): Observable<APIReponse> {
     const url = 'api/listings/search-listing';
 
