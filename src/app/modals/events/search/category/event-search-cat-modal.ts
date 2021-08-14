@@ -1,8 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import { EventService } from 'src/app/events/event.service';
 
 export interface DialogData {
-    category: number;
+    category: number,
+    categories: any
 }
 
 @Component({
@@ -13,20 +16,16 @@ export interface DialogData {
 
 export class EventSearchCatModal implements OnInit {
 
-    categories = [
-        { value: 1, viewValue: 'Books'},
-        { value: 2, viewValue: 'Business'},
-        { value: 3, viewValue: 'Comedy'},
-        { value: 4, viewValue: 'Film & Media'},
-        { value: 5, viewValue: 'General Discussion'},
-        { value: 6, viewValue: 'Hobbies'},
-    ];
+    subscriptions = new Subscription();
+
+    categories = [];
 
     chosenCategory: number = null;
 
     constructor(
         public dialogRef: MatDialogRef<EventSearchCatModal>, 
-        @Inject(MAT_DIALOG_DATA) public data: DialogData
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private eventService: EventService
     ) {
         
     }
@@ -35,6 +34,7 @@ export class EventSearchCatModal implements OnInit {
        if(this.data.category != null){
            this.chosenCategory = this.data.category;
        }
+       this.categories = this.data.categories;
     }
 
     onSubmit() {
@@ -60,6 +60,10 @@ export class EventSearchCatModal implements OnInit {
         }
     
         return [];
+    }
+
+    ngOnDestroy() {
+      this.subscriptions.unsubscribe();
     }
     
 }

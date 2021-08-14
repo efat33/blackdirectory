@@ -57,3 +57,15 @@ export class rsvpTimeLeft implements PipeTransform {
     }
   }
 }
+
+@Pipe({ name: 'excerpt' })
+export class excerpt implements PipeTransform {
+  transform(text: any, length: number = 30): string {
+    const word_count = text.split(' ').length;
+
+    if (word_count > length) {
+      return text.split(" ").splice(0, word_count).join(" ") + ' […]';
+    }
+    return text;
+  }
+}

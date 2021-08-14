@@ -26,7 +26,18 @@
                     {{ event.description }}
                 </div>
             </div>
-            <div class="epta-map-area">
+
+            <!-- video section -->
+            <div *ngIf="event.is_virtual == 1" class="tribe-events-virtual-single-video-embed">
+                <div class="tribe-events-virtual-single-video-embed__wrapper">
+                    <div class="embed-responsive embed-responsive-16by9"><iframe [src]="videoUrl" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen="" class="embed-responsive-item"></iframe></div>
+                </div>
+            </div>
+
+            <!-- map section -->
+            <div *ngIf="!event.is_virtual" class="epta-map-area">
                 <div class="tribe-events-venue-map">
                     <h3>Map goes here</h3>
                 </div>
