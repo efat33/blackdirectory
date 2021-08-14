@@ -62,7 +62,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -89,6 +89,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CountdownModule } from 'ngx-countdown';
 import { MatCardModule } from '@angular/material/card';
 import { PaginationComponent } from './pagination/pagination.component';
+import { EventSearchDateModal } from '../modals/events/search/date/event-search-date-modal';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     SendMessageModalComponent,
     AdminSidebarComponent,
     pluralPipe,
+    excerpt,
     rsvpTimeLeft,
     ListingGalleryModal,
     ListingVideoModal,
@@ -131,6 +133,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     DropFileDirective,
     RsvpApplyModal,
     PaginationComponent,
+    EventSearchDateModal,
   ],
   imports: [
     CommonModule,
@@ -234,6 +237,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     ShareButtonsModule,
     ShareIconsModule,
     pluralPipe,
+    excerpt,
     NgxGalleryModule,
     ImageInputComponent,
     DropFileDirective,
@@ -272,6 +276,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     CouponModal,
     ListingReviewModal,
     RsvpApplyModal,
+    EventSearchDateModal
   ],
 })
 export class SharedModule {}

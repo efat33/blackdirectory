@@ -28,6 +28,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { StoreSettingsComponent } from './store-settings/store-settings.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { FileInputComponent } from './file-input/file-input.component';
+import { ListingsComponent } from './listings/listings.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { FileInputComponent } from './file-input/file-input.component';
     StoreSettingsComponent,
     WithdrawComponent,
     FileInputComponent,
+    ListingsComponent,
+    EventsComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

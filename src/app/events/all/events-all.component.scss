@@ -50,3 +50,14 @@ button.tribe-common-c-btn.tribe-events-c-search__button {
     color: #fff !important;
     border-color: rgba(0,102,153,1);
 }
+.tribe-common .tribe-common-c-btn:focus, .tribe-common a.tribe-common-c-btn:focus {
+    background-color: rgba(0,102,153,1);
+}
+.tribe-events .tribe-events-virtual-virtual-event__icon-svg {
+    height: 10px;
+}
+.tribe-events .tribe-events-virtual-virtual-event__icon {
+    display: inline-block;
+    line-height: 0;
+    margin-right: 8px;
+}

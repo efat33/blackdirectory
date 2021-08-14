@@ -25,6 +25,8 @@ import { StoreSettingsComponent } from './store-settings/store-settings.componen
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductResolver } from './products-edit/product-edit.resolver';
+import { ListingsComponent } from './listings/listings.component';
+import { EventsComponent } from './events/events.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,8 @@ const routes: Routes = [
       { path: 'packages/return', component: JobPackagesReturnComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'listings', component: ListingsComponent },
+      { path: 'events', component: EventsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/new', component: ProductsNewComponent },
       { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },

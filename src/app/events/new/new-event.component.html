@@ -23,10 +23,14 @@
                                     <mat-label>Title</mat-label>
                                     <input required matInput formControlName="title" />
                                 </mat-form-field>
-                                <mat-form-field>
+                                <!-- <mat-form-field>
                                     <mat-label>Description</mat-label>
                                     <textarea required matInput rows="5" formControlName="description"></textarea>
-                                </mat-form-field>
+                                </mat-form-field> -->
+                                <div class="job-description-ckeditor">
+                                    <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
+                                        formControlName="description"></ckeditor>
+                                </div>
                             </div>
                         </div><!-- wilcity-addevent-basic -->
 
@@ -297,7 +301,7 @@
                             <div class="content-box_body__3tSRB">
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
                                     <mat-label>Featured Image *</mat-label>
-                                    <input required accept="image/*" type="file" formControlName="featured_img_input"
+                                    <input accept="image/*" type="file" formControlName="featured_img_input"
                                         #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
                                     <span *ngIf="featuredImageSrc"
                                         [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
@@ -566,7 +570,9 @@
                                                                     <td class="ticket_available">
                                                                         <span
                                                                             class="tribe-mobile-only">Available:</span>
-                                                                        {{ticket.get('capacity').value}}
+                                                                        {{ ticket.get('available') ?
+                                                                        ticket.get('available').value :
+                                                                        ticket.get('capacity').value }}
                                                                     </td>
 
                                                                     <td class="ticket_edit">
@@ -606,7 +612,9 @@
                                                                     <td class="ticket_available">
                                                                         <span
                                                                             class="tribe-mobile-only">Available:</span>
-                                                                        {{rsvp.get('capacity').value}}
+                                                                        {{ rsvp.get('available') ?
+                                                                        rsvp.get('available').value :
+                                                                        rsvp.get('capacity').value }}
                                                                     </td>
 
                                                                     <td class="ticket_edit">
