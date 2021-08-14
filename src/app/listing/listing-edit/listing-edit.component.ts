@@ -249,6 +249,7 @@ export class ListingEditComponent implements OnInit {
         if(this.helperservice.currentUserInfo.id != this.listing.listing.user_id ||
           this.helperservice.currentUserInfo.id != this.listing.listing.claimer_id){
             this.router.navigate(['home']);
+            return;
         }
 
         this.populateFormData();

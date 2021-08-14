@@ -3,6 +3,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface DialogData {
     option: number;
+    options: any;
 }
 
 @Component({
@@ -13,14 +14,7 @@ export interface DialogData {
 
 export class EventSearchOrganizersModal implements OnInit {
 
-    options = [
-        { value: 1, viewValue: 'Books'},
-        { value: 2, viewValue: 'Business'},
-        { value: 3, viewValue: 'Comedy'},
-        { value: 4, viewValue: 'Film & Media'},
-        { value: 5, viewValue: 'General Discussion'},
-        { value: 6, viewValue: 'Hobbies'},
-    ];
+    options = [];
 
     chosenOption: number = null;
 
@@ -35,6 +29,7 @@ export class EventSearchOrganizersModal implements OnInit {
        if(this.data.option != null){
            this.chosenOption = this.data.option;
        }
+       this.options = this.data.options;
     }
 
     onSubmit() {

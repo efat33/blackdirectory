@@ -13,6 +13,8 @@ import { UploadService } from 'src/app/shared/services/upload.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { EventService } from '../event.service';
+import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-event',
@@ -130,8 +132,15 @@ export class NewEventComponent implements OnInit {
     tags: [],
     oranizers: []
   };
-  
 
+  ckEditor = DocumentEditor;
+  ckConfig = {
+    placeholder: 'Event Description',
+    height: 200,
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
+  };
+  
+  eventSlug: string;
   eventForm: FormGroup;
   showError = false;
   errorMessage = '';
@@ -153,6 +162,8 @@ export class NewEventComponent implements OnInit {
   };
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog,
     public helperService: HelperService,
     public uploadService: UploadService,
@@ -164,11 +175,38 @@ export class NewEventComponent implements OnInit {
 
   ngOnInit() {
     
+    this.eventSlug = this.route.snapshot.paramMap.get('slug');
+
     this.setupEventForm();
 
+    // populate category, orgainsers etc dropdown
     this.prepareEventForm();
+
+    if(this.eventSlug != null){
+      this.spinnerService.show();
+      
+      const subsGetEvent = this.eventService.getEvent(this.eventSlug, true).subscribe(
+        (res:any) => {
+      
+          this.spinnerService.hide();
+          this.populateEventForm(res.data);
+        },
+        (res:any) => {
+          this.spinnerService.hide();
+          this.snackbarService.openSnackBar(res.error.message, '', 'warn');
+        }
+      );
+      
+      this.subscriptions.add(subsGetEvent);
+    }
     
 
+  }
+
+  onCkeditorReady(editor: DocumentEditor): void {
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
   }
 
   prepareEventForm() {
@@ -211,11 +249,79 @@ export class NewEventComponent implements OnInit {
     );
   }
 
+  populateEventForm(event: any) {
+    const categories =  event.categories.map(c => c.category_id);
+    const tags =  event.tags.map(c => c.tag_id);
+
+    this.eventForm.patchValue({
+      id: event.id,
+      title: event.title,
+      description: event.description,
+      featured_img: event.featured_img,
+      category_id: categories,
+      tag_id: categories,
+      address: event.address,
+      latitude: event.latitude,
+      longitude: event.longitude,
+      is_virtual: event.is_virtual,
+      youtube_url: event.youtube_url,
+      website_url: event.website_url,
+      start_time: event.start_time,
+      end_time: event.end_time,
+    });
+
+    // set images source
+    this.featuredImageSrc = this.helperService.getImageUrl(event.featured_img, 'event', 'thumb');
+
+    // populate organisers
+    if(event.organisers && event.organisers.length > 0){
+      (this.eventForm.get('organizers') as FormArray ).removeAt(0); 
+      for (const item of event.organisers) {
+        (this.eventForm.get('organizers') as FormArray ).push( new FormControl(item.organizer_id) );
+      }
+    }
+
+    // populate tickets
+    if(event.tickets && event.tickets.length > 0){
+      for (const [key, item] of event.tickets.entries()) {
+        const variationGroup = new FormGroup({
+          id: new FormControl(item.id),
+          title: new FormControl(item.title),
+          price: new FormControl(item.price),
+          capacity: new FormControl(item.capacity),
+          available: new FormControl(item.available),
+          start_sale: new FormControl(item.start_sale),
+          end_sale: new FormControl(item.end_sale),
+        });
+
+        (this.eventForm.get('tickets') as FormArray).push(variationGroup);
+      }
+    }
+
+    // populate rsvp
+    if(event.rsvp && event.rsvp.length > 0){
+      for (const [key, item] of event.rsvp.entries()) {
+        const variationGroup = new FormGroup({
+          id: new FormControl(item.id),
+          title: new FormControl(item.title),
+          available: new FormControl(item.available),
+          capacity: new FormControl(item.capacity),
+          start_sale: new FormControl(item.start_sale),
+          end_sale: new FormControl(item.end_sale),
+        });
+
+        (this.eventForm.get('rsvp') as FormArray).push(variationGroup);
+      }
+    }
+
+  }
+
   setupEventForm() {
     this.eventForm = new FormGroup({
+      id: new FormControl(''),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      featured_img_input: new FormControl('', Validators.required),
+      featured_img_input: new FormControl(''),
       featured_img: new FormControl('', Validators.required),
       category_id: new FormControl('', Validators.required),
       tag_id: new FormControl(''),
@@ -253,6 +359,12 @@ export class NewEventComponent implements OnInit {
 
 
     });
+
+    if(this.eventSlug != null){
+      this.eventForm.addControl('removedRsvp', new FormControl(''));
+      this.eventForm.addControl('removedTickets', new FormControl(''));
+    }
+    
   }
 
   onSubmit() {
@@ -276,7 +388,17 @@ export class NewEventComponent implements OnInit {
       element.end_sale = element.end_sale ? moment(element.end_sale).utc().format("YYYY-MM-DD HH:mm:ss") : formData.end_time;
     }
     
+    if(this.eventSlug){
+      this.editEvent(formData);
+    }
+    else{
+      this.createEvent(formData);
+    }
+    
+    
+  }
 
+  createEvent(formData) {
     this.spinnerService.show();
     
     const subsNewEvent = this.eventService.newEvent(formData).subscribe(
@@ -286,6 +408,34 @@ export class NewEventComponent implements OnInit {
 
         this.snackbarService.openSnackBar(res.message);
     
+        setTimeout(() => {
+          this.router.navigate([`events/details/${res.data.slug}`]);
+        }, 1000);
+      },
+      (res:any) => {
+        this.spinnerService.hide();
+        this.showError = true;
+        this.errorMessage = res.error.message;
+      }
+    );
+    
+    this.subscriptions.add(subsNewEvent);
+  }
+
+  editEvent(formData) {
+    this.spinnerService.show();
+    
+    const subsNewEvent = this.eventService.editEvent(formData).subscribe(
+      (res:any) => {
+    
+        this.spinnerService.hide();
+
+        this.snackbarService.openSnackBar(res.message);
+    
+        setTimeout(() => {
+          this.router.navigate([`events/details/${res.data.slug}`]);
+        }, 1000);
+
       },
       (res:any) => {
         this.spinnerService.hide();
@@ -309,6 +459,10 @@ export class NewEventComponent implements OnInit {
   removeEventRsvp(index: number, rsvp?: any) {
     (this.eventForm.get('rsvp') as FormArray).removeAt(index); 
     this.removedRsvp.push(rsvp);
+
+    if(this.eventSlug != null){
+      this.eventForm.get('removedRsvp').patchValue(JSON.stringify(this.removedRsvp));
+    }
   }
 
    // add / edit ticket of formArray
@@ -359,6 +513,10 @@ export class NewEventComponent implements OnInit {
   removeEventTicket(index: number, ticket?: any) {
     (this.eventForm.get('tickets') as FormArray).removeAt(index); 
     this.removedTickets.push(ticket);
+
+    if(this.eventSlug != null){
+      this.eventForm.get('removedTickets').patchValue(JSON.stringify(this.removedTickets));
+    }
   }
 
    // add / edit ticket of formArray

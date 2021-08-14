@@ -13,7 +13,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 import { EventService } from '../event.service';
-
+import {DomSanitizer,SafeResourceUrl} from '@angular/platform-browser';
 
 
 @Component({
@@ -32,6 +32,7 @@ export class EventDetailsComponent implements OnInit {
   relatedEvents: any = null;
   userTickets: any = [];
   userRsvp: any = null;
+  videoUrl: SafeResourceUrl;
 
   dialogRsvpApply: any;
 
@@ -83,7 +84,8 @@ export class EventDetailsComponent implements OnInit {
     private userService: UserService,
     private spinnerService: SpinnerService,
     private helperService: HelperService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    public sanitizer:DomSanitizer,
   ) {}
 
 
@@ -107,6 +109,16 @@ export class EventDetailsComponent implements OnInit {
     
         this.getUserTicketsRsvp();
         this.setCoundownTime();
+
+        if(this.event.is_virtual == 1){
+          const url_arr = this.event.youtube_url.split('?v=');
+
+          let video_id = '';
+          if(url_arr.length == 2){
+            video_id = url_arr[1].replace('/', '');
+            this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('//www.youtube.com/embed/'+video_id+'?feature=oembed'); 
+          }
+        }
       },
       (res:any) => {
         this.spinnerService.hide();
@@ -135,7 +147,6 @@ export class EventDetailsComponent implements OnInit {
 
     forkJoin([subsUserTickets, subsUserRsvp]).subscribe(
       (res: any) => {
-
         // hide spinner
         this.spinnerService.hide();
 
@@ -149,7 +160,7 @@ export class EventDetailsComponent implements OnInit {
 
       },
       (error) => {
-
+        this.spinnerService.hide();
       }
     );
   }
