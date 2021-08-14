@@ -1,11 +1,11 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { GetProductListBody, Product, ProductService } from '../services/product.service';
+import { GetProductListBody, ProductList, ProductService } from '../services/product.service';
 import { ProductFilter } from './products.component';
 
-export class ProductsDataSource implements DataSource<Product> {
-  private productsSubject = new BehaviorSubject<Product[]>([]);
+export class ProductsDataSource implements DataSource<ProductList> {
+  private productsSubject = new BehaviorSubject<ProductList[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private loadParams = new BehaviorSubject<GetProductListBody>({
     limit: 25,
@@ -17,7 +17,7 @@ export class ProductsDataSource implements DataSource<Product> {
 
   constructor(private productService: ProductService) {}
 
-  connect(collectionViewer: CollectionViewer): Observable<Product[]> {
+  connect(collectionViewer: CollectionViewer): Observable<ProductList[]> {
     return this.productsSubject.asObservable();
   }
 

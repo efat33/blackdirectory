@@ -22,6 +22,7 @@ export interface Tag {
 }
 
 export type StockStatus = 'instock' | 'outstock' | 'backorder';
+export type ProductStatus = 'publish';
 
 interface ProductBase {
   title: string;
@@ -34,24 +35,32 @@ interface ProductBase {
   discounted_price: number | null;
   discount_start: Date | null;
   discount_end: Date | null;
+  is_downloadable: boolean | (1 | 0);
+  is_virtual: boolean | (1 | 0);
   short_desc?: string;
   sku?: string;
   purchase_note?: string;
 }
-
-export interface Product extends ProductBase {
+interface PopulatedProduct extends ProductBase {
   id: number;
   user_id: number;
-  category_name: string;
+  slug: string;
+  status: ProductStatus;
+  views: number;
+  rating_total: number;
   is_downloadable: boolean;
   is_virtual: boolean;
-  slug: string;
-  status: 'publish';
-  views: number;
   rating_average: number;
-  rating_total: number;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface ProductList extends PopulatedProduct {
+  category_name: string;
+}
+
+export interface ProductDetails extends PopulatedProduct {
+  tags: Tag[];
 }
 
 export interface PostNewProductBody extends ProductBase {
@@ -104,16 +113,36 @@ export class ProductService {
     return this.http.get<ApiResponse<Tag[]>>(`${this.BASE_URL}/product-tags`).pipe(pluck('data'));
   }
 
-  postNewProduct(form: PostNewProductBody): Observable<any> {
-    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/new`, form);
+  postNewProduct(form: PostNewProductBody) {
+    return this.http.post<ApiResponse<undefined>>(`${this.BASE_URL}/product/new`, form);
   }
 
   postEditProduct(form: PostEditProductBody): Observable<any> {
     return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/edit`, form);
   }
 
-  getProductDetails(slug: string): Observable<any> {
-    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/product/${slug}`);
+  getProductDetails(slug: string, populateImages = true): Observable<ProductDetails> {
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/product/${slug}`).pipe(
+      pluck('data'),
+      map((p) => ({
+        ...p,
+        is_downloadable: Boolean(p.is_downloadable),
+        is_virtual: Boolean(p.is_virtual),
+        created_at: new Date(p.created_at),
+        updated_at: new Date(p.updated_at),
+        rating_average: parseFloat(p.rating_average),
+        tags: p.tags.map(({ tag_id, title }) => ({ id: tag_id, title })),
+      })),
+      map((p) =>
+        populateImages
+          ? {
+              ...p,
+              image: this.helperService.getImageUrl(p.image, 'product'),
+              galleries: p.galleries.map((gallery) => this.helperService.getImageUrl(gallery, 'product')),
+            }
+          : p
+      )
+    );
   }
 
   getTotalNumberOfProducts(): Observable<number> {
@@ -123,13 +152,15 @@ export class ProductService {
     );
   }
 
-  getProductList(params: GetProductListBody): Observable<Product[]> {
+  getProductList(params: GetProductListBody): Observable<ProductList[]> {
     return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, params).pipe(
       map((response) =>
         response.data.map((p) => ({
           ...p,
-          image: this.helperService.getImageUrl(p.image, 'product', 'medium'),
-          galleries: JSON.parse(p.galleries).map((gallery) => this.helperService.getImageUrl(gallery, 'product')),
+          image: this.helperService.getImageUrl(p.image, 'product', 'thumb'),
+          galleries: JSON.parse(p.galleries).map((gallery) =>
+            this.helperService.getImageUrl(gallery, 'product', 'thumb')
+          ),
           is_downloadable: Boolean(p.is_downloadable),
           is_virtual: Boolean(p.is_virtual),
           created_at: new Date(p.created_at),
