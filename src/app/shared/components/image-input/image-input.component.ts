@@ -25,7 +25,13 @@ export class ImageInputComponent implements OnInit {
 
   constructor(private helperService: HelperService, private uploadService: UploadService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const preload = this.control.value;
+    if (preload) {
+      this.file = {};
+      this.fileStr = this.helperService.getImageUrl(preload, this.uploadDirectory);
+    }
+  }
 
   onFileDropped(file: any): void {
     this.preview(file as File);
@@ -46,6 +52,7 @@ export class ImageInputComponent implements OnInit {
       // do validation
       const res = this.helperService.imageValidation(file);
       if (!res.validated) {
+        this.deleteImage();
         this.validation.validated = false;
         this.validation.message = res.message;
         return;
@@ -56,7 +63,7 @@ export class ImageInputComponent implements OnInit {
       fd.append('image', file, file.name);
       fd.append('resize', 'yes');
 
-      this.uploadService.uploadImage(fd, 'product').subscribe((event: HttpEvent<any>) => {
+      this.uploadService.uploadImage(fd, this.uploadDirectory).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.UploadProgress:
             this.progress = Math.round((event.loaded / event.total) * 100);

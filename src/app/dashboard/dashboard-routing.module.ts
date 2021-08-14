@@ -50,7 +50,7 @@ const routes: Routes = [
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/new', component: ProductsNewComponent },
-      { path: 'products/edit/:id', component: ProductsEditComponent, resolve: { product: ProductResolver } },
+      { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
       { path: 'orders', component: OrdersComponent },
       { path: 'withdraw', component: WithdrawComponent },
       { path: 'store-settings', component: StoreSettingsComponent },

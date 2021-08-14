@@ -28,3 +28,11 @@ table {
   max-width: 100px;
   max-height: 80px;
 }
+
+.edit-url {
+  font-weight: 500;
+  color: rgb(13, 26, 139);
+}
+.edit-url:hover {
+  color: rgb(8, 19, 117);
+}

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
+import { HelperService } from 'src/app/shared/helper.service';
 import { ProductService, StockStatus } from '../services/product.service';
 import { ProductsDataSource } from './products-data-source';
 
@@ -30,9 +31,10 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     category: new FormControl(''),
   });
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private helperService: HelperService) {}
 
   totalNumProducts$ = this.productService.getTotalNumberOfProducts();
+  adminProfit = this.helperService.adminProfit;
 
   ngOnInit(): void {
     this.dataSource = new ProductsDataSource(this.productService);
