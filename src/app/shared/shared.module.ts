@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 // import all component
 import { HeaderComponent } from '.././header/header.component';
+import { HeaderCartComponent } from 'src/app/shop/header-cart/header-cart.component';
 import { FooterComponent } from '.././footer/footer.component';
 import { DashboardSidebarComponent } from '../dashboard/sidebar/sidebar.component';
 
@@ -47,6 +48,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
@@ -94,6 +96,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
 @NgModule({
   declarations: [
     HeaderComponent,
+    HeaderCartComponent,
     FooterComponent,
     RegistrationModal,
     LoginModal,
@@ -168,6 +171,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatBadgeModule,
     MatTooltipModule,
     MatTabsModule,
     NouisliderModule,
@@ -190,6 +194,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     ReactiveFormsModule,
     RouterModule,
     HeaderComponent,
+    HeaderCartComponent,
     FooterComponent,
     MatDialogModule,
     MatFormFieldModule,
@@ -211,6 +216,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatBadgeModule,
     MatTooltipModule,
     MatTabsModule,
     MatToolbarModule,
@@ -276,7 +282,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     CouponModal,
     ListingReviewModal,
     RsvpApplyModal,
-    EventSearchDateModal
+    EventSearchDateModal,
   ],
 })
 export class SharedModule {}

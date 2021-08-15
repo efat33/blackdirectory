@@ -105,6 +105,25 @@ export class ProductService {
 
   constructor(private http: HttpClient, private helperService: HelperService) {}
 
+  hasDiscount(product: ProductDetails | ProductList): boolean {
+    const { discount_end, discount_start, discounted_price } = product;
+    return (
+      discount_end &&
+      discount_end.getTime() > Date.now() &&
+      discount_start &&
+      discount_start.getTime() < Date.now() &&
+      discounted_price != null
+    );
+  }
+
+  getActualPrice(product: ProductDetails | ProductList): number {
+    if (this.hasDiscount(product)) {
+      return product.discounted_price;
+    } else {
+      return product.price;
+    }
+  }
+
   getCategories(): Observable<Category[]> {
     return this.http.get<ApiResponse<Category[]>>(`${this.BASE_URL}/product-categories`).pipe(pluck('data'));
   }
@@ -128,6 +147,8 @@ export class ProductService {
         ...p,
         is_downloadable: Boolean(p.is_downloadable),
         is_virtual: Boolean(p.is_virtual),
+        discount_end: new Date(p.discount_end),
+        discount_start: new Date(p.discount_start),
         created_at: new Date(p.created_at),
         updated_at: new Date(p.updated_at),
         rating_average: parseFloat(p.rating_average),
@@ -163,6 +184,8 @@ export class ProductService {
           ),
           is_downloadable: Boolean(p.is_downloadable),
           is_virtual: Boolean(p.is_virtual),
+          discount_end: new Date(p.discount_end),
+          discount_start: new Date(p.discount_start),
           created_at: new Date(p.created_at),
           updated_at: new Date(p.updated_at),
           rating_average: parseFloat(p.rating_average),

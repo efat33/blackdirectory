@@ -1,7 +1,7 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { GetProductListBody, ProductList, ProductService } from '../services/product.service';
+import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/services/product.service';
 import { ProductFilter } from './products.component';
 
 export class ProductsDataSource implements DataSource<ProductList> {

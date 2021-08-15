@@ -1,0 +1,42 @@
+<button
+  mat-icon-button
+  class="wil-btn wil-btn--xs cart-button"
+  [matMenuTriggerFor]="menu"
+  #menuTrigger="matMenuTrigger"
+>
+  <mat-icon
+    [matBadge]="cartItemCount$ | async"
+    matBadgeColor="accent"
+    [matBadgeHidden]="(cartItemCount$ | async) === 0"
+    matBadgeSize="small"
+    >shopping_cart</mat-icon
+  >
+</button>
+<mat-menu #menu="matMenu">
+  <div (click)="$event.stopPropagation()">
+    <div class="title">
+      <mat-icon>shopping_cart</mat-icon>
+      <span> TOTAL ITEMS {{ cartItemCount$ | async }} </span>
+    </div>
+    <ul *ngIf="(cart$ | async).length > 0" class="cart-items">
+      <li *ngFor="let cartItem of cart$ | async; trackBy" class="cart-item">
+        <div class="image" [ngStyle]="{ backgroundImage: 'url(\'' + cartItem.product_image + '\')' }"></div>
+        <div>
+          <h5>{{ cartItem.product_title }}</h5>
+          <span>{{ cartItem.quantity }} x {{ cartItem.product_price | currency }}</span>
+        </div>
+        <button mat-icon-button color="warn" (click)="removeProduct(cartItem.id)">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </li>
+    </ul>
+    <div *ngIf="(cart$ | async).length > 0" class="bottom-row">
+      <div><small>SUBTOTAL:</small> {{ subtotal$ | async | currency }}</div>
+      <div class="actions">
+        <a routerLink="#" mat-stroked-button>VIEW CART</a>
+        <a routerLink="#" mat-flat-button color="primary">CHECKOUT</a>
+      </div>
+    </div>
+    <div *ngIf="(cart$ | async).length === 0">No products in the cart.</div>
+  </div>
+</mat-menu>

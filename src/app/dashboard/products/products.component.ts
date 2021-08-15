@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
-import { ProductService, StockStatus } from '../services/product.service';
+import { ProductService, StockStatus } from 'src/app/shared/services/product.service';
 import { ProductsDataSource } from './products-data-source';
 
 export interface ProductFilter {
