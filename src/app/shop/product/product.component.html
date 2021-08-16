@@ -6,7 +6,19 @@
     <div>
       <h1>{{ p.title }}</h1>
       <div class="short-description">
-        <p>{{ p.short_desc }} SHORT DESCRIPTION</p>
+        <p>{{ p.short_desc }}</p>
+      </div>
+      <div *ngIf="p.rating_total > 0" class="total-rating">
+        <star-rating
+          [value]="p.rating_average"
+          [totalstars]="5"
+          size="24px"
+          checkedcolor="gold"
+          uncheckedcolor="gray"
+          readonly="true"
+          style="cursor: default"
+        ></star-rating>
+        <span style="margin-left: 8px">( {{ p.rating_total }} )</span>
       </div>
       <div class="price">
         <p>{{ price | currency }}</p>
@@ -52,11 +64,60 @@
     <mat-tab label="Reviews">
       <ng-template matTabContent>
         <h2>Reviews</h2>
+        <mat-list>
+          <mat-list-item *ngFor="let review of reviews$ | async">
+            <img matListAvatar [src]="review.user_profile_photo" alt="" />
+            <div mat-line>
+              <star-rating
+                [value]="review.rating"
+                [totalstars]="5"
+                size="16px"
+                checkedcolor="gold"
+                uncheckedcolor="gray"
+                readonly="true"
+                style="display: block; cursor: default"
+              ></star-rating>
+              <span style="margin-left: 1rem; color: #666; font-size: 1.4rem">
+                {{ review.user_display_name }},
+                <span style="font-size: 1.3rem">{{ review.created_at | date }}</span>
+              </span>
+            </div>
+            <div mat-line>{{ review.review }}</div>
+          </mat-list-item>
+        </mat-list>
+        <mat-card style="margin: 3rem auto 2rem; width: 95%">
+          <mat-card-header>
+            <mat-card-title>ADD A REVIEW</mat-card-title>
+          </mat-card-header>
+          <form (ngSubmit)="submitReview()" [formGroup]="review">
+            <mat-card-content>
+              <star-rating
+                value="4"
+                [totalstars]="5"
+                size="24px"
+                checkedcolor="gold"
+                uncheckedcolor="gray"
+                readonly="false"
+                (rate)="onRate($event)"
+              ></star-rating>
+              <mat-form-field appearance="outline">
+                <mat-label>Review</mat-label>
+                <textarea matInput formControlName="review" rows="4"></textarea>
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-flat-button color="primary" type="submit">SUBMIT</button>
+            </mat-card-actions>
+          </form>
+        </mat-card>
       </ng-template>
     </mat-tab>
     <mat-tab label="Vendor Info">
       <ng-template matTabContent>
         <h2>Vendor Info</h2>
+        <pre>
+          {{ storeDetails$ | async | json }}
+        </pre>
       </ng-template>
     </mat-tab>
     <mat-tab label="More Products">
@@ -67,11 +128,23 @@
   </mat-tab-group>
 
   <h2>Related products</h2>
-  <div style="display: flex; flex-flow: row nowrap; margin: 2rem 0 4rem">
-    <div style="width: 300px; margin-right: 2rem">
+  <div class="related-products-container">
+    <div class="related-product">
       <app-product-preview></app-product-preview>
     </div>
-    <div style="width: 300px; margin-right: 2rem">
+    <div class="related-product">
+      <app-product-preview></app-product-preview>
+    </div>
+    <div class="related-product">
+      <app-product-preview></app-product-preview>
+    </div>
+    <div class="related-product">
+      <app-product-preview></app-product-preview>
+    </div>
+    <div class="related-product">
+      <app-product-preview></app-product-preview>
+    </div>
+    <div class="related-product">
       <app-product-preview></app-product-preview>
     </div>
   </div>
