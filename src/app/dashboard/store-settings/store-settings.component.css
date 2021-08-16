@@ -7,3 +7,44 @@
   display: inline-block;
   margin-bottom: 1rem;
 }
+
+.banner-wrapper {
+  position: relative;
+  margin: 0 auto 2rem;
+  width: 100%;
+}
+.banner {
+  position: relative;
+  padding-bottom: calc(100% * 12 / 28);
+}
+.banner > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+.profile-image {
+  height: 250px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+
+@media (min-width: 765px) {
+  .core-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+@media (min-width: 1080px) {
+  .banner-wrapper {
+    width: 75%;
+  }
+  .core-section {
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+}
