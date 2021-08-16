@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: "all", component: EventsAllComponent },
   { path: "details/:slug", component: EventDetailsComponent },
   { path: "new", component: NewEventComponent },
+  { path: "edit/:slug", component: NewEventComponent },
 ];
 
 @NgModule({

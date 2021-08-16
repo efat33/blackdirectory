@@ -19,7 +19,7 @@ export class FileInputComponent implements OnInit {
     message: '',
   };
 
-  constructor(private helperService: HelperService, private uploadService: UploadService) {}
+  constructor(private uploadService: UploadService) {}
 
   ngOnInit(): void {}
 
@@ -30,14 +30,6 @@ export class FileInputComponent implements OnInit {
 
     if (fileEvent.target.files && fileEvent.target.files.length) {
       const file = fileEvent.target.files[0];
-
-      // do validation
-      const res = this.helperService.fileValidation(file);
-      if (!res.validated) {
-        this.validation.validated = false;
-        this.validation.message = res.message;
-        return;
-      }
 
       // send image to the server
       const fd = new FormData();

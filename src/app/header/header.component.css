@@ -1,6 +1,6 @@
 .bd-header-nav.header_navWrapper__B2C9n {
-    background: rgb(0, 102, 153);
-    float: none;
+  background: rgb(0, 102, 153);
+  float: none;
 }
 .bd-header-nav.header_navWrapper__B2C9n {
   background: rgb(0, 102, 153);
@@ -14,7 +14,7 @@
 .wil-nav .nav-menu > li > a {
   line-height: 50px;
 }
-.wil-nav .nav-menu .sub-menu>li a {
+.wil-nav .nav-menu .sub-menu > li a {
   font-weight: 400;
 }
 .header_module__Snpib .wil-tb__cell:nth-child(1) {
@@ -24,7 +24,7 @@
 .header_logo__2HmDH.js-header-logo img {
   max-width: 200px;
 }
-.wil-nav.wil-nav-mobile .nav-menu>li {
+.wil-nav.wil-nav-mobile .nav-menu > li {
   display: block;
 }
 .header_logo__2HmDH {
@@ -55,10 +55,11 @@
   background: rgb(0, 102, 153);
 }
 ::ng-deep .cdk-overlay-backdrop.mainmenu-backdrop,
-::ng-deep .cdk-overlay-backdrop.profilemenu-backdrop-mbl  {
-  background: rgba(0, 0, 0, .4);
+::ng-deep .cdk-overlay-backdrop.profilemenu-backdrop-mbl {
+  background: rgba(0, 0, 0, 0.4);
 }
-.bd-header-area a.bd-header-hamburger, .mbl-profileMenu-area {
+.bd-header-area a.bd-header-hamburger,
+.mbl-profileMenu-area {
   display: none;
 }
 
@@ -74,7 +75,8 @@
 .wil-nav.wil-nav-mobile .nav-menu > li > a {
   line-height: 40px;
 }
-.header_loginHead__3HoVP mat-icon, .bd-header-account mat-icon {
+.header_loginHead__3HoVP mat-icon,
+.bd-header-account mat-icon {
   font-size: 37px;
   width: 37px;
   height: 37px;
@@ -127,7 +129,8 @@ a.bd-header-account {
   .bd-header-nav.header_navWrapper__B2C9n {
     display: none;
   }
-  .bd-header-area a.bd-header-hamburger, .mbl-profileMenu-area {
+  .bd-header-area a.bd-header-hamburger,
+  .mbl-profileMenu-area {
     display: block;
     line-height: 1;
   }
@@ -139,9 +142,25 @@ a.bd-header-account {
     height: 70px;
     padding-top: 0;
   }
-  .header_login__1sQ6w.header_login__mbl  img {
+  .header_login__1sQ6w.header_login__mbl img {
     width: 35px;
     height: 35px;
   }
 }
 
+.header-button-group {
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+@media only screen and (max-width: 991px) {
+  .mbl-profileMenu-area {
+    color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+}

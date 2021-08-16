@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'mobiles',
-    loadChildren: () => import('./mobiles/mobiles.module').then(m => m.MobilesModule)
+    loadChildren: () => import('./mobiles/mobiles.module').then((m) => m.MobilesModule),
   },
   {
     path: 'dashboard',
@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
-    canLoad: [AdminGuard]
+    canLoad: [AdminGuard],
   },
 ];
 

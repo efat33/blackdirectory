@@ -30,6 +30,22 @@ export class EventService {
         .pipe(map((body: APIReponse) => body));
     }
 
+    editEvent(body: any): Observable<APIReponse> {
+      const url = 'api/events/edit';
+    
+      return this.httpClient
+        .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+        .pipe(map((body: APIReponse) => body));
+    }
+
+    searchEvent(body: any): Observable<APIReponse> {
+      const url = 'api/events/search-events';
+    
+      return this.httpClient
+        .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+        .pipe(map((body: APIReponse) => body));
+    }
+
     newOrganiser(body: any): Observable<APIReponse> {
       const url = 'api/events/new-organiser';
     
@@ -56,8 +72,14 @@ export class EventService {
       return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
     }
 
-    getEvent(slug): Observable<APIReponse> {
-      const url = `api/events/get-event/${slug}`;
+    getEvent(slug, edit = false): Observable<APIReponse> {
+      let url = '';
+      if(edit){
+        url = `api/events/get-event/1/${slug}`;
+      }
+      else{
+        url = `api/events/get-event/${slug}`;
+      }
     
       return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
     }

@@ -26,3 +26,6 @@ button#rsvp_form_toggle {
 .tribe-tickets-editor-table {
     margin: 0px 0 20px;
 }
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 200px !important;
+  }
