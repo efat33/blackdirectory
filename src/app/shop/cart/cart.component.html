@@ -1,1 +1,93 @@
-<p>cart works!</p>
+<div class="container">
+  <h1>CART</h1>
+
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource">
+      <!-- Image Column -->
+      <ng-container matColumnDef="product_image">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let product">
+          <div class="image" [ngStyle]="{ backgroundImage: 'url(\'' + product.product_image + '\')' }"></div>
+        </td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="product_title">
+        <th mat-header-cell *matHeaderCellDef>Product</th>
+        <td mat-cell *matCellDef="let product">{{ product.product_title }}</td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="product_price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let product">{{ product.product_price | currency }}</td>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let product">
+          <div class="add-to-cart-count">
+            <button mat-icon-button color="primary" (click)="decrementQuantity(product)">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <span style="margin: 0 4px">{{ product.quantity }}</span>
+            <button mat-icon-button color="primary" (click)="incrementQuantity(product)">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Subtotal Column -->
+      <ng-container matColumnDef="subtotal">
+        <th mat-header-cell *matHeaderCellDef>Subtotal</th>
+        <td mat-cell *matCellDef="let product">{{ product.product_price * product.quantity | currency }}</td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let product">
+          <button mat-icon-button color="warn" (click)="removeProduct(product.product_id)">
+            <mat-icon>highlight_off</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <table class="totals-table">
+    <tbody>
+      <tr>
+        <th>SUBTOTAL</th>
+        <td>{{ subtotal$ | async | currency }}</td>
+      </tr>
+      <tr *ngIf="(discountAmount$ | async) > 0">
+        <th>DISCOUNT</th>
+        <td>- {{ discountAmount$ | async | currency }}</td>
+      </tr>
+      <tr>
+        <th>TOTAL</th>
+        <td>{{ total$ | async | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <form (ngSubmit)="submitCoupon()" class="coupon-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Coupon</mat-label>
+        <input #couponInput matInput type="text" [formControl]="coupon" />
+      </mat-form-field>
+      <button mat-flat-button type="submit" color="primary" [disabled]="(discountAmount$ | async) > 0">
+        Apply Coupon
+      </button>
+    </form>
+
+    <a mat-flat-button routerLink="/shop/checkout" color="primary">CHECKOUT</a>
+  </div>
+</div>
