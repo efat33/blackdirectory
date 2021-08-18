@@ -7,9 +7,10 @@ import { CartComponent } from './cart/cart.component';
 import { SharedModule } from '../shared/shared.module';
 import { RatingModule } from 'ng-starrating';
 import { ProductPreviewComponent } from './product-preview/product-preview.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
-  declarations: [ProductComponent, CartComponent, ProductPreviewComponent],
+  declarations: [ProductComponent, CartComponent, ProductPreviewComponent, CheckoutComponent],
   imports: [CommonModule, ShopRoutingModule, SharedModule, RatingModule],
 })
 export class ShopModule {}

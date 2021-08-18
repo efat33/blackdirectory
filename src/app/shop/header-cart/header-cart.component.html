@@ -20,12 +20,16 @@
     </div>
     <ul *ngIf="(cart$ | async).length > 0" class="cart-items">
       <li *ngFor="let cartItem of cart$ | async; trackBy" class="cart-item">
-        <div class="image" [ngStyle]="{ backgroundImage: 'url(\'' + cartItem.product_image + '\')' }"></div>
+        <a [routerLink]="'/shop/product/' + cartItem.product_slug">
+          <div class="image" [ngStyle]="{ backgroundImage: 'url(\'' + cartItem.product_image + '\')' }"></div>
+        </a>
         <div>
-          <h5>{{ cartItem.product_title }}</h5>
+          <a [routerLink]="'/shop/product/' + cartItem.product_slug">
+            <h5>{{ cartItem.product_title }}</h5>
+          </a>
           <span>{{ cartItem.quantity }} x {{ cartItem.product_price | currency }}</span>
         </div>
-        <button mat-icon-button color="warn" (click)="removeProduct(cartItem.id)">
+        <button mat-icon-button color="warn" (click)="removeProduct(cartItem.product_id)">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </li>
@@ -33,8 +37,8 @@
     <div *ngIf="(cart$ | async).length > 0" class="bottom-row">
       <div><small>SUBTOTAL:</small> {{ subtotal$ | async | currency }}</div>
       <div class="actions">
-        <a routerLink="#" mat-stroked-button>VIEW CART</a>
-        <a routerLink="#" mat-flat-button color="primary">CHECKOUT</a>
+        <a routerLink="/shop/cart" mat-stroked-button>VIEW CART</a>
+        <a routerLink="/shop/checkout" mat-flat-button color="primary">CHECKOUT</a>
       </div>
     </div>
     <div *ngIf="(cart$ | async).length === 0">No products in the cart.</div>
