@@ -1,56 +1,54 @@
 <main id="tribe-events-pg-template" class="tribe-events-pg-template">
-    <div id="epta-template" class="epta-row epta-template-1">
-        <div class="epta-all-events col-md-12">
-            <a href="{{ siteUrl }}/events/all">&lt;&lt; All Events</a>
+  <div id="epta-template" class="epta-row epta-template-1">
+    <div class="epta-all-events col-md-12">
+      <a href="{{ siteUrl }}/events/all">&lt;&lt; All Events</a>
+    </div>
+    <div class="epta-title-alone col-md-12">
+      <h2>{{ event.title }}</h2>
+    </div>
+    <div class="col-md-8">
+      <div class="epta-image-area">
+        <div class="tribe-events-event-image">
+          <img width="950" height="440" src="{{ event.featured_img | imageSrc : 'event' : 'large' }}"
+            class="attachment-full size-full wp-post-image" alt="">
         </div>
-        <div class="epta-title-alone col-md-12">
-            <h2>{{ event.title }}</h2>
+        <div class="epta-title-date">
+          <div class="tecset-date">
+            <span class="tribe-event-date-start">{{ event.start_time | date : 'MMMM d, y @ h:mm a' }}</span> -
+            <span class="tribe-event-date-end">{{ event.end_time | date : 'MMMM d, y @ h:mm a' }}</span>
+          </div>
+          <div class="epta-light-bg"></div>
         </div>
-        <div class="col-md-8">
-            <div class="epta-image-area">
-                <div class="tribe-events-event-image">
-                    <img width="950" height="440" src="{{ event.featured_img | imageSrc : 'event' : 'large' }}"
-                        class="attachment-full size-full wp-post-image" alt="">
-                </div>
-                <div class="epta-title-date">
-                    <div class="tecset-date"><span class="tribe-event-date-start">{{ event.start_time | date : 'MMMM d,
-                            y @ h:mm a' }}</span> -
-                        <span class="tribe-event-date-end">{{ event.end_time | date : 'MMMM d,
-                            y @ h:mm a' }}</span>
-                    </div>
-                    <div class="epta-light-bg"></div>
-                </div>
-            </div>
-            <div class="epta-content-area">
-                <div class="tribe-events-single-event-description tribe-events-content">
-                    {{ event.description }}
-                </div>
-            </div>
+      </div>
+      <div class="epta-content-area">
+        <div class="tribe-events-single-event-description tribe-events-content">
+          {{ event.description }}
+        </div>
+      </div>
 
-            <!-- video section -->
-            <div *ngIf="event.is_virtual == 1" class="tribe-events-virtual-single-video-embed">
-                <div class="tribe-events-virtual-single-video-embed__wrapper">
-                    <div class="embed-responsive embed-responsive-16by9"><iframe [src]="videoUrl" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen="" class="embed-responsive-item"></iframe></div>
-                </div>
-            </div>
+      <!-- video section -->
+      <div *ngIf="event.is_virtual == 1" class="tribe-events-virtual-single-video-embed">
+        <div class="tribe-events-virtual-single-video-embed__wrapper">
+          <div class="embed-responsive embed-responsive-16by9"><iframe [src]="videoUrl" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen="" class="embed-responsive-item"></iframe></div>
+        </div>
+      </div>
 
-            <!-- map section -->
-            <div *ngIf="!event.is_virtual" class="epta-map-area">
-                <div class="tribe-events-venue-map">
-                    <h3>Map goes here</h3>
-                </div>
-            </div>
+      <!-- map section -->
+      <div *ngIf="!event.is_virtual" class="epta-map-area">
+        <div class="tribe-events-venue-map">
+          <div id="googleMap" style="width:100%; height:300px;"></div>
+        </div>
+      </div>
 
 
-            <div class="epta-share-area">
-                <h3 class="tecset-share-title">Share This Event</h3>
-                <share-buttons [theme]="'material-dark'"
-                    [include]="['facebook','twitter','linkedin','pinterest','email']" [title]="event.title"
-                    [url]="router.url" [image]="event.featured_img | imageSrc : 'event' : 'large'"
-                    [autoSetMeta]="false"></share-buttons>
-                <!-- <a class="tecset-share-link"
+      <div class="epta-share-area">
+        <h3 class="tecset-share-title">Share This Event</h3>
+        <share-buttons [theme]="'material-dark'" [include]="['facebook','twitter','linkedin','pinterest','email']"
+          [title]="event.title" [url]="router.url" [image]="event.featured_img | imageSrc : 'event' : 'large'"
+          [autoSetMeta]="false"></share-buttons>
+        <!-- <a class="tecset-share-link"
                     href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.blackdirectory.co.uk%2Fevent-details%2Fthe-stylistics-greatest-hits-live-2%2F"
                     target="_blank" title="Facebook" aria-haspopup="true"><i class="ect-icon-facebook"></i></a><a
                     class="tecset-share-link"
@@ -61,13 +59,205 @@
                     title="Email" aria-haspopup="true"><i class="ect-icon-mail"></i></a><a class="tecset-share-link"
                     href="https://wa.me/?text=The+Stylistics+%E2%80%93+Greatest+Hits+Live%21 https%3A%2F%2Fwww.blackdirectory.co.uk%2Fevent-details%2Fthe-stylistics-greatest-hits-live-2%2F"
                     target="_blank" title="WhatsApp" aria-haspopup="true"><i class="ect-icon-whatsapp"></i></a> -->
+      </div>
+
+
+      <div class="news-comments">
+        <div class="add-review_module__2KOQC">
+          <header class="add-review_wrap__K1JtF">
+            <div class="add-review_left__ziIv1">
+              <h3 class="add-review_title__3ePFu"><span class="color-primary">{{
+                  getTotalComments() || 0 }}
+                  Comment{{ event.comments?.length | pluralPipe : 's' }} For</span>
+                {{ event.title }}
+              </h3>
             </div>
 
+            <div class="wil-float-right">
+              <button mat-raised-button color="primary" (click)="onAddCommentClick()">Add a
+                Comment</button>
+            </div>
+          </header>
         </div>
-        <div class="col-md-4">
-            <div class="epta-sidebar-area">
-                <div *ngIf="config.leftTime != null" class="epta-sidebar-box">
-                    <!-- <div class="epta-countdown-cell">
+
+        <div *ngIf="event.comments?.length > 0" id="wilcity-review-wrapper" class="pos-r">
+          <div>
+            <div *ngFor="let comment of event.comments; let index=index" class="comment-review_module__-Z5tr">
+              <div class="comment-review_header__1si3M">
+                <div
+                  class="utility-box-1_module__MYXpX utility-box-1_boxLeft__3iS6b clearfix utility-box-1_sm__mopok review-author-avatar">
+                  <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                    [ngStyle]="{'background-image': 'url(' + getCommentAvatar(comment.profile_photo) + ')'}"></a>
+                  <div class="utility-box-1_body__8qd9j">
+                    <div class="utility-box-1_group__2ZPA2">
+                      <h3 class="utility-box-1_title__1I925"><a>{{
+                          comment.display_name || comment.username }}</a>
+                      </h3>
+                    </div>
+                    <div class="utility-box-1_description__2VDJ6">{{
+                      comment.created_at | date: 'longDate' }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="comment-review_abs__9mb1G pos-a-center-right">
+                  <div *ngIf="userCanEditComment(comment)" class="dropdown_module__J_Zpj ml-20">
+                    <div (click)="hambergureClick(comment, $event)" (clickOutside)="editCommentClickId = null"
+                      class="dropdown_threeDots__3fa2o"><span class="dropdown_dot__3I1Rn"></span> <span
+                        class="dropdown_dot__3I1Rn"></span> <span class="dropdown_dot__3I1Rn"></span></div>
+                    <div [ngClass]="{'active': comment.id === editCommentClickId}" class="dropdown_itemsWrap__2fuze">
+                      <ul class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                        has-wrap-for-icon="true">
+                        <li class="list_item__3YghP"><a (click)="comment.editing = true"
+                            class="list_link__2rDA1 text-ellipsis color-primary--hover" span-classes="list_text__35R07"
+                            review-id="17458"> <span class="list_icon__2YpTp"><i class="la la-edit"></i></span> <span
+                              class="list_text__35R07">Edit</span>
+                          </a></li>
+                        <li class="list_item__3YghP"><a (click)="onDeleteComment(comment, index)"
+                            class="list_link__2rDA1 text-ellipsis color-primary--hover" span-classes="list_text__35R07"
+                            review-id="17458"> <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
+                            <span class="list_text__35R07">Delete</span>
+                          </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comment-review_body__qhUqq">
+                <div class="comment-review_content__1jFfZ">
+                  <div class="wilcity-review-content wilcity-review-content-17458">
+                    <div>
+                      <p *ngIf="!comment.editing">{{ comment.comment }}</p>
+                      <ng-container *ngIf="comment.editing">
+                        <textarea matInput #editComment rows="3"
+                          class="edit-comment-field">{{comment.comment}}</textarea>
+                        <button mat-raised-button color="primary" [disabled]="!editComment.value.trim()"
+                          (click)="updateComment(editComment, comment)">Submit</button>
+                        <button mat-button (click)="comment.editing = false">Cancel</button>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <footer class="comment-review_footer__3XR0_">
+                <div>
+                  <div>
+                    <ul *ngIf="comment.replies?.length > 0" class="comment-review_commentlist__1LH_D list-none">
+                      <li *ngFor="let reply of comment.replies; let replyIndex = index"
+                        class="comment-review_commentlistItem__2DILM js-review-discussion-17459 comment-reply">
+                        <div class="">
+                          <div
+                            class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt utility-box-1_boxLeft__3iS6b clearfix">
+                            <a [ngStyle]="{'background-image': 'url(' + getCommentAvatar(reply.profile_photo) + ')'}"
+                              class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
+                              <img src="{{ reply.profile_photo | imageSrc : 'users' : 'thumb' }}" alt=""></a>
+                            <div class="utility-box-1_body__8qd9j">
+                              <div class="utility-box-1_group__2ZPA2">
+                                <h3 class="utility-box-1_title__1I925">
+                                  <a>{{
+                                    reply.display_name != '' ?
+                                    reply.display_name :
+                                    reply.username }}</a>
+                                </h3>
+                                <div class="utility-box-1_content__3jEL7">
+                                  {{ reply.comment }}</div>
+                              </div>
+                              <div class="utility-box-1_description__2VDJ6">
+                              </div>
+                            </div>
+                            <div *ngIf="reply.editing" class="comment-review_comment__dJNqv mt-10">
+                              <div class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
+                                <div class="field_wrap__Gv92k">
+                                  <textarea #replyField
+                                    (keydown.enter)="onSubmitReply($event, replyField, comment, reply)"
+                                    data-height-default="22" class="field_field__3U_Rt"
+                                    placeholder="Type a reply...">{{ reply.comment }}</textarea>
+                                  <span class="bg-color-primary"></span>
+                                  <div class="field_rightButton__1GGWz js-field-rightButton active">
+                                    <span (click)="onSubmitReply($event, replyField, comment, reply)"
+                                      class="field_iconButton__2p3sr bg-color-primary"><i
+                                        class="la la-arrow-up"></i></span>
+                                  </div>
+                                  <div class="mt-10 pos-a review-cancel">
+                                    <a (click)="onCloseReplyEdit(reply)" title="Cancel"><i
+                                        class="la la-times-circle"></i></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="userCanEditReply(reply)" class="dropdown_module__J_Zpj">
+                            <div (click)="hambergureClick(reply, $event)" (clickOutside)="editCommentClickId = null"
+                              class="dropdown_threeDots__3fa2o"><span class="dropdown_dot__3I1Rn"></span>
+                              <span class="dropdown_dot__3I1Rn"></span>
+                              <span class="dropdown_dot__3I1Rn"></span>
+                            </div>
+                            <div [ngClass]="{'active': reply.id === editCommentClickId}"
+                              class="dropdown_itemsWrap__2fuze">
+                              <ul
+                                class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                                has-wrap-for-icon="true">
+                                <li class="list_item__3YghP"><a (click)="onClickReplyEdit(reply)"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                    <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
+                                    <span class="list_text__35R07">Edit</span>
+                                  </a></li>
+                                <li class="list_item__3YghP"><a (click)="onDeleteReply(reply, index, replyIndex)"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                    <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
+                                    <span class="list_text__35R07">Delete</span>
+                                  </a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+
+                    <div class="comment-review_form__20wWm">
+                      <div
+                        class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt d-inline-block mr-10 wil-float-left">
+                        <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                          [ngStyle]="{'background-image': 'url(assets/img/avatar-default.png)'}"><img
+                            src="{{'assets/img/avatar-default.png' }}" alt=""></a>
+                      </div>
+                      <div class="comment-review_comment__dJNqv">
+                        <div class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
+                          <div class="field_wrap__Gv92k">
+                            <textarea #replyField (keydown.enter)="onSubmitReply($event, replyField, comment)"
+                              data-height-default="22" class="field_field__3U_Rt"
+                              placeholder="Type a reply..."></textarea><span class="bg-color-primary"></span>
+                            <div class="field_rightButton__1GGWz js-field-rightButton">
+                              <span (click)="onSubmitReply($event, replyField, comment)"
+                                class="field_iconButton__2p3sr bg-color-primary"><i class="la la-arrow-up"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="userCanComment()" class="new-comment">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Leave a comment</mat-label>
+            <textarea #newCommentInput matInput [(ngModel)]="newComment" rows="5"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled]="!newComment.trim()" (click)="addNewComment()">Submit
+            Comment</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <div class="epta-sidebar-area">
+        <div *ngIf="config.leftTime != null" class="epta-sidebar-box">
+          <!-- <div class="epta-countdown-cell">
                         <div class="epta-countdown-number">169</div>
                         <div class="epta-countdown-under">days</div>
                     </div>
@@ -84,180 +274,215 @@
                         <div class="epta-countdown-under">sec</div>
                     </div> -->
 
-                    <countdown [config]="config" class="custom-countdown-style"></countdown>
+          <countdown [config]="config" class="custom-countdown-style"></countdown>
 
-                </div>
-
-                <div class="epta-sidebar-box">
-                    <div class="tribe-events-meta-group tribe-events-meta-group-details">
-                        <h2 class="tribe-events-single-section-title"> Details </h2>
-                        <dl>
-                            <dt class="tribe-events-start-datetime-label"> Start: </dt>
-                            <dd>
-                                <abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart">{{
-                                    event.start_time | date : 'MMMM d,
-                                    y @ h:mm a' }}</abbr>
-                            </dd>
-
-                            <dt class="tribe-events-end-datetime-label"> End: </dt>
-                            <dd>
-                                <abbr class="tribe-events-abbr tribe-events-end-datetime dtend">
-                                    {{ event.end_time | date : 'MMMM d,
-                                    y @ h:mm a' }}
-                                </abbr>
-                            </dd>
-
-                            <dt *ngIf="event.categories?.length > 0" class="tribe-events-event-categories-label">Event
-                                Categories:</dt>
-                            <dd *ngIf="event.categories?.length > 0" class="tribe-events-event-categories">
-                                <span *ngFor="let item of event.categories; let index = index">
-                                    <a href="{{ siteUrl + '/events/all?cat=' + item.category_id }}" rel="tag">{{
-                                        item.title }}</a>{{ (event.categories.length - 1) != index ? ',' : '' }}
-                                </span>
-                            </dd>
-
-                            <dt *ngIf="event.tags?.length > 0" class="tribe-events-event-categories-label">Event Tags:
-                            </dt>
-                            <dd *ngIf="event.tags?.length > 0" class="tribe-events-event-categories">
-                                <span *ngFor="let item of event.tags; let index = index">
-                                    <a href="{{ siteUrl + '/events/all?tag=' + item.tag_id }}" rel="tag">{{
-                                        item.title }}</a>{{ (event.tags.length - 1) != index ? ',' : '' }}
-                                </span>
-                            </dd>
-
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="epta-sidebar-box">
-                    <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-                        <h2 class="tribe-events-single-section-title">Organizer</h2>
-                        <dl *ngFor="let item of event.organisers">
-                            <dt style="display:none;"></dt>
-                            <dd class="tribe-organizer">
-                                <a href="{{ siteUrl + '/events/all?organiser=' + item.organizer_id }}"
-                                    title="{{ item.name }}" target="_self" rel="">{{ item.name }}</a>
-                            </dd>
-                            <dt *ngIf="item.email" class="tribe-organizer-email-label">
-                                Email: </dt>
-                            <dd *ngIf="item.email" class="tribe-organizer-email">
-                                {{ item.email }} </dd>
-                            <dt *ngIf="item.website" class="tribe-organizer-url-label">
-                                Website: </dt>
-                            <dd *ngIf="item.website" class="tribe-organizer-url">
-                                <a href="{{ item.website }}" target="_blank" rel="external">{{ item.website }}</a>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <!-- event rsvp -->
-                <div *ngIf="event.rsvp?.length > 0" class="epta-sidebar-box">
-
-                    <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
-                        You have {{ userRsvp?.total }} RSVPs for this Event.
-                    </div>
-
-                    <div id="rsvp-now" class="tribe-common event-tickets">
-                        <div *ngFor="let item of event.rsvp; let index = index" class="tribe-tickets__rsvp-wrapper">
-                            <div class="tribe-tickets__rsvp tribe-common-g-row tribe-common-g-row--gutters">
-                                <div class="tribe-tickets__rsvp-details-wrapper tribe-common-g-col">
-                                    <div class="tribe-tickets__rsvp-details">
-                                        <h3
-                                            class="tribe-tickets__rsvp-title tribe-common-h2 tribe-common-h4--min-medium">
-                                            {{ item.title }}</h3>
-
-                                        <div class="tribe-tickets__rsvp-attendance">
-                                            <span
-                                                class="tribe-tickets__rsvp-attendance-number tribe-common-h4 tribe-tickets__rsvp-attendance-number--no-description">
-                                                {{ userRsvp?.rsvp[item.id] ? userRsvp?.rsvp[item.id] : 0 }} </span>
-                                            <span
-                                                class="tribe-tickets__rsvp-attendance-going tribe-common-h7 tribe-common-h--alt tribe-common-b3--min-medium">
-                                                Going </span>
-                                        </div>
-
-                                        <div
-                                            class="tribe-tickets__rsvp-availability tribe-common-h6 tribe-common-h--alt tribe-common-b3--min-medium">
-                                            <span
-                                                class="tribe-tickets__rsvp-availability-quantity tribe-common-b2--bold">
-                                                {{ item.available }} </span> remaining,
-
-                                            <span class="tribe-tickets__rsvp-availability-days-to-rsvp">
-                                                {{ item.end_sale | rsvpTimeLeft }} to RSVP</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tribe-tickets__rsvp-actions-wrapper tribe-common-g-col">
-                                    <div class="tribe-tickets__rsvp-actions">
-                                        <div *ngIf="!item.going" class="tribe-tickets__rsvp-actions-rsvp">
-                                            <span class="tribe-common-h2 tribe-common-h6--min-medium">
-                                                RSVP Here </span>
-                                            <div class="tribe-tickets__rsvp-actions-rsvp-going">
-                                                <button (click)="showRsvpApplyModal(item.id, index)"
-                                                    class="tribe-common-c-btn tribe-tickets__rsvp-actions-button-going tribe-common-b1 tribe-common-b2--min-medium"
-                                                    type="submit">
-                                                    Going </button>
-                                            </div>
-                                        </div>
-                                        <div *ngIf="item.going" class="tribe-tickets__rsvp-actions-success">
-                                            <div class="tribe-tickets__rsvp-actions-success-going">
-                                                <em class="tribe-tickets__rsvp-actions-success-going-check-icon"></em>
-                                                <span
-                                                    class="tribe-tickets__rsvp-actions-success-going-text tribe-common-h4 tribe-common-h6--min-medium">
-                                                    You are going </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- event tickets -->
-                <div class="epta-sidebar-box">
-                    <div class="tribe-link-view-attendee">
-                        You have 3 Tickets for this Event.
-                    </div>
-
-                </div>
-
-            </div>
         </div>
-        <div class="col-md-12">
-            <div *ngIf="relatedEvents == null" class="section-loading">
-                <i class="fa fa-spinner fa-spin"></i>
-            </div>
-            <div *ngIf="relatedEvents != null && relatedEvents.length > 0" class="epta-related-area">
-                <h3 class="epta-related-head">Related Events</h3>
-                <div class="epta-row">
-                    <div *ngFor="let item of relatedEvents" class="col-sm-4">
-                        <div class="epta-related-box">
-                            <a href="{{ siteUrl + '/events/details/' + item.slug }}">
-                                <div class="tribe-events-event-image">
-                                    <img width="707" height="440"
-                                        src="{{ item.featured_img | imageSrc : 'event' : 'medium' }}"
-                                        class="attachment-full size-full wp-post-image" alt="">
-                                </div>
-                            </a>
-                            <div class="epta-related-title ">
-                                <h4><a href="{{ siteUrl + '/events/details/' + item.slug }}">{{ item.title }}</a></h4>
-                                <div class="epta-related-date"><span class="tribe-event-date-start">{{ item.start_time |
-                                        date : 'MMMM d,
-                                        y @ h:mm a' }}</span> - <span class="tribe-event-time">{{ item.end_time | date :
-                                        'MMMM d,
-                                        y @ h:mm a' }}</span>
-                                </div>
-                                <div class="epta-light-bg"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- <div class="ept-next-prev" data-title="The Stylistics - Greatest Hits Live! | Black Directory"
+        <div class="epta-sidebar-box">
+          <div class="tribe-events-meta-group tribe-events-meta-group-details">
+            <h2 class="tribe-events-single-section-title"> Details </h2>
+            <dl>
+              <dt class="tribe-events-start-datetime-label"> Start: </dt>
+              <dd>
+                <abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart">{{
+                  event.start_time | date : 'MMMM d, y @ h:mm a' }}</abbr>
+              </dd>
+
+              <dt class="tribe-events-end-datetime-label"> End: </dt>
+              <dd>
+                <abbr class="tribe-events-abbr tribe-events-end-datetime dtend">
+                  {{ event.end_time | date : 'MMMM d, y @ h:mm a' }}
+                </abbr>
+              </dd>
+
+              <dt *ngIf="event.categories?.length > 0" class="tribe-events-event-categories-label">Event
+                Categories:</dt>
+              <dd *ngIf="event.categories?.length > 0" class="tribe-events-event-categories">
+                <span *ngFor="let item of event.categories; let index = index">
+                  <a href="{{ siteUrl + '/events/all?cat=' + item.category_id }}" rel="tag">{{
+                    item.title }}</a>{{ (event.categories.length - 1) != index ? ',' : '' }}
+                </span>
+              </dd>
+
+              <dt *ngIf="event.tags?.length > 0" class="tribe-events-event-categories-label">Event Tags:
+              </dt>
+              <dd *ngIf="event.tags?.length > 0" class="tribe-events-event-categories">
+                <span *ngFor="let item of event.tags; let index = index">
+                  <a href="{{ siteUrl + '/events/all?tag=' + item.tag_id }}" rel="tag">{{
+                    item.title }}</a>{{ (event.tags.length - 1) != index ? ',' : '' }}
+                </span>
+              </dd>
+
+            </dl>
+          </div>
+        </div>
+
+        <div class="epta-sidebar-box">
+          <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
+            <h2 class="tribe-events-single-section-title">Organizer</h2>
+            <dl *ngFor="let item of event.organisers">
+              <dt style="display:none;"></dt>
+              <dd class="tribe-organizer">
+                <a href="{{ siteUrl + '/events/all?organiser=' + item.organizer_id }}" title="{{ item.name }}"
+                  target="_self" rel="">{{ item.name }}</a>
+              </dd>
+              <dt *ngIf="item.email" class="tribe-organizer-email-label">
+                Email: </dt>
+              <dd *ngIf="item.email" class="tribe-organizer-email">
+                {{ item.email }} </dd>
+              <dt *ngIf="item.website" class="tribe-organizer-url-label">
+                Website: </dt>
+              <dd *ngIf="item.website" class="tribe-organizer-url">
+                <a href="{{ item.website }}" target="_blank" rel="external">{{ item.website }}</a>
+              </dd>
+            </dl>
+          </div>
+        </div>
+
+        <!-- event rsvp -->
+        <div *ngIf="event.rsvp?.length > 0" class="epta-sidebar-box">
+
+          <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
+            You have {{ userRsvp?.total }} RSVPs for this Event.
+          </div>
+
+          <div id="rsvp-now" class="tribe-common event-tickets">
+            <div *ngFor="let item of event.rsvp; let index = index" class="tribe-tickets__rsvp-wrapper">
+              <div class="tribe-tickets__rsvp tribe-common-g-row tribe-common-g-row--gutters">
+                <div class="tribe-tickets__rsvp-details-wrapper tribe-common-g-col">
+                  <div class="tribe-tickets__rsvp-details">
+                    <h3 class="tribe-tickets__rsvp-title tribe-common-h2 tribe-common-h4--min-medium">
+                      {{ item.title }}</h3>
+
+                    <div class="tribe-tickets__rsvp-attendance">
+                      <span
+                        class="tribe-tickets__rsvp-attendance-number tribe-common-h4 tribe-tickets__rsvp-attendance-number--no-description">
+                        {{ userRsvp?.rsvp[item.id] ? userRsvp?.rsvp[item.id] : 0 }} </span>
+                      <span
+                        class="tribe-tickets__rsvp-attendance-going tribe-common-h7 tribe-common-h--alt tribe-common-b3--min-medium">
+                        Going </span>
+                    </div>
+
+                    <div
+                      class="tribe-tickets__rsvp-availability tribe-common-h6 tribe-common-h--alt tribe-common-b3--min-medium">
+                      <span class="tribe-tickets__rsvp-availability-quantity tribe-common-b2--bold">
+                        {{ item.available }} </span> remaining,
+
+                      <span class="tribe-tickets__rsvp-availability-days-to-rsvp">
+                        {{ item.end_sale | rsvpTimeLeft }} to RSVP</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tribe-tickets__rsvp-actions-wrapper tribe-common-g-col">
+                  <div class="tribe-tickets__rsvp-actions">
+                    <div *ngIf="!item.going" class="tribe-tickets__rsvp-actions-rsvp">
+                      <span class="tribe-common-h2 tribe-common-h6--min-medium">
+                        RSVP Here </span>
+                      <div class="tribe-tickets__rsvp-actions-rsvp-going">
+                        <button (click)="showRsvpApplyModal(item.id, index)"
+                          class="tribe-common-c-btn tribe-tickets__rsvp-actions-button-going tribe-common-b1 tribe-common-b2--min-medium"
+                          type="submit">
+                          Going </button>
+                      </div>
+                    </div>
+                    <div *ngIf="item.going" class="tribe-tickets__rsvp-actions-success">
+                      <div class="tribe-tickets__rsvp-actions-success-going">
+                        <em class="tribe-tickets__rsvp-actions-success-going-check-icon"></em>
+                        <span
+                          class="tribe-tickets__rsvp-actions-success-going-text tribe-common-h4 tribe-common-h6--min-medium">
+                          You are going </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- event tickets -->
+        <div class="epta-sidebar-box">
+          <div class="tribe-link-view-attendee" *ngIf="userTickets.length > 0">
+            You have {{userTickets.length}} Tickets for this Event. <a
+              [routerLink]="['/events/details', eventSlug, 'tickets']">View your Tickets</a>
+          </div>
+
+          <div class="tickets">
+            <h3>Tickets</h3>
+
+            <ng-container *ngFor="let ticket of event.tickets">
+
+              <div *ngIf="ticket.available !== 0" class="ticket">
+                <div class="ticket-title">
+                  {{ticket.title}}
+                </div>
+
+                <div class="ticket-price-stock">
+                  <p><strong>£ {{ticket.price | number: '1.2-2'}}</strong></p>
+                  <p *ngIf="ticket.available > 0">{{ticket.available}} available</p>
+                </div>
+
+                <div class="ticket-quantity">
+                  <button type="button" (click)="addTicketQuantity(ticket, -1)">-</button>
+
+                  <div class="ticket-quantity-input">
+                    <input type="number" step="1" min="0" max="{{ticket.available}}" autocomplete="off"
+                      [(ngModel)]="ticket.quantity" (input)="validateTicketQuantity(ticket)">
+                  </div>
+
+                  <button type="button" (click)="addTicketQuantity(ticket, 1)">+</button>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="summary">
+              <div class="quantity" *ngIf="totalTicketQuantity > 0">
+                Quantity:<br><strong>{{totalTicketQuantity}}</strong></div>
+              <div class="total" *ngIf="totalTicketQuantity > 0">Total:<br><strong>£ {{totalTicketPrice | number:
+                  "1.2-2"}}</strong></div>
+              <div class="get-ticket">
+                <button mat-flat-button color="primary" [disabled]="totalTicketQuantity === 0"
+                  (click)="getTickets()">Get Tickets</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div *ngIf="relatedEvents == null" class="section-loading">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+      <div *ngIf="relatedEvents != null && relatedEvents.length > 0" class="epta-related-area">
+        <h3 class="epta-related-head">Related Events</h3>
+        <div class="epta-row">
+          <div *ngFor="let item of relatedEvents" class="col-sm-4">
+            <div class="epta-related-box">
+              <a href="{{ siteUrl + '/events/details/' + item.slug }}">
+                <div class="tribe-events-event-image">
+                  <img width="707" height="440" src="{{ item.featured_img | imageSrc : 'event' : 'medium' }}"
+                    class="attachment-full size-full wp-post-image" alt="">
+                </div>
+              </a>
+              <div class="epta-related-title ">
+                <h4><a href="{{ siteUrl + '/events/details/' + item.slug }}">{{ item.title }}</a></h4>
+                <div class="epta-related-date"><span class="tribe-event-date-start">{{ item.start_time |
+                    date : 'MMMM d, y @ h:mm a' }}</span> -
+                  <span class="tribe-event-time">{{ item.end_time | date :
+                    'MMMM d, y @ h:mm a' }}</span>
+                </div>
+                <div class="epta-light-bg"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="ept-next-prev" data-title="The Stylistics - Greatest Hits Live! | Black Directory"
                 data-viewtitle="The Stylistics – Greatest Hits Live!" data-redirected-view=""
                 data-default-mobile-view="list" data-default-view="list">
                 <ul>
@@ -271,9 +496,9 @@
             </div> -->
 
 
-            <!-- comments section -->
+      <!-- comments section -->
 
-        </div>
     </div>
+  </div>
 
 </main>
