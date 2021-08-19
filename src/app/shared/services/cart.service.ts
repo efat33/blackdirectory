@@ -77,6 +77,17 @@ export class CartService {
       map(([subtotal, discountAmount]) => subtotal - discountAmount)
     );
   }
+  get discountAmount(): Observable<number> {
+    return combineLatest([this.subtotal, this.appliedCoupon]).pipe(
+      map(([subtotal, coupon]) => ({ subtotal, discount: coupon.discount })),
+      map(({ subtotal, discount }) => subtotal * (discount / 100))
+    );
+  }
+  get total(): Observable<number> {
+    return combineLatest([this.subtotal, this.discountAmount]).pipe(
+      map(([subtotal, discountAmount]) => subtotal - discountAmount)
+    );
+  }
 
   get cartItemCount(): Observable<number> {
     return this.cart$.pipe(map((cart) => cart.reduce((acc, item) => acc + item.quantity, 0)));
