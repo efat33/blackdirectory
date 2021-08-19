@@ -1,0 +1,20 @@
+<div class="">
+  <h3 class="page-title">
+    <span _ngcontent-bps-c143="">Event Tickets</span>
+  </h3>
+
+  <div class="content-box_body__3tSRB">
+    <div style="text-align: center; padding: 10px 0;">
+      <h4 *ngIf="success">Payment successful.</h4>
+      <h4 *ngIf="!success">Payment cancelled.</h4>
+
+      <h5>
+        <a [routerLink]="['/events/details', eventSlug]">Back to Event</a>
+      </h5>
+
+      <h5>
+        <a [routerLink]="['/events/details', eventSlug, 'tickets']">View my tickets</a>
+      </h5>
+    </div>
+  </div>
+</div>

@@ -121,4 +121,10 @@ export class EventService {
 
     return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
   }
+
+  createStripeCheckoutSession(body: any): Observable<any> {
+    const url = `api/events/create-checkout-session`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
 }

@@ -79,6 +79,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   editCommentClickId: number;
   newComment: string = '';
 
+  totalTicketQuantity: number = 0;
+  totalTicketPrice: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -122,6 +125,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         }
 
         this.initializeGoogleMap();
+
+        for (const ticket of this.event.tickets) {
+          ticket.quantity = 0;
+        }
       },
       (res: any) => {
         this.spinnerService.hide();
@@ -204,6 +211,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     }
 
     this.userRsvp = rsvpObj;
+    this.userTickets = tickets;
   }
 
   getRelatedEvents() {
@@ -244,7 +252,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 
   getTotalComments() {
     if (!this.event || lodash.isEmpty(this.event)) {
@@ -477,6 +484,75 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     this.dialog.open(LoginModal, {
       width: '400px',
     });
+  }
+
+  addTicketQuantity(ticket: any, amount: number = 1) {
+    ticket.quantity = ticket.quantity + amount;
+
+    ticket.quantity = Math.max(ticket.quantity, 0);
+
+    if (ticket.available != null) {
+      ticket.quantity = Math.min(ticket.quantity, ticket.available);
+    }
+
+    this.updateTotalTickets();
+  }
+
+  validateTicketQuantity(ticket: any) {
+    setTimeout(() => {
+      ticket.quantity = Math.max(ticket.quantity, 0);
+
+      if (ticket.available != null) {
+        ticket.quantity = Math.min(ticket.quantity, ticket.available);
+      }
+
+      this.updateTotalTickets();
+    }, 0);
+  }
+
+  updateTotalTickets() {
+    this.totalTicketQuantity = 0;
+    this.totalTicketPrice = 0;
+
+    for (const ticket of this.event.tickets) {
+      this.totalTicketQuantity += ticket.quantity;
+      this.totalTicketPrice += ticket.quantity * ticket.price;
+    }
+  }
+
+  getTickets() {
+    if (!this.helperService.currentUserInfo) {
+      this.showLoginModal();
+      return;
+    }
+
+    const tickets = this.event.tickets
+      .filter((ticket: any) => ticket.quantity)
+      .map((ticket: any) => {
+        return { id: ticket.id, quantity: ticket.quantity };
+      });
+
+    const body = {
+      tickets,
+      returnUrl: `${this.helperService.siteUrl}/events/details/${this.eventSlug}/payment`,
+    };
+
+    this.spinnerService.show();
+    const subscription = this.eventService.createStripeCheckoutSession(body).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (result.data?.url) {
+          window.location.href = result.data.url;
+        }
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   ngOnDestroy() {
