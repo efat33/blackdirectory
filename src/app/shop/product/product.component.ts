@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { pluck } from 'rxjs/operators';
-import { ProductDetails, ProductService } from 'src/app/shared/services/product.service';
+import { ProductDetails, ProductReview, ProductService } from 'src/app/shared/services/product.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { StoreService } from 'src/app/shared/services/store.service';
 
 @Component({
   selector: 'app-product',
@@ -13,32 +16,28 @@ import { CartService } from 'src/app/shared/services/cart.service';
 })
 export class ProductComponent implements OnInit {
   p: ProductDetails;
+  reviews$: Observable<ProductReview[]>;
+  storeDetails$: Observable<any>;
+  review = new FormGroup({
+    rating: new FormControl(3),
+    review: new FormControl(''),
+  });
   addToCartCount: number = 1;
   galleryOptions: NgxGalleryOptions[] = [
     {
       width: '100%',
-      height: '400px',
       thumbnailsColumns: 4,
-      arrowPrevIcon: 'fa fa-chevron-left',
-      arrowNextIcon: 'fa fa-chevron-right',
-      imageAnimation: NgxGalleryAnimation.Slide,
+      thumbnailsAsLinks: false,
+      preview: true,
+      startIndex: 0,
     },
     {
       breakpoint: 720,
       width: '100%',
-      height: '600px',
-      thumbnailsColumns: 4,
-      arrowPrevIcon: 'fa fa-chevron-left',
-      arrowNextIcon: 'fa fa-chevron-right',
-      imageAnimation: NgxGalleryAnimation.Slide,
       imagePercent: 80,
       thumbnailsPercent: 20,
       thumbnailsMargin: 20,
       thumbnailMargin: 20,
-    },
-    {
-      breakpoint: 400,
-      preview: false,
     },
   ];
 
@@ -46,7 +45,8 @@ export class ProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private helperService: HelperService,
     private cartService: CartService,
-    private productService: ProductService
+    private productService: ProductService,
+    private storeService: StoreService
   ) {}
 
   get hasDiscount(): boolean {
@@ -69,6 +69,22 @@ export class ProductComponent implements OnInit {
     this.activatedRoute.data.pipe(pluck<Data, ProductDetails>('product')).subscribe((p) => {
       this.p = p;
       console.log(p);
+    });
+    this.reviews$ = this.productService.getProductReview(this.p.id);
+    this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id);
+  }
+
+  onRate({ newValue }: { newValue: number }): void {
+    this.review.get('rating').setValue(newValue);
+  }
+
+  submitReview(): void {
+    if (this.review.invalid) {
+      return;
+    }
+    const { rating, review } = this.review.value;
+    this.productService.postNewProductReview({ product_id: this.p.id, rating, review }).subscribe((res) => {
+      this.reviews$ = this.productService.getProductReview(this.p.id);
     });
   }
 

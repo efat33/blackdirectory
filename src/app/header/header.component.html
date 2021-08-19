@@ -31,7 +31,7 @@
     </div>
 
     <div class="mbl-profileMenu-area">
-      <app-header-cart></app-header-cart>
+      <app-header-cart *ngIf="isCartVisible$ | async"></app-header-cart>
       <div *ngIf="isLoggedIn; else loggedOutMbl">
         <div id="wil-login-register-controller" class="header_login__1sQ6w header_login__mbl">
           <a [matMenuTriggerFor]="profilemenuMbl" class="header_loginHead__3HoVP">
@@ -100,7 +100,7 @@
       <div class="header_navWrapper__B2C9n">
         <div id="wil-login-register-controller" class="header_login__1sQ6w">
           <div class="header-button-group">
-            <app-header-cart></app-header-cart>
+            <app-header-cart *ngIf="isCartVisible$ | async"></app-header-cart>
             <div *ngIf="isLoggedIn; else loggedOut">
               <div id="wil-login-register-controller" class="header_login__1sQ6w">
                 <a [matMenuTriggerFor]="profilemenu" class="header_loginHead__3HoVP">

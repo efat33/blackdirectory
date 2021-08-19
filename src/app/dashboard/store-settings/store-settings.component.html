@@ -8,55 +8,40 @@
       </div>
     </header>
     <div class="content-box_body__3tSRB">
-      <mat-form-field>
-        <mat-label>Store Name</mat-label>
-        <input matInput formControlName="name" />
-      </mat-form-field>
+      <div class="banner-wrapper">
+        <div class="banner">
+          <div>
+            <app-image-input
+              uploadDirectory="store"
+              text="SELECT A BANNER IMAGE"
+              [control]="settingsForm.get('banner')"
+            ></app-image-input>
+          </div>
+        </div>
+      </div>
 
-      <section class="section-mat-form-field section-field-file section-field-preview-img">
-        <mat-label>Profile Image</mat-label>
-        <input
-          accept="image/*"
-          type="file"
-          formControlName="profile_image"
-          #inputProfileImage
-          (change)="onProfileImageChange($event)"
-        />
-        <span *ngIf="profileImageSrc" [ngStyle]="{ 'background-image': 'url(' + profileImageSrc + ')' }"></span>
-        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputProfileImage.click()"> Upload </a>
-      </section>
-      <mat-progress-bar
-        *ngIf="progressProfileImg > 0"
-        mode="determinate"
-        [value]="progressProfileImg"
-        class="mb-15"
-      ></mat-progress-bar>
-      <p class="form-error" *ngIf="!formCustomvalidation.profileImage.validated">
-        {{ formCustomvalidation.profileImage.message }}
-      </p>
-
-      <section class="section-mat-form-field section-field-file section-field-preview-img">
-        <mat-label>Banner Image (625x300 pixels) </mat-label>
-        <input
-          accept="image/*"
-          type="file"
-          formControlName="banner_image"
-          #inputBannerImage
-          (change)="onBannerImageChange($event)"
-        />
-        <span *ngIf="bannerImageSrc" [ngStyle]="{ 'background-image': 'url(' + bannerImageSrc + ')' }"></span>
-        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputBannerImage.click()">Upload</a>
-      </section>
-      <mat-progress-bar *ngIf="progressBannerImg > 0" mode="determinate" [value]="progressBannerImg" class="mb-15">
-      </mat-progress-bar>
-      <p class="form-error" *ngIf="!formCustomvalidation.bannerImage.validated">
-        {{ formCustomvalidation.bannerImage.message }}
-      </p>
-      <mat-form-field>
-        <mat-label>Store Product Per Page</mat-label>
-        <input matInput type="number" formControlName="product_per_page" />
-      </mat-form-field>
-      <mat-checkbox color="primary" formControlName="enable_tab"> Enable tab on product single page view </mat-checkbox>
+      <div class="core-section">
+        <div class="profile-image">
+          <app-image-input
+            uploadDirectory="store"
+            text="SELECT A PROFILE IMAGE *"
+            [control]="settingsForm.get('profile_picture')"
+          ></app-image-input>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Store Name</mat-label>
+            <input matInput formControlName="store_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Store Product Per Page</mat-label>
+            <input matInput type="number" formControlName="product_per_page" />
+          </mat-form-field>
+          <mat-checkbox color="primary" formControlName="show_more_products">
+            Enable tab on product single page view
+          </mat-checkbox>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -92,7 +77,9 @@
       <mat-form-field>
         <mat-label>Country</mat-label>
         <mat-select formControlName="country">
-          <mat-option *ngFor="let country of countries" [value]="country.code"> {{ country.name }}</mat-option>
+          <mat-option *ngFor="let country of countries$ | async" [value]="country.title">
+            {{ country.title }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
@@ -103,7 +90,7 @@
     </div>
   </div>
 
-  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <!-- <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
     <header class="content-box_header__xPnGx clearfix">
       <div class="wil-float-left">
         <h4 class="content-box_title__1gBHS">
@@ -147,7 +134,7 @@
         </mat-form-field>
       </ng-container>
     </div>
-  </div>
+  </div> -->
 
   <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 

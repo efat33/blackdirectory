@@ -92,9 +92,22 @@ export interface GetProductListBody {
   };
 }
 
-export interface ProductReview {
+export interface ProductReviewParams {
+  product_id: number;
   rating: number;
   review: string;
+}
+
+export interface ProductReview {
+  created_at: Date;
+  id: number;
+  product_id: number;
+  rating: number;
+  review: string;
+  user_display_name: string;
+  user_id: number;
+  user_profile_photo: string;
+  user_username: string;
 }
 
 @Injectable({
@@ -195,10 +208,21 @@ export class ProductService {
   }
 
   getProductReview(id: number): Observable<ProductReview[]> {
-    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/details/${id}`).pipe(pluck('data'));
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/product/${id}/reviews`).pipe(
+      pluck('data'),
+      map<any, ProductReview[]>((reviews) =>
+        reviews.map((r) => ({
+          ...r,
+          created_at: new Date(r.created_at),
+          user_profile_photo: this.helperService.getImageUrl(r.user_profile_photo, 'users', 'thumb'),
+        }))
+      )
+    );
   }
 
-  postNewProductReview(id: number, review: ProductReview): Observable<any> {
-    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/${id}/review`, review);
+  postNewProductReview(params: ProductReviewParams): Observable<any> {
+    return this.http
+      .post<ApiResponse<any>>(`${this.BASE_URL}/product/${params.product_id}/review`, params)
+      .pipe(pluck('data'));
   }
 }

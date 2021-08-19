@@ -1,0 +1,23 @@
+<div class="container">
+  <div style="display: flex; flex-flow: row nowrap; justify-content: flex-end; margin: 2rem 0 -1.75rem">
+    <mat-form-field style="width: unset" appearance="fill">
+      <mat-label>Sorting</mat-label>
+      <mat-select (selectionChange)="onSortChange($event.value)">
+        <mat-option [value]="{ order: 'ASC', orderby: '' }">Default sorting</mat-option>
+        <mat-option [value]="{ order: 'DESC', orderby: '' }">Sort by popularity</mat-option>
+        <mat-option [value]="{ order: 'DESC', orderby: 'rating_average' }">Sort by average rating</mat-option>
+        <mat-option [value]="{ order: 'DESC', orderby: 'created_at' }">Sort by latest</mat-option>
+        <mat-option [value]="{ order: 'ASC', orderby: 'price' }">Sort by price: low to high</mat-option>
+        <mat-option [value]="{ order: 'DESC', orderby: 'price' }">Sort by price: high to low</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="products-container" infiniteScroll [infiniteScrollThrottle]="300" (scrolled)="loadMore()">
+    <div class="product-preview" *ngFor="let product of products$ | async; trackBy: trackByIdentity">
+      <app-product-preview></app-product-preview>
+    </div>
+  </div>
+  <div *ngIf="pending$ | async" style="display: flex; justify-content: center; align-items: center">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { startWith, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-preview',
@@ -9,6 +11,7 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
   @ViewChild('container') containerRef: ElementRef<HTMLDivElement>;
   @ViewChild('image') imageRef: ElementRef<HTMLImageElement>;
 
+  resizeObservable$ = fromEvent(window, 'resize');
   width: number = 250;
 
   constructor() {}
@@ -16,8 +19,10 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.width = this.containerRef.nativeElement.offsetWidth;
-    this.imageRef.nativeElement.style.width = `${this.width}px`;
-    this.imageRef.nativeElement.style.height = `${this.width}px`;
+    this.resizeObservable$.pipe(startWith(''), debounceTime(5)).subscribe((evt) => {
+      this.width = this.containerRef.nativeElement.offsetWidth;
+      this.imageRef.nativeElement.style.maxWidth = `${this.width}px`;
+      this.imageRef.nativeElement.style.height = `${this.width}px`;
+    });
   }
 }
