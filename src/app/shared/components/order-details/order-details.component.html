@@ -1,0 +1,118 @@
+<h2>Products</h2>
+<div class="table-wrapper">
+  <table mat-table [dataSource]="dataSource">
+    <!-- Title Column -->
+    <ng-container matColumnDef="product">
+      <th mat-header-cell *matHeaderCellDef>Product</th>
+      <td mat-cell *matCellDef="let product">
+        <a [routerLink]="'/shop/product/' + product.product_slug">
+          {{ product.product_title }}
+        </a>
+        x <strong>{{ product.quantity }}</strong>
+      </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="product_price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let product">{{ product.product_price | currency }}</td>
+    </ng-container>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
+      <td mat-cell *matCellDef="let product">{{ product.quantity }}</td>
+    </ng-container>
+
+    <!-- Subtotal Column -->
+    <ng-container matColumnDef="subtotal">
+      <th mat-header-cell *matHeaderCellDef>Subtotal</th>
+      <td mat-cell *matCellDef="let product">{{ product.product_price * product.quantity | currency }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<table class="totals-table">
+  <tbody>
+    <tr>
+      <th>SUBTOTAL</th>
+      <td>{{ order.subtotal | currency }}</td>
+    </tr>
+    <tr *ngIf="order.discount > 0">
+      <th>
+        DISCOUNT <span *ngIf="order.promo_code"> ({{ order.promo_code }}) </span>
+      </th>
+      <td>- {{ order.discount | currency }}</td>
+    </tr>
+    <tr>
+      <th>TOTAL</th>
+      <td>{{ order.total | currency }}</td>
+    </tr>
+    <tr *ngIf="isEarnedVisible">
+      <th>EARNED</th>
+      <td>{{ order.earned | currency }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Shipping Details</h2>
+<table class="totals-table">
+  <tr>
+    <th>Full Name</th>
+    <td>{{ order.shipment.first_name }} {{ order.shipment.last_name }}</td>
+  </tr>
+  <tr *ngIf="order.shipment.company_name">
+    <th>Company Name</th>
+    <td>{{ order.shipment.company_name }}</td>
+  </tr>
+  <tr>
+    <th>Phone</th>
+    <td>
+      <a [href]="'tel:' + order.shipment.phone">
+        {{ order.shipment.phone }}
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>
+      <a [href]="'mailto:' + order.shipment.email">
+        {{ order.shipment.email }}
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td>
+      <address style="font-style: normal">
+        <span style="white-space: pre-line">{{ order.shipment.address }}</span>
+        <br />
+        {{ order.shipment.city }}, {{ order.shipment.state }}, {{ order.shipment.postcode }},
+        {{ order.shipment.country }}
+      </address>
+    </td>
+  </tr>
+  <tr *ngIf="order.additional_info">
+    <th>Additional Information</th>
+    <td>{{ order.additional_info }}</td>
+  </tr>
+</table>
+
+<h2>More Information</h2>
+<table class="totals-table">
+  <tr>
+    <th>Status</th>
+    <td>{{ order.status }}</td>
+  </tr>
+  <tr>
+    <th>Ordered At</th>
+    <td>{{ order.created_at | date: 'medium' }}</td>
+  </tr>
+  <tr *ngIf="isUpdated">
+    <th>Last Update At</th>
+    <td>{{ order.updated_at | date: 'medium' }}</td>
+  </tr>
+</table>

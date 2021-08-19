@@ -30,6 +30,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
 import { FileInputComponent } from './file-input/file-input.component';
 import { ListingsComponent } from './listings/listings.component';
 import { EventsComponent } from './events/events.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { EventsComponent } from './events/events.component';
     FileInputComponent,
     ListingsComponent,
     EventsComponent,
+    OrderComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

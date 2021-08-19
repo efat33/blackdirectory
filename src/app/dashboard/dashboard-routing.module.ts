@@ -28,6 +28,8 @@ import { ProductResolver } from './products-edit/product-edit.resolver';
 import { StoreResolver } from './store-settings/store-settings.resolver';
 import { ListingsComponent } from './listings/listings.component';
 import { EventsComponent } from './events/events.component';
+import { OrderResolver } from '../shared/components/order-details/order.resolver';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   {
@@ -57,6 +59,7 @@ const routes: Routes = [
       { path: 'products/new', component: ProductsNewComponent },
       { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
       { path: 'orders', component: OrdersComponent },
+      { path: 'order/:id', component: OrderComponent, resolve: { order: OrderResolver } },
       { path: 'withdraw', component: WithdrawComponent },
       { path: 'store-settings', component: StoreSettingsComponent, resolve: { store: StoreResolver } },
     ],

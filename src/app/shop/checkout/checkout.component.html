@@ -90,12 +90,18 @@
         <input matInput name="city" type="text" formControlName="city" required />
       </mat-form-field>
     </div>
-    <mat-form-field appearance="outline">
-      <mat-label>Country</mat-label>
-      <mat-select (selectionChange)="onCountrySelectionChange($event.value)" required>
-        <mat-option *ngFor="let country of countries$ | async" [value]="country"> {{ country.title }} </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="double-inputs">
+      <mat-form-field appearance="outline">
+        <mat-label>State</mat-label>
+        <input matInput name="state" type="text" formControlName="state" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country_id" required>
+          <mat-option *ngFor="let country of countries$ | async" [value]="country.id"> {{ country.title }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </form>
 
   <mat-form-field appearance="outline">

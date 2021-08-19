@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, mergeMapTo, pluck, shareReplay, tap } from 'rxjs/operators';
 import { ApiResponse, ProductDetails } from 'src/app/shared/services/product.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -57,14 +57,14 @@ export class CartService {
   }
 
   get appliedCoupon(): Observable<Coupon> {
-    return this.appliedCoupon$.asObservable().pipe(shareReplay());
+    return this.appliedCoupon$.asObservable().pipe(shareReplay(1));
   }
   get cart(): Observable<Cart> {
-    return this.cart$.asObservable().pipe(shareReplay());
+    return this.cart$.asObservable().pipe(shareReplay(1));
   }
 
   get subtotal(): Observable<number> {
-    return this.cart$.pipe(map((cart) => cart.reduce((acc, item) => acc + item.quantity * item.product_price, 0)));
+    return this.cart.pipe(map((cart) => cart.reduce((acc, item) => acc + item.quantity * item.product_price, 0)));
   }
   get discountAmount(): Observable<number> {
     return combineLatest([this.subtotal, this.appliedCoupon]).pipe(
@@ -100,9 +100,13 @@ export class CartService {
               return i < 0 ? 0 : cart[i].quantity;
             };
             const diff = merge.filter(
-              (mergeItem) => mergeItem.quantity !== getItemQuantity(server, mergeItem.product_id)
+              (mergeItem) => mergeItem.quantity !== getItemQuantity(server, mergeItem.product_id) || !mergeItem.id
             );
-            return this.postCartItems(diff);
+            if (diff.length > 0) {
+              return this.postCartItems(diff);
+            } else {
+              return of(merge);
+            }
           }),
           tap((items) => this.cart$.next(items)),
           tap((items) => this.updateLocalStorage(items))
@@ -271,11 +275,9 @@ export class CartService {
       (res) => {
         this.cart$.next([]);
         this.updateLocalStorage([]);
-        this.snackbar.openSnackBar(`Cart cleared.`);
       },
       (err) => {
         console.log(err);
-        this.snackbar.openSnackBar(`An error occured while clearing the cart.`);
       }
     );
   }
