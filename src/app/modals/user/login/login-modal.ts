@@ -142,6 +142,10 @@ export class LoginModal implements OnInit, OnDestroy {
     this.userService.clickedRegisterLinkModal.emit();
   }
 
+  forgotPasswordClicked() {
+    this.userService.clickedForgotPassLinkModal.emit();
+  }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }

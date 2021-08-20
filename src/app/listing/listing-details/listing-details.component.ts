@@ -17,6 +17,7 @@ import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import { forkJoin } from 'rxjs';
+import { ListingClaimModal } from 'src/app/modals/listing/details/claim/listing-claim-modal';
 
 
 @Component({
@@ -77,6 +78,7 @@ export class ListingDetailsComponent implements OnInit {
   isCommentEditClicked = [];
 
   dialogReview: any;
+  dialogClaim: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -168,6 +170,26 @@ export class ListingDetailsComponent implements OnInit {
 
     }
 
+  }
+
+  onClickClaimListing(listing_id) {
+    if(this.helperservice.currentUserInfo?.id){
+      this.dialogClaim = this.dialog.open(ListingClaimModal, {
+        width: '400px',
+        data: { listing_id }
+      });
+
+      this.dialogClaim.afterClosed().subscribe((result) => {
+
+      });
+
+      this.subscriptions.add(this.dialogClaim);
+    }
+    else{
+      this.dialog.open(LoginModal, {
+        width: '400px'
+      });
+    }
   }
 
   updateListingView(id) {
