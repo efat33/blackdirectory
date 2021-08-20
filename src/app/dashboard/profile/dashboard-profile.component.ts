@@ -308,7 +308,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     const formData = this.profileForm.value;
 
     // remove timezone from date, using moment
-    formData.dob = moment(formData.dob).format("YYYY-MM-DD");
+    formData.dob = moment(formData.dob).utc().format("YYYY-MM-DD");
 
     // show spinner
     this.spinnerService.show();

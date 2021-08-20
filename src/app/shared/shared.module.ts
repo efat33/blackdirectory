@@ -94,6 +94,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CountdownModule } from 'ngx-countdown';
 import { MatCardModule } from '@angular/material/card';
 import { EventSearchDateModal } from '../modals/events/search/date/event-search-date-modal';
+import { ListingClaimModal } from '../modals/listing/details/claim/listing-claim-modal';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { ForgotPasswordModal } from '../modals/user/forgot-password/forgot-password-modal';
+import { ResetPasswordModal } from '../modals/user/reset-password/reset-password-modal';
 
 @NgModule({
   declarations: [
@@ -139,6 +143,9 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     RsvpApplyModal,
     PaginationComponent,
     EventSearchDateModal,
+    ListingClaimModal,
+    ForgotPasswordModal,
+    ResetPasswordModal,
     OrderDetailsComponent,
   ],
   imports: [
@@ -192,6 +199,8 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     OwlNativeDateTimeModule,
     CountdownModule,
     MatCardModule,
+    HttpClientModule,
+    HttpClientJsonpModule
   ],
   exports: [
     FormsModule,
@@ -259,6 +268,8 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     CountdownModule,
     MatCardModule,
     PaginationComponent,
+    HttpClientModule,
+    HttpClientJsonpModule
   ],
   entryComponents: [
     RegistrationModal,
@@ -288,6 +299,9 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     ListingReviewModal,
     RsvpApplyModal,
     EventSearchDateModal,
+    ListingClaimModal,
+    ForgotPasswordModal,
+    ResetPasswordModal
   ],
 })
 export class SharedModule {}
