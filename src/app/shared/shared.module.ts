@@ -5,8 +5,11 @@ import { RouterModule } from '@angular/router';
 
 // import all component
 import { HeaderComponent } from '.././header/header.component';
+import { HeaderCartComponent } from 'src/app/shop/header-cart/header-cart.component';
 import { FooterComponent } from '.././footer/footer.component';
 import { DashboardSidebarComponent } from '../dashboard/sidebar/sidebar.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 // import all modals
 import { RegistrationModal } from '../modals/user/registration/registration-modal';
@@ -47,6 +50,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
@@ -79,6 +83,7 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
@@ -88,12 +93,12 @@ import { DropFileDirective } from './components/image-input/drop-file.directive'
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CountdownModule } from 'ngx-countdown';
 import { MatCardModule } from '@angular/material/card';
-import { PaginationComponent } from './pagination/pagination.component';
 import { EventSearchDateModal } from '../modals/events/search/date/event-search-date-modal';
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    HeaderCartComponent,
     FooterComponent,
     RegistrationModal,
     LoginModal,
@@ -134,6 +139,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     RsvpApplyModal,
     PaginationComponent,
     EventSearchDateModal,
+    OrderDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -168,6 +174,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatBadgeModule,
     MatTooltipModule,
     MatTabsModule,
     NouisliderModule,
@@ -180,6 +187,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     ShareButtonsModule,
     ShareIconsModule,
     NgxGalleryModule,
+    InfiniteScrollModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     CountdownModule,
@@ -190,6 +198,8 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     ReactiveFormsModule,
     RouterModule,
     HeaderComponent,
+    HeaderCartComponent,
+    OrderDetailsComponent,
     FooterComponent,
     MatDialogModule,
     MatFormFieldModule,
@@ -211,6 +221,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatBadgeModule,
     MatTooltipModule,
     MatTabsModule,
     MatToolbarModule,
@@ -238,11 +249,11 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     ShareIconsModule,
     pluralPipe,
     excerpt,
-    NgxGalleryModule,
     ImageInputComponent,
     DropFileDirective,
     rsvpTimeLeft,
     NgxGalleryModule,
+    InfiniteScrollModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     CountdownModule,
@@ -276,7 +287,7 @@ import { EventSearchDateModal } from '../modals/events/search/date/event-search-
     CouponModal,
     ListingReviewModal,
     RsvpApplyModal,
-    EventSearchDateModal
+    EventSearchDateModal,
   ],
 })
 export class SharedModule {}

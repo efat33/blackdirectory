@@ -1,23 +1,26 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { GetProductListBody, Product, ProductService } from '../services/product.service';
+import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/services/product.service';
 import { ProductFilter } from './products.component';
 
-export class ProductsDataSource implements DataSource<Product> {
-  private productsSubject = new BehaviorSubject<Product[]>([]);
+export class ProductsDataSource implements DataSource<ProductList> {
+  private productsSubject = new BehaviorSubject<ProductList[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private loadParams = new BehaviorSubject<GetProductListBody>({
     limit: 25,
     offset: 0,
     order: 'ASC',
     orderby: 'title',
+    params: {
+      user_id: this.userId,
+    },
   });
   loading$ = this.loadingSubject.asObservable();
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private userId: number) {}
 
-  connect(collectionViewer: CollectionViewer): Observable<Product[]> {
+  connect(collectionViewer: CollectionViewer): Observable<ProductList[]> {
     return this.productsSubject.asObservable();
   }
 
@@ -48,7 +51,10 @@ export class ProductsDataSource implements DataSource<Product> {
   setFilter(filter: ProductFilter): void {
     this.loadParams.next({
       ...this.loadParams.value,
-      params: filter,
+      params: {
+        ...this.loadParams.value,
+        ...filter,
+      },
     });
     this.loadProducts();
   }

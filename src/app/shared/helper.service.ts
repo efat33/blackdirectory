@@ -11,6 +11,7 @@ export class HelperService {
   apiUrl: string;
   siteUrl: string;
   assetUrl = 'http://localhost:4200/assets';
+  adminProfit = 0.05;
 
   constructor() {
     this.setApiUrl();

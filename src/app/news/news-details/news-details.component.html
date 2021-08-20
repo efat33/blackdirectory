@@ -110,7 +110,7 @@
                             <span class="">Like</span>
                           </a></div>
                       </div>
-                      <div style="min-height: 100px;">
+                      <div>
                         <div>
                           <ul *ngIf="comment.replies?.length > 0" class="comment-review_commentlist__1LH_D list-none">
                             <li *ngFor="let reply of comment.replies; let replyIndex = index"
@@ -156,7 +156,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div *ngIf="userCanEditComment(comment)" class="dropdown_module__J_Zpj">
+                                <div *ngIf="userCanEditReply(reply)" class="dropdown_module__J_Zpj">
                                   <div (click)="hambergureClick(reply, $event)"
                                     (clickOutside)="editCommentClickId = null" class="dropdown_threeDots__3fa2o"><span
                                       class="dropdown_dot__3I1Rn"></span>

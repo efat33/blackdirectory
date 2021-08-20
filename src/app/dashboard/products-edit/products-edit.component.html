@@ -1,1 +1,167 @@
-<p>products-edit works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="productForm">
+  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Edit Product Details</span>
+        </h4>
+      </div>
+    </header>
+    <div class="content-box_body__3tSRB">
+      <div class="general-inputs">
+        <div>
+          <div class="featured-image-input">
+            <app-image-input
+              uploadDirectory="product"
+              [control]="productForm.get('image')"
+              text="Add a Featured Image"
+            ></app-image-input>
+          </div>
+          <h6>Gallery Images</h6>
+          <div class="gallery-container">
+            <div class="gallery-image" *ngFor="let gallery of galleries.controls; let i = index">
+              <app-image-input
+                uploadDirectory="product"
+                [control]="productForm.get('galleries.' + i)"
+              ></app-image-input>
+            </div>
+          </div>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matInput type="number" formControlName="price" />
+            <span matPrefix>£&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Discounted Price</mat-label>
+            <input matInput type="number" formControlName="discounted_price" />
+            <span matPrefix>£&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Discount Schedule</mat-label>
+            <mat-date-range-input [rangePicker]="discount_date">
+              <input matStartDate formControlName="discount_start" placeholder="Start date" />
+              <input matEndDate formControlName="discount_end" placeholder="End date" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="discount_date"></mat-datepicker-toggle>
+            <mat-date-range-picker #discount_date></mat-date-range-picker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category_id">
+              <mat-option *ngFor="let category of categories$ | async" [value]="category.id">
+                {{ category.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tags">
+              <mat-chip
+                *ngFor="let tag of selectedTags"
+                [selectable]="false"
+                [removable]="true"
+                (removed)="removeTag(tag)"
+              >
+                {{ tag.title }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input
+                #fruitInput
+                [formControl]="tagInput"
+                [value]="tagInput.value"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+              />
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addTag($event.option.value)">
+              <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+                {{ tag.title }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Short Description</mat-label>
+            <input matInput formControlName="short_desc" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="5" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-form-field>
+        <mat-label>Purchase Note</mat-label>
+        <textarea matInput rows="3" formControlName="purchase_note"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>SKU (Stock Keeping Unit)</mat-label>
+        <input matInput formControlName="sku" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Stock Status</mat-label>
+        <mat-select formControlName="stock_status">
+          <mat-option value="instock">In Stock</mat-option>
+          <mat-option value="outstock">Out of Stock</mat-option>
+          <mat-option value="backorder">On Backorder</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="checkboxes-container">
+        <mat-checkbox color="primary" formControlName="downloadable">
+          Downloadable
+          <span class="help-icon" matTooltip="Downloadable products give access to a file upon purchase.">
+            <mat-icon>help_outline</mat-icon>
+          </span>
+        </mat-checkbox>
+        <mat-checkbox color="primary" formControlName="virtual">
+          Virtual
+          <span class="help-icon" matTooltip="Virtual products are intangible and aren't shipped.">
+            <mat-icon>help_outline</mat-icon>
+          </span>
+        </mat-checkbox>
+      </div>
+      <div *ngIf="isDownloadable" formGroupName="download_files">
+        <div class="col-2">
+          <mat-form-field>
+            <mat-label>Download Limit</mat-label>
+            <input matInput type="number" formControlName="limit" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Download Expiry</mat-label>
+            <input matInput type="number" placeholder="Will expire in ... days" formControlName="expire_days" />
+          </mat-form-field>
+        </div>
+        <div formArrayName="files">
+          <ng-container *ngFor="let file of files.controls; let i = index">
+            <div style="display: flex; flex-flow: row nowrap; align-items: center">
+              <div style="flex-grow: 1">
+                <app-file-input uploadDirectory="user" [form]="file"></app-file-input>
+              </div>
+              <button mat-icon-button color="warn" [disabled]="files.length < 2" (click)="removeFile(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+        <button mat-flat-button type="button" color="primary" (click)="addFile('', '')">ADD FILE</button>
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+  <button
+    mat-raised-button
+    class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+    color="primary"
+    type="submit"
+    [disabled]="!productForm.valid"
+  >
+    Save Product
+  </button>
+</form>
