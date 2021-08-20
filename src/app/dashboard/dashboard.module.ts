@@ -31,6 +31,7 @@ import { FileInputComponent } from './file-input/file-input.component';
 import { ListingsComponent } from './listings/listings.component';
 import { EventsComponent } from './events/events.component';
 import { OrderComponent } from './order/order.component';
+import { WithdrawRequestsTableComponent } from './withdraw/withdraw-requests-table/withdraw-requests-table.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { OrderComponent } from './order/order.component';
     ListingsComponent,
     EventsComponent,
     OrderComponent,
+    WithdrawRequestsTableComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })
