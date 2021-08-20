@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-product-preview',
@@ -8,13 +10,19 @@ import { startWith, debounceTime } from 'rxjs/operators';
   styleUrls: ['./product-preview.component.css'],
 })
 export class ProductPreviewComponent implements OnInit, AfterViewInit {
+  @Input() product: ProductList;
+
   @ViewChild('container') containerRef: ElementRef<HTMLDivElement>;
   @ViewChild('image') imageRef: ElementRef<HTMLImageElement>;
 
   resizeObservable$ = fromEvent(window, 'resize');
   width: number = 250;
 
-  constructor() {}
+  constructor(private productService: ProductService, private cartService: CartService) {}
+
+  get actualPrice(): number {
+    return this.productService.getActualPrice(this.product);
+  }
 
   ngOnInit(): void {}
 
@@ -24,5 +32,9 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
       this.imageRef.nativeElement.style.maxWidth = `${this.width}px`;
       this.imageRef.nativeElement.style.height = `${this.width}px`;
     });
+  }
+
+  addToCart(): void {
+    this.cartService.addToCart(this.product, 1);
   }
 }

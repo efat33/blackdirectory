@@ -1,8 +1,8 @@
 <div #container class="product-review-container">
-  <a href="#">
-    <div #image class="image"></div>
-    <span>{{ 60 | currency }}</span>
-    <h3>Product Preview Title</h3>
+  <a [href]="'/shop/product/' + product.slug">
+    <div #image class="image" [ngStyle]="{ backgroundImage: 'url(\'' + product.image + '\')' }"></div>
+    <span>{{ actualPrice | currency }}</span>
+    <h3>{{ product.title }}</h3>
   </a>
-  <button>ADD TO CART</button>
+  <button (click)="addToCart()">ADD TO CART</button>
 </div>

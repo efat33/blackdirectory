@@ -9,7 +9,6 @@ import { OrderDetails, OrderDetailsItem } from '../../services/order.service';
 })
 export class OrderDetailsComponent implements OnInit, OnChanges {
   @Input() order: OrderDetails;
-  @Input() isEarnedVisible: boolean;
 
   dataSource = new MatTableDataSource<OrderDetailsItem>([]);
   displayedColumns = ['product', 'product_price', 'subtotal'];

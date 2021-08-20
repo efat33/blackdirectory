@@ -89,6 +89,7 @@ export interface GetProductListBody {
   params?: {
     keyword?: string;
     category?: number;
+    user_id?: number;
   };
 }
 
@@ -179,8 +180,8 @@ export class ProductService {
     );
   }
 
-  getTotalNumberOfProducts(): Observable<number> {
-    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, {}).pipe(
+  getTotalNumberOfProducts(userId?: number): Observable<number> {
+    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, { params: { user_id: userId } }).pipe(
       pluck('data'),
       map((products) => products.length)
     );
@@ -192,6 +193,27 @@ export class ProductService {
         response.data.map((p) => ({
           ...p,
           image: this.helperService.getImageUrl(p.image, 'product', 'thumb'),
+          galleries: JSON.parse(p.galleries).map((gallery) =>
+            this.helperService.getImageUrl(gallery, 'product', 'thumb')
+          ),
+          is_downloadable: Boolean(p.is_downloadable),
+          is_virtual: Boolean(p.is_virtual),
+          discount_end: new Date(p.discount_end),
+          discount_start: new Date(p.discount_start),
+          created_at: new Date(p.created_at),
+          updated_at: new Date(p.updated_at),
+          rating_average: parseFloat(p.rating_average),
+        }))
+      )
+    );
+  }
+
+  getRelatedProducts(slug: string): Observable<ProductList[]> {
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/product/${slug}/related-products`).pipe(
+      map((response) =>
+        response.data.map((p) => ({
+          ...p,
+          image: this.helperService.getImageUrl(p.image, 'product', 'medium'),
           galleries: JSON.parse(p.galleries).map((gallery) =>
             this.helperService.getImageUrl(gallery, 'product', 'thumb')
           ),

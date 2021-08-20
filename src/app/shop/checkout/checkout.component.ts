@@ -97,6 +97,7 @@ export class CheckoutComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.router.navigate(['/shop', 'checkout-fail']);
         }
       );
   }

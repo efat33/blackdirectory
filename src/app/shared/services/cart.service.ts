@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, mergeMapTo, pluck, shareReplay, tap } from 'rxjs/operators';
-import { ApiResponse, ProductDetails } from 'src/app/shared/services/product.service';
+import { ApiResponse, ProductDetails, ProductList } from 'src/app/shared/services/product.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { HelperService } from '../helper.service';
 
@@ -142,7 +142,10 @@ export class CartService {
     return localCart.concat(uniqueServerItems);
   }
 
-  private productDetailsToCartItemPopulated(product: ProductDetails, quantity: number): CartItemPopulated {
+  private productDetailsToCartItemPopulated(
+    product: ProductDetails | ProductList,
+    quantity: number
+  ): CartItemPopulated {
     return {
       id: null,
       quantity,
@@ -193,7 +196,7 @@ export class CartService {
     );
   }
 
-  addToCart(product: ProductDetails, quantity: number = 1): void {
+  addToCart(product: ProductDetails | ProductList, quantity: number = 1): void {
     if (this.isLoggedIn) {
       this.postCartItems([{ product_id: product.id, quantity }]).subscribe(
         (cart) => {
