@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+
+.spinner-container {
+  margin: 4rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit-url {
+  font-weight: 500;
+  color: rgb(13, 26, 139);
+}
+.edit-url:hover {
+  color: rgb(8, 19, 117);
+}
+.mat-column-actions {
+  justify-content: flex-end;
+  text-align: right;
+}

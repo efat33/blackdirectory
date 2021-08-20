@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { pluck } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import { ProductDetails, ProductReview, ProductService } from 'src/app/shared/services/product.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartService } from 'src/app/shared/services/cart.service';
@@ -18,6 +18,7 @@ export class ProductComponent implements OnInit {
   p: ProductDetails;
   reviews$: Observable<ProductReview[]>;
   storeDetails$: Observable<any>;
+  relatedProducts$: Observable<any>;
   review = new FormGroup({
     rating: new FormControl(3),
     review: new FormControl(''),
@@ -71,7 +72,14 @@ export class ProductComponent implements OnInit {
       console.log(p);
     });
     this.reviews$ = this.productService.getProductReview(this.p.id);
-    this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id);
+    this.relatedProducts$ = this.productService.getRelatedProducts(this.p.slug);
+    this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id).pipe(
+      map((data) => ({
+        ...data,
+        profile_picture: this.helperService.getImageUrl(data.profile_picture, 'store', 'full'),
+        banner: this.helperService.getImageUrl(data.banner, 'store', 'full'),
+      }))
+    );
   }
 
   onRate({ newValue }: { newValue: number }): void {

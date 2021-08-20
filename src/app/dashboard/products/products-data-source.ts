@@ -12,10 +12,13 @@ export class ProductsDataSource implements DataSource<ProductList> {
     offset: 0,
     order: 'ASC',
     orderby: 'title',
+    params: {
+      user_id: this.userId,
+    },
   });
   loading$ = this.loadingSubject.asObservable();
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private userId: number) {}
 
   connect(collectionViewer: CollectionViewer): Observable<ProductList[]> {
     return this.productsSubject.asObservable();
@@ -48,7 +51,10 @@ export class ProductsDataSource implements DataSource<ProductList> {
   setFilter(filter: ProductFilter): void {
     this.loadParams.next({
       ...this.loadParams.value,
-      params: filter,
+      params: {
+        ...this.loadParams.value,
+        ...filter,
+      },
     });
     this.loadProducts();
   }

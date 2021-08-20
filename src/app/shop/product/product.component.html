@@ -112,237 +112,29 @@
         </mat-card>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Vendor Info">
+    <mat-tab label="Vendor Info" *ngIf="storeDetails$ | async as vendor">
       <ng-template matTabContent>
         <h2>Vendor Info</h2>
-        <pre>
-          {{ storeDetails$ | async | json }}
-        </pre>
+        <div class="vendor-info">
+          <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
+          <div class="core-section">
+            <img [src]="vendor.profile_picture" />
+            <div>
+              <strong> {{ vendor.store_name }} </strong>
+              <address>
+                {{ vendor.address }}
+              </address>
+            </div>
+          </div>
+        </div>
       </ng-template>
     </mat-tab>
   </mat-tab-group>
 
   <h2>Related products</h2>
   <div class="related-products-container">
-    <div class="related-product">
-      <app-product-preview></app-product-preview>
-    </div>
-    <div class="related-product">
-      <app-product-preview></app-product-preview>
-    </div>
-    <div class="related-product">
-      <app-product-preview></app-product-preview>
-    </div>
-    <div class="related-product">
-      <app-product-preview></app-product-preview>
-    </div>
-    <div class="related-product">
-      <app-product-preview></app-product-preview>
-    </div>
-    <div class="related-product">
-      <app-product-preview></app-product-preview>
-    </div>
-  </div>
-
-  <div>
-    <div
-      class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
-      id="tab-reviews"
-      role="tabpanel"
-      aria-labelledby="tab-title-reviews"
-      style="display: none"
-    >
-      <div id="reviews" class="woocommerce-Reviews">
-        <div id="comments">
-          <h2 class="woocommerce-Reviews-title">Reviews</h2>
-          <p class="woocommerce-noreviews">There are no reviews yet.</p>
-        </div>
-        <div id="review_form_wrapper">
-          <div id="review_form">
-            <div id="respond" class="comment-respond">
-              <span id="reply-title" class="comment-reply-title"
-                >Be the first to review “Test Product for Listing”
-                <small
-                  ><a
-                    rel="nofollow"
-                    id="cancel-comment-reply-link"
-                    href="/product/test-product-for-listing/#respond"
-                    style="display: none"
-                    >Cancel reply</a
-                  ></small
-                ></span
-              >
-              <form
-                action="https://www.blackdirectory.co.uk/wp-comments-post.php"
-                method="post"
-                id="commentform"
-                class="comment-form"
-                novalidate=""
-              >
-                <div class="row">
-                  <p class="comment-notes active">
-                    <span id="email-notes">Your email address will not be published.</span> Required fields are marked
-                    <span class="required">*</span>
-                  </p>
-                  <div class="comment-form-rating">
-                    <label for="rating">Your rating&nbsp;<span class="required">*</span></label>
-                    <p class="stars active">
-                      <span>
-                        <a class="star-1" href="#">1</a> <a class="star-2" href="#">2</a>
-                        <a class="star-3" href="#">3</a> <a class="star-4" href="#">4</a>
-                        <a class="star-5" href="#">5</a>
-                      </span>
-                    </p>
-                    <select name="rating" id="rating" required="" style="display: none">
-                      <option value="">Rate…</option>
-                      <option value="5">Perfect</option>
-                      <option value="4">Good</option>
-                      <option value="3">Average</option>
-                      <option value="2">Not that bad</option>
-                      <option value="1">Very poor</option>
-                    </select>
-                  </div>
-                  <p class="comment-form-comment">
-                    <label for="comment">Your review&nbsp;<span class="required">*</span></label
-                    ><textarea id="comment" name="comment" cols="45" rows="8" required=""></textarea>
-                  </p>
-                  <p class="comment-form-author">
-                    <label for="author">Name&nbsp;<span class="required">*</span></label
-                    ><input id="author" name="author" type="text" value="" size="30" required="" />
-                  </p>
-                  <p class="comment-form-email">
-                    <label for="email">Email&nbsp;<span class="required">*</span></label
-                    ><input id="email" name="email" type="email" value="" size="30" required="" />
-                  </p>
-                  <p class="comment-form-cookies-consent">
-                    <input
-                      id="wp-comment-cookies-consent"
-                      name="wp-comment-cookies-consent"
-                      type="checkbox"
-                      value="yes"
-                    />
-                    <label for="wp-comment-cookies-consent"
-                      >Save my name, email, and website in this browser for the next time I comment.</label
-                    >
-                  </p>
-                  <p class="form-submit">
-                    <input name="submit" type="submit" id="submit" class="submit" value="Submit" />
-                    <input type="hidden" name="comment_post_ID" value="14614" id="comment_post_ID" />
-                    <input type="hidden" name="comment_parent" id="comment_parent" value="0" />
-                  </p>
-                  <p style="display: none" class="active">
-                    <input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="92afdea8f8" />
-                  </p>
-                </div>
-                <textarea
-                  name="ak_hp_textarea"
-                  cols="45"
-                  rows="8"
-                  maxlength="100"
-                  style="display: none !important"
-                ></textarea
-                ><input type="hidden" id="ak_js" name="ak_js" value="1628938522780" />
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div
-      class="woocommerce-Tabs-panel woocommerce-Tabs-panel--seller panel entry-content wc-tab"
-      id="tab-seller"
-      role="tabpanel"
-      aria-labelledby="tab-title-seller"
-      style="display: none"
-    >
-      <h2>Vendor Information</h2>
-      <ul class="list-unstyled">
-        <li class="seller-name">
-          <span> Vendor: </span>
-          <span class="details">
-            <a href="https://www.blackdirectory.co.uk/store/black-directory/">Black Directory</a>
-          </span>
-        </li>
-        <li class="store-address">
-          <span><b>Address:</b></span>
-          <span class="details"> </span>
-        </li>
-        <li class="clearfix">No ratings found yet!</li>
-      </ul>
-    </div>
-
-    <div
-      class="woocommerce-Tabs-panel woocommerce-Tabs-panel--more_seller_product panel entry-content wc-tab"
-      id="tab-more_seller_product"
-      role="tabpanel"
-      aria-labelledby="tab-title-more_seller_product"
-      style="display: none"
-    >
-      <ul class="products columns-4">
-        <li>
-          <a
-            href="https://www.blackdirectory.co.uk/product/standard-event-plan/"
-            class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-            ><img
-              width="300"
-              height="300"
-              src="https://www.blackdirectory.co.uk/wp-content/uploads/woocommerce-placeholder-300x300.png"
-            /><noscript
-              ><img
-                width="300"
-                height="300"
-                src="https://www.blackdirectory.co.uk/wp-content/uploads/woocommerce-placeholder-300x300.png"
-            /></noscript>
-            <h2 class="woocommerce-loop-product__title">Standard Event Plan</h2>
-            <span class="price"
-              ><span class="woocommerce-Price-amount amount"
-                ><bdi><span class="woocommerce-Price-currencySymbol">£</span>5.00</bdi></span
-              ></span
-            > </a
-          ><a
-            href="?add-to-cart=13757"
-            data-quantity="1"
-            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-            data-product_id="13757"
-            data-product_sku=""
-            aria-label="Add “Standard Event Plan” to your cart"
-            rel="nofollow"
-            >Add to cart</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.blackdirectory.co.uk/product/standard-listing-plan/"
-            class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-            ><img
-              width="300"
-              height="300"
-              src="https://www.blackdirectory.co.uk/wp-content/uploads/woocommerce-placeholder-300x300.png"
-            /><noscript
-              ><img
-                width="300"
-                height="300"
-                src="https://www.blackdirectory.co.uk/wp-content/uploads/woocommerce-placeholder-300x300.png"
-            /></noscript>
-            <h2 class="woocommerce-loop-product__title">Standard Listing Plan</h2>
-            <span class="price"
-              ><span class="woocommerce-Price-amount amount"
-                ><bdi><span class="woocommerce-Price-currencySymbol">£</span>5.00</bdi></span
-              ></span
-            > </a
-          ><a
-            href="?add-to-cart=13783"
-            data-quantity="1"
-            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-            data-product_id="13783"
-            data-product_sku=""
-            aria-label="Add “Standard Listing Plan” to your cart"
-            rel="nofollow"
-            >Add to cart</a
-          >
-        </li>
-      </ul>
+    <div class="related-product" *ngFor="let product of relatedProducts$ | async">
+      <app-product-preview [product]="product"></app-product-preview>
     </div>
   </div>
 </div>
