@@ -433,7 +433,7 @@ export class NewEventComponent implements OnInit {
         this.snackbarService.openSnackBar(res.message);
     
         setTimeout(() => {
-          this.router.navigate([`events/details/${res.data.slug}`]);
+          this.router.navigate([`events/details/${this.eventSlug}`]);
         }, 1000);
 
       },

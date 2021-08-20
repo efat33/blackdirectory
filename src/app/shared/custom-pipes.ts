@@ -60,12 +60,13 @@ export class rsvpTimeLeft implements PipeTransform {
 
 @Pipe({ name: 'excerpt' })
 export class excerpt implements PipeTransform {
-  transform(text: any, length: number = 30): string {
+  transform(textIn: any, length: number = 50): string {
+    const text =new DOMParser().parseFromString(textIn, "text/html").documentElement.textContent
     const word_count = text.split(' ').length;
 
     if (word_count > length) {
-      return text.split(" ").splice(0, word_count).join(" ") + ' […]';
+      return text.split(" ").splice(0, length).join(" ") + ' […]';
     }
-    return text;
+    return 'text';
   }
 }

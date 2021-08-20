@@ -195,7 +195,6 @@ export class EventsAllComponent implements OnInit {
         
         this.events = res.data.events;
         this.totalItems = res.data.total_events;
-        console.log(this.events);
       },
       (res:any) => {
         this.spinnerService.hide();

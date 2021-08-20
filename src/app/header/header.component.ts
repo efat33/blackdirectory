@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { Subscription } from 'rxjs';
 import { MenuItems, ProfileMenus } from './menu-items';
 import { HelperService } from '../shared/helper.service';
+import { ForgotPasswordModal } from '../modals/user/forgot-password/forgot-password-modal';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   dialogRefReg: any;
   dialogRefLogin: any;
+  dialogRefForgotPass: any;
 
   isLoggedIn: boolean = false;
   profileImage: string;
@@ -39,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     }
 
-    if (this.helperService.isUserLoggedIn() && this.helperService.currentUserInfo.profile_photo != '') {
+    if (this.helperService.isUserLoggedIn() && this.helperService.currentUserInfo.profile_photo) {
       this.profileImage = this.helperService.getImageUrl(
         this.helperService.currentUserInfo.profile_photo,
         'users',
@@ -60,10 +62,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(subsclickedLoginLinkModal);
+
+    const subClickedForgotPassLinkModal = this.userService.clickedForgotPassLinkModal.subscribe(() => {
+      this.dialogRefLogin.close();
+      this.openForgotPassModal();
+    });
+
+    this.subscriptions.add(subClickedForgotPassLinkModal);
   }
 
   logUserOut(): void {
     this.userService.logout();
+  }
+
+  openForgotPassModal(): void {
+    this.dialogRefForgotPass = this.dialog.open(ForgotPasswordModal, {
+      width: '400px',
+    });
   }
 
   openRegistrationModal(): void {
