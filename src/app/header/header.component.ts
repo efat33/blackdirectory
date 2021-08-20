@@ -4,10 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegistrationModal } from '../modals/user/registration/registration-modal';
 import { LoginModal } from '../modals/user/login/login-modal';
 import { UserService } from '../user/user.service';
-import { Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { MenuItems, ProfileMenus } from './menu-items';
 import { HelperService } from '../shared/helper.service';
 import { ForgotPasswordModal } from '../modals/user/forgot-password/forgot-password-modal';
+import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
+import { filter, map, mapTo, mergeMapTo, pluck, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -26,8 +28,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLoggedIn: boolean = false;
   profileImage: string;
+  isCartVisible$: Observable<boolean> = this.router.events.pipe(
+    filter((event) => event instanceof NavigationEnd),
+    pluck<Event, string>('url'),
+    map((url) => !['/shop/cart', '/shop/checkout'].includes(url))
+  );
 
-  constructor(public dialog: MatDialog, private userService: UserService, private helperService: HelperService) {}
+  constructor(
+    public dialog: MatDialog,
+    private userService: UserService,
+    private helperService: HelperService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     if (this.helperService.isUserLoggedIn()) {

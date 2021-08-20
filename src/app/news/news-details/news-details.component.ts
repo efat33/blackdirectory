@@ -241,6 +241,10 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
       (result: any) => {
         this.spinnerService.hide();
 
+        if (!comment.replies) {
+          comment.replies = [];
+        }
+
         comment.replies.push(result.data);
         commentElement.value = '';
       },

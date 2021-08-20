@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
-import { PostNewProductBody, ProductService, Tag } from '../services/product.service';
+import { PostNewProductBody, ProductService, Tag } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-products-new',

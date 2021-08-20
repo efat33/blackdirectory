@@ -1,0 +1,70 @@
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 1.5rem !important;
+}
+::ng-deep .mat-menu-panel {
+  min-width: 280px !important;
+  max-width: min(85vw, 450px) !important;
+}
+
+button[disabled] {
+  cursor: default !important;
+}
+
+.title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1rem 0 2rem;
+}
+.title span {
+  font-size: 1.25rem;
+}
+.title mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  margin-right: 16px;
+}
+
+.cart-items {
+  list-style: none;
+  padding-inline-start: 0;
+}
+.cart-item {
+  margin: 0 -1.5rem;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 100px 1fr 40px;
+  gap: 1rem;
+}
+.cart-item:last-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.cart-item .image {
+  width: 90px;
+  height: 90px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.cart-item h5 {
+  margin-top: 10px;
+}
+
+.bottom-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.actions {
+  margin-left: 2rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.actions a {
+  margin-left: 1rem;
+}

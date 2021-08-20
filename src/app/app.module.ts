@@ -20,7 +20,6 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-
 // change date format through out the site
 export const DATE_FORMATS = {
   parse: {
@@ -34,11 +33,8 @@ export const DATE_FORMATS = {
   },
 };
 
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
@@ -50,16 +46,16 @@ export const DATE_FORMATS = {
     UserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MomentDateModule
+    MomentDateModule,
   ],
   providers: [
-    {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

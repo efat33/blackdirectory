@@ -3,7 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
-import { ProductService, StockStatus } from '../services/product.service';
+import { HelperService } from 'src/app/shared/helper.service';
+import { ProductService, StockStatus } from 'src/app/shared/services/product.service';
 import { ProductsDataSource } from './products-data-source';
 
 export interface ProductFilter {
@@ -30,12 +31,17 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     category: new FormControl(''),
   });
 
-  constructor(private productService: ProductService) {}
+  totalNumProducts$ = this.productService.getTotalNumberOfProducts(this.userId);
+  adminProfit = this.helperService.adminProfit;
 
-  totalNumProducts$ = this.productService.getTotalNumberOfProducts();
+  constructor(private productService: ProductService, private helperService: HelperService) {}
+
+  get userId(): number {
+    return this.helperService.currentUserInfo.id;
+  }
 
   ngOnInit(): void {
-    this.dataSource = new ProductsDataSource(this.productService);
+    this.dataSource = new ProductsDataSource(this.productService, this.userId);
     this.dataSource.loadProducts();
   }
 

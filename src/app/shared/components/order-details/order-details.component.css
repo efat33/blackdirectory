@@ -1,0 +1,43 @@
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0;
+  text-align: center;
+  padding-bottom: 1rem;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+h2 {
+  font-size: 2rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  margin: 0 0 2rem;
+}
+th.mat-header-cell {
+  font-weight: 700;
+}
+.mat-column-product {
+  min-width: 160px;
+}
+
+.totals-table {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 4rem;
+}
+.totals-table,
+.totals-table th,
+.totals-table td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.totals-table th,
+.totals-table td {
+  padding: 1.5rem;
+}
+.totals-table th {
+  font-weight: 600;
+  width: min(150px, 40%);
+}

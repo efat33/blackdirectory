@@ -1,1 +1,140 @@
-<p>product works!</p>
+<div class="container">
+  <div class="core-section">
+    <div class="gallery-wrapper">
+      <ngx-gallery [options]="galleryOptions" [images]="images" class="ngx-gallery"></ngx-gallery>
+    </div>
+    <div>
+      <h1>{{ p.title }}</h1>
+      <div class="short-description">
+        <p>{{ p.short_desc }}</p>
+      </div>
+      <div *ngIf="p.rating_total > 0" class="total-rating">
+        <star-rating
+          [value]="p.rating_average"
+          [totalstars]="5"
+          size="24px"
+          checkedcolor="gold"
+          uncheckedcolor="gray"
+          readonly="true"
+          style="cursor: default"
+        ></star-rating>
+        <span style="margin-left: 8px">( {{ p.rating_total }} )</span>
+      </div>
+      <div class="price">
+        <p>{{ price | currency }}</p>
+      </div>
+      <div class="add-to-cart-section">
+        <div class="add-to-cart-count">
+          <button
+            mat-icon-button
+            color="primary"
+            [disabled]="addToCartCount === 1"
+            (click)="addToCartCount = addToCartCount - 1"
+          >
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+          <span style="margin: 0 4px">{{ addToCartCount }}</span>
+          <button mat-icon-button color="primary" (click)="addToCartCount = addToCartCount + 1">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+        <button mat-flat-button color="primary" (click)="addToCart()">ADD TO CART</button>
+      </div>
+      <div class="category">
+        Category:
+        <a routerLink="#category" class="tag-link">{{ p.category_id }}</a>
+      </div>
+      <div *ngIf="p.tags.length > 0" class="tags">
+        Tags:
+        <a *ngFor="let tag of p.tags; let i = index" class="tag-link" routerLink="#tag.id">
+          {{ tag.title }}
+          <ng-container *ngIf="i < p.tags.length - 1">,</ng-container>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <mat-tab-group dynamicHeight animationDuration="0ms">
+    <mat-tab label="Description">
+      <ng-template matTabContent>
+        <h2>Description</h2>
+        <p>{{ p.description }}</p>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Reviews">
+      <ng-template matTabContent>
+        <h2>Reviews</h2>
+        <mat-list>
+          <mat-list-item *ngFor="let review of reviews$ | async">
+            <img matListAvatar [src]="review.user_profile_photo" alt="" />
+            <div mat-line>
+              <star-rating
+                [value]="review.rating"
+                [totalstars]="5"
+                size="16px"
+                checkedcolor="gold"
+                uncheckedcolor="gray"
+                readonly="true"
+                style="display: block; cursor: default"
+              ></star-rating>
+              <span style="margin-left: 1rem; color: #666; font-size: 1.4rem">
+                {{ review.user_display_name }},
+                <span style="font-size: 1.3rem">{{ review.created_at | date }}</span>
+              </span>
+            </div>
+            <div mat-line>{{ review.review }}</div>
+          </mat-list-item>
+        </mat-list>
+        <mat-card style="margin: 3rem auto 2rem; width: 95%">
+          <mat-card-header>
+            <mat-card-title>ADD A REVIEW</mat-card-title>
+          </mat-card-header>
+          <form (ngSubmit)="submitReview()" [formGroup]="review">
+            <mat-card-content>
+              <star-rating
+                value="4"
+                [totalstars]="5"
+                size="24px"
+                checkedcolor="gold"
+                uncheckedcolor="gray"
+                readonly="false"
+                (rate)="onRate($event)"
+              ></star-rating>
+              <mat-form-field appearance="outline">
+                <mat-label>Review</mat-label>
+                <textarea matInput formControlName="review" rows="4"></textarea>
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-flat-button color="primary" type="submit">SUBMIT</button>
+            </mat-card-actions>
+          </form>
+        </mat-card>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Vendor Info" *ngIf="storeDetails$ | async as vendor">
+      <ng-template matTabContent>
+        <h2>Vendor Info</h2>
+        <div class="vendor-info">
+          <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
+          <div class="core-section">
+            <img [src]="vendor.profile_picture" />
+            <div>
+              <strong> {{ vendor.store_name }} </strong>
+              <address>
+                {{ vendor.address }}
+              </address>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h2>Related products</h2>
+  <div class="related-products-container">
+    <div class="related-product" *ngFor="let product of relatedProducts$ | async">
+      <app-product-preview [product]="product"></app-product-preview>
+    </div>
+  </div>
+</div>
