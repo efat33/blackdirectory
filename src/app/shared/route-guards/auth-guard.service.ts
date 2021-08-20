@@ -37,6 +37,28 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 @Injectable({
   providedIn: 'root',
 })
+export class AuthVerifiedGuard implements CanActivate, CanActivateChild {
+  constructor(private helperService: HelperService) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.helperService.currentUserInfo?.verified == 1;
+  }
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.helperService.currentUserInfo?.verified == 1;
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root',
+})
 export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(private helperService: HelperService) {}
 

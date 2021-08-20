@@ -357,7 +357,7 @@ export class ListingNewComponent implements OnInit {
     const formData = this.listingForm.value;
   
     // remove timezone from date, using moment
-    formData.coupon_expiry_date = moment(formData.coupon_expiry_date).format("YYYY-MM-DD HH:mm:ss");
+    formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format("YYYY-MM-DD HH:mm:ss");
     
     // console.log(JSON.stringify(formData));
     // return;

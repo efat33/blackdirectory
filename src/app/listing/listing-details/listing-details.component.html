@@ -817,7 +817,7 @@
                                                 class="single-listing-category">
                                                 <div class="icon-box-1_module__uyg5F two-text-ellipsis mb-20 mb-sm-15">
                                                     <div class="icon-box-1_block1__bJ25J"><a
-                                                            href="{{ siteUrl }}/listing/search/?postType=listing&amp;listing_cat={{ item.listing_categories_id }}"
+                                                            href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}"
                                                             title="Beard Care">
                                                             <div
                                                                 class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
@@ -901,6 +901,33 @@
                                         <div class="pos-r"
                                             style="background-color: rgb(243, 243, 246); max-height: 400px;">
                                             <h3>Map goes here</h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- listing claim -->
+                                <div *ngIf="!listing.claimer_id"
+                                    class="wilcity-sidebar-item-claim content-box_module__333d9">
+                                    <header class="content-box_header__xPnGx clearfix">
+                                        <div class="wil-float-left">
+                                            <h4 class="content-box_title__1gBHS"><i class="la la-check"></i><span>Claim
+                                                    Listing</span></h4>
+                                        </div>
+                                    </header>
+                                    <div class="content-box_body__3tSRB">
+                                        <div class="promo-item_module__24ZhT">
+                                            <div class="promo-item_group__2ZJhC">
+                                                <h3 class="promo-item_title__3hfHG">Is this your business?</h3>
+                                                <p class="promo-item_description__2nc26">Claim listing is the best way
+                                                    to manage and protect your
+                                                    business.</p>
+                                            </div>
+                                            <div class="promo-item_action__pd8hZ">
+                                                <a (click)="onClickClaimListing(listing.id)"
+                                                    class="wil-btn wil-btn--dark wil-btn--sm wil-btn--round">
+                                                    <span class="">Claim This Listing</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

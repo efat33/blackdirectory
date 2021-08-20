@@ -170,6 +170,41 @@ export class ListingService {
 
     return this.httpClient.delete<any>(url, this.headerOptions);
   }
+
+  newClaim(body: any): Observable<APIReponse> {
+    const url = 'api/listings/new-claim';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  getTrendingCategories(): Observable<APIReponse> {
+    const url = `api/listings/trending-categories`;
+  
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  getClaims(body: any): Observable<APIReponse> {
+    const url = 'api/listings/get-claims';
+  
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  approveClaim(id): Observable<APIReponse> {
+    const url = `api/listings/approve-claim/${id}`;
+  
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  deleteClaim(id): Observable<APIReponse> {
+    const url = `api/listings/delete-claim/${id}`;
+  
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
 }
 
 
