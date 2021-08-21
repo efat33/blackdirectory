@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
-import { HelperService } from '../helper.service';
 import { ApiResponse } from './product.service';
 
 export interface Country {
@@ -46,7 +45,7 @@ interface GetStoreSettingsData {
   providedIn: 'root',
 })
 export class StoreService {
-  constructor(private http: HttpClient, private helperService: HelperService) {}
+  constructor(private http: HttpClient) {}
 
   getCountries(): Observable<Country[]> {
     return this.http.get<ApiResponse<Country[]>>('api/shop/countries').pipe(pluck('data'));
