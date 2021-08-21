@@ -30,6 +30,7 @@ import { ListingsComponent } from './listings/listings.component';
 import { EventsComponent } from './events/events.component';
 import { OrderResolver } from '../shared/components/order-details/order.resolver';
 import { OrderComponent } from './order/order.component';
+import { WithdrawResolver } from './withdraw/withdraw.resolver';
 
 const routes: Routes = [
   {
@@ -60,7 +61,7 @@ const routes: Routes = [
       { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
       { path: 'orders', component: OrdersComponent },
       { path: 'order/:id', component: OrderComponent, resolve: { order: OrderResolver } },
-      { path: 'withdraw', component: WithdrawComponent },
+      { path: 'withdraw', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
       { path: 'store-settings', component: StoreSettingsComponent, resolve: { store: StoreResolver } },
     ],
   },

@@ -18,3 +18,21 @@
 .mat-tab-group {
   margin-top: 2rem;
 }
+.info-box table {
+  width: 100%;
+}
+.info-box td,
+.info-box th {
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+}
+.info-box tr {
+  border-bottom: 1px solid rgba(0, 101, 152, 0.2);
+}
+.info-box tr:last-of-type {
+  border-bottom: none;
+}
+.request-table {
+  display: block;
+  margin-top: 2rem;
+}
