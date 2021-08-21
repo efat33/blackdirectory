@@ -19,6 +19,7 @@ import { NewMobileComponent } from './mobiles/new-mobile/new-mobile.component';
 import { ManageMobilesComponent } from './mobiles/manage-mobiles/manage-mobiles.component';
 import { MobileProvidersComponent } from './mobiles/mobile-providers/mobile-providers.component';
 import { AddMobileProviderModalComponent } from './mobiles/mobile-providers/add-mobile-providers-modal/add-mobile-providers-modal';
+import { ListingClaimsComponent } from './listing/listing-claims/listing-claims.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AddMobileProviderModalComponent } from './mobiles/mobile-providers/add-
     ManageMobilesComponent,
     MobileProvidersComponent,
     AddMobileProviderModalComponent,
+    ListingClaimsComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

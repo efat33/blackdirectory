@@ -187,169 +187,70 @@
 <!-- Section ~ Upcoming Events -->
 <div class="section-wrapper section-home-event">
     <div class="container">
-        <div class="heading_module__156eJ wil-text-center hide-bluemark">
-            <h2 class="heading_title__1bzno">Upcoming Events</h2>
+        <div *ngIf="!events" class="section-loading">
+            <i class="fa fa-spinner fa-spin"></i>
         </div>
 
-        <div
-            class="tribe-common tribe-events tribe-events-home-grid tribe-events-view tribe-events-view--photo tribe-events-view--shortcode tribe-events-view--shortcode-c41af5ac tribe-events-pro tribe-common--breakpoint-xsmall tribe-common--breakpoint-medium tribe-common--breakpoint-full block-home-event">
-            <div class="tribe-common-l-container tribe-events-l-container">
-                <div class="tribe-events-pro-photo">
-                    <div class="tribe-common-g-row tribe-common-g-row--gutters">
-                        <article
-                            class="tribe-common-g-col tribe-events-pro-photo__event post-16936 tribe_events type-tribe_events status-publish has-post-thumbnail hentry tag-investing tribe_events_cat-business tribe_events_cat-general-discussion cat_business cat_general-discussion tribe-recurring-event tribe-recurring-event-child">
-                            <div class="tribe-events-pro-photo__event-featured-image-wrapper">
-                                <a href="https://www.blackdirectory.co.uk/event-details/10x10vc-founder-aspiring-vc-hangout/2021-04-09/"
-                                    title="10x10VC: Founder &amp; Aspiring VC Hangout" rel="bookmark"
-                                    class="tribe-events-pro-photo__event-featured-image-link">
-                                    <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/https-cdn.evbuc_.com-images-97306810-433410409382-1-original.20200325-101357.jpg"
-                                        srcset="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/https-cdn.evbuc_.com-images-97306810-433410409382-1-original.20200325-101357-300x150.jpg 300w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/https-cdn.evbuc_.com-images-97306810-433410409382-1-original.20200325-101357-1024x512.jpg 1024w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/https-cdn.evbuc_.com-images-97306810-433410409382-1-original.20200325-101357-768x384.jpg 768w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/https-cdn.evbuc_.com-images-97306810-433410409382-1-original.20200325-101357-600x300.jpg 600w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/https-cdn.evbuc_.com-images-97306810-433410409382-1-original.20200325-101357.jpg 1080w"
-                                        title="https—cdn.evbuc.com-images-97306810-433410409382-1-original.20200325-101357"
-                                        class="tribe-events-pro-photo__event-featured-image">
-                                </a>
-                            </div>
-                            <div class="tribe-events-pro-photo__event-details-wrapper">
-                                <div class="tribe-events-pro-photo__event-date-tag tribe-common-g-col">
-                                    <time class="tribe-events-pro-photo__event-date-tag-datetime" datetime="2021-04-09">
-                                        <span class="tribe-events-pro-photo__event-date-tag-month">Apr</span>
-                                        <span
-                                            class="tribe-events-pro-photo__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">9</span>
-                                    </time>
-                                </div>
-                                <div class="tribe-events-pro-photo__event-details">
-                                    <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
-                                        <time datetime="12:30">12:30 pm</time>
-                                        <span class="tribe-events-events-pro-photo__event-datetime-separator"> - </span>
-                                        <time datetime="13:30">1:30 pm</time>
-                                        <a href="https://www.blackdirectory.co.uk/event-details/10x10vc-founder-aspiring-vc-hangout/all/"
-                                            class="tribe-events-pro-photo__event-datetime-recurring-link">
-                                            <em class="tribe-events-pro-photo__event-datetime-recurring-icon"
-                                                aria-label="Recurring" title="Recurring">
-                                                <svg class="tribe-common-c-svgicon tribe-common-c-svgicon--recurring tribe-events-pro-photo__event-datetime-recurring-icon-svg"
-                                                    viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 3.296c0 .039 0 .078-.012.104 0 .013-.012.04-.012.052a.54.54 0 01-.118.222L7.27 5.422a.479.479 0 01-.711 0 .61.61 0 010-.783l.734-.809H4.781c-1.53 0-2.785 1.37-2.785 3.066 0 .821.284 1.591.817 2.165a.61.61 0 010 .782.478.478 0 01-.71 0C1.39 9.061 1 8.017 1 6.91c0-2.296 1.695-4.161 3.78-4.161h2.525l-.735-.809a.61.61 0 010-.782.482.482 0 01.711 0L8.87 2.904c.059.066.094.144.118.222 0 .013.012.04.012.052v.118zM13 7.091c0 2.296-1.695 4.161-3.78 4.161H6.694l.735.809a.582.582 0 010 .783.479.479 0 01-.711 0l-1.577-1.761a.569.569 0 01-.118-.222c0-.013-.012-.04-.012-.052C5 10.769 5 10.743 5 10.704c0-.039 0-.078.012-.104 0-.013.012-.04.012-.052a.54.54 0 01.118-.222L6.73 8.578a.482.482 0 01.711 0 .582.582 0 010 .783l-.734.809H9.23c1.529 0 2.785-1.37 2.785-3.066 0-.821-.284-1.591-.818-2.165a.582.582 0 010-.782.482.482 0 01.712 0C12.609 4.927 13 5.97 13 7.09z"
-                                                        stroke-width=".25"></path>
-                                                </svg> </em>
-                                        </a>
-                                    </div>
-                                    <h3 class="tribe-events-pro-photo__event-title tribe-common-h6">
-                                        <a href="https://www.blackdirectory.co.uk/event-details/10x10vc-founder-aspiring-vc-hangout/2021-04-09/"
-                                            title="10x10VC: Founder &amp; Aspiring VC Hangout" rel="bookmark"
-                                            class="tribe-events-pro-photo__event-title-link tribe-common-anchor-thin">10x10VC:
-                                            Founder &amp; Aspiring VC Hangout</a>
-                                    </h3>
-                                    <div
-                                        class="tribe-events-c-small-cta tribe-common-b3 tribe-events-pro-photo__event-cost">
-                                        <span class="tribe-events-c-small-cta__price">Free</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
+        <div *ngIf="events && events.length > 0" class="wrapper-home-events">
+            <div class="heading_module__156eJ wil-text-center hide-bluemark">
+                <h2 class="heading_title__1bzno">Upcoming Events</h2>
+            </div>
 
-                        <article
-                            class="tribe-common-g-col tribe-events-pro-photo__event post-16647 tribe_events type-tribe_events status-publish has-post-thumbnail hentry tag-drama tag-musical tag-theatre tribe_events_cat-performing-visual-arts cat_performing-visual-arts tribe-recurring-event tribe-recurring-event-child">
-                            <div class="tribe-events-pro-photo__event-featured-image-wrapper">
-                                <a href="https://www.blackdirectory.co.uk/event-details/everybodys-talking-about-jamie/2021-04-09/"
-                                    title="Everybody’s Talking About Jamie" rel="bookmark"
-                                    class="tribe-events-pro-photo__event-featured-image-link">
-                                    <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1.jpg"
-                                        srcset="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1-300x188.jpg 300w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1-600x375.jpg 600w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1.jpg 768w"
-                                        title="jamietour-960-x-600-low-768×480"
-                                        class="tribe-events-pro-photo__event-featured-image">
-                                </a>
-                            </div>
-                            <div class="tribe-events-pro-photo__event-details-wrapper">
-                                <div class="tribe-events-pro-photo__event-date-tag tribe-common-g-col">
-                                    <time class="tribe-events-pro-photo__event-date-tag-datetime" datetime="2021-04-09">
-                                        <span class="tribe-events-pro-photo__event-date-tag-month">Apr</span>
-                                        <span
-                                            class="tribe-events-pro-photo__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">9</span>
-                                    </time>
+            <div
+                class="tribe-common tribe-events tribe-events-home-grid tribe-events-view tribe-events-view--photo tribe-events-view--shortcode tribe-events-view--shortcode-c41af5ac tribe-events-pro tribe-common--breakpoint-xsmall tribe-common--breakpoint-medium tribe-common--breakpoint-full block-home-event">
+                <div class="tribe-common-l-container tribe-events-l-container">
+                    <div class="tribe-events-pro-photo">
+                        <div class="tribe-common-g-row tribe-common-g-row--gutters">
+                            <article *ngFor="let item of events"
+                                class="tribe-common-g-col tribe-events-pro-photo__event post-16936 tribe_events type-tribe_events status-publish has-post-thumbnail hentry tag-investing tribe_events_cat-business tribe_events_cat-general-discussion cat_business cat_general-discussion tribe-recurring-event tribe-recurring-event-child">
+                                <div class="tribe-events-pro-photo__event-featured-image-wrapper">
+                                    <a href="{{ siteUrl + '/events/details/' + item.slug }}" title="{{ item.title }}"
+                                        rel="bookmark" class="tribe-events-pro-photo__event-featured-image-link">
+                                        <img src="{{ item.featured_img | imageSrc : 'event' : 'medium' }}"
+                                            class="tribe-events-pro-photo__event-featured-image">
+                                    </a>
                                 </div>
-                                <div class="tribe-events-pro-photo__event-details">
-                                    <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
-                                        <time datetime="19:30">7:30 pm </time>
-                                        <span class="tribe-events-events-pro-photo__event-datetime-separator"> - </span>
-                                        <time datetime="22:30">10:30 pm </time>
-                                        <a href="https://www.blackdirectory.co.uk/event-details/everybodys-talking-about-jamie/all/"
-                                            class="tribe-events-pro-photo__event-datetime-recurring-link">
-                                            <em class="tribe-events-pro-photo__event-datetime-recurring-icon"
-                                                aria-label="Recurring" title="Recurring">
-                                                <svg class="tribe-common-c-svgicon tribe-common-c-svgicon--recurring tribe-events-pro-photo__event-datetime-recurring-icon-svg"
-                                                    viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 3.296c0 .039 0 .078-.012.104 0 .013-.012.04-.012.052a.54.54 0 01-.118.222L7.27 5.422a.479.479 0 01-.711 0 .61.61 0 010-.783l.734-.809H4.781c-1.53 0-2.785 1.37-2.785 3.066 0 .821.284 1.591.817 2.165a.61.61 0 010 .782.478.478 0 01-.71 0C1.39 9.061 1 8.017 1 6.91c0-2.296 1.695-4.161 3.78-4.161h2.525l-.735-.809a.61.61 0 010-.782.482.482 0 01.711 0L8.87 2.904c.059.066.094.144.118.222 0 .013.012.04.012.052v.118zM13 7.091c0 2.296-1.695 4.161-3.78 4.161H6.694l.735.809a.582.582 0 010 .783.479.479 0 01-.711 0l-1.577-1.761a.569.569 0 01-.118-.222c0-.013-.012-.04-.012-.052C5 10.769 5 10.743 5 10.704c0-.039 0-.078.012-.104 0-.013.012-.04.012-.052a.54.54 0 01.118-.222L6.73 8.578a.482.482 0 01.711 0 .582.582 0 010 .783l-.734.809H9.23c1.529 0 2.785-1.37 2.785-3.066 0-.821-.284-1.591-.818-2.165a.582.582 0 010-.782.482.482 0 01.712 0C12.609 4.927 13 5.97 13 7.09z"
-                                                        stroke-width=".25"></path>
-                                                </svg> </em>
-                                        </a>
+                                <div class="tribe-events-pro-photo__event-details-wrapper">
+                                    <!-- <div class="tribe-events-pro-photo__event-date-tag tribe-common-g-col">
+                                        <time class="tribe-events-pro-photo__event-date-tag-datetime" datetime="2021-04-09">
+                                            <span class="tribe-events-pro-photo__event-date-tag-month">Apr</span>
+                                            <span
+                                                class="tribe-events-pro-photo__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">9</span>
+                                        </time>
+                                    </div> -->
+                                    <div class="tribe-events-pro-photo__event-details">
+                                        <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
+                                            <time datetime="12:30">{{ item.start_time | date : 'MMMM d,
+                                                y @ h:mm a' }}</time>
+                                            <span class="tribe-events-events-pro-photo__event-datetime-separator"> -
+                                            </span>
+                                            <time datetime="13:30">{{ item.end_time
+                                                | date : 'MMMM d,
+                                                y @ h:mm a' }}</time>
+                                        </div>
+                                        <h3 class="tribe-events-pro-photo__event-title tribe-common-h6">
+                                            <a href="{{ siteUrl + '/events/details/' + item.slug }}"
+                                                title="10x10VC: Founder &amp; Aspiring VC Hangout" rel="bookmark"
+                                                class="tribe-events-pro-photo__event-title-link tribe-common-anchor-thin">{{
+                                                item.title }}</a>
+                                        </h3>
+                                        <!-- <div
+                                            class="tribe-events-c-small-cta tribe-common-b3 tribe-events-pro-photo__event-cost">
+                                            <span class="tribe-events-c-small-cta__price">Free</span>
+                                        </div> -->
                                     </div>
-                                    <h3 class="tribe-events-pro-photo__event-title tribe-common-h6">
-                                        <a href="https://www.blackdirectory.co.uk/event-details/everybodys-talking-about-jamie/2021-04-09/"
-                                            title="Everybody’s Talking About Jamie" rel="bookmark"
-                                            class="tribe-events-pro-photo__event-title-link tribe-common-anchor-thin">Everybody’s
-                                            Talking About Jamie </a>
-                                    </h3>
                                 </div>
-                            </div>
-                        </article>
-
-                        <article
-                            class="tribe-common-g-col tribe-events-pro-photo__event post-16648 tribe_events type-tribe_events status-publish has-post-thumbnail hentry tag-drama tag-musical tag-theatre tribe_events_cat-performing-visual-arts cat_performing-visual-arts tribe-recurring-event tribe-recurring-event-child">
-                            <div class="tribe-events-pro-photo__event-featured-image-wrapper">
-                                <a href="https://www.blackdirectory.co.uk/event-details/everybodys-talking-about-jamie/2021-04-10/"
-                                    title="Everybody’s Talking About Jamie" rel="bookmark"
-                                    class="tribe-events-pro-photo__event-featured-image-link">
-                                    <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1.jpg"
-                                        srcset="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1-300x188.jpg 300w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1-600x375.jpg 600w, https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/jamietour-960-x-600-low-768x480-1.jpg 768w"
-                                        title="jamietour-960-x-600-low-768×480"
-                                        class="tribe-events-pro-photo__event-featured-image">
-                                </a>
-                            </div>
-                            <div class="tribe-events-pro-photo__event-details-wrapper">
-                                <div class="tribe-events-pro-photo__event-date-tag tribe-common-g-col">
-                                    <time class="tribe-events-pro-photo__event-date-tag-datetime" datetime="2021-04-10">
-                                        <span class="tribe-events-pro-photo__event-date-tag-month">Apr </span>
-                                        <span
-                                            class="tribe-events-pro-photo__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">10
-                                        </span>
-                                    </time>
-                                </div>
-                                <div class="tribe-events-pro-photo__event-details">
-                                    <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
-                                        <time datetime="19:30">7:30 pm </time>
-                                        <span class="tribe-events-events-pro-photo__event-datetime-separator"> - </span>
-                                        <time datetime="22:30">10:30 pm </time>
-                                        <a href="https://www.blackdirectory.co.uk/event-details/everybodys-talking-about-jamie/all/"
-                                            class="tribe-events-pro-photo__event-datetime-recurring-link">
-                                            <em class="tribe-events-pro-photo__event-datetime-recurring-icon"
-                                                aria-label="Recurring" title="Recurring">
-                                                <svg class="tribe-common-c-svgicon tribe-common-c-svgicon--recurring tribe-events-pro-photo__event-datetime-recurring-icon-svg"
-                                                    viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 3.296c0 .039 0 .078-.012.104 0 .013-.012.04-.012.052a.54.54 0 01-.118.222L7.27 5.422a.479.479 0 01-.711 0 .61.61 0 010-.783l.734-.809H4.781c-1.53 0-2.785 1.37-2.785 3.066 0 .821.284 1.591.817 2.165a.61.61 0 010 .782.478.478 0 01-.71 0C1.39 9.061 1 8.017 1 6.91c0-2.296 1.695-4.161 3.78-4.161h2.525l-.735-.809a.61.61 0 010-.782.482.482 0 01.711 0L8.87 2.904c.059.066.094.144.118.222 0 .013.012.04.012.052v.118zM13 7.091c0 2.296-1.695 4.161-3.78 4.161H6.694l.735.809a.582.582 0 010 .783.479.479 0 01-.711 0l-1.577-1.761a.569.569 0 01-.118-.222c0-.013-.012-.04-.012-.052C5 10.769 5 10.743 5 10.704c0-.039 0-.078.012-.104 0-.013.012-.04.012-.052a.54.54 0 01.118-.222L6.73 8.578a.482.482 0 01.711 0 .582.582 0 010 .783l-.734.809H9.23c1.529 0 2.785-1.37 2.785-3.066 0-.821-.284-1.591-.818-2.165a.582.582 0 010-.782.482.482 0 01.712 0C12.609 4.927 13 5.97 13 7.09z"
-                                                        stroke-width=".25"></path>
-                                                </svg> </em>
-                                        </a>
-                                    </div>
-                                    <h3 class="tribe-events-pro-photo__event-title tribe-common-h6">
-                                        <a href="https://www.blackdirectory.co.uk/event-details/everybodys-talking-about-jamie/2021-04-10/"
-                                            title="Everybody’s Talking About Jamie" rel="bookmark"
-                                            class="tribe-events-pro-photo__event-title-link tribe-common-anchor-thin">Everybody’s
-                                            Talking About Jamie </a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="listgo-view-all-events-wrapper">
-            <p class="listgo-view-all-event-desc">Click here to view all upcoming events</p>
-            <a href="https://www.blackdirectory.co.uk/events/"
-                class="listgo-btn listgo-btn btn-primary listgo-btn--md listgo-btn--round">View All Events</a>
+            <div class="listgo-view-all-events-wrapper">
+                <p class="listgo-view-all-event-desc">Click here to view all upcoming events</p>
+                <a href="{{ siteUrl + '/events/all' }}"
+                    class="listgo-btn listgo-btn btn-primary listgo-btn--md listgo-btn--round">View All Events</a>
+            </div>
         </div>
     </div>
 </div>
@@ -443,98 +344,31 @@
 <!-- Section ~ Trending Categories -->
 <div class="section-wrapper section-trending-categories">
     <div class="container">
-        <div class=" wilcity-modern-term-boxes">
+        <div *ngIf="!trendingCategories" class="section-loading">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div *ngIf="trendingCategories && trendingCategories.length > 0" class=" wilcity-modern-term-boxes">
             <div class="heading_module__156eJ wil-text-center ">
                 <h2 class="heading_title__1bzno">Trending Categories</h2>
             </div>
             <div class="row" data-col-xs-gap="10" data-totals="4">
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
+                <div *ngFor="let item of trendingCategories" class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
                     <div class="textbox-4_module__2gJjK">
-                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=491">
+                        <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}">
                             <div class="textbox-4_background__3bSqa">
                                 <div class="wil-overlay"></div>
                                 <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
-                                    style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/09/Menswear.jpeg);">
-                                    <img class=""
-                                        src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/09/Menswear.jpeg"
-                                        alt="">
+                                    [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.image, 'medium') + ')'}">
+                                    <img class="" src="{{ item.image | imageSrc : 'listing' : 'medium' }}" alt="">
                                 </div>
                             </div>
-                            <div class="textbox-4_top__1919H"><i class="la la-edit color-primary"></i> 3
-                                Listings </div>
+                            <div class="textbox-4_top__1919H"><i class="la la-edit color-primary"></i> {{
+                                item.total_listing }}
+                                Listing{{ item.total_listing | pluralPipe }} </div>
                             <div class="textbox-4_content__1B-wJ">
-                                <h3 class="textbox-4_title__pVQr7">Menswear</h3>
+                                <h3 class="textbox-4_title__pVQr7">{{ item.title }}</h3>
                                 <span
                                     class="wil-btn wil-btn--primary wil-btn--block wil-btn--lg wil-btn--round">Discover</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
-                    <div class="textbox-4_module__2gJjK">
-                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=401">
-                            <div class="textbox-4_background__3bSqa">
-                                <div class="wil-overlay"></div>
-                                <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
-                                    style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/09/Makeup.jpg);">
-                                    <img class=""
-                                        src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/09/Makeup.jpg"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="textbox-4_top__1919H">
-                                <i class="la la-edit color-primary"></i> 7 Listings
-                            </div>
-                            <div class="textbox-4_content__1B-wJ">
-                                <h3 class="textbox-4_title__pVQr7">Hair &amp; Beauty Salons</h3>
-                                <span class="wil-btn wil-btn--primary wil-btn--block wil-btn--lg wil-btn--round">
-                                    Discover </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
-                    <div class="textbox-4_module__2gJjK">
-                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=606">
-                            <div class="textbox-4_background__3bSqa">
-                                <div class="wil-overlay"></div>
-                                <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
-                                    style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/09/Web-Development-Agencies.jpg);">
-                                    <img class=""
-                                        src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/09/Web-Development-Agencies.jpg"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="textbox-4_top__1919H">
-                                <i class="la la-edit color-primary"></i> 8 Listings
-                            </div>
-                            <div class="textbox-4_content__1B-wJ">
-                                <h3 class="textbox-4_title__pVQr7">Web Designers &amp; Developers</h3>
-                                <span class="wil-btn wil-btn--primary wil-btn--block wil-btn--lg wil-btn--round">
-                                    Discover </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
-                    <div class="textbox-4_module__2gJjK">
-                        <a href="https://www.blackdirectory.co.uk/search-v2/?postType=listing&amp;listing_cat=69">
-                            <div class="textbox-4_background__3bSqa">
-                                <div class="wil-overlay"></div>
-                                <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
-                                    style="background-image: url(https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/Restaurant-scaled.jpg);">
-                                    <img class=""
-                                        src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/10/Restaurant-scaled.jpg"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="textbox-4_top__1919H">
-                                <i class="la la-edit color-primary"></i> 30 Listings
-                            </div>
-                            <div class="textbox-4_content__1B-wJ">
-                                <h3 class="textbox-4_title__pVQr7">Restaurants</h3>
-                                <span class="wil-btn wil-btn--primary wil-btn--block wil-btn--lg wil-btn--round">
-                                    Discover </span>
                             </div>
                         </a>
                     </div>

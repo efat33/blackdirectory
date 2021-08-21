@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="(cartItemCount$ | async) > 0">
   <h1>CART</h1>
 
   <div class="table-wrapper">
@@ -90,4 +90,8 @@
 
     <a mat-flat-button routerLink="/shop/checkout" color="primary">CHECKOUT</a>
   </div>
+</div>
+<div class="container" *ngIf="(cartItemCount$ | async) === 0">
+  <h1>CART</h1>
+  <p style="margin: 4rem 0">No products in the cart. Please add some products.</p>
 </div>

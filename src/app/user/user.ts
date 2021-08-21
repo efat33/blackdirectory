@@ -25,7 +25,7 @@ export class CurrentUser {
   role: string;
   updated_at: string;
   username: string;
-  verified: string;
+  verified: number;
   views: string;
   sector?: string;
 }

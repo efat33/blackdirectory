@@ -28,6 +28,10 @@ export class CartComponent implements OnInit {
     private snackbar: SnackBarService
   ) {}
 
+  get cartItemCount$(): Observable<number> {
+    return this.cartService.cartItemCount;
+  }
+
   ngOnInit(): void {
     this.cartService.cart
       .pipe(

@@ -10,9 +10,10 @@ import { ProductPreviewComponent } from './product-preview/product-preview.compo
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 import { ShopComponent } from './shop/shop.component';
+import { CheckoutFailComponent } from './checkout-fail/checkout-fail.component';
 
 @NgModule({
-  declarations: [ProductComponent, CartComponent, ProductPreviewComponent, CheckoutComponent, CheckoutSuccessComponent, ShopComponent],
+  declarations: [ProductComponent, CartComponent, ProductPreviewComponent, CheckoutComponent, CheckoutSuccessComponent, ShopComponent, CheckoutFailComponent],
   imports: [CommonModule, ShopRoutingModule, SharedModule, RatingModule],
 })
 export class ShopModule {}

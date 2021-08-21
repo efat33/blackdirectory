@@ -9,6 +9,7 @@ import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
+  sort = '';
   private params: GetProductListBody = {
     limit: 12,
     offset: 0,
@@ -54,7 +55,7 @@ export class ShopComponent implements OnInit {
 
   onSortChange(value: { orderby: string; order: 'ASC' | 'DESC' }): void {
     this.params = {
-      ...value,
+      ...(!value ? { order: 'ASC', orderby: 'id' } : value),
       limit: this.params.limit,
       offset: 0,
     };

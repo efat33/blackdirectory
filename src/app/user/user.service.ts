@@ -6,6 +6,7 @@ import { UserAPIReponse } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { InterceptorService } from '../interceptor.service';
+import { APIReponse } from '../shared/apiResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +79,7 @@ export class UserService {
   ];
 
   clickedRegisterLinkModal: EventEmitter<any> = new EventEmitter();
+  clickedForgotPassLinkModal: EventEmitter<any> = new EventEmitter();
   clickedLoginLinkModal: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -255,5 +257,21 @@ export class UserService {
     };
 
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  forgotPassword(body: any): Observable<APIReponse> {
+    const url = 'api/users/forgot-password';
+  
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  resetPassword(body: any): Observable<APIReponse> {
+    const url = 'api/users/reset-password';
+  
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
   }
 }

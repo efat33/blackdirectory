@@ -7,6 +7,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
+  .vendor-info .core-section {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
 }
 .gallery-wrapper {
   margin: 30px 0 2rem;
@@ -77,4 +81,20 @@ h2 {
   .related-products-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+}
+.vendor-info .banner {
+  display: block;
+  max-height: 200px;
+  width: 100%;
+  object-fit: cover;
+  margin: 0 auto 2rem;
+}
+.vendor-info .core-section img {
+  display: block;
+  max-height: 200px;
+  max-width: 200px;
+  margin: 0 auto;
+}
+.vendor-info strong {
+  font-size: 1.75rem;
 }

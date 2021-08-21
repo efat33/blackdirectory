@@ -48,9 +48,10 @@
                                     <div class="alert_icon__1bDKL"><i class="la la-frown-o"></i></div>
                                     <div class="alert_content__1ntU3 err-msg"></div>
                                 </div>
-                                <form class="wilcity-mailchimp-form widget-subsc__form">
+                                <form [formGroup]="mailchimpForm" (ngSubmit)="onSubmitSubscription()"
+                                    class="wilcity-mailchimp-form widget-subsc__form">
                                     <div class="form-item">
-                                        <input type="email" placeholder="Email..." required="">
+                                        <input required formControlName="email" type="email" placeholder="Email...">
                                     </div>
                                     <div class="form-submit">
                                         <button type="submit" aria-label="Subscribe"><i

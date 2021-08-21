@@ -31,13 +31,17 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     category: new FormControl(''),
   });
 
-  constructor(private productService: ProductService, private helperService: HelperService) {}
-
-  totalNumProducts$ = this.productService.getTotalNumberOfProducts();
+  totalNumProducts$ = this.productService.getTotalNumberOfProducts(this.userId);
   adminProfit = this.helperService.adminProfit;
 
+  constructor(private productService: ProductService, private helperService: HelperService) {}
+
+  get userId(): number {
+    return this.helperService.currentUserInfo.id;
+  }
+
   ngOnInit(): void {
-    this.dataSource = new ProductsDataSource(this.productService);
+    this.dataSource = new ProductsDataSource(this.productService, this.userId);
     this.dataSource.loadProducts();
   }
 

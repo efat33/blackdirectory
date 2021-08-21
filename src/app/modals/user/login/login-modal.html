@@ -32,7 +32,7 @@
                       class="checkbox_text__3Go1u text-ellipsis"><span>Remember me?</span> <span
                         class="checkbox-border"></span></span></label>
                 </div>
-                <a href="#" target="_self" class="wil-float-right td-underline">
+                <a (click)="forgotPasswordClicked()" class="wil-float-right td-underline">
                   <span class="">Forgotten Password?</span>
                 </a>
               </div>
@@ -41,8 +41,9 @@
                 <p *ngFor="let errorMessage of errorMessage" class="errorMessage">{{ errorMessage }}</p>
               </div>
 
-              <button mat-raised-button color="primary" class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
-                type="submit" [disabled]="!loginForm.valid">
+              <button mat-raised-button color="primary"
+                class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
+                [disabled]="!loginForm.valid">
                 Login
               </button>
             </form>

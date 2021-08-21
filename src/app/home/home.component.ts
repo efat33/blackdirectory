@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import SwiperCore, {
   Navigation
 } from 'swiper/core';
+import { EventService } from '../events/event.service';
 import { ListingService } from '../listing/listing.service';
 import { LoginModal } from '../modals/user/login/login-modal';
 import { HelperService } from '../shared/helper.service';
@@ -32,6 +33,8 @@ export class HomeComponent implements OnInit {
   listingFormError = false;
   errorMessageListingForm = '';
 
+  events:any;
+  trendingCategories:any;
   trendingListings:any;
   feautedListings:any;
   favoriteListings:any = [];
@@ -50,6 +53,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private listingService: ListingService,
+    private eventService: EventService,
     private helperService: HelperService,
     public dialog: MatDialog,
     public router: Router,
@@ -73,6 +77,35 @@ export class HomeComponent implements OnInit {
     });
 
     this.getTrendingAndFeaturedListings();
+
+    this.getEvents();
+    this.getTrendingCategories();
+  }
+
+  getTrendingCategories() {
+    const subsTrendingCategories = this.listingService.getTrendingCategories().subscribe(
+      (res:any) => {
+        this.trendingCategories = res.data;
+      },
+      (res:any) => {
+      }
+    );
+    
+    this.subscriptions.add(subsTrendingCategories);
+  }
+ 
+  getEvents() {
+
+    const queryParams = {limit: 3}
+    const subsHomeEvents = this.eventService.searchEvent(queryParams).subscribe(
+      (res:any) => {
+        this.events = res.data.events;
+      },
+      (res:any) => {
+      }
+    );
+    
+    this.subscriptions.add(subsHomeEvents);
   }
 
   onSubmitListingForm() {
