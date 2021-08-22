@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { InterceptorService } from '../interceptor.service';
 import { APIReponse } from '../shared/apiResponse';
+import { LoginModal } from 'src/app/modals/user/login/login-modal';
+import { MatDialog } from '@angular/material/dialog';
+import { HelperService } from '../shared/helper.service';
 
 @Injectable({
   providedIn: 'root',
@@ -86,7 +89,9 @@ export class UserService {
     private httpClient: HttpClient,
     private router: Router,
     private auth: AngularFireAuth,
-    private interceptorService: InterceptorService
+    private dialog: MatDialog,
+    private interceptorService: InterceptorService,
+    private helperService: HelperService
   ) {
     this.getClientIP();
 
@@ -261,7 +266,7 @@ export class UserService {
 
   forgotPassword(body: any): Observable<APIReponse> {
     const url = 'api/users/forgot-password';
-  
+
     return this.httpClient
       .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
       .pipe(map((body: APIReponse) => body));
@@ -269,9 +274,19 @@ export class UserService {
 
   resetPassword(body: any): Observable<APIReponse> {
     const url = 'api/users/reset-password';
-  
+
     return this.httpClient
       .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
       .pipe(map((body: APIReponse) => body));
+  }
+
+  showLoginModalIfNotLoggedIn(): boolean {
+    const isLoggedIn = this.helperService.currentUserInfo != null;
+    if (!isLoggedIn) {
+      this.dialog.open(LoginModal, {
+        width: '400px',
+      });
+    }
+    return !isLoggedIn;
   }
 }

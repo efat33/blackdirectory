@@ -5,6 +5,7 @@ import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { PostNewProductBody, ProductService, Tag } from 'src/app/shared/services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-new',
@@ -77,7 +78,8 @@ export class ProductsNewComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private spinnerService: SpinnerService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -172,7 +174,7 @@ export class ProductsNewComponent implements OnInit {
         this.snackbar.openSnackBar(res.message);
 
         setTimeout(() => {
-          location.reload();
+          this.router.navigate(['/dashboard', 'products']);
         }, 2000);
       },
       (error) => {

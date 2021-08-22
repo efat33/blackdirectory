@@ -90,7 +90,10 @@ export class HelperService {
       message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB',
     };
 
-    if ((image.type != 'image/jpeg' && image.type != 'image/png' && image.type != 'image/jpg') || image.size / (1024 * 1024) > 1) {
+    if (
+      (image.type != 'image/jpeg' && image.type != 'image/png' && image.type != 'image/jpg') ||
+      image.size / (1024 * 1024) > 1
+    ) {
       obj.validated = false;
     }
 

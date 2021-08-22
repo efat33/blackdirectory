@@ -51,17 +51,21 @@ export class StoreService {
     return this.http.get<ApiResponse<Country[]>>('api/shop/countries').pipe(pluck('data'));
   }
 
-  getStoreSettings(userId: number) {
+  getStoreSettings(userId: number): Observable<GetStoreSettingsData | undefined> {
     return this.http.get<ApiResponse<GetStoreSettingsData[]>>(`api/shop/details/${userId}`).pipe(
       pluck('data'),
       map((data) => data[0]),
-      map((data) => ({
-        ...data,
-        created_at: new Date(data.created_at),
-        updated_at: new Date(data.updated_at),
-        show_email: Boolean(data.show_email),
-        show_more_products: Boolean(data.show_more_products),
-      }))
+      map<any, GetStoreSettingsData | undefined>((data) =>
+        data
+          ? {
+              ...data,
+              created_at: new Date(data.created_at),
+              updated_at: new Date(data.updated_at),
+              show_email: Boolean(data.show_email),
+              show_more_products: Boolean(data.show_more_products),
+            }
+          : undefined
+      )
     );
   }
 

@@ -5,9 +5,10 @@ import { map, pluck } from 'rxjs/operators';
 import { ProductDetails, ProductReview, ProductService } from 'src/app/shared/services/product.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartService } from 'src/app/shared/services/cart.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { StoreService } from 'src/app/shared/services/store.service';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-product',
@@ -20,8 +21,8 @@ export class ProductComponent implements OnInit {
   storeDetails$: Observable<any>;
   relatedProducts$: Observable<any>;
   review = new FormGroup({
-    rating: new FormControl(3),
-    review: new FormControl(''),
+    rating: new FormControl(4, [Validators.required]),
+    review: new FormControl('', Validators.required),
   });
   addToCartCount: number = 1;
   galleryOptions: NgxGalleryOptions[] = [
@@ -47,7 +48,8 @@ export class ProductComponent implements OnInit {
     private helperService: HelperService,
     private cartService: CartService,
     private productService: ProductService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private userService: UserService
   ) {}
 
   get hasDiscount(): boolean {
@@ -88,6 +90,9 @@ export class ProductComponent implements OnInit {
 
   submitReview(): void {
     if (this.review.invalid) {
+      return;
+    }
+    if (this.userService.showLoginModalIfNotLoggedIn()) {
       return;
     }
     const { rating, review } = this.review.value;
