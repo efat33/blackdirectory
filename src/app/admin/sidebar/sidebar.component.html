@@ -175,13 +175,48 @@
           </mat-accordion>
         </li>
 
-        <!-- <li class="dashboard-nav_item__2798B wilcity-dashboard-route-notifications"><span><a
-              [routerLink]="['notifications']" routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
-                class="dashboard-nav_icon__2gZV4"><i class="la la-bell"></i></span> <span
-                class="dashboard-nav_text__x-_IZ">Notifications</span> <span
-                class="dashboard-nav_number__5N1Ch color-primary"></span></a></span></li> -->
+        <!-- pages menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Pages</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
 
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['page-add']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-plus"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Add Page</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['page-all']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Manage Pages</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['manage-faqs']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Manage FAQs</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
       </ul>
     </div>
   </div>

@@ -1,0 +1,62 @@
+<div id="new-job-basic-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <header class="content-box_header__xPnGx clearfix">
+    <div class="wil-float-left">
+      <h4 class="content-box_title__1gBHS">
+        <span>FAQs</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <div class="add-faq">
+      <button mat-raised-button color="primary" (click)="addFaq()">Add FAQ</button>
+    </div>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Name">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort matSortActive="faq_order" matSortDirection="asc">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="question">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Question</th>
+          <td mat-cell *matCellDef="let row" [innerHTML]="row.question"></td>
+        </ng-container>
+
+        <!-- Order Column -->
+        <ng-container matColumnDef="faq_order">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Order</th>
+          <td mat-cell *matCellDef="let row" [innerHTML]="row.faq_order"></td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button (click)="editFaq(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="deleteFaq(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data available</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,9 @@ import { ManageMobilesComponent } from './mobiles/manage-mobiles/manage-mobiles.
 import { MobileProvidersComponent } from './mobiles/mobile-providers/mobile-providers.component';
 import { AdminGuard } from '../shared/route-guards/auth-guard.service';
 import { ListingClaimsComponent } from './listing/listing-claims/listing-claims.component';
+import { NewPageComponent } from './pages/new-page/new-page.component';
+import { ManagePagesComponent } from './pages/manage-pages/manage-pages.component';
+import { ManageFaqsComponent } from './pages/manage-faqs/manage-faqs.component';
 
 const routes: Routes = [
   {
@@ -38,6 +41,11 @@ const routes: Routes = [
       { path: 'mobiles-edit/:mobile_id', component: NewMobileComponent },
       { path: 'mobiles-all', component: ManageMobilesComponent },
       { path: 'mobiles-providers', component: MobileProvidersComponent },
+
+      { path: 'page-add', component: NewPageComponent },
+      { path: 'page-edit/:page_slug', component: NewPageComponent },
+      { path: 'page-all', component: ManagePagesComponent },
+      { path: 'manage-faqs', component: ManageFaqsComponent },
     ],
   },
 ];

@@ -1,0 +1,14 @@
+.confirmation-dialog-title {
+  margin: 0;
+}
+.mat-form-field {
+  width: 100%;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 100px !important;
+}
+
+.faq-answer-ckeditor {
+  margin: 10px 0;
+}
