@@ -1,0 +1,79 @@
+<div class="wil-content wilcity-archive">
+  <section class="wil-section">
+    <div class="container">
+      <h2>Contact Us</h2>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="">
+            <div class="wpb_wrapper">
+              <div class="vc_empty_space" style="height: 40px"><span class="vc_empty_space_inner"></span></div>
+              <div class="wpb_text_column wpb_content_element ">
+                <div class="wpb_wrapper">
+                  <p>Questions, Comments or Feedback?</p>
+                  <p>Please let us know by completing this form and we will get back to you shortly.</p>
+                  <p>Alternatively you can contact us at:</p>
+                  <p>&nbsp;</p>
+                  <p class="cont-ad-bold-text"><strong>Black Directory</strong><br>
+                    <strong>71-75 Shelton Street</strong><br>
+                    <strong>London</strong><br>
+                    <strong>WC2H 9JQ</strong><br>
+                    <strong>United Kingdom</strong>
+                  </p>
+                  <p>&nbsp;</p>
+                  <p><strong><a href="mailto:info@blackdirectory.co.uk">info@blackdirectory.co.uk</a></strong></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <form (ngSubmit)="onSubmit(contactForm)" [formGroup]="contactUsForm" #contactForm="ngForm">
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" formControlName="email" email="true" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-label>Subject</mat-label>
+                  <input matInput formControlName="subject" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-label>Message</mat-label>
+                  <textarea matInput formControlName="message"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+              color="primary" type="submit" [disabled]="!contactUsForm.valid">
+              Send
+            </button>
+          </form>
+
+          <div class="loading-spinner" *ngIf="loading">
+            <i class="fa fa-spinner fa-spin"></i>
+          </div>
+
+          <p *ngIf="message" class="message">{{message}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

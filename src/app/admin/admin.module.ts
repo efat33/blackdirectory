@@ -20,6 +20,10 @@ import { ManageMobilesComponent } from './mobiles/manage-mobiles/manage-mobiles.
 import { MobileProvidersComponent } from './mobiles/mobile-providers/mobile-providers.component';
 import { AddMobileProviderModalComponent } from './mobiles/mobile-providers/add-mobile-providers-modal/add-mobile-providers-modal';
 import { ListingClaimsComponent } from './listing/listing-claims/listing-claims.component';
+import { ManagePagesComponent } from './pages/manage-pages/manage-pages.component';
+import { NewPageComponent } from './pages/new-page/new-page.component';
+import { ManageFaqsComponent } from './pages/manage-faqs/manage-faqs.component';
+import { AddFaqModalComponent } from './pages/manage-faqs/add-faq-modal/add-faq-modal';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { ListingClaimsComponent } from './listing/listing-claims/listing-claims.
     ManageMobilesComponent,
     MobileProvidersComponent,
     AddMobileProviderModalComponent,
-    ListingClaimsComponent
+    ListingClaimsComponent,
+    ManagePagesComponent,
+    NewPageComponent,
+    ManageFaqsComponent,
+    AddFaqModalComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })
