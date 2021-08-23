@@ -1,0 +1,23 @@
+<div class="wil-content wilcity-archive">
+  <section class="wil-section">
+    <div class="container">
+      <h2>FAQs</h2>
+
+      <div>
+        <mat-accordion>
+          <ng-container *ngFor="let faq of faqs">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{faq.question}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div [innerHTML]="faq.answer"></div>
+            </mat-expansion-panel>
+          </ng-container>
+        </mat-accordion>
+      </div>
+    </div>
+  </section>
+</div>

@@ -42,11 +42,16 @@
       </div>
       <div class="category">
         Category:
-        <a routerLink="#category" class="tag-link">{{ p.category_id }}</a>
+        <a [routerLink]="'/shop'" [queryParams]="{ category: p.category_id }" class="tag-link">{{ p.category_name }}</a>
       </div>
       <div *ngIf="p.tags.length > 0" class="tags">
         Tags:
-        <a *ngFor="let tag of p.tags; let i = index" class="tag-link" routerLink="#tag.id">
+        <a
+          *ngFor="let tag of p.tags; let i = index"
+          class="tag-link"
+          [routerLink]="'/shop'"
+          [queryParams]="{ tag: tag.id }"
+        >
           {{ tag.title }}
           <ng-container *ngIf="i < p.tags.length - 1">,</ng-container>
         </a>
@@ -92,7 +97,7 @@
           <form (ngSubmit)="submitReview()" [formGroup]="review">
             <mat-card-content>
               <star-rating
-                value="4"
+                [value]="review.get('rating').value"
                 [totalstars]="5"
                 size="24px"
                 checkedcolor="gold"

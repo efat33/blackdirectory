@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartItemPopulated, CartService, Coupon } from 'src/app/shared/services/cart.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,8 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private helperService: HelperService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private userService: UserService
   ) {}
 
   get cartItemCount$(): Observable<number> {
@@ -71,6 +73,9 @@ export class CartComponent implements OnInit {
     if (!coupon) {
       return;
     }
+    if (this.userService.showLoginModalIfNotLoggedIn()) {
+      return;
+    }
     this.cartService.applyCoupon(coupon).subscribe((isValid) => {
       if (isValid) {
         this.snackbar.openSnackBar(`Coupon applied.`);
@@ -80,5 +85,12 @@ export class CartComponent implements OnInit {
         this.coupon.setErrors({ invalid: true });
       }
     });
+  }
+
+  removeCoupon(): void {
+    this.coupon.enable();
+    this.coupon.setValue('');
+    this.coupon.setErrors(null);
+    this.cartService.applyCoupon('').subscribe();
   }
 }

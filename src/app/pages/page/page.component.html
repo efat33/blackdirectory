@@ -1,0 +1,9 @@
+<div class="wil-content wilcity-archive">
+  <section class="wil-section">
+    <div class="container" *ngIf="page">
+        <h2>{{page.title}}</h2>
+
+        <div class="ck-content" [innerHTML]="page.content"></div>
+    </div>
+  </section>
+</div>

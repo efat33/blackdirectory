@@ -105,7 +105,7 @@ ul.page-numbers .current {
     background-color: #069 !important;
 }
 .cdk-overlay-container {
-    z-index: 9999999;
+    // z-index: 9999999;
 }
 .mat-dialog-container {
     padding: 0 !important;
@@ -408,7 +408,7 @@ ul.page-numbers .current {
 }
 /********/
 
-.ck-content {
+.ck-content.ck-editor__editable {
 	border: 2px solid #ddd !important;
 	border-radius: 0 !important;
 	border-top: 0 !important;
@@ -447,7 +447,7 @@ ul.page-numbers .current {
 
 /**
 * owl date time picker customised
-*/ 
+*/
 .owl-dt-container-control-button {
     font-size: 1.5em;
 }

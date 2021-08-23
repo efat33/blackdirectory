@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CurrentUser } from '../user/user';
 
@@ -7,13 +9,19 @@ import { CurrentUser } from '../user/user';
   providedIn: 'root',
 })
 export class HelperService {
+  headerOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
   currentUserInfo: CurrentUser;
   apiUrl: string;
   siteUrl: string;
   assetUrl = 'http://localhost:4200/assets';
   adminProfit = 0.05;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.setApiUrl();
     this.setSiteUrl();
     this.setCurrentUserInfo();
@@ -25,7 +33,7 @@ export class HelperService {
     } else {
       this.apiUrl = `http://localhost:3000`;
     }
-    // this.apiUrl = `https://68.66.248.49/~blackdir/api`; // TODO:
+    // this.apiUrl = `https://mibrahimkhalil.com`; // TODO:
   }
 
   setSiteUrl() {
@@ -160,5 +168,11 @@ export class HelperService {
     const datetime = `${year}-${month}-${day}`;
 
     return datetime;
+  }
+
+  sendMail(emailOptions: any): Observable<any> {
+    const url = `api/mail/send`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(emailOptions), this.headerOptions);
   }
 }

@@ -8,6 +8,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { CartItemPopulated, CartService } from 'src/app/shared/services/cart.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Country, StoreService } from 'src/app/shared/services/store.service';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -39,6 +40,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private userService: UserService,
     private cartService: CartService,
     private helperService: HelperService,
     private storeService: StoreService,
@@ -64,7 +66,9 @@ export class CheckoutComponent implements OnInit {
     if (this.shippingForm.invalid) {
       return;
     }
-
+    if (this.userService.showLoginModalIfNotLoggedIn()) {
+      return;
+    }
     forkJoin({
       items: this.cartService.cart.pipe(
         take(1),
