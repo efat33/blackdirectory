@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { PagesModule } from './pages/pages.module';
 
 // change date format through out the site
 export const DATE_FORMATS = {
@@ -44,6 +45,7 @@ export const DATE_FORMATS = {
     SharedModule,
     HomeModule,
     UserModule,
+    PagesModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MomentDateModule,

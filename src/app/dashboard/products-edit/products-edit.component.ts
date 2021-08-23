@@ -186,10 +186,6 @@ export class ProductsEditComponent implements OnInit {
       (res) => {
         this.spinnerService.hide();
         this.snackbar.openSnackBar(res.message);
-
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
       },
       (error) => {
         this.showError = true;

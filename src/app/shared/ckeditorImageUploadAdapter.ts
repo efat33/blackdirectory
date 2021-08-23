@@ -52,7 +52,7 @@ export class CustomUploadAdapter {
         return reject(response && response.error ? response.error.message : genericErrorText);
       }
       resolve({
-        default: `${this.apiUrl}/${this.folder}/${response.url}`,
+        default: `${this.apiUrl}/uploads/${this.folder}/${response.url}`,
       });
     });
 

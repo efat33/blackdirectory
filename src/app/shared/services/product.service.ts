@@ -61,6 +61,7 @@ export interface ProductList extends PopulatedProduct {
 
 export interface ProductDetails extends PopulatedProduct {
   tags: Tag[];
+  category_name: string;
 }
 
 export interface PostNewProductBody extends ProductBase {
@@ -89,6 +90,7 @@ export interface GetProductListBody {
   params?: {
     keyword?: string;
     category?: number;
+    tag?: number;
     user_id?: number;
   };
 }
@@ -161,8 +163,8 @@ export class ProductService {
         ...p,
         is_downloadable: Boolean(p.is_downloadable),
         is_virtual: Boolean(p.is_virtual),
-        discount_end: new Date(p.discount_end),
-        discount_start: new Date(p.discount_start),
+        discount_end: p.discount_end ? new Date(p.discount_end) : null,
+        discount_start: p.discount_start ? new Date(p.discount_start) : null,
         created_at: new Date(p.created_at),
         updated_at: new Date(p.updated_at),
         rating_average: parseFloat(p.rating_average),
@@ -198,8 +200,8 @@ export class ProductService {
           ),
           is_downloadable: Boolean(p.is_downloadable),
           is_virtual: Boolean(p.is_virtual),
-          discount_end: new Date(p.discount_end),
-          discount_start: new Date(p.discount_start),
+          discount_end: p.discount_end ? new Date(p.discount_end) : null,
+          discount_start: p.discount_start ? new Date(p.discount_start) : null,
           created_at: new Date(p.created_at),
           updated_at: new Date(p.updated_at),
           rating_average: parseFloat(p.rating_average),
@@ -219,8 +221,8 @@ export class ProductService {
           ),
           is_downloadable: Boolean(p.is_downloadable),
           is_virtual: Boolean(p.is_virtual),
-          discount_end: new Date(p.discount_end),
-          discount_start: new Date(p.discount_start),
+          discount_end: p.discount_end ? new Date(p.discount_end) : null,
+          discount_start: p.discount_start ? new Date(p.discount_start) : null,
           created_at: new Date(p.created_at),
           updated_at: new Date(p.updated_at),
           rating_average: parseFloat(p.rating_average),

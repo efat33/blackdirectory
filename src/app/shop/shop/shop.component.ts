@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { filter, finalize, tap } from 'rxjs/operators';
 import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
@@ -9,22 +10,90 @@ import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  sort = '';
   private params: GetProductListBody = {
     limit: 12,
     offset: 0,
-    order: 'ASC',
+    order: 'DESC',
     orderby: 'id',
   };
   hasMoreProducts = true;
   pending$ = new BehaviorSubject<boolean>(false);
   products$ = new BehaviorSubject<ProductList[]>([]);
+  sortOptions: { label: string; value: { order: 'ASC' | 'DESC'; orderby: string } }[] = [
+    {
+      label: 'Default sorting',
+      value: {
+        order: 'DESC',
+        orderby: 'id',
+      },
+    },
+    {
+      label: 'Sort by popularity',
+      value: {
+        order: 'DESC',
+        orderby: 'views',
+      },
+    },
+    {
+      label: 'Sort by average rating',
+      value: {
+        order: 'DESC',
+        orderby: 'rating_average',
+      },
+    },
+    {
+      label: 'Sort by latest',
+      value: {
+        order: 'DESC',
+        orderby: 'created_at',
+      },
+    },
+    {
+      label: 'Sort by price: low to high',
+      value: {
+        order: 'ASC',
+        orderby: 'price',
+      },
+    },
+    {
+      label: 'Sort by price: high to low',
+      value: {
+        order: 'DESC',
+        orderby: 'price',
+      },
+    },
+  ];
   trackByIdentity = (index: number, item: ProductList) => item.id;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.loadMore();
+    this.activatedRoute.queryParams
+      .pipe(
+        tap(({ category, tag }) => {
+          if (category) {
+            this.params = {
+              ...this.params,
+              params: {
+                ...this.params.params,
+                category,
+              },
+            };
+          }
+          if (tag) {
+            this.params = {
+              ...this.params,
+              params: {
+                ...this.params.params,
+                tag,
+              },
+            };
+          }
+        })
+      )
+      .subscribe(() => {
+        this.loadMore();
+      });
   }
 
   loadMore(): void {
@@ -55,7 +124,8 @@ export class ShopComponent implements OnInit {
 
   onSortChange(value: { orderby: string; order: 'ASC' | 'DESC' }): void {
     this.params = {
-      ...(!value ? { order: 'ASC', orderby: 'id' } : value),
+      ...this.params,
+      ...(value ? value : this.sortOptions[0].value),
       limit: this.params.limit,
       offset: 0,
     };

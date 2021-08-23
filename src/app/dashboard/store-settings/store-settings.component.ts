@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { Country, PostStoreSettingsBody, StoreService } from 'src/app/shared/services/store.service';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
 
 interface AddressParams {
   street: string;
@@ -42,7 +43,11 @@ export class StoreSettingsComponent implements OnInit {
 
   countries$: Observable<Country[]> = this.storeService.getCountries();
 
-  constructor(private activatedRoute: ActivatedRoute, private storeService: StoreService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private storeService: StoreService,
+    private snackbar: SnackBarService
+  ) {}
 
   private mergeAddress(params: AddressParams): string {
     const { street, street_2, city, state, zip, country } = params;
@@ -71,18 +76,18 @@ export class StoreSettingsComponent implements OnInit {
 
   initForm(): void {
     this.activatedRoute.data.pipe(pluck('store')).subscribe((d) => {
-      console.log(d);
-
-      const { street, street_2, city, state, zip, country } = this.parseAddress(d.address);
-      this.settingsForm.patchValue({
-        ...d,
-        street,
-        street_2,
-        city,
-        state,
-        zip,
-        country,
-      });
+      if (d) {
+        const { street, street_2, city, state, zip, country } = this.parseAddress(d.address);
+        this.settingsForm.patchValue({
+          ...d,
+          street,
+          street_2,
+          city,
+          state,
+          zip,
+          country,
+        });
+      }
     });
   }
 
@@ -108,9 +113,11 @@ export class StoreSettingsComponent implements OnInit {
     console.log(params);
     this.storeService.postStoreSettings(params).subscribe(
       (res) => {
+        this.snackbar.openSnackBar('Settings saved successfully.');
         console.log(res);
       },
       (err) => {
+        this.snackbar.openSnackBar('An error occured while saving settings.');
         console.log(err);
       }
     );

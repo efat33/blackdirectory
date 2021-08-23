@@ -43,7 +43,8 @@ export interface Coupon {
 })
 export class CartService {
   private BASE_URL = 'api/shop/cart';
-  private LOCAL_STORAGE_KEY = 'blackdirectory_cart';
+  private CART_LOCAL_STORAGE_KEY = 'blackdirectory_cart';
+  private COUPON_LOCAL_STORAGE_KEY = 'blackdirectory_coupon';
   private appliedCoupon$ = new BehaviorSubject<Coupon>({
     code: '',
     discount: 0,
@@ -54,6 +55,10 @@ export class CartService {
 
   constructor(private http: HttpClient, private snackbar: SnackBarService, private helperService: HelperService) {
     this.initCart();
+    this.initCoupon();
+    this.appliedCoupon.subscribe((coupon) => {
+      sessionStorage.setItem(this.COUPON_LOCAL_STORAGE_KEY, JSON.stringify(coupon));
+    });
   }
 
   get appliedCoupon(): Observable<Coupon> {
@@ -117,6 +122,18 @@ export class CartService {
     }
   }
 
+  private initCoupon(): void {
+    const localCoupon = sessionStorage.getItem(this.COUPON_LOCAL_STORAGE_KEY);
+    const coupon = localCoupon
+      ? JSON.parse(localCoupon)
+      : {
+          code: '',
+          discount: 0,
+          id: null,
+        };
+    this.appliedCoupon$.next(coupon);
+  }
+
   private parseProductCart(p: ProductCartApi): CartItemPopulated {
     return {
       ...p,
@@ -126,13 +143,13 @@ export class CartService {
   }
 
   private getLocalCart(): Cart {
-    const localstorage = localStorage.getItem(this.LOCAL_STORAGE_KEY) || '[]';
+    const localstorage = localStorage.getItem(this.CART_LOCAL_STORAGE_KEY) || '[]';
     const cart = JSON.parse(localstorage);
     return cart;
   }
 
   private updateLocalStorage(cart: Cart): void {
-    localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(cart));
+    localStorage.setItem(this.CART_LOCAL_STORAGE_KEY, JSON.stringify(cart));
   }
 
   private mergeCarts(localCart: Cart, serverCart: Cart): Cart {
@@ -215,15 +232,18 @@ export class CartService {
       if (i < 0) {
         const cartItem = this.productDetailsToCartItemPopulated(product, quantity);
         cart.push(cartItem);
-        this.cart$.next(cart);
-        this.updateLocalStorage(cart);
       } else {
         cart[i].quantity = quantity;
       }
+      this.cart$.next(cart);
+      this.updateLocalStorage(cart);
     }
   }
 
   updateQuantity(productId: number, quantity: number): void {
+    if (quantity < 1) {
+      return;
+    }
     const cart = this.cart$.value;
     const i = cart.findIndex((item) => item.product_id === productId);
     console.log(cart, productId);
@@ -265,7 +285,7 @@ export class CartService {
         }
       );
     } else {
-      if (i < -1) {
+      if (i > -1) {
         cart.splice(i, 1);
         this.cart$.next(cart);
         this.updateLocalStorage(cart);
@@ -274,15 +294,9 @@ export class CartService {
   }
 
   clearCart(): void {
-    this.clearCartItems().subscribe(
-      (res) => {
-        this.cart$.next([]);
-        this.updateLocalStorage([]);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.cart$.next([]);
+    this.updateLocalStorage([]);
+    this.clearCartItems().subscribe();
   }
 
   applyCoupon(code: string): Observable<boolean> {

@@ -83,8 +83,9 @@
         <mat-label>Coupon</mat-label>
         <input #couponInput matInput type="text" [formControl]="coupon" />
       </mat-form-field>
-      <button mat-flat-button type="submit" color="primary" [disabled]="(discountAmount$ | async) > 0">
-        Apply Coupon
+      <button mat-flat-button type="submit" color="primary" *ngIf="(discountAmount$ | async) < 1">Apply Coupon</button>
+      <button mat-flat-button type="button" color="warn" *ngIf="(discountAmount$ | async) > 0" (click)="removeCoupon()">
+        Remove Coupon
       </button>
     </form>
 

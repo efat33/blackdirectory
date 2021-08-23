@@ -45,7 +45,7 @@
       <th>
         DISCOUNT <span *ngIf="order.promo_code"> ({{ order.promo_code }}) </span>
       </th>
-      <td>- {{ order.discount | currency }}</td>
+      <td>- {{ order.subtotal * (order.discount / 100) | currency }}</td>
     </tr>
     <tr>
       <th>TOTAL</th>
