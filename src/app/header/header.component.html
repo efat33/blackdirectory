@@ -1,32 +1,49 @@
-<header
-  id="wilcity-header-section"
-  class="header_module__Snpib js-header-sticky"
-  style="background-color: rgb(0, 102, 153)"
->
+<header id="wilcity-header-section" class="header_module__Snpib js-header-sticky"
+  style="background-color: rgb(0, 102, 153)">
   <div class="bd-header-area">
-    <a class="bd-header-hamburger" [matMenuTriggerFor]="mainmenu">
+    <a class="bd-header-hamburger" (click)="showMobileMenu = !showMobileMenu">
       <mat-icon>menu</mat-icon>
     </a>
-    <mat-menu #mainmenu="matMenu" class="cls-mainmenu" backdropClass="mainmenu-backdrop">
+    <div class="wil-nav-mobile-wrapper" [ngClass]="{'show': showMobileMenu}">
       <nav class="wil-nav wil-nav-mobile">
         <ul class="nav-menu">
           <li class="menu-item" *ngFor="let item of menuItems">
-            <a [routerLink]="[item.route]" routerLinkActive="mainmenu-link-active" style="color: rgb(255, 255, 255)">{{
-              item.title
-            }}</a>
+
+            <mat-accordion *ngIf="item.children?.length; else singleMenu">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ item.title }}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div>
+                  <ul class="dropdown-menu-mbl">
+                    <li *ngFor="let child of item.children">
+                      <a (click)="showMobileMenu = false" [routerLink]="[child.route]">{{ child.title }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+            <ng-template #singleMenu>
+              <a [routerLink]="[item.route]" routerLinkActive="mainmenu-link-active" (click)="showMobileMenu = false"
+                style="color: rgb(255, 255, 255)">{{
+                item.title
+                }}</a>
+            </ng-template>
+
           </li>
         </ul>
       </nav>
-    </mat-menu>
+
+    </div>
+
 
     <div class="header_logo__2HmDH js-header-logo">
       <a class="wilcity-site-logo" href="https://www.blackdirectory.co.uk/">
-        <img
-          src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png"
-          alt="Black Directory"
-          class="lazyloaded"
-          data-ll-status="loaded"
-        />
+        <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png" alt="Black Directory"
+          class="lazyloaded" data-ll-status="loaded" />
       </a>
     </div>
 
@@ -45,21 +62,12 @@
           <nav class="wil-nav wil-nav-mobile wil-nav-destop">
             <ul class="nav-menu">
               <li class="menu-item" *ngFor="let item of profileMenus">
-                <a
-                  *ngIf="item.callback; else routeLink"
-                  (click)="this[item.callback]()"
-                  routerLinkActive="mainmenu-link-active"
-                  style="color: rgb(255, 255, 255)"
-                  >{{ item.title }}</a
-                >
+                <a *ngIf="item.callback; else routeLink" (click)="this[item.callback]()"
+                  routerLinkActive="mainmenu-link-active" style="color: rgb(255, 255, 255)">{{ item.title }}</a>
 
                 <ng-template #routeLink>
-                  <a
-                    [routerLink]="[item.route]"
-                    routerLinkActive="mainmenu-link-active"
-                    style="color: rgb(255, 255, 255)"
-                    >{{ item.title }}</a
-                  >
+                  <a [routerLink]="[item.route]" routerLinkActive="mainmenu-link-active"
+                    style="color: rgb(255, 255, 255)">{{ item.title }}</a>
                 </ng-template>
               </li>
             </ul>
@@ -84,7 +92,7 @@
           <li class="menu-item" *ngFor="let item of menuItems">
             <a [routerLink]="[item.route]" routerLinkActive="mainmenu-link-active" style="color: rgb(255, 255, 255)">{{
               item.title
-            }}</a>
+              }}</a>
 
             <ul *ngIf="item.children?.length" class="dropdown-menu">
               <li *ngFor="let child of item.children">
@@ -114,21 +122,12 @@
                 <nav class="wil-nav wil-nav-mobile wil-nav-destop">
                   <ul class="nav-menu">
                     <li class="menu-item" *ngFor="let item of profileMenus">
-                      <a
-                        *ngIf="item.callback; else routeLink"
-                        (click)="this[item.callback]()"
-                        routerLinkActive="mainmenu-link-active"
-                        style="color: rgb(255, 255, 255)"
-                        >{{ item.title }}</a
-                      >
+                      <a *ngIf="item.callback; else routeLink" (click)="this[item.callback]()"
+                        routerLinkActive="mainmenu-link-active" style="color: rgb(255, 255, 255)">{{ item.title }}</a>
 
                       <ng-template #routeLink>
-                        <a
-                          [routerLink]="[item.route]"
-                          routerLinkActive="mainmenu-link-active"
-                          style="color: rgb(255, 255, 255)"
-                          >{{ item.title }}</a
-                        >
+                        <a [routerLink]="[item.route]" routerLinkActive="mainmenu-link-active"
+                          style="color: rgb(255, 255, 255)">{{ item.title }}</a>
                       </ng-template>
                     </li>
                   </ul>
@@ -137,11 +136,8 @@
             </div>
 
             <ng-template #loggedOut>
-              <button
-                (click)="openLoginModal()"
-                class="wil-btn no-text-sm wil-btn--primary2 wil-btn--round wil-btn--xs"
-                id="wilcity-login-btn"
-              >
+              <button (click)="openLoginModal()" class="wil-btn no-text-sm wil-btn--primary2 wil-btn--round wil-btn--xs"
+                id="wilcity-login-btn">
                 <i class="la la-unlock-alt"></i> <span class="">Account</span>
               </button>
               <!-- <button (click)="openRegistrationModal()"

@@ -32,6 +32,7 @@ import { ListingsComponent } from './listings/listings.component';
 import { EventsComponent } from './events/events.component';
 import { OrderComponent } from './order/order.component';
 import { WithdrawRequestsTableComponent } from './withdraw/withdraw-requests-table/withdraw-requests-table.component';
+import { FavoriteListingsComponent } from './favorite-listings/favorite-listings.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { WithdrawRequestsTableComponent } from './withdraw/withdraw-requests-tab
     EventsComponent,
     OrderComponent,
     WithdrawRequestsTableComponent,
+    FavoriteListingsComponent
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

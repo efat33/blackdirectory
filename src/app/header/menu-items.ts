@@ -47,7 +47,7 @@ export const MenuItems = [
   },
   {
     title: 'Deals & Shopping',
-    route: 'deals-shopping',
+    route: 'shop',
   },
   {
     title: 'Forum',
@@ -55,18 +55,14 @@ export const MenuItems = [
   },
   {
     title: 'BD Market',
-    route: 'bd-market',
+    route: 'shop',
   },
 ];
 
 export const ProfileMenus = [
   {
-    title: 'Profile',
+    title: 'Account',
     route: 'dashboard',
-  },
-  {
-    title: 'Change Password',
-    route: 'change-password',
   },
   {
     title: 'Logout',

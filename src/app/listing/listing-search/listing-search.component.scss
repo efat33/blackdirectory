@@ -45,3 +45,9 @@
         margin-bottom: 10px;
     }
 }
+
+@media only screen and (max-width: 767px) {
+    .searchbox_searchButton__1c9iK .wil-btn--primary {
+        min-width: unset;
+    }
+}

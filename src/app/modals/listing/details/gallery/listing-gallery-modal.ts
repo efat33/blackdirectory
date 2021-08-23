@@ -36,49 +36,49 @@ export class ListingGalleryModal implements OnInit {
     }
 
     populateGallery() {
-        if(!this.data.galleries) return;
-    
-        const galleries = JSON.parse(this.data.galleries);
-    
-        for (const item of galleries) {
-          const obj = {
-            small: this.helperservice.getImageUrl(item, 'listing', 'thumb'),
-            medium: this.helperservice.getImageUrl(item, 'listing', 'medium'),
-            big: this.helperservice.getImageUrl(item, 'listing')
-          }
-    
-          this.galleryImages.push(obj);
+      if(!this.data.galleries) return;
+  
+      const galleries = JSON.parse(this.data.galleries);
+  
+      for (const item of galleries) {
+        const obj = {
+          small: this.helperservice.getImageUrl(item, 'listing', 'thumb'),
+          medium: this.helperservice.getImageUrl(item, 'listing', 'medium'),
+          big: this.helperservice.getImageUrl(item, 'listing')
         }
+  
+        this.galleryImages.push(obj);
       }
-    
-      initiateGallery() {
-        this.galleryOptions = [
-          {
-              width: '800px',
-              height: '600px',
-              thumbnailsColumns: 4,
-              imageAnimation: NgxGalleryAnimation.Slide,
-              preview: false,
-              startIndex: this.data.index
-          },
-          // max-width 800
-          {
-              breakpoint: 800,
-              width: '100%',
-              height: '600px',
-              imagePercent: 80,
-              thumbnailsPercent: 20,
-              thumbnailsMargin: 20,
-              thumbnailMargin: 20,
-              preview: false
-          },
-          // max-width 400
-          {
-              breakpoint: 400,
-              preview: false
-          }
-        ];
-      }
+    }
+  
+    initiateGallery() {
+      this.galleryOptions = [
+        {
+            width: '800px',
+            height: '600px',
+            thumbnailsColumns: 4,
+            imageAnimation: NgxGalleryAnimation.Slide,
+            preview: false,
+            startIndex: this.data.index
+        },
+        // max-width 800
+        {
+            breakpoint: 800,
+            width: '100%',
+            height: '600px',
+            imagePercent: 80,
+            thumbnailsPercent: 20,
+            thumbnailsMargin: 20,
+            thumbnailMargin: 20,
+            preview: false
+        },
+        // max-width 400
+        {
+            breakpoint: 400,
+            preview: false
+        }
+      ];
+    }
 
     
 }
