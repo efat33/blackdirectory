@@ -1,0 +1,82 @@
+<div class="wil-listings-managent-wrapper">
+
+    <div class="listing-table_module__2vE05 table-module pos-r">
+        <div>
+            <table class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table">
+                <thead>
+                    <tr>
+                        <th class="wi-th-title"><span><i class="la la-share-alt-square"></i> <span>Title</span></span>
+                        </th>
+                        <th class="wi-th-average-rating"><span>
+                                <span>Rating</span>
+                            </span></th>
+                        <th class="wi-th-favorite"><span>
+                                <span>Address</span>
+                            </span></th>
+                        <th class="wi-th-view"><span>
+                                <span>Views</span>
+                            </span></th>
+                        <th class="wil-text-right wil-th-more"><span>
+                                <span></span>
+                            </span></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="totalListings == 0">
+                    <tr>
+                        <td colspan="8" style="text-align: center;">
+                            <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                                <div class="alert_content__1ntU3">No listing found</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="totalListings > 0">
+                    <tr *ngFor="let item of listings; let index=index">
+                        <td data-th="Publish" class="">
+                            <article class="listing_module__2EnGq wil-shadow listing_list2__2An8C js-listing-module">
+                                <div class="listing_firstWrap__36UOZ">
+                                    <header class="listing_header__2pt4D"><a
+                                            href="{{ siteUrl + '/listing/' + item.slug }}" target="_self">
+                                            <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.logo, 'thumb') + ')'}">
+                                                <img src="{{ item.logo | imageSrc : 'listing' : 'thumb' }}"
+                                                    alt="{{ item.title }}">
+                                            </div>
+                                        </a></header>
+                                    <div class="listing_body__31ndf">
+                                        <h2 title="efat.butex listing" class="listing_title__2920A"><a
+                                                href="{{ siteUrl + '/listing/' + item.slug }}" target="_self">{{
+                                                item.title }}</a></h2>
+                                    </div>
+                                </div>
+                            </article>
+                        </td>
+                        <td data-th="Average Rating" class="wil-td-average">
+                            <div class="rated-small_module__1vw2B rated-small_style-3__1c0gb">
+                                <div [attr.data-rated]="item.avg_rating" class="rated-small_wrap__2Eetz">
+                                    <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}</div>
+                                    <div class="rated-small_ratingWrap__3lzhB">
+                                        <div class="rated-small_maxRating__2D9mI">10</div>
+                                        <div class="rated-small_ratingOverview__2kCI_"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td data-th="Favorites" class="wil-td-favorite"><span>{{ item.address }}</span></td>
+                        <td data-th="Views" class="wil-td-view"><span>{{ item.view }}</span></td>
+
+                        <td data-th="More" class="before-hide wil-text-right wil-td-more">
+                            <a (click)="onRemoveListing(item.id, index)"
+                                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
+                                    class="list_text__35R07">Remove</span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <pagination [totalItems]="totalListings" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+        (pageChange)="onPageChange($event)"></pagination>
+</div>
