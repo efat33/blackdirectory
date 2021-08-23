@@ -185,7 +185,7 @@
 </div>
 
 <!-- Section ~ Upcoming Events -->
-<div class="section-wrapper section-home-event">
+<div class="section-wrapper section-home-event" [ngClass]="{'hide-section': events?.length == 0}">
     <div class="container">
         <div *ngIf="!events" class="section-loading">
             <i class="fa fa-spinner fa-spin"></i>

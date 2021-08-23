@@ -19,6 +19,7 @@ import { filter, map, mapTo, mergeMapTo, pluck, tap } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy {
   menuItems = MenuItems;
   profileMenus: any[] = ProfileMenus;
+  showMobileMenu:boolean = false;
 
   subscriptions: Subscription = new Subscription();
 

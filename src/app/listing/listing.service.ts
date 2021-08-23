@@ -79,6 +79,14 @@ export class ListingService {
     return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
 
+  getFavoriteListings(body: any): Observable<APIReponse> {
+    const url = 'api/listings/favorite-listings';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
   updateFavorite(id): Observable<APIReponse> {
     const url = `api/listings/update-favorite/${id}`;
 

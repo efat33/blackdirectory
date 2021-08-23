@@ -188,7 +188,7 @@
         </li>
 
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-billings">
-          <span><a [routerLink]="['packages']"
+          <span><a [routerLink]="['packages']" routerLinkActive="dashboard-link-active"
               class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
                 class="dashboard-nav_icon__2gZV4"><i class="la la-money"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Job Packages</span>
@@ -196,14 +196,15 @@
         </li>
 
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-favorites">
-          <span><a href="#/favorites" class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+          <span><a [routerLink]="['favorite-listings']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
                 class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Favorites Listing</span>
               <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
 
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
-          <span><a [routerLink]="['messages']"
+          <span><a [routerLink]="['messages']" routerLinkActive="dashboard-link-active"
               class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
                 class="dashboard-nav_icon__2gZV4"><i class="la la-envelope"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Messages</span>
