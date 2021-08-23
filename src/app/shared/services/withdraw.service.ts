@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, mapTo, pluck } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, mapTo, mergeMap, mergeMapTo, pluck } from 'rxjs/operators';
 import { ApiResponse } from './product.service';
 
 export type PaymentMethods = 'card';
@@ -40,10 +40,16 @@ export class WithdrawService {
     return this.http.get<ApiResponse<WithdrawData>>(`${this.BASE_URL}s`).pipe(pluck('data'));
   }
 
-  postNewWithdrawRequest(params: NewWithdrawRequestParams): Observable<boolean> {
+  postNewWithdrawRequest(params: NewWithdrawRequestParams): Observable<{ success: boolean; data: WithdrawData }> {
     return this.http.post<ApiResponse<undefined>>(this.BASE_URL, params).pipe(
       mapTo(true),
-      catchError((err) => of(false))
+      catchError((err) => of(false)),
+      mergeMap((success) => {
+        return forkJoin({
+          success: of(success),
+          data: this.getData(),
+        });
+      })
     );
   }
 }

@@ -236,6 +236,7 @@ export class CartService {
         cart[i].quantity = quantity;
       }
       this.cart$.next(cart);
+      this.snackbar.openSnackBar(`"${product.title}" has been added to your cart.`);
       this.updateLocalStorage(cart);
     }
   }

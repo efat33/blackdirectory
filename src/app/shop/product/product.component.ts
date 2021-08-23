@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { map, pluck } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { ProductDetails, ProductReview, ProductService } from 'src/app/shared/se
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { StoreService } from 'src/app/shared/services/store.service';
 import { UserService } from 'src/app/user/user.service';
 
@@ -16,14 +16,16 @@ import { UserService } from 'src/app/user/user.service';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
+  @ViewChild('form') form;
   p: ProductDetails;
   reviews$: Observable<ProductReview[]>;
   storeDetails$: Observable<any>;
   relatedProducts$: Observable<any>;
   review = new FormGroup({
-    rating: new FormControl(4, [Validators.required]),
+    rating: new FormControl(0, [Validators.required, Validators.min(1), Validators.max(5)]),
     review: new FormControl('', Validators.required),
   });
+  reviewTouched = false;
   addToCartCount: number = 1;
   galleryOptions: NgxGalleryOptions[] = [
     {
@@ -42,6 +44,7 @@ export class ProductComponent implements OnInit {
       thumbnailMargin: 20,
     },
   ];
+  reviewTrackBy = (index: number, item: ProductReview) => item.id;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -89,6 +92,7 @@ export class ProductComponent implements OnInit {
   }
 
   submitReview(): void {
+    this.reviewTouched = true;
     if (this.review.invalid) {
       return;
     }
@@ -97,7 +101,10 @@ export class ProductComponent implements OnInit {
     }
     const { rating, review } = this.review.value;
     this.productService.postNewProductReview({ product_id: this.p.id, rating, review }).subscribe((res) => {
-      this.reviews$ = this.productService.getProductReview(this.p.id);
+      this.reviewTouched = false;
+      this.review.reset();
+      this.form.resetForm();
+      this.reviews$ = of(res);
     });
   }
 
