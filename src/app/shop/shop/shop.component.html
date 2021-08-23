@@ -2,13 +2,8 @@
   <div style="display: flex; flex-flow: row nowrap; justify-content: flex-end; margin: 2rem 0 -1.75rem">
     <mat-form-field style="width: unset" appearance="fill">
       <mat-label>Sorting</mat-label>
-      <mat-select (selectionChange)="onSortChange($event.value)" [(value)]="sort">
-        <mat-option [value]="''">Default sorting</mat-option>
-        <mat-option [value]="{ order: 'DESC', orderby: '' }">Sort by popularity</mat-option>
-        <mat-option [value]="{ order: 'DESC', orderby: 'rating_average' }">Sort by average rating</mat-option>
-        <mat-option [value]="{ order: 'DESC', orderby: 'created_at' }">Sort by latest</mat-option>
-        <mat-option [value]="{ order: 'ASC', orderby: 'price' }">Sort by price: low to high</mat-option>
-        <mat-option [value]="{ order: 'DESC', orderby: 'price' }">Sort by price: high to low</mat-option>
+      <mat-select (selectionChange)="onSortChange($event.value)" [value]="sortOptions[0].value">
+        <mat-option *ngFor="let opt of sortOptions" [value]="opt.value"> {{ opt.label }} </mat-option>
       </mat-select>
     </mat-form-field>
   </div>

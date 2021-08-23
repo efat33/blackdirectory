@@ -11,7 +11,7 @@ export class APIInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.startsWith('api')) {
-      // const url = `https://68.66.248.49/~blackdir/api/${req.url.substr(4)}`; // TODO:
+      // const url = `https://mibrahimkhalil.com/${req.url.substr(4)}`; // TODO:
       const url = `${this.helperService.apiUrl}/${req.url.substr(4)}`;
 
       const apiReq = req.clone({

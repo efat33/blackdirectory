@@ -1,5 +1,5 @@
 <div #container class="product-review-container">
-  <a [href]="'/shop/product/' + product.slug">
+  <a [routerLink]="'/shop/product/' + product.slug">
     <div #image class="image" [ngStyle]="{ backgroundImage: 'url(\'' + product.image + '\')' }"></div>
     <span>{{ actualPrice | currency }}</span>
     <h3>{{ product.title }}</h3>
