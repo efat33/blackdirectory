@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, pluck } from 'rxjs/operators';
+import { map, pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helper.service';
 
 export interface ApiResponse<T> {
@@ -244,9 +244,10 @@ export class ProductService {
     );
   }
 
-  postNewProductReview(params: ProductReviewParams): Observable<any> {
-    return this.http
-      .post<ApiResponse<any>>(`${this.BASE_URL}/product/${params.product_id}/review`, params)
-      .pipe(pluck('data'));
+  postNewProductReview(params: ProductReviewParams): Observable<ProductReview[]> {
+    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/${params.product_id}/review`, params).pipe(
+      pluck('data'),
+      switchMap(() => this.getProductReview(params.product_id))
+    );
   }
 }

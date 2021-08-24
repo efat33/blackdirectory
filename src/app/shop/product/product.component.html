@@ -70,7 +70,7 @@
       <ng-template matTabContent>
         <h2>Reviews</h2>
         <mat-list>
-          <mat-list-item *ngFor="let review of reviews$ | async">
+          <mat-list-item *ngFor="let review of reviews$ | async; trackBy: reviewTrackBy">
             <img matListAvatar [src]="review.user_profile_photo" alt="" />
             <div mat-line>
               <star-rating
@@ -94,7 +94,7 @@
           <mat-card-header>
             <mat-card-title>ADD A REVIEW</mat-card-title>
           </mat-card-header>
-          <form (ngSubmit)="submitReview()" [formGroup]="review">
+          <form #form="ngForm" (ngSubmit)="submitReview()" [formGroup]="review">
             <mat-card-content>
               <star-rating
                 [value]="review.get('rating').value"
@@ -103,6 +103,7 @@
                 checkedcolor="gold"
                 uncheckedcolor="gray"
                 readonly="false"
+                [ngClass]="{ 'rating-error': review.get('rating').invalid && reviewTouched }"
                 (rate)="onRate($event)"
               ></star-rating>
               <mat-form-field appearance="outline">

@@ -31,6 +31,7 @@ import { EventsComponent } from './events/events.component';
 import { OrderResolver } from '../shared/components/order-details/order.resolver';
 import { OrderComponent } from './order/order.component';
 import { WithdrawResolver } from './withdraw/withdraw.resolver';
+import { FavoriteListingsComponent } from './favorite-listings/favorite-listings.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,7 @@ const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'listings', component: ListingsComponent },
+      { path: 'favorite-listings', component: FavoriteListingsComponent },
       { path: 'events', component: EventsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/new', component: ProductsNewComponent },
