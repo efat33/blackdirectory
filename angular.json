@@ -41,6 +41,7 @@
               "./node_modules/ng-pick-datetime/assets/style/picker.min.css",
               "src/assets/css/app.min.css",
               "src/assets/css/jobsearch.css",
+              "src/assets/css/plugin-responsive.css",
               "src/assets/css/style-wilcity.css",
               "src/assets/css/ckeditor-styles.scss",
               "src/theme.scss",
