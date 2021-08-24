@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HelperService } from 'src/app/shared/helper.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CandidateEducationModal } from "../../modals/user/candidate-education/candidate-education-modal";
-import { CandidateExperienceModal } from "../../modals/user/candidate-experience/candidate-experience-modal";
-import { CandidatePortfolioModal } from "../../modals/user/candidate-portfolio/candidate-portfolio-modal";
+import { CandidateEducationModal } from '../../modals/user/candidate-education/candidate-education-modal';
+import { CandidateExperienceModal } from '../../modals/user/candidate-experience/candidate-experience-modal';
+import { CandidatePortfolioModal } from '../../modals/user/candidate-portfolio/candidate-portfolio-modal';
 import { Subscription } from 'rxjs';
-import { ConfirmationDialog } from "../../modals/confirmation-dialog/confirmation-dialog";
+import { ConfirmationDialog } from '../../modals/confirmation-dialog/confirmation-dialog';
 import { UserService } from 'src/app/user/user.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { Router } from '@angular/router';
@@ -17,12 +17,13 @@ import { UploadService } from 'src/app/shared/services/upload.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { JobService } from 'src/app/jobs/jobs.service';
 
+declare const google: any;
+
 @Component({
   selector: 'app-dashboard-profile',
   templateUrl: './dashboard-profile.component.html',
-  styleUrls: ['./dashboard-profile.component.scss']
+  styleUrls: ['./dashboard-profile.component.scss'],
 })
-
 export class DashboardProfileComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
@@ -34,16 +35,16 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   formCustomvalidation = {
     profileImage: {
       validated: true,
-      message: ''
+      message: '',
     },
     coverImage: {
       validated: true,
-      message: ''
+      message: '',
     },
     candidateCV: {
       validated: true,
-      message: ''
-    }
+      message: '',
+    },
   };
   submitted = false;
   profileImageSrc: string;
@@ -69,6 +70,9 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   progressCoverImg: number = 0;
   progressCandidateCV: number = 0;
 
+  map: any;
+  mapMarker: any;
+
   constructor(
     public dialog: MatDialog,
     private helperservice: HelperService,
@@ -77,16 +81,19 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackbar: SnackBarService,
     private uploadService: UploadService,
-    private jobService: JobService
-    ) { }
+    private jobService: JobService,
+    private cdk: ChangeDetectorRef
+  ) {}
 
   // convenience getter for easy access to form fields
-  get f() { return this.profileForm.controls; }
+  get f() {
+    return this.profileForm.controls;
+  }
 
   ngOnInit() {
-
     // initiate form fields
     this.setupFormFields();
+    this.initializeGoogleMap();
 
     this.getJobSectors();
 
@@ -108,19 +115,14 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       },
       (res: any) => {
         // if unauthorised, then logout and redirect to home page
-        if(res.status == 401){
+        if (res.status == 401) {
           this.userService.logout();
         }
       }
     );
-
-
-
-
   }
 
-  populateFormFields() : void {
-
+  populateFormFields(): void {
     // console.log(this.userDetails);
     this.profileForm.patchValue({
       first_name: this.userDetails.first_name,
@@ -144,7 +146,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       instagram_link: this.helperservice.getMetaData(this.userMeta, 'instagram_link'),
     });
 
-    if(this.helperservice.currentUserInfo.role == 'candidate'){
+    if (this.helperservice.currentUserInfo.role == 'candidate') {
       this.profileForm.get('job_title').patchValue(this.helperservice.getMetaData(this.userMeta, 'job_title'));
       this.profileForm.get('job_industry').patchValue(this.helperservice.getMetaData(this.userMeta, 'job_industry'));
       this.profileForm.get('salary_type').patchValue(this.helperservice.getMetaData(this.userMeta, 'salary_type'));
@@ -154,28 +156,32 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       this.profileForm.get('availble_now').patchValue(this.helperservice.getMetaData(this.userMeta, 'availble_now'));
       this.profileForm.get('cover_letter').patchValue(this.helperservice.getMetaData(this.userMeta, 'cover_letter'));
 
-      this.profileForm.get('candidate_cv_name').patchValue(this.helperservice.getMetaData(this.userMeta, 'candidate_cv'));
+      this.profileForm
+        .get('candidate_cv_name')
+        .patchValue(this.helperservice.getMetaData(this.userMeta, 'candidate_cv'));
 
-      if(this.helperservice.getMetaData(this.userMeta, 'academics') != ''){
-        this.profileForm.get('academics').patchValue(JSON.parse(this.helperservice.getMetaData(this.userMeta, 'academics')));
+      if (this.helperservice.getMetaData(this.userMeta, 'academics') != '') {
+        this.profileForm
+          .get('academics')
+          .patchValue(JSON.parse(this.helperservice.getMetaData(this.userMeta, 'academics')));
       }
     }
 
-    if(this.helperservice.currentUserInfo.role == 'employer'){
+    if (this.helperservice.currentUserInfo.role == 'employer') {
       this.profileForm.get('website').patchValue(this.helperservice.getMetaData(this.userMeta, 'website'));
       this.profileForm.get('founded_date').patchValue(this.helperservice.getMetaData(this.userMeta, 'founded_date'));
     }
 
     // set images url
-    if(this.userDetails.profile_photo != ''){
+    if (this.userDetails.profile_photo != '') {
       this.profileImageSrc = this.helperservice.getImageUrl(this.userDetails.profile_photo, 'users', 'thumb');
     }
-    if(this.userDetails.cover_photo != ''){
+    if (this.userDetails.cover_photo != '') {
       this.coverImageSrc = this.helperservice.getImageUrl(this.userDetails.cover_photo, 'users', 'thumb');
     }
 
     // set candidate educations
-    if(this.userProfile.educations && this.userProfile.educations.length > 0){
+    if (this.userProfile.educations && this.userProfile.educations.length > 0) {
       for (const item of this.userProfile.educations) {
         const variationGroup = new FormGroup({
           id: new FormControl(item.id),
@@ -190,7 +196,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     }
 
     // set candidate experiences
-    if(this.userProfile.experiences && this.userProfile.experiences.length > 0){
+    if (this.userProfile.experiences && this.userProfile.experiences.length > 0) {
       for (const item of this.userProfile.experiences) {
         const variationGroup = new FormGroup({
           id: new FormControl(item.id),
@@ -207,7 +213,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     }
 
     // set candidate portfolios
-    if(this.userProfile.portfolios && this.userProfile.portfolios.length > 0){
+    if (this.userProfile.portfolios && this.userProfile.portfolios.length > 0) {
       for (const item of this.userProfile.portfolios) {
         const variationGroup = new FormGroup({
           id: new FormControl(item.id),
@@ -222,10 +228,16 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       }
     }
 
+    const latlng = {
+      lat: parseFloat(this.userProfile.data.latitude),
+      lng: parseFloat(this.userProfile.data.longitude),
+    };
+
+    this.map.setCenter(latlng);
+    this.mapMarker.setPosition(latlng);
   }
 
-  setupFormFields() : void {
-
+  setupFormFields(): void {
     this.profileForm = new FormGroup({
       first_name: new FormControl(''),
       last_name: new FormControl(''),
@@ -248,11 +260,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       twitter_link: new FormControl(''),
       linkedin_link: new FormControl(''),
       instagram_link: new FormControl(''),
-
     });
 
     // add candidate fields
-    if(this.helperservice.currentUserInfo.role == 'candidate'){
+    if (this.helperservice.currentUserInfo.role == 'candidate') {
       this.profileForm.addControl('job_title', new FormControl(''));
       this.profileForm.addControl('job_industry', new FormControl(''));
       this.profileForm.addControl('salary_type', new FormControl(''));
@@ -276,14 +287,101 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       this.profileForm.addControl('candidatePortfolios', new FormArray([]));
       this.profileForm.addControl('removedPortfolios', new FormControl(''));
       this.candidatePortfolios = this.profileForm.get('candidatePortfolios') as FormArray;
-
     }
 
     // add employer fields
-    if(this.helperservice.currentUserInfo.role == 'employer'){
+    if (this.helperservice.currentUserInfo.role == 'employer') {
       this.profileForm.addControl('website', new FormControl(''));
       this.profileForm.addControl('founded_date', new FormControl(''));
     }
+  }
+
+  initializeGoogleMap() {
+    const latitude = this.profileForm.get('latitude');
+    const longitude = this.profileForm.get('longitude');
+
+    const mapProp = {
+      zoom: 10,
+      scrollwheel: true,
+      zoomControl: true,
+    };
+
+    this.map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+    const geocoder = new google.maps.Geocoder();
+    const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
+    const address = this.profileForm.get('address');
+    this.mapMarker = new google.maps.Marker({
+      map: this.map,
+      anchorPoint: new google.maps.Point(0, -29),
+    });
+
+    const initialLat = 52.49840357809672;
+    const initialLng = -1.4366882483060417;
+
+    this.map.setCenter({ lat: initialLat, lng: initialLng });
+    this.mapMarker.setPosition({ lat: 23, lng: 90 });
+
+    const autocompleteOptions = {
+      fields: ['formatted_address', 'geometry', 'name'],
+      origin: this.map.getCenter(),
+      strictBounds: false,
+    };
+
+    google.maps.event.addListener(this.map, 'click', (event: any) => {
+      const lat = event.latLng.lat(); // lat of clicked point
+      const lng = event.latLng.lng(); // lng of clicked point
+
+      const latlng = { lat, lng };
+
+      this.mapMarker.setPosition(latlng);
+
+      latitude.setValue(lat);
+      longitude.setValue(lng);
+
+      geocoder.geocode(
+        {
+          latLng: latlng,
+        },
+        (results: any, status: any) => {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              address.setValue(results[0].formatted_address);
+            }
+          }
+        }
+      );
+    });
+
+    const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions);
+    autocomplete.bindTo('bounds', this.map);
+
+    autocomplete.addListener('place_changed', () => {
+      // infowindow.close();
+      this.mapMarker.setVisible(false);
+      const place = autocomplete.getPlace();
+
+      if (!place.geometry || !place.geometry.location) {
+        // window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+        this.map.fitBounds(place.geometry.viewport);
+      } else {
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(17);
+      }
+
+      this.mapMarker.setPosition(place.geometry.location);
+      this.mapMarker.setVisible(true);
+
+      address.setValue(place.formatted_address);
+      latitude.setValue(place.geometry.location.lat());
+      longitude.setValue(place.geometry.location.lng());
+
+      this.cdk.detectChanges();
+    });
   }
 
   getJobSectors() {
@@ -308,14 +406,13 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     const formData = this.profileForm.value;
 
     // remove timezone from date, using moment
-    formData.dob = moment(formData.dob).utc().format("YYYY-MM-DD");
+    formData.dob = moment(formData.dob).utc().format('YYYY-MM-DD');
 
     // show spinner
     this.spinnerService.show();
 
     this.userService.update(formData).subscribe(
       (res: any) => {
-
         // hide spinner
         this.spinnerService.hide();
 
@@ -324,7 +421,6 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           location.reload();
         }, 2000);
-
       },
       (res: any) => {
         // hide spinner
@@ -333,23 +429,21 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
         this.snackbar.openSnackBar(res.message, 'Close', 'warn');
       }
     );
-
   }
 
   onProfileImageChange(event) {
-
     // reset validation
     this.formCustomvalidation.profileImage.validated = true;
     this.formCustomvalidation.profileImage.message = '';
 
     const reader = new FileReader();
 
-    if(event.target.files && event.target.files.length) {
+    if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
       // do validation
       const res = this.helperservice.imageValidation(file);
-      if(!res.validated) {
+      if (!res.validated) {
         this.formCustomvalidation.profileImage.validated = false;
         this.formCustomvalidation.profileImage.message = res.message;
         return;
@@ -359,8 +453,8 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
       // send image to the server
       const fd = new FormData();
-      fd.append("image", file, file.name);
-      fd.append("resize", 'yes');
+      fd.append('image', file, file.name);
+      fd.append('resize', 'yes');
 
       // this.uploadService.uploadImage(fd, 'user').subscribe(
       //   (res: any) => {
@@ -372,29 +466,24 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       // );
 
       this.uploadService.uploadImage(fd, 'user').subscribe((event: HttpEvent<any>) => {
-
         switch (event.type) {
           case HttpEventType.UploadProgress:
-            this.progressProfileImg = Math.round(event.loaded / event.total * 100);
+            this.progressProfileImg = Math.round((event.loaded / event.total) * 100);
             break;
           case HttpEventType.Response:
-
-          // check for validation
-          if(event.body.data.fileValidationError){
-            this.formCustomvalidation.profileImage.validated = false;
-            this.formCustomvalidation.profileImage.message = event.body.data.fileValidationError;
-          }
-          else{
-            this.profileForm.get('profile_photo_name').patchValue(event.body.data.filename);
-          }
-          // hide progress bar
-          setTimeout(() => {
-            this.progressProfileImg = 0;
-          }, 1500);
+            // check for validation
+            if (event.body.data.fileValidationError) {
+              this.formCustomvalidation.profileImage.validated = false;
+              this.formCustomvalidation.profileImage.message = event.body.data.fileValidationError;
+            } else {
+              this.profileForm.get('profile_photo_name').patchValue(event.body.data.filename);
+            }
+            // hide progress bar
+            setTimeout(() => {
+              this.progressProfileImg = 0;
+            }, 1500);
         }
-
       });
-
     }
   }
 
@@ -405,12 +494,12 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
     const reader = new FileReader();
 
-    if(event.target.files && event.target.files.length) {
+    if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
       // do validation
       const res = this.helperservice.imageValidation(file);
-      if(!res.validated) {
+      if (!res.validated) {
         this.formCustomvalidation.coverImage.validated = false;
         this.formCustomvalidation.coverImage.message = res.message;
         return;
@@ -420,34 +509,29 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
       // send image to the server
       const fd = new FormData();
-      fd.append("image", file, file.name);
-      fd.append("resize", 'yes');
+      fd.append('image', file, file.name);
+      fd.append('resize', 'yes');
 
       this.uploadService.uploadImage(fd, 'user').subscribe((event: HttpEvent<any>) => {
-
         switch (event.type) {
           case HttpEventType.UploadProgress:
-            this.progressCoverImg = Math.round(event.loaded / event.total * 100);
+            this.progressCoverImg = Math.round((event.loaded / event.total) * 100);
             break;
           case HttpEventType.Response:
+            // check for validation
+            if (event.body.data.fileValidationError) {
+              this.formCustomvalidation.coverImage.validated = false;
+              this.formCustomvalidation.coverImage.message = event.body.data.fileValidationError;
+            } else {
+              this.profileForm.get('cover_photo_name').patchValue(event.body.data.filename);
+            }
 
-          // check for validation
-          if(event.body.data.fileValidationError){
-            this.formCustomvalidation.coverImage.validated = false;
-            this.formCustomvalidation.coverImage.message = event.body.data.fileValidationError;
-          }
-          else{
-            this.profileForm.get('cover_photo_name').patchValue(event.body.data.filename);
-          }
-
-          // hide progress bar
-          setTimeout(() => {
-            this.progressCoverImg = 0;
-          }, 1500);
+            // hide progress bar
+            setTimeout(() => {
+              this.progressCoverImg = 0;
+            }, 1500);
         }
-
       });
-
     }
   }
 
@@ -458,12 +542,12 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
     const reader = new FileReader();
 
-    if(event.target.files && event.target.files.length) {
+    if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
 
       // do validation
       const res = this.helperservice.fileValidation(file);
-      if(!res.validated) {
+      if (!res.validated) {
         this.formCustomvalidation.candidateCV.validated = false;
         this.formCustomvalidation.candidateCV.message = res.message;
         return;
@@ -471,39 +555,33 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
       // send image to the server
       const fd = new FormData();
-      fd.append("file", file, file.name);
+      fd.append('file', file, file.name);
 
       this.uploadService.uploadFile(fd, 'user').subscribe(
-
         (event: HttpEvent<any>) => {
-
           switch (event.type) {
             case HttpEventType.UploadProgress:
-              this.progressCandidateCV = Math.round(event.loaded / event.total * 100);
+              this.progressCandidateCV = Math.round((event.loaded / event.total) * 100);
               break;
             case HttpEventType.Response:
+              // check for validation
+              if (event.body.data.fileValidationError) {
+                this.formCustomvalidation.candidateCV.validated = false;
+                this.formCustomvalidation.candidateCV.message = event.body.data.fileValidationError;
+              } else {
+                this.profileForm.get('candidate_cv_name').patchValue(event.body.data.filename);
+              }
 
-            // check for validation
-            if(event.body.data.fileValidationError){
-              this.formCustomvalidation.candidateCV.validated = false;
-              this.formCustomvalidation.candidateCV.message = event.body.data.fileValidationError;
-            }
-            else{
-              this.profileForm.get('candidate_cv_name').patchValue(event.body.data.filename);
-            }
-
-            // hide progress bar
-            setTimeout(() => {
-              this.progressCandidateCV = 0;
-            }, 1500);
+              // hide progress bar
+              setTimeout(() => {
+                this.progressCandidateCV = 0;
+              }, 1500);
           }
-
-      },
-      (res: any) => {
-        console.log(res);
-      }
+        },
+        (res: any) => {
+          console.log(res);
+        }
       );
-
     }
   }
 
@@ -512,18 +590,17 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
    * candidate education
    * ======================================
    */
-   // add candidate education TODO: make user_id dynamic
-   addCandidateEducation(formData?: any, isEdit?: boolean, index?: number) {
-     if(isEdit) {
-      const eduGroup =  this.candidateEducations.at(index) as FormGroup;
+  // add candidate education TODO: make user_id dynamic
+  addCandidateEducation(formData?: any, isEdit?: boolean, index?: number) {
+    if (isEdit) {
+      const eduGroup = this.candidateEducations.at(index) as FormGroup;
       eduGroup.get('id').patchValue(formData.id);
       eduGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
       eduGroup.get('title').patchValue(formData.title);
       eduGroup.get('institute').patchValue(formData.institute);
       eduGroup.get('year').patchValue(formData.year);
       eduGroup.get('description').patchValue(formData.description);
-     }
-     else{
+    } else {
       const variationGroup = new FormGroup({
         id: new FormControl(formData.id || ''),
         user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
@@ -533,8 +610,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
         description: new FormControl(formData.description || ''),
       });
       this.candidateEducations.push(variationGroup);
-     }
-
+    }
   }
 
   // remove candidate education from Form Array
@@ -553,17 +629,15 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   openEducationModal(education?: any, index?: number): void {
     this.dialogRefEdu = this.dialog.open(CandidateEducationModal, {
       width: '500px',
-      data: { education, edit: !!education }
+      data: { education, edit: !!education },
     });
 
     this.dialogRefEdu.afterClosed().subscribe((result) => {
-      if(result) this.addCandidateEducation(result, !!education, index);
+      if (result) this.addCandidateEducation(result, !!education, index);
     });
 
     this.subscriptions.add(this.dialogRefEdu);
-
   }
-
 
   /**
    * ======================================
@@ -572,32 +646,30 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
    */
   // add candidate experience TODO: make user_id dynamic
   addCandidateExperience(formData?: any, isEdit?: boolean, index?: number) {
-    if(isEdit) {
-     const expGroup =  this.candidateExperiences.at(index) as FormGroup;
-     expGroup.get('id').patchValue(formData.id);
-     expGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
-     expGroup.get('title').patchValue(formData.title);
-     expGroup.get('start_date').patchValue(formData.start_date);
-     expGroup.get('end_date').patchValue(formData.end_date);
-     expGroup.get('present').patchValue(formData.present);
-     expGroup.get('company').patchValue(formData.company);
-     expGroup.get('description').patchValue(formData.description);
+    if (isEdit) {
+      const expGroup = this.candidateExperiences.at(index) as FormGroup;
+      expGroup.get('id').patchValue(formData.id);
+      expGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
+      expGroup.get('title').patchValue(formData.title);
+      expGroup.get('start_date').patchValue(formData.start_date);
+      expGroup.get('end_date').patchValue(formData.end_date);
+      expGroup.get('present').patchValue(formData.present);
+      expGroup.get('company').patchValue(formData.company);
+      expGroup.get('description').patchValue(formData.description);
+    } else {
+      const variationGroup = new FormGroup({
+        id: new FormControl(formData.id || ''),
+        user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
+        title: new FormControl(formData.title || ''),
+        start_date: new FormControl(formData.start_date || ''),
+        end_date: new FormControl(formData.end_date || ''),
+        present: new FormControl(formData.present || ''),
+        company: new FormControl(formData.company || ''),
+        description: new FormControl(formData.description || ''),
+      });
+      this.candidateExperiences.push(variationGroup);
     }
-    else{
-     const variationGroup = new FormGroup({
-       id: new FormControl(formData.id || ''),
-       user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
-       title: new FormControl(formData.title || ''),
-       start_date: new FormControl(formData.start_date || ''),
-       end_date: new FormControl(formData.end_date || ''),
-       present: new FormControl(formData.present || ''),
-       company: new FormControl(formData.company || ''),
-       description: new FormControl(formData.description || ''),
-     });
-     this.candidateExperiences.push(variationGroup);
-    }
-
- }
+  }
 
   // remove candidate education from Form Array
   removeCandidateExperience(index: number, experience?: any) {
@@ -615,17 +687,15 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   openExperienceModal(experience?: any, index?: number): void {
     this.dialogRefExp = this.dialog.open(CandidateExperienceModal, {
       width: '500px',
-      data: { experience, edit: !!experience }
+      data: { experience, edit: !!experience },
     });
 
     this.dialogRefExp.afterClosed().subscribe((result) => {
-      if(result) this.addCandidateExperience(result, !!experience, index);
+      if (result) this.addCandidateExperience(result, !!experience, index);
     });
 
     this.subscriptions.add(this.dialogRefExp);
-
   }
-
 
   /**
    * ======================================
@@ -634,32 +704,30 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
    */
   // add candidate experience TODO: make user_id dynamic
   addCandidatePortfolio(formData?: any, isEdit?: boolean, index?: number) {
-    if(isEdit) {
-     const expGroup =  this.candidatePortfolios.at(index) as FormGroup;
-     expGroup.get('id').patchValue(formData.id);
-     expGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
-     expGroup.get('title').patchValue(formData.title);
-     expGroup.get('image').patchValue('');
-     expGroup.get('image_name').patchValue(formData.image_name);
-     expGroup.get('image_src').patchValue(formData.image_src);
-     expGroup.get('youtube_url').patchValue(formData.youtube_url);
-     expGroup.get('site_url').patchValue(formData.site_url);
+    if (isEdit) {
+      const expGroup = this.candidatePortfolios.at(index) as FormGroup;
+      expGroup.get('id').patchValue(formData.id);
+      expGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
+      expGroup.get('title').patchValue(formData.title);
+      expGroup.get('image').patchValue('');
+      expGroup.get('image_name').patchValue(formData.image_name);
+      expGroup.get('image_src').patchValue(formData.image_src);
+      expGroup.get('youtube_url').patchValue(formData.youtube_url);
+      expGroup.get('site_url').patchValue(formData.site_url);
+    } else {
+      const variationGroup = new FormGroup({
+        id: new FormControl(formData.id || ''),
+        user_id: new FormControl(this.helperservice.currentUserInfo.id),
+        title: new FormControl(formData.title || ''),
+        image: new FormControl(formData.image || ''),
+        image_name: new FormControl(formData.image_name || ''),
+        image_src: new FormControl(formData.image_src || ''),
+        youtube_url: new FormControl(formData.youtube_url || ''),
+        site_url: new FormControl(formData.site_url || ''),
+      });
+      this.candidatePortfolios.push(variationGroup);
     }
-    else{
-     const variationGroup = new FormGroup({
-       id: new FormControl(formData.id || ''),
-       user_id: new FormControl(this.helperservice.currentUserInfo.id),
-       title: new FormControl(formData.title || ''),
-       image: new FormControl(formData.image || ''),
-       image_name: new FormControl(formData.image_name || ''),
-       image_src: new FormControl(formData.image_src || ''),
-       youtube_url: new FormControl(formData.youtube_url || ''),
-       site_url: new FormControl(formData.site_url || '')
-     });
-     this.candidatePortfolios.push(variationGroup);
-    }
-
- }
+  }
 
   // remove candidate education from Form Array
   removeCandidatePortfolio(index: number, experience?: any) {
@@ -677,26 +745,18 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   openPortfolioModal(portfolio?: any, index?: number): void {
     this.dialogRefPort = this.dialog.open(CandidatePortfolioModal, {
       width: '500px',
-      data: { portfolio, edit: !!portfolio }
+      data: { portfolio, edit: !!portfolio },
     });
 
     this.dialogRefPort.afterClosed().subscribe((result) => {
       console.log(result);
-      if(result) this.addCandidatePortfolio(result, !!portfolio, index);
+      if (result) this.addCandidatePortfolio(result, !!portfolio, index);
     });
 
     this.subscriptions.add(this.dialogRefPort);
-
   }
-
-
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
-
 }
-
-
-

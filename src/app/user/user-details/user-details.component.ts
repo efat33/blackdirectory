@@ -14,6 +14,8 @@ import { Pipe } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 
+declare const google: any;
+
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -95,6 +97,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         } else if (this.helperService.isCandidate()) {
           this.getFollowingEmployers();
         }
+
+        this.initializeGoogleMap();
       },
       (res: any) => {
         // if unauthorised, then logout and redirect to home page
@@ -105,6 +109,32 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(getUserSubscription);
+  }
+
+  initializeGoogleMap() {
+    if (!(this.currentUser.latitude && this.currentUser.longitude)) {
+      return;
+    }
+
+    const mapProp = {
+      zoom: 15,
+      scrollwheel: true,
+      zoomControl: true,
+    };
+
+    const lat = parseFloat(this.currentUser.latitude);
+    const lng = parseFloat(this.currentUser.longitude);
+
+    const latlng = { lat, lng };
+
+    const map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+    const mapMarker = new google.maps.Marker({
+      map,
+      anchorPoint: new google.maps.Point(0, -29),
+    });
+
+    map.setCenter(latlng);
+    mapMarker.setPosition(latlng);
   }
 
   getReviews() {
