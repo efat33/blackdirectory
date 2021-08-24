@@ -10,10 +10,10 @@ import SwiperCore, { Navigation } from 'swiper/core';
 import { EventService } from '../events/event.service';
 import { ListingService } from '../listing/listing.service';
 import { LoginModal } from '../modals/user/login/login-modal';
+import { NewsService } from '../news/news.service';
 import { HelperService } from '../shared/helper.service';
 
 declare const google: any;
-
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
@@ -50,11 +50,14 @@ export class HomeComponent implements OnInit {
     10: 'Excellent',
   };
 
+  news: any[];
+
   locationModified = false;
 
   constructor(
     private listingService: ListingService,
     private eventService: EventService,
+    private newsService: NewsService,
     private helperService: HelperService,
     public dialog: MatDialog,
     public router: Router,
@@ -82,6 +85,7 @@ export class HomeComponent implements OnInit {
 
     this.getEvents();
     this.getTrendingCategories();
+    this.getNews();
     this.initializeGoogleMap();
   }
 
@@ -137,6 +141,21 @@ export class HomeComponent implements OnInit {
     );
 
     this.subscriptions.add(subsHomeEvents);
+  }
+
+  getNews() {
+    const subscription = this.newsService.getNewsByQuery({}, 3).subscribe(
+      (result: any) => {
+        this.news = result.data;
+
+        for (const news of this.news) {
+          news.featured_image = this.helperService.getImageUrl(news.featured_image, 'news');
+        }
+      },
+      (error) => {}
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   onSubmitListingForm() {
