@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AsyncValidatorFn, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { pluck, shareReplay, map, tap, take } from 'rxjs/operators';
-import { PaymentMethods, WithdrawData, WithdrawService } from 'src/app/shared/services/withdraw.service';
+import { Observable, of } from 'rxjs';
+import { pluck, shareReplay, map, take } from 'rxjs/operators';
+import { WithdrawData, WithdrawService } from 'src/app/shared/services/withdraw.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
   styleUrls: ['./withdraw.component.css'],
 })
 export class WithdrawComponent implements OnInit {
+  @ViewChild('form') form;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private withdrawService: WithdrawService,
@@ -42,9 +44,12 @@ export class WithdrawComponent implements OnInit {
       return;
     }
     const params = this.withdrawForm.value;
-    this.withdrawService.postNewWithdrawRequest(params).subscribe((success) => {
-      if (success) {
+    this.withdrawService.postNewWithdrawRequest(params).subscribe((response) => {
+      this.form.resetForm();
+      this.withdrawForm.reset();
+      if (response.success) {
         this.snackbar.openSnackBar('Withdraw request successfully made.');
+        this.withdrawData$ = of(response.data);
       } else {
         this.snackbar.openSnackBar('Withdraw request could not be made.');
       }

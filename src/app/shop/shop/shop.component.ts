@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { filter, finalize, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, finalize, tap } from 'rxjs/operators';
 import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
@@ -70,25 +70,18 @@ export class ShopComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .pipe(
+        distinctUntilChanged(),
         tap(({ category, tag }) => {
-          if (category) {
-            this.params = {
-              ...this.params,
-              params: {
-                ...this.params.params,
-                category,
-              },
-            };
-          }
-          if (tag) {
-            this.params = {
-              ...this.params,
-              params: {
-                ...this.params.params,
-                tag,
-              },
-            };
-          }
+          this.hasMoreProducts = true;
+          this.params = {
+            ...this.params,
+            offset: 0,
+            params: {
+              ...this.params.params,
+              ...(category ? { category } : { category: undefined }),
+              ...(tag ? { tag } : { tag: undefined }),
+            },
+          };
         })
       )
       .subscribe(() => {
