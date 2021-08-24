@@ -98,3 +98,7 @@ h2 {
 .vendor-info strong {
   font-size: 1.75rem;
 }
+.rating-error {
+  border: 2px solid #f44336;
+  border-radius: 5px;
+}

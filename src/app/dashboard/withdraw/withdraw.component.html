@@ -31,7 +31,7 @@
             <strong> Current balance is insufficient! </strong>
           </div>
           <ng-template #withdrawSection>
-            <form (ngSubmit)="onSubmitWithdraw()" [formGroup]="withdrawForm" style="margin-top: 2rem">
+            <form #form="ngForm" (ngSubmit)="onSubmitWithdraw()" [formGroup]="withdrawForm" style="margin-top: 2rem">
               <mat-form-field appearance="outline">
                 <mat-label>Withdraw Amount</mat-label>
                 <input matInput type="number" formControlName="amount" name="amount" />

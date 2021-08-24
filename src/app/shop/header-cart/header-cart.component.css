@@ -2,8 +2,9 @@
   padding: 1.5rem !important;
 }
 ::ng-deep .mat-menu-panel {
-  min-width: 280px !important;
-  max-width: min(85vw, 450px) !important;
+  min-width: 310px !important;
+  max-width: none !important;
+  /* transform: translateX(30px); */
 }
 
 button[disabled] {
@@ -60,7 +61,6 @@ button[disabled] {
   justify-content: space-between;
 }
 .actions {
-  margin-left: 2rem;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
