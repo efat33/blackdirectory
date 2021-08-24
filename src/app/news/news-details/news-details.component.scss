@@ -61,9 +61,15 @@
   margin-bottom: 5px;
 }
 
+.news-comments {
+  margin-bottom: 10px;
+}
 
-
-
+@media only screen and (max-width: 767px) {
+  .add-comment-btn {
+    margin-top: 10px;
+  }
+}
 
 
 
