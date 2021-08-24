@@ -51,7 +51,11 @@
                                                                     aria-haspopup="listbox"
                                                                     aria-owns="autosuggest-autosuggest__results">
                                                                     <input type="text" formControlName="address"
-                                                                        placeholder="" class="field_field__3U_Rt">
+                                                                        placeholder="" class="field_field__3U_Rt" autocomplete="off"
+                                                                        (keydown)="locationModified = true" (blur)="onLocationBlur()">
+
+                                                                    <input formControlName="lat" type="hidden" />
+                                                                    <input formControlName="lng" type="hidden" />
                                                                 </div>
                                                                 <span
                                                                     class="field_label__2eCP7 text-ellipsis">Address</span>
