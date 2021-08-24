@@ -213,6 +213,14 @@ export class ListingService {
     return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
 
+  getProducts(body: any): Observable<APIReponse> {
+    const url = 'api/shop/products';
+  
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
 }
 
 

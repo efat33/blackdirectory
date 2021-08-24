@@ -123,9 +123,8 @@
                                         class="list_text__35R07">Reviews</span>
                                 </a>
                             </li>
-                            <li class="list_item__3YghP wil-single-navmy_products"><a
-                                    href="https://www.blackdirectory.co.uk/listing/auto-for-trade-2/?tab=my_products"
-                                    target="_self" class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                            <li class="list_item__3YghP wil-single-navmy_products"><a (click)="onChangeTab('products')"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"
                                     btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                                     <span class="list_icon__2YpTp"><i class="la la-shopping-cart"></i></span> <span
                                         class="list_text__35R07">My Shop</span>
@@ -1366,6 +1365,31 @@
                                         </ng-template>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- current tab = my shop -->
+                    <div *ngIf="current_tab == 'products'" id="single-nav-products" class="single-tab-content">
+                        <div class="content-box_module__333d9 pos-r">
+                            <header class="content-box_header__xPnGx clearfix">
+                                <div class="wil-float-left">
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-shopping-cart"></i> <span>My
+                                            Shop</span></h4>
+                                </div>
+                            </header>
+                            <div class="content-box_body__3tSRB">
+                                <div *ngIf="listing_products.length > 0; else templateNoProduct"
+                                    class="products-container">
+                                    <div class="product-preview" *ngFor="let product of listing_products">
+                                        <app-product-preview [product]="product"></app-product-preview>
+                                    </div>
+                                </div>
+                                <ng-template #templateNoProduct>
+                                    <div class="alert_module__Q4QZx" style="padding-left: 15px;">
+                                        <div class="alert_content__1ntU3">There are no products</div>
+                                    </div>
+                                </ng-template>
                             </div>
                         </div>
                     </div>

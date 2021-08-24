@@ -46,6 +46,7 @@ export class ListingDetailsComponent implements OnInit {
   listing_coupon:any = {};
   listing_hours:any = [];
   listing_menus:any = [];
+  listing_products:any = [];
 
   favoriteListings:any = [];
 
@@ -125,6 +126,7 @@ export class ListingDetailsComponent implements OnInit {
           this.listing_contact = res[0].data.contacts;
           this.listing_hours = res[0].data.hours;
           this.listing_menus = res[0].data.menus;
+          this.listing_products = res[0].data.allproducts;
           this.favoriteListings = res[1].data;
   
           // set images path

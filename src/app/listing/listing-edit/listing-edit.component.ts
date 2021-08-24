@@ -23,14 +23,7 @@ import * as moment from 'moment';
 
 export class ListingEditComponent implements OnInit {
 
-  categories = [
-    { value: 1, viewValue: 'Academies'},
-    { value: 2, viewValue: 'Accommodation'},
-    { value: 3, viewValue: 'Animation'},
-    { value: 4, viewValue: 'Baby Clothing'},
-    { value: 5, viewValue: 'Business Centres'},
-    { value: 6, viewValue: 'Cake Makers'},
-  ];
+  categories = [];
   prices = [
     { value: 'nottosay', viewValue: 'Not to say'},
     { value: 'cheap', viewValue: 'Cheap'},
@@ -38,14 +31,7 @@ export class ListingEditComponent implements OnInit {
     { value: 'expensive', viewValue: 'Expensive'},
     { value: 'ultra_high', viewValue: 'Ultra High'}
   ];
-  products = [
-    { value: 1, viewValue: 'Product 1'},
-    { value: 2, viewValue: 'Product 2'},
-    { value: 3, viewValue: 'Product 3'},
-    { value: 4, viewValue: 'Product 4'},
-    { value: 5, viewValue: 'Product 5'},
-    { value: 6, viewValue: 'Product 6'},
-  ];
+  products = [];
   buttonIcons = [
     { value: 'square', viewValue: 'Square', icon: 'minus-square'},
     { value: 'envelope', viewValue: 'Envelope', icon: 'envelope'},
@@ -242,18 +228,18 @@ export class ListingEditComponent implements OnInit {
 
     const subscriptionGetlisting = this.listingService.getListing(this.listing_slug).subscribe(
       (res:any) => {
+        this.spinnerService.hide();
 
         this.listing = res.data;
 
         // redirect to home page if listing user_id OR claimer_id not equal to current user id
-        if(this.helperservice.currentUserInfo.id != this.listing.listing.user_id ||
+        if(this.helperservice.currentUserInfo.id != this.listing.listing.user_id &&
           this.helperservice.currentUserInfo.id != this.listing.listing.claimer_id){
             this.router.navigate(['home']);
             return;
         }
 
         this.populateFormData();
-        this.spinnerService.hide();
 
       },
       (res:any) => {
@@ -700,6 +686,42 @@ export class ListingEditComponent implements OnInit {
 
 
     });
+
+    // get categories for form category dropdown
+    const subsListingCategories = this.listingService.getCategories().subscribe(
+      (res:any) => {
+        
+        if(res.data.length > 0){
+          for (const item of res.data) {
+            const tmp = { value: item.id, viewValue: item.title};
+            this.categories.push(tmp);
+          }
+        }
+      },
+      (res:any) => {
+        
+      }
+    );
+    this.subscriptions.add(subsListingCategories);
+
+    // get products for form category dropdown
+    const pParams = {'params': {'user_id': this.helperservice.currentUserInfo.id}}
+    const subsListingProducts = this.listingService.getProducts(pParams).subscribe(
+      (res:any) => {
+        
+        if(res.data.length > 0){
+          for (const item of res.data) {
+            const tmp = { value: item.id, viewValue: item.title};
+            this.products.push(tmp);
+          }
+        }
+      },
+      (res:any) => {
+        
+      }
+    );
+    this.subscriptions.add(subsListingProducts);
+    
   }
 
   onSubmit() {
