@@ -70,25 +70,28 @@
       <ng-template matTabContent>
         <h2>Reviews</h2>
         <mat-list>
-          <mat-list-item *ngFor="let review of reviews$ | async; trackBy: reviewTrackBy">
-            <img matListAvatar [src]="review.user_profile_photo" alt="" />
-            <div mat-line>
-              <star-rating
-                [value]="review.rating"
-                [totalstars]="5"
-                size="16px"
-                checkedcolor="gold"
-                uncheckedcolor="gray"
-                readonly="true"
-                style="display: block; cursor: default"
-              ></star-rating>
-              <span style="margin-left: 1rem; color: #666; font-size: 1.4rem">
-                {{ review.user_display_name }},
-                <span style="font-size: 1.3rem">{{ review.created_at | date }}</span>
-              </span>
-            </div>
-            <div mat-line>{{ review.review }}</div>
-          </mat-list-item>
+          <ng-container *ngFor="let review of reviews$ | async as reviews; let i = index; trackBy: reviewTrackBy">
+            <mat-list-item>
+              <img matListAvatar [src]="review.user_profile_photo" alt="" />
+              <div mat-line>
+                <star-rating
+                  [value]="review.rating"
+                  [totalstars]="5"
+                  size="16px"
+                  checkedcolor="gold"
+                  uncheckedcolor="gray"
+                  readonly="true"
+                  style="display: block; cursor: default"
+                ></star-rating>
+                <span style="margin-left: 1rem; color: #666; font-size: 1.4rem">
+                  {{ review.user_display_name }},
+                  <span style="font-size: 1.3rem">{{ review.created_at | date }}</span>
+                </span>
+              </div>
+              <div mat-line class="review-text">{{ review.review }}</div>
+            </mat-list-item>
+            <mat-divider *ngIf="i !== reviews.length - 1"></mat-divider>
+          </ng-container>
         </mat-list>
         <mat-card style="margin: 3rem auto 2rem; width: 95%">
           <mat-card-header>

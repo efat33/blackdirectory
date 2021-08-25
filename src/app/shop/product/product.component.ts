@@ -9,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { StoreService } from 'src/app/shared/services/store.service';
 import { UserService } from 'src/app/user/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
 
 @Component({
   selector: 'app-product',
@@ -44,6 +46,7 @@ export class ProductComponent implements OnInit {
       thumbnailMargin: 20,
     },
   ];
+  images: NgxGalleryImage[];
   reviewTrackBy = (index: number, item: ProductReview) => item.id;
 
   constructor(
@@ -52,7 +55,8 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
     private productService: ProductService,
     private storeService: StoreService,
-    private userService: UserService
+    private userService: UserService,
+    private snackbar: SnackBarService
   ) {}
 
   get hasDiscount(): boolean {
@@ -63,28 +67,24 @@ export class ProductComponent implements OnInit {
     return this.productService.getActualPrice(this.p);
   }
 
-  get images(): NgxGalleryImage[] {
-    return [this.p.image, ...this.p.galleries].map((name) => ({
-      small: this.helperService.getImageUrl(name, 'product', 'thumb'),
-      medium: this.helperService.getImageUrl(name, 'product', 'medium'),
-      big: this.helperService.getImageUrl(name, 'product', 'full'),
-    }));
-  }
-
   ngOnInit(): void {
     this.activatedRoute.data.pipe(pluck<Data, ProductDetails>('product')).subscribe((p) => {
       this.p = p;
-      console.log(p);
+      this.reviews$ = this.productService.getProductReview(this.p.id);
+      this.relatedProducts$ = this.productService.getRelatedProducts(this.p.slug);
+      this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id).pipe(
+        map((data) => ({
+          ...data,
+          profile_picture: this.helperService.getImageUrl(data.profile_picture, 'store', 'full'),
+          banner: this.helperService.getImageUrl(data.banner, 'store', 'full'),
+        }))
+      );
+      this.images = [this.p.image, ...this.p.galleries].map((name) => ({
+        small: this.helperService.getImageUrl(name, 'product', 'thumb'),
+        medium: this.helperService.getImageUrl(name, 'product', 'medium'),
+        big: this.helperService.getImageUrl(name, 'product', 'full'),
+      }));
     });
-    this.reviews$ = this.productService.getProductReview(this.p.id);
-    this.relatedProducts$ = this.productService.getRelatedProducts(this.p.slug);
-    this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id).pipe(
-      map((data) => ({
-        ...data,
-        profile_picture: this.helperService.getImageUrl(data.profile_picture, 'store', 'full'),
-        banner: this.helperService.getImageUrl(data.banner, 'store', 'full'),
-      }))
-    );
   }
 
   onRate({ newValue }: { newValue: number }): void {
@@ -100,12 +100,20 @@ export class ProductComponent implements OnInit {
       return;
     }
     const { rating, review } = this.review.value;
-    this.productService.postNewProductReview({ product_id: this.p.id, rating, review }).subscribe((res) => {
-      this.reviewTouched = false;
-      this.review.reset();
-      this.form.resetForm();
-      this.reviews$ = of(res);
-    });
+    this.productService.postNewProductReview({ product_id: this.p.id, rating, review }).subscribe(
+      (res) => {
+        this.reviewTouched = false;
+        this.review.reset();
+        this.form.resetForm();
+        this.reviews$ = of(res);
+      },
+      (err) => {
+        const multipleReviewMessage = 'You have already reviewed this product';
+        if (err instanceof HttpErrorResponse && err.error.message === multipleReviewMessage) {
+          this.snackbar.openSnackBar(multipleReviewMessage);
+        }
+      }
+    );
   }
 
   addToCart(): void {

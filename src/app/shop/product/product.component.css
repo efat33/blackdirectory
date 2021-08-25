@@ -102,3 +102,10 @@ h2 {
   border: 2px solid #f44336;
   border-radius: 5px;
 }
+.review-text {
+  white-space: pre-line !important;
+}
+.mat-list-item {
+  height: unset !important;
+  padding: 8px 0 !important;
+}
