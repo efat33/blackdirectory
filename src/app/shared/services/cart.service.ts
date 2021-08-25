@@ -214,8 +214,10 @@ export class CartService {
   }
 
   addToCart(product: ProductDetails | ProductList, quantity: number = 1): void {
+    const previousQuantity = this.cart$.value.find((item) => item.product_id === product.id)?.quantity || 0;
+    const newQuantity = previousQuantity + quantity;
     if (this.isLoggedIn) {
-      this.postCartItems([{ product_id: product.id, quantity }]).subscribe(
+      this.postCartItems([{ product_id: product.id, quantity: newQuantity }]).subscribe(
         (cart) => {
           this.cart$.next(cart);
           this.updateLocalStorage(cart);
@@ -230,10 +232,10 @@ export class CartService {
       const cart = this.cart$.value;
       const i = cart.findIndex((item) => item.product_id === product.id);
       if (i < 0) {
-        const cartItem = this.productDetailsToCartItemPopulated(product, quantity);
+        const cartItem = this.productDetailsToCartItemPopulated(product, newQuantity);
         cart.push(cartItem);
       } else {
-        cart[i].quantity = quantity;
+        cart[i].quantity = newQuantity;
       }
       this.cart$.next(cart);
       this.snackbar.openSnackBar(`"${product.title}" has been added to your cart.`);

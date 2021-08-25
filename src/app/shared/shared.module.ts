@@ -98,11 +98,13 @@ import { ListingClaimModal } from '../modals/listing/details/claim/listing-claim
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { ForgotPasswordModal } from '../modals/user/forgot-password/forgot-password-modal';
 import { ResetPasswordModal } from '../modals/user/reset-password/reset-password-modal';
+import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     HeaderCartComponent,
+    ProductPreviewComponent,
     FooterComponent,
     RegistrationModal,
     LoginModal,
@@ -200,7 +202,7 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
     CountdownModule,
     MatCardModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
   ],
   exports: [
     FormsModule,
@@ -208,6 +210,7 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
     RouterModule,
     HeaderComponent,
     HeaderCartComponent,
+    ProductPreviewComponent,
     OrderDetailsComponent,
     FooterComponent,
     MatDialogModule,
@@ -269,7 +272,7 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
     MatCardModule,
     PaginationComponent,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
   ],
   entryComponents: [
     RegistrationModal,
@@ -301,7 +304,7 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
     EventSearchDateModal,
     ListingClaimModal,
     ForgotPasswordModal,
-    ResetPasswordModal
+    ResetPasswordModal,
   ],
 })
 export class SharedModule {}

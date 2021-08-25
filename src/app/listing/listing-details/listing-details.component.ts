@@ -36,16 +36,16 @@ export class ListingDetailsComponent implements OnInit {
   showEditButton: boolean = false;
   showSubmitButton: boolean = false;
 
-  listing:any = {};
-  listing_owner:any = {};
-  listing_categories:any = [];
-  listing_galleries:any = [];
-  listing_videos:any = [];
-  listing_contact:any = {};
-  listing_coupon:any = {};
-  listing_hours:any = [];
-  listing_menus:any = [];
-  listing_products:any = [];
+  listing: any = {};
+  listing_owner: any = {};
+  listing_categories: any = [];
+  listing_galleries: any = [];
+  listing_videos: any = [];
+  listing_contact: any = {};
+  listing_coupon: any = {};
+  listing_hours: any = [];
+  listing_menus: any = [];
+  listing_products: any = [];
 
   favoriteListings: any = [];
 
