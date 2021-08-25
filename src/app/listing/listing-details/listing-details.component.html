@@ -897,7 +897,7 @@
                                         </div>
                                     </header>
                                     <div class="content-box_body__3tSRB pos-r">
-                                      <div id="googleMap" style="width:100%; height:300px;"></div>
+                                        <div id="googleMap" style="width:100%; height:300px;"></div>
                                     </div>
                                 </div>
 
@@ -1379,7 +1379,7 @@
                                 <div *ngIf="listing_products.length > 0; else templateNoProduct"
                                     class="products-container">
                                     <div class="product-preview" *ngFor="let product of listing_products">
-                                        <app-product-preview [product]="product"></app-product-preview>
+                                        <!-- <app-product-preview [product]="product"></app-product-preview> -->
                                     </div>
                                 </div>
                                 <ng-template #templateNoProduct>
