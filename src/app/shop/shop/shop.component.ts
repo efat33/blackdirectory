@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, filter, finalize, tap } from 'rxjs/operators';
+import { distinctUntilChanged, finalize, tap } from 'rxjs/operators';
 import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
@@ -99,6 +99,11 @@ export class ShopComponent implements OnInit {
       .getProductList(params)
       .pipe(
         finalize(() => this.pending$.next(false)),
+        tap(() => {
+          if (params.offset === 0) {
+            this.products$.next([]);
+          }
+        }),
         tap((products) => this.products$.next([...this.products$.value, ...products])),
         tap(() => {
           this.params = {
@@ -123,7 +128,6 @@ export class ShopComponent implements OnInit {
       offset: 0,
     };
     this.hasMoreProducts = true;
-    this.products$.next([]);
     this.loadMore();
   }
 }
