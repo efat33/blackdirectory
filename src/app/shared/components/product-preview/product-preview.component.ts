@@ -20,8 +20,8 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
 
   constructor(private productService: ProductService, private cartService: CartService) {}
 
-  get actualPrice(): number {
-    return this.productService.getActualPrice(this.product);
+  get hasDiscount(): boolean {
+    return this.productService.hasDiscount(this.product);
   }
 
   ngOnInit(): void {}

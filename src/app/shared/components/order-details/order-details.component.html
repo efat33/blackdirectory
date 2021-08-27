@@ -97,6 +97,17 @@
   </tr>
 </table>
 
+<ng-container *ngIf="order.subOrders.length > 0">
+  <h2>Sub Orders</h2>
+  <div class="info-box">
+    <strong> Note: </strong> This order has products from multiple vendors. So we divided this order into multiple
+    vendor orders. Each order will be handled by their respective vendor independently.
+  </div>
+  <div style="border: 1px solid rgba(0, 0, 0, 0.2); margin-top: 1rem">
+    <app-order-list [orders]="order.subOrders"></app-order-list>
+  </div>
+</ng-container>
+
 <h2>More Information</h2>
 <table class="totals-table">
   <tr>

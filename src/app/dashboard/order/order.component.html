@@ -7,6 +7,22 @@
         </h4>
       </div>
     </header>
-    <app-order-details [order]="order$ | async"></app-order-details>
+    <ng-container *ngIf="order$ | async as order">
+      <app-order-details [order]="order"></app-order-details>
+      <form
+        *ngIf="isCustomerOrder$ | async"
+        (ngSubmit)="submitOrderStatus()"
+        [formGroup]="statusForm"
+        style="display: flex"
+      >
+        <mat-form-field appearance="fill" style="margin-bottom: -1.75rem; margin-right: 0.5rem">
+          <mat-label>Order Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let opt of statusOptions" [value]="opt">{{ opt }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-flat-button type="submit" color="primary" style="min-width: 100px">SAVE</button>
+      </form>
+    </ng-container>
   </div>
 </div>
