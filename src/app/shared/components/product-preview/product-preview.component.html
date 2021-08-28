@@ -1,7 +1,11 @@
 <div #container class="product-review-container">
   <a [routerLink]="'/shop/product/' + product.slug">
-    <div #image class="image" [ngStyle]="{ backgroundImage: 'url(\'' + product.image + '\')' }"></div>
-    <span>{{ actualPrice | currency }}</span>
+    <div #image class="image" [ngStyle]="{ backgroundImage: 'url(\'' + product.image + '\')' }">
+      <div *ngIf="hasDiscount" class="sale-badge">SALE !</div>
+    </div>
+    <div class="price">
+      <app-product-price [product]="product"></app-product-price>
+    </div>
     <h3>{{ product.title }}</h3>
   </a>
   <button (click)="addToCart()">ADD TO CART</button>

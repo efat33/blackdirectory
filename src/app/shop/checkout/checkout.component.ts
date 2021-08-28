@@ -80,8 +80,6 @@ export class CheckoutComponent implements OnInit {
           }))
         )
       ),
-      total: this.total$.pipe(take(1)),
-      subtotal: this.subtotal$.pipe(take(1)),
       shipping: of(this.shippingForm.value),
       additional_info: of(this.additionalInfo.value),
       promo_id: this.cartService.appliedCoupon.pipe(

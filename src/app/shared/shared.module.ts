@@ -99,6 +99,8 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { ForgotPasswordModal } from '../modals/user/forgot-password/forgot-password-modal';
 import { ResetPasswordModal } from '../modals/user/reset-password/reset-password-modal';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+import { ProductPriceComponent } from './components/product-price/product-price.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +151,8 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
     ForgotPasswordModal,
     ResetPasswordModal,
     OrderDetailsComponent,
+    OrderListComponent,
+    ProductPriceComponent,
   ],
   imports: [
     CommonModule,
@@ -212,6 +216,8 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
     HeaderCartComponent,
     ProductPreviewComponent,
     OrderDetailsComponent,
+    OrderListComponent,
+    ProductPriceComponent,
     FooterComponent,
     MatDialogModule,
     MatFormFieldModule,

@@ -4,6 +4,14 @@ import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 import { ApiResponse } from './product.service';
 
+export type OrderStatus =
+  | 'Pending payment'
+  | 'Processing'
+  | 'On hold'
+  | 'Completed'
+  | 'Cancelled'
+  | 'Refunded'
+  | 'Failed';
 export interface ShippingDetails {
   first_name: string;
   last_name: string;
@@ -30,8 +38,6 @@ export interface OrderDetailsItem {
 }
 
 export interface PostNewOrderParams {
-  subtotal: number;
-  total: number;
   items: {
     product_id: number;
     quantity: number;
@@ -48,69 +54,85 @@ export interface OrderList {
   subtotal: number;
   total: number;
   earned: number;
-  status: string;
+  status: OrderStatus;
   created_at: Date;
   updated_at: Date;
+  parent_id: number;
+  vendor_id?: number;
   additional_info?: string;
   discount?: number;
   promo_code?: string;
+  promo_id_: number;
 }
 
 export interface OrderDetails extends OrderList {
   items: OrderDetailsItem[];
   shipment: ShippingDetails & { country: string };
-  promo_id?: number;
-  discount?: number;
+  subOrders: OrderList[];
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  BASE_URL = 'api/shop/order';
+  BASE_URL = 'api/shop';
+
   constructor(private http: HttpClient) {}
 
+  private _mapOrderList(list: any[]): OrderList[] {
+    return list.map((d) => ({
+      ...d,
+      subtotal: Number(d.subtotal),
+      total: Number(d.total),
+      earned: Number(d.earned),
+      discount: Number(d.discount),
+      updated_at: new Date(d.updated_at),
+      created_at: new Date(d.created_at),
+    }));
+  }
+
+  private _mapOrderDetails(d: any): OrderDetails {
+    return {
+      ...this._mapOrderList([d])[0],
+      shipment: d.shipment[0],
+      items: d.items.map((item) => ({
+        ...item,
+        created_at: new Date(item.created_at),
+        price: Number(item.price),
+      })),
+      subOrders: this._mapOrderList(d.subOrders || []),
+    };
+  }
+
   getOrderDetails(orderId: number): Observable<OrderDetails> {
-    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/${orderId}`).pipe(
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/order/${orderId}`).pipe(
       pluck('data'),
       map((data) => data[0]),
-      map((d) => ({
-        ...d,
-        shipment: d.shipment[0],
-        subtotal: Number(d.subtotal),
-        total: Number(d.total),
-        earned: Number(d.earned),
-        discount: Number(d.discount),
-        updated_at: new Date(d.updated_at),
-        created_at: new Date(d.created_at),
-        items: d.items.map((item) => ({
-          ...item,
-          created_at: new Date(item.created_at),
-          price: Number(item.price),
-        })),
-      }))
+      map((d) => this._mapOrderDetails(d))
     );
   }
 
-  gerOrders(): Observable<OrderList[]> {
-    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}s`).pipe(
+  getOrders(): Observable<OrderList[]> {
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/orders`).pipe(
       pluck('data'),
-      map((list) =>
-        list.map((d) => ({
-          ...d,
-          subtotal: Number(d.subtotal),
-          total: Number(d.total),
-          earned: Number(d.earned),
-          updated_at: new Date(d.updated_at),
-          created_at: new Date(d.created_at),
-        }))
-      )
+      map((list) => this._mapOrderList(list))
+    );
+  }
+
+  getVendorOrders(): Observable<OrderList[]> {
+    return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/vendor-orders`).pipe(
+      pluck('data'),
+      map((list) => this._mapOrderList(list))
     );
   }
 
   postNewOrder(params: PostNewOrderParams): Observable<number> {
     return this.http
-      .post<ApiResponse<{ order_id: number }>>(this.BASE_URL, params)
+      .post<ApiResponse<{ order_id: number }>>(`${this.BASE_URL}/order`, params)
       .pipe(pluck('data', 'data', 'order_id'));
+  }
+
+  putOrderStatus({ orderId, status }: { orderId: number; status: string }): Observable<any> {
+    return this.http.put<ApiResponse<any>>(`${this.BASE_URL}/order/${orderId}/status`, { status }).pipe(pluck('data'));
   }
 }
