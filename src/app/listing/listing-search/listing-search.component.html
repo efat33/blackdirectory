@@ -26,7 +26,11 @@
                                         <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
                                             aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
                                             <input formControlName="address" type="text" autocomplete="off"
-                                                placeholder="Address ..." class="field_field__3U_Rt">
+                                                placeholder="Address ..." class="field_field__3U_Rt"
+                                                (keydown)="locationModified = true" (blur)="onLocationBlur()">
+
+                                            <input formControlName="lat" type="hidden" />
+                                            <input formControlName="lng" type="hidden" />
                                         </div>
                                     </div>
                                 </div>

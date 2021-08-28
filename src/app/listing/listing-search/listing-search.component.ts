@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +12,8 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { ListingService } from '../listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
+declare const google: any;
 
 @Component({
   selector: 'app-listing-search',
@@ -64,6 +66,8 @@ export class ListingSearchComponent implements OnInit {
     pages: []
   };
 
+  locationModified = false;
+
   constructor(
     public dialog: MatDialog,
     public listingService: ListingService,
@@ -71,6 +75,7 @@ export class ListingSearchComponent implements OnInit {
     public helperService: HelperService,
     private route: ActivatedRoute,
     private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
 
@@ -87,14 +92,50 @@ export class ListingSearchComponent implements OnInit {
     }
     const keyword = this.route.snapshot.queryParamMap.get('keyword');
     const address = this.route.snapshot.queryParamMap.get('address');
+    const lat = this.route.snapshot.queryParamMap.get('lat');
+    const lng = this.route.snapshot.queryParamMap.get('lng');
 
     this.listingSearchForm = new FormGroup({
       keyword: new FormControl(keyword ? keyword : ''),
-      address: new FormControl(address ? address : '')
+      address: new FormControl(address ? address : ''),
+      lat: new FormControl(lat || ''),
+      lng: new FormControl(lng || ''),
     });
 
     this.getCategories();
     this.onSubmitListingForm();
+    this.initializeGoogleMap();
+  }
+
+  initializeGoogleMap() {
+    const latitude = this.listingSearchForm.get('lat');
+    const longitude = this.listingSearchForm.get('lng');
+
+    const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
+    const address = this.listingSearchForm.get('address');
+
+    const autocompleteOptions = {
+      fields: ['formatted_address', 'geometry', 'name'],
+    };
+
+    const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions);
+
+    autocomplete.addListener('place_changed', () => {
+      // infowindow.close();
+      const place = autocomplete.getPlace();
+
+      if (!place.geometry || !place.geometry.location) {
+        // window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+
+      address.setValue(place.formatted_address);
+      latitude.setValue(place.geometry.location.lat());
+      longitude.setValue(place.geometry.location.lng());
+      this.locationModified = false;
+
+      this.cdr.detectChanges();
+    });
   }
 
   getCategories() {
@@ -171,11 +212,15 @@ export class ListingSearchComponent implements OnInit {
       this.queryParams.lat = '';
       this.queryParams.lng = '';
 
-      this.f['keyword'].setValue('');
-      this.f['address'].setValue('');
+      this.f.keyword.setValue('');
+      this.f.address.setValue('');
+      this.f.lat.setValue('');
+      this.f.lng.setValue('');
     }
     else{
-      this.queryParams.keyword = this.f['keyword'].value;
+      this.queryParams.keyword = this.f.keyword.value;
+      this.queryParams.lat = this.f.lat.value;
+      this.queryParams.lng = this.f.lng.value;
     }
 
     const subsSearchL = this.listingService.searchListing(this.queryParams);
@@ -300,6 +345,15 @@ export class ListingSearchComponent implements OnInit {
 
   }
 
+  onLocationBlur() {
+    if (this.locationModified) {
+      this.listingSearchForm.patchValue({
+        lat: '',
+        lng: '',
+        address: '',
+      });
+    }
+  }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();

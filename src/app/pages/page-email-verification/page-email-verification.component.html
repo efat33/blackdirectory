@@ -1,0 +1,13 @@
+<div class="wil-content wilcity-archive">
+  <section class="wil-section">
+    <div class="container">
+      <h2>Email Verification</h2>
+
+      <ng-container *ngIf="verified != null">
+        <p *ngIf="verified">Your account has been verified successfully!</p>
+        <p *ngIf="!verified">Invalid verification key.</p>
+      </ng-container>
+      <p></p>
+    </div>
+  </section>
+</div>

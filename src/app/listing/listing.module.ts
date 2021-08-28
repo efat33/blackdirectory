@@ -13,7 +13,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
-  declarations: [ListingSearchComponent, ListingDetailsComponent, ListingPlanComponent, ListingNewComponent, 
+  declarations: [ListingSearchComponent, ListingDetailsComponent, ListingPlanComponent, ListingNewComponent,
       ListingEditComponent],
   imports: [CommonModule, SharedModule, ListingRoutingModule, CKEditorModule]
 })
