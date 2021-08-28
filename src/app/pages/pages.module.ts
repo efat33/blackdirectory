@@ -6,9 +6,10 @@ import { PageComponent } from './page/page.component';
 import { PageContactUsComponent } from './page-contact-us/page-contact-us.component';
 import { PagePromoteComponent } from './page-promote/page-promote.component';
 import { PageFaqComponent } from './page-faq/page-faq.component';
+import { PageEmailVerificationComponent } from './page-email-verification/page-email-verification.component';
 
 @NgModule({
-  declarations: [PageComponent, PageContactUsComponent, PagePromoteComponent, PageFaqComponent],
+  declarations: [PageComponent, PageContactUsComponent, PagePromoteComponent, PageFaqComponent, PageEmailVerificationComponent],
   imports: [CommonModule, SharedModule, PagesRoutingModule],
   providers: [],
 })

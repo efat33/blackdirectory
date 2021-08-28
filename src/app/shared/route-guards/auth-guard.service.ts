@@ -9,6 +9,7 @@ import {
   CanLoad,
   Route,
   UrlSegment,
+  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HelperService } from '../helper.service';
@@ -17,20 +18,30 @@ import { HelperService } from '../helper.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private helperService: HelperService) {}
+  constructor(private helperService: HelperService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return !!this.helperService.currentUserInfo;
+    if (!this.helperService.currentUserInfo) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return !!this.helperService.currentUserInfo;
+    if (!this.helperService.currentUserInfo) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 }
 
@@ -38,20 +49,30 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   providedIn: 'root',
 })
 export class AuthVerifiedGuard implements CanActivate, CanActivateChild {
-  constructor(private helperService: HelperService) {}
+  constructor(private helperService: HelperService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.helperService.currentUserInfo?.verified == 1;
+    if (this.helperService.currentUserInfo?.verified != 1) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.helperService.currentUserInfo?.verified == 1;
+    if (this.helperService.currentUserInfo?.verified != 1) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 }
 
@@ -60,24 +81,39 @@ export class AuthVerifiedGuard implements CanActivate, CanActivateChild {
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private helperService: HelperService) {}
+  constructor(private helperService: HelperService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.helperService.isAdmin();
+    if (!this.helperService.isAdmin()) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.helperService.isAdmin();
+    if (!this.helperService.isAdmin()) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return this.helperService.isAdmin();
+    if (!this.helperService.isAdmin()) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 }
 
@@ -85,19 +121,29 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
   providedIn: 'root',
 })
 export class EmployerGuard implements CanActivate, CanActivateChild {
-  constructor(private helperService: HelperService) {}
+  constructor(private helperService: HelperService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.helperService.isAdminOrEmployer();
+    if (!this.helperService.isAdminOrEmployer()) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.helperService.isAdminOrEmployer();
+    if (!this.helperService.isAdminOrEmployer()) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
+    return true;
   }
 }
