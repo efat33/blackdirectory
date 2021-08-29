@@ -10,6 +10,7 @@ import { UploadService } from 'src/app/shared/services/upload.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import * as lodash from 'lodash';
 
 declare const google: any;
 
@@ -359,7 +360,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createJob() {
     const formValues = this.jobForm.value;
-    formValues.deadline = formValues.deadline.toLocaleDateString();
+    formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
 
     this.spinnerService.show();
     const newJobSubscription = this.jobService.newJob(formValues).subscribe(
@@ -367,7 +368,12 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
         this.spinnerService.hide();
         // console.log(result);
 
-        this.router.navigate(['/dashboard/manage-jobs']);
+        if (this.helperService.isAdmin()) {
+          this.router.navigate(['/admin/manage-jobs']);
+        } else {
+          this.router.navigate(['/dashboard/manage-jobs']);
+        }
+
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {
@@ -382,7 +388,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateJob() {
     const formValues = this.jobForm.value;
-    formValues.deadline = formValues.deadline.toLocaleDateString();
+    formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
 
     this.spinnerService.show();
     const updateJobSubscription = this.jobService.editJob(this.editJobId, formValues).subscribe(
@@ -390,7 +396,12 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
         this.spinnerService.hide();
         // console.log(result);
 
-        this.router.navigate(['/dashboard/manage-jobs']);
+        if (this.helperService.isAdmin()) {
+          this.router.navigate(['/admin/manage-jobs']);
+        } else {
+          this.router.navigate(['/dashboard/manage-jobs']);
+        }
+
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {

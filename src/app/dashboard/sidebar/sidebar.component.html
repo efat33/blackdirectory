@@ -39,7 +39,7 @@
 
         <!-- job dashboard menu -->
         <li>
-          <mat-accordion *ngIf="userType == 'employer' || userType == 'candidate'">
+          <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -79,7 +79,7 @@
                   ></span>
                 </li>
               </ul>
-              <ul *ngIf="userType == 'employer'" class="sidebar-menu-submenus">
+              <ul *ngIf="userType == 'employer' || userType == 'admin'" class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a
