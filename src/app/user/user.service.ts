@@ -101,7 +101,7 @@ export class UserService {
   }
 
   getClientIP() {
-    this.httpClient.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    this.httpClient.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
       this.clientIp.next(res.ip);
     });
   }
