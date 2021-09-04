@@ -43,6 +43,18 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'updated_at': {
+          const newDate = new Date(item.date);
+          return newDate;
+        }
+        default: {
+          return item[property];
+        }
+      }
+    };
   }
 
   getNews() {

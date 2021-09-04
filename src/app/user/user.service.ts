@@ -289,4 +289,10 @@ export class UserService {
     }
     return !isLoggedIn;
   }
+
+  verifyEmail(verificationKey: string): Observable<any> {
+    const url = `api/users/verify-email/${verificationKey}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
 }
