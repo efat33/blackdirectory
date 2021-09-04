@@ -39,6 +39,9 @@ export class ProductsDataSource implements DataSource<ProductList> {
   }
 
   setSort(orderBy: string, order: 'asc' | 'desc'): void {
+    if (orderBy === 'earning') {
+      orderBy = 'price';
+    }
     this.loadParams.next({
       ...this.loadParams.value,
       offset: 0, // Reset pagination

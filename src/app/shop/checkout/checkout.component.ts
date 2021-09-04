@@ -60,6 +60,7 @@ export class CheckoutComponent implements OnInit {
       .subscribe((data) => {
         this.dataSource.data = data;
       });
+    this.shippingForm.patchValue(this.helperService.currentUserInfo);
   }
 
   onSubmit(): void {

@@ -83,7 +83,6 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
@@ -200,7 +199,6 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     ShareButtonsModule,
     ShareIconsModule,
     NgxGalleryModule,
-    InfiniteScrollModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     CountdownModule,
@@ -271,7 +269,6 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     DropFileDirective,
     rsvpTimeLeft,
     NgxGalleryModule,
-    InfiniteScrollModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     CountdownModule,
