@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, finalize, tap } from 'rxjs/operators';
-import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/services/product.service';
+import { distinctUntilChanged, switchMapTo, tap } from 'rxjs/operators';
+import { ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-shop',
@@ -10,15 +9,15 @@ import { GetProductListBody, ProductList, ProductService } from 'src/app/shared/
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  private params: GetProductListBody = {
-    limit: 12,
-    offset: 0,
+  params: { category?: number; tag?: number } = {};
+  sort: { order: 'ASC' | 'DESC'; orderby: string } = {
     order: 'DESC',
     orderby: 'id',
   };
-  hasMoreProducts = true;
-  pending$ = new BehaviorSubject<boolean>(false);
-  products$ = new BehaviorSubject<ProductList[]>([]);
+  totalItems = 0;
+  pageSize = 12;
+  currentPage = 1;
+  products: ProductList[] = [];
   sortOptions: { label: string; value: { order: 'ASC' | 'DESC'; orderby: string } }[] = [
     {
       label: 'Default sorting',
@@ -63,7 +62,6 @@ export class ShopComponent implements OnInit {
       },
     },
   ];
-  trackByIdentity = (index: number, item: ProductList) => item.id;
 
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) {}
 
@@ -71,63 +69,40 @@ export class ShopComponent implements OnInit {
     this.activatedRoute.queryParams
       .pipe(
         distinctUntilChanged(),
-        tap(({ category, tag }) => {
-          this.hasMoreProducts = true;
-          this.params = {
-            ...this.params,
-            offset: 0,
-            params: {
-              ...this.params.params,
-              ...(category ? { category } : { category: undefined }),
-              ...(tag ? { tag } : { tag: undefined }),
-            },
-          };
-        })
+        tap(({ category, tag, _vendor }) => {
+          this.currentPage = 1;
+          this.params.category = category ? category : undefined;
+          this.params.tag = tag ? tag : undefined;
+        }),
+        switchMapTo(this.productService.getTotalNumberOfProducts(this.params)),
+        tap((numProducts) => (this.totalItems = numProducts))
       )
       .subscribe(() => {
-        this.loadMore();
+        this.loadProducts();
       });
   }
 
-  loadMore(): void {
-    if (this.pending$.value || !this.hasMoreProducts) {
-      return;
-    }
-    this.pending$.next(true);
-    const params = this.params;
-    this.productService
-      .getProductList(params)
-      .pipe(
-        finalize(() => this.pending$.next(false)),
-        tap(() => {
-          if (params.offset === 0) {
-            this.products$.next([]);
-          }
-        }),
-        tap((products) => this.products$.next([...this.products$.value, ...products])),
-        tap(() => {
-          this.params = {
-            ...params,
-            offset: params.offset + params.limit,
-          };
-        }),
-        tap((products) => {
-          if (products.length < this.params.limit) {
-            this.hasMoreProducts = false;
-          }
-        })
-      )
-      .subscribe();
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    this.loadProducts();
   }
 
-  onSortChange(value: { orderby: string; order: 'ASC' | 'DESC' }): void {
-    this.params = {
-      ...this.params,
-      ...(value ? value : this.sortOptions[0].value),
-      limit: this.params.limit,
-      offset: 0,
+  onSortChange(value?: { orderby: string; order: 'ASC' | 'DESC' }): void {
+    this.currentPage = 1;
+    this.sort = value || this.sortOptions[0].value;
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    const params = {
+      ...this.sort,
+      offset: (this.currentPage - 1) * this.pageSize,
+      limit: this.pageSize,
+      params: this.params,
     };
-    this.hasMoreProducts = true;
-    this.loadMore();
+    this.productService
+      .getProductList(params)
+      .pipe(tap((products) => (this.products = products)))
+      .subscribe();
   }
 }

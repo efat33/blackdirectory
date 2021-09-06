@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['image', 'title', 'stock', 'price', 'earning', 'views', 'date'];
+  displayedColumns: string[] = ['image', 'title', 'stock_status', 'price', 'earning', 'views', 'created_at'];
   dataSource: ProductsDataSource;
 
   // Search
@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     category: new FormControl(''),
   });
 
-  totalNumProducts$ = this.productService.getTotalNumberOfProducts(this.userId);
+  totalNumProducts$ = this.productService.getTotalNumberOfProducts({ user_id: this.userId });
   adminProfit = this.helperService.adminProfit;
 
   editRoutePathStart: string = '';
