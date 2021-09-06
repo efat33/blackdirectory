@@ -23,6 +23,10 @@ import { EventsComponent } from '../dashboard/events/events.component';
 import { ManageJobComponent } from '../dashboard/manage-job/manage-job.component';
 import { ManageJobsComponent } from '../dashboard/manage-jobs/manage-jobs.component';
 import { NewJobComponent } from '../dashboard/new-job/new-job.component';
+import { ProductResolver } from '../dashboard/products-edit/product-edit.resolver';
+import { ProductsEditComponent } from '../dashboard/products-edit/products-edit.component';
+import { ProductsNewComponent } from '../dashboard/products-new/products-new.component';
+import { ProductsComponent } from '../dashboard/products/products.component';
 
 const routes: Routes = [
   {
@@ -63,6 +67,11 @@ const routes: Routes = [
       { path: 'page-edit/:page_slug', component: NewPageComponent },
       { path: 'page-all', component: ManagePagesComponent },
       { path: 'manage-faqs', component: ManageFaqsComponent },
+
+      { path: 'products', component: ProductsComponent },
+      { path: 'products/new', component: ProductsNewComponent },
+      { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
+      // { path: 'withdraw-requests', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
     ],
   },
 ];

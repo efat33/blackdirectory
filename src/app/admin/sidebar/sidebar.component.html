@@ -129,6 +129,64 @@
           </mat-accordion>
         </li>
 
+        <!-- ----------------------- Vendor Dashboard Starts ----------------------- -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="la la-shopping-cart"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Products</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span
+                    ></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul *ngIf="true" class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['products']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Product List</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
+                  <span>
+                    <a
+                      [routerLink]="['products/new']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-plus"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">New Product</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['withdraw']"
+                      routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-money"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Withdraw Requests</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+        <!-- ------------------------ Vendor Dashboard Ends ------------------------ -->
+
         <!-- listing menu -->
         <li>
           <mat-accordion>

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { ProductService, StockStatus } from 'src/app/shared/services/product.service';
@@ -34,13 +35,17 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   totalNumProducts$ = this.productService.getTotalNumberOfProducts(this.userId);
   adminProfit = this.helperService.adminProfit;
 
-  constructor(private productService: ProductService, private helperService: HelperService) {}
+  editRoutePathStart: string = '';
+
+  constructor(private productService: ProductService, private helperService: HelperService, private router: Router) {}
 
   get userId(): number {
     return this.helperService.currentUserInfo.id;
   }
 
   ngOnInit(): void {
+    this.editRoutePathStart = `/${this.router.url.split('/')[1]}`;
+
     this.dataSource = new ProductsDataSource(this.productService, this.userId);
     this.dataSource.loadProducts();
   }
