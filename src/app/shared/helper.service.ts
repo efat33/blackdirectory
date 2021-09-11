@@ -73,7 +73,7 @@ export class HelperService {
   }
 
   getMetaData(data, key): any {
-    return data.find((element) => element.meta_key == key).meta_value;
+    return data.find((element) => element.meta_key == key)?.meta_value || '';
   }
 
   prepareMetaData(data): any {

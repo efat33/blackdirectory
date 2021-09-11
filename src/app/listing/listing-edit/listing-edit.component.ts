@@ -23,7 +23,6 @@ declare const google: any;
   styleUrls: ['./listing-edit.component.scss'],
 })
 export class ListingEditComponent implements OnInit {
-
   categories = [];
   prices = [
     { value: 'nottosay', viewValue: 'Not to say' },
@@ -233,20 +232,22 @@ export class ListingEditComponent implements OnInit {
     this.spinnerService.show();
 
     const subscriptionGetlisting = this.listingService.getListing(this.listing_slug).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.spinnerService.hide();
 
         this.listing = res.data;
 
         // redirect to home page if listing user_id OR claimer_id not equal to current user id
-        if(this.helperservice.currentUserInfo.id != this.listing.listing.user_id &&
-          this.helperservice.currentUserInfo.id != this.listing.listing.claimer_id){
-            this.router.navigate(['home']);
-            return;
+        if (
+          !this.helperservice.isAdmin() &&
+          (this.helperservice.currentUserInfo.id != this.listing.listing.user_id &&
+            this.helperservice.currentUserInfo.id != this.listing.listing.claimer_id)
+        ) {
+          this.router.navigate(['home']);
+          return;
         }
 
         this.populateFormData();
-
       },
       (res: any) => {
         this.spinnerService.hide();
@@ -677,36 +678,30 @@ export class ListingEditComponent implements OnInit {
 
     // get categories for form category dropdown
     const subsListingCategories = this.listingService.getCategories().subscribe(
-      (res:any) => {
-        
-        if(res.data.length > 0){
+      (res: any) => {
+        if (res.data.length > 0) {
           for (const item of res.data) {
-            const tmp = { value: item.id, viewValue: item.title};
+            const tmp = { value: item.id, viewValue: item.title };
             this.categories.push(tmp);
           }
         }
       },
-      (res:any) => {
-        
-      }
+      (res: any) => {}
     );
     this.subscriptions.add(subsListingCategories);
 
     // get products for form category dropdown
-    const pParams = {'params': {'user_id': this.helperservice.currentUserInfo.id}}
+    const pParams = { params: { user_id: this.helperservice.currentUserInfo.id } };
     const subsListingProducts = this.listingService.getProducts(pParams).subscribe(
-      (res:any) => {
-        
-        if(res.data.length > 0){
+      (res: any) => {
+        if (res.data.length > 0) {
           for (const item of res.data) {
-            const tmp = { value: item.id, viewValue: item.title};
+            const tmp = { value: item.id, viewValue: item.title };
             this.products.push(tmp);
           }
         }
       },
-      (res:any) => {
-        
-      }
+      (res: any) => {}
     );
     this.subscriptions.add(subsListingProducts);
   }
@@ -797,8 +792,6 @@ export class ListingEditComponent implements OnInit {
 
       this.cdk.detectChanges();
     });
-
-    
   }
 
   onSubmit() {

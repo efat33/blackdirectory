@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, pluck, take, withLatestFrom } from 'rxjs/operators';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -76,14 +76,19 @@ export class ProductsEditComponent implements OnInit {
     return this.productForm.controls.downloadable.value;
   }
 
+  routePathStart: string = '';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private spinnerService: SpinnerService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.routePathStart = `/${this.router.url.split('/')[1]}`;
+
     // Remove extra gallery inputs, add one more if all filled
     this.galleries.valueChanges.subscribe(this.arrangeGalleryInputCount);
 
@@ -186,6 +191,10 @@ export class ProductsEditComponent implements OnInit {
       (res) => {
         this.spinnerService.hide();
         this.snackbar.openSnackBar(res.message);
+
+        setTimeout(() => {
+          this.router.navigate([`/${this.routePathStart}`, 'products']);
+        }, 2000);
       },
       (error) => {
         this.showError = true;
