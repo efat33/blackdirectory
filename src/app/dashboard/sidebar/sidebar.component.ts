@@ -19,7 +19,7 @@ export class DashboardSidebarComponent implements OnInit {
       this.currentUser = this.helperService.currentUserInfo;
       this.userType = this.helperService.currentUserInfo.role;
 
-      if (this.currentUser.profile_photo !== '') {
+      if (this.currentUser.profile_photo) {
         this.profileImage = this.helperService.getImageUrl(this.currentUser.profile_photo, 'users', 'medium');
       }
     } else {

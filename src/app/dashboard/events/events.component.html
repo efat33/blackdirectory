@@ -3,11 +3,12 @@
       class="wil-btn wil-addlisting-btn wil-btn wil-btn--primary2 wil-btn--round wil-btn--sm"><i
         class="la la-pencil-square"></i>
       Add Event
-    </a></div>
+    </a>
+  </div>
   <div class=" mt-15">
     <div class="content-box_body__3tSRB">
       <div class="container">
-        <div class="searchbox_wrap__37JXq">
+        <div class="searchbox_wrap__37JXq searchbox_wrap__event">
           <div class="searchbox_searchInput__2p4ds">
             <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
               <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
@@ -73,7 +74,7 @@
         </tbody>
         <tbody *ngIf="totalEvetns > 0">
           <tr *ngFor="let item of events; let index=index">
-            <td data-th="Publish" class="">
+            <td data-th="Title" class="">
               <article class="listing_module__2EnGq wil-shadow listing_list2__2An8C js-listing-module">
                 <div class="listing_firstWrap__36UOZ">
                   <header class="listing_header__2pt4D"><a href="{{ siteUrl + '/events/details/' + item.slug }}"
@@ -96,12 +97,11 @@
                 {{ item.address }}
               </div>
             </td>
-            <td data-th="Views" class="wil-td-view">
-              <span>{{ item.start_time | date : 'MMMM d, y @ h:mm a' }}</span>
-            </td>
-            <td data-th="Favorites" class="wil-td-favorite">
-              <span>{{ item.end_time | date : 'MMMM d, y @ h:mm a' }}</span>
-            </td>
+            <td data-th="Views" class="wil-td-view"><span>{{ item.start_time | date : 'MMMM d,
+                y @ h:mm a' }}</span></td>
+            <td data-th="Favorites" class="wil-td-favorite"><span>{{ item.end_time
+                | date : 'MMMM d,
+                y @ h:mm a' }}</span></td>
 
             <td data-th="More" class="before-hide wil-text-right wil-td-more">
               <a href="{{ siteUrl + '/events/edit/' + item.slug  }}"

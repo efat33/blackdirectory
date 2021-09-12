@@ -83,7 +83,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.userType = res.data.data.role;
         this.userMeta = this.helperService.prepareMetaData(res.data.meta_data);
         this.userProfile = res.data;
-
+        
         // populdate data
         this.populateData();
 
@@ -210,9 +210,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateData(): void {
-    if (this.currentUser.profile_photo != '')
+    if (this.currentUser.profile_photo)
       this.profileImage = this.helperService.getImageUrl(this.currentUser.profile_photo, 'users', 'medium');
-    if (this.currentUser.cover_photo != '')
+    if (this.currentUser.cover_photo)
       this.coverImage = this.helperService.getImageUrl(this.currentUser.cover_photo, 'users');
     if (this.userMeta.academics) this.academics = JSON.parse(this.userMeta.academics);
 

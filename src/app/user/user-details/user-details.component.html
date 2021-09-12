@@ -41,7 +41,7 @@
               </div>
             </div>
 
-            <div class="jobsearch_side_box jobsearch_box_map">
+            <div *ngIf="currentUser.latitude && currentUser.longitude" class="jobsearch_side_box jobsearch_box_map">
               <div class="jobsearch-map">
                 <div id="googleMap" style="width:100%; height:300px;"></div>
               </div>
@@ -199,7 +199,7 @@
           <div class="jobsearch-column-12 jobsearch-typo-wrap">
             <figure class="jobsearch-jobdetail-list">
               <span class="jobsearch-jobdetail-listthumb">
-                <img src="http://nirectory.com/wp-content/uploads/jobsearch-user-files/image-1-3-150x150.jpg" alt="">
+                <img [src]="profileImage" alt="">
               </span>
               <figcaption>
                 <div class="jobsearch-detrating-con">
@@ -208,19 +208,20 @@
                     <small class="jobsearch-rating-box" style="width:96.666666666666%"></small>
                   </div>
                 </div>
-                <h2>efat.butex333</h2>
+                <h2>{{currentUser.display_name || currentUser.username}}</h2>
                 <ul class="jobsearch-jobdetail-options">
-                  <li>
-                    <i class="fa fa-map-marker"></i> 25 Shoe Lane, London, UK <a
-                      href="https://www.google.com/maps/search/51.51658159999999%2C-0.106066" target="_blank"
-                      class="jobsearch-jobdetail-view">View on Map</a>
+                  <li *ngIf="currentUser.address">
+                    <i class="fa fa-map-marker"></i> {{currentUser.address}} <a
+                      [href]="'https://www.google.com/maps/search/' + currentUser.latitude + ',' + currentUser.longitude"
+                      target="_blank" class="jobsearch-jobdetail-view">View
+                      on Map</a>
                   </li>
                   <li>
-                    <i class="jobsearch-icon jobsearch-mail"></i> <a href="mailto:efat.butex333@gmail.com">Email:
-                      efat.butex333@gmail.com</a>
+                    <i class="jobsearch-icon jobsearch-mail"></i> <a href="mailto:{{currentUser.email}}">Email:
+                      {{currentUser.email}}</a>
                   </li>
-                  <li>
-                    <i class="jobsearch-icon jobsearch-technology"></i> Telephone: 8801777560000
+                  <li *ngIf="currentUser.phone">
+                    <i class="jobsearch-icon jobsearch-technology"></i> Telephone: {{currentUser.phone}}
                   </li>
                 </ul>
                 <a (click)="scrollIntoView(reviewList)" class="jobsearch-go-to-review-form jobsearch-employerdetail-btn"
@@ -228,16 +229,22 @@
                 <a (click)="followEmployer()" class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn"><i
                     class="fa fa-user-plus"></i>
                   {{followingEmployer ? 'Following' : 'Follow'}}</a>
-                <ul class="jobsearch-jobdetail-media jobsearch-add-space">
+                <ul
+                  *ngIf="userMeta.facebook_link || userMeta.instagram_link  || userMeta.linkedin_link || userMeta.twitter_link"
+                  class="jobsearch-jobdetail-media jobsearch-add-space">
                   <li><span>Social Links:</span></li>
-                  <li><a href="https://twitter.com/GSCareers" target="_blank" data-original-title="twitter"
-                      class="jobsearch-icon jobsearch-twitter-logo"></a></li>
-                  <li><a href="https://www.linkedin.com/company/goldman-sachs/jobs" target="_blank"
+                  <li *ngIf="userMeta.facebook_link">
+                    <a href="{{ userMeta.facebook_link }}" target="_blank" data-original-title="facebook"
+                      class="jobsearch-icon jobsearch-facebook-logo"></a>
+                  </li>
+                  <li *ngIf="userMeta.twitter_link"><a href="{{ userMeta.twitter_link }}" target="_blank"
+                      data-original-title="twitter" class="jobsearch-icon jobsearch-twitter-logo"></a></li>
+                  <li *ngIf="userMeta.linkedin_link"><a href="{{ userMeta.linkedin_link }}" target="_blank"
                       data-original-title="linkedin" class=""><i
                         class="jobsearch-icon jobsearch-linkedin-button"></i></a>
                   </li>
-                  <li>
-                    <a href="https://www.instagram.com/goldmansachs/?hl=en" target="_blank"
+                  <li *ngIf="userMeta.instagram_link">
+                    <a href="{{ userMeta.instagram_link }}" target="_blank" data-original-title="instagram"
                       class="jobsearch-icon jobsearch-instagram-logo"></a>
                   </li>
                 </ul>
@@ -257,7 +264,7 @@
                   <li class="jobsearch-column-4">
                     <i class="jobsearch-icon jobsearch-folder"></i>
                     <div class="jobsearch-services-text">Sectors<small>
-                        Banking
+                        {{ currentUser.sector }}
                       </small></div>
                   </li>
                   <li class="jobsearch-column-4">
@@ -267,7 +274,7 @@
                   </li>
                   <li class="jobsearch-column-4">
                     <i class="jobsearch-icon jobsearch-view"></i>
-                    <div class="jobsearch-services-text">Viewed <small>19</small>
+                    <div class="jobsearch-services-text">Viewed <small>{{ currentUser.views }}</small>
                     </div>
                   </li>
                 </ul>
@@ -276,7 +283,7 @@
                 <h2>Company Description</h2>
               </div>
               <div class="jobsearch-description">
-                <p>Description ………….</p>
+                {{ currentUser.description }}
               </div>
             </div>
 
@@ -401,6 +408,8 @@
                 </form>
               </div>
             </div>
+
+            <!-- Active jobs from the employer -->
             <div class="jobsearch-margin-top">
               <div class="jobsearch-section-title">
                 <h2>Active Jobs From efat.butex333</h2>
@@ -630,6 +639,7 @@
             </div>
           </div>
           <!-- Job Detail Content -->
+
           <!-- Job Detail SideBar -->
           <aside class="jobsearch-column-4 jobsearch-typo-wrap">
 
