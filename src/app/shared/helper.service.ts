@@ -139,6 +139,10 @@ export class HelperService {
     return this.currentUserInfo?.role === 'admin';
   }
 
+  isVerified() {
+    return this.currentUserInfo?.verified === 1;
+  }
+
   isAdminOrEmployer() {
     return this.isAdmin() || this.isEmployer();
   }

@@ -420,9 +420,9 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
         this.snackbar.openSnackBar(res.message);
 
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 2000);
       },
       (res: any) => {
         // hide spinner
