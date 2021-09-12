@@ -2,10 +2,8 @@
   <div class="wil-content">
     <div class="listing-detail_module__2-bfH">
       <header class="listing-detail_header__18Cfs">
-        <div
-          class="listing-detail_img__3DyYX pos-a-full bg-cover"
-          [ngStyle]="{ 'background-image': 'url(' + cover_img + ')' }"
-        ></div>
+        <div class="listing-detail_img__3DyYX pos-a-full bg-cover"
+          [ngStyle]="{ 'background-image': 'url(' + cover_img + ')' }"></div>
         <div *ngIf="listing_galleries.length > 0" class="wil-header-btn-wrapper" style="z-index: 1">
           <a (click)="openGalleryModal()" class="wil-btn wil-btn--overlay-dark wil-btn--sm wil-btn--round">
             <span class="list_icon__2YpTp"><i class="la la-photo"></i></span> <span class="">Tour this Listing</span>
@@ -38,14 +36,10 @@
             <div class="listing-detail_rightButton__30xaS clearfix">
               <div class="wil-lists-item">
                 <div class="listing-detail_rightItem__2CjTS wilcity-single-tool-favorite">
-                  <a
-                    (click)="onClickListingFavorite(listing.id)"
-                    class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"
-                  >
-                    <i
-                      [ngClass]="listing.is_favorite ? 'la-heart color-primary' : 'color-quaternary la-heart-o'"
-                      class="la"
-                    ></i>
+                  <a (click)="onClickListingFavorite(listing.id)"
+                    class="wil-btn wil-btn--border wil-btn--round wil-btn--sm">
+                    <i [ngClass]="listing.is_favorite ? 'la-heart color-primary' : 'color-quaternary la-heart-o'"
+                      class="la"></i>
                     <span class="">Favorite</span>
                   </a>
                 </div>
@@ -55,32 +49,23 @@
                   </a>
                 </div>
                 <div class="listing-detail_rightItem__2CjTS wil-single-tool-share">
-                  <a
-                    (click)="listing.show_share_options = !listing.show_share_options"
+                  <a (click)="listing.show_share_options = !listing.show_share_options"
                     (clickOutside)="listing.show_share_options = false"
-                    class="wil-btn wil-btn--border wil-btn--round wil-btn--sm"
-                  >
+                    class="wil-btn wil-btn--border wil-btn--round wil-btn--sm">
                     <i class="color-primary la la-share"></i> <span class="">Share</span>
                   </a>
                   <div class="listing-detail_shareContent__2nr-2" [ngClass]="{ active: listing.show_share_options }">
-                    <div
-                      class="
+                    <div class="
                         list_module__1eis9
                         list-none
                         list_social__31Q0V
                         list_medium__1aT2c
                         list_abs__OP7Og
                         arrow--top-right
-                      "
-                    >
-                      <share-buttons
-                        [theme]="'material-dark'"
-                        [include]="['facebook', 'twitter', 'linkedin', 'pinterest', 'email']"
-                        [title]="listing.title"
-                        [url]="router.url"
-                        [image]="cover_img"
-                        [autoSetMeta]="false"
-                      ></share-buttons>
+                      ">
+                      <share-buttons [theme]="'material-dark'"
+                        [include]="['facebook', 'twitter', 'linkedin', 'pinterest', 'email']" [title]="listing.title"
+                        [url]="router.url" [image]="cover_img" [autoSetMeta]="false"></share-buttons>
                     </div>
                   </div>
                 </div>
@@ -94,12 +79,8 @@
       <div class="detail-navtop_module__zo_OS js-detail-navtop">
         <div class="container">
           <div *ngIf="listing.button_name && listing.button_link" class="detail-navtop_right__KPAlw">
-            <a
-              rel="nofollow"
-              target="_blank"
-              href="{{ listing.button_link }}"
-              class="wil-btn wil-btn--primary2 wil-btn--round wil-btn--md wil-btn--block"
-            >
+            <a rel="nofollow" target="_blank" href="{{ listing.button_link }}"
+              class="wil-btn wil-btn--primary2 wil-btn--round wil-btn--md wil-btn--block">
               <i *ngIf="listing.button_icon" class="la la-{{ listing.button_icon }}"></i>
               {{ listing.button_name }}
             </a>
@@ -107,66 +88,48 @@
           <nav class="detail-navtop_nav__1j1Ti" style="min-height: 73px">
             <ul class="list_module__1eis9 list-none list_horizontal__7fIr5">
               <li class="list_item__3YghP">
-                <a
-                  (click)="onChangeTab('home')"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                <a (click)="onChangeTab('home')" class="list_link__2rDA1 text-ellipsis color-primary--hover"
                   [ngClass]="{ 'color-primary': current_tab === 'home' }"
-                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                >
+                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                   <span class="list_icon__2YpTp"><i class="la la-home"></i></span>
                   <span class="list_text__35R07">Home</span>
                 </a>
               </li>
               <li class="list_item__3YghP wil-single-navcontent">
-                <a
-                  (click)="onChangeTab('description')"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                <a (click)="onChangeTab('description')" class="list_link__2rDA1 text-ellipsis color-primary--hover"
                   [ngClass]="{ 'color-primary': current_tab === 'description' }"
-                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                >
+                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                   <span class="list_icon__2YpTp"><i class="la la-file-text"></i></span>
                   <span class="list_text__35R07">Description</span>
                 </a>
               </li>
               <li class="list_item__3YghP wil-single-navphotos">
-                <a
-                  (click)="onChangeTab('photos')"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                <a (click)="onChangeTab('photos')" class="list_link__2rDA1 text-ellipsis color-primary--hover"
                   [ngClass]="{ 'color-primary': current_tab === 'photos' }"
-                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                >
+                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                   <span class="list_icon__2YpTp"><i class="la la-image"></i></span>
                   <span class="list_text__35R07">Photos</span>
                 </a>
               </li>
               <li class="list_item__3YghP wil-single-navvideos">
-                <a
-                  (click)="onChangeTab('videos')"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                <a (click)="onChangeTab('videos')" class="list_link__2rDA1 text-ellipsis color-primary--hover"
                   [ngClass]="{ 'color-primary': current_tab === 'videos' }"
-                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                >
+                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                   <span class="list_icon__2YpTp"><i class="la la-video-camera"></i></span>
                   <span class="list_text__35R07">Videos</span>
                 </a>
               </li>
               <li class="list_item__3YghP wil-single-navreviews">
-                <a
-                  (click)="onChangeTab('reviews')"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                <a (click)="onChangeTab('reviews')" class="list_link__2rDA1 text-ellipsis color-primary--hover"
                   [ngClass]="{ 'color-primary': current_tab === 'reviews' }"
-                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                >
+                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                   <span class="list_icon__2YpTp"><i class="la la-star-o"></i></span>
                   <span class="list_text__35R07">Reviews</span>
                 </a>
               </li>
               <li class="list_item__3YghP wil-single-navmy_products">
-                <a
-                  (click)="onChangeTab('products')"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                >
+                <a (click)="onChangeTab('products')" class="list_link__2rDA1 text-ellipsis color-primary--hover"
+                  btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                   <span class="list_icon__2YpTp"><i class="la la-shopping-cart"></i></span>
                   <span class="list_text__35R07">My Shop</span>
                 </a>
@@ -195,19 +158,13 @@
       <div id="wil-home-section-wrapper" class="listing-detail_body__287ZB">
         <div class="container">
           <!-- current tab = home -->
-          <div
-            *ngIf="current_tab == 'home'"
-            id="single-home"
-            data-tab-key="home"
-            class="single-tab-content wilcity-js-toggle-group"
-          >
+          <div *ngIf="current_tab == 'home'" id="single-home" data-tab-key="home"
+            class="single-tab-content wilcity-js-toggle-group">
             <div class="listing-detail_row__2UU6R clearfix">
               <div class="wil-colLarge wil-sidebarRight">
                 <!-- listing average review -->
-                <div
-                  *ngIf="listing.no_of_rating > 0"
-                  class="wilcity-single-listing-average-review-box content-box_module__333d9"
-                >
+                <div *ngIf="listing.no_of_rating > 0"
+                  class="wilcity-single-listing-average-review-box content-box_module__333d9">
                   <header class="content-box_header__xPnGx clearfix">
                     <div class="wil-float-left">
                       <h4 class="content-box_title__1gBHS">
@@ -285,11 +242,8 @@
                         <div *ngFor="let item of listing_galleries; let index = index" class="col-xs-6 col-sm-3">
                           <div class="gallery-item_module__1wn6T">
                             <div class="imageCover_module__1VM4k">
-                              <div
-                                class="imageCover_img__3pxw7"
-                                (click)="openGalleryModal(index)"
-                                [ngStyle]="{ 'background-image': 'url(' + item.small + ')' }"
-                              >
+                              <div class="imageCover_img__3pxw7" (click)="openGalleryModal(index)"
+                                [ngStyle]="{ 'background-image': 'url(' + item.small + ')' }">
                                 <img [src]="item.small" class="cursor-pointer" />
                               </div>
                             </div>
@@ -299,11 +253,9 @@
                     </div>
                   </div>
                   <footer class="content-box_footer__kswf3">
-                    <a
-                      (click)="onChangeTab('photos')"
+                    <a (click)="onChangeTab('photos')"
                       class="list_link__2rDA1 text-ellipsis color-primary--hover wil-text-center"
-                      btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                    >
+                      btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                       <span class="">See All</span>
                     </a>
                   </footer>
@@ -327,13 +279,10 @@
                             <div class="gallery-item_module__1wn6T">
                               <div class="video-popup_module__2P6ZG video-popup_sm__11-9c">
                                 <div class="video-popup_media__dEwwq">
-                                  <div
-                                    class="video-popup_img__3zV5d bg-cover"
-                                    [ngStyle]="{ 'background-image': 'url(' + item.image + ')' }"
-                                  ></div>
-                                  <a (click)="openVideoModal(index)" class="video-popup_popup__17b-F js-video-popup"
-                                    ><i class="la la-play"></i
-                                  ></a>
+                                  <div class="video-popup_img__3zV5d bg-cover"
+                                    [ngStyle]="{ 'background-image': 'url(' + item.image + ')' }"></div>
+                                  <a (click)="openVideoModal(index)" class="video-popup_popup__17b-F js-video-popup"><i
+                                      class="la la-play"></i></a>
                                 </div>
                               </div>
                             </div>
@@ -343,22 +292,17 @@
                     </div>
                   </div>
                   <footer class="content-box_footer__kswf3">
-                    <a
-                      (click)="onChangeTab('videos')"
+                    <a (click)="onChangeTab('videos')"
                       class="list_link__2rDA1 text-ellipsis color-primary--hover wil-text-center"
-                      btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover"
-                    >
+                      btn-classes="list_link__2rDA1 text-ellipsis color-primary--hover">
                       <span class="">See All</span>
                     </a>
                   </footer>
                 </div>
 
                 <!-- listing menus -->
-                <div
-                  *ngIf="listing_menus.length > 0"
-                  id="single-home-restaurant-menu-section"
-                  class="single-tab-content"
-                >
+                <div *ngIf="listing_menus.length > 0" id="single-home-restaurant-menu-section"
+                  class="single-tab-content">
                   <div class="content-box_module__333d9 pos-r">
                     <header class="content-box_header__xPnGx clearfix">
                       <div class="wil-float-left">
@@ -381,17 +325,12 @@
                               <li *ngFor="let item of menu.items" class="no-style">
                                 <div class="utility-box-1_module__MYXpX utility-box-1_menus__17rbu">
                                   <div class="utility-box-1_avatar__DB9c_ rounded-circle show-image">
-                                    <img
-                                      [src]="item.image | imageSrc: 'listing':'thumb'"
-                                      class="display-block cursor-pointer"
-                                    />
+                                    <img [src]="item.image | imageSrc: 'listing':'thumb'"
+                                      class="display-block cursor-pointer" />
                                   </div>
-                                  <a
-                                    href="{{ item.link }}"
-                                    target="{{ item.open_new_window == 'yes' ? '_blank' : '_self' }}"
-                                    class="no-style"
-                                    rel="nofollow"
-                                  >
+                                  <a href="{{ item.link }}"
+                                    target="{{ item.open_new_window == 'yes' ? '_blank' : '_self' }}" class="no-style"
+                                    rel="nofollow">
                                     <div class="utility-box-1_body__8qd9j">
                                       <div class="utility-box-1_group__2ZPA2">
                                         <h3 class="utility-box-1_title__1I925">
@@ -445,9 +384,8 @@
                     <header class="add-review_wrap__K1JtF">
                       <div class="add-review_left__ziIv1">
                         <h3 class="add-review_title__3ePFu">
-                          <span class="color-primary"
-                            >{{ listing_reviews.length }} Review{{ listing_reviews.length | pluralPipe: 's' }} For</span
-                          >
+                          <span class="color-primary">{{ listing_reviews.length }} Review{{ listing_reviews.length |
+                            pluralPipe: 's' }} For</span>
                           {{ listing.title }}
                         </h3>
                       </div>
@@ -461,29 +399,20 @@
 
                   <div *ngIf="listing_reviews.length > 0" data-v-0af02974="" id="wilcity-review-wrapper" class="pos-r">
                     <div data-v-0af02974="">
-                      <div
-                        *ngFor="let item of listing_reviews; let index = index"
-                        class="comment-review_module__-Z5tr"
-                        data-v-0af02974=""
-                      >
+                      <div *ngFor="let item of listing_reviews; let index = index" class="comment-review_module__-Z5tr"
+                        data-v-0af02974="">
                         <div class="comment-review_header__1si3M">
-                          <div
-                            class="
+                          <div class="
                               utility-box-1_module__MYXpX
                               utility-box-1_boxLeft__3iS6b
                               clearfix
                               utility-box-1_sm__mopok
                               review-author-avatar
-                            "
-                          >
-                            <a
-                              class="utility-box-1_avatar__DB9c_ rounded-circle"
-                              [ngStyle]="{ 'background-image': 'url(' + getReviewAvatar(item.profile_photo) + ')' }"
-                            >
-                              <img
-                                src="{{ item.profile_photo | imageSrc: 'users':'thumb' }}"
-                                alt="{{ item.display_name != '' ? item.display_name : item.username }}"
-                            /></a>
+                            ">
+                            <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                              [ngStyle]="{ 'background-image': 'url(' + getReviewAvatar(item.profile_photo) + ')' }">
+                              <img src="{{ item.profile_photo | imageSrc: 'users':'thumb' }}"
+                                alt="{{ item.display_name != '' ? item.display_name : item.username }}" /></a>
                             <div class="utility-box-1_body__8qd9j">
                               <div class="utility-box-1_group__2ZPA2">
                                 <h3 class="utility-box-1_title__1I925">
@@ -496,9 +425,8 @@
                             </div>
                           </div>
                           <div class="comment-review_abs__9mb1G pos-a-center-right">
-                            <span class="comment-review_sticky__3iQ8y color-primary fs-20 v-middle visible-hidden"
-                              ><i class="la la-thumb-tack"></i
-                            ></span>
+                            <span class="comment-review_sticky__3iQ8y color-primary fs-20 v-middle visible-hidden"><i
+                                class="la la-thumb-tack"></i></span>
                             <div class="rated-small_module__1vw2B">
                               <div [attr.data-rated]="item.rating" class="rated-small_wrap__2Eetz">
                                 <div class="rated-small_overallRating__oFmKR">{{ item.rating }}</div>
@@ -508,53 +436,35 @@
                                 </div>
                               </div>
                             </div>
-                            <div
-                              *ngIf="userCanEditReview(item.id)"
+                            <div *ngIf="userCanEditReview(item.id)"
                               (clickOutside)="isReviewDotsClicked[item.id] = false"
-                              class="dropdown_module__J_Zpj ml-20"
-                            >
-                              <div
-                                (click)="isReviewDotsClicked[item.id] = isReviewDotsClicked[item.id] ? false : true"
-                                class="dropdown_threeDots__3fa2o"
-                              >
+                              class="dropdown_module__J_Zpj ml-20">
+                              <div (click)="isReviewDotsClicked[item.id] = isReviewDotsClicked[item.id] ? false : true"
+                                class="dropdown_threeDots__3fa2o">
                                 <span class="dropdown_dot__3I1Rn"></span> <span class="dropdown_dot__3I1Rn"></span>
                                 <span class="dropdown_dot__3I1Rn"></span>
                               </div>
-                              <div
-                                [ngClass]="{ active: isReviewDotsClicked[item.id] }"
-                                class="dropdown_itemsWrap__2fuze"
-                              >
-                                <ul
-                                  data-v-52d0a98f=""
-                                  class="
+                              <div [ngClass]="{ active: isReviewDotsClicked[item.id] }"
+                                class="dropdown_itemsWrap__2fuze">
+                                <ul data-v-52d0a98f="" class="
                                     list_module__1eis9
                                     list-none
                                     list_small__3fRoS
                                     list_abs__OP7Og
                                     arrow--top-right
-                                  "
-                                  has-wrap-for-icon="true"
-                                >
+                                  " has-wrap-for-icon="true">
                                   <li class="list_item__3YghP">
-                                    <a
-                                      data-v-52d0a98f=""
-                                      (click)="openReviewModal(item)"
+                                    <a data-v-52d0a98f="" (click)="openReviewModal(item)"
                                       class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                      span-classes="list_text__35R07"
-                                      review-id="17458"
-                                    >
+                                      span-classes="list_text__35R07" review-id="17458">
                                       <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
                                       <span class="list_text__35R07">Edit review</span>
                                     </a>
                                   </li>
                                   <li class="list_item__3YghP">
-                                    <a
-                                      data-v-52d0a98f=""
-                                      (click)="onDeleteReview(item.id)"
+                                    <a data-v-52d0a98f="" (click)="onDeleteReview(item.id)"
                                       class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                      span-classes="list_text__35R07"
-                                      review-id="17458"
-                                    >
+                                      span-classes="list_text__35R07" review-id="17458">
                                       <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
                                       <span class="list_text__35R07">Delete</span>
                                     </a>
@@ -581,13 +491,9 @@
                         <footer data-v-52d0a98f="" class="comment-review_footer__3XR0_">
                           <div data-v-52d0a98f="" class="comment-review_btnGroup__1PqPh">
                             <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
-                              <a
-                                (click)="onClickLikeReview(item.id, index)"
-                                class="utility-meta_module__mfOnV"
-                                [ngClass]="{ 'color-primary': userHasLikedReview(item) }"
-                                btn-classes="'no-style'"
-                                socials="facebook,twitter,linkedin,whatsapp"
-                              >
+                              <a (click)="onClickLikeReview(item.id, index)" class="utility-meta_module__mfOnV"
+                                [ngClass]="{ 'color-primary': userHasLikedReview(item) }" btn-classes="'no-style'"
+                                socials="facebook,twitter,linkedin,whatsapp">
                                 <i class="la la-thumbs-up"></i>
                                 <span class="">Like</span>
                               </a>
@@ -604,38 +510,27 @@
                           </div>
                           <div style="min-height: 100px" data-v-52d0a98f="">
                             <div>
-                              <ul
-                                *ngIf="item.comment_list.length > 0"
-                                class="comment-review_commentlist__1LH_D list-none"
-                              >
-                                <li
-                                  *ngFor="let comment of item.comment_list"
-                                  class="comment-review_commentlistItem__2DILM js-review-discussion-17459"
-                                >
+                              <ul *ngIf="item.comment_list.length > 0"
+                                class="comment-review_commentlist__1LH_D list-none">
+                                <li *ngFor="let comment of item.comment_list"
+                                  class="comment-review_commentlistItem__2DILM js-review-discussion-17459">
                                   <div data-v-7b959e52="" class="">
-                                    <div
-                                      class="
+                                    <div class="
                                         utility-box-1_module__MYXpX
                                         utility-box-1_xs__3Nipt
                                         utility-box-1_boxLeft__3iS6b
                                         clearfix
-                                      "
-                                    >
-                                      <a
-                                        data-v-7b959e52=""
-                                        [ngStyle]="{
+                                      ">
+                                      <a data-v-7b959e52="" [ngStyle]="{
                                           'background-image': 'url(' + getReviewAvatar(comment.profile_photo) + ')'
-                                        }"
-                                        class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left"
-                                      >
-                                        <img src="{{ comment.profile_photo | imageSrc: 'users':'thumb' }}" alt=""
-                                      /></a>
+                                        }" class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
+                                        <img src="{{ comment.profile_photo | imageSrc: 'users':'thumb' }}" alt="" /></a>
                                       <div data-v-7b959e52="" class="utility-box-1_body__8qd9j">
                                         <div data-v-7b959e52="" class="utility-box-1_group__2ZPA2">
                                           <h3 data-v-7b959e52="" class="utility-box-1_title__1I925">
                                             <a data-v-7b959e52="">{{
                                               comment.display_name != '' ? comment.display_name : comment.username
-                                            }}</a>
+                                              }}</a>
                                           </h3>
                                           <div data-v-7b959e52="" class="utility-box-1_content__3jEL7">
                                             {{ comment.description }}
@@ -643,83 +538,60 @@
                                         </div>
                                         <div data-v-7b959e52="" class="utility-box-1_description__2VDJ6"></div>
                                       </div>
-                                      <div
-                                        *ngIf="isCommentEditClicked[comment.id]"
-                                        class="comment-review_comment__dJNqv mt-10"
-                                      >
+                                      <div *ngIf="isCommentEditClicked[comment.id]"
+                                        class="comment-review_comment__dJNqv mt-10">
                                         <div class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
                                           <div class="field_wrap__Gv92k">
-                                            <textarea
-                                              #commentField
+                                            <textarea #commentField
                                               (keyup)="onKeydownCommentField($event, item.id, comment.id)"
                                               data-height-default="22"
-                                              class="field_field__3U_Rt"
-                                              >{{ comment.description }}</textarea
-                                            >
+                                              class="field_field__3U_Rt">{{ comment.description }}</textarea>
                                             <span class="field_label__2eCP7 text-ellipsis">Type a message...</span>
                                             <span class="bg-color-primary"></span>
                                             <div class="field_rightButton__1GGWz js-field-rightButton active">
-                                              <span
-                                                (click)="onSubmitComment(item.id, commentField.value, comment.id)"
-                                                class="field_iconButton__2p3sr bg-color-primary"
-                                                ><i class="la la-arrow-up"></i
-                                              ></span>
+                                              <span (click)="onSubmitComment(item.id, commentField.value, comment.id)"
+                                                class="field_iconButton__2p3sr bg-color-primary"><i
+                                                  class="la la-arrow-up"></i></span>
                                             </div>
                                             <div class="mt-10 pos-a review-cancel">
-                                              <a (click)="onCloseCommentEdit(comment.id)" title="Cancel"
-                                                ><i class="la la-times-circle"></i
-                                              ></a>
+                                              <a (click)="onCloseCommentEdit(comment.id)" title="Cancel"><i
+                                                  class="la la-times-circle"></i></a>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                    <div
-                                      *ngIf="userCanEditComment(comment)"
+                                    <div *ngIf="userCanEditComment(comment)"
                                       (clickOutside)="isCommentDotsClicked[comment.id] = false"
-                                      class="dropdown_module__J_Zpj"
-                                    >
-                                      <div
-                                        (click)="
+                                      class="dropdown_module__J_Zpj">
+                                      <div (click)="
                                           isCommentDotsClicked[comment.id] = isCommentDotsClicked[comment.id]
                                             ? false
                                             : true
-                                        "
-                                        class="dropdown_threeDots__3fa2o"
-                                      >
+                                        " class="dropdown_threeDots__3fa2o">
                                         <span class="dropdown_dot__3I1Rn"></span>
                                         <span class="dropdown_dot__3I1Rn"></span>
                                         <span class="dropdown_dot__3I1Rn"></span>
                                       </div>
-                                      <div
-                                        [ngClass]="{ active: isCommentDotsClicked[comment.id] }"
-                                        class="dropdown_itemsWrap__2fuze"
-                                      >
-                                        <ul
-                                          data-v-7b959e52=""
-                                          class="
+                                      <div [ngClass]="{ active: isCommentDotsClicked[comment.id] }"
+                                        class="dropdown_itemsWrap__2fuze">
+                                        <ul data-v-7b959e52="" class="
                                             list_module__1eis9
                                             list-none
                                             list_small__3fRoS
                                             list_abs__OP7Og
                                             arrow--top-right
-                                          "
-                                          has-wrap-for-icon="true"
-                                        >
+                                          " has-wrap-for-icon="true">
                                           <li class="list_item__3YghP">
-                                            <a
-                                              (click)="onClickCommentEdit(comment.id)"
-                                              class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                            >
+                                            <a (click)="onClickCommentEdit(comment.id)"
+                                              class="list_link__2rDA1 text-ellipsis color-primary--hover">
                                               <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
                                               <span class="list_text__35R07">Edit</span>
                                             </a>
                                           </li>
                                           <li class="list_item__3YghP">
-                                            <a
-                                              (click)="onDeleteComment(comment.id)"
-                                              class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                            >
+                                            <a (click)="onDeleteComment(comment.id)"
+                                              class="list_link__2rDA1 text-ellipsis color-primary--hover">
                                               <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
                                               <span class="list_text__35R07">Delete</span>
                                             </a>
@@ -731,38 +603,28 @@
                                 </li>
                               </ul>
                               <div class="comment-review_form__20wWm">
-                                <div
-                                  class="
+                                <div class="
                                     utility-box-1_module__MYXpX
                                     utility-box-1_xs__3Nipt
                                     d-inline-block
                                     mr-10
                                     wil-float-left
-                                  "
-                                >
-                                  <a
-                                    class="utility-box-1_avatar__DB9c_ rounded-circle"
-                                    [ngStyle]="{ 'background-image': 'url(' + assetUrl + '/img/avatar-default.png)' }"
-                                    ><img src="{{ assetUrl + '/img/avatar-default.png' }}" alt=""
-                                  /></a>
+                                  ">
+                                  <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                    [ngStyle]="{ 'background-image': 'url(' + assetUrl + '/img/avatar-default.png)' }"><img
+                                      src="{{ assetUrl + '/img/avatar-default.png' }}" alt="" /></a>
                                 </div>
                                 <div class="comment-review_comment__dJNqv">
                                   <div class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
                                     <div class="field_wrap__Gv92k">
-                                      <textarea
-                                        #commentField
-                                        (keyup)="onKeydownCommentField($event, item.id)"
-                                        data-height-default="22"
-                                        class="field_field__3U_Rt"
-                                      ></textarea>
+                                      <textarea #commentField (keyup)="onKeydownCommentField($event, item.id)"
+                                        data-height-default="22" class="field_field__3U_Rt"></textarea>
                                       <span class="field_label__2eCP7 text-ellipsis">Type a message...</span>
                                       <span class="bg-color-primary"></span>
                                       <div class="field_rightButton__1GGWz js-field-rightButton">
-                                        <span
-                                          (click)="onSubmitComment(item.id, commentField.value)"
-                                          class="field_iconButton__2p3sr bg-color-primary"
-                                          ><i class="la la-arrow-up"></i
-                                        ></span>
+                                        <span (click)="onSubmitComment(item.id, commentField.value)"
+                                          class="field_iconButton__2p3sr bg-color-primary"><i
+                                            class="la la-arrow-up"></i></span>
                                       </div>
                                     </div>
                                   </div>
@@ -780,36 +642,25 @@
               <!-- listing sidebar -->
               <div data-tab-key="home" class="wil-colSmall wilcity-js-toggle-group">
                 <!-- listing hours -->
-                <div
-                  *ngIf="
+                <div *ngIf="
                     listing.business_hour == 'open_for_selected_hours' ||
                     listing.business_hour == 'always_open' ||
                     listing.business_hour == 'business_closures'
-                  "
-                  class="listing-hours_module__38Iy5"
-                >
-                  <header
-                    data-toggle-button="hour"
-                    data-toggle-effect="slide"
-                    [ngClass]="{
+                  " class="listing-hours_module__38Iy5">
+                  <header data-toggle-button="hour" data-toggle-effect="slide" [ngClass]="{
                       open: isTodayOpen,
                       close: !isTodayOpen,
                       active: listing.business_hour == 'open_for_selected_hours'
-                    }"
-                    class="listing-hours_header__1uH8N clearfix"
-                  >
+                    }" class="listing-hours_header__1uH8N clearfix">
                     <div class="wil-float-left">
                       <h4 class="listing-hours_title__sRfK7">
                         <i class="la la-clock-o"></i>
                         <span>{{
                           listing.business_hour == 'open_for_selected_hours' ? 'Today' : 'BUSINESS HOURS'
-                        }}</span>
-                        <span
-                          *ngIf="listing.business_hour == 'open_for_selected_hours'"
-                          [ngClass]="isTodayOpen ? 'open' : 'close'"
-                          class="listing-hours_status__dQ6Z9"
-                          >{{ isTodayOpen ? 'Open now' : 'Closed' }}</span
-                        >
+                          }}</span>
+                        <span *ngIf="listing.business_hour == 'open_for_selected_hours'"
+                          [ngClass]="isTodayOpen ? 'open' : 'close'" class="listing-hours_status__dQ6Z9">{{ isTodayOpen
+                          ? 'Open now' : 'Closed' }}</span>
                       </h4>
                     </div>
                     <!-- <div class="wil-float-right"><span class="listing-hours_todayhour__1iK4_"><span
@@ -818,42 +669,30 @@
                                         </div> -->
                   </header>
                   <div *ngIf="listing.business_hour == 'business_closures'" class="content-box_body__3tSRB">
-                    <h3
-                      class="business-closures wil-btn wil-btn--block wil-btn--round"
-                      style="font-weight: bold; color: red"
-                    >
+                    <h3 class="business-closures wil-btn wil-btn--block wil-btn--round"
+                      style="font-weight: bold; color: red">
                       Business Closures
                     </h3>
                   </div>
                   <div *ngIf="listing.business_hour == 'always_open'" class="content-box_body__3tSRB">
                     <h3 class="alway-open wil-btn wil-btn--block wil-btn--secondary wil-btn--round">Open 24/7</h3>
                   </div>
-                  <div
-                    *ngIf="listing.business_hour == 'open_for_selected_hours'"
-                    data-toggle-content="hour"
-                    class="listing-hours_body__3StC3 active"
-                    style="display: block"
-                  >
+                  <div *ngIf="listing.business_hour == 'open_for_selected_hours'" data-toggle-content="hour"
+                    class="listing-hours_body__3StC3 active" style="display: block">
                     <ul class="listing-hours_listhours__270Nz list-none">
-                      <li
-                        *ngFor="let item of listing_hours; let i = index"
+                      <li *ngFor="let item of listing_hours; let i = index"
                         [ngClass]="current_weekday == i ? (isTodayOpen ? 'open' : 'close') : ''"
-                        class="listing-hours_item__1B8Vv"
-                      >
+                        class="listing-hours_item__1B8Vv">
                         <span class="listing-hours_day__2Opo_">{{ item.day_of_week }}</span>
                         <div class="listing-hours_hour__1OuD9">
-                          <span *ngIf="item.is_open != 1; else openToday" class="listing-hours_houritem__3cCSp"
-                            >Day Off</span
-                          >
+                          <span *ngIf="item.is_open != 1; else openToday" class="listing-hours_houritem__3cCSp">Day
+                            Off</span>
                           <ng-template #openToday>
-                            <span class="listing-hours_houritem__3cCSp"
-                              >{{ item.first_hour_start }} - {{ item.first_hour_end }}</span
-                            >
-                            <span
-                              *ngIf="item.second_hour_start && item.second_hour_end"
-                              class="listing-hours_houritem__3cCSp"
-                              >{{ item.second_hour_start }} - {{ item.second_hour_end }}</span
-                            >
+                            <span class="listing-hours_houritem__3cCSp">{{ item.first_hour_start }} - {{
+                              item.first_hour_end }}</span>
+                            <span *ngIf="item.second_hour_start && item.second_hour_end"
+                              class="listing-hours_houritem__3cCSp">{{ item.second_hour_start }} - {{
+                              item.second_hour_end }}</span>
                           </ng-template>
                         </div>
                       </li>
@@ -871,10 +710,8 @@
                     </div>
                   </header>
                   <div class="content-box_body__3tSRB">
-                    <div
-                      *ngIf="listing_contact.email"
-                      class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-email"
-                    >
+                    <div *ngIf="listing_contact.email"
+                      class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-email">
                       <div class="icon-box-1_block1__bJ25J">
                         <a href="mailto:{{ listing_contact.email }}">
                           <div class="icon-box-1_icon__3V5c0 rounded-circle"><i class="la la-envelope"></i></div>
@@ -882,10 +719,8 @@
                         </a>
                       </div>
                     </div>
-                    <div
-                      *ngIf="listing_contact.phone"
-                      class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-phone"
-                    >
+                    <div *ngIf="listing_contact.phone"
+                      class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-phone">
                       <div class="icon-box-1_block1__bJ25J">
                         <a href="tel:{{ listing_contact.phone }}">
                           <div class="icon-box-1_icon__3V5c0 rounded-circle"><i class="la la-phone"></i></div>
@@ -893,10 +728,8 @@
                         </a>
                       </div>
                     </div>
-                    <div
-                      *ngIf="listing_contact.website"
-                      class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-website"
-                    >
+                    <div *ngIf="listing_contact.website"
+                      class="icon-box-1_module__uyg5F one-text-ellipsis mt-20 mt-sm-15 wil-listing-website">
                       <div class="icon-box-1_block1__bJ25J">
                         <a target="_blank" href="{{ listing_contact.website }}" rel="nofollow">
                           <div class="icon-box-1_icon__3V5c0 rounded-circle"><i class="la la-globe"></i></div>
@@ -912,26 +745,21 @@
                         </a>
                       </div>
                     </div>
-                    <a
-                      (click)="openContactOwnerModal()"
-                      class="
+                    <a (click)="openContactOwnerModal()" class="
                         wilcity-inbox-btn
                         wil-btn wil-btn--block
                         mt-20
                         wil-btn--border wil-btn--round
                         wil-listing-inbox
-                      "
-                    >
+                      ">
                       <i class="la la-envelope color-1"></i> <span class="">Inbox</span>
                     </a>
                   </div>
                 </div>
 
                 <!-- listing price -->
-                <div
-                  *ngIf="listing.price_min || listing.price_max"
-                  class="wilcity-sidebar-item-price-range content-box_module__333d9"
-                >
+                <div *ngIf="listing.price_min || listing.price_max"
+                  class="wilcity-sidebar-item-price-range content-box_module__333d9">
                   <header class="content-box_header__xPnGx clearfix">
                     <div class="wil-float-left">
                       <h4 class="content-box_title__1gBHS">
@@ -965,10 +793,8 @@
                       <div *ngFor="let item of listing_categories" class="single-listing-category">
                         <div class="icon-box-1_module__uyg5F two-text-ellipsis mb-20 mb-sm-15">
                           <div class="icon-box-1_block1__bJ25J">
-                            <a
-                              href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}"
-                              title="Beard Care"
-                            >
+                            <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}"
+                              title="Beard Care">
                               <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
                                 <img src="{{ item.image | imageSrc: 'listing' }}" alt="{{ item.title }}" />
                               </div>
@@ -1018,7 +844,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-sm-6-clear">
+                      <!-- <div class="col-sm-6 col-sm-6-clear">
                         <div class="icon-box-1_module__uyg5F two-text-ellipsis mt-20 mt-sm-15">
                           <div class="icon-box-1_block1__bJ25J">
                             <div class="icon-box-1_icon__3V5c0 rounded-circle"><i class="la la-share"></i></div>
@@ -1027,7 +853,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1063,16 +889,15 @@
                         </p>
                       </div>
                       <div class="promo-item_action__pd8hZ">
-                        <a
-                          (click)="onClickClaimListing(listing.id)"
-                          class="wil-btn wil-btn--dark wil-btn--sm wil-btn--round"
-                        >
+                        <a (click)="onClickClaimListing(listing.id)"
+                          class="wil-btn wil-btn--dark wil-btn--sm wil-btn--round">
                           <span class="">Claim This Listing</span>
                         </a>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -1115,11 +940,8 @@
                     <div *ngFor="let item of listing_galleries; let index = index" class="col-xs-6 col-sm-3">
                       <div class="gallery-item_module__1wn6T">
                         <div class="imageCover_module__1VM4k">
-                          <div
-                            class="imageCover_img__3pxw7"
-                            (click)="openGalleryModal(index)"
-                            [ngStyle]="{ 'background-image': 'url(' + item.small + ')' }"
-                          >
+                          <div class="imageCover_img__3pxw7" (click)="openGalleryModal(index)"
+                            [ngStyle]="{ 'background-image': 'url(' + item.small + ')' }">
                             <img [src]="item.small" class="cursor-pointer" />
                           </div>
                         </div>
@@ -1155,13 +977,10 @@
                         <div class="gallery-item_module__1wn6T">
                           <div class="video-popup_module__2P6ZG video-popup_sm__11-9c">
                             <div class="video-popup_media__dEwwq">
-                              <div
-                                class="video-popup_img__3zV5d bg-cover"
-                                [ngStyle]="{ 'background-image': 'url(' + item.image + ')' }"
-                              ></div>
-                              <a (click)="openVideoModal(index)" class="video-popup_popup__17b-F js-video-popup"
-                                ><i class="la la-play"></i
-                              ></a>
+                              <div class="video-popup_img__3zV5d bg-cover"
+                                [ngStyle]="{ 'background-image': 'url(' + item.image + ')' }"></div>
+                              <a (click)="openVideoModal(index)" class="video-popup_popup__17b-F js-video-popup"><i
+                                  class="la la-play"></i></a>
                             </div>
                           </div>
                         </div>
@@ -1194,29 +1013,20 @@
                   <div class="pos-r wil-reviews-tab">
                     <div *ngIf="listing_reviews.length > 0" data-v-0af02974="" id="" class="pos-r">
                       <div data-v-0af02974="">
-                        <div
-                          *ngFor="let item of listing_reviews; let index = index"
-                          class="comment-review_module__-Z5tr"
-                          data-v-0af02974=""
-                        >
+                        <div *ngFor="let item of listing_reviews; let index = index"
+                          class="comment-review_module__-Z5tr" data-v-0af02974="">
                           <div class="comment-review_header__1si3M">
-                            <div
-                              class="
+                            <div class="
                                 utility-box-1_module__MYXpX
                                 utility-box-1_boxLeft__3iS6b
                                 clearfix
                                 utility-box-1_sm__mopok
                                 review-author-avatar
-                              "
-                            >
-                              <a
-                                class="utility-box-1_avatar__DB9c_ rounded-circle"
-                                [ngStyle]="{ 'background-image': 'url(' + getReviewAvatar(item.profile_photo) + ')' }"
-                              >
-                                <img
-                                  src="{{ item.profile_photo | imageSrc: 'users':'thumb' }}"
-                                  alt="{{ item.display_name != '' ? item.display_name : item.username }}"
-                              /></a>
+                              ">
+                              <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                [ngStyle]="{ 'background-image': 'url(' + getReviewAvatar(item.profile_photo) + ')' }">
+                                <img src="{{ item.profile_photo | imageSrc: 'users':'thumb' }}"
+                                  alt="{{ item.display_name != '' ? item.display_name : item.username }}" /></a>
                               <div class="utility-box-1_body__8qd9j">
                                 <div class="utility-box-1_group__2ZPA2">
                                   <h3 class="utility-box-1_title__1I925">
@@ -1229,9 +1039,8 @@
                               </div>
                             </div>
                             <div class="comment-review_abs__9mb1G pos-a-center-right">
-                              <span class="comment-review_sticky__3iQ8y color-primary fs-20 v-middle visible-hidden"
-                                ><i class="la la-thumb-tack"></i
-                              ></span>
+                              <span class="comment-review_sticky__3iQ8y color-primary fs-20 v-middle visible-hidden"><i
+                                  class="la la-thumb-tack"></i></span>
                               <div class="rated-small_module__1vw2B">
                                 <div [attr.data-rated]="item.rating" class="rated-small_wrap__2Eetz">
                                   <div class="rated-small_overallRating__oFmKR">{{ item.rating }}</div>
@@ -1243,53 +1052,36 @@
                                   </div>
                                 </div>
                               </div>
-                              <div
-                                *ngIf="userCanEditReview(item.id)"
+                              <div *ngIf="userCanEditReview(item.id)"
                                 (clickOutside)="isReviewDotsClicked[item.id] = false"
-                                class="dropdown_module__J_Zpj ml-20"
-                              >
+                                class="dropdown_module__J_Zpj ml-20">
                                 <div
                                   (click)="isReviewDotsClicked[item.id] = isReviewDotsClicked[item.id] ? false : true"
-                                  class="dropdown_threeDots__3fa2o"
-                                >
+                                  class="dropdown_threeDots__3fa2o">
                                   <span class="dropdown_dot__3I1Rn"></span> <span class="dropdown_dot__3I1Rn"></span>
                                   <span class="dropdown_dot__3I1Rn"></span>
                                 </div>
-                                <div
-                                  [ngClass]="{ active: isReviewDotsClicked[item.id] }"
-                                  class="dropdown_itemsWrap__2fuze"
-                                >
-                                  <ul
-                                    data-v-52d0a98f=""
-                                    class="
+                                <div [ngClass]="{ active: isReviewDotsClicked[item.id] }"
+                                  class="dropdown_itemsWrap__2fuze">
+                                  <ul data-v-52d0a98f="" class="
                                       list_module__1eis9
                                       list-none
                                       list_small__3fRoS
                                       list_abs__OP7Og
                                       arrow--top-right
-                                    "
-                                    has-wrap-for-icon="true"
-                                  >
+                                    " has-wrap-for-icon="true">
                                     <li class="list_item__3YghP">
-                                      <a
-                                        data-v-52d0a98f=""
-                                        (click)="openReviewModal(item)"
+                                      <a data-v-52d0a98f="" (click)="openReviewModal(item)"
                                         class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                        span-classes="list_text__35R07"
-                                        review-id="17458"
-                                      >
+                                        span-classes="list_text__35R07" review-id="17458">
                                         <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
                                         <span class="list_text__35R07">Edit review</span>
                                       </a>
                                     </li>
                                     <li class="list_item__3YghP">
-                                      <a
-                                        data-v-52d0a98f=""
-                                        (click)="onDeleteReview(item.id)"
+                                      <a data-v-52d0a98f="" (click)="onDeleteReview(item.id)"
                                         class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                        span-classes="list_text__35R07"
-                                        review-id="17458"
-                                      >
+                                        span-classes="list_text__35R07" review-id="17458">
                                         <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
                                         <span class="list_text__35R07">Delete</span>
                                       </a>
@@ -1316,13 +1108,9 @@
                           <footer data-v-52d0a98f="" class="comment-review_footer__3XR0_">
                             <div data-v-52d0a98f="" class="comment-review_btnGroup__1PqPh">
                               <div data-v-52d0a98f="" class="comment-review_btn__32CMP">
-                                <a
-                                  (click)="onClickLikeReview(item.id, index)"
-                                  class="utility-meta_module__mfOnV"
-                                  [ngClass]="{ 'color-primary': userHasLikedReview(item) }"
-                                  btn-classes="'no-style'"
-                                  socials="facebook,twitter,linkedin,whatsapp"
-                                >
+                                <a (click)="onClickLikeReview(item.id, index)" class="utility-meta_module__mfOnV"
+                                  [ngClass]="{ 'color-primary': userHasLikedReview(item) }" btn-classes="'no-style'"
+                                  socials="facebook,twitter,linkedin,whatsapp">
                                   <i class="la la-thumbs-up"></i>
                                   <span class="">Like</span>
                                 </a>
@@ -1330,38 +1118,28 @@
                             </div>
                             <div style="min-height: 100px" data-v-52d0a98f="">
                               <div>
-                                <ul
-                                  *ngIf="item.comment_list.length > 0"
-                                  class="comment-review_commentlist__1LH_D list-none"
-                                >
-                                  <li
-                                    *ngFor="let comment of item.comment_list"
-                                    class="comment-review_commentlistItem__2DILM js-review-discussion-17459"
-                                  >
+                                <ul *ngIf="item.comment_list.length > 0"
+                                  class="comment-review_commentlist__1LH_D list-none">
+                                  <li *ngFor="let comment of item.comment_list"
+                                    class="comment-review_commentlistItem__2DILM js-review-discussion-17459">
                                     <div data-v-7b959e52="" class="">
-                                      <div
-                                        class="
+                                      <div class="
                                           utility-box-1_module__MYXpX
                                           utility-box-1_xs__3Nipt
                                           utility-box-1_boxLeft__3iS6b
                                           clearfix
-                                        "
-                                      >
-                                        <a
-                                          data-v-7b959e52=""
-                                          [ngStyle]="{
+                                        ">
+                                        <a data-v-7b959e52="" [ngStyle]="{
                                             'background-image': 'url(' + getReviewAvatar(comment.profile_photo) + ')'
-                                          }"
-                                          class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left"
-                                        >
-                                          <img src="{{ comment.profile_photo | imageSrc: 'users':'thumb' }}" alt=""
-                                        /></a>
+                                          }" class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
+                                          <img src="{{ comment.profile_photo | imageSrc: 'users':'thumb' }}"
+                                            alt="" /></a>
                                         <div data-v-7b959e52="" class="utility-box-1_body__8qd9j">
                                           <div data-v-7b959e52="" class="utility-box-1_group__2ZPA2">
                                             <h3 data-v-7b959e52="" class="utility-box-1_title__1I925">
                                               <a data-v-7b959e52="">{{
                                                 comment.display_name != '' ? comment.display_name : comment.username
-                                              }}</a>
+                                                }}</a>
                                             </h3>
                                             <div data-v-7b959e52="" class="utility-box-1_content__3jEL7">
                                               {{ comment.description }}
@@ -1369,83 +1147,60 @@
                                           </div>
                                           <div data-v-7b959e52="" class="utility-box-1_description__2VDJ6"></div>
                                         </div>
-                                        <div
-                                          *ngIf="isCommentEditClicked[comment.id]"
-                                          class="comment-review_comment__dJNqv mt-10"
-                                        >
+                                        <div *ngIf="isCommentEditClicked[comment.id]"
+                                          class="comment-review_comment__dJNqv mt-10">
                                           <div class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
                                             <div class="field_wrap__Gv92k">
-                                              <textarea
-                                                #commentField
+                                              <textarea #commentField
                                                 (keyup)="onKeydownCommentField($event, item.id, comment.id)"
                                                 data-height-default="22"
-                                                class="field_field__3U_Rt"
-                                                >{{ comment.description }}</textarea
-                                              >
+                                                class="field_field__3U_Rt">{{ comment.description }}</textarea>
                                               <span class="field_label__2eCP7 text-ellipsis">Type a message...</span>
                                               <span class="bg-color-primary"></span>
                                               <div class="field_rightButton__1GGWz js-field-rightButton active">
-                                                <span
-                                                  (click)="onSubmitComment(item.id, commentField.value, comment.id)"
-                                                  class="field_iconButton__2p3sr bg-color-primary"
-                                                  ><i class="la la-arrow-up"></i
-                                                ></span>
+                                                <span (click)="onSubmitComment(item.id, commentField.value, comment.id)"
+                                                  class="field_iconButton__2p3sr bg-color-primary"><i
+                                                    class="la la-arrow-up"></i></span>
                                               </div>
                                               <div class="mt-10 pos-a review-cancel">
-                                                <a (click)="onCloseCommentEdit(comment.id)" title="Cancel"
-                                                  ><i class="la la-times-circle"></i
-                                                ></a>
+                                                <a (click)="onCloseCommentEdit(comment.id)" title="Cancel"><i
+                                                    class="la la-times-circle"></i></a>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                      <div
-                                        *ngIf="userCanEditComment(comment)"
+                                      <div *ngIf="userCanEditComment(comment)"
                                         (clickOutside)="isCommentDotsClicked[comment.id] = false"
-                                        class="dropdown_module__J_Zpj"
-                                      >
-                                        <div
-                                          (click)="
+                                        class="dropdown_module__J_Zpj">
+                                        <div (click)="
                                             isCommentDotsClicked[comment.id] = isCommentDotsClicked[comment.id]
                                               ? false
                                               : true
-                                          "
-                                          class="dropdown_threeDots__3fa2o"
-                                        >
+                                          " class="dropdown_threeDots__3fa2o">
                                           <span class="dropdown_dot__3I1Rn"></span>
                                           <span class="dropdown_dot__3I1Rn"></span>
                                           <span class="dropdown_dot__3I1Rn"></span>
                                         </div>
-                                        <div
-                                          [ngClass]="{ active: isCommentDotsClicked[comment.id] }"
-                                          class="dropdown_itemsWrap__2fuze"
-                                        >
-                                          <ul
-                                            data-v-7b959e52=""
-                                            class="
+                                        <div [ngClass]="{ active: isCommentDotsClicked[comment.id] }"
+                                          class="dropdown_itemsWrap__2fuze">
+                                          <ul data-v-7b959e52="" class="
                                               list_module__1eis9
                                               list-none
                                               list_small__3fRoS
                                               list_abs__OP7Og
                                               arrow--top-right
-                                            "
-                                            has-wrap-for-icon="true"
-                                          >
+                                            " has-wrap-for-icon="true">
                                             <li class="list_item__3YghP">
-                                              <a
-                                                (click)="onClickCommentEdit(comment.id)"
-                                                class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                              >
+                                              <a (click)="onClickCommentEdit(comment.id)"
+                                                class="list_link__2rDA1 text-ellipsis color-primary--hover">
                                                 <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
                                                 <span class="list_text__35R07">Edit</span>
                                               </a>
                                             </li>
                                             <li class="list_item__3YghP">
-                                              <a
-                                                (click)="onDeleteComment(comment.id)"
-                                                class="list_link__2rDA1 text-ellipsis color-primary--hover"
-                                              >
+                                              <a (click)="onDeleteComment(comment.id)"
+                                                class="list_link__2rDA1 text-ellipsis color-primary--hover">
                                                 <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
                                                 <span class="list_text__35R07">Delete</span>
                                               </a>
@@ -1457,38 +1212,28 @@
                                   </li>
                                 </ul>
                                 <div class="comment-review_form__20wWm">
-                                  <div
-                                    class="
+                                  <div class="
                                       utility-box-1_module__MYXpX
                                       utility-box-1_xs__3Nipt
                                       d-inline-block
                                       mr-10
                                       wil-float-left
-                                    "
-                                  >
-                                    <a
-                                      class="utility-box-1_avatar__DB9c_ rounded-circle"
-                                      [ngStyle]="{ 'background-image': 'url(' + assetUrl + '/img/avatar-default.png)' }"
-                                      ><img src="{{ assetUrl + '/img/avatar-default.png' }}" alt=""
-                                    /></a>
+                                    ">
+                                    <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                      [ngStyle]="{ 'background-image': 'url(' + assetUrl + '/img/avatar-default.png)' }"><img
+                                        src="{{ assetUrl + '/img/avatar-default.png' }}" alt="" /></a>
                                   </div>
                                   <div class="comment-review_comment__dJNqv">
                                     <div class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
                                       <div class="field_wrap__Gv92k">
-                                        <textarea
-                                          #commentField
-                                          (keyup)="onKeydownCommentField($event, item.id)"
-                                          data-height-default="22"
-                                          class="field_field__3U_Rt"
-                                        ></textarea>
+                                        <textarea #commentField (keyup)="onKeydownCommentField($event, item.id)"
+                                          data-height-default="22" class="field_field__3U_Rt"></textarea>
                                         <span class="field_label__2eCP7 text-ellipsis">Type a message...</span>
                                         <span class="bg-color-primary"></span>
                                         <div class="field_rightButton__1GGWz js-field-rightButton">
-                                          <span
-                                            (click)="onSubmitComment(item.id, commentField.value)"
-                                            class="field_iconButton__2p3sr bg-color-primary"
-                                            ><i class="la la-arrow-up"></i
-                                          ></span>
+                                          <span (click)="onSubmitComment(item.id, commentField.value)"
+                                            class="field_iconButton__2p3sr bg-color-primary"><i
+                                              class="la la-arrow-up"></i></span>
                                         </div>
                                       </div>
                                     </div>
@@ -1509,10 +1254,8 @@
                         <div class="wil-float-left">
                           <h4 class="content-box_title__1gBHS">
                             <i class="la la-star-o"></i>
-                            <span
-                              ><span class="color-primary">{{ listing.avg_rating }} average for </span>
-                              <span> {{ listing.title }}</span></span
-                            >
+                            <span><span class="color-primary">{{ listing.avg_rating }} average for </span>
+                              <span> {{ listing.title }}</span></span>
                           </h4>
                         </div>
                       </header>
@@ -1523,10 +1266,8 @@
                               <div class="rated-info_title__2Oido">How Would You Rate This Business?</div>
                               <div class="rated-info_wrap__AI5nf">
                                 <div class="rated-info_progressBar__1pCWE">
-                                  <div
-                                    class="rated-info_bar__1T7U7"
-                                    [ngStyle]="{ left: listing.avg_rating * 10 + '%' }"
-                                  ></div>
+                                  <div class="rated-info_bar__1T7U7"
+                                    [ngStyle]="{ left: listing.avg_rating * 10 + '%' }"></div>
                                 </div>
                               </div>
                               <div class="rated-info_overallRating__1Js4A">{{ listing.avg_rating }}</div>
@@ -1549,18 +1290,13 @@
                         </div>
                       </div>
                     </div>
-                    <a
-                      *ngIf="currentUserCanReview; else tmpUserCanEditReview"
-                      (click)="openReviewModal()"
-                      class="wil-btn wil-btn--primary wil-btn--round wil-btn--md wil-btn--block"
-                    >
+                    <a *ngIf="currentUserCanReview; else tmpUserCanEditReview" (click)="openReviewModal()"
+                      class="wil-btn wil-btn--primary wil-btn--round wil-btn--md wil-btn--block">
                       <span class="">Add review</span>
                     </a>
                     <ng-template #tmpUserCanEditReview>
-                      <a
-                        (click)="openReviewModal(currentUserReview)"
-                        class="wil-btn wil-btn--primary wil-btn--round wil-btn--md wil-btn--block"
-                      >
+                      <a (click)="openReviewModal(currentUserReview)"
+                        class="wil-btn wil-btn--primary wil-btn--round wil-btn--md wil-btn--block">
                         <span class="">Edit review</span>
                       </a>
                     </ng-template>
@@ -1579,14 +1315,8 @@
                 </div>
               </header>
               <div class="content-box_body__3tSRB">
-                <pre>
-                  <!-- ---- TODO: DELETE ---- -->
-                  {{ listing_products | json }}
-                </pre>
-                <div
-                  *ngIf="listing_products && listing_products.length > 0; else templateNoProduct"
-                  class="products-container"
-                >
+                <div *ngIf="listing_products && listing_products.length > 0; else templateNoProduct"
+                  class="products-container">
                   <div class="product-preview" *ngFor="let product of listing_products">
                     <app-product-preview [product]="product"></app-product-preview>
                   </div>
@@ -1604,20 +1334,13 @@
     </div>
 
     <div class="btn-group-fixed_module__3qULF pos-f-right-bottom text-right">
-      <a
-        *ngIf="showEditButton"
-        id="wil-edit-listing-btn"
-        [routerLink]="['/listing/edit/' + listing_slug]"
-        class="wil-btn wil-btn--secondary wil-btn--round wil-btn--md wil-edit-listing-btn"
-        ><i class="la la-edit"></i>Edit Listing
+      <a *ngIf="showEditButton" id="wil-edit-listing-btn" [routerLink]="['/listing/edit/' + listing_slug]"
+        class="wil-btn wil-btn--secondary wil-btn--round wil-btn--md wil-edit-listing-btn"><i
+          class="la la-edit"></i>Edit Listing
       </a>
       <div class="mb-10"></div>
-      <button
-        *ngIf="showSubmitButton"
-        (click)="onSubmitListing()"
-        id="wilcity-submit"
-        class="wil-btn wil-btn--primary2 wil-btn--round wil-btn--md wil-submit-listing-btn"
-      >
+      <button *ngIf="showSubmitButton" (click)="onSubmitListing()" id="wilcity-submit"
+        class="wil-btn wil-btn--primary2 wil-btn--round wil-btn--md wil-submit-listing-btn">
         <i class="la la-send"></i>Submit Listing
         <div class="pill-loading_module__3LZ6v hidden">
           <div class="pill-loading_loader__3LOnT"></div>

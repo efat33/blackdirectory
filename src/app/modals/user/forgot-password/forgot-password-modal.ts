@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { ResetPasswordModal } from '../reset-password/reset-password-modal';
+import { RegistrationModal } from '../registration/registration-modal';
 
 export interface DialogData {
   message: string;
@@ -23,6 +24,8 @@ export class ForgotPasswordModal implements OnInit, OnDestroy {
   showError = false;
   errorMessage: string[];
   subscriptions = new Subscription();
+
+  dialogRefReg: any;
 
   constructor(
     public dialogRef: MatDialogRef<ForgotPasswordModal>,
@@ -93,7 +96,16 @@ export class ForgotPasswordModal implements OnInit, OnDestroy {
   }
 
   registerClicked() {
-    this.userService.clickedRegisterLinkModal.emit();
+    // close login modal first
+    this.dialogRef.close();
+
+    this.openRegistrationModal();
+  }
+
+  openRegistrationModal(): void {
+    this.dialogRefReg = this.dialog.open(RegistrationModal, {
+      width: '400px',
+    });
   }
 
   ngOnDestroy() {

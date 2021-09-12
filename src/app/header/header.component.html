@@ -96,7 +96,7 @@
 
             <ul *ngIf="item.children?.length" class="dropdown-menu">
               <li *ngFor="let child of item.children">
-                <a [routerLink]="[child.route]" style="color: rgb(0, 0, 0)">{{ child.title }}</a>
+                <a [routerLink]="[child.route]">{{ child.title }}</a>
               </li>
             </ul>
           </li>
