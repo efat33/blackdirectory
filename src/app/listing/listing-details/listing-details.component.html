@@ -844,7 +844,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-sm-6-clear">
+                      <!-- <div class="col-sm-6 col-sm-6-clear">
                         <div class="icon-box-1_module__uyg5F two-text-ellipsis mt-20 mt-sm-15">
                           <div class="icon-box-1_block1__bJ25J">
                             <div class="icon-box-1_icon__3V5c0 rounded-circle"><i class="la la-share"></i></div>
@@ -853,7 +853,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1315,10 +1315,6 @@
                 </div>
               </header>
               <div class="content-box_body__3tSRB">
-                <pre>
-                  <!-- ---- TODO: DELETE ---- -->
-                  {{ listing_products | json }}
-                </pre>
                 <div *ngIf="listing_products && listing_products.length > 0; else templateNoProduct"
                   class="products-container">
                   <div class="product-preview" *ngFor="let product of listing_products">

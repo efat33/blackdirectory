@@ -206,7 +206,6 @@ body .home .linkro-ccox a:hover {
 .thick-split h6,
 .thin-split h6 {
   font-size: 1.5em;
-  padding: 3px 5px 1px;
 }
 
 .article-large .articletext .morelinks,
@@ -287,7 +286,7 @@ body .home .linkro-ccox a:hover {
 .femail .linkro-wocc a:hover,
 .femail .wocc {
   color: #fff;
-  background-color: #c562a5;
+  background-color: #069;
 }
 
 .puff h3 {
@@ -382,7 +381,6 @@ body .home .linkro-ccox a:hover {
 }
 
 .gradient-split {
-  padding: 5px 0;
   position: relative;
   overflow: hidden;
 }
@@ -391,7 +389,6 @@ body .home .linkro-ccox a:hover {
 .thick-split h6,
 .thin-split h6 {
   font-size: 1.4em;
-  padding: 3px 5px 1px;
   color: #ffffff;
   font-weight: 600;
 }
@@ -413,4 +410,13 @@ body .home .linkro-ccox a:hover {
   max-height: 115px;
   max-width: 154px;
   object-fit: contain;
+}
+
+.gradient-split.wocc.link-wocc.linkro-wocc a {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0);
+  padding: 7px 5px;
 }

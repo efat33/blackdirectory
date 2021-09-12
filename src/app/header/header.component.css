@@ -117,12 +117,23 @@ a.bd-header-account {
   padding: 6px 10px;
 }
 
+.dropdown-menu {
+  background-color: #069;
+}
+ul.dropdown-menu a {
+  color: #fff;
+}
+
 .menu-item .dropdown-menu li a {
   display: block;
 }
 
 .menu-item .dropdown-menu li:hover {
-  background: #eee;
+  background: #fff;
+}
+
+.menu-item .dropdown-menu li:hover a {
+  color: #70778b;
 }
 
 /* css for both mobile and tablet */
@@ -166,6 +177,8 @@ a.bd-header-account {
     align-items: center;
   }
 }
+
+
 
 /* mobile menu start */
 .wil-nav-mobile-wrapper {
