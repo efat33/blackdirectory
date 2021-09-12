@@ -182,8 +182,8 @@ export class ProductService {
     );
   }
 
-  getTotalNumberOfProducts(userId?: number): Observable<number> {
-    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, { params: { user_id: userId } }).pipe(
+  getTotalNumberOfProducts(params?: { user_id?: number; category?: number; tag?: number }): Observable<number> {
+    return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, { params }).pipe(
       pluck('data'),
       map((products) => products.length)
     );

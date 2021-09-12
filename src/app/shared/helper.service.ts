@@ -29,7 +29,7 @@ export class HelperService {
 
   setApiUrl() {
     if (environment.production) {
-      this.apiUrl = `https://68.66.248.49/~blackdir/api`;
+      this.apiUrl = `https://mibrahimkhalil.com`;
     } else {
       this.apiUrl = `http://localhost:3000`;
     }
@@ -38,7 +38,7 @@ export class HelperService {
 
   setSiteUrl() {
     if (environment.production) {
-      this.siteUrl = `https://68.66.248.49/~blackdir`;
+      this.siteUrl = `https://blackdir.mibrahimkhalil.com`;
     } else {
       this.siteUrl = `http://localhost:4200`;
     }
@@ -73,7 +73,7 @@ export class HelperService {
   }
 
   getMetaData(data, key): any {
-    return data.find((element) => element.meta_key == key).meta_value;
+    return data.find((element) => element.meta_key == key)?.meta_value || '';
   }
 
   prepareMetaData(data): any {

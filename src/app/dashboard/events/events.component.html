@@ -1,123 +1,122 @@
 <div class="wil-listings-managent-wrapper">
-    <div class="wil-dashboard-add-listing-wrapper pos-r"><a href="{{ siteUrl + '/events/new' }}"
-            class="wil-btn wil-addlisting-btn wil-btn wil-btn--primary2 wil-btn--round wil-btn--sm"><i
-                class="la la-pencil-square"></i>
-            Add Event
-        </a></div>
-    <div class=" mt-15">
-        <div class="content-box_body__3tSRB">
-            <div class="container">
-                <div class="searchbox_wrap__37JXq">
-                    <div class="searchbox_searchInput__2p4ds">
-                        <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
-                            <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
-                                <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
-                                    <div id="">
-                                        <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
-                                            aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
-                                            <input [(ngModel)]="queryParams.keyword" type="text" autocomplete="off"
-                                                placeholder="Search for event ..." class="field_field__3U_Rt">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  <div class="wil-dashboard-add-listing-wrapper pos-r"><a href="{{ siteUrl + '/events/new' }}"
+      class="wil-btn wil-addlisting-btn wil-btn wil-btn--primary2 wil-btn--round wil-btn--sm"><i
+        class="la la-pencil-square"></i>
+      Add Event
+    </a></div>
+  <div class=" mt-15">
+    <div class="content-box_body__3tSRB">
+      <div class="container">
+        <div class="searchbox_wrap__37JXq">
+          <div class="searchbox_searchInput__2p4ds">
+            <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+              <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+                <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
+                  <div id="">
+                    <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                      aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
+                      <input [(ngModel)]="queryParams.keyword" type="text" autocomplete="off"
+                        placeholder="Search for event ..." class="field_field__3U_Rt">
                     </div>
-                    <div class="searchbox_searchButton__1c9iK">
-                        <button (click)="getEvents()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
-                            type="button">
-                            <i class="fa fa-search"></i> Search
-                        </button>
-                        <button (click)="queryParams.past_event = 0; getEvents()"
-                            class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button"><i
-                                *ngIf="!queryParams.past_event" class="fa fa-check"></i> Upcoming Events
-                        </button>
-                        <button (click)="queryParams.past_event = 1; getEvents()"
-                            class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button"><i
-                                *ngIf="queryParams.past_event" class="fa fa-check"></i> Past Events
-                        </button>
-                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+          <div class="searchbox_searchButton__1c9iK">
+            <button (click)="getEvents()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button">
+              <i class="fa fa-search"></i> Search
+            </button>
+            <button (click)="queryParams.past_event = 0; getEvents()"
+              class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button"><i
+                *ngIf="!queryParams.past_event" class="fa fa-check"></i> Upcoming Events
+            </button>
+            <button (click)="queryParams.past_event = 1; getEvents()"
+              class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button"><i
+                *ngIf="queryParams.past_event" class="fa fa-check"></i> Past Events
+            </button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="listing-table_module__2vE05 table-module pos-r">
-        <div>
-            <table class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table">
-                <thead>
-                    <tr>
-                        <th class="wi-th-title"><span><i class="la la-share-alt-square"></i> <span>Title</span></span>
-                        </th>
-                        <th class="wi-th-average-rating"><span>
-                                <span>Address</span>
-                            </span></th>
-                        <th class="wi-th-view"><span>
-                                <span>Start Date</span>
-                            </span></th>
-                        <th class="wi-th-favorite"><span>
-                                <span>End Date</span>
-                            </span></th>
-                        <th class="wil-text-right wil-th-more"><span>
-                                <span></span>
-                            </span></th>
-                    </tr>
-                </thead>
-                <tbody *ngIf="totalEvetns == 0">
-                    <tr>
-                        <td colspan="8" style="text-align: center;">
-                            <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
-                                <div class="alert_content__1ntU3">No event found</div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody *ngIf="totalEvetns > 0">
-                    <tr *ngFor="let item of events; let index=index">
-                        <td data-th="Publish" class="">
-                            <article class="listing_module__2EnGq wil-shadow listing_list2__2An8C js-listing-module">
-                                <div class="listing_firstWrap__36UOZ">
-                                    <header class="listing_header__2pt4D"><a
-                                            href="{{ siteUrl + '/events/details/' + item.slug }}" target="_self">
-                                            <div class="listing_img__3pwlB pos-a-full bg-cover"
-                                                [ngStyle]="{'background-image': 'url(' + getEventImageSrc(item.featured_img, 'thumb') + ')'}">
-                                                <img src="{{ item.featured_img | imageSrc : 'event' : 'thumb' }}"
-                                                    alt="{{ item.title }}">
-                                            </div>
-                                        </a></header>
-                                    <div class="listing_body__31ndf">
-                                        <h2 title="efat.butex listing" class="listing_title__2920A"><a
-                                                href="{{ siteUrl + '/events/details/' + item.slug }}" target="_self">{{
-                                                item.title }}</a></h2>
-                                    </div>
-                                </div>
-                            </article>
-                        </td>
-                        <td data-th="Average Rating" class="wil-td-average">
-                            <div class="rated-small_module__1vw2B rated-small_style-3__1c0gb">
-                                {{ item.address }}
-                            </div>
-                        </td>
-                        <td data-th="Views" class="wil-td-view"><span>{{ item.start_time | date : 'MMMM d,
-                                y @ h:mm a' }}</span></td>
-                        <td data-th="Favorites" class="wil-td-favorite"><span>{{ item.end_time
-                                | date : 'MMMM d,
-                                y @ h:mm a' }}</span></td>
+  <div class="listing-table_module__2vE05 table-module pos-r">
+    <div>
+      <table class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table">
+        <thead>
+          <tr>
+            <th class="wi-th-title"><span><i class="la la-share-alt-square"></i> <span>Title</span></span>
+            </th>
+            <th class="wi-th-average-rating"><span>
+                <span>Address</span>
+              </span></th>
+            <th class="wi-th-view"><span>
+                <span>Start Date</span>
+              </span></th>
+            <th class="wi-th-favorite"><span>
+                <span>End Date</span>
+              </span></th>
+            <th class="wil-text-right wil-th-more"><span>
+                <span></span>
+              </span></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="totalEvetns == 0">
+          <tr>
+            <td colspan="8" style="text-align: center;">
+              <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                <div class="alert_content__1ntU3">No event found</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="totalEvetns > 0">
+          <tr *ngFor="let item of events; let index=index">
+            <td data-th="Publish" class="">
+              <article class="listing_module__2EnGq wil-shadow listing_list2__2An8C js-listing-module">
+                <div class="listing_firstWrap__36UOZ">
+                  <header class="listing_header__2pt4D"><a href="{{ siteUrl + '/events/details/' + item.slug }}"
+                      target="_self">
+                      <div class="listing_img__3pwlB pos-a-full bg-cover"
+                        [ngStyle]="{'background-image': 'url(' + getEventImageSrc(item.featured_img, 'thumb') + ')'}">
+                        <img src="{{ item.featured_img | imageSrc : 'event' : 'thumb' }}" alt="{{ item.title }}">
+                      </div>
+                    </a></header>
+                  <div class="listing_body__31ndf">
+                    <h2 title="efat.butex listing" class="listing_title__2920A"><a
+                        href="{{ siteUrl + '/events/details/' + item.slug }}" target="_self">{{
+                        item.title }}</a></h2>
+                  </div>
+                </div>
+              </article>
+            </td>
+            <td data-th="Average Rating" class="wil-td-average">
+              <div class="rated-small_module__1vw2B rated-small_style-3__1c0gb">
+                {{ item.address }}
+              </div>
+            </td>
+            <td data-th="Views" class="wil-td-view">
+              <span>{{ item.start_time | date : 'MMMM d, y @ h:mm a' }}</span>
+            </td>
+            <td data-th="Favorites" class="wil-td-favorite">
+              <span>{{ item.end_time | date : 'MMMM d, y @ h:mm a' }}</span>
+            </td>
 
-                        <td data-th="More" class="before-hide wil-text-right wil-td-more">
-                            <a href="{{ siteUrl + '/events/edit/' + item.slug  }}"
-                                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
-                                    class="list_text__35R07">Edit</span></a>
-                            <!-- <a (click)="onRemoveListing(item.id, index)"
+            <td data-th="More" class="before-hide wil-text-right wil-td-more">
+              <a href="{{ siteUrl + '/events/edit/' + item.slug  }}"
+                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
+                  class="list_text__35R07">Edit</span></a>
+              <!-- <a (click)="onRemoveListing(item.id, index)"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
                                     class="list_text__35R07">Remove</span></a> -->
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <pagination [totalItems]="totalEvetns" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
-        (pageChange)="onPageChange($event)"></pagination>
+  <pagination [totalItems]="totalEvetns" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+    (pageChange)="onPageChange($event)"></pagination>
 </div>

@@ -32,6 +32,7 @@ import { OrderResolver } from '../shared/components/order-details/order.resolver
 import { OrderComponent } from './order/order.component';
 import { WithdrawResolver } from './withdraw/withdraw.resolver';
 import { FavoriteListingsComponent } from './favorite-listings/favorite-listings.component';
+import { OrdersResolver } from './orders/orders.resolver';
 
 const routes: Routes = [
   {
@@ -61,7 +62,7 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent },
       { path: 'products/new', component: ProductsNewComponent },
       { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
-      { path: 'orders', component: OrdersComponent },
+      { path: 'orders/:side', component: OrdersComponent, resolve: { orders: OrdersResolver } },
       { path: 'order/:id', component: OrderComponent, resolve: { order: OrderResolver } },
       { path: 'withdraw', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
       { path: 'store-settings', component: StoreSettingsComponent, resolve: { store: StoreResolver } },

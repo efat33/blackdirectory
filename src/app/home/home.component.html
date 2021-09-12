@@ -1,492 +1,417 @@
 <div class="wilcity-hero-header hero_module__Gwqkh hero_horizontal__1t27X hero_formWhite__3fCkB">
-    <div class="hero_background__xrTbV">
-        <div class="wil-overlay" style="background-color: rgba(0,0,0,0.44)"></div>
-        <div class="hero_img__3VbXk bg-cover" data-info="[]"></div>
-    </div>
-    <div class="wil-tb">
-        <div class="wil-tb__cell">
-            <div class="hero_container__9jNUX wil-text-center">
-                <div class="hero_textWrapper__aU40s">
-                    <h1 style="color: #ffffff; font-size: 30px" class="hero_title__47he3">UK’s Leading Black Directory
-                    </h1>
-                    <div class="hero_text__3ENGw" style="font-size: 35px"></div>
-                </div>
-                <div id="wilcity-hero-search-form" class="tab_module__3fEXT wil-tab">
-                    <form [formGroup]="listingSearchForm" (ngSubmit)="onSubmitListingForm()">
-                        <div class="wil-hero-form-wrapper">
-                            <ul class="tab_nav__3YJph wil-tab__nav wil-text-left" style="display: none;">
-                                <li id="1617938518273-tab-filter-item-hero-tab-listing"
-                                    class="tab-filter-item-hero-tab-listing"><a href="#hero-tab-listing"
-                                        class="active">Listing</a></li>
-                            </ul>
-                            <div class="tab_content__ndczY wil-tab__content">
-                                <div class="hero_form__1ewus">
-                                    <div id="1617938518268-tab-content-hero-tab-listing"
-                                        class="hero-tab-listing wil-tab__panel active" icon="la la-list">
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="field_module__1H6kT field_style2__2Znhe"
-                                                            [ngClass]="{'active': listingSearchForm.controls.keyword.value}"
-                                                            name="hero-search-form-field-complex">
-                                                            <div id="autosuggest">
-                                                                <div role="combobox" aria-expanded="false"
-                                                                    aria-haspopup="listbox"
-                                                                    aria-owns="autosuggest-autosuggest__results">
-                                                                    <input type="text" formControlName="keyword"
-                                                                        placeholder="" class="field_field__3U_Rt">
-                                                                </div>
-                                                                <span class="field_label__2eCP7 text-ellipsis">What are
-                                                                    you looking for?</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="field_module__1H6kT field_style2__2Znhe"
-                                                            [ngClass]="{'active': listingSearchForm.controls.address.value}"
-                                                            name="hero-search-form-field-complex">
-                                                            <div id="autosuggest">
-                                                                <div role="combobox" aria-expanded="false"
-                                                                    aria-haspopup="listbox"
-                                                                    aria-owns="autosuggest-autosuggest__results">
-                                                                    <input type="text" formControlName="address"
-                                                                        placeholder="" class="field_field__3U_Rt" autocomplete="off"
-                                                                        (keydown)="locationModified = true" (blur)="onLocationBlur()">
-
-                                                                    <input formControlName="lat" type="hidden" />
-                                                                    <input formControlName="lng" type="hidden" />
-                                                                </div>
-                                                                <span
-                                                                    class="field_label__2eCP7 text-ellipsis">Address</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <button type="submit"
-                                                    class="wil-btn wil-btn--primary wil-btn--md wil-btn--round"><i
-                                                        class="la la-search"></i>Search</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="hero_background__xrTbV">
+    <div class="wil-overlay" style="background-color: rgba(0,0,0,0.44)"></div>
+    <div class="hero_img__3VbXk bg-cover" data-info="[]"></div>
+  </div>
+  <div class="wil-tb">
+    <div class="wil-tb__cell">
+      <div class="hero_container__9jNUX wil-text-center">
+        <div class="hero_textWrapper__aU40s">
+          <h1 style="color: #ffffff; font-size: 30px" class="hero_title__47he3">UK’s Leading Black Directory
+          </h1>
+          <div class="hero_text__3ENGw" style="font-size: 35px"></div>
         </div>
+        <div id="wilcity-hero-search-form" class="tab_module__3fEXT wil-tab">
+          <form [formGroup]="listingSearchForm" (ngSubmit)="onSubmitListingForm()">
+            <div class="wil-hero-form-wrapper">
+              <ul class="tab_nav__3YJph wil-tab__nav wil-text-left" style="display: none;">
+                <li id="1617938518273-tab-filter-item-hero-tab-listing" class="tab-filter-item-hero-tab-listing"><a
+                    href="#hero-tab-listing" class="active">Listing</a></li>
+              </ul>
+              <div class="tab_content__ndczY wil-tab__content">
+                <div class="hero_form__1ewus">
+                  <div id="1617938518268-tab-content-hero-tab-listing" class="hero-tab-listing wil-tab__panel active"
+                    icon="la la-list">
+                    <div class="row">
+                      <div class="col-md-9">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="field_module__1H6kT field_style2__2Znhe"
+                              [ngClass]="{'active': listingSearchForm.controls.keyword.value}"
+                              name="hero-search-form-field-complex">
+                              <div id="autosuggest">
+                                <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                                  aria-owns="autosuggest-autosuggest__results">
+                                  <input type="text" formControlName="keyword" placeholder=""
+                                    class="field_field__3U_Rt">
+                                </div>
+                                <span class="field_label__2eCP7 text-ellipsis">What are
+                                  you looking for?</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="field_module__1H6kT field_style2__2Znhe"
+                              [ngClass]="{'active': listingSearchForm.controls.address.value}"
+                              name="hero-search-form-field-complex">
+                              <div id="autosuggest">
+                                <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                                  aria-owns="autosuggest-autosuggest__results">
+                                  <input type="text" formControlName="address" placeholder="" class="field_field__3U_Rt"
+                                    autocomplete="off" (keydown)="locationModified = true" (blur)="onLocationBlur()">
+
+                                  <input formControlName="lat" type="hidden" />
+                                  <input formControlName="lng" type="hidden" />
+                                </div>
+                                <span class="field_label__2eCP7 text-ellipsis">Address</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <button type="submit" class="wil-btn wil-btn--primary wil-btn--md wil-btn--round"><i
+                            class="la la-search"></i>Search</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
 <!-- Section ~ Trending Right Now -->
 
 <div class="section-wrapper section-trending-now">
-    <div class="container">
-        <div *ngIf="trendingListings" class="wrapper-trending-listing">
-            <div class="heading_module__156eJ wil-text-center hide-bluemark hide-description ">
-                <h2 class="heading_title__1bzno">Trending Right Now</h2>
-            </div>
-            <div id="" class="wilcity-grid">
-                <div class="row row-clearfix wil-flex-wrap">
-                    <div *ngFor="let item of trendingListings; let index=index"
-                        class="col-lg-3 col-md-3 col-sm-12 mb-30">
-                        <article
-                            class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
-                            data-id="16260">
-                            <div class="listing_firstWrap__36UOZ">
-                                <div style="position: absolute;top:10px;left:10px;z-index:99">
-                                    <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
-                                        href="{{ siteUrl + '/listing/' + item.slug }}"><i class="la la-eye"></i>{{
-                                        item.view }} View{{ item.view | pluralPipe }}</a>
-                                </div>
-                                <header class="listing_header__2pt4D">
-                                    <a href="{{ siteUrl + '/listing/' + item.slug }}">
-                                        <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
-                                            [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
-                                            <img class="hidden"
-                                                src="{{ item.cover_img | imageSrc : 'listing' : 'medium' }}"
-                                                alt="{{ item.title }}">
-                                        </div>
-                                        <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
-                                            <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                                <div class="rated-small_wrap__2Eetz"
-                                                    [attr.data-rated]="item.avg_rating">
-                                                    <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}
-                                                    </div>
-                                                    <div class="rated-small_ratingWrap__3lzhB">
-                                                        <div class="rated-small_maxRating__2D9mI">10</div>
-                                                        <div class="rated-small_ratingOverview__2kCI_">{{
-                                                            review_comment[item.avg_rating] }}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </header>
-                                <div class="listing_body__31ndf js-grid-item-body">
-                                    <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
-                                        <div class="listing_logo__PIZwf bg-cover"
-                                            [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.logo, 'thumb') + ')'}">
-                                        </div>
-                                    </a>
-                                    <h2 class="listing_title__2920A text-ellipsis">
-                                        <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
-                                            }}</a>
-                                    </h2>
-                                    <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
-                                    </div>
-                                    <div class="listing_meta__6BbCG vertical">
-                                        <a style="position: relative; padding-right: 61px"
-                                            class="text-ellipsis google-address"
-                                            href="{{ siteUrl + '/listing/' + item.slug }}">
-                                            <span><i class="la la-map-marker color-primary"></i>{{ item.address
-                                                }}</span>
-                                        </a>
-                                        <a *ngIf="item.contact && item.contact.phone != ''"
-                                            class="text-ellipsis phone-number" href="tel:{{ item.contact.phone }}">
-                                            <i class="la la-phone color-primary"></i>{{ item.contact.phone }} </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <footer class="js-grid-item-footer listing_footer__1PzMC">
-                                <div *ngIf="item.categories.length > 0" class="text-ellipsis">
-                                    <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
-                                        <div class="icon-box-1_block1__bJ25J">
-                                            <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.categories[0].listing_categories_id }}"
-                                                title="{{ item.categories[0].title }}">
-                                                <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
-                                                    <img src="{{ item.categories[0].image | imageSrc : 'listing' : 'thumb' }}"
-                                                        alt="{{ item.categories[0].title }}">
-                                                </div>
-                                                <div class="icon-box-1_text__3R39g">{{ item.categories[0].title }}</div>
-                                            </a>
-                                        </div>
-                                        <!-- <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
+  <div class="container">
+    <div *ngIf="trendingListings" class="wrapper-trending-listing">
+      <div class="heading_module__156eJ wil-text-center hide-bluemark hide-description ">
+        <h2 class="heading_title__1bzno">Trending Right Now</h2>
+      </div>
+      <div id="" class="wilcity-grid">
+        <div class="row row-clearfix wil-flex-wrap">
+          <div *ngFor="let item of trendingListings; let index=index" class="col-lg-3 col-md-3 col-sm-12 mb-30">
+            <article
+              class="listing_module__2EnGq wil-shadow js-grid-item js-listing-module border-gray-1 mb-30 wilcity-belongs-to-plan-free wil-shadow wil-flex-column-between"
+              data-id="16260">
+              <div class="listing_firstWrap__36UOZ">
+                <div style="position: absolute;top:10px;left:10px;z-index:99">
+                  <a class="utility-meta_module__mfOnV utility-meta_light__2EzdO utility-meta_border__3O9g6  mb-10 mr-5"
+                    href="{{ siteUrl + '/listing/' + item.slug }}"><i class="la la-eye"></i>{{
+                    item.view }} View{{ item.view | pluralPipe }}</a>
+                </div>
+                <header class="listing_header__2pt4D">
+                  <a href="{{ siteUrl + '/listing/' + item.slug }}">
+                    <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
+                      [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
+                      <img class="hidden" src="{{ item.cover_img | imageSrc : 'listing' : 'medium' }}"
+                        alt="{{ item.title }}">
+                    </div>
+                    <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
+                      <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
+                        <div class="rated-small_wrap__2Eetz" [attr.data-rated]="item.avg_rating">
+                          <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}
+                          </div>
+                          <div class="rated-small_ratingWrap__3lzhB">
+                            <div class="rated-small_maxRating__2D9mI">10</div>
+                            <div class="rated-small_ratingOverview__2kCI_">{{
+                              review_comment[item.avg_rating] }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </header>
+                <div class="listing_body__31ndf js-grid-item-body">
+                  <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
+                    <div class="listing_logo__PIZwf bg-cover"
+                      [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.logo, 'thumb') + ')'}">
+                    </div>
+                  </a>
+                  <h2 class="listing_title__2920A text-ellipsis">
+                    <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
+                      }}</a>
+                  </h2>
+                  <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
+                  </div>
+                  <div class="listing_meta__6BbCG vertical">
+                    <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
+                      href="{{ siteUrl + '/listing/' + item.slug }}">
+                      <span><i class="la la-map-marker color-primary"></i>{{ item.address
+                        }}</span>
+                    </a>
+                    <a *ngIf="item.contact && item.contact.phone != ''" class="text-ellipsis phone-number"
+                      href="tel:{{ item.contact.phone }}">
+                      <i class="la la-phone color-primary"></i>{{ item.contact.phone }} </a>
+                  </div>
+                </div>
+              </div>
+              <footer class="js-grid-item-footer listing_footer__1PzMC">
+                <div *ngIf="item.categories.length > 0" class="text-ellipsis">
+                  <div class="icon-box-1_module__uyg5F two-text-ellipsis icon-box-1_style2__1EMOP">
+                    <div class="icon-box-1_block1__bJ25J">
+                      <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.categories[0].listing_categories_id }}"
+                        title="{{ item.categories[0].title }}">
+                        <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
+                          <img src="{{ item.categories[0].image | imageSrc : 'listing' : 'thumb' }}"
+                            alt="{{ item.categories[0].title }}">
+                        </div>
+                        <div class="icon-box-1_text__3R39g">{{ item.categories[0].title }}</div>
+                      </a>
+                    </div>
+                    <!-- <div class="icon-box-1_block2__1y3h0 wilcity-listing-hours">
                                             <span class="color-secondary">Open now</span>
                                         </div> -->
-                                    </div>
-                                </div>
-                                <div class="listing_footerRight__2398w">
-                                    <a class="wilcity-js-favorite" (click)="onClickListingFavorite(item.id)">
-                                        <i [ngClass]="item.is_favorite ? 'la-heart color-primary' : 'la-heart-o'"
-                                            class="la "></i>
-                                    </a>
-                                </div>
-                            </footer>
-                        </article>
-                    </div>
+                  </div>
                 </div>
-            </div>
+                <div class="listing_footerRight__2398w">
+                  <a class="wilcity-js-favorite" (click)="onClickListingFavorite(item.id)">
+                    <i [ngClass]="item.is_favorite ? 'la-heart color-primary' : 'la-heart-o'" class="la "></i>
+                  </a>
+                </div>
+              </footer>
+            </article>
+          </div>
         </div>
-        <div *ngIf="!trendingListings" class="section-loading">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
+      </div>
     </div>
+    <div *ngIf="!trendingListings" class="section-loading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+  </div>
 </div>
 
 <!-- Section ~ Upcoming Events -->
 <div class="section-wrapper section-home-event" [ngClass]="{'hide-section': events?.length == 0}">
-    <div class="container">
-        <div *ngIf="!events" class="section-loading">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
+  <div class="container">
+    <div *ngIf="!events" class="section-loading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
 
-        <div *ngIf="events && events.length > 0" class="wrapper-home-events">
-            <div class="heading_module__156eJ wil-text-center hide-bluemark">
-                <h2 class="heading_title__1bzno">Upcoming Events</h2>
-            </div>
+    <div *ngIf="events && events.length > 0" class="wrapper-home-events">
+      <div class="heading_module__156eJ wil-text-center hide-bluemark">
+        <h2 class="heading_title__1bzno">Upcoming Events</h2>
+      </div>
 
-            <div
-                class="tribe-common tribe-events tribe-events-home-grid tribe-events-view tribe-events-view--photo tribe-events-view--shortcode tribe-events-view--shortcode-c41af5ac tribe-events-pro tribe-common--breakpoint-xsmall tribe-common--breakpoint-medium tribe-common--breakpoint-full block-home-event">
-                <div class="tribe-common-l-container tribe-events-l-container">
-                    <div class="tribe-events-pro-photo">
-                        <div class="tribe-common-g-row tribe-common-g-row--gutters">
-                            <article *ngFor="let item of events"
-                                class="tribe-common-g-col tribe-events-pro-photo__event post-16936 tribe_events type-tribe_events status-publish has-post-thumbnail hentry tag-investing tribe_events_cat-business tribe_events_cat-general-discussion cat_business cat_general-discussion tribe-recurring-event tribe-recurring-event-child">
-                                <div class="tribe-events-pro-photo__event-featured-image-wrapper">
-                                    <a href="{{ siteUrl + '/events/details/' + item.slug }}" title="{{ item.title }}"
-                                        rel="bookmark" class="tribe-events-pro-photo__event-featured-image-link">
-                                        <img src="{{ item.featured_img | imageSrc : 'event' : 'medium' }}"
-                                            class="tribe-events-pro-photo__event-featured-image">
-                                    </a>
-                                </div>
-                                <div class="tribe-events-pro-photo__event-details-wrapper">
-                                    <!-- <div class="tribe-events-pro-photo__event-date-tag tribe-common-g-col">
+      <div
+        class="tribe-common tribe-events tribe-events-home-grid tribe-events-view tribe-events-view--photo tribe-events-view--shortcode tribe-events-view--shortcode-c41af5ac tribe-events-pro tribe-common--breakpoint-xsmall tribe-common--breakpoint-medium tribe-common--breakpoint-full block-home-event">
+        <div class="tribe-common-l-container tribe-events-l-container">
+          <div class="tribe-events-pro-photo">
+            <div class="tribe-common-g-row tribe-common-g-row--gutters">
+              <article *ngFor="let item of events"
+                class="tribe-common-g-col tribe-events-pro-photo__event post-16936 tribe_events type-tribe_events status-publish has-post-thumbnail hentry tag-investing tribe_events_cat-business tribe_events_cat-general-discussion cat_business cat_general-discussion tribe-recurring-event tribe-recurring-event-child">
+                <div class="tribe-events-pro-photo__event-featured-image-wrapper">
+                  <a href="{{ siteUrl + '/events/details/' + item.slug }}" title="{{ item.title }}" rel="bookmark"
+                    class="tribe-events-pro-photo__event-featured-image-link">
+                    <img src="{{ item.featured_img | imageSrc : 'event' : 'medium' }}"
+                      class="tribe-events-pro-photo__event-featured-image">
+                  </a>
+                </div>
+                <div class="tribe-events-pro-photo__event-details-wrapper">
+                  <!-- <div class="tribe-events-pro-photo__event-date-tag tribe-common-g-col">
                                         <time class="tribe-events-pro-photo__event-date-tag-datetime" datetime="2021-04-09">
                                             <span class="tribe-events-pro-photo__event-date-tag-month">Apr</span>
                                             <span
                                                 class="tribe-events-pro-photo__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">9</span>
                                         </time>
                                     </div> -->
-                                    <div class="tribe-events-pro-photo__event-details">
-                                        <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
-                                            <time datetime="12:30">{{ item.start_time | date : 'MMMM d,
-                                                y @ h:mm a' }}</time>
-                                            <span class="tribe-events-events-pro-photo__event-datetime-separator"> -
-                                            </span>
-                                            <time datetime="13:30">{{ item.end_time
-                                                | date : 'MMMM d,
-                                                y @ h:mm a' }}</time>
-                                        </div>
-                                        <h3 class="tribe-events-pro-photo__event-title tribe-common-h6">
-                                            <a href="{{ siteUrl + '/events/details/' + item.slug }}"
-                                                title="10x10VC: Founder &amp; Aspiring VC Hangout" rel="bookmark"
-                                                class="tribe-events-pro-photo__event-title-link tribe-common-anchor-thin">{{
-                                                item.title }}</a>
-                                        </h3>
-                                        <!-- <div
+                  <div class="tribe-events-pro-photo__event-details">
+                    <div class="tribe-events-pro-photo__event-datetime tribe-common-b2">
+                      <time datetime="12:30">
+                        {{ item.start_time | date : 'MMMM d, y @ h:mm a' }}
+                      </time>
+                      <span class="tribe-events-events-pro-photo__event-datetime-separator"> -
+                      </span>
+                      <time datetime="13:30">{{ item.end_time
+                        | date : 'MMMM d, y @ h:mm a' }}</time>
+                    </div>
+                    <h3 class="tribe-events-pro-photo__event-title tribe-common-h6">
+                      <a href="{{ siteUrl + '/events/details/' + item.slug }}"
+                        title="10x10VC: Founder &amp; Aspiring VC Hangout" rel="bookmark"
+                        class="tribe-events-pro-photo__event-title-link tribe-common-anchor-thin">{{
+                        item.title }}</a>
+                    </h3>
+                    <!-- <div
                                             class="tribe-events-c-small-cta tribe-common-b3 tribe-events-pro-photo__event-cost">
                                             <span class="tribe-events-c-small-cta__price">Free</span>
                                         </div> -->
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+              </article>
             </div>
-
-            <div class="listgo-view-all-events-wrapper">
-                <p class="listgo-view-all-event-desc">Click here to view all upcoming events</p>
-                <a href="{{ siteUrl + '/events/all' }}"
-                    class="listgo-btn listgo-btn btn-primary listgo-btn--md listgo-btn--round">View All Events</a>
-            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="listgo-view-all-events-wrapper">
+        <p class="listgo-view-all-event-desc">Click here to view all upcoming events</p>
+        <a href="{{ siteUrl + '/events/all' }}"
+          class="listgo-btn listgo-btn btn-primary listgo-btn--md listgo-btn--round">View All Events</a>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Section ~ Featured Listings -->
 <div class="section-wrapper section-featured-listing">
-    <div class="container">
-        <div *ngIf="feautedListings" class="wrapper-featured-listing">
-            <div class="heading_module__156eJ wil-text-center hide-bluemark">
-                <h2 class="heading_title__1bzno">Featured Listings</h2>
-            </div>
+  <div class="container">
+    <div *ngIf="feautedListings" class="wrapper-featured-listing">
+      <div class="heading_module__156eJ wil-text-center hide-bluemark">
+        <h2 class="heading_title__1bzno">Featured Listings</h2>
+      </div>
 
-            <swiper [slidesPerView]="1" [spaceBetween]="20" [navigation]="true" [breakpoints]="breakpoints">
-                <ng-template *ngFor="let item of feautedListings; let index=index" swiperSlide>
-                    <article
-                        class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
-                        <div class="listing_firstWrap__36UOZ">
-                            <header class="listing_header__2pt4D is-verified">
-                                <a href="{{ siteUrl + '/listing/' + item.slug }}">
-                                    <span class="wilcity-slider-gradient-before"
-                                        style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
-                                    <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                                        [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
-                                    </div>
-                                    <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
-                                        <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
-                                            <div class="rated-small_wrap__2Eetz" [attr.data-rated]="item.avg_rating">
-                                                <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}
-                                                </div>
-                                                <div class="rated-small_ratingWrap__3lzhB">
-                                                    <div class="rated-small_maxRating__2D9mI">10</div>
-                                                    <div class="rated-small_ratingOverview__2kCI_">{{
-                                                        review_comment[item.avg_rating] }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="wilcity-slider-gradient-after"></span>
-                                </a>
-                            </header>
-                            <div class="listing_body__31ndf">
-                                <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
-                                    <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE.jpg"
-                                        class="listing_logo__PIZwf bg-cover rocket-lazyload"></div>
-                                </a>
-                                <h2 class="listing_title__2920A text-ellipsis">
-                                    <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
-                                        }}</a>
-                                </h2>
-                                <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
-                                </div>
-                                <div *ngIf="item.contact && item.contact.phone != ''" class="listing_meta__6BbCG">
-                                    <a class="text-ellipsis phone-number" href="tel:{{ item.contact.phone }}">
-                                        <i class="la la-phone color-primary"></i>{{ item.contact.phone }} </a>
-                                </div>
-                            </div>
+      <swiper [slidesPerView]="1" [spaceBetween]="20" [navigation]="true" [breakpoints]="breakpoints">
+        <ng-template *ngFor="let item of feautedListings; let index=index" swiperSlide>
+          <article
+            class="wilcity-listing-slider listing_module__2EnGq wil-shadow listing_style2__2PwZl listing_dark__1rJrd  js-listing-module">
+            <div class="listing_firstWrap__36UOZ">
+              <header class="listing_header__2pt4D is-verified">
+                <a href="{{ siteUrl + '/listing/' + item.slug }}">
+                  <span class="wilcity-slider-gradient-before"
+                    style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
+                  <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
+                    [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
+                  </div>
+                  <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
+                    <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
+                      <div class="rated-small_wrap__2Eetz" [attr.data-rated]="item.avg_rating">
+                        <div class="rated-small_overallRating__oFmKR">{{ item.avg_rating }}
                         </div>
-                        <footer class="listing_footer__1PzMC">
-                            <div *ngIf="item.categories.length > 0" class="text-ellipsis">
-                                <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
-                                    <div class="icon-box-1_block1__bJ25J"><a
-                                            href="{{ siteUrl }}/listing/search/?listing_cat={{ item.categories[0].listing_categories_id }}"
-                                            title="{{ item.categories[0].title }}">
-                                            <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
-                                                    src="{{ item.categories[0].image | imageSrc : 'listing' : 'thumb' }}"
-                                                    alt="{{ item.categories[0].title }}" class="lazyloaded">
-                                            </div>
-                                            <div class="icon-box-1_text__3R39g">{{ item.categories[0].title }}</div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="listing_footerRight__2398w">
-                                <a class="wilcity-js-favorite" (click)="onClickListingFavorite(item.id)">
-                                    <i [ngClass]="item.is_favorite ? 'la-heart color-primary' : 'la-heart-o'"
-                                        class="la "></i>
-                                </a>
-                            </div>
-                        </footer>
-                    </article>
-                </ng-template>
-            </swiper>
-        </div>
-        <div *ngIf="!feautedListings" class="section-loading">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
+                        <div class="rated-small_ratingWrap__3lzhB">
+                          <div class="rated-small_maxRating__2D9mI">10</div>
+                          <div class="rated-small_ratingOverview__2kCI_">{{
+                            review_comment[item.avg_rating] }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="wilcity-slider-gradient-after"></span>
+                </a>
+              </header>
+              <div class="listing_body__31ndf">
+                <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
+                  <div data-bg="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/AUFORTRADE.jpg"
+                    class="listing_logo__PIZwf bg-cover rocket-lazyload"></div>
+                </a>
+                <h2 class="listing_title__2920A text-ellipsis">
+                  <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
+                    }}</a>
+                </h2>
+                <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
+                </div>
+                <div *ngIf="item.contact && item.contact.phone != ''" class="listing_meta__6BbCG">
+                  <a class="text-ellipsis phone-number" href="tel:{{ item.contact.phone }}">
+                    <i class="la la-phone color-primary"></i>{{ item.contact.phone }} </a>
+                </div>
+              </div>
+            </div>
+            <footer class="listing_footer__1PzMC">
+              <div *ngIf="item.categories.length > 0" class="text-ellipsis">
+                <div class="icon-box-1_module__uyg5F icon-box-1_style2__1EMOP five-text-ellipsis">
+                  <div class="icon-box-1_block1__bJ25J"><a
+                      href="{{ siteUrl }}/listing/search/?listing_cat={{ item.categories[0].listing_categories_id }}"
+                      title="{{ item.categories[0].title }}">
+                      <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle"><img
+                          src="{{ item.categories[0].image | imageSrc : 'listing' : 'thumb' }}"
+                          alt="{{ item.categories[0].title }}" class="lazyloaded">
+                      </div>
+                      <div class="icon-box-1_text__3R39g">{{ item.categories[0].title }}</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="listing_footerRight__2398w">
+                <a class="wilcity-js-favorite" (click)="onClickListingFavorite(item.id)">
+                  <i [ngClass]="item.is_favorite ? 'la-heart color-primary' : 'la-heart-o'" class="la "></i>
+                </a>
+              </div>
+            </footer>
+          </article>
+        </ng-template>
+      </swiper>
     </div>
+    <div *ngIf="!feautedListings" class="section-loading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+  </div>
 </div>
 
 
 <!-- Section ~ Trending Categories -->
 <div class="section-wrapper section-trending-categories">
-    <div class="container">
-        <div *ngIf="!trendingCategories" class="section-loading">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div *ngIf="trendingCategories && trendingCategories.length > 0" class=" wilcity-modern-term-boxes">
-            <div class="heading_module__156eJ wil-text-center ">
-                <h2 class="heading_title__1bzno">Trending Categories</h2>
-            </div>
-            <div class="row" data-col-xs-gap="10" data-totals="4">
-                <div *ngFor="let item of trendingCategories" class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
-                    <div class="textbox-4_module__2gJjK">
-                        <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}">
-                            <div class="textbox-4_background__3bSqa">
-                                <div class="wil-overlay"></div>
-                                <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
-                                    [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.image, 'medium') + ')'}">
-                                    <img class="" src="{{ item.image | imageSrc : 'listing' : 'medium' }}" alt="">
-                                </div>
-                            </div>
-                            <div class="textbox-4_top__1919H"><i class="la la-edit color-primary"></i> {{
-                                item.total_listing }}
-                                Listing{{ item.total_listing | pluralPipe }} </div>
-                            <div class="textbox-4_content__1B-wJ">
-                                <h3 class="textbox-4_title__pVQr7">{{ item.title }}</h3>
-                                <span
-                                    class="wil-btn wil-btn--primary wil-btn--block wil-btn--lg wil-btn--round">Discover</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div *ngIf="!trendingCategories" class="section-loading">
+      <i class="fa fa-spinner fa-spin"></i>
     </div>
+    <div *ngIf="trendingCategories && trendingCategories.length > 0" class=" wilcity-modern-term-boxes">
+      <div class="heading_module__156eJ wil-text-center ">
+        <h2 class="heading_title__1bzno">Trending Categories</h2>
+      </div>
+      <div class="row" data-col-xs-gap="10" data-totals="4">
+        <div *ngFor="let item of trendingCategories" class="col-lg-3 col-md-3 col-sm-12 col-xs-6">
+          <div class="textbox-4_module__2gJjK">
+            <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}">
+              <div class="textbox-4_background__3bSqa">
+                <div class="wil-overlay"></div>
+                <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
+                  [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.image, 'medium') + ')'}">
+                  <img class="" src="{{ item.image | imageSrc : 'listing' : 'medium' }}" alt="">
+                </div>
+              </div>
+              <div class="textbox-4_top__1919H"><i class="la la-edit color-primary"></i> {{
+                item.total_listing }}
+                Listing{{ item.total_listing | pluralPipe }} </div>
+              <div class="textbox-4_content__1B-wJ">
+                <h3 class="textbox-4_title__pVQr7">{{ item.title }}</h3>
+                <span class="wil-btn wil-btn--primary wil-btn--block wil-btn--lg wil-btn--round">Discover</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
 <!-- Section ~ blog -->
 <div class="section-wrapper section-home-blog">
-    <div class="container">
-        <div class="heading_module__156eJ wil-text-center hide-bluemark hide-description  vc_custom_1598455636695">
-            <h2 class="heading_title__1bzno" style="color:#252c41">NEWS</h2>
-            <div class="heading_content__2mtYE" style="color:#70778b">Discover upcoming and ongoing events near
-                by you.
-            </div>
-        </div>
-        <div class="home-blog-area vc_row">
-            <div class="single-blog-grid">
-                <div class="vc_gitem-animated-block ">
-                    <div class=" vc_gitem-zone vc-gitem-zone-height-mode-auto"
-                        style="background-image: url('https://www.blackdirectory.co.uk/wp-content/uploads/2021/02/Jay-Z-Roc-Nation-1024x651.jpg') !important;">
-                        <a href="https://www.blackdirectory.co.uk/jay-z-lvmh-team-up-for-armand-de-brignac-champagne-deal/"
-                            title="Jay-Z &amp; LVMH Team Up For Armand de Brignac Champagne Deal"
-                            class="vc_gitem-link vc-zone-link"></a>
-                    </div>
-                </div>
-                <div class="vc_gitem_row vc_row vc_gitem-row-position-top blog-grid-content">
-                    <div class="vc_col-sm-12 vc_gitem-col vc_gitem-col-align-">
-                        <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_title">
-                            <h4 style="text-align: left">Jay-Z &amp; LVMH Team Up For Armand de Brignac
-                                Champagne Deal
-                            </h4>
-                        </div>
-                        <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_excerpt">
-                            <p>When Jay-Z clicked into a video call last week with Philippe Schaus, the
-                                chief
-                                executive of LVMH Moët Hennessy Louis Vuitton’s drinks business, the Zoom
-                                backgrounds told the story. Jay-Z […]</p>
-                        </div>
-                        <div class="vc_btn3-container vc_btn3-left">
-                            <a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-flat vc_btn3-color-juicy-pink"
-                                href="https://www.blackdirectory.co.uk/jay-z-lvmh-team-up-for-armand-de-brignac-champagne-deal/"
-                                title="Read more">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-blog-grid">
-                <div class="vc_gitem-animated-block ">
-                    <div class=" vc_gitem-zone vc-gitem-zone-height-mode-auto"
-                        style="background-image: url('https://www.blackdirectory.co.uk/wp-content/uploads/2021/02/AJ-1-1018x1024.jpg') !important;">
-                        <a href="https://www.blackdirectory.co.uk/anthony-joshua-the-100-million-boxer/"
-                            title="Anthony Joshua: The £100 Million Boxer" class="vc_gitem-link vc-zone-link"></a>
-                    </div>
-                </div>
-                <div class="vc_gitem_row vc_row vc_gitem-row-position-top blog-grid-content">
-                    <div class="vc_col-sm-12 vc_gitem-col vc_gitem-col-align-">
-                        <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_title">
-                            <h4 style="text-align: left">Anthony Joshua: The £100 Million Boxer</h4>
-                        </div>
-                        <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_excerpt">
-                            <p>According to a&nbsp;recent report&nbsp;by&nbsp;the&nbsp;Daily Mirror: Sport,
-                                who
-                                have
-                                been looking over the recently-filed accounts of Anthony Joshua’s Sparta
-                                Promotions,
-                                the heavyweight champion has officially become the country’s first £100
-                                million
-                                […]
-                            </p>
-                        </div>
-                        <div class="vc_btn3-container vc_btn3-left"><a
-                                class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-flat vc_btn3-color-juicy-pink"
-                                href="https://www.blackdirectory.co.uk/anthony-joshua-the-100-million-boxer/"
-                                title="Read more">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-blog-grid">
-                <div class="vc_gitem-animated-block ">
-                    <div class=" vc_gitem-zone vc-gitem-zone-height-mode-auto"
-                        style="background-image: url('https://www.blackdirectory.co.uk/wp-content/uploads/2021/02/rihanna-fenty-beauty-yellow-2017-rx-billboard-1548-compressed-1024x677.jpg') !important;">
-                        <a href="https://www.blackdirectory.co.uk/rihannas-savage-x-fenty-business-ventures-valued-at-1-billion/"
-                            title="Rihanna’s Savage X Fenty Business Ventures Valued at $1 Billion"
-                            class="vc_gitem-link vc-zone-link"></a>
-                    </div>
-                </div>
-                <div class="vc_gitem_row vc_row vc_gitem-row-position-top blog-grid-content">
-                    <div class="vc_col-sm-12 vc_gitem-col vc_gitem-col-align-">
-                        <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_title">
-                            <h4 style="text-align: left">Rihanna’s Savage X Fenty Business Ventures Valued
-                                at $1
-                                Billion
-                            </h4>
-                        </div>
-                        <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_excerpt">
-                            <p>Fashion, culture and private equity have collided with Rihanna’s successful
-                                Savage x
-                                Fenty hitting another major milestone by raising its $115 million Series B
-                                funding
-                                round, at a $1 billion […]</p>
-                        </div>
-                        <div class="vc_btn3-container vc_btn3-left">
-                            <a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-flat vc_btn3-color-juicy-pink"
-                                href="https://www.blackdirectory.co.uk/rihannas-savage-x-fenty-business-ventures-valued-at-1-billion/"
-                                title="Read more">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div *ngIf="!news" class="section-loading">
+      <i class="fa fa-spinner fa-spin"></i>
     </div>
+
+    <ng-container *ngIf="news">
+      <div class="heading_module__156eJ wil-text-center hide-bluemark hide-description  vc_custom_1598455636695">
+        <h2 class="heading_title__1bzno" style="color:#252c41">NEWS</h2>
+      </div>
+
+      <div class="home-blog-area vc_row">
+        <div class="single-blog-grid" *ngFor="let singleNews of news">
+          <div class="vc_gitem-animated-block ">
+            <div class=" vc_gitem-zone vc-gitem-zone-height-mode-auto"
+              [style.backgroundImage]="'url(' + singleNews.featured_image + ')'"
+              >
+              <a [routerLink]="['/news/details', singleNews.slug]"
+                [title]="singleNews.title"
+                class="vc_gitem-link vc-zone-link"></a>
+            </div>
+          </div>
+
+          <div class="vc_gitem_row vc_row vc_gitem-row-position-top blog-grid-content">
+            <div class="vc_col-sm-12 vc_gitem-col vc_gitem-col-align-">
+              <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_title">
+                <h4 style="text-align: left">{{singleNews.title}}
+                </h4>
+              </div>
+              <div class="vc_custom_heading vc_gitem-post-data vc_gitem-post-data-source-post_excerpt">
+                <p>{{singleNews.short_content}} […]</p>
+              </div>
+              <div class="vc_btn3-container vc_btn3-left">
+                <a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-flat vc_btn3-color-juicy-pink"
+                  [routerLink]="['/news/details', singleNews.slug]"
+                  title="Read more">Read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>

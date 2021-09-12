@@ -75,8 +75,8 @@ export class ProductComponent implements OnInit {
       this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id).pipe(
         map((data) => ({
           ...data,
-          profile_picture: this.helperService.getImageUrl(data.profile_picture, 'store', 'full'),
-          banner: this.helperService.getImageUrl(data.banner, 'store', 'full'),
+          profile_picture: this.helperService.getImageUrl(data.profile_picture, 'shop', 'full'),
+          banner: this.helperService.getImageUrl(data.banner, 'shop', 'full'),
         }))
       );
       this.images = [this.p.image, ...this.p.galleries].map((name) => ({

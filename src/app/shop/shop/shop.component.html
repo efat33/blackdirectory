@@ -7,12 +7,16 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="products-container" infiniteScroll [infiniteScrollThrottle]="300" (scrolled)="loadMore()">
-    <div class="product-preview" *ngFor="let product of products$ | async; trackBy: trackByIdentity">
+  <div class="products-container" style="min-height: 600px">
+    <div class="product-preview" *ngFor="let product of products">
       <app-product-preview [product]="product"></app-product-preview>
     </div>
   </div>
-  <div *ngIf="pending$ | async" style="display: flex; justify-content: center; align-items: center">
-    <mat-spinner></mat-spinner>
-  </div>
+  <pagination
+    [totalItems]="totalItems"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)"
+  >
+  </pagination>
 </div>
