@@ -100,6 +100,7 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { ProductPriceComponent } from './components/product-price/product-price.component';
+import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
   declarations: [
@@ -205,6 +206,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     MatCardModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    MatTreeModule,
   ],
   exports: [
     FormsModule,
@@ -276,6 +278,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     PaginationComponent,
     HttpClientModule,
     HttpClientJsonpModule,
+    MatTreeModule,
   ],
   entryComponents: [
     RegistrationModal,

@@ -24,6 +24,8 @@ import { ManagePagesComponent } from './pages/manage-pages/manage-pages.componen
 import { NewPageComponent } from './pages/new-page/new-page.component';
 import { ManageFaqsComponent } from './pages/manage-faqs/manage-faqs.component';
 import { AddFaqModalComponent } from './pages/manage-faqs/add-faq-modal/add-faq-modal';
+import { ProductCategoriesComponent } from './products/product-categories/product-categories.component';
+import { AddProductCategoryModalComponent } from './products/product-categories/add-product-category-modal/add-product-category-modal';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { AddFaqModalComponent } from './pages/manage-faqs/add-faq-modal/add-faq-
     ManagePagesComponent,
     NewPageComponent,
     ManageFaqsComponent,
-    AddFaqModalComponent
+    AddFaqModalComponent,
+    ProductCategoriesComponent,
+    AddProductCategoryModalComponent,
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

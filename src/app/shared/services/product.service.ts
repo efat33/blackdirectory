@@ -250,4 +250,16 @@ export class ProductService {
       switchMap(() => this.getProductReview(params.product_id))
     );
   }
+
+  addCategory(body: any): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/category`, body);
+  }
+
+  editCategory(categoryId: number, body: any): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}/category/${categoryId}`, body);
+  }
+
+  deleteCategory(categoryId: number): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}/category/${categoryId}`);
+  }
 }

@@ -145,7 +145,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
-              <ul *ngIf="true" class="sidebar-menu-submenus">
+              <ul class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a
@@ -173,7 +173,31 @@
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a
-                      [routerLink]="['withdraw']"
+                      [routerLink]="['products/categories']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Categories</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['products/options']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Options</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['products/withdraw']"
                       routerLinkActive="dashboard-link-active"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
                       ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-money"></i></span>
