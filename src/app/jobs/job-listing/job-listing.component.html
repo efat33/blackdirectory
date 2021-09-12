@@ -256,7 +256,7 @@
                                     {{job.title}} </a>
                                 </h2>
                                 <ul>
-                                  <li class="job-company-name"><a [routerLink]="['']">@
+                                  <li class="job-company-name"><a [routerLink]="['/user-details', job.username]">@
                                       {{job.user_display_name}}</a></li>
                                   <li *ngIf="job.address">
                                     <i class="jobsearch-icon jobsearch-maps-and-flags"></i>{{job.address}}

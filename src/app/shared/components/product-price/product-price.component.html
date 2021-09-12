@@ -1,0 +1,9 @@
+<ng-container *ngIf="hasDiscount; else noDiscountBlock">
+  <p>
+    <span class="non-discounted-price">{{ product.price | currency }}</span>
+    <span>{{ product.discounted_price | currency }}</span>
+  </p>
+</ng-container>
+<ng-template #noDiscountBlock>
+  <p>{{ product.price | currency }}</p>
+</ng-template>

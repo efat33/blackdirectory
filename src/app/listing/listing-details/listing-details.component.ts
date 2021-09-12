@@ -474,6 +474,12 @@ export class ListingDetailsComponent implements OnInit {
 
   onChangeTab(tab: string = 'home') {
     this.current_tab = tab;
+
+    if (this.current_tab === 'home') {
+      setTimeout(() => {
+        this.initializeGoogleMap();
+      }, 0);
+    }
   }
 
   openCouponModal(): void {

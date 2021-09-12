@@ -101,7 +101,7 @@ export class UserService {
   }
 
   getClientIP() {
-    this.httpClient.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    this.httpClient.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
       this.clientIp.next(res.ip);
     });
   }
@@ -288,5 +288,11 @@ export class UserService {
       });
     }
     return !isLoggedIn;
+  }
+
+  verifyEmail(verificationKey: string): Observable<any> {
+    const url = `api/users/verify-email/${verificationKey}`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
   }
 }

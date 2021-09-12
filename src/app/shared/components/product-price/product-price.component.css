@@ -1,0 +1,6 @@
+.non-discounted-price {
+  text-decoration: line-through;
+  font-size: 75%;
+  color: rgba(160, 12, 12, 0.801);
+  margin-right: 0.5rem;
+}

@@ -41,3 +41,10 @@ th.mat-header-cell {
   font-weight: 600;
   width: min(150px, 40%);
 }
+
+.info-box {
+  padding: 1rem 2rem;
+  background-color: rgba(0, 101, 152, 0.2);
+  color: rgba(0, 101, 152, 1);
+  border: 0.5px solid rgba(0, 101, 152, 0.25);
+}

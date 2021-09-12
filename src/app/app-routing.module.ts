@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { AdminGuard } from './shared/route-guards/auth-guard.service';
+import { PageEmailVerificationComponent } from './pages/page-email-verification/page-email-verification.component';
+import { AdminGuard, AuthGuard } from './shared/route-guards/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'verify/:verification-key',
+    component: PageEmailVerificationComponent,
   },
   {
     path: 'news',
@@ -32,6 +37,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'shop',

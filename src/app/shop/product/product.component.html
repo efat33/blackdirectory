@@ -1,6 +1,7 @@
 <div class="container">
   <div class="core-section">
     <div class="gallery-wrapper">
+      <div *ngIf="hasDiscount" class="sale-badge">SALE !</div>
       <ngx-gallery [options]="galleryOptions" [images]="images" class="ngx-gallery"></ngx-gallery>
     </div>
     <div>
@@ -21,7 +22,7 @@
         <span style="margin-left: 8px">( {{ p.rating_total }} )</span>
       </div>
       <div class="price">
-        <p>{{ price | currency }}</p>
+        <app-product-price [product]="p"></app-product-price>
       </div>
       <div class="add-to-cart-section">
         <div class="add-to-cart-count">

@@ -191,6 +191,16 @@ export class NewEventComponent implements OnInit {
       const subsGetEvent = this.eventService.getEvent(this.eventSlug, true).subscribe(
         (res: any) => {
           this.spinnerService.hide();
+
+          // redirect to home page if listing user_id OR claimer_id not equal to current user id
+          if (
+            !this.helperService.isAdmin() &&
+            this.helperService.currentUserInfo.id !== res.data.user_id
+          ) {
+            this.router.navigate(['home']);
+            return;
+          }
+
           this.populateEventForm(res.data);
         },
         (res: any) => {
