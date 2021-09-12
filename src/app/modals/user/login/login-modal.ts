@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/user/user.service';
@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { ForgotPasswordModal } from '../forgot-password/forgot-password-modal';
+import { RegistrationModal } from '../registration/registration-modal';
 
 export interface DialogData {
   message: string;
@@ -25,6 +27,9 @@ export class LoginModal implements OnInit, OnDestroy {
   errorMessage: string[];
   subscriptions = new Subscription();
 
+  dialogRefReg: any;
+  dialogRefForgotPass: any;
+
   constructor(
     public dialogRef: MatDialogRef<LoginModal>,
     private userService: UserService,
@@ -32,7 +37,8 @@ export class LoginModal implements OnInit, OnDestroy {
     private router: Router,
     private snackbar: SnackBarService,
     private auth: AngularFireAuth,
-    private database: AngularFireDatabase
+    private database: AngularFireDatabase,
+    public dialog: MatDialog
   ) {}
 
   // convenience getter for easy access to form fields
@@ -122,7 +128,7 @@ export class LoginModal implements OnInit, OnDestroy {
   closeDialog(message: string) {
     this.spinnerService.hide();
 
-    // close reg modal
+    // close login modal
     this.dialogRef.close();
 
     // redirect user to dashboard
@@ -139,11 +145,29 @@ export class LoginModal implements OnInit, OnDestroy {
   }
 
   registerClicked() {
-    this.userService.clickedRegisterLinkModal.emit();
+    // close login modal first
+    this.dialogRef.close();
+
+    this.openRegistrationModal();
   }
 
   forgotPasswordClicked() {
-    this.userService.clickedForgotPassLinkModal.emit();
+    // close login modal first
+    this.dialogRef.close();
+
+    this.openForgotPassModal();
+  }
+
+  openForgotPassModal(): void {
+    this.dialogRefForgotPass = this.dialog.open(ForgotPasswordModal, {
+      width: '400px',
+    });
+  }
+
+  openRegistrationModal(): void {
+    this.dialogRefReg = this.dialog.open(RegistrationModal, {
+      width: '400px',
+    });
   }
 
   ngOnDestroy() {

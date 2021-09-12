@@ -62,26 +62,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
     }
 
-    const subClickedRegisterLinkModal = this.userService.clickedRegisterLinkModal.subscribe(() => {
-      this.dialogRefLogin.close();
-      this.openRegistrationModal();
-    });
+    // const subClickedRegisterLinkModal = this.userService.clickedRegisterLinkModal.subscribe(() => {
+    //   if(this.dialogRefLogin) this.dialogRefLogin.close();
+    //   if(this.dialogRefForgotPass) this.dialogRefForgotPass.close();
+    //   this.openRegistrationModal();
+    // });
 
-    this.subscriptions.add(subClickedRegisterLinkModal);
-
-    const subsclickedLoginLinkModal = this.userService.clickedLoginLinkModal.subscribe(() => {
-      this.dialogRefReg.close();
-      this.openLoginModal();
-    });
-
-    this.subscriptions.add(subsclickedLoginLinkModal);
-
-    const subClickedForgotPassLinkModal = this.userService.clickedForgotPassLinkModal.subscribe(() => {
-      this.dialogRefLogin.close();
-      this.openForgotPassModal();
-    });
-
-    this.subscriptions.add(subClickedForgotPassLinkModal);
+    // this.subscriptions.add(subClickedRegisterLinkModal);
   }
 
   logUserOut(): void {

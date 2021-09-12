@@ -28,4 +28,11 @@ button#rsvp_form_toggle {
 }
 :host ::ng-deep .ck-editor__editable_inline {
     min-height: 200px !important;
-  }
+}
+
+@media screen and (max-width:767px) {
+    .tribe-ticket-control-wrap button {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}

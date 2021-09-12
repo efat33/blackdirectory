@@ -19,3 +19,19 @@
         text-align: right;
     }
 }
+
+@media screen and (max-width:767px) {
+    .searchbox_wrap__37JXq.searchbox_wrap__event {
+        display: block;
+    }
+    .searchbox_wrap__event .searchbox_searchButton__1c9iK {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .searchbox_searchButton__1c9iK button {
+        margin-left: 0 !important;
+    }
+    .searchbox_searchButton__1c9iK button:not(:last-child) {
+        margin-bottom: 10px;
+    }
+}

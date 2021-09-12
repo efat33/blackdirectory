@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { UserService } from 'src/app/user/user.service';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { LoginModal } from '../login/login-modal';
 
 export interface DialogData {
   message: string;
@@ -26,6 +27,8 @@ export class RegistrationModal implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   submitted = false;
 
+  dialogRefLogin: any;
+
   constructor(
     public dialogRef: MatDialogRef<RegistrationModal>,
     private userService: UserService,
@@ -33,7 +36,8 @@ export class RegistrationModal implements OnInit, OnDestroy {
     private router: Router,
     private snackbar: SnackBarService,
     private auth: AngularFireAuth,
-    private database: AngularFireDatabase
+    private database: AngularFireDatabase,
+    public dialog: MatDialog
   ) {}
 
   // convenience getter for easy access to form fields
@@ -138,7 +142,16 @@ export class RegistrationModal implements OnInit, OnDestroy {
   }
 
   accountLinkClicked() {
-    this.userService.clickedLoginLinkModal.emit();
+     // close login modal first
+     this.dialogRef.close();
+
+     this.openLoginModal();
+  }
+
+  openLoginModal(): void {
+    this.dialogRefLogin = this.dialog.open(LoginModal, {
+      width: '400px',
+    });
   }
 
   ngOnDestroy() {

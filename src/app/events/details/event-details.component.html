@@ -60,199 +60,8 @@
                     target="_blank" title="WhatsApp" aria-haspopup="true"><i class="ect-icon-whatsapp"></i></a> -->
       </div>
 
-
-      <div class="news-comments">
-        <div class="add-review_module__2KOQC">
-          <header class="add-review_wrap__K1JtF">
-            <div class="add-review_left__ziIv1">
-              <h3 class="add-review_title__3ePFu"><span class="color-primary">{{
-                  getTotalComments() || 0 }}
-                  Comment{{ event.comments?.length | pluralPipe : 's' }} For</span>
-                {{ event.title }}
-              </h3>
-            </div>
-
-            <div class="wil-float-right">
-              <button mat-raised-button color="primary" (click)="onAddCommentClick()">Add a
-                Comment</button>
-            </div>
-          </header>
-        </div>
-
-        <div *ngIf="event.comments?.length > 0" id="wilcity-review-wrapper" class="pos-r">
-          <div>
-            <div *ngFor="let comment of event.comments; let index=index" class="comment-review_module__-Z5tr">
-              <div class="comment-review_header__1si3M">
-                <div
-                  class="utility-box-1_module__MYXpX utility-box-1_boxLeft__3iS6b clearfix utility-box-1_sm__mopok review-author-avatar">
-                  <a class="utility-box-1_avatar__DB9c_ rounded-circle"
-                    [ngStyle]="{'background-image': 'url(' + getCommentAvatar(comment.profile_photo) + ')'}"></a>
-                  <div class="utility-box-1_body__8qd9j">
-                    <div class="utility-box-1_group__2ZPA2">
-                      <h3 class="utility-box-1_title__1I925"><a>{{
-                          comment.display_name || comment.username }}</a>
-                      </h3>
-                    </div>
-                    <div class="utility-box-1_description__2VDJ6">{{
-                      comment.created_at | date: 'longDate' }}
-                    </div>
-                  </div>
-                </div>
-
-                <div class="comment-review_abs__9mb1G pos-a-center-right">
-                  <div *ngIf="userCanEditComment(comment)" class="dropdown_module__J_Zpj ml-20">
-                    <div (click)="hambergureClick(comment, $event)" (clickOutside)="editCommentClickId = null"
-                      class="dropdown_threeDots__3fa2o"><span class="dropdown_dot__3I1Rn"></span> <span
-                        class="dropdown_dot__3I1Rn"></span> <span class="dropdown_dot__3I1Rn"></span></div>
-                    <div [ngClass]="{'active': comment.id === editCommentClickId}" class="dropdown_itemsWrap__2fuze">
-                      <ul class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
-                        has-wrap-for-icon="true">
-                        <li class="list_item__3YghP"><a (click)="comment.editing = true"
-                            class="list_link__2rDA1 text-ellipsis color-primary--hover" span-classes="list_text__35R07"
-                            review-id="17458"> <span class="list_icon__2YpTp"><i class="la la-edit"></i></span> <span
-                              class="list_text__35R07">Edit</span>
-                          </a></li>
-                        <li class="list_item__3YghP"><a (click)="onDeleteComment(comment, index)"
-                            class="list_link__2rDA1 text-ellipsis color-primary--hover" span-classes="list_text__35R07"
-                            review-id="17458"> <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
-                            <span class="list_text__35R07">Delete</span>
-                          </a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="comment-review_body__qhUqq">
-                <div class="comment-review_content__1jFfZ">
-                  <div class="wilcity-review-content wilcity-review-content-17458">
-                    <div>
-                      <p *ngIf="!comment.editing">{{ comment.comment }}</p>
-                      <ng-container *ngIf="comment.editing">
-                        <textarea matInput #editComment rows="3"
-                          class="edit-comment-field">{{comment.comment}}</textarea>
-                        <button mat-raised-button color="primary" [disabled]="!editComment.value.trim()"
-                          (click)="updateComment(editComment, comment)">Submit</button>
-                        <button mat-button (click)="comment.editing = false">Cancel</button>
-                      </ng-container>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <footer class="comment-review_footer__3XR0_">
-                <div>
-                  <div>
-                    <ul *ngIf="comment.replies?.length > 0" class="comment-review_commentlist__1LH_D list-none">
-                      <li *ngFor="let reply of comment.replies; let replyIndex = index"
-                        class="comment-review_commentlistItem__2DILM js-review-discussion-17459 comment-reply">
-                        <div class="">
-                          <div
-                            class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt utility-box-1_boxLeft__3iS6b clearfix">
-                            <a [ngStyle]="{'background-image': 'url(' + getCommentAvatar(reply.profile_photo) + ')'}"
-                              class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
-                              <img src="{{ reply.profile_photo | imageSrc : 'users' : 'thumb' }}" alt=""></a>
-                            <div class="utility-box-1_body__8qd9j">
-                              <div class="utility-box-1_group__2ZPA2">
-                                <h3 class="utility-box-1_title__1I925">
-                                  <a>{{
-                                    reply.display_name != '' ?
-                                    reply.display_name :
-                                    reply.username }}</a>
-                                </h3>
-                                <div class="utility-box-1_content__3jEL7">
-                                  {{ reply.comment }}</div>
-                              </div>
-                              <div class="utility-box-1_description__2VDJ6">
-                              </div>
-                            </div>
-                            <div *ngIf="reply.editing" class="comment-review_comment__dJNqv mt-10">
-                              <div class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
-                                <div class="field_wrap__Gv92k">
-                                  <textarea #replyField
-                                    (keydown.enter)="onSubmitReply($event, replyField, comment, reply)"
-                                    data-height-default="22" class="field_field__3U_Rt"
-                                    placeholder="Type a reply...">{{ reply.comment }}</textarea>
-                                  <span class="bg-color-primary"></span>
-                                  <div class="field_rightButton__1GGWz js-field-rightButton active">
-                                    <span (click)="onSubmitReply($event, replyField, comment, reply)"
-                                      class="field_iconButton__2p3sr bg-color-primary"><i
-                                        class="la la-arrow-up"></i></span>
-                                  </div>
-                                  <div class="mt-10 pos-a review-cancel">
-                                    <a (click)="onCloseReplyEdit(reply)" title="Cancel"><i
-                                        class="la la-times-circle"></i></a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div *ngIf="userCanEditReply(reply)" class="dropdown_module__J_Zpj">
-                            <div (click)="hambergureClick(reply, $event)" (clickOutside)="editCommentClickId = null"
-                              class="dropdown_threeDots__3fa2o"><span class="dropdown_dot__3I1Rn"></span>
-                              <span class="dropdown_dot__3I1Rn"></span>
-                              <span class="dropdown_dot__3I1Rn"></span>
-                            </div>
-                            <div [ngClass]="{'active': reply.id === editCommentClickId}"
-                              class="dropdown_itemsWrap__2fuze">
-                              <ul
-                                class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
-                                has-wrap-for-icon="true">
-                                <li class="list_item__3YghP"><a (click)="onClickReplyEdit(reply)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover">
-                                    <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
-                                    <span class="list_text__35R07">Edit</span>
-                                  </a></li>
-                                <li class="list_item__3YghP"><a (click)="onDeleteReply(reply, index, replyIndex)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover">
-                                    <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
-                                    <span class="list_text__35R07">Delete</span>
-                                  </a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-
-                    <div class="comment-review_form__20wWm">
-                      <div
-                        class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt d-inline-block mr-10 wil-float-left">
-                        <a class="utility-box-1_avatar__DB9c_ rounded-circle"
-                          [ngStyle]="{'background-image': 'url(assets/img/avatar-default.png)'}"><img
-                            src="{{'assets/img/avatar-default.png' }}" alt=""></a>
-                      </div>
-                      <div class="comment-review_comment__dJNqv">
-                        <div class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
-                          <div class="field_wrap__Gv92k">
-                            <textarea #replyField (keydown.enter)="onSubmitReply($event, replyField, comment)"
-                              data-height-default="22" class="field_field__3U_Rt"
-                              placeholder="Type a reply..."></textarea><span class="bg-color-primary"></span>
-                            <div class="field_rightButton__1GGWz js-field-rightButton">
-                              <span (click)="onSubmitReply($event, replyField, comment)"
-                                class="field_iconButton__2p3sr bg-color-primary"><i class="la la-arrow-up"></i></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </footer>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="userCanComment()" class="new-comment">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Leave a comment</mat-label>
-            <textarea #newCommentInput matInput [(ngModel)]="newComment" rows="5"></textarea>
-          </mat-form-field>
-          <button mat-raised-button color="primary" [disabled]="!newComment.trim()" (click)="addNewComment()">Submit
-            Comment</button>
-        </div>
-      </div>
-
     </div>
+
     <div class="col-md-4">
       <div class="epta-sidebar-area">
         <div *ngIf="config.leftTime != null" class="epta-sidebar-box">
@@ -452,7 +261,201 @@
 
       </div>
     </div>
+
     <div class="col-md-12">
+      <!-- event comments -->
+      <div class="news-comments">
+        <div class="add-review_module__2KOQC">
+          <header class="add-review_wrap__K1JtF">
+            <div class="add-review_left__ziIv1">
+              <h3 class="add-review_title__3ePFu"><span class="color-primary">{{
+                  getTotalComments() || 0 }}
+                  Comment{{ event.comments?.length | pluralPipe : 's' }} For</span>
+                {{ event.title }}
+              </h3>
+            </div>
+
+            <div class="wil-float-right">
+              <button mat-raised-button color="primary" (click)="onAddCommentClick()">Add a
+                Comment</button>
+            </div>
+          </header>
+        </div>
+
+        <div *ngIf="event.comments?.length > 0" id="wilcity-review-wrapper" class="pos-r">
+          <div>
+            <div *ngFor="let comment of event.comments; let index=index" class="comment-review_module__-Z5tr">
+              <div class="comment-review_header__1si3M">
+                <div
+                  class="utility-box-1_module__MYXpX utility-box-1_boxLeft__3iS6b clearfix utility-box-1_sm__mopok review-author-avatar">
+                  <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                    [ngStyle]="{'background-image': 'url(' + getCommentAvatar(comment.profile_photo) + ')'}"></a>
+                  <div class="utility-box-1_body__8qd9j">
+                    <div class="utility-box-1_group__2ZPA2">
+                      <h3 class="utility-box-1_title__1I925"><a>{{
+                          comment.display_name || comment.username }}</a>
+                      </h3>
+                    </div>
+                    <div class="utility-box-1_description__2VDJ6">{{
+                      comment.created_at | date: 'longDate' }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="comment-review_abs__9mb1G pos-a-center-right">
+                  <div *ngIf="userCanEditComment(comment)" class="dropdown_module__J_Zpj ml-20">
+                    <div (click)="hambergureClick(comment, $event)" (clickOutside)="editCommentClickId = null"
+                      class="dropdown_threeDots__3fa2o"><span class="dropdown_dot__3I1Rn"></span> <span
+                        class="dropdown_dot__3I1Rn"></span> <span class="dropdown_dot__3I1Rn"></span></div>
+                    <div [ngClass]="{'active': comment.id === editCommentClickId}" class="dropdown_itemsWrap__2fuze">
+                      <ul class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                        has-wrap-for-icon="true">
+                        <li class="list_item__3YghP"><a (click)="comment.editing = true"
+                            class="list_link__2rDA1 text-ellipsis color-primary--hover" span-classes="list_text__35R07"
+                            review-id="17458"> <span class="list_icon__2YpTp"><i class="la la-edit"></i></span> <span
+                              class="list_text__35R07">Edit</span>
+                          </a></li>
+                        <li class="list_item__3YghP"><a (click)="onDeleteComment(comment, index)"
+                            class="list_link__2rDA1 text-ellipsis color-primary--hover" span-classes="list_text__35R07"
+                            review-id="17458"> <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
+                            <span class="list_text__35R07">Delete</span>
+                          </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comment-review_body__qhUqq">
+                <div class="comment-review_content__1jFfZ">
+                  <div class="wilcity-review-content wilcity-review-content-17458">
+                    <div>
+                      <p *ngIf="!comment.editing">{{ comment.comment }}</p>
+                      <ng-container *ngIf="comment.editing">
+                        <textarea matInput #editComment rows="3"
+                          class="edit-comment-field">{{comment.comment}}</textarea>
+                        <button mat-raised-button color="primary" [disabled]="!editComment.value.trim()"
+                          (click)="updateComment(editComment, comment)">Submit</button>
+                        <button mat-button (click)="comment.editing = false">Cancel</button>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <footer class="comment-review_footer__3XR0_">
+                <div>
+                  <div>
+                    <ul *ngIf="comment.replies?.length > 0" class="comment-review_commentlist__1LH_D list-none">
+                      <li *ngFor="let reply of comment.replies; let replyIndex = index"
+                        class="comment-review_commentlistItem__2DILM js-review-discussion-17459 comment-reply">
+                        <div class="">
+                          <div
+                            class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt utility-box-1_boxLeft__3iS6b clearfix">
+                            <a [ngStyle]="{'background-image': 'url(' + getCommentAvatar(reply.profile_photo) + ')'}"
+                              class="utility-box-1_avatar__DB9c_ rounded-circle wil-float-left">
+                              <img src="{{ reply.profile_photo | imageSrc : 'users' : 'thumb' }}" alt=""></a>
+                            <div class="utility-box-1_body__8qd9j">
+                              <div class="utility-box-1_group__2ZPA2">
+                                <h3 class="utility-box-1_title__1I925">
+                                  <a>{{
+                                    reply.display_name != '' ?
+                                    reply.display_name :
+                                    reply.username }}</a>
+                                </h3>
+                                <div class="utility-box-1_content__3jEL7">
+                                  {{ reply.comment }}</div>
+                              </div>
+                              <div class="utility-box-1_description__2VDJ6">
+                              </div>
+                            </div>
+                            <div *ngIf="reply.editing" class="comment-review_comment__dJNqv mt-10">
+                              <div class="active field_module__1H6kT field_style4__2DBqx field-autoHeight">
+                                <div class="field_wrap__Gv92k">
+                                  <textarea #replyField
+                                    (keydown.enter)="onSubmitReply($event, replyField, comment, reply)"
+                                    data-height-default="22" class="field_field__3U_Rt"
+                                    placeholder="Type a reply...">{{ reply.comment }}</textarea>
+                                  <span class="bg-color-primary"></span>
+                                  <div class="field_rightButton__1GGWz js-field-rightButton active">
+                                    <span (click)="onSubmitReply($event, replyField, comment, reply)"
+                                      class="field_iconButton__2p3sr bg-color-primary"><i
+                                        class="la la-arrow-up"></i></span>
+                                  </div>
+                                  <div class="mt-10 pos-a review-cancel">
+                                    <a (click)="onCloseReplyEdit(reply)" title="Cancel"><i
+                                        class="la la-times-circle"></i></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="userCanEditReply(reply)" class="dropdown_module__J_Zpj">
+                            <div (click)="hambergureClick(reply, $event)" (clickOutside)="editCommentClickId = null"
+                              class="dropdown_threeDots__3fa2o"><span class="dropdown_dot__3I1Rn"></span>
+                              <span class="dropdown_dot__3I1Rn"></span>
+                              <span class="dropdown_dot__3I1Rn"></span>
+                            </div>
+                            <div [ngClass]="{'active': reply.id === editCommentClickId}"
+                              class="dropdown_itemsWrap__2fuze">
+                              <ul
+                                class="list_module__1eis9 list-none list_small__3fRoS list_abs__OP7Og arrow--top-right"
+                                has-wrap-for-icon="true">
+                                <li class="list_item__3YghP"><a (click)="onClickReplyEdit(reply)"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                    <span class="list_icon__2YpTp"><i class="la la-edit"></i></span>
+                                    <span class="list_text__35R07">Edit</span>
+                                  </a></li>
+                                <li class="list_item__3YghP"><a (click)="onDeleteReply(reply, index, replyIndex)"
+                                    class="list_link__2rDA1 text-ellipsis color-primary--hover">
+                                    <span class="list_icon__2YpTp"><i class="la la-trash"></i></span>
+                                    <span class="list_text__35R07">Delete</span>
+                                  </a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+
+                    <div class="comment-review_form__20wWm">
+                      <div
+                        class="utility-box-1_module__MYXpX utility-box-1_xs__3Nipt d-inline-block mr-10 wil-float-left">
+                        <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                          [ngStyle]="{'background-image': 'url(assets/img/avatar-default.png)'}"><img
+                            src="{{'assets/img/avatar-default.png' }}" alt=""></a>
+                      </div>
+                      <div class="comment-review_comment__dJNqv">
+                        <div class="field_module__1H6kT field_style4__2DBqx field-autoHeight-2">
+                          <div class="field_wrap__Gv92k">
+                            <textarea #replyField (keydown.enter)="onSubmitReply($event, replyField, comment)"
+                              data-height-default="22" class="field_field__3U_Rt"
+                              placeholder="Type a reply..."></textarea><span class="bg-color-primary"></span>
+                            <div class="field_rightButton__1GGWz js-field-rightButton">
+                              <span (click)="onSubmitReply($event, replyField, comment)"
+                                class="field_iconButton__2p3sr bg-color-primary"><i class="la la-arrow-up"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="userCanComment()" class="new-comment">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Leave a comment</mat-label>
+            <textarea #newCommentInput matInput [(ngModel)]="newComment" rows="5"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled]="!newComment.trim()" (click)="addNewComment()">Submit
+            Comment</button>
+        </div>
+      </div>
+
+      <!-- related events -->
       <div *ngIf="relatedEvents == null" class="section-loading">
         <i class="fa fa-spinner fa-spin"></i>
       </div>
