@@ -24,11 +24,11 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
   selectedCategory: any;
 
   _transformer = (node: any, level: number) => {
-    console.log(node);
     return {
       level,
       id: node.id,
       title: node.title,
+      options: this.getCategoryOptions(node),
       expandable: !!node.subCategories && node.subCategories.length > 0,
     };
   };
@@ -159,6 +159,16 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
     } else {
       this.selectedCategory = node;
     }
+  }
+
+  getCategoryOptions(category: any) {
+    if (category.options?.length) {
+      const options = category.options.map((optionArray: any) => optionArray[0].option);
+
+      return `(${options.join(', ')})`;
+    }
+
+    return '';
   }
 
   ngOnDestroy() {

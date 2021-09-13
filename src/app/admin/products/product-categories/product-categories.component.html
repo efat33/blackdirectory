@@ -24,7 +24,7 @@
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="selectCategory(node)"
           [ngClass]="{'selected': node === selectedCategory}">
           <div class="leaf-node">
-            {{node.title}}
+            {{node.title}} <span class="options-text">{{node.options}}</span>
           </div>
         </mat-tree-node>
 
@@ -38,7 +38,7 @@
               </mat-icon>
             </button>
 
-            {{node.title}}
+            {{node.title}} <span class="options-text">{{node.options}}</span>
           </div>
         </mat-tree-node>
       </mat-tree>
