@@ -207,6 +207,7 @@ import { MatTreeModule } from '@angular/material/tree';
     HttpClientModule,
     HttpClientJsonpModule,
     MatTreeModule,
+    MatListModule,
   ],
   exports: [
     FormsModule,
@@ -279,6 +280,7 @@ import { MatTreeModule } from '@angular/material/tree';
     HttpClientModule,
     HttpClientJsonpModule,
     MatTreeModule,
+    MatListModule,
   ],
   entryComponents: [
     RegistrationModal,

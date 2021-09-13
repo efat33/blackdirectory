@@ -26,6 +26,9 @@ import { ManageFaqsComponent } from './pages/manage-faqs/manage-faqs.component';
 import { AddFaqModalComponent } from './pages/manage-faqs/add-faq-modal/add-faq-modal';
 import { ProductCategoriesComponent } from './products/product-categories/product-categories.component';
 import { AddProductCategoryModalComponent } from './products/product-categories/add-product-category-modal/add-product-category-modal';
+import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
+import { AddProductCategoryOptionModalComponent } from './products/product-category-options/add-product-category-option-modal/add-product-category-option-modal';
+import { AddProductOptionChoiceModalComponent } from './products/product-category-options/add-product-option-choice-modal/add-product-option-choice-modal';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { AddProductCategoryModalComponent } from './products/product-categories/
     AddFaqModalComponent,
     ProductCategoriesComponent,
     AddProductCategoryModalComponent,
+    ProductCategoryOptionsComponent,
+    AddProductCategoryOptionModalComponent,
+    AddProductOptionChoiceModalComponent,
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

@@ -262,4 +262,32 @@ export class ProductService {
   deleteCategory(categoryId: number): Observable<any> {
     return this.http.delete<any>(`${this.BASE_URL}/category/${categoryId}`);
   }
+
+  getCategoryOptions(): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/category-options`);
+  }
+
+  addCategoryOption(body: any): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/category-option`, body);
+  }
+
+  editCategoryOption(optionId: number, body: any): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}/category-option/${optionId}`, body);
+  }
+
+  deleteCategoryOption(optionId: number): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}/category-option/${optionId}`);
+  }
+
+  addOptionChoice(body: any): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/option-choice`, body);
+  }
+
+  editOptionChoice(optionId: number, body: any): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}/option-choice/${optionId}`, body);
+  }
+
+  deleteOptionChoice(optionId: number): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}/option-choice/${optionId}`);
+  }
 }
