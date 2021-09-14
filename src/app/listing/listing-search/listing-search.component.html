@@ -75,10 +75,12 @@
         <div class="filter_module__p0Iwz filter-bar gray js-listing-bar-sticky" style="min-height: 59px;">
             <div class="container">
                 <div class="">
-                    <div class="filter_item__tjou1 mt-10" name="search-form-field-nearbyme"><a href="#" target="_self"
-                            class="filter_button__lo852 ">
+                    <div class="filter_item__tjou1 mt-10" name="search-form-field-nearbyme">
+                        <a (click)="onClickNearMe()" class="filter_button__lo852"
+                            [ngClass]="{'wil-btn--primary': queryParams.nearme}">
                             <span class="">Near Me</span>
-                        </a></div>
+                        </a>
+                    </div>
                     <div class="filter_item__tjou1 mt-10">
                         <a (click)="openListingCategoryModal()" class="filter_button__lo852"
                             [ngClass]="{'wil-btn--primary': queryParams.category}">
@@ -190,8 +192,8 @@
                                                     <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
                                                         }}</a>
                                                 </h2>
-                                                <div class="listing_tagline__1cOB3 text-ellipsis">
-                                                    {{ item.description }}</div>
+                                                <div class="listing_tagline__1cOB3">
+                                                    {{ item.description | excerpt : 15 }}</div>
                                                 <div class="listing_meta__6BbCG" style="position: relative;"><a
                                                         href="{{ siteUrl + '/listing/' + item.slug }}" target="_blank"
                                                         class="grid-body-item-google_address text-ellipsis w-100"

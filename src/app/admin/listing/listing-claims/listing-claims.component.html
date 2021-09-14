@@ -69,9 +69,14 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let row">
-            <button *ngIf="row.status == 'pending'" mat-icon-button (click)="approveClaim(row)">
+            <button *ngIf="row.status == 'pending'; else claimApproved" mat-icon-button (click)="approveClaim(row)">
               <mat-icon matTooltip="Approve">check_circle</mat-icon>
             </button>
+            <ng-template #claimApproved>
+              <button mat-icon-button style="pointer-events: none;">
+                <mat-icon color="primary">check_circle</mat-icon>
+              </button>
+            </ng-template>
 
             <button mat-icon-button (click)="deleteClaim(row)">
               <mat-icon matTooltip="Delete">delete</mat-icon>
