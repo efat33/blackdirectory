@@ -220,8 +220,8 @@
                     </div>
                   </header>
                   <div class="content-box_body__3tSRB">
-                    <div>
-                      {{ listing.description }}
+                    <div [innerHTML]="listing.description">
+
                     </div>
                   </div>
                 </div>
@@ -243,8 +243,8 @@
                           <div class="gallery-item_module__1wn6T">
                             <div class="imageCover_module__1VM4k">
                               <div class="imageCover_img__3pxw7" (click)="openGalleryModal(index)"
-                                [ngStyle]="{ 'background-image': 'url(' + item.small + ')' }">
-                                <img [src]="item.small" class="cursor-pointer" />
+                                [ngStyle]="{ 'background-image': 'url(' + item.medium + ')' }">
+                                <img [src]="item.medium" class="cursor-pointer" />
                               </div>
                             </div>
                           </div>
@@ -324,13 +324,19 @@
                             <ul *ngIf="menu.items.length > 0" class="list-none mb-20">
                               <li *ngFor="let item of menu.items" class="no-style">
                                 <div class="utility-box-1_module__MYXpX utility-box-1_menus__17rbu">
-                                  <div class="utility-box-1_avatar__DB9c_ rounded-circle show-image">
+                                  <div *ngIf="item.image" class="utility-box-1_avatar__DB9c_ rounded-circle show-image">
                                     <img [src]="item.image | imageSrc: 'listing':'thumb'"
                                       class="display-block cursor-pointer" />
                                   </div>
-                                  <a href="{{ item.link }}"
+                                  <a *ngIf="item.link;else noItemLink" href="{{ item.link }}"
                                     target="{{ item.open_new_window == 'yes' ? '_blank' : '_self' }}" class="no-style"
                                     rel="nofollow">
+                                    <ng-container *ngTemplateOutlet="innerMenuItem"></ng-container>
+                                  </a>
+                                  <ng-template #noItemLink>
+                                    <ng-container *ngTemplateOutlet="innerMenuItem"></ng-container>
+                                  </ng-template>
+                                  <ng-template #innerMenuItem>
                                     <div class="utility-box-1_body__8qd9j">
                                       <div class="utility-box-1_group__2ZPA2">
                                         <h3 class="utility-box-1_title__1I925">
@@ -342,7 +348,7 @@
                                       </div>
                                       <div class="utility-box-1_description__2VDJ6">£{{ item.price }}</div>
                                     </div>
-                                  </a>
+                                  </ng-template>
                                 </div>
                               </li>
                             </ul>
@@ -772,9 +778,9 @@
                       <div class="price-range_sign__3thLa"><i class="fas fa-pound-sign"></i></div>
                       <div class="price-range_group__23kMb">
                         <div class="price-range_range__19Fut color-primary">
-                          <div class="price-range_from__3iV-6">£{{ listing.price_min | number: '1.2-2' }}</div>
+                          <div class="price-range_from__3iV-6">£{{ listing.price_min | decimalPipe }}</div>
                           <div class="price-range_arrow__3LnNe"><i class="la la-arrow-right"></i></div>
-                          <div class="price-range_to__2Tf3W">£{{ listing.price_max | number: '1.2-2' }}</div>
+                          <div class="price-range_to__2Tf3W">£{{ listing.price_max | decimalPipe }}</div>
                         </div>
                       </div>
                     </div>
@@ -794,7 +800,7 @@
                         <div class="icon-box-1_module__uyg5F two-text-ellipsis mb-20 mb-sm-15">
                           <div class="icon-box-1_block1__bJ25J">
                             <a href="{{ siteUrl }}/listing/search/?listing_cat={{ item.listing_categories_id }}"
-                              title="Beard Care">
+                              title="{{ item.title }}">
                               <div class="bg-transparent icon-box-1_icon__3V5c0 rounded-circle">
                                 <img src="{{ item.image | imageSrc: 'listing' }}" alt="{{ item.title }}" />
                               </div>
@@ -919,8 +925,8 @@
                     <div class="pill-loading_loader__3LOnT"></div>
                   </div>
                 </div>
-                <div>
-                  {{ listing.description }}
+                <div [innerHTML]="listing.description">
+
                 </div>
               </div>
             </div>
@@ -941,8 +947,8 @@
                       <div class="gallery-item_module__1wn6T">
                         <div class="imageCover_module__1VM4k">
                           <div class="imageCover_img__3pxw7" (click)="openGalleryModal(index)"
-                            [ngStyle]="{ 'background-image': 'url(' + item.small + ')' }">
-                            <img [src]="item.small" class="cursor-pointer" />
+                            [ngStyle]="{ 'background-image': 'url(' + item.medium + ')' }">
+                            <img [src]="item.medium" class="cursor-pointer" />
                           </div>
                         </div>
                       </div>

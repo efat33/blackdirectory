@@ -42,8 +42,8 @@ export class ListingGalleryModal implements OnInit {
   
       for (const item of galleries) {
         const obj = {
-          small: this.helperservice.getImageUrl(item, 'listing', 'thumb'),
-          medium: this.helperservice.getImageUrl(item, 'listing', 'medium'),
+          small: this.helperservice.getImageUrl(item, 'listing', 'medium'),
+          medium: this.helperservice.getImageUrl(item, 'listing'),
           big: this.helperservice.getImageUrl(item, 'listing')
         }
   

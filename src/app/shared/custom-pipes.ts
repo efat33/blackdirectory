@@ -70,3 +70,10 @@ export class excerpt implements PipeTransform {
     return 'text';
   }
 }
+
+@Pipe({ name: 'decimalPipe' })
+export class decimalPipe implements PipeTransform {
+  transform(input: any): any {
+    return parseFloat(input).toFixed(2).replace(/[.,]00$/, "");
+  }
+}
