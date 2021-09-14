@@ -12,6 +12,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { ListingService } from '../listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
 
 declare const google: any;
 
@@ -32,13 +33,16 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
   dialogRefPrice: any;
   dialogRefSort: any;
 
+  currentUserLatitude: any = '';
+  currentUserLongitude: any = '';
+
   selectedCategory: string = null;
   selectedPrice: string = null;
   selectedSort: string = 'Descending';
   queryParams = {
     keyword: '',
-    lat: '',
-    lng: '',
+    lat: null,
+    lng: null,
     order: 'desc',
     orderby: 'created_at',
     limit: 12,
@@ -70,6 +74,7 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     public listingService: ListingService,
     public spinnerService: SpinnerService,
+    public snackbar: SnackBarService,
     public helperService: HelperService,
     private route: ActivatedRoute,
     private router: Router,
@@ -198,6 +203,10 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
     this.queryParams.recommended = 0;
     this.queryParams.discount = 0;
 
+    // empty filter texts
+    this.selectedCategory = '';
+    this.selectedPrice = '';
+
     // submit the listing form
     this.onSubmitListingForm(true);
   }
@@ -290,6 +299,53 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
     this.queryParams.page = currentPage;
     this.queryParams.offset = (currentPage - 1) * this.queryParams.limit;
     this.onSubmitListingForm();
+  }
+
+  setUserLocation() {
+    this.spinnerService.show();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        this.currentUserLatitude = pos.coords.latitude;
+        this.currentUserLongitude = pos.coords.longitude;
+
+        this.f.lat.setValue(pos.coords.latitude);
+        this.f.lng.setValue(pos.coords.longitude);
+
+        this.spinnerService.hide();
+
+        this.onSubmitListingForm();
+
+        this.queryParams.nearme = 1;
+
+      });
+    } else {
+      this.snackbar.openSnackBar('Geolocation is not supported by this browser.', 'Close', 'warn');
+    }
+  }
+
+  onClickNearMe() {
+    if(this.queryParams.nearme == 0){
+      // do near me search
+      if(!this.currentUserLatitude || !this.currentUserLongitude){
+        this.setUserLocation();
+      }
+      else{
+        this.f.lat.setValue(this.currentUserLatitude);
+        this.f.lng.setValue(this.currentUserLongitude);
+        this.onSubmitListingForm();
+
+        this.queryParams.nearme = 1;
+      }
+      
+    }
+    else{
+      this.f.lat.setValue('');
+      this.f.lng.setValue('');
+      this.onSubmitListingForm();
+      
+      this.queryParams.nearme = 0;
+    }
+    
   }
 
   openListingSortModal(): void {
