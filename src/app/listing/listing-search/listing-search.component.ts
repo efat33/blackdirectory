@@ -18,12 +18,10 @@ declare const google: any;
 @Component({
   selector: 'app-listing-search',
   templateUrl: './listing-search.component.html',
-  styleUrls: ['./listing-search.component.scss']
+  styleUrls: ['./listing-search.component.scss'],
 })
-
 export class ListingSearchComponent implements OnInit {
-
-  siteUrl:string;
+  siteUrl: string;
   subscriptions: Subscription = new Subscription();
 
   listingSearchForm: FormGroup;
@@ -52,10 +50,10 @@ export class ListingSearchComponent implements OnInit {
     recommended: 0,
     discount: 0,
   };
-  categories:any = [];
-  listings:any;
-  totalListings:any;
-  favoriteListings:any = [];
+  categories: any = [];
+  listings: any;
+  totalListings: any;
+  favoriteListings: any = [];
   pagination = {
     totalItems: 0,
     currentPage: 1,
@@ -63,7 +61,7 @@ export class ListingSearchComponent implements OnInit {
     totalPages: 0,
     startPage: 0,
     endPage: 0,
-    pages: []
+    pages: [],
   };
 
   locationModified = false;
@@ -76,18 +74,19 @@ export class ListingSearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) { }
-
+  ) {}
 
   // convenience getter for easy access to form fields
-  get f() { return this.listingSearchForm.controls; }
+  get f() {
+    return this.listingSearchForm.controls;
+  }
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
 
     // get params from url
     const listing_cat = this.route.snapshot.queryParamMap.get('listing_cat');
-    if(listing_cat){
+    if (listing_cat) {
       this.queryParams.category = listing_cat;
     }
     const keyword = this.route.snapshot.queryParamMap.get('keyword');
@@ -140,50 +139,43 @@ export class ListingSearchComponent implements OnInit {
 
   getCategories() {
     const subsCategories = this.listingService.getCategories().subscribe(
-      (res:any) => {
+      (res: any) => {
         for (const item of res.data) {
-            const tmp = { value: item.id, viewValue: item.title}
-            this.categories.push(tmp);
+          const tmp = { value: item.id, viewValue: item.title };
+          this.categories.push(tmp);
         }
         // get listing category from url
         const listing_cat = this.route.snapshot.queryParamMap.get('listing_cat');
-        if(listing_cat){
-          this.selectedCategory = this.categories.find(c => c.value == listing_cat).viewValue;
+        if (listing_cat) {
+          this.selectedCategory = this.categories.find((c) => c.value == listing_cat).viewValue;
         }
       },
-      (res:any) => {
-      }
+      (res: any) => {}
     );
 
     this.subscriptions.add(subsCategories);
-}
+  }
 
-  getListingImageSrc(src, size = 'full') {
+  getListingImageSrc(src, size: 'thumb' | 'medium' | 'full' = 'full') {
     return this.helperService.getImageUrl(src, 'listing', size);
   }
 
   onClickListingFavorite(listing_id) {
-
-    if(this.helperService.currentUserInfo?.id){
+    if (this.helperService.currentUserInfo?.id) {
       const subsUpdateFavorite = this.listingService.updateFavorite(listing_id).subscribe(
-        (res:any) => {
-          const tl = this.listings.find(l => l.id == listing_id);
+        (res: any) => {
+          const tl = this.listings.find((l) => l.id == listing_id);
           tl.is_favorite = !tl.is_favorite;
-
         },
-        (res:any) => {
-
-        }
+        (res: any) => {}
       );
 
       this.subscriptions.add(subsUpdateFavorite);
-    }
-    else{
+    } else {
       this.dialog.open(LoginModal, {
-        width: '400px'
+        width: '400px',
       });
     }
-
   }
 
   resetQueryParams() {
@@ -205,9 +197,9 @@ export class ListingSearchComponent implements OnInit {
     this.onSubmitListingForm(true);
   }
 
-  onSubmitListingForm(reset:boolean = false) {
+  onSubmitListingForm(reset: boolean = false) {
     // first get the keyword value and lat, lng
-    if(reset){
+    if (reset) {
       this.queryParams.keyword = '';
       this.queryParams.lat = '';
       this.queryParams.lng = '';
@@ -216,8 +208,7 @@ export class ListingSearchComponent implements OnInit {
       this.f.address.setValue('');
       this.f.lat.setValue('');
       this.f.lng.setValue('');
-    }
-    else{
+    } else {
       this.queryParams.keyword = this.f.keyword.value;
       this.queryParams.lat = this.f.lat.value;
       this.queryParams.lng = this.f.lng.value;
@@ -236,8 +227,8 @@ export class ListingSearchComponent implements OnInit {
         this.favoriteListings = res[1].data;
 
         for (const item of this.favoriteListings) {
-          const tl = this.listings.find(l => l.id == item);
-          if(tl) tl.is_favorite = true;
+          const tl = this.listings.find((l) => l.id == item);
+          if (tl) tl.is_favorite = true;
         }
 
         this.setPagination(this.totalListings, this.queryParams.page, this.queryParams.limit);
@@ -254,32 +245,32 @@ export class ListingSearchComponent implements OnInit {
 
     // ensure current page isn't out of range
     if (currentPage < 1) {
-        currentPage = 1;
+      currentPage = 1;
     } else if (currentPage > totalPages) {
-        currentPage = totalPages;
+      currentPage = totalPages;
     }
 
     let startPage: number, endPage: number;
     if (totalPages <= 10) {
-        // less than 10 total pages so show all
-        startPage = 1;
-        endPage = totalPages;
+      // less than 10 total pages so show all
+      startPage = 1;
+      endPage = totalPages;
     } else {
-        // more than 10 total pages so calculate start and end pages
-        if (currentPage <= 6) {
-            startPage = 1;
-            endPage = 10;
-        } else if (currentPage + 4 >= totalPages) {
-            startPage = totalPages - 9;
-            endPage = totalPages;
-        } else {
-            startPage = currentPage - 5;
-            endPage = currentPage + 4;
-        }
+      // more than 10 total pages so calculate start and end pages
+      if (currentPage <= 6) {
+        startPage = 1;
+        endPage = 10;
+      } else if (currentPage + 4 >= totalPages) {
+        startPage = totalPages - 9;
+        endPage = totalPages;
+      } else {
+        startPage = currentPage - 5;
+        endPage = currentPage + 4;
+      }
     }
 
     // create an array of pages to ng-repeat in the pager control
-    let pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);
+    let pages = Array.from(Array(endPage + 1 - startPage).keys()).map((i) => startPage + i);
 
     this.pagination.totalItems = totalItems;
     this.pagination.currentPage = currentPage;
@@ -288,10 +279,9 @@ export class ListingSearchComponent implements OnInit {
     this.pagination.startPage = startPage;
     this.pagination.endPage = endPage;
     this.pagination.pages = pages;
-
   }
 
-  onClickPagination(currentPage:number) {
+  onClickPagination(currentPage: number) {
     this.queryParams.page = currentPage;
     this.queryParams.offset = (currentPage - 1) * this.queryParams.limit;
     this.onSubmitListingForm();
@@ -300,7 +290,7 @@ export class ListingSearchComponent implements OnInit {
   openListingSortModal(): void {
     this.dialogRefSort = this.dialog.open(ListingSearchSortModal, {
       width: '400px',
-      data: { sortby: this.queryParams.order}
+      data: { sortby: this.queryParams.order },
     });
 
     this.dialogRefSort.afterClosed().subscribe((result) => {
@@ -310,13 +300,12 @@ export class ListingSearchComponent implements OnInit {
     });
 
     this.subscriptions.add(this.dialogRefSort);
-
   }
 
   openListingCategoryModal(): void {
     this.dialogRefCat = this.dialog.open(ListingSearchCatModal, {
       width: '400px',
-      data: { category: this.queryParams.category, categories: this.categories}
+      data: { category: this.queryParams.category, categories: this.categories },
     });
 
     this.dialogRefCat.afterClosed().subscribe((result) => {
@@ -326,13 +315,12 @@ export class ListingSearchComponent implements OnInit {
     });
 
     this.subscriptions.add(this.dialogRefCat);
-
   }
 
   openListingPriceModal(): void {
     this.dialogRefPrice = this.dialog.open(ListingSearchPriceModal, {
       width: '400px',
-      data: { price: this.queryParams.price}
+      data: { price: this.queryParams.price },
     });
 
     this.dialogRefPrice.afterClosed().subscribe((result) => {
@@ -342,7 +330,6 @@ export class ListingSearchComponent implements OnInit {
     });
 
     this.subscriptions.add(this.dialogRefPrice);
-
   }
 
   onLocationBlur() {
@@ -358,8 +345,4 @@ export class ListingSearchComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
 }
-
-
-

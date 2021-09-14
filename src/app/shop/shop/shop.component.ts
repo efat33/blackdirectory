@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { distinctUntilChanged, switchMapTo, tap } from 'rxjs/operators';
-import { ProductList, ProductService } from 'src/app/shared/services/product.service';
+import { GetProductListParams, ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-shop',
@@ -9,13 +9,13 @@ import { ProductList, ProductService } from 'src/app/shared/services/product.ser
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  params: { category?: number; tag?: number } = {};
+  params: GetProductListParams = {};
   sort: { order: 'ASC' | 'DESC'; orderby: string } = {
     order: 'DESC',
     orderby: 'id',
   };
   totalItems = 0;
-  pageSize = 12;
+  pageSize = 30;
   currentPage = 1;
   products: ProductList[] = [];
   sortOptions: { label: string; value: { order: 'ASC' | 'DESC'; orderby: string } }[] = [
@@ -69,10 +69,15 @@ export class ShopComponent implements OnInit {
     this.activatedRoute.queryParams
       .pipe(
         distinctUntilChanged(),
-        tap(({ category, tag, _vendor }) => {
+        tap(({ category, tag, price_min, price_max, brands, rating, choices }) => {
           this.currentPage = 1;
-          this.params.category = category ? category : undefined;
-          this.params.tag = tag ? tag : undefined;
+          this.params.category = category;
+          this.params.tag = tag;
+          this.params.price_min = price_min;
+          this.params.price_max = price_max;
+          this.params.brands = typeof brands === 'string' ? [parseInt(brands)] : brands;
+          this.params.choices = typeof choices === 'string' ? [parseInt(choices)] : choices;
+          this.params.rating = rating;
         }),
         switchMapTo(this.productService.getTotalNumberOfProducts(this.params)),
         tap((numProducts) => (this.totalItems = numProducts))
@@ -101,7 +106,7 @@ export class ShopComponent implements OnInit {
       params: this.params,
     };
     this.productService
-      .getProductList(params)
+      .getProductList(params, false)
       .pipe(tap((products) => (this.products = products)))
       .subscribe();
   }

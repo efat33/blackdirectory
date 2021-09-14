@@ -19,7 +19,8 @@ export class ProductsNewComponent implements OnInit {
     discounted_price: new FormControl(0),
     discount_start: new FormControl(null),
     discount_end: new FormControl(null),
-    category_id: new FormControl(null, Validators.required),
+    categories: new FormArray([new FormControl(null, Validators.required)]),
+    options: new FormArray([]),
     tags: new FormControl([]),
     image: new FormControl('', Validators.required),
     galleries: new FormArray([new FormControl('')]),
@@ -41,8 +42,6 @@ export class ProductsNewComponent implements OnInit {
       ]),
     }),
   });
-
-  categories$: Observable<{ id: number; title: string }[]> = this.productService.getCategories();
 
   // Tags autocomplete
   tagInput = new FormControl('');
@@ -73,6 +72,14 @@ export class ProductsNewComponent implements OnInit {
 
   get isDownloadable(): boolean {
     return this.productForm.controls.downloadable.value;
+  }
+
+  get categoryFormArray(): FormArray {
+    return this.productForm.get('categories') as FormArray;
+  }
+
+  get optionFormArray(): FormArray {
+    return this.productForm.get('options') as FormArray;
   }
 
   constructor(
@@ -143,7 +150,16 @@ export class ProductsNewComponent implements OnInit {
       discounted_price?: number;
       discount_start: Date | null;
       discount_end: Date | null;
-      category_id: number;
+      categories: number[];
+      options: {
+        label: string;
+        option_id: number;
+        choices: {
+          label: string;
+          id: number;
+          checked: boolean;
+        }[];
+      }[];
       tags: Tag[];
       image: string;
       galleries: string[];
@@ -160,8 +176,14 @@ export class ProductsNewComponent implements OnInit {
         files: { name: string; file: string }[];
       };
     } = this.productForm.value;
+
     const form: PostNewProductBody = {
       ...pf,
+      category_id: undefined,
+      options: pf.options.map((opt) => ({
+        option_id: opt.option_id,
+        choices: opt.choices.filter((c) => c.checked).map((c) => c.id),
+      })),
       galleries: pf.galleries.filter((image) => image !== ''),
       tags: pf.tags.map((tag) => tag.id),
       is_virtual: pf.virtual ? 1 : 0,

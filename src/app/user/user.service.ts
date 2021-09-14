@@ -1,13 +1,12 @@
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { UserAPIReponse } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { InterceptorService } from '../interceptor.service';
 import { APIReponse } from '../shared/apiResponse';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from '../shared/helper.service';
 
@@ -278,16 +277,6 @@ export class UserService {
     return this.httpClient
       .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
       .pipe(map((body: APIReponse) => body));
-  }
-
-  showLoginModalIfNotLoggedIn(): boolean {
-    const isLoggedIn = this.helperService.currentUserInfo != null;
-    if (!isLoggedIn) {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
-    }
-    return !isLoggedIn;
   }
 
   verifyEmail(verificationKey: string): Observable<any> {

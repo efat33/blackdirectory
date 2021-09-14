@@ -601,7 +601,7 @@ export class ListingDetailsComponent implements OnInit {
   }
 
   setImagesPath() {
-    this.cover_img = this.helperservice.getImageUrl(this.listing.cover_img, 'listing', 'large');
+    this.cover_img = this.helperservice.getImageUrl(this.listing.cover_img, 'listing', 'full');
     this.logo = this.helperservice.getImageUrl(this.listing.logo, 'listing', 'thumb');
   }
 

@@ -33,6 +33,7 @@ import { EventTicketModal } from '../modals/events/new/event-ticket/event-ticket
 import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal';
 import { ContactOwnerModal } from '../modals/listing/details/contact-owner/contact-owner-modal';
 import { RsvpApplyModal } from '../modals/events/details/rsvp-apply/rsvp-apply-modal';
+import { ProductQuickViewModal } from '../modals/product-quick-view/product-quick-view.component';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -82,7 +83,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { ShareModule } from 'ngx-sharebuttons';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { RatingModule } from 'ng-starrating';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MatTreeModule } from '@angular/material/tree';
 import { ListingGalleryModal } from '../modals/listing/details/gallery/listing-gallery-modal';
 import { ListingVideoModal } from '../modals/listing/details/video/listing-video-modal';
 import { CouponModal } from '../modals/listing/details/coupon/coupon-modal';
@@ -100,6 +103,7 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { ProductPriceComponent } from './components/product-price/product-price.component';
+import { BdyImagePipe } from './pipes/bdy-image.pipe';
 
 @NgModule({
   declarations: [
@@ -128,6 +132,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     NewOrganizerModal,
     EventTicketModal,
     EventRsvpModal,
+    ProductQuickViewModal,
     imageSrc,
     TimeAgoPipe,
     TimeUntilPipe,
@@ -152,6 +157,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     OrderDetailsComponent,
     OrderListComponent,
     ProductPriceComponent,
+    BdyImagePipe,
   ],
   imports: [
     CommonModule,
@@ -175,6 +181,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     NgxMatNativeDateModule,
     FlexLayoutModule,
     MatToolbarModule,
+    MatTreeModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
@@ -182,6 +189,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     MatSnackBarModule,
     MatProgressBarModule,
     NgxStickySidebarModule,
+    RatingModule,
     MatSliderModule,
     MatChipsModule,
     MatAutocompleteModule,
@@ -233,6 +241,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    MatTreeModule,
     FlexLayoutModule,
     MatChipsModule,
     MatAutocompleteModule,
@@ -240,6 +249,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     MatBadgeModule,
     MatTooltipModule,
     MatTabsModule,
+    RatingModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
@@ -253,6 +263,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
     MatSliderModule,
     TimeAgoPipe,
     TimeUntilPipe,
+    BdyImagePipe,
     NouisliderModule,
     MatPaginatorModule,
     ClickOutsideModule,

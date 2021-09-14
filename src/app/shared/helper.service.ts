@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LoginModal } from '../modals/user/login/login-modal';
 import { CurrentUser } from '../user/user';
 
 @Injectable({
@@ -21,19 +23,19 @@ export class HelperService {
   assetUrl = 'http://localhost:4200/assets';
   adminProfit = 0.05;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private dialog: MatDialog) {
     this.setApiUrl();
     this.setSiteUrl();
     this.setCurrentUserInfo();
   }
 
   setApiUrl() {
-    if (environment.production) {
-      this.apiUrl = `https://mibrahimkhalil.com`;
-    } else {
-      this.apiUrl = `http://localhost:3000`;
-    }
-    // this.apiUrl = `https://mibrahimkhalil.com`; // TODO:
+    // if (environment.production) {
+    //   this.apiUrl = `https://mibrahimkhalil.com`;
+    // } else {
+    //   this.apiUrl = `http://localhost:3000`;
+    // }
+    this.apiUrl = `https://mibrahimkhalil.com`; // TODO:
   }
 
   setSiteUrl() {
@@ -115,12 +117,10 @@ export class HelperService {
     return obj;
   }
 
-  getImageUrl(imageName: string, folder: string, imgSize?: string): string {
-    const size = imgSize ? imgSize : 'full';
-
+  getImageUrl(imageName: string, folder: string, size: 'thumb' | 'medium' | 'full' = 'full'): string {
     let image = imageName;
 
-    if (size != 'full') {
+    if (size !== 'full') {
       image = `${size}-${image}`;
     }
 

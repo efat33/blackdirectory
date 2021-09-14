@@ -9,19 +9,15 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
-
-
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  styleUrls: ['./events.component.scss'],
 })
-
 export class EventsComponent implements OnInit {
-
-  siteUrl:string;
+  siteUrl: string;
   subscriptions: Subscription = new Subscription();
-  
+
   constructor(
     public eventService: EventService,
     public spinnerService: SpinnerService,
@@ -29,8 +25,8 @@ export class EventsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-    public snackbarService: SnackBarService,
-  ) { }
+    public snackbarService: SnackBarService
+  ) {}
 
   queryParams = {
     keyword: '',
@@ -41,8 +37,8 @@ export class EventsComponent implements OnInit {
     past_event: 0,
   };
 
-  events:any;
-  totalEvetns:any;
+  events: any;
+  totalEvetns: any;
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
@@ -50,28 +46,27 @@ export class EventsComponent implements OnInit {
     this.getEvents();
   }
 
-  getEventImageSrc(src, size = 'full') {
+  getEventImageSrc(src, size: 'thumb' | 'medium' | 'full' = 'full') {
     return this.helperService.getImageUrl(src, 'event', size);
   }
 
-  getEvents(page:number = 1) {
-
+  getEvents(page: number = 1) {
     this.queryParams.page = page;
 
     this.spinnerService.show();
-    
+
     const subsEvents = this.eventService.searchEvent(this.queryParams).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.spinnerService.hide();
-    
+
         this.events = res.data.events;
         this.totalEvetns = res.data.total_events;
       },
-      (res:any) => {
+      (res: any) => {
         this.spinnerService.hide();
       }
     );
-    
+
     this.subscriptions.add(subsEvents);
   }
 
@@ -79,10 +74,7 @@ export class EventsComponent implements OnInit {
     this.getEvents(newPage);
   }
 
-
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
 }
-
