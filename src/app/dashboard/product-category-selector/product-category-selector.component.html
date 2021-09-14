@@ -1,0 +1,35 @@
+<ng-container *ngFor="let category of categories.controls; let i = index">
+  <ng-container *ngIf="i === 0">
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select [formControl]="category" required>
+        <mat-option *ngFor="let category of rootCategories" [value]="category.id">
+          {{ category.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+  <ng-container *ngIf="i > 0">
+    <mat-form-field>
+      <mat-label>Subcategory</mat-label>
+      <mat-select [formControl]="category">
+        <mat-option *ngFor="let category of getSubcategories(categories.controls[i - 1].value)" [value]="category.id">
+          {{ category.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngFor="let option of options.controls; let i = index">
+  <fieldset>
+    <legend>{{ option.get('label').value }}</legend>
+    <mat-checkbox
+      *ngFor="let choice of option.get('choices').controls"
+      [value]="choice.get('id').value"
+      [formControl]="choice.get('checked')"
+    >
+      {{ choice.get('label').value }}
+    </mat-checkbox>
+  </fieldset>
+</ng-container>
