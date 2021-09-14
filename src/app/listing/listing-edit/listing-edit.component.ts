@@ -147,7 +147,7 @@ export class ListingEditComponent implements OnInit {
 
   ckEditor = DocumentEditor;
   ckConfig = {
-    placeholder: 'Job Description',
+    placeholder: 'Description',
     height: 200,
     toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
   };
@@ -240,8 +240,8 @@ export class ListingEditComponent implements OnInit {
         // redirect to home page if listing user_id OR claimer_id not equal to current user id
         if (
           !this.helperservice.isAdmin() &&
-          (this.helperservice.currentUserInfo.id != this.listing.listing.user_id &&
-            this.helperservice.currentUserInfo.id != this.listing.listing.claimer_id)
+          (this.helperservice.currentUserInfo?.id != this.listing.listing.user_id &&
+            this.helperservice.currentUserInfo?.id != this.listing.listing.claimer_id)
         ) {
           this.router.navigate(['home']);
           return;
@@ -266,7 +266,7 @@ export class ListingEditComponent implements OnInit {
 
   populateFormData() {
     const listing = this.listing.listing;
-
+    
     this.listingForm.patchValue({
       id: listing.id,
       user_id: listing.user_id,
@@ -605,7 +605,7 @@ export class ListingEditComponent implements OnInit {
       restaurants: new FormArray([]),
 
       businsessHourSunday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -615,7 +615,7 @@ export class ListingEditComponent implements OnInit {
         ]),
       }),
       businsessHourMonday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -625,7 +625,7 @@ export class ListingEditComponent implements OnInit {
         ]),
       }),
       businsessHourTuesday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -635,7 +635,7 @@ export class ListingEditComponent implements OnInit {
         ]),
       }),
       businsessHourWednesday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -645,7 +645,7 @@ export class ListingEditComponent implements OnInit {
         ]),
       }),
       businsessHourThursday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -655,7 +655,7 @@ export class ListingEditComponent implements OnInit {
         ]),
       }),
       businsessHourFriday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -665,7 +665,7 @@ export class ListingEditComponent implements OnInit {
         ]),
       }),
       businsessHourSaturday: new FormGroup({
-        id: new FormControl(''),
+        id: new FormControl(null),
         is_open: new FormControl(''),
         times: new FormArray([
           new FormGroup({
@@ -804,8 +804,13 @@ export class ListingEditComponent implements OnInit {
 
     const formData = this.listingForm.value;
 
-    // remove timezone from date, using moment
-    formData.coupon_expiry_date = moment(formData.coupon_expiry_date).format('YYYY-MM-DD HH:mm:ss');
+    if(formData.coupon_expiry_date == null || formData.coupon_expiry_date == 'Invalid date'){
+      formData.coupon_expiry_date = null;
+    }
+    else{
+      // remove timezone from date, using moment
+      formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
+    }
 
     // console.log(formData);
     // return;

@@ -125,6 +125,15 @@ export class ListingDetailsComponent implements OnInit {
           this.listing_products = res[0].data.allproducts;
           this.favoriteListings = res[1].data;
 
+          // restrict the page if the status is draft
+          if (
+            this.listing.status == 'draft' && this.helperservice.currentUserInfo?.id != this.listing.user_id && this.helperservice.currentUserInfo?.id != this.listing.claimer_id
+          ) {
+            this.spinnerService.hide();
+            this.router.navigate(['home']);
+            return;
+          }
+
           // set images path
           this.setImagesPath();
           this.isTodayOpen = this.calTodayOpen();
@@ -157,8 +166,15 @@ export class ListingDetailsComponent implements OnInit {
           const fl = this.favoriteListings.find((l) => l == this.listing.id);
           if (fl) this.listing.is_favorite = true;
 
-          // update listing view
-          this.updateListingView(this.listing.id);
+          // update listing view if the logged-in user is not the author of the listing
+          if(
+            !this.helperservice.isUserLoggedIn() || 
+            (this.helperservice.currentUserInfo?.id != res[0].data.listing.user_id && 
+            this.helperservice.currentUserInfo?.id != res[0].data.listing.claimer_id)
+          ){
+            this.updateListingView(this.listing.id);
+          }
+          
 
           this.initializeGoogleMap();
         },
@@ -495,11 +511,12 @@ export class ListingDetailsComponent implements OnInit {
       this.listing_coupon.valid = false;
       return;
     }
-
+    
+    const expiry_date_utc = moment(this.listing.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
     const expiry_date = moment(this.listing.coupon_expiry_date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = this.helperservice.dateTimeNow();
 
-    if (currentTime > expiry_date) {
+    if (currentTime > expiry_date_utc) {
       this.listing_coupon.valid = false;
       return;
     }

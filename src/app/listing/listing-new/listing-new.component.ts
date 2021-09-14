@@ -5,6 +5,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subscription } from 'rxjs';
 import { ListingService } from '../listing.service';
+import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -145,6 +146,13 @@ export class ListingNewComponent implements OnInit {
     { value: '23:45', viewValue: '23:45' },
   ];
 
+  ckEditor = DocumentEditor;
+  ckConfig = {
+    placeholder: 'Description',
+    height: 200,
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
+  };
+
   subscriptions: Subscription = new Subscription();
 
   listingForm: FormGroup;
@@ -215,6 +223,12 @@ export class ListingNewComponent implements OnInit {
 
   }
 
+  onCkeditorReady(editor: DocumentEditor): void {
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
+  }
+
   setupListingForm() {
     this.listingForm = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -264,7 +278,7 @@ export class ListingNewComponent implements OnInit {
       coupon_code: new FormControl(''),
       coupon_popup_desc: new FormControl(''),
       coupon_link: new FormControl(''),
-      coupon_expiry_date: new FormControl(''),
+      coupon_expiry_date: new FormControl(null),
 
       video_urls: new FormArray([new FormControl('')]),
 
@@ -470,12 +484,14 @@ export class ListingNewComponent implements OnInit {
     if (this.listingForm.invalid) return;
 
     const formData = this.listingForm.value;
-
-    // remove timezone from date, using moment
-    formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
-
-    // console.log(JSON.stringify(formData));
-    // return;
+    if(formData.coupon_expiry_date == null || formData.coupon_expiry_date == 'Invalid date'){
+      formData.coupon_expiry_date = null;
+    }
+    else{
+      // remove timezone from date, using moment
+      formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
+    }
+    
     this.spinnerService.show();
     const subscriptionAddlisting = this.listingService.addListing(formData).subscribe(
       (res: any) => {

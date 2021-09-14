@@ -144,10 +144,13 @@
                             </header>
                             <div>
                                 <div class="content-box_body__3tSRB">
-                                    <mat-form-field>
+                                    <!-- <mat-form-field>
                                         <mat-label>Description</mat-label>
                                         <textarea required matInput rows="5" formControlName="description"></textarea>
-                                    </mat-form-field>
+                                    </mat-form-field> -->
+                                    <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
+                                        formControlName="description">
+                                    </ckeditor>
                                 </div>
                             </div>
                         </div><!-- wilcity_addlisting_listing_content -->
