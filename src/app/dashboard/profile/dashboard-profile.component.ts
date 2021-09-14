@@ -233,8 +233,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       lng: parseFloat(this.userProfile.data.longitude),
     };
 
-    this.map.setCenter(latlng);
-    this.mapMarker.setPosition(latlng);
+    if (latlng.lat && latlng.lng) {
+      this.map.setCenter(latlng);
+      this.mapMarker.setPosition(latlng);
+    }
   }
 
   setupFormFields(): void {
@@ -418,9 +420,9 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
         this.snackbar.openSnackBar(res.message);
 
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 2000);
       },
       (res: any) => {
         // hide spinner

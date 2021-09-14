@@ -33,7 +33,6 @@ export class EventsComponent implements OnInit {
     limit: 12,
     offset: 0,
     page: 1,
-    user_id: this.helperService.currentUserInfo.id,
     past_event: 0,
   };
 
@@ -42,6 +41,10 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
+
+    if (!this.helperService.isAdmin()) {
+      this.queryParams['user_id'] = this.helperService.currentUserInfo.id;
+    }
 
     this.getEvents();
   }

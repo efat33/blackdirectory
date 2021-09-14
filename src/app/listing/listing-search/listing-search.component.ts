@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +20,7 @@ declare const google: any;
   templateUrl: './listing-search.component.html',
   styleUrls: ['./listing-search.component.scss'],
 })
-export class ListingSearchComponent implements OnInit {
+export class ListingSearchComponent implements OnInit, AfterViewInit {
   siteUrl: string;
   subscriptions: Subscription = new Subscription();
 
@@ -103,7 +103,12 @@ export class ListingSearchComponent implements OnInit {
 
     this.getCategories();
     this.onSubmitListingForm();
-    this.initializeGoogleMap();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.initializeGoogleMap();
+    }, 100);
   }
 
   initializeGoogleMap() {
@@ -111,6 +116,10 @@ export class ListingSearchComponent implements OnInit {
     const longitude = this.listingSearchForm.get('lng');
 
     const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
+    console.log(
+      '🚀 ~ file: listing-search.component.ts ~ line 117 ~ ListingSearchComponent ~ initializeGoogleMap ~ input',
+      input
+    );
     const address = this.listingSearchForm.get('address');
 
     const autocompleteOptions = {
@@ -118,10 +127,18 @@ export class ListingSearchComponent implements OnInit {
     };
 
     const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions);
+    console.log(
+      '🚀 ~ file: listing-search.component.ts ~ line 125 ~ ListingSearchComponent ~ initializeGoogleMap ~ autocomplete',
+      autocomplete
+    );
 
     autocomplete.addListener('place_changed', () => {
       // infowindow.close();
       const place = autocomplete.getPlace();
+      console.log(
+        '🚀 ~ file: listing-search.component.ts ~ line 130 ~ ListingSearchComponent ~ autocomplete.addListener ~ place',
+        place
+      );
 
       if (!place.geometry || !place.geometry.location) {
         // window.alert("No details available for input: '" + place.name + "'");

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
+import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
@@ -24,6 +25,7 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private jobService: JobService,
+    private helperService: HelperService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
   ) {}
@@ -75,7 +77,7 @@ export class ManageJobsComponent implements OnInit, OnDestroy {
   }
 
   featureJob(job: any) {
-    if (!job.featured) {
+    if (!job.featured && !this.helperService.isAdmin()) {
       if (!this.currentPackage) {
         this.router.navigate(['dashboard/packages']);
         return;

@@ -81,6 +81,7 @@ export class ProductsNewComponent implements OnInit {
   get optionFormArray(): FormArray {
     return this.productForm.get('options') as FormArray;
   }
+  routePathStart: string = '';
 
   constructor(
     private productService: ProductService,
@@ -90,6 +91,8 @@ export class ProductsNewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.routePathStart = `/${this.router.url.split('/')[1]}`;
+
     // Remove extra gallery inputs, add one more if all filled
     this.galleries.valueChanges.subscribe(this.arrangeGalleryInputCount);
   }
@@ -196,7 +199,7 @@ export class ProductsNewComponent implements OnInit {
         this.snackbar.openSnackBar(res.message);
 
         setTimeout(() => {
-          this.router.navigate(['/dashboard', 'products']);
+          this.router.navigate([`/${this.routePathStart}`, 'products']);
         }, 2000);
       },
       (error) => {

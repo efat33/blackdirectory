@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -27,6 +27,11 @@ export class FooterComponent implements OnInit {
 	mailChimpEndpoint = 'https://gmail.us5.list-manage.com/subscribe/post-json?u=1e4bb3c213207514e9ccc018f&amp;id=10ec512531';
 	
 
+  pageYoffset = 0;
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+  
   constructor(
     private http: HttpClient,
     private snackbar: SnackBarService,
@@ -74,6 +79,15 @@ export class FooterComponent implements OnInit {
       console.error(error);
     });
     
+  }
+
+
+  scrollToTop(){
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
   }
 
 }

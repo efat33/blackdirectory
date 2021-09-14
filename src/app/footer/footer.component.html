@@ -22,21 +22,21 @@
                                         [routerLink]="['/contact-us']">Contact Us</a></li>
                                 <li id="menu-item-13740"
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13740"><a
-                                    [routerLink]="['/promote']">Advertise With Us</a>
+                                        [routerLink]="['/promote']">Advertise With Us</a>
                                 </li>
                                 <li id="menu-item-13742"
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13742"><a
-                                    [routerLink]="['/about-us']">About Us</a></li>
+                                        [routerLink]="['/about-us']">About Us</a></li>
                                 <li id="menu-item-13353"
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13353"><a
-                                    [routerLink]="['/terms--conditions']">Terms &amp;
+                                        [routerLink]="['/terms--conditions']">Terms &amp;
                                         Conditions</a></li>
                                 <li id="menu-item-13354"
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13354"><a
-                                    [routerLink]="['/privacy-policy']">Privacy Policy</a></li>
+                                        [routerLink]="['/privacy-policy']">Privacy Policy</a></li>
                                 <li id="menu-item-14707"
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14707"><a
-                                    [routerLink]="['/faqs']">FAQs</a></li>
+                                        [routerLink]="['/faqs']">FAQs</a></li>
                             </ul>
                         </div>
                     </section>
@@ -85,8 +85,8 @@
         <div class="footer_text__1FkcM">© 2021 Black Directory. All Rights Reserved </div>
     </div>
 </footer>
-<div class="wil-scroll-top active">
-    <a href="#" title="To top">
+<div class="wil-scroll-top " [ngClass]="{'active': pageYoffset > 1000}">
+    <a title="To top" (click)="scrollToTop()">
         <i class="la la-angle-up"></i>
     </a>
 </div>

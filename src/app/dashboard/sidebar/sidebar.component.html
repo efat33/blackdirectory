@@ -38,8 +38,8 @@
         </li>
 
         <!-- job dashboard menu -->
-        <li>
-          <mat-accordion *ngIf="userType == 'employer' || userType == 'candidate'">
+        <li *ngIf="currentUser.verified">
+          <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -79,7 +79,7 @@
                   ></span>
                 </li>
               </ul>
-              <ul *ngIf="userType == 'employer'" class="sidebar-menu-submenus">
+              <ul *ngIf="userType == 'employer' || userType == 'admin'" class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a
@@ -140,8 +140,8 @@
         </li> -->
 
         <!-- ----------------------- Vendor Dashboard Starts ----------------------- -->
-        <li>
-          <mat-accordion *ngIf="userType == 'employer' || userType == 'candidate'">
+        <li *ngIf="currentUser.verified">
+          <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -259,7 +259,7 @@
         </li>
         <!-- ------------------------ Vendor Dashboard Ends ------------------------ -->
 
-        <li class="dashboard-nav_item__2798B wilcity-dashboard-route-listings">
+        <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-listings">
           <span
             ><a
               [routerLink]="['listings']"
@@ -270,7 +270,7 @@
               <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
           ></span>
         </li>
-        <li class="dashboard-nav_item__2798B wilcity-dashboard-route-events">
+        <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-events">
           <span
             ><a
               [routerLink]="['events']"
@@ -282,7 +282,7 @@
           ></span>
         </li>
 
-        <li class="dashboard-nav_item__2798B wilcity-dashboard-route-billings">
+        <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-billings">
           <span
             ><a
               [routerLink]="['packages']"
@@ -294,7 +294,7 @@
           ></span>
         </li>
 
-        <li class="dashboard-nav_item__2798B wilcity-dashboard-route-favorites">
+        <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-favorites">
           <span
             ><a
               [routerLink]="['favorite-listings']"
