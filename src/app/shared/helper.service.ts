@@ -30,12 +30,12 @@ export class HelperService {
   }
 
   setApiUrl() {
-    // if (environment.production) {
-    //   this.apiUrl = `https://mibrahimkhalil.com`;
-    // } else {
-    //   this.apiUrl = `http://localhost:3000`;
-    // }
-    this.apiUrl = `https://mibrahimkhalil.com`; // TODO:
+    if (environment.production) {
+      this.apiUrl = `https://mibrahimkhalil.com`;
+    } else {
+      this.apiUrl = `http://localhost:3000`;
+    }
+    // this.apiUrl = `https://mibrahimkhalil.com`; // TODO:
   }
 
   setSiteUrl() {
