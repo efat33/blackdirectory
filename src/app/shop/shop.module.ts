@@ -5,11 +5,12 @@ import { ShopRoutingModule } from './shop-routing.module';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { SharedModule } from '../shared/shared.module';
-import { RatingModule } from 'ng-starrating';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 import { ShopComponent } from './shop/shop.component';
 import { CheckoutFailComponent } from './checkout-fail/checkout-fail.component';
+import { ShopSidebarComponent } from './shop-sidebar/shop-sidebar.component';
+import { CategorySelectorComponent } from './shop-sidebar/category-selector/category-selector.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { CheckoutFailComponent } from './checkout-fail/checkout-fail.component';
     CheckoutSuccessComponent,
     ShopComponent,
     CheckoutFailComponent,
+    ShopSidebarComponent,
+    CategorySelectorComponent,
   ],
-  imports: [CommonModule, ShopRoutingModule, SharedModule, RatingModule],
+  imports: [CommonModule, ShopRoutingModule, SharedModule],
 })
 export class ShopModule {}

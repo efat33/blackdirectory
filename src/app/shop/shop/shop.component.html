@@ -1,22 +1,32 @@
-<div class="container">
-  <div style="display: flex; flex-flow: row nowrap; justify-content: flex-end; margin: 2rem 0 -1.75rem">
-    <mat-form-field style="width: unset" appearance="fill">
-      <mat-label>Sorting</mat-label>
-      <mat-select (selectionChange)="onSortChange($event.value)" [value]="sortOptions[0].value">
-        <mat-option *ngFor="let opt of sortOptions" [value]="opt.value"> {{ opt.label }} </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="products-container" style="min-height: 600px">
-    <div class="product-preview" *ngFor="let product of products">
-      <app-product-preview [product]="product"></app-product-preview>
+<div class="wil-dashboard wil-content container" id="wilcity-dashboard">
+  <section id="wilcity-dashboard-inner" class="wil-section wil-dashboard-inner pd-0">
+    <div class="dashboard-content_module__zpEtP clearfix">
+      <div class="dashboard__sidebar js-sticky filters-container">
+        <app-shop-sidebar></app-shop-sidebar>
+      </div>
+
+      <div class="dashboard__content">
+        <div style="display: flex; flex-flow: row nowrap; justify-content: flex-end; margin: 1rem 0 -1.75rem">
+          <mat-form-field style="width: unset" appearance="fill">
+            <mat-label>Sorting</mat-label>
+            <mat-select (selectionChange)="onSortChange($event.value)" [value]="sortOptions[0].value">
+              <mat-option *ngFor="let opt of sortOptions" [value]="opt.value"> {{ opt.label }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="products-container" style="min-height: 600px">
+          <div class="product-preview" *ngFor="let product of products">
+            <app-product-preview [product]="product"></app-product-preview>
+          </div>
+        </div>
+        <pagination
+          [totalItems]="totalItems"
+          [currentPage]="currentPage"
+          [pageSize]="pageSize"
+          (pageChange)="onPageChange($event)"
+        >
+        </pagination>
+      </div>
     </div>
-  </div>
-  <pagination
-    [totalItems]="totalItems"
-    [currentPage]="currentPage"
-    [pageSize]="pageSize"
-    (pageChange)="onPageChange($event)"
-  >
-  </pagination>
+  </section>
 </div>

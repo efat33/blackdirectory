@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartItemPopulated, CartService, Coupon } from 'src/app/shared/services/cart.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -27,7 +29,7 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-    private userService: UserService
+    private dialog: MatDialog
   ) {}
 
   get cartItemCount$(): Observable<number> {
@@ -67,13 +69,23 @@ export class CartComponent implements OnInit {
     this.cartService.updateQuantity(cartItem.product_id, cartItem.quantity - 1);
   }
 
+  showLoginModalIfNotLoggedIn(): boolean {
+    const isLoggedIn = this.helperService.currentUserInfo != null;
+    if (!isLoggedIn) {
+      this.dialog.open(LoginModal, {
+        width: '400px',
+      });
+    }
+    return !isLoggedIn;
+  }
+
   submitCoupon(): void {
     const coupon = this.coupon.value;
     this.coupon.setErrors(null);
     if (!coupon) {
       return;
     }
-    if (this.userService.showLoginModalIfNotLoggedIn()) {
+    if (this.showLoginModalIfNotLoggedIn()) {
       return;
     }
     this.cartService.applyCoupon(coupon).subscribe((isValid) => {

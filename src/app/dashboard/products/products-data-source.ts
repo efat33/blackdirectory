@@ -67,7 +67,7 @@ export class ProductsDataSource implements DataSource<ProductList> {
     this.loadingSubject.next(true);
 
     this.productService
-      .getProductList(this.loadParams.value)
+      .getProductList(this.loadParams.value, false)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
