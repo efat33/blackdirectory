@@ -183,11 +183,14 @@ export class ProductsNewComponent implements OnInit {
     const form: PostNewProductBody = {
       ...pf,
       category_id: undefined,
-      options: pf.options.map((opt) => ({
-        option_id: opt.option_id,
-        choices: opt.choices.filter((c) => c.checked).map((c) => c.id),
-      })),
+      options: pf.options
+        .map((opt) => ({
+          option_id: opt.option_id,
+          choices: opt.choices.filter((c) => c.checked).map((c) => c.id),
+        }))
+        .filter((opt) => opt.choices.length > 0),
       galleries: pf.galleries.filter((image) => image !== ''),
+      categories: pf.categories.filter((c) => c != null),
       tags: pf.tags.map((tag) => tag.id),
       is_virtual: pf.virtual ? 1 : 0,
       is_downloadable: pf.downloadable ? 1 : 0,

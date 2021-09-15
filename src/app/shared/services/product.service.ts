@@ -49,11 +49,27 @@ interface ProductBase {
   title: string;
   price: number;
   category_id: number;
-  categories: number[];
-  options: {
-    option_id: number;
-    choices: number[];
-  }[];
+  categories:
+    | number[]
+    | {
+        id: number;
+        parent_id: number | null;
+        title: string;
+        image: string;
+      }[];
+  options:
+    | {
+        option_id: number;
+        choices: number[];
+      }[]
+    | {
+        id: number;
+        title: string;
+        choices: {
+          id: number;
+          title: string;
+        }[];
+      }[];
   image: string;
   galleries: string[];
   description: string;
@@ -87,7 +103,20 @@ export interface ProductList extends PopulatedProduct {
 
 export interface ProductDetails extends PopulatedProduct {
   tags: Tag[];
-  category_name: string;
+  categories: {
+    id: number;
+    parent_id: number | null;
+    title: string;
+    image: string;
+  }[];
+  options: {
+    id: number;
+    title: string;
+    choices: {
+      id: number;
+      title: string;
+    }[];
+  }[];
 }
 
 export interface PostNewProductBody extends ProductBase {

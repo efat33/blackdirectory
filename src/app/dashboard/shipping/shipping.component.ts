@@ -12,7 +12,7 @@ export class ShippingComponent implements OnInit {
   f = new FormGroup({
     id: new FormControl(null),
     title: new FormControl('', [Validators.required]),
-    amount: new FormControl(null, [Validators.required, Validators.min(0)]),
+    fee: new FormControl(null, [Validators.required, Validators.min(0)]),
   });
 
   options: ShippingOption[] = [];

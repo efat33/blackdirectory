@@ -48,7 +48,13 @@
       </div>
       <div class="category">
         Category:
-        <a [routerLink]="'/shop'" [queryParams]="{ category: p.category_id }" class="tag-link">{{ p.category_name }}</a>
+        <a
+          *ngFor="let category of p.categories; let i = index"
+          [routerLink]="'/shop'"
+          [queryParams]="{ category: category.id }"
+          class="tag-link"
+          ><span *ngIf="i !== 0">, </span>{{ category.title }}</a
+        >
       </div>
       <div *ngIf="p.tags.length > 0" class="tags">
         Tags:

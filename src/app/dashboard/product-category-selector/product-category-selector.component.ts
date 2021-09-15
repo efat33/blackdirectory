@@ -25,40 +25,31 @@ export class ProductCategorySelectorComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.productService.getCategories().subscribe((res) => {
       this.rootCategories = res;
+      if (this.currentValues) {
+        const categories = this.currentValues.categories;
+        categories.forEach((c, i) => {
+          this.onCategoryChange(i, c.id);
+          this.categories.controls[i].patchValue(c.id, { emitEvent: false });
+        });
+        const options = this.getSelectableOptions();
+        this.updateOptionControls(options);
+      }
     });
-    this.trackCategoryChange();
-    this.categories.valueChanges.subscribe(() => {
+    this.categories.valueChanges.subscribe((value) => {
       const options = this.getSelectableOptions();
       this.updateOptionControls(options);
     });
   }
 
-  ngOnChanges(): void {
-    console.log(this.currentValues);
+  ngOnChanges(): void {}
 
-    if (this.currentValues) {
-      const categories = this.currentValues.categories;
-      this.categories.patchValue(categories);
-      this.updateCategoryControls({ value: categories[categories.length - 1], index: categories.length - 1 });
+  onCategoryChange(index: number, value: number): void {
+    while (this.categories.length > index + 1) {
+      this.categories.removeAt(index + 1);
     }
-  }
-
-  trackCategoryChange(): void {
-    this.categoryChange = merge(
-      ...this.categories.controls.map((control, index) => control.valueChanges.pipe(map((value) => ({ value, index }))))
-    );
-    this.categoryChangeSub?.unsubscribe();
-    this.categoryChangeSub = this.categoryChange.subscribe((change) => this.updateCategoryControls(change));
-  }
-
-  updateCategoryControls(change: { value: number; index: number }): void {
-    while (this.categories.length > change.index + 1) {
-      this.categories.removeAt(change.index + 1);
-    }
-    if (this.getSubcategories(change.value).length > 0) {
+    if (this.getSubcategories(value).length > 0) {
       this.categories.push(new FormControl(null));
     }
-    this.trackCategoryChange();
   }
 
   findCategoryinSubtree = (id: number, root: Category): Category | null => {
@@ -112,6 +103,19 @@ export class ProductCategorySelectorComponent implements OnInit, OnChanges {
     while (this.options.length > 0) {
       this.options.removeAt(0);
     }
+    const selectedChoices: number[] =
+      this.currentValues?.options
+        .reduce(
+          (
+            acc: {
+              id: number;
+              title: string;
+            }[],
+            opt
+          ) => [...acc, ...opt.choices],
+          []
+        )
+        .map((c) => c.id) || [];
     options.forEach((option) => {
       this.options.push(
         new FormGroup({
@@ -123,7 +127,7 @@ export class ProductCategorySelectorComponent implements OnInit, OnChanges {
                 new FormGroup({
                   label: new FormControl(opt.title),
                   id: new FormControl(opt.id),
-                  checked: new FormControl(false),
+                  checked: new FormControl(selectedChoices.includes(opt.id)),
                 })
             )
           ),
