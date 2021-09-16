@@ -369,4 +369,8 @@ export class ProductService {
   deleteOptionChoice(optionId: number): Observable<any> {
     return this.http.delete<any>(`${this.BASE_URL}/option-choice/${optionId}`);
   }
+
+  assignCategoryOptions(body: any): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}/assign-category-options`, body);
+  }
 }

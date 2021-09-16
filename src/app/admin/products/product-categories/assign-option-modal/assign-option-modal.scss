@@ -1,0 +1,18 @@
+.confirmation-dialog-title {
+  margin: 0;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+::ng-deep mat-checkbox {
+  label {
+    color: #000;
+    font-size: 16px;
+  }
+}
+
+.checkbox-container {
+  margin-bottom: 20px;
+}

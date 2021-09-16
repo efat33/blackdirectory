@@ -9,13 +9,21 @@
 
   <div class="content-box_body__3tSRB">
     <div class="add-category">
-      <button *ngIf="!selectedCategory" mat-raised-button color="primary" (click)="addCategory()">Add Category</button>
+      <div>
+        <button *ngIf="selectedCategory" mat-raised-button color="primary" (click)="assignOption()">Assign Options</button>
+      </div>
 
-      <button *ngIf="selectedCategory && selectedCategory.level < 2" mat-raised-button color="primary"
-        (click)="addCategory()">Add Subcategory</button>
-      <button *ngIf="selectedCategory" mat-raised-button color="primary" (click)="editCategory()">Edit Category</button>
-      <button *ngIf="selectedCategory" mat-raised-button color="warn" (click)="deleteCategory()">Delete
-        Category</button>
+      <div>
+        <button *ngIf="!selectedCategory" mat-raised-button color="primary" (click)="addCategory()">Add
+          Category</button>
+
+        <button *ngIf="selectedCategory && selectedCategory.level < 2" mat-raised-button color="primary"
+          (click)="addCategory()">Add Subcategory</button>
+        <button *ngIf="selectedCategory" mat-raised-button color="primary" (click)="editCategory()">Edit
+          Category</button>
+        <button *ngIf="selectedCategory" mat-raised-button color="warn" (click)="deleteCategory()">Delete
+          Category</button>
+      </div>
     </div>
 
     <div class="category-tree">

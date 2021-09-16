@@ -1,6 +1,6 @@
 .add-category {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   button {
     margin-left: 5px;
@@ -25,7 +25,10 @@ mat-tree-node {
 
 .selected {
   background-color: var(--color-primary);
-  color: #ffffff;
+
+  * {
+    color: #ffffff;
+  }
 }
 
 .options-text {

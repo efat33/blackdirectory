@@ -9,6 +9,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from '@angular/material/tree';
 import { AddProductCategoryModalComponent } from './add-product-category-modal/add-product-category-modal';
+import { AssignCategoryOptionsModalComponent } from './assign-option-modal/assign-option-modal';
 
 declare const google: any;
 
@@ -29,6 +30,10 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
       id: node.id,
       title: node.title,
       options: this.getCategoryOptions(node),
+      optionsArray: node.options.map((optionArray: any) => ({
+        id: optionArray[0].option_id,
+        title: optionArray[0].option,
+      })),
       expandable: !!node.subCategories && node.subCategories.length > 0,
     };
   };
@@ -89,8 +94,8 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
       width: '550px',
       data: {
         category: this.selectedCategory,
-        edit: false
-      }
+        edit: false,
+      },
     };
 
     const dialogSubscription = this.dialog
@@ -110,7 +115,7 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
       width: '550px',
       data: {
         category: this.selectedCategory,
-        edit: true
+        edit: true,
       },
     };
 
@@ -169,6 +174,26 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
     }
 
     return '';
+  }
+
+  assignOption() {
+    const dialogConfig = {
+      width: '550px',
+      data: {
+        category: this.selectedCategory,
+      },
+    };
+
+    const dialogSubscription = this.dialog
+      .open(AssignCategoryOptionsModalComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+          this.getProductCategories();
+        }
+      });
+
+    this.subscriptions.add(dialogSubscription);
   }
 
   ngOnDestroy() {
