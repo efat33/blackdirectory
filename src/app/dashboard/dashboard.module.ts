@@ -33,6 +33,9 @@ import { EventsComponent } from './events/events.component';
 import { OrderComponent } from './order/order.component';
 import { WithdrawRequestsTableComponent } from './withdraw/withdraw-requests-table/withdraw-requests-table.component';
 import { FavoriteListingsComponent } from './favorite-listings/favorite-listings.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { ShippingComponent } from './shipping/shipping.component';
+import { ProductCategorySelectorComponent } from './product-category-selector/product-category-selector.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,10 @@ import { FavoriteListingsComponent } from './favorite-listings/favorite-listings
     EventsComponent,
     OrderComponent,
     WithdrawRequestsTableComponent,
-    FavoriteListingsComponent
+    FavoriteListingsComponent,
+    WishlistComponent,
+    ShippingComponent,
+    ProductCategorySelectorComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

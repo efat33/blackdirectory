@@ -1,0 +1,96 @@
+<div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <header class="content-box_header__xPnGx clearfix">
+    <div class="wil-float-left">
+      <h4 class="content-box_title__1gBHS">
+        <span>Shipping Options</span>
+      </h4>
+    </div>
+  </header>
+  <div class="content-box_body__3tSRB">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Amount</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let opt of options">
+          <td>{{ opt.title }}</td>
+          <td>{{ opt.fee | currency }}</td>
+          <td>
+            <button mat-icon-button color="warn" (click)="removeOption(opt.id)">
+              <mat-icon>highlight_off</mat-icon>
+            </button>
+          </td>
+          <td>
+            <button *ngIf="editingOptionId !== opt.id" mat-icon-button color="primary" (click)="f.patchValue(opt)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              *ngIf="editingOptionId === opt.id"
+              mat-flat-button
+              style="min-width: 40px; padding: 0"
+              color="warn"
+              (click)="
+                f.patchValue({
+                  id: null,
+                  title: '',
+                  fee: null
+                })
+              "
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <header class="content-box_header__xPnGx clearfix">
+    <div class="wil-float-left">
+      <h4 class="content-box_title__1gBHS">
+        <span>Add / Edit Shipping Option</span>
+      </h4>
+    </div>
+  </header>
+  <div class="content-box_body__3tSRB">
+    <form #shippingForm="ngForm" [formGroup]="f">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" required formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" required formControlName="fee" />
+      </mat-form-field>
+      <div style="display: flex; justify-content: flex-end">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          *ngIf="!isEditing"
+          [disabled]="f.invalid"
+          (click)="addOption(); shippingForm.resetForm()"
+        >
+          ADD OPTION
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          *ngIf="isEditing"
+          [disabled]="f.invalid"
+          (click)="editOption(); shippingForm.resetForm()"
+        >
+          EDIT OPTION
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

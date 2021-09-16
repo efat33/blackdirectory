@@ -1,6 +1,36 @@
-<div #container class="product-review-container">
+<div #container class="product-review-container" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+  <div class="overlay-buttons" *ngIf="hovered">
+    <div>
+      <button
+        mat-flat-button
+        color="primary"
+        matTooltip="Quick View"
+        matTooltipPosition="left"
+        matTooltipClass="primary-color-tooltip"
+        (click)="showQuickView()"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button
+        mat-flat-button
+        color="primary"
+        matTooltip="Wishlist"
+        matTooltipPosition="left"
+        matTooltipClass="primary-color-tooltip"
+        (click)="addToWishlist()"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
+  </div>
   <a [routerLink]="'/shop/product/' + product.slug">
-    <div #image class="image" [ngStyle]="{ backgroundImage: 'url(\'' + product.image + '\')' }">
+    <div
+      #image
+      class="image"
+      [ngStyle]="{ backgroundImage: 'url(\'' + (product.image | bdyImage: 'product':'medium') + '\')' }"
+    >
       <div *ngIf="hasDiscount" class="sale-badge">SALE !</div>
     </div>
     <div class="price">
@@ -8,5 +38,9 @@
     </div>
     <h3>{{ product.title }}</h3>
   </a>
-  <button (click)="addToCart()">ADD TO CART</button>
+  <a class="vendor-link" [routerLink]="" [queryParams]="{ brands: [15] }" queryParamsHandling="merge">
+    <!-- {{ product.user_id }} -->
+    Koray Shop
+  </a>
+  <button class="add-to-cart-button" (click)="addToCart()">ADD TO CART</button>
 </div>

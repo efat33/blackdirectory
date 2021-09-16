@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+.mat-column-add_to_cart {
+  width: 140px;
+}
+.mat-column-remove {
+  width: 60px;
+}
+.image {
+  width: 100px;
+  height: 100px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 1rem 0;
+}

@@ -13,6 +13,7 @@ import { PostEditProductBody, ProductDetails, ProductService, Tag } from 'src/ap
   styleUrls: ['./products-edit.component.css'],
 })
 export class ProductsEditComponent implements OnInit {
+  currentValues: ProductDetails;
   productForm = new FormGroup({
     id: new FormControl(null, Validators.required),
     title: new FormControl('', Validators.required),
@@ -20,7 +21,8 @@ export class ProductsEditComponent implements OnInit {
     discounted_price: new FormControl(0),
     discount_start: new FormControl(null),
     discount_end: new FormControl(null),
-    category_id: new FormControl(null, Validators.required),
+    categories: new FormArray([new FormControl(null, Validators.required)]),
+    options: new FormArray([]),
     tags: new FormControl([]),
     image: new FormControl('', Validators.required),
     galleries: new FormArray([new FormControl('')]),
@@ -42,8 +44,6 @@ export class ProductsEditComponent implements OnInit {
       ]),
     }),
   });
-
-  categories$: Observable<{ id: number; title: string }[]> = this.productService.getCategories();
 
   // Tags autocomplete
   tagInput = new FormControl('');
@@ -76,6 +76,13 @@ export class ProductsEditComponent implements OnInit {
     return this.productForm.controls.downloadable.value;
   }
 
+  get categoryFormArray(): FormArray {
+    return this.productForm.get('categories') as FormArray;
+  }
+
+  get optionFormArray(): FormArray {
+    return this.productForm.get('options') as FormArray;
+  }
   routePathStart: string = '';
 
   constructor(
@@ -93,12 +100,14 @@ export class ProductsEditComponent implements OnInit {
     this.galleries.valueChanges.subscribe(this.arrangeGalleryInputCount);
 
     this.activatedRoute.data.pipe(pluck<Data, ProductDetails>('product')).subscribe((p) => {
+      this.currentValues = p;
       this.productForm.patchValue({
         ...p,
         category_id: p.category_id,
         tags: p.tags,
         virtual: p.is_virtual,
         downloadable: p.is_downloadable,
+        categories: [],
       });
       this.galleries.patchValue(p.galleries);
     });
@@ -161,7 +170,16 @@ export class ProductsEditComponent implements OnInit {
       discounted_price?: number;
       discount_start: Date | null;
       discount_end: Date | null;
-      category_id: number;
+      categories: number[];
+      options: {
+        label: string;
+        option_id: number;
+        choices: {
+          label: string;
+          id: number;
+          checked: boolean;
+        }[];
+      }[];
       tags: Tag[];
       image: string;
       galleries: string[];
@@ -181,8 +199,16 @@ export class ProductsEditComponent implements OnInit {
 
     const form: PostEditProductBody = {
       ...pf,
+      category_id: undefined,
+      options: pf.options
+        .map((opt) => ({
+          option_id: opt.option_id,
+          choices: opt.choices.filter((c) => c.checked).map((c) => c.id),
+        }))
+        .filter((opt) => opt.choices.length > 0),
       galleries: pf.galleries.filter((image) => image !== ''),
       tags: pf.tags.map((tag) => tag.id),
+      categories: pf.categories.filter((c) => c != null),
       is_virtual: pf.virtual ? 1 : 0,
       is_downloadable: pf.downloadable ? 1 : 0,
       discounted_price: pf.discounted_price > 0 ? pf.discounted_price : null,

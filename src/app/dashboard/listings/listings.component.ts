@@ -8,19 +8,15 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
-
-
 @Component({
   selector: 'app-listings',
   templateUrl: './listings.component.html',
-  styleUrls: ['./listings.component.scss']
+  styleUrls: ['./listings.component.scss'],
 })
-
 export class ListingsComponent implements OnInit {
-
-  siteUrl:string;
+  siteUrl: string;
   subscriptions: Subscription = new Subscription();
-  
+
   constructor(
     public listingService: ListingService,
     public spinnerService: SpinnerService,
@@ -28,8 +24,8 @@ export class ListingsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-    public snackbarService: SnackBarService,
-  ) { }
+    public snackbarService: SnackBarService
+  ) {}
 
   queryParams = {
     keyword: '',
@@ -41,8 +37,8 @@ export class ListingsComponent implements OnInit {
     user_id: this.helperService.currentUserInfo.id,
   };
 
-  listings:any;
-  totalListings:any;
+  listings: any;
+  totalListings: any;
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
@@ -50,28 +46,27 @@ export class ListingsComponent implements OnInit {
     this.getListings();
   }
 
-  getListingImageSrc(src, size = 'full') {
+  getListingImageSrc(src, size: 'thumb' | 'medium' | 'full' = 'full') {
     return this.helperService.getImageUrl(src, 'listing', size);
   }
 
-  getListings(page:number = 1) {
-
+  getListings(page: number = 1) {
     this.queryParams.page = page;
 
     this.spinnerService.show();
-    
+
     const subsListings = this.listingService.searchListing(this.queryParams).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.spinnerService.hide();
-    
+
         this.listings = res.data.listings;
         this.totalListings = res.data.total_listings;
       },
-      (res:any) => {
+      (res: any) => {
         this.spinnerService.hide();
       }
     );
-    
+
     this.subscriptions.add(subsListings);
   }
 
@@ -79,8 +74,7 @@ export class ListingsComponent implements OnInit {
     this.getListings(newPage);
   }
 
-  onRemoveListing(listing_id:number, index:number) {
-    
+  onRemoveListing(listing_id: number, index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: { message: 'Are you sure you want to delete this listing"?' },
     });
@@ -89,13 +83,13 @@ export class ListingsComponent implements OnInit {
       if (result) {
         this.spinnerService.show();
         const subscriptionDeleteLlisting = this.listingService.deleteListing(listing_id).subscribe(
-          (res:any) => {
+          (res: any) => {
             this.spinnerService.hide();
             this.listings.splice(index, 1);
 
             this.snackbarService.openSnackBar(res.message);
           },
-          (res:any) => {
+          (res: any) => {
             this.spinnerService.hide();
             this.snackbarService.openSnackBar(res.error.message, '', 'warn');
           }
@@ -108,10 +102,7 @@ export class ListingsComponent implements OnInit {
     this.subscriptions.add(dialogCloseSubscription);
   }
 
-
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
 }
-
