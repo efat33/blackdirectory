@@ -33,6 +33,8 @@ import { OrderComponent } from './order/order.component';
 import { WithdrawResolver } from './withdraw/withdraw.resolver';
 import { FavoriteListingsComponent } from './favorite-listings/favorite-listings.component';
 import { OrdersResolver } from './orders/orders.resolver';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { ShippingComponent } from './shipping/shipping.component';
 
 const routes: Routes = [
   {
@@ -60,11 +62,13 @@ const routes: Routes = [
       { path: 'favorite-listings', component: FavoriteListingsComponent },
       { path: 'events', component: EventsComponent },
       { path: 'products', component: ProductsComponent },
+      { path: 'wishlist', component: WishlistComponent },
       { path: 'products/new', component: ProductsNewComponent },
       { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
       { path: 'orders/:side', component: OrdersComponent, resolve: { orders: OrdersResolver } },
       { path: 'order/:id', component: OrderComponent, resolve: { order: OrderResolver } },
       { path: 'withdraw', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
+      { path: 'shipping', component: ShippingComponent },
       { path: 'store-settings', component: StoreSettingsComponent, resolve: { store: StoreResolver } },
     ],
   },

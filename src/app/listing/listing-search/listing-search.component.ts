@@ -166,7 +166,7 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
     this.subscriptions.add(subsCategories);
   }
 
-  getListingImageSrc(src, size = 'full') {
+  getListingImageSrc(src, size: 'thumb' | 'medium' | 'full' = 'full') {
     return this.helperService.getImageUrl(src, 'listing', size);
   }
 

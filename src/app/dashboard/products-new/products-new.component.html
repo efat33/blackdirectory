@@ -52,40 +52,6 @@
             <mat-date-range-picker #discount_date></mat-date-range-picker>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="category_id">
-              <mat-option *ngFor="let category of categories$ | async" [value]="category.id">
-                {{ category.title }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Tags</mat-label>
-            <mat-chip-list #chipList aria-label="Tags">
-              <mat-chip
-                *ngFor="let tag of selectedTags"
-                [selectable]="false"
-                [removable]="true"
-                (removed)="removeTag(tag)"
-              >
-                {{ tag.title }}
-                <mat-icon matChipRemove>cancel</mat-icon>
-              </mat-chip>
-              <input
-                #fruitInput
-                [formControl]="tagInput"
-                [value]="tagInput.value"
-                [matAutocomplete]="auto"
-                [matChipInputFor]="chipList"
-              />
-            </mat-chip-list>
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addTag($event.option.value)">
-              <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
-                {{ tag.title }}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <mat-form-field>
             <mat-label>Short Description</mat-label>
             <input matInput formControlName="short_desc" />
           </mat-form-field>
@@ -93,12 +59,12 @@
             <mat-label>Description</mat-label>
             <textarea matInput rows="5" formControlName="description"></textarea>
           </mat-form-field>
+          <mat-form-field>
+            <mat-label>Purchase Note</mat-label>
+            <textarea matInput rows="3" formControlName="purchase_note"></textarea>
+          </mat-form-field>
         </div>
       </div>
-      <mat-form-field>
-        <mat-label>Purchase Note</mat-label>
-        <textarea matInput rows="3" formControlName="purchase_note"></textarea>
-      </mat-form-field>
       <mat-form-field>
         <mat-label>SKU (Stock Keeping Unit)</mat-label>
         <input matInput formControlName="sku" />
@@ -150,6 +116,44 @@
         </div>
         <button mat-flat-button type="button" color="primary" (click)="addFile('', '')">ADD FILE</button>
       </div>
+    </div>
+  </div>
+
+  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Product Classification</span>
+        </h4>
+      </div>
+    </header>
+    <div class="content-box_body__3tSRB">
+      <app-product-category-selector
+        [categories]="categoryFormArray"
+        [options]="optionFormArray"
+      ></app-product-category-selector>
+
+      <mat-form-field>
+        <mat-label>Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Tags">
+          <mat-chip *ngFor="let tag of selectedTags" [selectable]="false" [removable]="true" (removed)="removeTag(tag)">
+            {{ tag.title }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            #fruitInput
+            [formControl]="tagInput"
+            [value]="tagInput.value"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+          />
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addTag($event.option.value)">
+          <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+            {{ tag.title }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
   </div>
 

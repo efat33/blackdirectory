@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+td:nth-last-child(1) {
+  width: 40px;
+  padding: 0.5rem;
+}
+td:nth-last-child(2) {
+  width: 40px;
+  padding: 0.5rem;
+}
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+th,
+td {
+  padding: 1rem;
+}
+th {
+  font-weight: bold;
+}
+mat-form-field {
+  margin-bottom: -1.5rem;
+}

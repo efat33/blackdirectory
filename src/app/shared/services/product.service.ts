@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, pluck, switchMap, switchMapTo } from 'rxjs/operators';
+import { map, pluck, switchMap, tap } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helper.service';
 
 export interface ApiResponse<T> {
@@ -12,13 +12,34 @@ export interface ApiResponse<T> {
 
 export interface Category {
   id: number;
+  parent_id: number | null;
   title: string;
   image: string;
+  subCategories: Category[];
+  options: {
+    id: number;
+    choice_order: number;
+    option: string;
+    option_id: number;
+    title: string;
+  }[][];
 }
 
 export interface Tag {
   id: number;
   title: string;
+}
+
+export interface FilterOptions {
+  price: {
+    max: number;
+    min: number;
+  };
+  brands: {
+    id: number;
+    display_name: string;
+    username: string;
+  }[];
 }
 
 export type StockStatus = 'instock' | 'outstock' | 'backorder';
@@ -28,6 +49,27 @@ interface ProductBase {
   title: string;
   price: number;
   category_id: number;
+  categories:
+    | number[]
+    | {
+        id: number;
+        parent_id: number | null;
+        title: string;
+        image: string;
+      }[];
+  options:
+    | {
+        option_id: number;
+        choices: number[];
+      }[]
+    | {
+        id: number;
+        title: string;
+        choices: {
+          id: number;
+          title: string;
+        }[];
+      }[];
   image: string;
   galleries: string[];
   description: string;
@@ -61,11 +103,30 @@ export interface ProductList extends PopulatedProduct {
 
 export interface ProductDetails extends PopulatedProduct {
   tags: Tag[];
-  category_name: string;
+  categories: {
+    id: number;
+    parent_id: number | null;
+    title: string;
+    image: string;
+  }[];
+  options: {
+    id: number;
+    title: string;
+    choices: {
+      id: number;
+      title: string;
+    }[];
+  }[];
 }
 
 export interface PostNewProductBody extends ProductBase {
   tags: number[];
+  categories: number[];
+  category_id: undefined;
+  options: {
+    option_id: number;
+    choices: number[];
+  }[];
   is_downloadable: 1 | 0;
   is_virtual: 1 | 0;
   download_files?: {
@@ -82,17 +143,24 @@ export interface PostEditProductBody extends PostNewProductBody {
   id: number;
 }
 
+export interface GetProductListParams {
+  keyword?: string;
+  category?: number;
+  brands?: number[];
+  price_min?: number;
+  price_max?: number;
+  rating?: number;
+  choices?: number[];
+  tag?: number;
+  user_id?: number;
+}
+
 export interface GetProductListBody {
   limit: number;
   offset: number;
   orderby: string;
   order: 'DESC' | 'ASC';
-  params?: {
-    keyword?: string;
-    category?: number;
-    tag?: number;
-    user_id?: number;
-  };
+  params?: GetProductListParams;
 }
 
 export interface ProductReviewParams {
@@ -148,6 +216,10 @@ export class ProductService {
     return this.http.get<ApiResponse<Tag[]>>(`${this.BASE_URL}/product-tags`).pipe(pluck('data'));
   }
 
+  getFilterOptions(): Observable<FilterOptions> {
+    return this.http.get<ApiResponse<FilterOptions>>('api/shop/filter-options').pipe(pluck('data'));
+  }
+
   postNewProduct(form: PostNewProductBody) {
     return this.http.post<ApiResponse<undefined>>(`${this.BASE_URL}/product/new`, form);
   }
@@ -189,15 +261,11 @@ export class ProductService {
     );
   }
 
-  getProductList(params: GetProductListBody): Observable<ProductList[]> {
+  getProductList(params: GetProductListBody, populateImages = true): Observable<ProductList[]> {
     return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/products`, params).pipe(
       map((response) =>
         response.data.map((p) => ({
           ...p,
-          image: this.helperService.getImageUrl(p.image, 'product', 'thumb'),
-          galleries: JSON.parse(p.galleries).map((gallery) =>
-            this.helperService.getImageUrl(gallery, 'product', 'thumb')
-          ),
           is_downloadable: Boolean(p.is_downloadable),
           is_virtual: Boolean(p.is_virtual),
           discount_end: p.discount_end ? new Date(p.discount_end) : null,
@@ -206,6 +274,20 @@ export class ProductService {
           updated_at: new Date(p.updated_at),
           rating_average: parseFloat(p.rating_average),
         }))
+      ),
+      map((products) =>
+        populateImages
+          ? products.map((p) => ({
+              ...p,
+              image: this.helperService.getImageUrl(p.image, 'product', 'medium'),
+              galleries: JSON.parse(p.galleries).map((gallery) =>
+                this.helperService.getImageUrl(gallery, 'product', 'thumb')
+              ),
+            }))
+          : products.map((p) => ({
+              ...p,
+              galleries: JSON.parse(p.galleries),
+            }))
       )
     );
   }
@@ -215,10 +297,7 @@ export class ProductService {
       map((response) =>
         response.data.map((p) => ({
           ...p,
-          image: this.helperService.getImageUrl(p.image, 'product', 'medium'),
-          galleries: JSON.parse(p.galleries).map((gallery) =>
-            this.helperService.getImageUrl(gallery, 'product', 'thumb')
-          ),
+          galleries: JSON.parse(p.galleries),
           is_downloadable: Boolean(p.is_downloadable),
           is_virtual: Boolean(p.is_virtual),
           discount_end: p.discount_end ? new Date(p.discount_end) : null,
