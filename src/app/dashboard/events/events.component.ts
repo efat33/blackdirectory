@@ -49,7 +49,7 @@ export class EventsComponent implements OnInit {
     this.getEvents();
   }
 
-  getEventImageSrc(src, size = 'full') {
+  getEventImageSrc(src, size: 'thumb' | 'medium' | 'full' = 'full') {
     return this.helperService.getImageUrl(src, 'event', size);
   }
 

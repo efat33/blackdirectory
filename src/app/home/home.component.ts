@@ -192,10 +192,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getListingImageSrc(src, size = 'full') {
-    return this.helperService.getImageUrl(src, 'listing', size);
-  }
-
   getTrendingAndFeaturedListings() {
     const subsTrendL = this.listingService.getListings('4/0/view');
     const subsFeaturedL = this.listingService.getListings('8/0/view/featured');

@@ -99,7 +99,7 @@
                 <header class="listing_header__2pt4D">
                   <a href="{{ siteUrl + '/listing/' + item.slug }}">
                     <div class="listing_img__3pwlB pos-a-full bg-cover" data-info="[]"
-                      [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
+                      [ngStyle]="{'background-image': 'url(' + (item.cover_img | bdyImage:'listing':'medium') + ')'}">
                       <img class="hidden" src="{{ item.cover_img | imageSrc : 'listing' : 'medium' }}"
                         alt="{{ item.title }}">
                     </div>
@@ -121,7 +121,7 @@
                 <div class="listing_body__31ndf js-grid-item-body">
                   <a class="listing_goo__3r7Tj" href="{{ siteUrl + '/listing/' + item.slug }}">
                     <div class="listing_logo__PIZwf bg-cover"
-                      [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.logo, 'thumb') + ')'}">
+                      [ngStyle]="{'background-image': 'url(' + (item.logo | bdyImage:'listing':'thumb') + ')'}">
                     </div>
                   </a>
                   <h2 class="listing_title__2920A text-ellipsis">
@@ -266,7 +266,7 @@
                   <span class="wilcity-slider-gradient-before"
                     style="background-image: linear-gradient(45deg, #006bf7 0%,#ed6392 100%); opacity: 0.3;"></span>
                   <div class="listing_img__3pwlB pos-a-full bg-cover swiper-lazy rocket-lazyload lazyloaded"
-                    [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
+                    [ngStyle]="{'background-image': 'url(' + (item.cover_img | bdyImage:'listing':'medium') + ')'}">
                   </div>
                   <div *ngIf="item.no_of_rating > 0" class="listing_rated__1y7qV">
                     <div class="rated-small_module__1vw2B rated-small_style-2__3lb7d">
@@ -350,7 +350,7 @@
               <div class="textbox-4_background__3bSqa">
                 <div class="wil-overlay"></div>
                 <div class="textbox-4_img__2_DKb bg-cover" data-info="[]"
-                  [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.image, 'medium') + ')'}">
+                  [ngStyle]="{'background-image': 'url(' + (item.image | bdyImage:'listing':'medium') + ')'}">
                   <img class="" src="{{ item.image | imageSrc : 'listing' : 'medium' }}" alt="">
                 </div>
               </div>

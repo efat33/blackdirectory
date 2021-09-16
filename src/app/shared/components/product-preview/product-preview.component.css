@@ -1,10 +1,10 @@
 .product-review-container {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  position: relative;
 }
 .product-review-container:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(68, 47, 47, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
 }
 .image {
   max-width: 100%;
@@ -14,15 +14,21 @@
   padding: 0.75rem;
 }
 h3 {
-  font-size: 1.4rem;
-  margin: 0 8px 8px;
+  font-size: 1.5rem;
+  margin: 0 8px 0;
 }
 .price {
   display: block;
   font-size: 1.2rem;
   margin: 8px 8px 0;
 }
-button {
+.vendor-link {
+  display: block;
+  font-size: 1.3rem;
+  margin: 4px 8px 8px;
+  text-decoration: underline;
+}
+.add-to-cart-button {
   padding: 8px;
   width: 100%;
   border: none;
@@ -30,7 +36,7 @@ button {
   color: white;
   transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
-button:hover {
+.add-to-cart-button:hover {
   background-color: rgb(0, 74, 110);
 }
 .sale-badge {
@@ -41,4 +47,24 @@ button:hover {
   background-color: rgb(16 216 13);
   color: white;
   font-size: 1.2rem;
+}
+.overlay-buttons {
+  z-index: 10;
+  right: 8px;
+  top: 8px;
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+}
+.overlay-buttons div {
+  margin-bottom: 8px;
+}
+.mat-flat-button {
+  padding: 0 !important;
+  min-width: 40px;
+}
+@media (max-width: 400px) {
+  .overlay-buttons {
+    display: none;
+  }
 }

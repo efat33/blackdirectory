@@ -1,0 +1,67 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>Product Overview</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps" style="overflow-y: auto; padding: 0 8px">
+    <div class="core-section">
+      <div class="gallery-wrapper">
+        <div *ngIf="hasDiscount" class="sale-badge">SALE !</div>
+        <ngx-gallery [options]="galleryOptions" [images]="images" class="ngx-gallery"></ngx-gallery>
+      </div>
+      <div>
+        <h1>{{ product.title }}</h1>
+        <div class="short-description">
+          <p>{{ product.short_desc }}</p>
+        </div>
+        <div *ngIf="product.rating_total > 0" class="total-rating">
+          <star-rating
+            [value]="product.rating_average"
+            [totalstars]="5"
+            size="24px"
+            checkedcolor="gold"
+            uncheckedcolor="gray"
+            readonly="true"
+            style="cursor: default"
+          ></star-rating>
+          <span style="margin-left: 8px">( {{ product.rating_total }} )</span>
+        </div>
+        <div class="price">
+          <app-product-price [product]="product"></app-product-price>
+        </div>
+        <div class="add-to-cart-section">
+          <div class="add-to-cart-count">
+            <button
+              mat-icon-button
+              color="primary"
+              [disabled]="addToCartCount === 1"
+              (click)="addToCartCount = addToCartCount - 1"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <span style="margin: 0 4px">{{ addToCartCount }}</span>
+            <button mat-icon-button color="primary" (click)="addToCartCount = addToCartCount + 1">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+          <button mat-flat-button color="primary" (click)="addToCart()">ADD TO CART</button>
+          <span style="margin-left: 8px">
+            <button style="height: 100%" mat-flat-button color="primary" (click)="addToWishlist()">
+              <mat-icon>favorite</mat-icon>
+            </button>
+          </span>
+        </div>
+        <div class="category">
+          Category:
+          <a [routerLink]="'/shop'" [queryParams]="{ category: product.category_id }" class="tag-link">{{
+            product.category_name
+          }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,9 @@ import { StoreService } from 'src/app/shared/services/store.service';
 import { UserService } from 'src/app/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { LoginModal } from 'src/app/modals/user/login/login-modal';
+import { MatDialog } from '@angular/material/dialog';
+import { WishlistService } from 'src/app/shared/services/wishlist.service';
 
 @Component({
   selector: 'app-product',
@@ -55,8 +58,9 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
     private productService: ProductService,
     private storeService: StoreService,
-    private userService: UserService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private dialog: MatDialog,
+    private wishlistService: WishlistService
   ) {}
 
   get hasDiscount(): boolean {
@@ -75,8 +79,8 @@ export class ProductComponent implements OnInit {
       this.storeDetails$ = this.storeService.getStoreSettings(this.p.user_id).pipe(
         map((data) => ({
           ...data,
-          profile_picture: this.helperService.getImageUrl(data.profile_picture, 'shop', 'full'),
-          banner: this.helperService.getImageUrl(data.banner, 'shop', 'full'),
+          profile_picture: this.helperService.getImageUrl(data?.profile_picture, 'shop', 'full'),
+          banner: this.helperService.getImageUrl(data?.banner, 'shop', 'full'),
         }))
       );
       this.images = [this.p.image, ...this.p.galleries].map((name) => ({
@@ -91,12 +95,22 @@ export class ProductComponent implements OnInit {
     this.review.get('rating').setValue(newValue);
   }
 
+  showLoginModalIfNotLoggedIn(): boolean {
+    const isLoggedIn = this.helperService.currentUserInfo != null;
+    if (!isLoggedIn) {
+      this.dialog.open(LoginModal, {
+        width: '400px',
+      });
+    }
+    return !isLoggedIn;
+  }
+
   submitReview(): void {
     this.reviewTouched = true;
     if (this.review.invalid) {
       return;
     }
-    if (this.userService.showLoginModalIfNotLoggedIn()) {
+    if (this.showLoginModalIfNotLoggedIn()) {
       return;
     }
     const { rating, review } = this.review.value;
@@ -118,5 +132,12 @@ export class ProductComponent implements OnInit {
 
   addToCart(): void {
     this.cartService.addToCart(this.p, this.addToCartCount);
+  }
+
+  addToWishlist(product: ProductDetails): void {
+    if (this.showLoginModalIfNotLoggedIn()) {
+      return;
+    }
+    this.wishlistService.addProduct(product);
   }
 }
