@@ -41,8 +41,8 @@ export class EventSearchDateModal implements OnInit {
 
     onApply() {
         if(this.chosenStartTime && this.chosenEndTime){
-            const start_time = moment(this.chosenStartTime).utc().format('YYYY-MM-DD');
-            const end_time = moment(this.chosenEndTime).utc().format('YYYY-MM-DD');
+            const start_time = moment(this.chosenStartTime).format('YYYY-MM-DD');
+            const end_time = moment(this.chosenEndTime).format('YYYY-MM-DD');
 
             this.dialogRef.close({start_time: start_time, end_time: end_time});
         }

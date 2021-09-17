@@ -34,7 +34,6 @@ export class ListingNewComponent implements OnInit {
   ];
   products = [];
   buttonIcons = [
-    { value: 'square', viewValue: 'Square', icon: 'minus-square' },
     { value: 'envelope', viewValue: 'Envelope', icon: 'envelope' },
     { value: 'phone', viewValue: 'Phone', icon: 'phone' },
     { value: 'home', viewValue: 'Home', icon: 'home' },

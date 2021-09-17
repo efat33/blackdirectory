@@ -1340,7 +1340,7 @@
     </div>
 
     <div class="btn-group-fixed_module__3qULF pos-f-right-bottom text-right">
-      <a *ngIf="showEditButton" id="wil-edit-listing-btn" [routerLink]="['/listing/edit/' + listing_slug]"
+      <a *ngIf="showEditButton" id="wil-edit-listing-btn" href="{{ siteUrl + '/listing/edit/' + listing_slug }}"
         class="wil-btn wil-btn--secondary wil-btn--round wil-btn--md wil-edit-listing-btn"><i
           class="la la-edit"></i>Edit Listing
       </a>

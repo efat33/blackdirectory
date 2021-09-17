@@ -33,7 +33,6 @@ export class ListingEditComponent implements OnInit {
   ];
   products = [];
   buttonIcons = [
-    { value: 'square', viewValue: 'Square', icon: 'minus-square' },
     { value: 'envelope', viewValue: 'Envelope', icon: 'envelope' },
     { value: 'phone', viewValue: 'Phone', icon: 'phone' },
     { value: 'home', viewValue: 'Home', icon: 'home' },
@@ -691,7 +690,7 @@ export class ListingEditComponent implements OnInit {
     this.subscriptions.add(subsListingCategories);
 
     // get products for form category dropdown
-    const pParams = { params: { user_id: this.helperservice.currentUserInfo.id } };
+    const pParams = { params: { user_id: this.helperservice.currentUserInfo?.id } };
     const subsListingProducts = this.listingService.getProducts(pParams).subscribe(
       (res: any) => {
         if (res.data.length > 0) {
