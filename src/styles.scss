@@ -527,3 +527,9 @@ input[type='file'],
   background-color: rgba(0, 102, 153, 1);
   color: white;
 }
+
+span.owldate-trigger {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}

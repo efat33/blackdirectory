@@ -10,6 +10,7 @@ import { EventSearchCityModal } from 'src/app/modals/events/search/cities/event-
 import { EventSearchDateModal } from 'src/app/modals/events/search/date/event-search-date-modal';
 import { EventSearchOrganizersModal } from 'src/app/modals/events/search/organizers/event-search-organizers-modal';
 import { EventSearchVenueModal } from 'src/app/modals/events/search/venues/event-search-venues-modal';
+import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { EventService } from '../event.service';
@@ -316,6 +317,16 @@ export class EventsAllComponent implements OnInit {
     });
 
     this.subscriptions.add(this.dialogRefDate);
+  }
+
+  onClickNewEvent() {
+    if (this.helperService.currentUserInfo?.id) {
+      this.router.navigate(['events/new']);
+    } else {
+      this.dialog.open(LoginModal, {
+        width: '400px',
+      });
+    }
   }
 
   onLocationBlur() {
