@@ -55,7 +55,7 @@ export class ProductsDataSource implements DataSource<ProductList> {
     this.loadParams.next({
       ...this.loadParams.value,
       params: {
-        ...this.loadParams.value,
+        ...this.loadParams.value.params,
         ...filter,
       },
     });

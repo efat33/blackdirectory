@@ -14,7 +14,11 @@
         <ngx-gallery [options]="galleryOptions" [images]="images" class="ngx-gallery"></ngx-gallery>
       </div>
       <div>
-        <h1>{{ product.title }}</h1>
+        <h1>
+          <a [routerLink]="['/shop', 'product', product.slug]" [mat-dialog-close]>
+            {{ product.title }}
+          </a>
+        </h1>
         <div class="short-description">
           <p>{{ product.short_desc }}</p>
         </div>
@@ -50,16 +54,25 @@
           </div>
           <button mat-flat-button color="primary" (click)="addToCart()">ADD TO CART</button>
           <span style="margin-left: 8px">
-            <button style="height: 100%" mat-flat-button color="primary" (click)="addToWishlist()">
+            <button
+              *ngIf="!isInWishlist"
+              style="height: 100%"
+              mat-flat-button
+              color="primary"
+              (click)="addToWishlist()"
+            >
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+            <button
+              *ngIf="isInWishlist"
+              style="height: 100%"
+              mat-flat-button
+              color="primary"
+              (click)="removeFromWishlist()"
+            >
               <mat-icon>favorite</mat-icon>
             </button>
           </span>
-        </div>
-        <div class="category">
-          Category:
-          <a [routerLink]="'/shop'" [queryParams]="{ category: product.category_id }" class="tag-link">{{
-            product.category_name
-          }}</a>
         </div>
       </div>
     </div>

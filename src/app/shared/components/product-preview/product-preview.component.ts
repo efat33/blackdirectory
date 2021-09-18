@@ -37,6 +37,10 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
     return this.productService.hasDiscount(this.product);
   }
 
+  get isInWishlist(): boolean {
+    return this.wishlistService.isProductInWishlist(this.product);
+  }
+
   ngOnInit(): void {}
 
   showLoginModalIfNotLoggedIn(): boolean {
@@ -73,5 +77,9 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
       return;
     }
     this.wishlistService.addProduct(this.product);
+  }
+
+  removeFromWishlist(): void {
+    this.wishlistService.removeProduct(this.product);
   }
 }

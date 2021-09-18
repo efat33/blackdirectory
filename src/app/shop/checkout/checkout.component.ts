@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -39,6 +39,10 @@ export class CheckoutComponent implements OnInit {
     postcode: new FormControl('', [Validators.required]),
   });
   additionalInfo = new FormControl('');
+
+  get shippingOptionsForm(): FormArray {
+    return this.cartService.shippingOptionsForm;
+  }
 
   constructor(
     private router: Router,
@@ -97,18 +101,15 @@ export class CheckoutComponent implements OnInit {
       ),
       shipping: of(this.shippingForm.value),
       additional_info: of(this.additionalInfo.value),
+      shipping_methods: of(this.cartService.getShippingMethods()),
       promo_id: this.cartService.appliedCoupon.pipe(
         take(1),
         map((coupon) => coupon.id)
       ),
     })
-      .pipe(
-        tap(console.log),
-        mergeMap((params) => this.orderService.postNewOrder(params))
-      )
+      .pipe(mergeMap((params) => this.orderService.postNewOrder(params)))
       .subscribe(
         (orderId) => {
-          console.log(orderId);
           this.cartService.clearCart();
           this.router.navigate(['/shop', 'success', orderId]);
         },

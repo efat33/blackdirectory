@@ -47,6 +47,26 @@
       </th>
       <td>- {{ order.subtotal * (order.discount / 100) | currency }}</td>
     </tr>
+    <tr *ngIf="shippingCosts > 0">
+      <th>
+        SHIPPING COSTS <span *ngIf="order.shipping_title">({{ order.shipping_title }})</span>
+      </th>
+      <td>{{ shippingCosts | currency }}</td>
+    </tr>
+    <!-- <ng-container *ngIf="!order.subOrders && order.shipping_fee > 0">
+      <tr>
+        <th>SHIPPING COSTS ({{ order.shipping_title }})</th>
+        <td>{{ order.shipping_fee | currency }}</td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="order.subOrders">
+      <ng-container *ngFor="let subOrder of order.subOrders">
+        <tr *ngIf="subOrder.shipping_fee > 0">
+          <th>SHIPPING COSTS ({{ subOrder.shipping_title }})</th>
+          <td>{{ subOrder.shipping_fee | currency }}</td>
+        </tr>
+      </ng-container>
+    </ng-container> -->
     <tr>
       <th>TOTAL</th>
       <td>{{ order.total | currency }}</td>

@@ -1,0 +1,9 @@
+<th>
+  <strong style="margin-bottom: 0.5rem"> Shipping Option for {{ vendorName + ' Store' }} </strong>
+  <mat-radio-group class="vertical-radio-group" (change)="(null)" [formControl]="selectedOptionFormControl">
+    <mat-radio-button class="vertical-radio-button" color="primary" *ngFor="let option of options" [value]="option.id">
+      <div style="display: flex; align-items: center">{{ option.title }} - {{ option.fee | currency }}</div>
+    </mat-radio-button>
+  </mat-radio-group>
+</th>
+<td>{{ selectedOptionFee | currency }}</td>

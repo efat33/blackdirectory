@@ -1,11 +1,12 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { WishlistService } from './shared/services/wishlist.service';
 import { SpinnerService } from './shared/spinner.service';
 import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'blackdirectory';
@@ -15,11 +16,11 @@ export class AppComponent {
   constructor(
     private spinnerService: SpinnerService,
     private cdk: ChangeDetectorRef,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private wishlistService: WishlistService
+  ) {}
 
   ngOnInit() {
-
     this.spinnerService.status.subscribe((val: boolean) => {
       this.showLoadingSpinner = val;
       this.cdk.detectChanges();
@@ -29,11 +30,14 @@ export class AppComponent {
   }
 
   checkAuthentication() {
-    // check if the user is logged in 
+    // check if the user is logged in
     this.userService.isAuthenticated().then(
       (res) => {
         // set current user to localstorage
         localStorage.setItem('currentUserInfo', JSON.stringify(res.data));
+        if (res.data) {
+          this.wishlistService.setProducts();
+        }
       },
       (res) => {
         // remove user data from localstorage
@@ -45,5 +49,4 @@ export class AppComponent {
   onActivate(event: Event) {
     window.scrollTo(0, 0);
   }
-
 }

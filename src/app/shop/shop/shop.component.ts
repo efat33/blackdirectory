@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { distinctUntilChanged, switchMapTo, tap } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { catchError, distinctUntilChanged, finalize, switchMapTo, tap } from 'rxjs/operators';
 import { GetProductListParams, ProductList, ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
@@ -62,6 +63,8 @@ export class ShopComponent implements OnInit {
       },
     },
   ];
+  loading$ = new BehaviorSubject<boolean>(false);
+  trackByIdentity = (index: number, item: ProductList) => item.id;
 
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) {}
 
@@ -69,6 +72,7 @@ export class ShopComponent implements OnInit {
     this.activatedRoute.queryParams
       .pipe(
         distinctUntilChanged(),
+        tap(() => this.loading$.next(true)),
         tap(({ category, tag, price_min, price_max, brands, rating, choices }) => {
           this.currentPage = 1;
           this.params.category = category;
@@ -107,7 +111,11 @@ export class ShopComponent implements OnInit {
     };
     this.productService
       .getProductList(params, false)
-      .pipe(tap((products) => (this.products = products)))
+      .pipe(
+        tap((products) => (this.products = products)),
+        catchError(() => of([])),
+        finalize(() => this.loading$.next(false))
+      )
       .subscribe();
   }
 }
