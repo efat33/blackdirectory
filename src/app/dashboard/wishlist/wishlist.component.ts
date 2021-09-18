@@ -45,7 +45,7 @@ export class WishlistComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.wishlistService.getProducts().subscribe((products) => {
+    this.wishlistService.products.subscribe((products) => {
       this.dataSource.data = products;
     });
   }
@@ -55,8 +55,6 @@ export class WishlistComponent implements OnInit {
   }
 
   removeFromWishlist(product: ProductList): void {
-    this.wishlistService.removeProduct(product).subscribe((products) => {
-      this.dataSource.data = products;
-    });
+    this.wishlistService.removeProduct(product);
   }
 }

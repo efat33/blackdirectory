@@ -14,12 +14,24 @@
     </div>
     <div>
       <button
+        *ngIf="!isInWishlist"
         mat-flat-button
         color="primary"
-        matTooltip="Wishlist"
+        matTooltip="Add to Wishlist"
         matTooltipPosition="left"
         matTooltipClass="primary-color-tooltip"
         (click)="addToWishlist()"
+      >
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <button
+        *ngIf="isInWishlist"
+        mat-flat-button
+        color="primary"
+        matTooltip="Remove from Wishlist"
+        matTooltipPosition="left"
+        matTooltipClass="primary-color-tooltip"
+        (click)="removeFromWishlist()"
       >
         <mat-icon>favorite</mat-icon>
       </button>
@@ -38,9 +50,8 @@
     </div>
     <h3>{{ product.title }}</h3>
   </a>
-  <a class="vendor-link" [routerLink]="" [queryParams]="{ brands: [15] }" queryParamsHandling="merge">
-    <!-- {{ product.user_id }} -->
-    Koray Shop
+  <a class="vendor-link" [routerLink]="['/shop', 'vendor', product.user_id]">
+    {{ product.store_name || product.user_display_name + ' Store' || product.user_username + ' Store' }}
   </a>
   <button class="add-to-cart-button" (click)="addToCart()">ADD TO CART</button>
 </div>

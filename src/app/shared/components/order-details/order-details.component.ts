@@ -19,6 +19,14 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     return this.order.created_at.getTime() !== this.order.updated_at.getTime();
   }
 
+  get shippingCosts(): number {
+    if (this.order.shipping_fee > 0) {
+      return this.order.shipping_fee;
+    } else {
+      return this.order.subOrders.reduce((acc, order) => acc + order.shipping_fee, 0);
+    }
+  }
+
   ngOnInit(): void {}
 
   ngOnChanges(): void {

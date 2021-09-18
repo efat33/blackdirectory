@@ -14,10 +14,13 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="products-container" style="min-height: 600px">
-          <div class="product-preview" *ngFor="let product of products">
+        <div class="products-container" style="min-height: 600px" *ngIf="!(loading$ | async)">
+          <div class="product-preview" *ngFor="let product of products; trackBy: trackByIdentity">
             <app-product-preview [product]="product"></app-product-preview>
           </div>
+        </div>
+        <div *ngIf="loading$ | async">
+          <mat-spinner></mat-spinner>
         </div>
         <pagination
           [totalItems]="totalItems"

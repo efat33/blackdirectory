@@ -1,16 +1,11 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ProductService } from 'src/app/shared/services/product.service';
 
-interface Vendor {
-  id: number;
-  display_name: string;
-  username: string;
-}
+const FILTER_EXPAND_COUNT = 10;
 
 @Component({
   selector: 'app-shop-sidebar',
@@ -19,7 +14,7 @@ interface Vendor {
 })
 export class ShopSidebarComponent implements OnInit {
   vendors = new FormArray([]);
-  viewAllVendors = false;
+  viewAllVendors = new FormControl(false);
 
   priceMin = 0;
   priceMax = 500;
@@ -80,6 +75,20 @@ export class ShopSidebarComponent implements OnInit {
           );
         });
       });
+  }
+
+  getVisibleVendors(): FormGroup[] {
+    if (!this.showViewAllVendors()) {
+      return this.vendors.controls as FormGroup[];
+    } else {
+      return this.vendors.controls.slice(0, FILTER_EXPAND_COUNT) as FormGroup[];
+    }
+  }
+  showViewAllVendors(): boolean {
+    return !this.viewAllVendors.value && this.vendors.length > FILTER_EXPAND_COUNT;
+  }
+  showViewLessVendors(): boolean {
+    return this.viewAllVendors.value && this.vendors.length > FILTER_EXPAND_COUNT;
   }
 
   onFiltersChange(): void {

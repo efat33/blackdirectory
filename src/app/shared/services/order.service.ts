@@ -44,6 +44,7 @@ export interface PostNewOrderParams {
     price: number;
   }[];
   shipping: ShippingDetails & { country_id: number };
+  shipping_methods: { vendor_id: number; shipping_id: number }[];
   promo_id?: number;
   additional_info?: string;
 }
@@ -63,6 +64,9 @@ export interface OrderList {
   discount?: number;
   promo_code?: string;
   promo_id_: number;
+  shipping_fee?: number;
+  shipping_id?: number;
+  shipping_title?: string;
 }
 
 export interface OrderDetails extends OrderList {
@@ -86,6 +90,7 @@ export class OrderService {
       total: Number(d.total),
       earned: Number(d.earned),
       discount: Number(d.discount),
+      shipping_fee: Number(d.shipping_fee),
       updated_at: new Date(d.updated_at),
       created_at: new Date(d.created_at),
     }));
@@ -99,6 +104,7 @@ export class OrderService {
         ...item,
         created_at: new Date(item.created_at),
         price: Number(item.price),
+        shipping_fee: Number(d.shipping_fee),
       })),
       subOrders: this._mapOrderList(d.subOrders || []),
     };

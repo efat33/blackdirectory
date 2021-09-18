@@ -182,7 +182,6 @@ export class ProductsNewComponent implements OnInit {
 
     const form: PostNewProductBody = {
       ...pf,
-      category_id: undefined,
       options: pf.options
         .map((opt) => ({
           option_id: opt.option_id,

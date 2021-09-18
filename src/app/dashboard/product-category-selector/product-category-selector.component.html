@@ -25,6 +25,7 @@
   <fieldset>
     <legend>{{ option.get('label').value }}</legend>
     <mat-checkbox
+      color="primary"
       *ngFor="let choice of option.get('choices').controls"
       [value]="choice.get('id').value"
       [formControl]="choice.get('checked')"

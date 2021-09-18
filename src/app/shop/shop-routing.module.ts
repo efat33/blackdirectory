@@ -9,6 +9,8 @@ import { ProductComponent } from './product/product.component';
 import { ShopComponent } from './shop/shop.component';
 import { EmptyCartGuard } from './checkout/empty-cart.guard';
 import { CheckoutFailComponent } from './checkout-fail/checkout-fail.component';
+import { VendorComponent } from './vendor/vendor.component';
+import { VendorResolver } from './vendor/vendor-resolver';
 
 const routes: Routes = [
   { path: '', component: ShopComponent },
@@ -17,6 +19,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent, canActivate: [EmptyCartGuard] },
   { path: 'success/:id', component: CheckoutSuccessComponent, resolve: { order: OrderResolver } },
   { path: 'checkout-fail', component: CheckoutFailComponent },
+  { path: 'vendor/:id', component: VendorComponent, resolve: { data: VendorResolver } },
 ];
 
 @NgModule({
