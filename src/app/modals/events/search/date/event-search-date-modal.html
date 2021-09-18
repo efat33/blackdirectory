@@ -13,14 +13,14 @@
       <div>
         <mat-form-field>
           <mat-label>From</mat-label>
-          <input [(ngModel)]="chosenStartTime" matInput [matDatepicker]="picker_start">
+          <input [(ngModel)]="chosenStartTime" matInput [matDatepicker]="picker_start" (focus)="picker_start.open()">
           <mat-datepicker-toggle matSuffix [for]="picker_start"></mat-datepicker-toggle>
           <mat-datepicker #picker_start></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>To</mat-label>
-          <input [(ngModel)]="chosenEndTime" matInput [matDatepicker]="picker_end">
+          <input [(ngModel)]="chosenEndTime" matInput [matDatepicker]="picker_end" (focus)="picker_end.open()">
           <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
           <mat-datepicker #picker_end></mat-datepicker>
         </mat-form-field>
