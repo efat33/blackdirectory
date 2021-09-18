@@ -103,7 +103,6 @@ export class ProductsEditComponent implements OnInit {
       this.currentValues = p;
       this.productForm.patchValue({
         ...p,
-        category_id: p.category_id,
         tags: p.tags,
         virtual: p.is_virtual,
         downloadable: p.is_downloadable,
@@ -199,7 +198,6 @@ export class ProductsEditComponent implements OnInit {
 
     const form: PostEditProductBody = {
       ...pf,
-      category_id: undefined,
       options: pf.options
         .map((opt) => ({
           option_id: opt.option_id,
