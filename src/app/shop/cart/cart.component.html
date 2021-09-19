@@ -15,10 +15,13 @@
       <ng-container matColumnDef="product_title">
         <th mat-header-cell *matHeaderCellDef>Product</th>
         <td mat-cell *matCellDef="let product">
-          {{ product.product_title }}
+          <a [routerLink]="'/shop/product/' + product.product_slug">
+            {{ product.product_title }}
+          </a>
           <br />
-          Koray Shop
-          <!-- {{ product }} -->
+          <a [routerLink]="['/shop', 'vendor', product.vendor_id]">
+            {{ product.store_name || product.vendor_display_name + ' Store' || product.vendor_username + ' Store' }}
+          </a>
         </td>
       </ng-container>
 
@@ -75,6 +78,7 @@
         <th>DISCOUNT</th>
         <td>- {{ discountAmount$ | async | currency }}</td>
       </tr>
+      <tr app-shipping-method-selector [form]="form" *ngFor="let form of shippingOptionsForm.controls"></tr>
       <tr>
         <th>TOTAL</th>
         <td>{{ total$ | async | currency }}</td>

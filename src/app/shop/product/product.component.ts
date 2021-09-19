@@ -71,6 +71,10 @@ export class ProductComponent implements OnInit {
     return this.productService.getActualPrice(this.p);
   }
 
+  get isInWishlist(): boolean {
+    return this.wishlistService.isProductInWishlist(this.p);
+  }
+
   ngOnInit(): void {
     this.activatedRoute.data.pipe(pluck<Data, ProductDetails>('product')).subscribe((p) => {
       this.p = p;
@@ -134,10 +138,14 @@ export class ProductComponent implements OnInit {
     this.cartService.addToCart(this.p, this.addToCartCount);
   }
 
-  addToWishlist(product: ProductDetails): void {
+  addToWishlist(): void {
     if (this.showLoginModalIfNotLoggedIn()) {
       return;
     }
-    this.wishlistService.addProduct(product);
+    this.wishlistService.addProduct(this.p);
+  }
+
+  removeFromWishlist(): void {
+    this.wishlistService.removeProduct(this.p);
   }
 }

@@ -1,0 +1,43 @@
+<div class="container">
+  <ng-container *ngIf="vendor.store_name; else noVendorData">
+    <h2>{{ vendor.store_name }}</h2>
+    <div class="vendor-info">
+      <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
+      <div class="core-section">
+        <img [src]="vendor.profile_picture" />
+        <div>
+          <strong> </strong>
+          <address>
+            {{ vendor.address }}
+          </address>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noVendorData>
+    <h2>Vendor Not Found</h2>
+  </ng-template>
+
+  <ng-container *ngIf="products && products.length > 0; else noVendorProducts">
+    <div style="display: flex; justify-content: flex-end">
+      <a
+        mat-flat-button
+        routerLink="/shop"
+        [queryParams]="{ brands: vendor.user_id ? [vendor.user_id] : null }"
+        queryParamsHandling="merge"
+        color="primary"
+        >View All Products</a
+      >
+    </div>
+    <div class="related-products-container">
+      <div class="related-product" *ngFor="let product of products">
+        <app-product-preview [product]="product"></app-product-preview>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noVendorProducts>
+    <h3>This vendor does not have any products</h3>
+  </ng-template>
+</div>

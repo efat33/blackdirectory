@@ -53,10 +53,20 @@
       <mat-panel-title>{{ filter.get('label').value }}</mat-panel-title>
     </mat-expansion-panel-header>
 
-    <p *ngFor="let option of filter.get('options').controls; let i = index">
-      <mat-checkbox [value]="option.get('id').value" [formControl]="option.get('checked')" (change)="onFiltersChange()">
+    <p *ngFor="let option of getFilterOptionsForms(filter); let i = index">
+      <mat-checkbox
+        [value]="option.get('id').value"
+        [formControl]="option.get('checked')"
+        (change)="onFiltersChange()"
+        color="primary"
+      >
         {{ option.get('title').value }}
       </mat-checkbox>
     </p>
+    <label>
+      <input style="display: none" type="checkbox" [formControl]="filter.get('expanded')" />
+      <strong *ngIf="showViewAll(filter)">View All</strong>
+      <strong *ngIf="showViewLess(filter)">View Less</strong>
+    </label>
   </mat-expansion-panel>
 </mat-accordion>

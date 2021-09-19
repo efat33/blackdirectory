@@ -55,6 +55,10 @@ export class ProductQuickViewModal implements OnInit {
     return this.data.product;
   }
 
+  get isInWishlist(): boolean {
+    return this.wishlistService.isProductInWishlist(this.product);
+  }
+
   ngOnInit(): void {
     this.images = [this.product.image, ...this.product.galleries].map((image) => ({
       small: this.helperService.getImageUrl(image, 'product', 'thumb'),
@@ -82,5 +86,9 @@ export class ProductQuickViewModal implements OnInit {
       return;
     }
     this.wishlistService.addProduct(this.product);
+  }
+
+  removeFromWishlist(): void {
+    this.wishlistService.removeProduct(this.product);
   }
 }

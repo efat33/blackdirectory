@@ -14,6 +14,8 @@ interface CategoryNode {
   children?: CategoryNode[];
 }
 
+const FILTER_EXPAND_COUNT = 10;
+
 @Component({
   selector: 'app-category-selector',
   templateUrl: './category-selector.component.html',
@@ -99,6 +101,7 @@ export class CategorySelectorComponent implements OnInit {
                 })
             )
           ),
+          expanded: new FormControl(false),
         })
       );
     });
@@ -170,5 +173,24 @@ export class CategorySelectorComponent implements OnInit {
       queryParams: { choices },
       queryParamsHandling: 'merge',
     });
+  }
+
+  getFilterOptionsForms(filter: FormGroup): FormGroup[] {
+    const expanded = filter.get('expanded').value;
+    const options = filter.get('options') as FormArray;
+    if (!this.showViewAll(filter)) {
+      return options.controls as FormGroup[];
+    } else {
+      return options.controls.slice(0, FILTER_EXPAND_COUNT) as FormGroup[];
+    }
+  }
+
+  showViewAll(filter: FormGroup): boolean {
+    const { expanded, options } = filter.value;
+    return !expanded && options.length > FILTER_EXPAND_COUNT;
+  }
+  showViewLess(filter: FormGroup): boolean {
+    const { expanded, options } = filter.value;
+    return expanded && options.length > FILTER_EXPAND_COUNT;
   }
 }

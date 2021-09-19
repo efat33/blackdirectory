@@ -25,7 +25,7 @@ export interface PostStoreSettingsBody {
   banner?: string;
 }
 
-interface GetStoreSettingsData {
+export interface StoreInformation {
   user_id: number;
   phone: null | string;
   address: null | string;
@@ -51,11 +51,11 @@ export class StoreService {
     return this.http.get<ApiResponse<Country[]>>('api/shop/countries').pipe(pluck('data'));
   }
 
-  getStoreSettings(userId: number): Observable<GetStoreSettingsData | undefined> {
-    return this.http.get<ApiResponse<GetStoreSettingsData[]>>(`api/shop/details/${userId}`).pipe(
+  getStoreSettings(userId: number): Observable<StoreInformation | undefined> {
+    return this.http.get<ApiResponse<StoreInformation[]>>(`api/shop/details/${userId}`).pipe(
       pluck('data'),
       map((data) => data[0]),
-      map<any, GetStoreSettingsData | undefined>((data) =>
+      map<any, StoreInformation | undefined>((data) =>
         data
           ? {
               ...data,
