@@ -620,15 +620,18 @@
 
                                                                     <td class="ticket_capacity">
                                                                         <span class="tribe-mobile-only">Capacity:</span>
-                                                                        {{rsvp.get('capacity').value}}
+                                                                        {{ rsvp.get('capacity').value ?
+                                                                        rsvp.get('capacity').value :
+                                                                        'Unlimited' }}
                                                                     </td>
 
                                                                     <td class="ticket_available">
                                                                         <span
                                                                             class="tribe-mobile-only">Available:</span>
-                                                                        {{ rsvp.get('available') ?
+                                                                        {{ rsvp.get('capacity').value ? (
+                                                                        rsvp.get('available') ?
                                                                         rsvp.get('available').value :
-                                                                        rsvp.get('capacity').value }}
+                                                                        rsvp.get('capacity').value ) : 'Unlimited' }}
                                                                     </td>
 
                                                                     <td class="ticket_edit">

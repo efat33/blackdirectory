@@ -149,11 +149,11 @@
         </div>
 
         <!-- event rsvp -->
-        <div *ngIf="event.rsvp?.length > 0" class="epta-sidebar-box">
+        <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
+          You have {{ userRsvp?.total }} RSVPs for this Event.
+        </div>
 
-          <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
-            You have {{ userRsvp?.total }} RSVPs for this Event.
-          </div>
+        <div *ngIf="event.rsvp?.length > 0" class="epta-sidebar-box">
 
           <div id="rsvp-now" class="tribe-common event-tickets">
             <div *ngFor="let item of event.rsvp; let index = index" class="tribe-tickets__rsvp-wrapper">
@@ -174,8 +174,9 @@
 
                     <div
                       class="tribe-tickets__rsvp-availability tribe-common-h6 tribe-common-h--alt tribe-common-b3--min-medium">
-                      <span class="tribe-tickets__rsvp-availability-quantity tribe-common-b2--bold">
-                        {{ item.available }} </span> remaining,
+                      <span *ngIf="item.capacity"><span
+                          class="tribe-tickets__rsvp-availability-quantity tribe-common-b2--bold">
+                          {{ item.available }} </span> remaining,</span>
 
                       <span class="tribe-tickets__rsvp-availability-days-to-rsvp">
                         {{ item.end_sale | rsvpTimeLeft }} to RSVP</span>
