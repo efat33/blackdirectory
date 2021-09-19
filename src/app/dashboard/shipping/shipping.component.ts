@@ -63,11 +63,11 @@ export class ShippingComponent implements OnInit {
     if (!this.isEditing || this.f.invalid) {
       return;
     }
-    const { id, title, amount } = this.f.value;
+    const { id, title, fee } = this.f.value;
     this.shippingService
       .putShippingMethod(id, {
         title,
-        fee: amount,
+        fee,
         shipping_order: this.options.find((o) => o.id === id).shipping_order,
       })
       .subscribe(
@@ -86,11 +86,11 @@ export class ShippingComponent implements OnInit {
     if (this.f.invalid) {
       return;
     }
-    const { title, amount } = this.f.value;
+    const { title, fee } = this.f.value;
     this.shippingService
       .postShippingMethod({
         title,
-        fee: amount,
+        fee,
         shipping_order: (this.options[this.options.length - 1]?.shipping_order || 0) + 1,
       })
       .subscribe(

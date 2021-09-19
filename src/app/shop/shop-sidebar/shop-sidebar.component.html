@@ -10,9 +10,9 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <p *ngFor="let vendor of vendors.controls; let i = index">
+    <p *ngFor="let vendor of getVisibleVendors(); let i = index">
       <mat-checkbox
-        *ngIf="i < 7 || viewAllVendors"
+        color="primary"
         [formControl]="vendor.get('checked')"
         [value]="vendor.get('id').value"
         (change)="onFiltersChange()"
@@ -20,8 +20,11 @@
         {{ vendor.get('name').value }}
       </mat-checkbox>
     </p>
-    <button *ngIf="!viewAllVendors && vendors.length > 6" mat-button (click)="viewAllVendors = true">View all</button>
-    <!-- <button *ngIf="viewAllVendors" mat-button (click)="viewAllVendors = false">Collapse vendors</button> -->
+    <label>
+      <input style="display: none" type="checkbox" [formControl]="viewAllVendors" />
+      <strong *ngIf="showViewAllVendors()">View all</strong>
+      <strong *ngIf="showViewLessVendors()">View Less</strong>
+    </label>
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -36,6 +39,7 @@
 
     <span>{{ priceControl.value[0] | currency }} - {{ priceControl.value[1] | currency }}</span>
     <nouislider
+      [connect]="true"
       [min]="priceMin"
       [max]="priceMax"
       [step]="5"

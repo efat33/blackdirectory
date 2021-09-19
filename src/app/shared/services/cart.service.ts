@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, mergeMapTo, pluck, shareReplay, tap } from 'rxjs/operators';
+import { map, mergeMap, mergeMapTo, pluck, shareReplay, tap } from 'rxjs/operators';
 import { ApiResponse, ProductDetails, ProductList } from 'src/app/shared/services/product.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { HelperService } from '../helper.service';
+import { ShippingOptionsService } from './shipping-options.service';
+import { Coupon, CouponService } from './coupon.service';
 
 interface ProductCartBase {
   id: number;
@@ -16,9 +19,12 @@ interface ProductCartBase {
 }
 interface ProductCartApi extends ProductCartBase {
   quantity: number;
-  user_id: number;
   created_at: string;
   updated_at: string;
+  user_id: number;
+  vendor_id: number;
+  vendor_display_name: string;
+  vendor_username: string;
 }
 interface ProductCart extends ProductCartBase {
   created_at: Date;
@@ -30,13 +36,12 @@ interface CartItem {
 }
 export interface CartItemPopulated extends ProductCart {
   quantity: number;
+  user_id: number;
+  vendor_id: number;
+  vendor_display_name: string;
+  vendor_username: string;
 }
 export type Cart = CartItemPopulated[];
-export interface Coupon {
-  code: string;
-  id: number;
-  discount: number;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -44,25 +49,24 @@ export interface Coupon {
 export class CartService {
   private BASE_URL = 'api/shop/cart';
   private CART_LOCAL_STORAGE_KEY = 'blackdirectory_cart';
-  private COUPON_LOCAL_STORAGE_KEY = 'blackdirectory_coupon';
-  private appliedCoupon$ = new BehaviorSubject<Coupon>({
-    code: '',
-    discount: 0,
-    id: null,
-  });
   private cart$ = new BehaviorSubject<Cart>([]);
   private isLoggedIn: boolean = this.helperService.currentUserInfo != null;
 
-  constructor(private http: HttpClient, private snackbar: SnackBarService, private helperService: HelperService) {
+  constructor(
+    private http: HttpClient,
+    private snackbar: SnackBarService,
+    private helperService: HelperService,
+    private shippingOptionsService: ShippingOptionsService,
+    private couponService: CouponService
+  ) {
     this.initCart();
-    this.initCoupon();
-    this.appliedCoupon.subscribe((coupon) => {
-      sessionStorage.setItem(this.COUPON_LOCAL_STORAGE_KEY, JSON.stringify(coupon));
-    });
   }
 
   get appliedCoupon(): Observable<Coupon> {
-    return this.appliedCoupon$.asObservable().pipe(shareReplay(1));
+    return this.couponService.appliedCoupon;
+  }
+  get shippingOptionsForm(): FormArray {
+    return this.shippingOptionsService.form;
   }
   get cart(): Observable<Cart> {
     return this.cart$.asObservable().pipe(shareReplay(1));
@@ -73,13 +77,12 @@ export class CartService {
   }
   get discountAmount(): Observable<number> {
     return combineLatest([this.subtotal, this.appliedCoupon]).pipe(
-      map(([subtotal, coupon]) => ({ subtotal, discount: coupon.discount })),
-      map(({ subtotal, discount }) => subtotal * (discount / 100))
+      map(([subtotal]) => this.couponService.calculateDiscountAmount(subtotal))
     );
   }
   get total(): Observable<number> {
-    return combineLatest([this.subtotal, this.discountAmount]).pipe(
-      map(([subtotal, discountAmount]) => subtotal - discountAmount)
+    return combineLatest([this.subtotal, this.discountAmount, this.shippingOptionsService.totalShippingCost$]).pipe(
+      map(([subtotal, discountAmount, shippingCosts]) => subtotal - discountAmount + shippingCosts)
     );
   }
 
@@ -98,6 +101,7 @@ export class CartService {
             server,
             merge: this.mergeCarts(local, server),
           })),
+          // tslint:disable-next-line: no-shadowed-variable
           mergeMap(({ server, merge }) => {
             // Updates server if merge cart is different;
             const getItemQuantity = (cart: Cart, productId: number): number => {
@@ -120,18 +124,6 @@ export class CartService {
     } else {
       this.cart$.next(localCart);
     }
-  }
-
-  private initCoupon(): void {
-    const localCoupon = sessionStorage.getItem(this.COUPON_LOCAL_STORAGE_KEY);
-    const coupon = localCoupon
-      ? JSON.parse(localCoupon)
-      : {
-          code: '',
-          discount: 0,
-          id: null,
-        };
-    this.appliedCoupon$.next(coupon);
   }
 
   private parseProductCart(p: ProductCartApi): CartItemPopulated {
@@ -173,7 +165,16 @@ export class CartService {
       product_title: product.title,
       created_at: new Date(),
       updated_at: new Date(),
+      user_id: product.user_id,
+      vendor_id: -1,
+      vendor_display_name: product.store_name || product.user_display_name || '---',
+      vendor_username: product.user_username || '---',
     };
+  }
+
+  setShippingMethods(cart: Cart) {
+    const vendorsMap = this.shippingOptionsService.extractVendorsFromItems(cart || []);
+    this.shippingOptionsService.updateShippingOptionsForm(vendorsMap);
   }
 
   private getCartItems(): Observable<Cart> {
@@ -197,20 +198,6 @@ export class CartService {
 
   private clearCartItems(): Observable<any> {
     return this.http.delete<ApiResponse<any>>(`${this.BASE_URL}-clear`);
-  }
-
-  private getPromoCode(code: string): Observable<Coupon> {
-    return this.http.get<ApiResponse<any>>(`api/shop/promo-code/${code}`).pipe(
-      pluck('data'),
-      map((data) => data[0]),
-      catchError((_) => {
-        return of({
-          code: '',
-          discount: 0,
-          id: null,
-        });
-      })
-    );
   }
 
   addToCart(product: ProductDetails | ProductList, quantity: number = 1): void {
@@ -249,7 +236,6 @@ export class CartService {
     }
     const cart = this.cart$.value;
     const i = cart.findIndex((item) => item.product_id === productId);
-    console.log(cart, productId);
     if (i < 0) {
       return;
     }
@@ -303,9 +289,10 @@ export class CartService {
   }
 
   applyCoupon(code: string): Observable<boolean> {
-    return this.getPromoCode(code).pipe(
-      tap((coupon) => this.appliedCoupon$.next(coupon)),
-      map((coupon) => coupon.discount > 0)
-    );
+    return this.couponService.applyCoupon(code);
+  }
+
+  getShippingMethods(): { vendor_id: number; shipping_id: number }[] {
+    return this.shippingOptionsService.getShippingIds();
   }
 }

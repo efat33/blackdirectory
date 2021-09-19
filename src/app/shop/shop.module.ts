@@ -11,6 +11,8 @@ import { ShopComponent } from './shop/shop.component';
 import { CheckoutFailComponent } from './checkout-fail/checkout-fail.component';
 import { ShopSidebarComponent } from './shop-sidebar/shop-sidebar.component';
 import { CategorySelectorComponent } from './shop-sidebar/category-selector/category-selector.component';
+import { VendorComponent } from './vendor/vendor.component';
+import { ShippingMethodSelectorComponent } from './shipping-method-selector/shipping-method-selector.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { CategorySelectorComponent } from './shop-sidebar/category-selector/cate
     CheckoutFailComponent,
     ShopSidebarComponent,
     CategorySelectorComponent,
+    VendorComponent,
+    ShippingMethodSelectorComponent,
   ],
   imports: [CommonModule, ShopRoutingModule, SharedModule],
 })

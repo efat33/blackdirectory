@@ -48,28 +48,6 @@ export type ProductStatus = 'publish';
 interface ProductBase {
   title: string;
   price: number;
-  category_id: number;
-  categories:
-    | number[]
-    | {
-        id: number;
-        parent_id: number | null;
-        title: string;
-        image: string;
-      }[];
-  options:
-    | {
-        option_id: number;
-        choices: number[];
-      }[]
-    | {
-        id: number;
-        title: string;
-        choices: {
-          id: number;
-          title: string;
-        }[];
-      }[];
   image: string;
   galleries: string[];
   description: string;
@@ -83,7 +61,7 @@ interface ProductBase {
   sku?: string;
   purchase_note?: string;
 }
-interface PopulatedProduct extends ProductBase {
+export interface ProductList extends ProductBase {
   id: number;
   user_id: number;
   slug: string;
@@ -95,13 +73,12 @@ interface PopulatedProduct extends ProductBase {
   rating_average: number;
   created_at: Date;
   updated_at: Date;
+  store_name: string;
+  user_display_name: string;
+  user_username: string;
 }
 
-export interface ProductList extends PopulatedProduct {
-  category_name: string;
-}
-
-export interface ProductDetails extends PopulatedProduct {
+export interface ProductDetails extends ProductList {
   tags: Tag[];
   categories: {
     id: number;
@@ -122,7 +99,6 @@ export interface ProductDetails extends PopulatedProduct {
 export interface PostNewProductBody extends ProductBase {
   tags: number[];
   categories: number[];
-  category_id: undefined;
   options: {
     option_id: number;
     choices: number[];
