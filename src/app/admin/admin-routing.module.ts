@@ -30,6 +30,7 @@ import { ProductsComponent } from '../dashboard/products/products.component';
 import { ProductCategoriesComponent } from './products/product-categories/product-categories.component';
 import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
 import { AllOrdersListComponent } from './products/orders/orders.component';
+import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
 
 const routes: Routes = [
   {
@@ -72,12 +73,12 @@ const routes: Routes = [
       { path: 'manage-faqs', component: ManageFaqsComponent },
 
       { path: 'products', component: ProductsComponent },
-      { path: 'products/new', component: ProductsNewComponent },
-      { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
-      { path: 'products/categories', component: ProductCategoriesComponent },
-      { path: 'products/options', component: ProductCategoryOptionsComponent },
-      { path: 'products/orders', component: AllOrdersListComponent },
-      // { path: 'products/withdraw-requests', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
+      { path: 'product-new', component: ProductsNewComponent },
+      { path: 'product-edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
+      { path: 'product-categories', component: ProductCategoriesComponent },
+      { path: 'product-options', component: ProductCategoryOptionsComponent },
+      { path: 'all-orders', component: AllOrdersListComponent },
+      { path: 'withdraw-requests', component: AllWithdrawRequestsComponent },
     ],
   },
 ];
