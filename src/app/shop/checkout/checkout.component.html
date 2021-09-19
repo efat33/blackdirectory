@@ -45,6 +45,7 @@
         <th>DISCOUNT</th>
         <td>- {{ discountAmount$ | async | currency }}</td>
       </tr>
+      <tr app-shipping-method-selector [form]="form" *ngFor="let form of shippingOptionsForm.controls"></tr>
       <tr>
         <th>TOTAL</th>
         <td>{{ total$ | async | currency }}</td>

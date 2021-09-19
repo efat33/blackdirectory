@@ -1,0 +1,11 @@
+th,
+td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+th,
+td {
+  padding: 1.5rem;
+}
+th {
+  width: min(150px, 40%);
+}

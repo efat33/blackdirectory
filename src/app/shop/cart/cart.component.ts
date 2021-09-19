@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
-import { CartItemPopulated, CartService, Coupon } from 'src/app/shared/services/cart.service';
+import { CartItemPopulated, CartService } from 'src/app/shared/services/cart.service';
+import { Coupon } from 'src/app/shared/services/coupon.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-cart',
@@ -35,6 +35,9 @@ export class CartComponent implements OnInit {
   get cartItemCount$(): Observable<number> {
     return this.cartService.cartItemCount;
   }
+  get shippingOptionsForm(): FormArray {
+    return this.cartService.shippingOptionsForm;
+  }
 
   ngOnInit(): void {
     this.cartService.cart
@@ -48,6 +51,7 @@ export class CartComponent implements OnInit {
       )
       .subscribe((data) => {
         this.dataSource.data = data;
+        this.cartService.setShippingMethods(data);
       });
     this.appliedCoupon$.subscribe((coupon) => {
       if (coupon.discount > 0) {
