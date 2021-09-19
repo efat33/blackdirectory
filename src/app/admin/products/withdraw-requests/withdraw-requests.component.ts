@@ -1,6 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { PaymentMethods, WithdrawService } from 'src/app/shared/services/withdraw.service';
@@ -21,6 +22,7 @@ export class AllWithdrawRequestsComponent implements OnInit, AfterViewInit, OnDe
   displayedColumns = ['id', 'amount', 'payment_method', 'status', 'date', 'approve'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private withdrawService: WithdrawService,
@@ -35,6 +37,7 @@ export class AllWithdrawRequestsComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
