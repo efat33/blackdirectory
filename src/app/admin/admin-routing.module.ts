@@ -29,6 +29,7 @@ import { ProductsNewComponent } from '../dashboard/products-new/products-new.com
 import { ProductsComponent } from '../dashboard/products/products.component';
 import { ProductCategoriesComponent } from './products/product-categories/product-categories.component';
 import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
+import { AllOrdersListComponent } from './products/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -75,7 +76,8 @@ const routes: Routes = [
       { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
       { path: 'products/categories', component: ProductCategoriesComponent },
       { path: 'products/options', component: ProductCategoryOptionsComponent },
-      // { path: 'withdraw-requests', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
+      { path: 'products/orders', component: AllOrdersListComponent },
+      // { path: 'products/withdraw-requests', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
     ],
   },
 ];

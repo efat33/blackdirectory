@@ -30,6 +30,7 @@ import { ProductCategoryOptionsComponent } from './products/product-category-opt
 import { AddProductCategoryOptionModalComponent } from './products/product-category-options/add-product-category-option-modal/add-product-category-option-modal';
 import { AddProductOptionChoiceModalComponent } from './products/product-category-options/add-product-option-choice-modal/add-product-option-choice-modal';
 import { AssignCategoryOptionsModalComponent } from './products/product-categories/assign-option-modal/assign-option-modal';
+import { AllOrdersListComponent } from './products/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AssignCategoryOptionsModalComponent } from './products/product-categori
     AddProductCategoryOptionModalComponent,
     AddProductOptionChoiceModalComponent,
     AssignCategoryOptionsModalComponent,
+    AllOrdersListComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

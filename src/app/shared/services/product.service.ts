@@ -373,4 +373,8 @@ export class ProductService {
   assignCategoryOptions(body: any): Observable<any> {
     return this.http.put<any>(`${this.BASE_URL}/assign-category-options`, body);
   }
+
+  getAllOrders(): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/all-orders`);
+  }
 }

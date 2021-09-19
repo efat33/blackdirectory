@@ -103,8 +103,8 @@ import { ResetPasswordModal } from '../modals/user/reset-password/reset-password
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { ProductPriceComponent } from './components/product-price/product-price.component';
-import { MatTreeModule } from '@angular/material/tree';
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
