@@ -165,8 +165,8 @@ export class CartService {
       product_title: product.title,
       created_at: new Date(),
       updated_at: new Date(),
-      user_id: product.user_id,
-      vendor_id: -1,
+      user_id: -1,
+      vendor_id: product.user_id,
       vendor_display_name: product.store_name || product.user_display_name || '---',
       vendor_username: product.user_username || '---',
     };
