@@ -1,0 +1,39 @@
+.add-category {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin-left: 5px;
+  }
+}
+
+.category-tree {
+  margin-top: 20px;
+}
+
+.leaf-node {
+  margin-left: 40px;
+}
+
+mat-tree-node {
+  border-top: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: 1px solid #eee;
+  }
+}
+
+.selected {
+  background-color: var(--color-primary);
+
+  * {
+    color: #ffffff;
+  }
+}
+
+.options-text {
+  color: #666;
+  font-size: 12px;
+}
+
+

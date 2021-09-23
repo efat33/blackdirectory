@@ -27,6 +27,10 @@ import { ProductResolver } from '../dashboard/products-edit/product-edit.resolve
 import { ProductsEditComponent } from '../dashboard/products-edit/products-edit.component';
 import { ProductsNewComponent } from '../dashboard/products-new/products-new.component';
 import { ProductsComponent } from '../dashboard/products/products.component';
+import { ProductCategoriesComponent } from './products/product-categories/product-categories.component';
+import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
+import { AllOrdersListComponent } from './products/orders/orders.component';
+import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
 
 const routes: Routes = [
   {
@@ -53,7 +57,7 @@ const routes: Routes = [
       { path: 'news-categories', component: NewsCategoriesComponent },
       { path: 'top-news', component: TopNewsComponent },
 
-    { path: 'job-sectors', component: JobSectorsComponent },
+      { path: 'job-sectors', component: JobSectorsComponent },
 
       { path: 'listing-categories', component: ListingCategoriesComponent },
       { path: 'listing-claims', component: ListingClaimsComponent },
@@ -69,9 +73,12 @@ const routes: Routes = [
       { path: 'manage-faqs', component: ManageFaqsComponent },
 
       { path: 'products', component: ProductsComponent },
-      { path: 'products/new', component: ProductsNewComponent },
-      { path: 'products/edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
-      // { path: 'withdraw-requests', component: WithdrawComponent, resolve: { data: WithdrawResolver } },
+      { path: 'product-new', component: ProductsNewComponent },
+      { path: 'product-edit/:slug', component: ProductsEditComponent, resolve: { product: ProductResolver } },
+      { path: 'product-categories', component: ProductCategoriesComponent },
+      { path: 'product-options', component: ProductCategoryOptionsComponent },
+      { path: 'all-orders', component: AllOrdersListComponent },
+      { path: 'withdraw-requests', component: AllWithdrawRequestsComponent },
     ],
   },
 ];

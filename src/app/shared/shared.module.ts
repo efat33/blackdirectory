@@ -104,6 +104,7 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { ProductPriceComponent } from './components/product-price/product-price.component';
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -214,6 +215,8 @@ import { BdyImagePipe } from './pipes/bdy-image.pipe';
     MatCardModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    MatTreeModule,
+    MatListModule,
   ],
   exports: [
     FormsModule,
@@ -289,6 +292,8 @@ import { BdyImagePipe } from './pipes/bdy-image.pipe';
     PaginationComponent,
     HttpClientModule,
     HttpClientJsonpModule,
+    MatTreeModule,
+    MatListModule,
   ],
   entryComponents: [
     RegistrationModal,

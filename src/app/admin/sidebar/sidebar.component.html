@@ -145,7 +145,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
-              <ul *ngIf="true" class="sidebar-menu-submenus">
+              <ul class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a
@@ -161,7 +161,7 @@
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
                     <a
-                      [routerLink]="['products/new']"
+                      [routerLink]="['product-new']"
                       routerLinkActive="dashboard-link-active"
                       [routerLinkActiveOptions]="{ exact: true }"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
@@ -173,7 +173,43 @@
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a
-                      [routerLink]="['withdraw']"
+                      [routerLink]="['product-categories']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Categories</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['product-options']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Options</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['all-orders']"
+                      routerLinkActive="dashboard-link-active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
+                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-address-card-o"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Orders</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
+                  ></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a
+                      [routerLink]="['withdraw-requests']"
                       routerLinkActive="dashboard-link-active"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
                       ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-money"></i></span>
