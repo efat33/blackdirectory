@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -57,6 +57,7 @@ export const DATE_FORMATS = {
       useClass: APIInterceptor,
       multi: true,
     },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'GBP' },
   ],
   bootstrap: [AppComponent],
 })

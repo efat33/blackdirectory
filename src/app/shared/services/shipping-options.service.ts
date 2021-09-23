@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 import { ShippingOption, ShippingService } from './shipping.service';
 
 export interface ShippingOptionForm {
@@ -17,10 +17,12 @@ export interface ShippingOptionForm {
 export class ShippingOptionsService {
   form = new FormArray([]);
   totalShippingCost$ = this.form.valueChanges.pipe(
+    startWith([]),
     shareReplay(1),
     map((values) =>
       values.reduce((acc, { options, selectedOption }) => acc + this.getSelectedOptionFee(options, selectedOption), 0)
-    )
+    ),
+    map((cost) => (isNaN(cost) || cost < 0 ? 0 : cost))
   );
 
   constructor(private shippingService: ShippingService) {}
