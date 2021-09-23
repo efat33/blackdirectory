@@ -215,14 +215,21 @@
         <!-- event tickets -->
         <div class="epta-sidebar-box">
           <div class="tribe-link-view-attendee" *ngIf="userTickets.length > 0">
-            You have {{userTickets.length}} Tickets for this Event. <a
-              [routerLink]="['/events/details', eventSlug, 'tickets']">View your Tickets</a>
+            You have {{userTickets.length}} Tickets for this Event.
+            <!-- <a [routerLink]="['/events/details', eventSlug, 'tickets']">View your Tickets</a> -->
           </div>
 
-          <div class="tickets">
+          <div *ngIf="event.tickets?.length > 0" class="tickets">
             <h3>Tickets</h3>
 
-            <ng-container *ngFor="let ticket of event.tickets">
+            <div *ngIf="tickets.availalbe?.length == 0">
+              <p *ngIf="tickets.notyet_availalbe; else nolongerAvail">Tickets not yet available</p>
+              <ng-template #nolongerAvail>
+                <p>Tickets no longer available</p>
+              </ng-template>
+            </div>
+
+            <ng-container *ngFor="let ticket of tickets.availalbe">
 
               <div *ngIf="ticket.available !== 0" class="ticket">
                 <div class="ticket-title">
@@ -247,7 +254,7 @@
               </div>
             </ng-container>
 
-            <div class="summary">
+            <div *ngIf="tickets.availalbe?.length > 0" class="summary">
               <div class="quantity" *ngIf="totalTicketQuantity > 0">
                 Quantity:<br><strong>{{totalTicketQuantity}}</strong></div>
               <div class="total" *ngIf="totalTicketQuantity > 0">Total:<br><strong>£ {{totalTicketPrice | number:
