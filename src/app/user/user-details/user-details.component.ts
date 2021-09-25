@@ -83,7 +83,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.userType = res.data.data.role;
         this.userMeta = this.helperService.prepareMetaData(res.data.meta_data);
         this.userProfile = res.data;
-        
+
         // populdate data
         this.populateData();
 
@@ -373,6 +373,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   followEmployer() {
     if (!this.helperService.currentUserInfo) {
       this.snackbar.openSnackBar('Requires login', 'Close', 'warn');
+
+      return;
+    }
+
+    if (this.helperService.currentUserInfo.id === this.currentUser.id) {
+      this.snackbar.openSnackBar('Cannot follow yourself', 'Close', 'warn');
+
       return;
     }
 

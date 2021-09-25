@@ -47,14 +47,14 @@ export class JobListingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.selectedSector = parseInt(params['sector']);
-    });
 
-    this.initializeFilterForm();
-    this.getJobSectors();
-    this.getJobs();
-    this.getJobCount();
-    this.getFavoriteJobs();
-    this.initializeGoogleMap();
+      this.initializeFilterForm();
+      this.getJobSectors();
+      this.getJobs();
+      this.getJobCount();
+      this.getFavoriteJobs();
+      this.initializeGoogleMap();
+    });
   }
 
   initializeFilterForm() {
