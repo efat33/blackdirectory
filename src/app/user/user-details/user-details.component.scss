@@ -395,3 +395,27 @@ ul.jobsearch-jobdetail-media {
 .jobsearch-jobdetail-services small {
 	line-height: 1.2;
 }
+
+.jobsearch-option-btn {
+  color: #fff;
+
+  &.contract {
+    background-color: #186FC9;
+  }
+
+  &.full-time {
+    background-color: #186FC9;
+  }
+
+  &.internship {
+    background-color: #53B427;
+  }
+
+  &.part-time {
+    background-color: #f1630d;
+  }
+
+  &.temporary {
+    background-color: #f1630d;
+  }
+}
