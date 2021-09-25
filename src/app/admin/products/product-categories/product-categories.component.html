@@ -1,0 +1,56 @@
+<div id="new-job-basic-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <header class="content-box_header__xPnGx clearfix">
+    <div class="wil-float-left">
+      <h4 class="content-box_title__1gBHS">
+        <span>Product Categories</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <div class="add-category">
+      <div>
+        <button *ngIf="selectedCategory" mat-raised-button color="primary" (click)="assignOption()">Assign Options</button>
+      </div>
+
+      <div>
+        <button *ngIf="!selectedCategory" mat-raised-button color="primary" (click)="addCategory()">Add
+          Category</button>
+
+        <button *ngIf="selectedCategory && selectedCategory.level < 2" mat-raised-button color="primary"
+          (click)="addCategory()">Add Subcategory</button>
+        <button *ngIf="selectedCategory" mat-raised-button color="primary" (click)="editCategory()">Edit
+          Category</button>
+        <button *ngIf="selectedCategory" mat-raised-button color="warn" (click)="deleteCategory()">Delete
+          Category</button>
+      </div>
+    </div>
+
+    <div class="category-tree">
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="selectCategory(node)"
+          [ngClass]="{'selected': node === selectedCategory}">
+          <div class="leaf-node">
+            {{node.title}} <span class="options-text">{{node.options}}</span>
+          </div>
+        </mat-tree-node>
+
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding (click)="selectCategory(node)"
+          [ngClass]="{'selected': node === selectedCategory}">
+          <div>
+            <button mat-icon-button matTreeNodeToggle>
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+
+            {{node.title}} <span class="options-text">{{node.options}}</span>
+          </div>
+        </mat-tree-node>
+      </mat-tree>
+    </div>
+
+  </div>
+</div>
