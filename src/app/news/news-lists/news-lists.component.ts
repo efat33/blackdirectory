@@ -25,7 +25,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
   featuredNews: any;
 
-  newsPerSection: number = 3;
+  newsPerSection: number = 7;
 
   constructor(
     private route: ActivatedRoute,

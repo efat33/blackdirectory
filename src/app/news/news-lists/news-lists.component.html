@@ -1,6 +1,6 @@
 <div class="wil-content wilcity-archive">
   <section class="wil-section">
-    <div class="container">
+    <div class="container news-lists">
       <div class="row" *ngIf="topNews">
         <!-- Top News -->
         <div class="col-xs-12 gamma">
@@ -57,8 +57,8 @@
 
             <ng-container *ngIf="allNews">
               <ng-container *ngFor="let news of allNews; let index = index">
-                <div class="col-xs-12" [ngClass]="{'col-md-6': index % 5 != 0}">
-                  <div class="article" [ngClass]="index % 5 == 0 ? 'article-tri-headline' : 'article-small'">
+                <div class="col-xs-12" [ngClass]="{'col-md-6': index % newsPerSection != 0}">
+                  <div class="article" [ngClass]="index % newsPerSection == 0 ? 'article-tri-headline' : 'article-small'">
                     <h2 class="linkro-darkred">
                       <a [routerLink]="['/news/details', news.slug]">{{news.title}}</a>
                     </h2>
@@ -88,7 +88,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="index % 5 == 4" class="col-xs-12 home item thin_divide module">
+                <div *ngIf="index % newsPerSection == newsPerSection - 1" class="col-xs-12 home item thin_divide module">
                   <div class="thin-split ccox link-ccox linkro-box bdrcc">
                     <h6></h6>
                   </div>
@@ -119,8 +119,8 @@
 
                 <ng-container *ngIf="categoryItem.value">
                   <ng-container *ngFor="let news of categoryItem.value; let index = index">
-                    <div class="col-xs-12" [ngClass]="{'col-md-6': index % 5 != 0}">
-                      <div class="article" [ngClass]="index % 5 == 0 ? 'article-tri-headline' : 'article-small'">
+                    <div class="col-xs-12" [ngClass]="{'col-md-6': index % newsPerSection != 0}">
+                      <div class="article" [ngClass]="index % newsPerSection == 0 ? 'article-tri-headline' : 'article-small'">
                         <h2 class="linkro-darkred">
                           <a [routerLink]="['/news/details', news.slug]">{{news.title}}</a>
                         </h2>
@@ -150,7 +150,7 @@
                       </div>
                     </div>
 
-                    <div *ngIf="index % 5 == 4" class="col-xs-12 home item thin_divide module">
+                    <div *ngIf="index % newsPerSection == newsPerSection - 1" class="col-xs-12 home item thin_divide module">
                       <div class="thin-split ccox link-ccox linkro-box bdrcc">
                         <h6></h6>
                       </div>
