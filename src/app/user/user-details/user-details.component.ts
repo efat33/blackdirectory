@@ -49,11 +49,16 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   candidateSaved: boolean = false;
   followingEmployer: boolean = false;
 
+  activeJobsCount: number;
+  activeJobs: any[] = [];
+  page: number = 1;
+  favoriteJobIds = [];
+
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private helperService: HelperService,
+    public helperService: HelperService,
     private userService: UserService,
     private spinnerService: SpinnerService,
     private jobService: JobService,
@@ -83,7 +88,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.userType = res.data.data.role;
         this.userMeta = this.helperService.prepareMetaData(res.data.meta_data);
         this.userProfile = res.data;
-        
+
         // populdate data
         this.populateData();
 
@@ -94,8 +99,11 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
         if (this.helperService.isEmployer()) {
           this.getSavedCandidates();
+          this.getActiveJobsCount();
+          this.getActiveJobs();
         } else if (this.helperService.isCandidate()) {
           this.getFollowingEmployers();
+          this.getFavoriteJobs();
         }
 
         this.initializeGoogleMap();
@@ -373,6 +381,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   followEmployer() {
     if (!this.helperService.currentUserInfo) {
       this.snackbar.openSnackBar('Requires login', 'Close', 'warn');
+
+      return;
+    }
+
+    if (this.helperService.currentUserInfo.id === this.currentUser.id) {
+      this.snackbar.openSnackBar('Cannot follow yourself', 'Close', 'warn');
+
       return;
     }
 
@@ -409,6 +424,132 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
       this.subscriptions.add(subscription);
     }
+  }
+
+  getActiveJobs() {
+    const filter = {
+      user_id: this.currentUser.id,
+    };
+
+    this.spinnerService.show();
+    const subscription = this.jobService.getJobs(filter, this.page, 5).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.activeJobs.push(...result.data);
+        this.page++;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
+
+  getActiveJobsCount() {
+    const filter = {
+      user_id: this.currentUser.id,
+    };
+
+    this.spinnerService.show();
+    const subscription = this.jobService.getJobCount(filter).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.activeJobsCount = result.data.count;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
+
+  getJobType(job: any) {
+    const jobType = this.jobService.jobTypes.find((type) => type.value === job.job_type)?.viewValue;
+
+    return jobType || '';
+  }
+
+  getFavoriteJobs() {
+    if (!this.helperService.isCandidate()) {
+      return;
+    }
+
+    this.spinnerService.show();
+    const getFavoriteJobsSubs = this.jobService.getFavoriteJobs().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.favoriteJobIds = result.data.map((favJob) => favJob.job_id);
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getFavoriteJobsSubs);
+  }
+
+  isFavoriteJob(job: any) {
+    return this.favoriteJobIds.includes(job.id);
+  }
+
+  updateFavoriteJob(job: any) {
+    if (!this.helperService.isCandidate()) {
+      this.snackbar.openSnackBar(`Requires 'Candidate' login`, 'Close', 'warn');
+      return;
+    }
+
+    if (this.isFavoriteJob(job)) {
+      this.deleteFavoriteJob(job);
+    } else {
+      this.saveFavoriteJob(job);
+    }
+  }
+
+  saveFavoriteJob(job: any) {
+    this.spinnerService.show();
+    const saveFavoriteSubscription = this.jobService.saveFavoriteJob(job.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar('Job saved as favorite');
+
+        this.favoriteJobIds.push(job.id);
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(saveFavoriteSubscription);
+  }
+
+  deleteFavoriteJob(job: any) {
+    this.spinnerService.show();
+    const saveFavoriteSubscription = this.jobService.deleteFavoriteJob(job.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.snackbar.openSnackBar('Job removed from favorites');
+
+        const index = this.favoriteJobIds.indexOf(job.id);
+        this.favoriteJobIds.splice(index, 1);
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(saveFavoriteSubscription);
   }
 
   ngOnDestroy() {
