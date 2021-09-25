@@ -35,8 +35,6 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   totalNumProducts$ = this.productService.getTotalNumberOfProducts({ user_id: this.userId });
   adminProfit = this.helperService.adminProfit;
 
-  editRoutePathStart: string = '';
-
   constructor(private productService: ProductService, private helperService: HelperService, private router: Router) {}
 
   get userId(): number {
@@ -44,8 +42,6 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.editRoutePathStart = `/${this.router.url.split('/')[1]}`;
-
     this.dataSource = new ProductsDataSource(this.productService, this.userId);
     this.dataSource.loadProducts();
   }
@@ -76,5 +72,15 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   applyFilter(): void {
     this.dataSource.setFilter(this.filterForm.value);
+  }
+
+  getEditProductLink(item: any) {
+    const editRoutePathStart = `/${this.router.url.split('/')[1]}`;
+
+    if (editRoutePathStart === '/admin') {
+      return editRoutePathStart + '/product-edit/' + item.slug;
+    }
+
+    return editRoutePathStart + '/products/edit/' + item.slug;
   }
 }

@@ -78,6 +78,11 @@ div.article-icon-links-container {
   min-height: 1px;
 }
 
+.news-lists .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .article-icon-links-container .article-icon-links li.facebook,
 .article-icon-links-container .article-icon-links li.twitter {
   height: 30px;
@@ -173,6 +178,7 @@ div.article-icon-links-container ul.article-icon-links li a .linktext {
   font-size: 1em;
   margin-bottom: 15px;
   position: relative;
+  width: 100%;
 }
 
 .thick-split,

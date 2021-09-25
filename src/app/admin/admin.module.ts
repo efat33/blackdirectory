@@ -24,6 +24,14 @@ import { ManagePagesComponent } from './pages/manage-pages/manage-pages.componen
 import { NewPageComponent } from './pages/new-page/new-page.component';
 import { ManageFaqsComponent } from './pages/manage-faqs/manage-faqs.component';
 import { AddFaqModalComponent } from './pages/manage-faqs/add-faq-modal/add-faq-modal';
+import { ProductCategoriesComponent } from './products/product-categories/product-categories.component';
+import { AddProductCategoryModalComponent } from './products/product-categories/add-product-category-modal/add-product-category-modal';
+import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
+import { AddProductCategoryOptionModalComponent } from './products/product-category-options/add-product-category-option-modal/add-product-category-option-modal';
+import { AddProductOptionChoiceModalComponent } from './products/product-category-options/add-product-option-choice-modal/add-product-option-choice-modal';
+import { AssignCategoryOptionsModalComponent } from './products/product-categories/assign-option-modal/assign-option-modal';
+import { AllOrdersListComponent } from './products/orders/orders.component';
+import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +53,15 @@ import { AddFaqModalComponent } from './pages/manage-faqs/add-faq-modal/add-faq-
     ManagePagesComponent,
     NewPageComponent,
     ManageFaqsComponent,
-    AddFaqModalComponent
+    AddFaqModalComponent,
+    ProductCategoriesComponent,
+    AddProductCategoryModalComponent,
+    ProductCategoryOptionsComponent,
+    AddProductCategoryOptionModalComponent,
+    AddProductOptionChoiceModalComponent,
+    AssignCategoryOptionsModalComponent,
+    AllOrdersListComponent,
+    AllWithdrawRequestsComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

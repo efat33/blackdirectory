@@ -52,4 +52,8 @@ export class WithdrawService {
       })
     );
   }
+
+  getAllData(): Observable<WithdrawData> {
+    return this.http.get<ApiResponse<WithdrawData>>(`${this.BASE_URL}s-all`).pipe(pluck('data'));
+  }
 }
