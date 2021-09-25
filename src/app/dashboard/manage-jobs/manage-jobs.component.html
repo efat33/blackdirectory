@@ -60,7 +60,7 @@
                           <span>{{job.deadline | date:'MMM d, y'}}</span>
                         </li>
                         <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i> <a
-                            href="http://nirectory.com/job/premium-job/?sector_cat=charity-nonprofit&amp;ajax_filter=true"
+                            [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}"
                             class="" [innerHTML]="job.job_sector"></a>
                         </li>
                         <li>
