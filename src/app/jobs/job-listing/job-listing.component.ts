@@ -45,7 +45,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
+    const queryParamsSub = this.route.queryParams.subscribe((params) => {
       this.selectedSector = parseInt(params['sector']);
 
       this.initializeFilterForm();
@@ -55,6 +55,8 @@ export class JobListingComponent implements OnInit, OnDestroy {
       this.getFavoriteJobs();
       this.initializeGoogleMap();
     });
+
+    this.subscriptions.add(queryParamsSub);
   }
 
   initializeFilterForm() {
