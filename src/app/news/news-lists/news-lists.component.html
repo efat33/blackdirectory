@@ -100,7 +100,7 @@
           <!-- Category News in Home page -->
           <ng-container *ngIf="!categorySlug">
             <ng-container *ngFor="let categoryItem of newsByCategory | keyvalue">
-              <div class="row">
+              <div class="row" *ngIf="categoryItem.value?.length">
                 <div class="home item gradient_divide module">
                   <div class="gradient-split wocc link-wocc linkro-wocc">
                     <h6>
