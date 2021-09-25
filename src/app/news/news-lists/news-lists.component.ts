@@ -13,6 +13,7 @@ import { NewsService } from '../news.service';
 export class NewsListComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
+  pageHeadline: string = 'News';
   categorySlug: string;
   categoryId: number;
 
@@ -47,6 +48,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
         if (this.categorySlug) {
           this.categoryId = result.data.find((cat: any) => cat.slug === this.categorySlug)?.id;
+          this.pageHeadline = result.data.find((cat: any) => cat.slug === this.categorySlug)?.name;
         } else {
           for (const category of result.data) {
             this.newsByCategory[category.id] = null;

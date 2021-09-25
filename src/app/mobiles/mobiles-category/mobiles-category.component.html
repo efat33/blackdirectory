@@ -1,241 +1,244 @@
 <div class="wil-content wilcity-archive">
-  <div class="container">
-    <h2 class="page-title">{{categoryName}} Deals</h2>
-
-    <div class="display-mobiles-area">
-      <div class="mbl-filter-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i></div>
-      <div class="mobiles-row-sort">
-        <span class="custom-dropdown">
-          <select (change)="onChangeOrderBy($event.target.value)">
-            <option value="">Sort By</option>
-            <option value="cost">Monthly cost</option>
-            <option value="data">Data allowance</option>
-            <option value="contract">Contract length</option>
-          </select>
-        </span>
-      </div>
-      <div class="jobsearch-row" *ngIf="filterForm">
-        <div class="jobsearch-column-3 mobiles-sim-sidebar-col jobsearch-typo-wrap">
-          <div class="mobiles-sim-sidebar">
-            <div class="jobsearch-checkbox-toggle single-mbl-filter single-mbl-filter-header">
-              <h3><i class="fas fa-sliders-h"></i>Filters</h3>
-            </div>
-            <div class="jobsearch-checkbox-toggle single-mbl-filter single-mbl-filter-contract">
-              <p>
-                <label for="amount">Providers</label>
-              </p>
-              <div class="filter-provider-options">
-                <a *ngFor="let provider of providers" [ngClass]="{'active': selectedProviders.includes(provider.id)}"
-                  (click)="onClickProvider(provider)">
-                  <img [src]="provider.logo | imageSrc:'mobiles':'thumb'">
-                </a>
+  <section class="wil-section has-page-heading">
+    <div class="container">
+      <h1 class="has-text-align-center heading_title__1bzno">{{categoryName}} Deals</h1>
+      <div class="display-mobiles-area">
+        <div class="mbl-filter-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i></div>
+        <div class="mobiles-row-sort">
+          <span class="custom-dropdown">
+            <select (change)="onChangeOrderBy($event.target.value)">
+              <option value="">Sort By</option>
+              <option value="cost">Monthly cost</option>
+              <option value="data">Data allowance</option>
+              <option value="contract">Contract length</option>
+            </select>
+          </span>
+        </div>
+        <div class="jobsearch-row" *ngIf="filterForm">
+          <div class="jobsearch-column-3 mobiles-sim-sidebar-col jobsearch-typo-wrap">
+            <div class="mobiles-sim-sidebar">
+              <div class="jobsearch-checkbox-toggle single-mbl-filter single-mbl-filter-header">
+                <h3><i class="fas fa-sliders-h"></i>Filters</h3>
               </div>
-            </div>
-
-            <div class="jobsearch-checkbox-toggle single-mbl-filter">
-              <p>
-                <label for="amount">Monthly cost (£)</label>
-
-              </p>
-              <div class="div-mbl-filter-slider">
-                <div class="filter-slider-left"><span id="filter-value-price-min">{{f.cost.value[0]}}</span></div>
-
-                <nouislider [config]="costsSliderConfig" [formControl]="f.cost" (end)="onFilter()">
-                </nouislider>
-
-                <div class="filter-slider-top"><span id="filter-value-price-max">{{f.cost.value[1]}}</span></div>
-              </div>
-            </div>
-            <div class="jobsearch-checkbox-toggle single-mbl-filter">
-              <p>
-                <label for="amount">Data (GB)</label>
-
-              </p>
-              <div class="div-mbl-filter-slider-toggle">
-                <div class="filter-slider-toggle-left">Unlimited data</div>
-                <div class="filter-slider-toggle-right">
-                  <label class="switch">
-                    <input id="filter-toggle-data" class="input-filter-toggle" type="checkbox"
-                      [(ngModel)]="unlimitedData" (ngModelChange)="onFilter()">
-                    <span class="slider-filter round"></span>
-                  </label>
+              <div class="jobsearch-checkbox-toggle single-mbl-filter single-mbl-filter-contract">
+                <p>
+                  <label for="amount">Providers</label>
+                </p>
+                <div class="filter-provider-options">
+                  <a *ngFor="let provider of providers" [ngClass]="{'active': selectedProviders.includes(provider.id)}"
+                    (click)="onClickProvider(provider)">
+                    <img [src]="provider.logo | imageSrc:'mobiles':'thumb'">
+                  </a>
                 </div>
               </div>
-              <div class="div-mbl-filter-slider">
-                <div class="filter-slider-left"><span id="filter-value-data-min">{{f.data.value[0]}}</span></div>
 
-                <nouislider [disabled]="unlimitedData" [config]="dataSliderConfig" [formControl]="f.data"
-                  (end)="onFilter()">
-                </nouislider>
+              <div class="jobsearch-checkbox-toggle single-mbl-filter">
+                <p>
+                  <label for="amount">Monthly cost (£)</label>
 
-                <div class="filter-slider-top"><span id="filter-value-data-max">{{isUnlimited(f.data.value[1]) ? 'Unltd'
-                    : f.data.value[1]}}</span></div>
-              </div>
-            </div>
-            <div class="jobsearch-checkbox-toggle single-mbl-filter">
-              <p>
-                <label for="amount">Minutes:</label>
+                </p>
+                <div class="div-mbl-filter-slider">
+                  <div class="filter-slider-left"><span id="filter-value-price-min">{{f.cost.value[0]}}</span></div>
 
-              </p>
-              <div class="div-mbl-filter-slider-toggle">
-                <div class="filter-slider-toggle-left">Unlimited minutes</div>
-                <div class="filter-slider-toggle-right">
-                  <label class="switch">
-                    <input id="filter-toggle-minutes" class="input-filter-toggle" type="checkbox"
-                      [(ngModel)]="unlimitedMinutes" (ngModelChange)="onFilter()">
-                    <span class="slider-filter round"></span>
-                  </label>
+                  <nouislider [config]="costsSliderConfig" [formControl]="f.cost" (end)="onFilter()">
+                  </nouislider>
+
+                  <div class="filter-slider-top"><span id="filter-value-price-max">{{f.cost.value[1]}}</span></div>
                 </div>
               </div>
-              <div class="div-mbl-filter-slider">
-                <div class="filter-slider-left"><span id="filter-value-minutes-min">{{f.minutes.value[0]}}</span></div>
+              <div class="jobsearch-checkbox-toggle single-mbl-filter">
+                <p>
+                  <label for="amount">Data (GB)</label>
 
-                <nouislider [disabled]="unlimitedMinutes" [config]="minutesAndTextsSliderConfig"
-                  [formControl]="f.minutes" (end)="onFilter()">
-                </nouislider>
+                </p>
+                <div class="div-mbl-filter-slider-toggle">
+                  <div class="filter-slider-toggle-left">Unlimited data</div>
+                  <div class="filter-slider-toggle-right">
+                    <label class="switch">
+                      <input id="filter-toggle-data" class="input-filter-toggle" type="checkbox"
+                        [(ngModel)]="unlimitedData" (ngModelChange)="onFilter()">
+                      <span class="slider-filter round"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="div-mbl-filter-slider">
+                  <div class="filter-slider-left"><span id="filter-value-data-min">{{f.data.value[0]}}</span></div>
 
-                <div class="filter-slider-top"><span id="filter-value-minutes-max">{{isUnlimited(f.minutes.value[1]) ?
-                    'Unltd'
-                    : f.minutes.value[1]}}</span></div>
-              </div>
-            </div>
-            <div class="jobsearch-checkbox-toggle single-mbl-filter">
-              <p>
-                <label for="amount">Texts:</label>
+                  <nouislider [disabled]="unlimitedData" [config]="dataSliderConfig" [formControl]="f.data"
+                    (end)="onFilter()">
+                  </nouislider>
 
-              </p>
-              <div class="div-mbl-filter-slider-toggle">
-                <div class="filter-slider-toggle-left">Unlimited texts</div>
-                <div class="filter-slider-toggle-right">
-                  <label class="switch">
-                    <input id="filter-toggle-texts" class="input-filter-toggle" type="checkbox"
-                      [(ngModel)]="unlimitedTexts" (ngModelChange)="onFilter()">
-                    <span class="slider-filter round"></span>
-                  </label>
+                  <div class="filter-slider-top"><span id="filter-value-data-max">{{isUnlimited(f.data.value[1]) ?
+                      'Unltd'
+                      : f.data.value[1]}}</span></div>
                 </div>
               </div>
-              <div class="div-mbl-filter-slider">
-                <div class="filter-slider-left"><span id="filter-value-texts-min">{{f.texts.value[0]}}</span></div>
+              <div class="jobsearch-checkbox-toggle single-mbl-filter">
+                <p>
+                  <label for="amount">Minutes:</label>
 
-                <nouislider [disabled]="unlimitedTexts" [config]="minutesAndTextsSliderConfig" [formControl]="f.texts"
-                  (end)="onFilter()">
-                </nouislider>
+                </p>
+                <div class="div-mbl-filter-slider-toggle">
+                  <div class="filter-slider-toggle-left">Unlimited minutes</div>
+                  <div class="filter-slider-toggle-right">
+                    <label class="switch">
+                      <input id="filter-toggle-minutes" class="input-filter-toggle" type="checkbox"
+                        [(ngModel)]="unlimitedMinutes" (ngModelChange)="onFilter()">
+                      <span class="slider-filter round"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="div-mbl-filter-slider">
+                  <div class="filter-slider-left"><span id="filter-value-minutes-min">{{f.minutes.value[0]}}</span>
+                  </div>
 
-                <div class="filter-slider-top"><span id="filter-value-texts-max">{{isUnlimited(f.texts.value[1]) ?
-                    'Unltd'
-                    : f.texts.value[1]}}</span></div>
+                  <nouislider [disabled]="unlimitedMinutes" [config]="minutesAndTextsSliderConfig"
+                    [formControl]="f.minutes" (end)="onFilter()">
+                  </nouislider>
+
+                  <div class="filter-slider-top"><span id="filter-value-minutes-max">{{isUnlimited(f.minutes.value[1]) ?
+                      'Unltd'
+                      : f.minutes.value[1]}}</span></div>
+                </div>
               </div>
-            </div>
-            <div class="jobsearch-checkbox-toggle single-mbl-filter single-mbl-filter-contract">
-              <p>
-                <label for="amount">Contract Length</label>
-              </p>
-              <div class="filter-contract-length">
-                <div class="fcl-row">
-                  <a class="single-fcl" [ngClass]="{'active': selectedContracts.includes('any')}"
-                    (click)="onChangeContract('any')">Any</a>
+              <div class="jobsearch-checkbox-toggle single-mbl-filter">
+                <p>
+                  <label for="amount">Texts:</label>
 
-                  <a *ngFor="let contract of contracts" class="single-fcl"
-                    [ngClass]="{'active': selectedContracts.includes(contract)}"
-                    (click)="onChangeContract(contract)">{{contract}} Month{{contract | pluralPipe}}</a>
+                </p>
+                <div class="div-mbl-filter-slider-toggle">
+                  <div class="filter-slider-toggle-left">Unlimited texts</div>
+                  <div class="filter-slider-toggle-right">
+                    <label class="switch">
+                      <input id="filter-toggle-texts" class="input-filter-toggle" type="checkbox"
+                        [(ngModel)]="unlimitedTexts" (ngModelChange)="onFilter()">
+                      <span class="slider-filter round"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="div-mbl-filter-slider">
+                  <div class="filter-slider-left"><span id="filter-value-texts-min">{{f.texts.value[0]}}</span></div>
 
-                  <a class="single-fcl" [ngClass]="{'active': selectedContracts.includes(0)}"
-                    (click)="onChangeContract(0)">No Contract</a>
+                  <nouislider [disabled]="unlimitedTexts" [config]="minutesAndTextsSliderConfig" [formControl]="f.texts"
+                    (end)="onFilter()">
+                  </nouislider>
+
+                  <div class="filter-slider-top"><span id="filter-value-texts-max">{{isUnlimited(f.texts.value[1]) ?
+                      'Unltd'
+                      : f.texts.value[1]}}</span></div>
+                </div>
+              </div>
+              <div class="jobsearch-checkbox-toggle single-mbl-filter single-mbl-filter-contract">
+                <p>
+                  <label for="amount">Contract Length</label>
+                </p>
+                <div class="filter-contract-length">
+                  <div class="fcl-row">
+                    <a class="single-fcl" [ngClass]="{'active': selectedContracts.includes('any')}"
+                      (click)="onChangeContract('any')">Any</a>
+
+                    <a *ngFor="let contract of contracts" class="single-fcl"
+                      [ngClass]="{'active': selectedContracts.includes(contract)}"
+                      (click)="onChangeContract(contract)">{{contract}} Month{{contract | pluralPipe}}</a>
+
+                    <a class="single-fcl" [ngClass]="{'active': selectedContracts.includes(0)}"
+                      (click)="onChangeContract(0)">No Contract</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
 
-        <div class="jobsearch-column-9 jobsearch-typo-wrap">
-          <div class="single-mobile-area">
-            <div *ngIf="topMobile" class="single-mobile-row top-pick">
-              <span class="top-pick-leble">TOP PICK</span>
-              <div class="single-mobile-top">
-                <div class="single-mobile-coln mobile-network">
-                  <img [src]="topMobile.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
-                </div>
-
-                <div class="single-mobile-coln mobile-text">
-                  <h5 class="mobile-info-value">{{isUnlimited(topMobile.texts) ? 'Unltd' : topMobile.texts}}</h5>
-                  <p class="mobile-info-param">texts</p>
-                </div>
-
-                <div class="single-mobile-coln mobile-minutes">
-                  <h5 class="mobile-info-value">{{isUnlimited(topMobile.minutes) ? 'Unltd' : topMobile.minutes}}</h5>
-                  <p class="mobile-info-param">minutes</p>
-                </div>
-
-                <div class="single-mobile-coln single-mobile-coln-bg mobile-data">
-                  <h5 class="mobile-info-value">{{isUnlimited(topMobile.data) ? 'Unltd' : topMobile.data + 'GB'}}</h5>
-                  <p class="mobile-info-param">data</p>
-                </div>
-
-                <div class="single-mobile-coln single-mobile-coln-bg mobile-contract">
-                  <h5 class="mobile-info-value">{{topMobile.contract_length}}</h5>
-                  <p class="mobile-info-param">month<br>contract</p>
-                </div>
-
-                <div class="single-mobile-coln single-mobile-coln-bg mobile-price">
-                  <h5 class="mobile-info-value">£{{topMobile.cost}}</h5>
-                  <p class="mobile-info-param">per<br>month</p>
-                </div>
-
-                <div class="single-mobile-coln mobile-link">
-                  <a target="_blank" href="{{topMobile.link}}">Visit Now</a>
-                </div>
-              </div>
-
-              <div class="single-mobile-bottom" [innerHTML]="topMobile.description"></div>
-            </div>
-
-            <div class="mobile-area-filtered" *ngIf="mobiles">
-              <div *ngFor="let mobile of mobiles" class="single-mobile-row">
+          <div class="jobsearch-column-9 jobsearch-typo-wrap">
+            <div class="single-mobile-area">
+              <div *ngIf="topMobile" class="single-mobile-row top-pick">
+                <span class="top-pick-leble">TOP PICK</span>
                 <div class="single-mobile-top">
                   <div class="single-mobile-coln mobile-network">
-                    <img [src]="mobile.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
+                    <img [src]="topMobile.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
                   </div>
 
                   <div class="single-mobile-coln mobile-text">
-                    <h5 class="mobile-info-value">{{isUnlimited(mobile.texts) ? 'Unltd' : mobile.texts}}</h5>
+                    <h5 class="mobile-info-value">{{isUnlimited(topMobile.texts) ? 'Unltd' : topMobile.texts}}</h5>
                     <p class="mobile-info-param">texts</p>
                   </div>
 
                   <div class="single-mobile-coln mobile-minutes">
-                    <h5 class="mobile-info-value">{{isUnlimited(mobile.minutes) ? 'Unltd' : mobile.minutes}}</h5>
+                    <h5 class="mobile-info-value">{{isUnlimited(topMobile.minutes) ? 'Unltd' : topMobile.minutes}}</h5>
                     <p class="mobile-info-param">minutes</p>
                   </div>
 
                   <div class="single-mobile-coln single-mobile-coln-bg mobile-data">
-                    <h5 class="mobile-info-value">{{isUnlimited(mobile.data) ? 'Unltd' : mobile.data + 'GB'}}</h5>
+                    <h5 class="mobile-info-value">{{isUnlimited(topMobile.data) ? 'Unltd' : topMobile.data + 'GB'}}</h5>
                     <p class="mobile-info-param">data</p>
                   </div>
 
                   <div class="single-mobile-coln single-mobile-coln-bg mobile-contract">
-                    <h5 class="mobile-info-value">{{mobile.contract_length}}</h5>
+                    <h5 class="mobile-info-value">{{topMobile.contract_length}}</h5>
                     <p class="mobile-info-param">month<br>contract</p>
                   </div>
 
                   <div class="single-mobile-coln single-mobile-coln-bg mobile-price">
-                    <h5 class="mobile-info-value">£{{mobile.cost}}</h5>
+                    <h5 class="mobile-info-value">£{{topMobile.cost}}</h5>
                     <p class="mobile-info-param">per<br>month</p>
                   </div>
 
                   <div class="single-mobile-coln mobile-link">
-                    <a target="_blank" href="{{mobile.link}}">Visit Now</a>
+                    <a target="_blank" href="{{topMobile.link}}">Visit Now</a>
                   </div>
                 </div>
 
-                <div class="single-mobile-bottom" [innerHTML]="mobile.description"></div>
+                <div class="single-mobile-bottom" [innerHTML]="topMobile.description"></div>
               </div>
 
-              <pagination [totalItems]="totalItems" [currentPage]="currentPage" [pageSize]="pageSize"
-                (pageChange)="onPageChange($event)"></pagination>
+              <div class="mobile-area-filtered" *ngIf="mobiles">
+                <div *ngFor="let mobile of mobiles" class="single-mobile-row">
+                  <div class="single-mobile-top">
+                    <div class="single-mobile-coln mobile-network">
+                      <img [src]="mobile.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
+                    </div>
+
+                    <div class="single-mobile-coln mobile-text">
+                      <h5 class="mobile-info-value">{{isUnlimited(mobile.texts) ? 'Unltd' : mobile.texts}}</h5>
+                      <p class="mobile-info-param">texts</p>
+                    </div>
+
+                    <div class="single-mobile-coln mobile-minutes">
+                      <h5 class="mobile-info-value">{{isUnlimited(mobile.minutes) ? 'Unltd' : mobile.minutes}}</h5>
+                      <p class="mobile-info-param">minutes</p>
+                    </div>
+
+                    <div class="single-mobile-coln single-mobile-coln-bg mobile-data">
+                      <h5 class="mobile-info-value">{{isUnlimited(mobile.data) ? 'Unltd' : mobile.data + 'GB'}}</h5>
+                      <p class="mobile-info-param">data</p>
+                    </div>
+
+                    <div class="single-mobile-coln single-mobile-coln-bg mobile-contract">
+                      <h5 class="mobile-info-value">{{mobile.contract_length}}</h5>
+                      <p class="mobile-info-param">month<br>contract</p>
+                    </div>
+
+                    <div class="single-mobile-coln single-mobile-coln-bg mobile-price">
+                      <h5 class="mobile-info-value">£{{mobile.cost}}</h5>
+                      <p class="mobile-info-param">per<br>month</p>
+                    </div>
+
+                    <div class="single-mobile-coln mobile-link">
+                      <a target="_blank" href="{{mobile.link}}">Visit Now</a>
+                    </div>
+                  </div>
+
+                  <div class="single-mobile-bottom" [innerHTML]="mobile.description"></div>
+                </div>
+
+                <pagination [totalItems]="totalItems" [currentPage]="currentPage" [pageSize]="pageSize"
+                  (pageChange)="onPageChange($event)"></pagination>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>

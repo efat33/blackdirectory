@@ -149,11 +149,11 @@
         </div>
 
         <!-- event rsvp -->
-        <div *ngIf="event.rsvp?.length > 0" class="epta-sidebar-box">
+        <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
+          You have {{ userRsvp?.total }} RSVPs for this Event.
+        </div>
 
-          <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
-            You have {{ userRsvp?.total }} RSVPs for this Event.
-          </div>
+        <div *ngIf="event.rsvp?.length > 0" class="epta-sidebar-box">
 
           <div id="rsvp-now" class="tribe-common event-tickets">
             <div *ngFor="let item of event.rsvp; let index = index" class="tribe-tickets__rsvp-wrapper">
@@ -174,8 +174,9 @@
 
                     <div
                       class="tribe-tickets__rsvp-availability tribe-common-h6 tribe-common-h--alt tribe-common-b3--min-medium">
-                      <span class="tribe-tickets__rsvp-availability-quantity tribe-common-b2--bold">
-                        {{ item.available }} </span> remaining,
+                      <span *ngIf="item.capacity"><span
+                          class="tribe-tickets__rsvp-availability-quantity tribe-common-b2--bold">
+                          {{ item.available }} </span> remaining,</span>
 
                       <span class="tribe-tickets__rsvp-availability-days-to-rsvp">
                         {{ item.end_sale | rsvpTimeLeft }} to RSVP</span>
@@ -214,14 +215,21 @@
         <!-- event tickets -->
         <div class="epta-sidebar-box">
           <div class="tribe-link-view-attendee" *ngIf="userTickets.length > 0">
-            You have {{userTickets.length}} Tickets for this Event. <a
-              [routerLink]="['/events/details', eventSlug, 'tickets']">View your Tickets</a>
+            You have {{userTickets.length}} Tickets for this Event.
+            <!-- <a [routerLink]="['/events/details', eventSlug, 'tickets']">View your Tickets</a> -->
           </div>
 
-          <div class="tickets">
+          <div *ngIf="event.tickets?.length > 0" class="tickets">
             <h3>Tickets</h3>
 
-            <ng-container *ngFor="let ticket of event.tickets">
+            <div *ngIf="tickets.availalbe?.length == 0">
+              <p *ngIf="tickets.notyet_availalbe; else nolongerAvail">Tickets not yet available</p>
+              <ng-template #nolongerAvail>
+                <p>Tickets no longer available</p>
+              </ng-template>
+            </div>
+
+            <ng-container *ngFor="let ticket of tickets.availalbe">
 
               <div *ngIf="ticket.available !== 0" class="ticket">
                 <div class="ticket-title">
@@ -246,7 +254,7 @@
               </div>
             </ng-container>
 
-            <div class="summary">
+            <div *ngIf="tickets.availalbe?.length > 0" class="summary">
               <div class="quantity" *ngIf="totalTicketQuantity > 0">
                 Quantity:<br><strong>{{totalTicketQuantity}}</strong></div>
               <div class="total" *ngIf="totalTicketQuantity > 0">Total:<br><strong>£ {{totalTicketPrice | number:

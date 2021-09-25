@@ -571,22 +571,29 @@
                                                                     </td>
 
                                                                     <td class="ticket_price" data-label="Price:">
-                                                                        <span *ngIf="ticket.get('price').value"
+                                                                        <span
+                                                                            *ngIf="ticket.get('price').value; else freeTicket"
                                                                             class="woocommerce-Price-amount amount"><bdi><span
                                                                                     class="woocommerce-Price-currencySymbol">£</span>{{ticket.get('price').value}}</bdi></span>
+                                                                        <ng-template #freeTicket>
+                                                                            <span>Free</span>
+                                                                        </ng-template>
                                                                     </td>
 
                                                                     <td class="ticket_capacity">
                                                                         <span class="tribe-mobile-only">Capacity:</span>
-                                                                        {{ticket.get('capacity').value}}
+                                                                        {{ ticket.get('capacity').value ?
+                                                                        ticket.get('capacity').value :
+                                                                        'Unlimited' }}
                                                                     </td>
 
                                                                     <td class="ticket_available">
                                                                         <span
                                                                             class="tribe-mobile-only">Available:</span>
-                                                                        {{ ticket.get('available') ?
+                                                                        {{ ticket.get('capacity').value ? (
+                                                                        ticket.get('available') ?
                                                                         ticket.get('available').value :
-                                                                        ticket.get('capacity').value }}
+                                                                        ticket.get('capacity').value ) : 'Unlimited' }}
                                                                     </td>
 
                                                                     <td class="ticket_edit">
@@ -620,15 +627,18 @@
 
                                                                     <td class="ticket_capacity">
                                                                         <span class="tribe-mobile-only">Capacity:</span>
-                                                                        {{rsvp.get('capacity').value}}
+                                                                        {{ rsvp.get('capacity').value ?
+                                                                        rsvp.get('capacity').value :
+                                                                        'Unlimited' }}
                                                                     </td>
 
                                                                     <td class="ticket_available">
                                                                         <span
                                                                             class="tribe-mobile-only">Available:</span>
-                                                                        {{ rsvp.get('available') ?
+                                                                        {{ rsvp.get('capacity').value ? (
+                                                                        rsvp.get('available') ?
                                                                         rsvp.get('available').value :
-                                                                        rsvp.get('capacity').value }}
+                                                                        rsvp.get('capacity').value ) : 'Unlimited' }}
                                                                     </td>
 
                                                                     <td class="ticket_edit">
