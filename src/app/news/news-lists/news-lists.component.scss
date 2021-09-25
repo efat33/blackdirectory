@@ -28,9 +28,6 @@ ul {
   line-height: 1em;
 }
 
-h2 {
-  font-weight: 700;
-}
 
 .article {
   margin-bottom: 15px;
@@ -153,10 +150,7 @@ div.article-icon-links-container ul.article-icon-links li a .linktext {
   font-size: 14px;
 }
 
-.bold,
-.generic h3 {
-  font-weight: 700;
-}
+
 
 .cleared:after,
 .page:after {
@@ -240,7 +234,6 @@ body .home .linkro-ccox a:hover {
 .article-star-search h3 {
   margin: 5px 0 0;
   font-size: 1em;
-  font-weight: 700;
 }
 
 .article-large h2,
@@ -290,17 +283,16 @@ body .home .linkro-ccox a:hover {
 }
 
 .puff h3 {
-  font-weight: bold;
   font-size: 1.1em;
   text-transform: uppercase;
-  padding: 4px 5px 2px;
+  padding: 7px 7px 7px;
   margin-bottom: 5px;
 }
 
 .puff a {
   display: block;
-  min-height: 115px;
   margin-bottom: 5px;
+  overflow: hidden;
 }
 
 .bogr2,
@@ -312,8 +304,7 @@ body .home .linkro-ccox a:hover {
 
 .puff img {
   float: right;
-  max-height: 115px;
-  max-width: 154px;
+  max-width: 170px;
   object-fit: contain;
 }
 
@@ -325,6 +316,7 @@ body .home .linkro-ccox a:hover {
 
 .puff a .pufftext span {
   margin-right: 3px;
+  margin-top: 2px;
 }
 
 .puff a strong {
@@ -390,7 +382,6 @@ body .home .linkro-ccox a:hover {
 .thin-split h6 {
   font-size: 1.4em;
   color: #ffffff;
-  font-weight: 600;
 }
 
 .gradient-split div {
@@ -419,6 +410,10 @@ body .home .linkro-ccox a:hover {
   z-index: 1;
   background: rgba(0, 0, 0, 0);
   padding: 7px 5px;
+}
+
+span.pufftext strong {
+  font-weight: 400;
 }
 
 @media only screen and (max-width: 767px) {

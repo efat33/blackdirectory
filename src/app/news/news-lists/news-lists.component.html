@@ -1,6 +1,7 @@
 <div class="wil-content wilcity-archive">
-  <section class="wil-section">
+  <section class="wil-section has-page-heading">
     <div class="container">
+      <h1 class="has-text-align-center heading_title__1bzno">{{ pageHeadline }}</h1>
       <div class="row" *ngIf="topNews">
         <!-- Top News -->
         <div class="col-xs-12 gamma">
@@ -141,7 +142,8 @@
                                 rel="nofollow">
                                 <span class="icon"></span>
                                 <span class="linktext">
-                                  <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span> comments
+                                  <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span>
+                                  comments
                                 </span>
                               </a>
                             </li>

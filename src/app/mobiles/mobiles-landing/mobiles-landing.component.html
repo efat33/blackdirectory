@@ -1,10 +1,11 @@
 <div class="wil-content wilcity-archive">
-  <section class="wil-section">
+  <section class="wil-section has-page-heading">
     <div class="container">
+      <h1 class="has-text-align-center heading_title__1bzno">Latest Deals</h1>
       <div class="latest-deals-section" *ngIf="latestDeals.length > 0">
-        <h2>Latest Deals</h2>
 
-        <swiper [autoHeight]="true" [navigation]="true" [loop]="true" [autoplay]="{ delay: 5000, disableOnInteraction: false }">
+        <swiper [autoHeight]="true" [navigation]="true" [loop]="true"
+          [autoplay]="{ delay: 5000, disableOnInteraction: false }">
           <ng-template *ngFor="let deal of latestDeals; let index = index" swiperSlide>
             <div class="single-mobile-row">
               <div class="single-mobile-top">

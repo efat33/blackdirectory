@@ -1,3 +1,15 @@
+
+@media screen and (min-width:1900px) {
+    .wil-tb__cell.header-cell-left {
+        text-align: center;
+    }
+    .wil-tb__cell.header-cell-right {
+        position: absolute;
+        right: 0;
+    }
+}
+
+
 @media screen and (min-width:768px) and (max-width:1024px) {
     .single-mobile-coln.mobile-link a {
         padding: .7em .5em;
@@ -23,9 +35,6 @@
     }
 }
 
-@media screen and (min-width:992px) and (max-width:1024px) {
-   
-}
 
 @media screen and (max-width:767px) {
     .header_btnGroup__3L61P .wil-btn i {
