@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { InformationDialogComponent } from 'src/app/modals/information-dialog/information-dialog';
 import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
+import { SendEmailModalComponent } from 'src/app/modals/send-email/send-email-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
@@ -177,6 +178,13 @@ export class ManageJobComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(subscription);
+  }
+
+  sendEmail(jobApplication: any) {
+    this.dialog.open(SendEmailModalComponent, {
+      minWidth: '35vw',
+      data: { to: jobApplication.user.email },
+    });
   }
 
   ngOnDestroy() {

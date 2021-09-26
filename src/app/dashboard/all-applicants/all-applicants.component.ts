@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
 import { InformationDialogComponent } from 'src/app/modals/information-dialog/information-dialog';
 import { UserService } from 'src/app/user/user.service';
+import { SendEmailModalComponent } from 'src/app/modals/send-email/send-email-modal';
 
 @Component({
   selector: 'app-all-applicants',
@@ -221,6 +222,13 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(subscription);
+  }
+
+  sendEmail(jobApplication: any) {
+    this.dialog.open(SendEmailModalComponent, {
+      minWidth: '35vw',
+      data: { to: jobApplication.user.email },
+    });
   }
 
   onSubmit() {}

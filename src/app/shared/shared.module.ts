@@ -105,6 +105,7 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { ProductPriceComponent } from './components/product-price/product-price.component';
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
+import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
 
 
 @NgModule({
@@ -162,6 +163,7 @@ import { BdyImagePipe } from './pipes/bdy-image.pipe';
     ProductPriceComponent,
     BdyImagePipe,
     InformationDialogComponent,
+    SendEmailModalComponent,
   ],
   imports: [
     CommonModule,
@@ -297,6 +299,7 @@ import { BdyImagePipe } from './pipes/bdy-image.pipe';
     MatTreeModule,
     MatListModule,
     InformationDialogComponent,
+    SendEmailModalComponent,
   ],
   entryComponents: [
     RegistrationModal,
