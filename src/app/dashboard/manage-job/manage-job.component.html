@@ -9,7 +9,7 @@
         <div class="jobsearch-applicants-tabs">
           <ul class="tabs-list app_tabs_count_3">
             <li [ngClass]="{'active': selectedTab === 0}"><a (click)="selectedTab = 0">Applicants
-                ({{jobApplications.length}})</a>
+                ({{jobApplications.length - rejectedApplications.length}})</a>
             </li>
             <li [ngClass]="{'active': selectedTab === 1}"><a (click)="selectedTab = 1">Shortlisted
                 for Interview ({{shortlistedApplications.length}})</a>
@@ -24,7 +24,9 @@
               <li class="jobsearch-column-12">
                 <ng-container *ngIf="selectedTab === 0">
                   <ng-container *ngFor="let application of jobApplications">
-                    <ng-container *ngTemplateOutlet="applicationTemplate; context:{application: application}">
+                    <ng-container *ngIf="!application.rejected">
+                      <ng-container *ngTemplateOutlet="applicationTemplate; context:{application: application}">
+                      </ng-container>
                     </ng-container>
                   </ng-container>
                 </ng-container>
@@ -106,7 +108,7 @@
                 </li>
                 <li>
                   <a class="reject-cand-to-intrview ajax-enable"
-                    (click)="rejectApplication(application)">{{application.rejected ? 'Rejected' :
+                    (click)="rejectApplication(application)">{{application.rejected ? 'Undo Reject' :
                     'Reject'}}</a>
                 </li>
               </ul>
