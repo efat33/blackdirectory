@@ -44,7 +44,8 @@
 
         <div class="jobsearch-all-aplicantslst">
           <ng-container *ngFor="let applicationGroup of jobApplications">
-            <div *ngIf="applicationGroup.job_title.toLowerCase().includes(searchString.toLowerCase())" class="sjob-aplicants-list">
+            <div *ngIf="applicationGroup.job_title.toLowerCase().includes(searchString.toLowerCase())"
+              class="sjob-aplicants-list">
               <div class="thjob-title">
                 <h2>{{applicationGroup.job_title}}</h2>
                 <div class="total-appcreds-con">
@@ -105,14 +106,20 @@
                                   (clickOutside)="dropdown.style.display = 'none'">Actions
                                   <i class="fa fa-angle-down"></i></a>
                                 <ul #dropdown>
-                                  <li><a class="jobsearch-modelcvrltr-btn-580809" (click)="viewCoverLetter(application)">View
+                                  <li><a class="jobsearch-modelcvrltr-btn-580809"
+                                      (click)="viewCoverLetter(application)">View
                                       Cover Letter</a></li>
+                                  <li>
+                                    <a class="jobsearch-modelemail-btn-580809"
+                                      (click)="downloadCV(application)">Download CV</a>
+                                  </li>
                                   <li>
                                     <a class="jobsearch-modelemail-btn-580809">Email to
                                       Candidate</a>
                                   </li>
                                   <li>
-                                    <a (click)="sendMessage(application)" class="jobsearch-modelemail-btn-580809">Send Message</a>
+                                    <a (click)="sendMessage(application)" class="jobsearch-modelemail-btn-580809">Send
+                                      Message</a>
                                   </li>
                                   <li *ngIf="!application.rejected">
                                     <a class="shortlist-cand-to-intrview ajax-enable"

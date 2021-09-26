@@ -11,6 +11,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { Router } from '@angular/router';
 import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
 import { InformationDialogComponent } from 'src/app/modals/information-dialog/information-dialog';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-all-applicants',
@@ -29,6 +30,7 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private userService: UserService,
     private jobService: JobService,
     private spinnerService: SpinnerService,
     private helperService: HelperService,
@@ -189,6 +191,36 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
       minWidth: '35vw',
       data: { title: 'Cover Letter', message: jobApplication.cover_letter },
     });
+  }
+
+  downloadCV(jobApplication: any) {
+    this.spinnerService.show();
+    const subscription = this.userService.getCandidateCV(jobApplication.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        const extension = result.type === 'application/pdf' ? 'pdf' : 'doc';
+        const downloadURL = window.URL.createObjectURL(result);
+        const link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = `CV_${jobApplication.user.display_name}.${extension}`;
+        link.click();
+      },
+      (error) => {
+        this.spinnerService.hide();
+
+        try {
+          error.error.text().then((response: any) => {
+            const message = JSON.parse(response)?.message;
+            this.snackbar.openSnackBar(message, 'Close', 'warn');
+          });
+        } catch (error) {
+          this.snackbar.openSnackBar('Something went wrong', 'Close', 'warn');
+        }
+      }
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   onSubmit() {}
