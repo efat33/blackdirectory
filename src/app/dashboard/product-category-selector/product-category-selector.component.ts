@@ -103,6 +103,13 @@ export class ProductCategorySelectorComponent implements OnInit, OnChanges {
     while (this.options.length > 0) {
       this.options.removeAt(0);
     }
+    const uniqueOptions = new Map<string, OptionSelection>();
+    options.forEach((option) => {
+      if (!uniqueOptions.has(option.label)) {
+        uniqueOptions.set(option.label, option);
+      }
+    });
+    options = Array.from(uniqueOptions.values());
     const selectedChoices: number[] =
       this.currentValues?.options
         .reduce(

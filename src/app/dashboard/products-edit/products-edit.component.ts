@@ -6,6 +6,7 @@ import { filter, map, pluck, take, withLatestFrom } from 'rxjs/operators';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { PostEditProductBody, ProductDetails, ProductService, Tag } from 'src/app/shared/services/product.service';
+import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
 @Component({
   selector: 'app-products-edit',
@@ -44,6 +45,13 @@ export class ProductsEditComponent implements OnInit {
       ]),
     }),
   });
+
+  ckEditor = DocumentEditor;
+  ckConfig = {
+    placeholder: 'Description',
+    height: 200,
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
+  };
 
   // Tags autocomplete
   tagInput = new FormControl('');
@@ -138,6 +146,12 @@ export class ProductsEditComponent implements OnInit {
 
   removeFile(index: number): void {
     this.files.removeAt(index);
+  }
+
+  onCkeditorReady(editor: DocumentEditor): void {
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
   }
 
   arrangeGalleryInputCount = (galleries: string[]): void => {
