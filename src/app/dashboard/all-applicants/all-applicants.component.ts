@@ -10,6 +10,7 @@ import * as lodash from 'lodash';
 import { HelperService } from 'src/app/shared/helper.service';
 import { Router } from '@angular/router';
 import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
+import { InformationDialogComponent } from 'src/app/modals/information-dialog/information-dialog';
 
 @Component({
   selector: 'app-all-applicants',
@@ -181,6 +182,13 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
     };
 
     this.dialog.open(SendMessageModalComponent, dialogConfig);
+  }
+
+  viewCoverLetter(jobApplication: any) {
+    this.dialog.open(InformationDialogComponent, {
+      minWidth: '35vw',
+      data: { title: 'Cover Letter', message: jobApplication.cover_letter },
+    });
   }
 
   onSubmit() {}
