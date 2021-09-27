@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -17,6 +18,7 @@ declare const google: any;
 export class JobListingComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
+  selectedSector: number;
   sectors = [];
   jobs = [];
   favoriteJobIds = [];
@@ -35,6 +37,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    public route: ActivatedRoute,
     public jobService: JobService,
     public helperService: HelperService,
     private spinnerService: SpinnerService,
@@ -42,12 +45,18 @@ export class JobListingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.initializeFilterForm();
-    this.getJobSectors();
-    this.getJobs();
-    this.getJobCount();
-    this.getFavoriteJobs();
-    this.initializeGoogleMap();
+    const queryParamsSub = this.route.queryParams.subscribe((params) => {
+      this.selectedSector = parseInt(params['sector']);
+
+      this.initializeFilterForm();
+      this.getJobSectors();
+      this.getJobs();
+      this.getJobCount();
+      this.getFavoriteJobs();
+      this.initializeGoogleMap();
+    });
+
+    this.subscriptions.add(queryParamsSub);
   }
 
   initializeFilterForm() {
@@ -57,7 +66,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
       latitude: new FormControl(''),
       longitude: new FormControl(''),
       loc_radius: new FormControl(50),
-      sector: new FormControl(''),
+      sector: new FormControl(this.selectedSector || ''),
       datePosted: new FormControl(''),
       jobType: new FormControl(''),
       salary: new FormControl([5000, 250000]),
@@ -74,7 +83,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
       (result: any) => {
         this.spinnerService.hide();
 
-        this.favoriteJobIds = result.data.map(favJob => favJob.job_id);
+        this.favoriteJobIds = result.data.map((favJob) => favJob.job_id);
       },
       (error) => {
         this.spinnerService.hide();

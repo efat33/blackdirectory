@@ -54,3 +54,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 250px !important;
+}
+
+.job-description-ckeditor {
+  margin: 10px 0;
+}

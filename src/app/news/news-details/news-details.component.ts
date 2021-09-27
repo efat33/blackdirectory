@@ -41,10 +41,12 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.newsSlug = this.route.snapshot.paramMap.get('news-slug');
+    this.route.params.subscribe((params) => {
+      this.newsSlug = this.route.snapshot.paramMap.get('news-slug');
 
-    this.getNews();
-    this.getFeaturedNews();
+      this.getNews();
+      this.getFeaturedNews();
+    });
   }
 
   getNews() {

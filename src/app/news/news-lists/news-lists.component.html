@@ -1,6 +1,7 @@
 <div class="wil-content wilcity-archive">
-  <section class="wil-section">
+  <section class="wil-section has-page-heading">
     <div class="container news-lists">
+      <h1 class="has-text-align-center heading_title__1bzno">{{ pageHeadline }}</h1>
       <div class="row" *ngIf="topNews">
         <!-- Top News -->
         <div class="col-xs-12 gamma">
@@ -58,7 +59,8 @@
             <ng-container *ngIf="allNews">
               <ng-container *ngFor="let news of allNews; let index = index">
                 <div class="col-xs-12" [ngClass]="{'col-md-6': index % newsPerSection != 0}">
-                  <div class="article" [ngClass]="index % newsPerSection == 0 ? 'article-tri-headline' : 'article-small'">
+                  <div class="article"
+                    [ngClass]="index % newsPerSection == 0 ? 'article-tri-headline' : 'article-small'">
                     <h2 class="linkro-darkred">
                       <a [routerLink]="['/news/details', news.slug]">{{news.title}}</a>
                     </h2>
@@ -88,7 +90,8 @@
                   </div>
                 </div>
 
-                <div *ngIf="index % newsPerSection == newsPerSection - 1" class="col-xs-12 home item thin_divide module">
+                <div *ngIf="index % newsPerSection == newsPerSection - 1"
+                  class="col-xs-12 home item thin_divide module">
                   <div class="thin-split ccox link-ccox linkro-box bdrcc">
                     <h6></h6>
                   </div>
@@ -100,7 +103,7 @@
           <!-- Category News in Home page -->
           <ng-container *ngIf="!categorySlug">
             <ng-container *ngFor="let categoryItem of newsByCategory | keyvalue">
-              <div class="row">
+              <div class="row" *ngIf="categoryItem.value?.length">
                 <div class="home item gradient_divide module">
                   <div class="gradient-split wocc link-wocc linkro-wocc">
                     <h6>
@@ -120,7 +123,8 @@
                 <ng-container *ngIf="categoryItem.value">
                   <ng-container *ngFor="let news of categoryItem.value; let index = index">
                     <div class="col-xs-12" [ngClass]="{'col-md-6': index % newsPerSection != 0}">
-                      <div class="article" [ngClass]="index % newsPerSection == 0 ? 'article-tri-headline' : 'article-small'">
+                      <div class="article"
+                        [ngClass]="index % newsPerSection == 0 ? 'article-tri-headline' : 'article-small'">
                         <h2 class="linkro-darkred">
                           <a [routerLink]="['/news/details', news.slug]">{{news.title}}</a>
                         </h2>
@@ -141,7 +145,8 @@
                                 rel="nofollow">
                                 <span class="icon"></span>
                                 <span class="linktext">
-                                  <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span> comments
+                                  <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span>
+                                  comments
                                 </span>
                               </a>
                             </li>
@@ -150,7 +155,8 @@
                       </div>
                     </div>
 
-                    <div *ngIf="index % newsPerSection == newsPerSection - 1" class="col-xs-12 home item thin_divide module">
+                    <div *ngIf="index % newsPerSection == newsPerSection - 1"
+                      class="col-xs-12 home item thin_divide module">
                       <div class="thin-split ccox link-ccox linkro-box bdrcc">
                         <h6></h6>
                       </div>
