@@ -110,6 +110,7 @@
             <div class="jobsearch-content-title">
               <h2>Job Detail</h2>
             </div>
+
             <div class="jobsearch-jobdetail-services">
               <ul class="jobsearch-row">
                 <li class="jobsearch-column-4"> <i class="jobsearch-icon jobsearch-network"></i>
@@ -123,9 +124,11 @@
                 </li>
               </ul>
             </div>
+
             <div class="jobsearch-content-title">
               <h2>Job Description</h2>
             </div>
+
             <div class="jobsearch-description">
               <section class="default-component grey careers-full-width">
                 <div class="student-program-info">
@@ -134,6 +137,19 @@
                 </div>
               </section>
             </div>
+
+            <ng-container *ngIf="job.attachment">
+              <div class="jobsearch-content-title">
+                <h2>Attachment</h2>
+              </div>
+
+              <div class="job-attachment">
+                <a href="{{job.attachment | fileSrc: 'job'}}">
+                  <i class="fa fa-paperclip"></i>
+                  <span>{{job.attachment}}</span>
+                </a>
+              </div>
+            </ng-container>
           </div>
 
           <div class="jobsearch-section-title">
