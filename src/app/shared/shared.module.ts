@@ -34,6 +34,7 @@ import { EventRsvpModal } from '../modals/events/new/event-rsvp/event-rsvp-modal
 import { ContactOwnerModal } from '../modals/listing/details/contact-owner/contact-owner-modal';
 import { RsvpApplyModal } from '../modals/events/details/rsvp-apply/rsvp-apply-modal';
 import { ProductQuickViewModal } from '../modals/product-quick-view/product-quick-view.component';
+import { InformationDialogComponent } from '../modals/information-dialog/information-dialog';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -104,7 +105,8 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { ProductPriceComponent } from './components/product-price/product-price.component';
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
+
 
 @NgModule({
   declarations: [
@@ -160,6 +162,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     OrderListComponent,
     ProductPriceComponent,
     BdyImagePipe,
+    InformationDialogComponent,
+    SendEmailModalComponent,
   ],
   imports: [
     CommonModule,
@@ -294,6 +298,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientJsonpModule,
     MatTreeModule,
     MatListModule,
+    InformationDialogComponent,
+    SendEmailModalComponent,
   ],
   entryComponents: [
     RegistrationModal,
