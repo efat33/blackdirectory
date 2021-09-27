@@ -188,7 +188,7 @@ export class JobService {
     const url = `api/jobs/save-candidate`;
 
     const body = {
-      candidateId
+      candidate_id: candidateId
     };
 
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
