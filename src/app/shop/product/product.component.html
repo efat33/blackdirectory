@@ -84,7 +84,7 @@
     <mat-tab label="Description">
       <ng-template matTabContent>
         <h2>Description</h2>
-        <p>{{ p.description }}</p>
+        <div [innerHTML]="p.description"></div>
       </ng-template>
     </mat-tab>
     <mat-tab label="Reviews">
