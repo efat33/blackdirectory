@@ -128,7 +128,7 @@
                     <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
                       }}</a>
                   </h2>
-                  <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
+                  <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description | excerpt : 15 }}
                   </div>
                   <div class="listing_meta__6BbCG vertical">
                     <a style="position: relative; padding-right: 61px" class="text-ellipsis google-address"
@@ -293,7 +293,7 @@
                   <a href="{{ siteUrl + '/listing/' + item.slug }}">{{ item.title
                     }}</a>
                 </h2>
-                <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description }}
+                <div class="listing_tagline__1cOB3 text-ellipsis">{{ item.description | excerpt : 15 }}
                 </div>
                 <div *ngIf="item.contact && item.contact.phone != ''" class="listing_meta__6BbCG">
                   <a class="text-ellipsis phone-number" href="tel:{{ item.contact.phone }}">
@@ -386,10 +386,8 @@
         <div class="single-blog-grid" *ngFor="let singleNews of news">
           <div class="vc_gitem-animated-block ">
             <div class=" vc_gitem-zone vc-gitem-zone-height-mode-auto"
-              [style.backgroundImage]="'url(' + singleNews.featured_image + ')'"
-              >
-              <a [routerLink]="['/news/details', singleNews.slug]"
-                [title]="singleNews.title"
+              [style.backgroundImage]="'url(' + singleNews.featured_image + ')'">
+              <a [routerLink]="['/news/details', singleNews.slug]" [title]="singleNews.title"
                 class="vc_gitem-link vc-zone-link"></a>
             </div>
           </div>
@@ -405,8 +403,7 @@
               </div>
               <div class="vc_btn3-container vc_btn3-left">
                 <a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-flat vc_btn3-color-juicy-pink"
-                  [routerLink]="['/news/details', singleNews.slug]"
-                  title="Read more">Read more</a>
+                  [routerLink]="['/news/details', singleNews.slug]" title="Read more">Read more</a>
               </div>
             </div>
           </div>

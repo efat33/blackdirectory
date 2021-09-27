@@ -550,7 +550,7 @@ export class NewEventComponent implements OnInit {
    * ======================================
    */
 
-  // remove event ticket from Form Array
+  // remove event rsvp from Form Array
   removeEventRsvp(index: number, rsvp?: any) {
     (this.eventForm.get('rsvp') as FormArray).removeAt(index);
     this.removedRsvp.push(rsvp);
@@ -560,7 +560,7 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  // add / edit ticket of formArray
+  // add / edit rsvp of formArray
   addEventRsvp(formData?: any, isEdit?: boolean, index?: number) {
     if (isEdit) {
       const formGroup = (this.eventForm.get('rsvp') as FormArray).at(index) as FormGroup;
@@ -568,10 +568,11 @@ export class NewEventComponent implements OnInit {
       formGroup.get('title').patchValue(formData.title);
       formGroup.get('capacity').patchValue(formData.capacity);
       formGroup.get('start_sale').patchValue(formData.start_sale);
-      formGroup.get('end_sale').patchValue(formData.end_sale);
+      formGroup.get('end_sale').patchValue(formData.end_sale); 
+
     } else {
       const variationGroup = new FormGroup({
-        id: new FormControl(formData.id || ''),
+        id: new FormControl(formData.id || null),
         title: new FormControl(formData.title || ''),
         capacity: new FormControl(formData.capacity || ''),
         start_sale: new FormControl(formData.start_sale || ''),
@@ -581,7 +582,7 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  // open ticket modal
+  // open rsvp modal
   openRsvpModal(formdata?: any, index?: number): void {
     this.dialogRefRsvp = this.dialog.open(EventRsvpModal, {
       width: '500px',
@@ -623,7 +624,7 @@ export class NewEventComponent implements OnInit {
       formGroup.get('end_sale').patchValue(formData.end_sale);
     } else {
       const variationGroup = new FormGroup({
-        id: new FormControl(formData.id || ''),
+        id: new FormControl(formData.id || null),
         title: new FormControl(formData.title || ''),
         price: new FormControl(formData.price || ''),
         capacity: new FormControl(formData.capacity || ''),

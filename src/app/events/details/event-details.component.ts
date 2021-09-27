@@ -82,6 +82,12 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   totalTicketQuantity: number = 0;
   totalTicketPrice: number = 0;
 
+  tickets: any = {
+    nolonger_availalbe: 0,
+    notyet_availalbe: 0,
+    availalbe: []
+  }
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -111,6 +117,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
         this.getUserTicketsRsvp();
         this.setCoundownTime();
+        this.calculateTicketAvailability();
 
         if (this.event.is_virtual == 1) {
           const url_arr = this.event.youtube_url.split('?v=');
@@ -162,6 +169,28 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
     map.setCenter(latlng);
     mapMarker.setPosition(latlng);
+  }
+
+  calculateTicketAvailability() {
+    const NOW = moment().utc().format('YYYY-MM-DD HH:mm:ss');
+    
+    if(this.event.tickets.length > 0){
+      for (const [i, item] of this.event.tickets.entries()) {
+        const start_time = moment(item.start_sale).utc().format('YYYY-MM-DD HH:mm:ss');
+        const end_time = moment(item.end_sale).utc().format('YYYY-MM-DD HH:mm:ss');
+
+        if(start_time > NOW){ // not yet available
+          this.tickets.notyet_availalbe = parseInt(this.tickets.notyet_availalbe) + 1;
+        }
+        else if(NOW > end_time || item.available == 0) { // no longer available
+          this.tickets.nolonger_availalbe = parseInt(this.tickets.nolonger_availalbe) + 1;
+        }
+        else{
+          this.tickets.availalbe.push(item);
+        }
+      } 
+      console.log(this.tickets);
+    }
   }
 
   setCoundownTime() {
