@@ -22,7 +22,7 @@
                   </small><a [routerLink]="['/user-details/', job.user?.username]">{{job.user?.username}}</a>
                   <small class="jobsearch-jobdetail-postinfo"> posted {{job.created_at | timeAgo}}</small>
                   <small class="post-in-category"> in <a
-                      href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/?sector_cat=banking&amp;ajax_filter=true"
+                      [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}"
                       class="" [innerHTML]="job.job_sector">
                     </a>
                   </small>
