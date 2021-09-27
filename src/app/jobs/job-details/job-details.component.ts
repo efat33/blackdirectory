@@ -122,7 +122,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
         this.coverLetter = result.data.meta_data?.find((data: any) => data.meta_key === 'cover_letter')?.meta_value;
 
-        if(this.helperService.isCandidate()) {
+        if (this.helperService.isCandidate()) {
           this.getFavoriteJobs();
         }
       },
@@ -240,6 +240,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   openContactEmployerModal(): void {
     this.dialog.open(ContactEmployerModal, {
       width: '550px',
+      data: { to: this.job.user.email },
     });
   }
 
