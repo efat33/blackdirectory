@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContactEmployerModal } from 'src/app/modals/job/contact-employer/contact-employer-modal';
+import { EmailJobModalComponent } from 'src/app/modals/job/email-job/email-job-modal';
 import { JobApplyEmailModal } from 'src/app/modals/job/jobapply-email/jobapply-email-modal';
 import { JobApplyInternalModal } from 'src/app/modals/job/jobapply-internal/jobapply-internal-modal';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -319,6 +320,13 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(saveFavoriteSubscription);
+  }
+
+  emailJob() {
+    this.dialog.open(EmailJobModalComponent, {
+      width: '550px',
+      data: { job: this.job },
+    });
   }
 
   ngOnDestroy() {}

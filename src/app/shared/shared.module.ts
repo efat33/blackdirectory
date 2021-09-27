@@ -106,6 +106,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { ProductPriceComponent } from './components/product-price/product-price.component';
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
 import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
+import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal';
 
 
 @NgModule({
@@ -165,6 +166,7 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
     BdyImagePipe,
     InformationDialogComponent,
     SendEmailModalComponent,
+    EmailJobModalComponent,
   ],
   imports: [
     CommonModule,
@@ -302,6 +304,7 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
     MatListModule,
     InformationDialogComponent,
     SendEmailModalComponent,
+    EmailJobModalComponent,
   ],
   entryComponents: [
     RegistrationModal,

@@ -44,10 +44,13 @@
                     <a><i class="jobsearch-icon jobsearch-view"></i> View(s) {{job.views}} </a>
                   </li>
                 </ul>
+
                 <a (click)="updateFavoriteJob()" class="jobsearch-add-job-to-favourite careerfy-jobdetail-btn active">
                   {{isJobFavorite ? 'Shortlisted' : 'Shortlist'}} </a>
-                <a href="javascript:void(0);" class=" active jobsearch-send-email-popup-btn"><i
+
+                <a (click)="emailJob()" class=" active jobsearch-send-email-popup-btn"><i
                     class="jobsearch-icon jobsearch-envelope"></i> Email Job </a>
+
                 <ul class="jobsearch-jobdetail-media">
                   <li><span>Share:</span></li>
                   <li><a href="javascript:void(0);" data-original-title="facebook"
