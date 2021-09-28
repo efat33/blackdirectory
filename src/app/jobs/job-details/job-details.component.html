@@ -21,9 +21,8 @@
                       {{job.job_type}} </a>
                   </small><a [routerLink]="['/user-details/', job.user?.username]">{{job.user?.username}}</a>
                   <small class="jobsearch-jobdetail-postinfo"> posted {{job.created_at | timeAgo}}</small>
-                  <small class="post-in-category"> in <a
-                      [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}"
-                      class="" [innerHTML]="job.job_sector">
+                  <small class="post-in-category"> in <a [routerLink]="['/jobs']"
+                      [queryParams]="{sector: job.job_sector_id}" class="" [innerHTML]="job.job_sector">
                     </a>
                   </small>
                 </span>
@@ -55,8 +54,7 @@
                   <li><span>Share:</span></li>
                   <li><a shareButton="facebook"
                       class="jobsearch-icon jobsearch-facebook-logo-in-circular-button-outlined-social-symbol addthis_button_facebook at300b"
-                      title="Facebook"
-                      >
+                      title="Facebook">
 
                       <span class="at-icon-wrapper"
                         style="background-color: rgb(59, 89, 152); line-height: 16px; height: 16px; width: 16px;"><svg
@@ -251,61 +249,29 @@
               <div id="googleMap" style="width:100%;height:300px;"></div>
             </div>
           </div>
-          <div class="jobsearch_side_box jobsearch_box_view_jobs">
+
+          <div class="jobsearch_side_box jobsearch_box_view_jobs" *ngIf="userJobs?.length">
             <div class="jobsearch-wdg-box-title">
-              <h2>More Jobs From Goldman Sachs</h2>
+              <h2>More Jobs From {{job.user?.display_name}}</h2>
             </div>
+
             <ul>
-              <li>
+              <li *ngFor="let job of userJobs">
                 <h2 class="jobsearch-pst-title">
-                  <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/"
-                    title="Goldman Sachs Engineering Virtual Programme">
-                    Goldman Sachs Engineering Virtual Programme </a>
+                  <a [routerLink]="['/job/details', job.slug]" title="{{job.title}}">
+                    {{job.title}} </a>
                 </h2>
-                <span> <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=banking&amp;ajax_filter=true"
-                    class="">
-                    Banking </a>
-                  , <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=digital-creative&amp;ajax_filter=true"
-                    class="">
-                    Digital &amp; Creative </a>
-                  , <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=engineering-manufacturing&amp;ajax_filter=true"
-                    class="">
-                    Engineering &amp; Manufacturing </a>
-                </span> <small>United Kingdom</small>
-              </li>
-              <li>
-                <h2 class="jobsearch-pst-title">
-                  <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/"
-                    title="Goldman Sachs Internships">
-                    Goldman Sachs Internships </a>
-                </h2>
-                <span> <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/?sector_cat=banking&amp;ajax_filter=true"
-                    class="">
-                    Banking </a>
-                </span> <small>United Kingdom</small>
-              </li>
-              <li>
-                <h2 class="jobsearch-pst-title">
-                  <a href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/"
-                    title="Graduate New Analyst Programme">
-                    Graduate New Analyst Programme </a>
-                </h2>
-                <span> <a
-                    href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/?sector_cat=accountancy-finance&amp;ajax_filter=true"
-                    class="">
-                    Accounting &amp; Finance </a>
-                  , <a
-                    href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/?sector_cat=banking&amp;ajax_filter=true"
-                    class="">
-                    Banking </a>
-                </span> <small>United Kingdom</small>
+
+                <span>
+                  <a [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}" class=""
+                    [innerHTML]="job.job_sector">
+                  </a>
+                </span>
+
+                <small>{{job.address}}</small>
               </li>
             </ul>
-            <a href="https://www.blackdirectory.co.uk/employer/goldman-sachs/" title="Graduate New Analyst Programme"
+            <a [routerLink]="['/user-details', job.user.username]"
               class="jobsearch_box_view_jobs_btn">View all jobs <i class="jobsearch-icon jobsearch-arrows32"></i></a>
           </div>
         </aside>

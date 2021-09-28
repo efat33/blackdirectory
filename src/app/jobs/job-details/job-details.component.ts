@@ -29,6 +29,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   applied: boolean = false;
   isJobFavorite: boolean = false;
 
+  userJobs: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -56,6 +58,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.job = result.data;
+
+        this.getUserJobs();
         this.processJob();
         this.initializeGoogleMap();
 
@@ -71,6 +75,27 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(getJobSubscription);
+  }
+
+  getUserJobs() {
+    const params = {
+      user_id: this.job.user_id
+    };
+
+    this.spinnerService.show();
+    const subscription = this.jobService.getJobs(params, 1, 3).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.userJobs = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
   }
 
   getUserApplicationStatus(jobId: number) {
