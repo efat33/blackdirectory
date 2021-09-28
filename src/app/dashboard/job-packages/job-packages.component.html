@@ -21,9 +21,9 @@
         <tbody>
           <tr class="">
             <th>Jobs you can post</th>
-            <td>Total: {{currentPackage.number_of_jobs}}</td>
+            <td>Total: {{currentPackage.number_of_jobs == -1 ? 'UNLIMITED' : currentPackage.number_of_jobs}}</td>
             <td>Used: {{jobsPosted}}</td>
-            <td>Remaininig: {{currentPackage.total_jobs == 'UNLIMITED' ? '-' : currentPackage.number_of_jobs - jobsPosted}}
+            <td>Remaininig: {{currentPackage.number_of_jobs == -1 ? '-' : currentPackage.number_of_jobs - jobsPosted}}
             </td>
           </tr>
           <tr class="">
@@ -35,9 +35,9 @@
           </tr>
           <tr class="">
             <th>Download candidate CVs from database</th>
-            <td>Total: {{currentPackage.cv_download}}</td>
-            <td>Used: 0</td>
-            <td class="">Remaininig: 0</td>
+            <td>Total: {{currentPackage.cv_download == -1 ? 'UNLIMITED' : currentPackage.cv_download}}</td>
+            <td>Used: {{cvDownload}}</td>
+            <td class="">Remaininig: {{currentPackage.cv_download == -1 ? '-' : currentPackage.cv_download - cvDownload}}</td>
           </tr>
         </tbody>
       </table>
