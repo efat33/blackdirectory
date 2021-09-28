@@ -68,7 +68,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe, fileSrc } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -106,6 +106,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { ProductPriceComponent } from './components/product-price/product-price.component';
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
 import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
+import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal';
 
 
 @NgModule({
@@ -137,6 +138,7 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
     EventRsvpModal,
     ProductQuickViewModal,
     imageSrc,
+    fileSrc,
     TimeAgoPipe,
     TimeUntilPipe,
     encodeURL,
@@ -164,6 +166,7 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
     BdyImagePipe,
     InformationDialogComponent,
     SendEmailModalComponent,
+    EmailJobModalComponent,
   ],
   imports: [
     CommonModule,
@@ -266,6 +269,7 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
     MatSnackBarModule,
     MatProgressBarModule,
     imageSrc,
+    fileSrc,
     encodeURL,
     NgxStickySidebarModule,
     MatSliderModule,
@@ -300,6 +304,7 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
     MatListModule,
     InformationDialogComponent,
     SendEmailModalComponent,
+    EmailJobModalComponent,
   ],
   entryComponents: [
     RegistrationModal,
