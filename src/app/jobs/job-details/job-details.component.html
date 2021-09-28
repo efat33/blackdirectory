@@ -17,8 +17,8 @@
               <figcaption>
                 <h2>{{job.title}}</h2>
                 <span>
-                  <small> <a class="jobsearch-jobdetail-type">
-                      {{job.job_type}} </a>
+                  <small> <a class="jobsearch-jobdetail-type" [class]="job.job_type">
+                      {{getJobType(job)}} </a>
                   </small><a [routerLink]="['/user-details/', job.user?.username]">{{job.user?.username}}</a>
                   <small class="jobsearch-jobdetail-postinfo"> posted {{job.created_at | timeAgo}}</small>
                   <small class="post-in-category"> in <a [routerLink]="['/jobs']"
@@ -158,50 +158,43 @@
             </ng-container>
           </div>
 
-          <div class="jobsearch-section-title">
+          <div class="jobsearch-section-title" *ngIf="otherJobs?.length">
             <h2>Other jobs you may like</h2>
           </div>
           <div class="jobsearch-job jobsearch-joblisting-classic jobsearch-jobdetail-joblisting">
             <ul class="jobsearch-row">
-              <li class="jobsearch-column-12">
+              <li class="jobsearch-column-12" *ngFor="let otherJob of otherJobs">
                 <div class="jobsearch-joblisting-classic-wrap">
                   <figure>
-                    <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/">
-                      <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download.png" alt="">
+                    <a [routerLink]="['/jobs/details', otherJob.slug]">
+                      <img [src]="otherJob.user_profile_photo | imageSrc: 'users'" alt="">
                     </a>
                   </figure>
                   <div class="jobsearch-joblisting-text">
                     <div class="jobsearch-list-option">
                       <h2 class="jobsearch-pst-title">
-                        <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/"
-                          title="Goldman Sachs Engineering Virtual Programme">
-                          Goldman Sachs Engineering Virtual Programme </a>
+                        <a [routerLink]="['/jobs/details', otherJob.slug]" [title]="otherJob.title">
+                          {{otherJob.title}} </a>
                       </h2>
+
                       <ul>
-                        <li><a href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">@
-                            Goldman Sachs</a></li>
-                        <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i> <a
-                            href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=banking&amp;ajax_filter=true"
-                            class="">
-                            Banking </a>
-                          , <a
-                            href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=digital-creative&amp;ajax_filter=true"
-                            class="">
-                            Digital &amp; Creative </a>
-                          , <a
-                            href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=engineering-manufacturing&amp;ajax_filter=true"
-                            class="">
-                            Engineering &amp; Manufacturing </a>
+                        <li><a [routerLink]="['/user-details', otherJob.username]">@
+                            {{otherJob.user_display_name}}</a></li>
+
+                        <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                          <a [routerLink]="['/jobs']" [queryParams]="{sector: otherJob.job_sector_id}" class=""
+                            [innerHTML]="otherJob.job_sector"></a>
                         </li>
                       </ul>
                     </div>
+
                     <div class="jobsearch-job-userlist">
-                      <a class="jobsearch-option-btn" style="background-color: #f1630d; color: #ffffff;">
-                        Part Time </a>
+                      <a class="jobsearch-option-btn" [class]="otherJob.job_type">
+                        {{getJobType(otherJob)}} </a>
                       <div class="like-btn ">
-                        <a href="javascript:void(0);"
-                          class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17505"
-                          data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                        <a (click)="updateFavoriteJob(otherJob)"
+                          class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                          [ngClass]="{'jobsearch-job-favorite': isFavoriteJob(otherJob)}">
                           <i class="jobsearch-icon jobsearch-heart"></i>
                         </a>
                         <span class="job-to-fav-msg-con"></span>
@@ -256,23 +249,23 @@
             </div>
 
             <ul>
-              <li *ngFor="let job of userJobs">
+              <li *ngFor="let userJob of userJobs">
                 <h2 class="jobsearch-pst-title">
-                  <a [routerLink]="['/job/details', job.slug]" title="{{job.title}}">
-                    {{job.title}} </a>
+                  <a [routerLink]="['/job/details', userJob.slug]" title="{{userJob.title}}">
+                    {{userJob.title}} </a>
                 </h2>
 
                 <span>
-                  <a [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}" class=""
-                    [innerHTML]="job.job_sector">
+                  <a [routerLink]="['/jobs']" [queryParams]="{sector: userJob.job_sector_id}" class=""
+                    [innerHTML]="userJob.job_sector">
                   </a>
                 </span>
 
-                <small>{{job.address}}</small>
+                <small>{{userJob.address}}</small>
               </li>
             </ul>
-            <a [routerLink]="['/user-details', job.user.username]"
-              class="jobsearch_box_view_jobs_btn">View all jobs <i class="jobsearch-icon jobsearch-arrows32"></i></a>
+            <a [routerLink]="['/user-details', job.user.username]" class="jobsearch_box_view_jobs_btn">View all jobs <i
+                class="jobsearch-icon jobsearch-arrows32"></i></a>
           </div>
         </aside>
 

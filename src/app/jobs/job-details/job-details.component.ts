@@ -28,8 +28,10 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
   applied: boolean = false;
   isJobFavorite: boolean = false;
+  favoriteJobIds: any[] = [];
 
   userJobs: any[] = [];
+  otherJobs: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -60,6 +62,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.job = result.data;
 
         this.getUserJobs();
+        this.getOtherJobs();
         this.processJob();
         this.initializeGoogleMap();
 
@@ -79,7 +82,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
 
   getUserJobs() {
     const params = {
-      user_id: this.job.user_id
+      user_id: this.job.user_id,
+      exclude: [this.job.id],
     };
 
     this.spinnerService.show();
@@ -88,6 +92,28 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.userJobs = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
+
+  getOtherJobs() {
+    const params = {
+      sector: this.job.job_sector_id,
+      exclude: [this.job.id],
+    };
+
+    this.spinnerService.show();
+    const subscription = this.jobService.getJobs(params, 1, 5).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        this.otherJobs = result.data;
       },
       (error) => {
         this.spinnerService.hide();
@@ -118,7 +144,6 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   processJob() {
-    this.job.job_type = this.jobService.jobTypes.find((type) => type.value === this.job.job_type).viewValue;
     this.job.job_industry = this.jobService.jobIndustrys.find(
       (industry) => industry.value === this.job.job_industry
     ).viewValue;
@@ -172,6 +197,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         if (result.data.length > 0) {
+          this.favoriteJobIds = result.data.map((favJob) => favJob.job_id);
+
           const job = result.data.find((data: any) => data.job_id == this.job.id);
 
           if (job) {
@@ -298,27 +325,42 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     return new Date(job.deadline).getTime() < Date.now();
   }
 
-  updateFavoriteJob() {
+  updateFavoriteJob(job: any = null) {
     if (!this.helperService.isCandidate()) {
       this.snackbar.openSnackBar(`Requires 'Candidate' login`, 'Close', 'warn');
       return;
     }
 
-    if (this.isJobFavorite) {
-      this.deleteFavoriteJob();
+    if (job) {
+      if (this.isFavoriteJob(job)) {
+        this.deleteFavoriteJob(job);
+      } else {
+        this.saveFavoriteJob(job);
+      }
     } else {
-      this.saveFavoriteJob();
+      if (this.isJobFavorite) {
+        this.deleteFavoriteJob();
+      } else {
+        this.saveFavoriteJob();
+      }
     }
   }
 
-  saveFavoriteJob() {
+  saveFavoriteJob(job: any = null) {
+    const jobId = job?.id || this.job.id;
+
     this.spinnerService.show();
-    const saveFavoriteSubscription = this.jobService.saveFavoriteJob(this.job.id).subscribe(
+    const saveFavoriteSubscription = this.jobService.saveFavoriteJob(jobId).subscribe(
       (result: any) => {
         this.spinnerService.hide();
 
         this.snackbar.openSnackBar('Job saved as favorite');
-        this.isJobFavorite = true;
+
+        if (job) {
+          this.favoriteJobIds.push(jobId);
+        } else {
+          this.isJobFavorite = true;
+        }
       },
       (error) => {
         this.spinnerService.hide();
@@ -329,14 +371,22 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(saveFavoriteSubscription);
   }
 
-  deleteFavoriteJob() {
+  deleteFavoriteJob(job: any = null) {
+    const jobId = job?.id || this.job.id;
+
     this.spinnerService.show();
-    const saveFavoriteSubscription = this.jobService.deleteFavoriteJob(this.job.id).subscribe(
+    const saveFavoriteSubscription = this.jobService.deleteFavoriteJob(jobId).subscribe(
       (result: any) => {
         this.spinnerService.hide();
 
         this.snackbar.openSnackBar('Job removed from favorites');
-        this.isJobFavorite = false;
+
+        if (job) {
+          const index = this.favoriteJobIds.indexOf(jobId);
+          this.favoriteJobIds.splice(index, 1);
+        } else {
+          this.isJobFavorite = false;
+        }
       },
       (error) => {
         this.spinnerService.hide();
@@ -352,6 +402,16 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
       width: '550px',
       data: { job: this.job },
     });
+  }
+
+  getJobType(job: any) {
+    const jobType = this.jobService.jobTypes.find((type) => type.value === job.job_type)?.viewValue;
+
+    return jobType || '';
+  }
+
+  isFavoriteJob(job: any) {
+    return this.favoriteJobIds.includes(job.id);
   }
 
   ngOnDestroy() {}
