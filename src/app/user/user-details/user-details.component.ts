@@ -45,6 +45,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   reviewForm: FormGroup;
   reviews: any[] = [];
+  averageRating: number = 0;
 
   candidateSaved: boolean = false;
   followingEmployer: boolean = false;
@@ -153,6 +154,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.reviews = result.data;
+        this.averageRating = this.reviews.reduce((acc, review) => {
+          return acc + parseFloat(review.rating_overall);
+        }, 0);
+
+        this.averageRating = this.averageRating / this.reviews.length;
+        this.averageRating = parseFloat(this.averageRating.toFixed(1));
       },
       (error) => {
         this.spinnerService.hide();

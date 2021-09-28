@@ -203,9 +203,9 @@
               </span>
               <figcaption>
                 <div class="jobsearch-detrating-con">
-                  <div class="jobsearch-rating-info">4.8</div>
+                  <div class="jobsearch-rating-info">{{averageRating}}</div>
                   <div class="jobsearch-rating">
-                    <small class="jobsearch-rating-box" style="width:96.666666666666%"></small>
+                    <small class="jobsearch-rating-box" [ngStyle]="{'width': averageRating/5*100 + '%'}"></small>
                   </div>
                 </div>
                 <h2>{{currentUser.display_name || currentUser.username}}</h2>
@@ -263,9 +263,7 @@
                 <ul class="jobsearch-row">
                   <li class="jobsearch-column-4">
                     <i class="jobsearch-icon jobsearch-folder"></i>
-                    <div class="jobsearch-services-text">Sectors<small>
-                        {{ currentUser.sector }}
-                      </small></div>
+                    <div class="jobsearch-services-text">Sectors<small [innerHTML]="currentUser.sector"></small></div>
                   </li>
                   <li class="jobsearch-column-4">
                     <i class="jobsearch-icon jobsearch-briefcase"></i>
@@ -446,8 +444,8 @@
                                   </ul>
                                   <ul>
                                     <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
-                                      <a [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}"
-                                        class="" [innerHTML]="job.job_sector"></a>
+                                      <a [routerLink]="['/jobs']" [queryParams]="{sector: job.job_sector_id}" class=""
+                                        [innerHTML]="job.job_sector"></a>
                                     </li>
                                   </ul>
                                 </div>
