@@ -163,6 +163,9 @@ button.font-awesome-button:hover i {
 .wil-addlisting .sidebar__inner {
     padding: 0 15px;
 }
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 200px !important;
+}
 
 @media (min-width: 768px) {
     .field-has-close {
