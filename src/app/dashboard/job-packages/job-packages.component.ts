@@ -22,6 +22,7 @@ export class JobPackagesComponent implements OnInit, OnDestroy {
 
   jobsPosted: number = 0;
   featuredJobs: number = 0;
+  cvDownload: number = 0;
 
   purchaseDate: Date = new Date();
   expiryDate: Date = new Date();
@@ -78,6 +79,10 @@ export class JobPackagesComponent implements OnInit, OnDestroy {
         this.expiryDate = result.data.meta_values.find(
           (value: any) => value.meta_key === 'package_expire_date'
         )?.meta_value;
+
+        this.cvDownload = result.data.meta_values.find(
+          (value: any) => value.meta_key === 'cv_download'
+        )?.meta_value || 0;
 
         if (currentPackageId) {
           this.currentPackage = this.packages.find((jobPackage: any) => jobPackage.id === parseInt(currentPackageId));

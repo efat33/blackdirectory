@@ -284,4 +284,14 @@ export class UserService {
 
     return this.httpClient.get<any>(url, this.headerOptions);
   }
+
+  getCandidateCV(applicationId: any) {
+    const url = `api/users/get-candidate-cv/${applicationId}`;
+
+    const httpOptions = {
+      responseType: 'blob' as any
+    };
+
+    return this.httpClient.get<any>(url, httpOptions);
+  }
 }
