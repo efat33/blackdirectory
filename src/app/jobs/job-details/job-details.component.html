@@ -17,13 +17,12 @@
               <figcaption>
                 <h2>{{job.title}}</h2>
                 <span>
-                  <small> <a class="jobsearch-jobdetail-type">
-                      {{job.job_type}} </a>
+                  <small> <a class="jobsearch-jobdetail-type" [class]="job.job_type">
+                      {{getJobType(job)}} </a>
                   </small><a [routerLink]="['/user-details/', job.user?.username]">{{job.user?.username}}</a>
                   <small class="jobsearch-jobdetail-postinfo"> posted {{job.created_at | timeAgo}}</small>
-                  <small class="post-in-category"> in <a
-                      href="https://www.blackdirectory.co.uk/job/summer-analyst-programme-internship/?sector_cat=banking&amp;ajax_filter=true"
-                      class="" [innerHTML]="job.job_sector">
+                  <small class="post-in-category"> in <a [routerLink]="['/jobs']"
+                      [queryParams]="{sector: job.job_sector_id}" class="" [innerHTML]="job.job_sector">
                     </a>
                   </small>
                 </span>
@@ -44,15 +43,20 @@
                     <a><i class="jobsearch-icon jobsearch-view"></i> View(s) {{job.views}} </a>
                   </li>
                 </ul>
+
                 <a (click)="updateFavoriteJob()" class="jobsearch-add-job-to-favourite careerfy-jobdetail-btn active">
                   {{isJobFavorite ? 'Shortlisted' : 'Shortlist'}} </a>
-                <a href="javascript:void(0);" class=" active jobsearch-send-email-popup-btn"><i
+
+                <a (click)="emailJob()" class=" active jobsearch-send-email-popup-btn"><i
                     class="jobsearch-icon jobsearch-envelope"></i> Email Job </a>
+
                 <ul class="jobsearch-jobdetail-media">
                   <li><span>Share:</span></li>
-                  <li><a href="javascript:void(0);" data-original-title="facebook"
+                  <li><a shareButton="facebook"
                       class="jobsearch-icon jobsearch-facebook-logo-in-circular-button-outlined-social-symbol addthis_button_facebook at300b"
-                      title="Facebook"><span class="at-icon-wrapper"
+                      title="Facebook">
+
+                      <span class="at-icon-wrapper"
                         style="background-color: rgb(59, 89, 152); line-height: 16px; height: 16px; width: 16px;"><svg
                           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                           viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-1"
@@ -64,9 +68,11 @@
                               d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z"
                               fill-rule="evenodd"></path>
                           </g>
-                        </svg></span></a>
+                        </svg>
+                      </span>
+                    </a>
                   </li>
-                  <li><a href="javascript:void(0);" data-original-title="twitter"
+                  <li><a shareButton="twitter" data-original-title="twitter"
                       class="jobsearch-icon jobsearch-twitter-circular-button addthis_button_twitter at300b"
                       title="Twitter"><span class="at-icon-wrapper"
                         style="background-color: rgb(29, 161, 242); line-height: 16px; height: 16px; width: 16px;"><svg
@@ -82,7 +88,7 @@
                           </g>
                         </svg></span></a>
                   </li>
-                  <li><a href="javascript:void(0);" data-original-title="linkedin"
+                  <li><a shareButton="linkedin" data-original-title="linkedin"
                       class="jobsearch-icon jobsearch-linkedin addthis_button_linkedin at300b" target="_blank"
                       title="LinkedIn"><span class="at-icon-wrapper"
                         style="background-color: rgb(0, 119, 181); line-height: 16px; height: 16px; width: 16px;"><svg
@@ -110,6 +116,7 @@
             <div class="jobsearch-content-title">
               <h2>Job Detail</h2>
             </div>
+
             <div class="jobsearch-jobdetail-services">
               <ul class="jobsearch-row">
                 <li class="jobsearch-column-4"> <i class="jobsearch-icon jobsearch-network"></i>
@@ -123,9 +130,11 @@
                 </li>
               </ul>
             </div>
+
             <div class="jobsearch-content-title">
               <h2>Job Description</h2>
             </div>
+
             <div class="jobsearch-description">
               <section class="default-component grey careers-full-width">
                 <div class="student-program-info">
@@ -134,52 +143,58 @@
                 </div>
               </section>
             </div>
+
+            <ng-container *ngIf="job.attachment">
+              <div class="jobsearch-content-title">
+                <h2>Attachment</h2>
+              </div>
+
+              <div class="job-attachment">
+                <a href="{{job.attachment | fileSrc: 'job'}}">
+                  <i class="fa fa-paperclip"></i>
+                  <span>{{job.attachment}}</span>
+                </a>
+              </div>
+            </ng-container>
           </div>
 
-          <div class="jobsearch-section-title">
+          <div class="jobsearch-section-title" *ngIf="otherJobs?.length">
             <h2>Other jobs you may like</h2>
           </div>
           <div class="jobsearch-job jobsearch-joblisting-classic jobsearch-jobdetail-joblisting">
             <ul class="jobsearch-row">
-              <li class="jobsearch-column-12">
+              <li class="jobsearch-column-12" *ngFor="let otherJob of otherJobs">
                 <div class="jobsearch-joblisting-classic-wrap">
                   <figure>
-                    <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/">
-                      <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/11/download.png" alt="">
+                    <a [routerLink]="['/jobs/details', otherJob.slug]">
+                      <img [src]="otherJob.user_profile_photo | imageSrc: 'users'" alt="">
                     </a>
                   </figure>
                   <div class="jobsearch-joblisting-text">
                     <div class="jobsearch-list-option">
                       <h2 class="jobsearch-pst-title">
-                        <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/"
-                          title="Goldman Sachs Engineering Virtual Programme">
-                          Goldman Sachs Engineering Virtual Programme </a>
+                        <a [routerLink]="['/jobs/details', otherJob.slug]" [title]="otherJob.title">
+                          {{otherJob.title}} </a>
                       </h2>
+
                       <ul>
-                        <li><a href="https://www.blackdirectory.co.uk/employer/goldman-sachs/">@
-                            Goldman Sachs</a></li>
-                        <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i> <a
-                            href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=banking&amp;ajax_filter=true"
-                            class="">
-                            Banking </a>
-                          , <a
-                            href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=digital-creative&amp;ajax_filter=true"
-                            class="">
-                            Digital &amp; Creative </a>
-                          , <a
-                            href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=engineering-manufacturing&amp;ajax_filter=true"
-                            class="">
-                            Engineering &amp; Manufacturing </a>
+                        <li><a [routerLink]="['/user-details', otherJob.username]">@
+                            {{otherJob.user_display_name}}</a></li>
+
+                        <li><i class="jobsearch-icon jobsearch-filter-tool-black-shape"></i>
+                          <a [routerLink]="['/jobs']" [queryParams]="{sector: otherJob.job_sector_id}" class=""
+                            [innerHTML]="otherJob.job_sector"></a>
                         </li>
                       </ul>
                     </div>
+
                     <div class="jobsearch-job-userlist">
-                      <a class="jobsearch-option-btn" style="background-color: #f1630d; color: #ffffff;">
-                        Part Time </a>
+                      <a class="jobsearch-option-btn" [class]="otherJob.job_type">
+                        {{getJobType(otherJob)}} </a>
                       <div class="like-btn ">
-                        <a href="javascript:void(0);"
-                          class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like" data-id="17505"
-                          data-before-icon="fa fa-heart-o" data-after-icon="fa fa-heart">
+                        <a (click)="updateFavoriteJob(otherJob)"
+                          class="shortlist jobsearch-add-job-to-favourite jobsearch-job-like"
+                          [ngClass]="{'jobsearch-job-favorite': isFavoriteJob(otherJob)}">
                           <i class="jobsearch-icon jobsearch-heart"></i>
                         </a>
                         <span class="job-to-fav-msg-con"></span>
@@ -227,62 +242,30 @@
               <div id="googleMap" style="width:100%;height:300px;"></div>
             </div>
           </div>
-          <div class="jobsearch_side_box jobsearch_box_view_jobs">
+
+          <div class="jobsearch_side_box jobsearch_box_view_jobs" *ngIf="userJobs?.length">
             <div class="jobsearch-wdg-box-title">
-              <h2>More Jobs From Goldman Sachs</h2>
+              <h2>More Jobs From {{job.user?.display_name}}</h2>
             </div>
+
             <ul>
-              <li>
+              <li *ngFor="let userJob of userJobs">
                 <h2 class="jobsearch-pst-title">
-                  <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/"
-                    title="Goldman Sachs Engineering Virtual Programme">
-                    Goldman Sachs Engineering Virtual Programme </a>
+                  <a [routerLink]="['/job/details', userJob.slug]" title="{{userJob.title}}">
+                    {{userJob.title}} </a>
                 </h2>
-                <span> <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=banking&amp;ajax_filter=true"
-                    class="">
-                    Banking </a>
-                  , <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=digital-creative&amp;ajax_filter=true"
-                    class="">
-                    Digital &amp; Creative </a>
-                  , <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-engineering-virtual-programme/?sector_cat=engineering-manufacturing&amp;ajax_filter=true"
-                    class="">
-                    Engineering &amp; Manufacturing </a>
-                </span> <small>United Kingdom</small>
-              </li>
-              <li>
-                <h2 class="jobsearch-pst-title">
-                  <a href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/"
-                    title="Goldman Sachs Internships">
-                    Goldman Sachs Internships </a>
-                </h2>
-                <span> <a
-                    href="https://www.blackdirectory.co.uk/job/goldman-sachs-internships/?sector_cat=banking&amp;ajax_filter=true"
-                    class="">
-                    Banking </a>
-                </span> <small>United Kingdom</small>
-              </li>
-              <li>
-                <h2 class="jobsearch-pst-title">
-                  <a href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/"
-                    title="Graduate New Analyst Programme">
-                    Graduate New Analyst Programme </a>
-                </h2>
-                <span> <a
-                    href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/?sector_cat=accountancy-finance&amp;ajax_filter=true"
-                    class="">
-                    Accounting &amp; Finance </a>
-                  , <a
-                    href="https://www.blackdirectory.co.uk/job/graduate-new-analyst-programme/?sector_cat=banking&amp;ajax_filter=true"
-                    class="">
-                    Banking </a>
-                </span> <small>United Kingdom</small>
+
+                <span>
+                  <a [routerLink]="['/jobs']" [queryParams]="{sector: userJob.job_sector_id}" class=""
+                    [innerHTML]="userJob.job_sector">
+                  </a>
+                </span>
+
+                <small>{{userJob.address}}</small>
               </li>
             </ul>
-            <a href="https://www.blackdirectory.co.uk/employer/goldman-sachs/" title="Graduate New Analyst Programme"
-              class="jobsearch_box_view_jobs_btn">View all jobs <i class="jobsearch-icon jobsearch-arrows32"></i></a>
+            <a [routerLink]="['/user-details', job.user.username]" class="jobsearch_box_view_jobs_btn">View all jobs <i
+                class="jobsearch-icon jobsearch-arrows32"></i></a>
           </div>
         </aside>
 

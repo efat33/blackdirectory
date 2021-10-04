@@ -45,6 +45,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   reviewForm: FormGroup;
   reviews: any[] = [];
+  averageRating: number = 0;
 
   candidateSaved: boolean = false;
   followingEmployer: boolean = false;
@@ -97,10 +98,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
         this.getReviews();
 
-        if (this.helperService.isEmployer()) {
-          this.getSavedCandidates();
+        if (this.currentUser.role === 'employer') {
           this.getActiveJobsCount();
           this.getActiveJobs();
+        }
+
+        if (this.helperService.isEmployer()) {
+          this.getSavedCandidates();
         } else if (this.helperService.isCandidate()) {
           this.getFollowingEmployers();
           this.getFavoriteJobs();
@@ -153,6 +157,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.reviews = result.data;
+        this.averageRating = this.reviews.reduce((acc, review) => {
+          return acc + parseFloat(review.rating_overall);
+        }, 0);
+
+        this.averageRating = this.averageRating / this.reviews.length;
+        this.averageRating = parseFloat(this.averageRating.toFixed(1));
       },
       (error) => {
         this.spinnerService.hide();
@@ -351,6 +361,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       return false;
     }
 
+    const loggedInUserReview = this.reviews.find((review: any) => review.candidate_id == this.helperService.currentUserInfo?.id);
+
+    if (loggedInUserReview) {
+      return false;
+    }
+
     return true;
   }
 
@@ -428,7 +444,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   getActiveJobs() {
     const filter = {
-      user_id: this.currentUser.id,
+      user_id: this.userProfile.id,
     };
 
     this.spinnerService.show();

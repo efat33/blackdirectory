@@ -1,0 +1,35 @@
+.job-attachment i {
+  font-size: 2rem;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.jobsearch-option-btn,
+.jobsearch-jobdetail-type {
+  color: #fff;
+
+  &.contract {
+    background-color: #186fc9;
+  }
+
+  &.full-time {
+    background-color: #186fc9;
+  }
+
+  &.internship {
+    background-color: #53b427;
+  }
+
+  &.part-time {
+    background-color: #f1630d;
+  }
+
+  &.temporary {
+    background-color: #f1630d;
+  }
+}
+
+.jobsearch-job-favorite {
+  background-color: #8bb300;
+  color: #ffffff;
+}

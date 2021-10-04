@@ -21,6 +21,15 @@ export class imageSrc implements PipeTransform {
   }
 }
 
+@Pipe({name: 'fileSrc'})
+export class fileSrc implements PipeTransform {
+  constructor(private helperService: HelperService) {}
+
+  transform(value: string, folder: string): string {
+    return `${this.helperService.apiUrl}/uploads/${folder}/${value}`;
+  }
+}
+
 @Pipe({name: 'encodeURL'})
 export class encodeURL implements PipeTransform {
   transform(url: string): any {
