@@ -31,6 +31,9 @@ import { ProductCategoriesComponent } from './products/product-categories/produc
 import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
 import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
+import { EventCategoriesComponent } from './events/event-categories/event-categories.component';
+import { EventTagsComponent } from './events/event-tags/event-tags.component';
+import { EventOrganizersComponent } from './events/event-organizers/event-organizers.component';
 
 const routes: Routes = [
   {
@@ -45,6 +48,9 @@ const routes: Routes = [
       { path: 'favorite-listings', component: FavoriteListingsComponent },
 
       { path: 'events', component: EventsComponent },
+      { path: 'event-categories', component: EventCategoriesComponent },
+      { path: 'event-tags', component: EventTagsComponent },
+      { path: 'event-organizers', component: EventOrganizersComponent },
 
       { path: 'manage-job/:job_id', component: ManageJobComponent },
       { path: 'manage-jobs', component: ManageJobsComponent },
