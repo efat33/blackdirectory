@@ -32,6 +32,9 @@ a:hover {
 .errorMessage {
   color: #ff0000;
 }
+.mat-form-field-required-marker {
+  color: #f44336 !important;
+}
 .wil-btn i,
 .wil-btn svg {
   margin-right: 5px;
@@ -249,7 +252,7 @@ input:checked ~ .bd-color-primary--checked {
   min-width: 100px;
   display: inline-block;
 }
-.section-field-preview-img span {
+.section-field-preview-img span:not(.mat-form-field-required-marker) {
   width: 25px;
   height: 25px;
   display: inline-block;
