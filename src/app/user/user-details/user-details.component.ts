@@ -157,12 +157,15 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.reviews = result.data;
-        this.averageRating = this.reviews.reduce((acc, review) => {
-          return acc + parseFloat(review.rating_overall);
-        }, 0);
 
-        this.averageRating = this.averageRating / this.reviews.length;
-        this.averageRating = parseFloat(this.averageRating.toFixed(1));
+        if (this.reviews?.length > 0) {
+          this.averageRating = this.reviews.reduce((acc, review) => {
+            return acc + parseFloat(review.rating_overall);
+          }, 0);
+
+          this.averageRating = this.averageRating / this.reviews.length;
+          this.averageRating = parseFloat(this.averageRating.toFixed(1));
+        }
       },
       (error) => {
         this.spinnerService.hide();
@@ -361,7 +364,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const loggedInUserReview = this.reviews.find((review: any) => review.candidate_id == this.helperService.currentUserInfo?.id);
+    const loggedInUserReview = this.reviews.find(
+      (review: any) => review.candidate_id == this.helperService.currentUserInfo?.id
+    );
 
     if (loggedInUserReview) {
       return false;
@@ -444,7 +449,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   getActiveJobs() {
     const filter = {
-      user_id: this.userProfile.id,
+      user_id: this.currentUser.id,
     };
 
     this.spinnerService.show();
