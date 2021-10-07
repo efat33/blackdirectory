@@ -125,7 +125,7 @@
                     </mat-expansion-panel-header>
 
                     <span>{{f.salary.value[0] | number}} - {{f.salary.value[1] | number}}</span>
-                    <nouislider [connect]="true" [min]="5000" [max]="250000" [step]="5000" [formControl]="f.salary"
+                    <nouislider [connect]="true" [min]="0" [max]="250000" [step]="5000" [formControl]="f.salary"
                       (end)="onSubmit()">
                     </nouislider>
                   </mat-expansion-panel>

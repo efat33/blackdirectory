@@ -104,7 +104,7 @@
                                 </mat-form-field>
 
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Logo *</mat-label>
+                                    <mat-label>Logo <span class="mat-form-field-required-marker">*</span></mat-label>
                                     <input required accept="image/*" type="file" formControlName="logo_input"
                                         #fileInputLogo (change)="onLogoImageChange($event)" />
                                     <span *ngIf="logoImageSrc"
@@ -118,7 +118,7 @@
                                     {{formCustomvalidation.logo.message}}</p>
 
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Cover Image *</mat-label>
+                                    <mat-label>Cover Image <span class="mat-form-field-required-marker">*</span></mat-label>
                                     <input required accept="image/*" type="file" formControlName="cover_img_input"
                                         #fileInputCoverImg (change)="onCoverImageChange($event)" />
                                     <span *ngIf="coverImageSrc"
@@ -511,7 +511,7 @@
                             </header>
                             <div class="content-box_body__3tSRB">
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Featured Image *</mat-label>
+                                    <mat-label>Featured Image <span class="mat-form-field-required-marker">*</span></mat-label>
                                     <input required accept="image/*" type="file" formControlName="featured_img_input"
                                         #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
                                     <span *ngIf="featuredImageSrc"

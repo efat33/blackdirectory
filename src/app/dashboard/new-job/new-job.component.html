@@ -53,7 +53,7 @@
                 <div class="col-md-6">
                     <mat-form-field>
                         <mat-label>Job Apply Type</mat-label>
-                        <mat-select formControlName="job_apply_type">
+                        <mat-select formControlName="job_apply_type" required>
                             <mat-option *ngFor="let jobApplyType of jobService.jobApplyTypes" [value]="jobApplyType.value">
                                 {{jobApplyType.viewValue}}
                             </mat-option>
@@ -63,12 +63,12 @@
                 <div class="col-md-6">
                   <mat-form-field *ngIf="f.job_apply_type.value === 'with_email'">
                       <mat-label>Email</mat-label>
-                      <input matInput type="email" formControlName="job_apply_email" />
+                      <input matInput type="email" formControlName="job_apply_email" required/>
                   </mat-form-field>
 
                   <mat-form-field *ngIf="f.job_apply_type.value === 'external'">
                     <mat-label>External URL</mat-label>
-                    <input matInput formControlName="external_url" />
+                    <input matInput formControlName="external_url" required/>
                   </mat-form-field>
                 </div>
             </div>
@@ -111,11 +111,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="salary-labels">
-                        <label>Salary (£) *</label>
+                        <label>Salary (£) <span class="mat-form-field-required-marker">*</span></label>
                         <label class="salary-value">{{f.salary.value || 0 | number}}</label>
                     </div>
 
-                    <mat-slider thumbLabel [displayWith]="formatSalarySliderLabel" [max]="250000" [min]="5000"
+                    <mat-slider thumbLabel [displayWith]="formatSalarySliderLabel" [max]="250000" [min]="0"
                         [step]="5000" formControlName="salary" color="primary">
                     </mat-slider>
                 </div>

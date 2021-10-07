@@ -308,7 +308,7 @@
                             </header>
                             <div class="content-box_body__3tSRB">
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Featured Image *</mat-label>
+                                    <mat-label>Featured Image <span class="mat-form-field-required-marker">*</span></mat-label>
                                     <input accept="image/*" type="file" formControlName="featured_img_input"
                                         #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
                                     <span *ngIf="featuredImageSrc"

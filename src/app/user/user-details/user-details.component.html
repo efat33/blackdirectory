@@ -203,7 +203,7 @@
               </span>
               <figcaption>
                 <div class="jobsearch-detrating-con">
-                  <div class="jobsearch-rating-info">{{averageRating}}</div>
+                  <div class="jobsearch-rating-info">{{averageRating || ''}}</div>
                   <div class="jobsearch-rating">
                     <small class="jobsearch-rating-box" [ngStyle]="{'width': averageRating/5*100 + '%'}"></small>
                   </div>
@@ -269,7 +269,7 @@
                   </li>
                   <li class="jobsearch-column-4">
                     <i class="jobsearch-icon jobsearch-briefcase"></i>
-                    <div class="jobsearch-services-text">Posted Jobs <small>6</small>
+                    <div class="jobsearch-services-text">Posted Jobs <small>{{activeJobsCount}}</small>
                     </div>
                   </li>
                   <li class="jobsearch-column-4">
