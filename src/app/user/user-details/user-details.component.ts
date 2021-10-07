@@ -13,6 +13,7 @@ import { PipeTransform } from '@angular/core';
 import { Pipe } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { LoginModal } from 'src/app/modals/user/login/login-modal';
 
 declare const google: any;
 
@@ -98,7 +99,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
         this.getReviews();
 
-        if (this.currentUser.role === 'employer') {
+        if (this.currentUser.role === 'employer' || this.currentUser.role === 'admin') {
           this.getActiveJobsCount();
           this.getActiveJobs();
         }
@@ -231,11 +232,17 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateData(): void {
-    if (this.currentUser.profile_photo)
+    if (this.currentUser.profile_photo) {
       this.profileImage = this.helperService.getImageUrl(this.currentUser.profile_photo, 'users', 'medium');
-    if (this.currentUser.cover_photo)
+    }
+
+    if (this.currentUser.cover_photo) {
       this.coverImage = this.helperService.getImageUrl(this.currentUser.cover_photo, 'users');
-    if (this.userMeta.academics) this.academics = JSON.parse(this.userMeta.academics);
+    }
+
+    if (this.userMeta.academics) {
+      this.academics = JSON.parse(this.userMeta.academics);
+    }
 
     // set image url in portfolios array
     if (this.userProfile.portfolios) {
@@ -324,6 +331,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   onSubmitEmployer() {}
 
   onReviewSubmit() {
+    if (!this.helperService.currentUserInfo) {
+      this.showLoginModal();
+
+      return;
+    }
+
     const review = this.reviewForm.value;
 
     this.spinnerService.show();
@@ -357,7 +370,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   ifShowAddReviewForm() {
     if (!this.helperService.currentUserInfo) {
-      return false;
+      return true;
     }
 
     if (this.helperService.currentUserInfo?.id == this.currentUser?.id) {
@@ -392,6 +405,22 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   scrollIntoView(element: any) {
+    if (this.helperService.currentUserInfo?.id == this.currentUser?.id) {
+      this.snackbar.openSnackBar('Cannot review yourself', 'Close', 'warn');
+
+      return;
+    }
+
+    const loggedInUserReview = this.reviews.find(
+      (review: any) => review.candidate_id == this.helperService.currentUserInfo?.id
+    );
+
+    if (loggedInUserReview) {
+      this.snackbar.openSnackBar('You have already reviewed', 'Close', 'warn');
+
+      return;
+    }
+
     try {
       window.scrollTo({ left: 0, top: element.offsetTop - 20, behavior: 'smooth' });
     } catch (e) {
@@ -571,6 +600,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(saveFavoriteSubscription);
+  }
+
+  showLoginModal() {
+    this.dialog.open(LoginModal, {
+      width: '400px',
+    });
   }
 
   ngOnDestroy() {
