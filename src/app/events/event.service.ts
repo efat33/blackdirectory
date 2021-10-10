@@ -49,10 +49,40 @@ export class EventService {
       .pipe(map((body: APIReponse) => body));
   }
 
+  updateOrganizer(organizerId: number, body: any): Observable<any> {
+    const url = `api/events/update-organiser/${organizerId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteOrganizer(organizerId: number): Observable<any> {
+    const url = `api/events/delete-organiser/${organizerId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
   getCategories(): Observable<APIReponse> {
     const url = `api/events/categories`;
 
     return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  addCategory(body: any): Observable<any> {
+    const url = `api/events/new-category`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  updateCategory(categoryId: number, body: any): Observable<any> {
+    const url = `api/events/update-category/${categoryId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteCategory(categoryId: number): Observable<any> {
+    const url = `api/events/delete-category/${categoryId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
   }
 
   getOrganisers(): Observable<APIReponse> {
@@ -65,6 +95,24 @@ export class EventService {
     const url = `api/events/tags`;
 
     return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  addTag(body: any): Observable<any> {
+    const url = `api/events/new-tag`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  updateTag(tagId: number, body: any): Observable<any> {
+    const url = `api/events/update-tag/${tagId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteTag(tagId: number): Observable<any> {
+    const url = `api/events/delete-tag/${tagId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
   }
 
   getEvent(slug, edit = false): Observable<APIReponse> {

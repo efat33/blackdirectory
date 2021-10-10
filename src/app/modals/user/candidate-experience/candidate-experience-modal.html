@@ -14,14 +14,14 @@
           <div>
             <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
               <mat-form-field>
-                <mat-label>Title *</mat-label>
+                <mat-label>Title <span class="mat-form-field-required-marker">*</span></mat-label>
                 <input matInput formControlName="title" placeholder="Title" />
               </mat-form-field>
 
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field>
-                    <mat-label>From Date *</mat-label>
+                    <mat-label>From Date <span class="mat-form-field-required-marker">*</span></mat-label>
                     <input matInput formControlName="start_date" [matDatepicker]="exp_start_date"
                       (focus)="exp_start_date.open()">
                     <mat-datepicker-toggle matSuffix [for]="exp_start_date"></mat-datepicker-toggle>
@@ -47,7 +47,7 @@
               </div>
 
               <mat-form-field>
-                <mat-label>Company *</mat-label>
+                <mat-label>Company <span class="mat-form-field-required-marker">*</span></mat-label>
                 <input matInput formControlName="company" placeholder="Company" />
               </mat-form-field>
 

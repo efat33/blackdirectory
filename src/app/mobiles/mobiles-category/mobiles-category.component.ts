@@ -91,7 +91,7 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
 
   totalItems = 200;
   currentPage = 1;
-  pageSize = 2;
+  pageSize = 12;
 
   // convenience getter for easy access to form fields
   get f() {
@@ -306,6 +306,10 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
 
   onPageChange(newPage: number) {
     this.getMobiles(newPage);
+  }
+
+  formatCost(cost: string) {
+    return parseFloat(parseFloat(cost).toFixed(2));
   }
 
   ngOnDestroy() {

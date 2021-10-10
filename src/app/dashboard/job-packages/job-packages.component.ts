@@ -110,7 +110,7 @@ export class JobPackagesComponent implements OnInit, OnDestroy {
     const body = {
       packageId: jobPackage.id,
       priceId: jobPackage.selectedPrice.id,
-      returnUrl: 'http://localhost:4200/dashboard/packages/return',
+      returnUrl: `${this.helperService.siteUrl}/dashboard/packages/return`,
     };
 
     this.spinnerService.show();
