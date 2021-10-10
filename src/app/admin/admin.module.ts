@@ -32,6 +32,8 @@ import { AddProductOptionChoiceModalComponent } from './products/product-categor
 import { AssignCategoryOptionsModalComponent } from './products/product-categories/assign-option-modal/assign-option-modal';
 import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
+import { HeroSliderComponent } from './hero-slider/hero-slider.component';
+import { AddHeroSlidesModalComponent } from './hero-slider/add-hero-slides-modal/add-hero-slides-modal';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withd
     AddProductOptionChoiceModalComponent,
     AssignCategoryOptionsModalComponent,
     AllOrdersListComponent,
-    AllWithdrawRequestsComponent
+    AllWithdrawRequestsComponent,
+    HeroSliderComponent,
+    AddHeroSlidesModalComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

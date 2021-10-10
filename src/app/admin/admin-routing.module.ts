@@ -31,6 +31,7 @@ import { ProductCategoriesComponent } from './products/product-categories/produc
 import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
 import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
+import { HeroSliderComponent } from './hero-slider/hero-slider.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,8 @@ const routes: Routes = [
       { path: 'product-options', component: ProductCategoryOptionsComponent },
       { path: 'all-orders', component: AllOrdersListComponent },
       { path: 'withdraw-requests', component: AllWithdrawRequestsComponent },
+
+      { path: 'hero-slider', component: HeroSliderComponent },
     ],
   },
 ];

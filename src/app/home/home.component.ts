@@ -12,11 +12,15 @@ import { ListingService } from '../listing/listing.service';
 import { LoginModal } from '../modals/user/login/login-modal';
 import { NewsService } from '../news/news.service';
 import { HelperService } from '../shared/helper.service';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { HomeService } from './home.service';
 
 declare const google: any;
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
+
+
 
 @Component({
   selector: 'app-home',
@@ -24,6 +28,10 @@ SwiperCore.use([Navigation]);
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[] = [];
+
   siteUrl: string;
   currentUserID: number;
   subscriptions: any = new Subscription();
@@ -56,6 +64,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private listingService: ListingService,
+    private homeService: HomeService,
     private eventService: EventService,
     private newsService: NewsService,
     private helperService: HelperService,
@@ -87,6 +96,67 @@ export class HomeComponent implements OnInit {
     this.getTrendingCategories();
     this.getNews();
     this.initializeGoogleMap();
+    this.initiateGallery();
+    this.populateGallery();
+  }
+
+  initiateGallery() {
+    this.galleryOptions = [
+      {
+          width: '100%',
+          height: '100%',
+          imageAnimation: NgxGalleryAnimation.Fade,
+          imageAutoPlayInterval: 4000,
+          preview: false,
+          imageArrows: false,
+          imageSwipe: true,
+          imageAutoPlay: true,
+          imageInfinityMove: true,
+          thumbnails: false
+      },
+      // max-width 800
+      {
+          breakpoint: 800,
+          width: '100%',
+          height: '100%',
+          imagePercent: 80,
+          thumbnails: false,
+          imageSwipe: true,
+          preview: false
+      },
+      // max-width 400
+      {
+          breakpoint: 400,
+          thumbnails: false,
+          imageSwipe: true,
+          preview: false
+      }
+    ];
+  }
+
+  populateGallery() {
+    
+    const subsHeroSlides = this.homeService.getHeroSlides().subscribe(
+      (res:any) => {
+        const galleries = res.data;
+        for (const item of galleries) {
+          const obj = {
+            small: this.helperService.getImageUrl(item.image, 'gallery', 'medium'),
+            medium: this.helperService.getImageUrl(item.image, 'gallery'),
+            big: this.helperService.getImageUrl(item.image, 'gallery')
+          }
+    
+          this.galleryImages.push(obj);
+        }
+      },
+      (res:any) => {
+
+      }
+    );
+    
+    this.subscriptions.add(subsHeroSlides);
+
+    
   }
 
   initializeGoogleMap() {
