@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { ContactOwnerModal } from 'src/app/modals/listing/details/contact-owner/contact-owner-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -18,6 +18,8 @@ import { HttpClient } from '@angular/common/http';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import { forkJoin } from 'rxjs';
 import { ListingClaimModal } from 'src/app/modals/listing/details/claim/listing-claim-modal';
+import { GetProductListParams, ProductList, ProductService } from 'src/app/shared/services/product.service';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 declare const google: any;
 
@@ -45,7 +47,8 @@ export class ListingDetailsComponent implements OnInit {
   listing_coupon: any = {};
   listing_hours: any = [];
   listing_menus: any = [];
-  listing_products: any = [];
+  listing_products: ProductList[] = [];
+  params: GetProductListParams = {};
 
   favoriteListings: any = [];
 
@@ -80,10 +83,13 @@ export class ListingDetailsComponent implements OnInit {
   dialogReview: any;
   dialogClaim: any;
 
+  loading$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private listingService: ListingService,
+    private productService: ProductService,
     private helperservice: HelperService,
     private userService: UserService,
     private spinnerService: SpinnerService,
@@ -122,8 +128,11 @@ export class ListingDetailsComponent implements OnInit {
           this.listing_contact = res[0].data.contacts;
           this.listing_hours = res[0].data.hours;
           this.listing_menus = res[0].data.menus;
-          this.listing_products = res[0].data.allproducts;
+          const products = res[0].data.allproducts;
           this.favoriteListings = res[1].data;
+
+          const prod_ids = products.map(product => product.id);
+          if(prod_ids.length > 0) this.fetchListingProducts(prod_ids);
 
           // restrict the page if the status is draft
           if (
@@ -184,6 +193,23 @@ export class ListingDetailsComponent implements OnInit {
         }
       );
     }
+  }
+
+  fetchListingProducts(prod_ids) {
+    this.params.ids = prod_ids;
+    const params = {
+      params: this.params,
+    };
+    this.productService
+      .getProductList(params, false)
+      .pipe(
+        tap((products) => {this.listing_products = products; console.log(this.listing_products);}),
+        catchError(() => of([])),
+        finalize(() => this.loading$.next(false))
+      )
+      .subscribe();
+
+
   }
 
   initializeGoogleMap() {

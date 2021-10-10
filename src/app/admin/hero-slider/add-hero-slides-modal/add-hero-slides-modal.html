@@ -1,0 +1,47 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>{{category.id ? 'Edit Slide' : 'Add Slide'}}</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="listingCategoryForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" placeholder="Title" />
+              </mat-form-field>
+
+              <div class="">
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Image</mat-label>
+                  <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
+                  <span *ngIf="imageSrc" [ngStyle]="{'background-image': 'url('+imageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="inputAttachment.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressImage" mode="determinate" [value]="progressImage" class="mb-15">
+                </mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.image.validated">
+                  {{formCustomvalidation.image.message}}</p>
+              </div>
+
+              <button mat-raised-button color="primary"
+                class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
+                [disabled]="!listingCategoryForm.valid">
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
