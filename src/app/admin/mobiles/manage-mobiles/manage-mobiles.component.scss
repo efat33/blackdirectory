@@ -12,3 +12,10 @@ table {
   padding: 4px;
 }
 
+.mobile-link {
+  display: block;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

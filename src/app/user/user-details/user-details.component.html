@@ -190,7 +190,7 @@
   </div>
 </div>
 
-<div *ngIf="userType == 'employer'" class="employer-details single-employer">
+<div *ngIf="userType == 'employer' || userType == 'admin'" class="employer-details single-employer">
   <div class="jobsearch-main-content">
     <div class="jobsearch-main-section">
       <div class="jobsearch-plugin-default-container">
@@ -203,7 +203,7 @@
               </span>
               <figcaption>
                 <div class="jobsearch-detrating-con">
-                  <div class="jobsearch-rating-info">{{averageRating}}</div>
+                  <div class="jobsearch-rating-info">{{averageRating || ''}}</div>
                   <div class="jobsearch-rating">
                     <small class="jobsearch-rating-box" [ngStyle]="{'width': averageRating/5*100 + '%'}"></small>
                   </div>
@@ -225,8 +225,9 @@
                   </li>
                 </ul>
 
-                <a (click)="scrollIntoView(reviewList)" class="jobsearch-go-to-review-form jobsearch-employerdetail-btn"
-                  data-post_id="17320"><i class="jobsearch-icon jobsearch-add"></i> Add a review </a>
+                <a (click)="scrollIntoView(addReviewForm)"
+                  class="jobsearch-go-to-review-form jobsearch-employerdetail-btn"><i
+                    class="jobsearch-icon jobsearch-add"></i> Add a review </a>
                 <a (click)="followEmployer()" class="jobsearch-employerdetail-btn jobsearch-othercand-role-btn"><i
                     class="fa fa-user-plus"></i>
                   {{followingEmployer ? 'Following' : 'Follow'}}</a>
@@ -263,13 +264,13 @@
               </div>
               <div class="jobsearch-jobdetail-services">
                 <ul class="jobsearch-row">
-                  <li class="jobsearch-column-4">
+                  <li class="jobsearch-column-4" *ngIf="currentUser.sector">
                     <i class="jobsearch-icon jobsearch-folder"></i>
                     <div class="jobsearch-services-text">Sectors<small [innerHTML]="currentUser.sector"></small></div>
                   </li>
                   <li class="jobsearch-column-4">
                     <i class="jobsearch-icon jobsearch-briefcase"></i>
-                    <div class="jobsearch-services-text">Posted Jobs <small>6</small>
+                    <div class="jobsearch-services-text">Posted Jobs <small>{{activeJobsCount}}</small>
                     </div>
                   </li>
                   <li class="jobsearch-column-4">
@@ -279,16 +280,19 @@
                   </li>
                 </ul>
               </div>
-              <div class="jobsearch-content-title">
-                <h2>Company Description</h2>
-              </div>
-              <div class="jobsearch-description">
-                {{ currentUser.description }}
-              </div>
+
+              <ng-container *ngIf="currentUser.description">
+                <div class="jobsearch-content-title">
+                  <h2>Company Description</h2>
+                </div>
+                <div class="jobsearch-description">
+                  {{ currentUser.description }}
+                </div>
+              </ng-container>
             </div>
 
             <div #reviewList class="dash-reviews-list jobsearch-employer-wrap-section">
-              <div class="jobsearch-content-title jobsearch-addmore-space">
+              <div *ngIf="reviews?.length" class="jobsearch-content-title jobsearch-addmore-space">
                 <h2>Company Reviews</h2>
               </div>
 
@@ -343,69 +347,70 @@
               </div>
             </div>
 
-            <div *ngIf="ifShowAddReviewForm()" id="add_review_form_sec"
-              class="jobsearch-employer-wrap-section jobsearch-margin-bottom">
-              <div class="jobsearch-content-title jobsearch-addmore-space">
-                <h2>Leave Your Review</h2>
-              </div>
-              <div class="jobsearch-add-review-con">
+            <div #addReviewForm class="jobsearch-employer-wrap-section jobsearch-margin-bottom">
+              <div *ngIf="ifShowAddReviewForm()" id="add_review_form_sec">
+                <div class="jobsearch-content-title jobsearch-addmore-space">
+                  <h2>Leave Your Review</h2>
+                </div>
+                <div class="jobsearch-add-review-con">
 
-                <form [formGroup]="reviewForm" id="jobsearch-review-form" class="jobsearch-addreview-form" method="post"
-                  (ngSubmit)="onReviewSubmit()">
-                  <ul>
-                    <li>
-                      <div class="review-stars-sec">
+                  <form [formGroup]="reviewForm" id="jobsearch-review-form" class="jobsearch-addreview-form"
+                    method="post" (ngSubmit)="onReviewSubmit()">
+                    <ul>
+                      <li>
+                        <div class="review-stars-sec">
 
-                        <div class="review-stars-holder">
-                          <label>Quality</label>
-                          <div class="br-wrapper br-theme-fontawesome-stars">
-                            <div class="br-widget">
-                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
-                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_quality}"
-                                (click)="setRating(rating, 'rating_quality')"></a>
+                          <div class="review-stars-holder">
+                            <label>Quality</label>
+                            <div class="br-wrapper br-theme-fontawesome-stars">
+                              <div class="br-widget">
+                                <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                  [ngClass]="{'br-selected': rating <= reviewForm.value.rating_quality}"
+                                  (click)="setRating(rating, 'rating_quality')"></a>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="review-stars-holder">
+                            <label>Communication</label>
+                            <div class="br-wrapper br-theme-fontawesome-stars">
+                              <div class="br-widget">
+                                <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                  [ngClass]="{'br-selected': rating <= reviewForm.value.rating_communication}"
+                                  (click)="setRating(rating, 'rating_communication')"></a>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="review-stars-holder">
+                            <label>Goodwill</label>
+                            <div class="br-wrapper br-theme-fontawesome-stars">
+                              <div class="br-widget">
+                                <a *ngFor="let rating of [1, 2, 3, 4, 5]"
+                                  [ngClass]="{'br-selected': rating <= reviewForm.value.rating_goodwill}"
+                                  (click)="setRating(rating, 'rating_goodwill')"></a>
+                              </div>
                             </div>
                           </div>
                         </div>
-
-                        <div class="review-stars-holder">
-                          <label>Communication</label>
-                          <div class="br-wrapper br-theme-fontawesome-stars">
-                            <div class="br-widget">
-                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
-                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_communication}"
-                                (click)="setRating(rating, 'rating_communication')"></a>
-                            </div>
+                        <div class="review-overall-stars-sec">
+                          <span class="rating-text">Overall Rating</span>
+                          <span class="rating-num">{{reviewForm.value.rating_overall}}</span>
+                          <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
+                              [style.width.%]="reviewForm.value.rating_overall*20"></span>
                           </div>
                         </div>
-
-                        <div class="review-stars-holder">
-                          <label>Goodwill</label>
-                          <div class="br-wrapper br-theme-fontawesome-stars">
-                            <div class="br-widget">
-                              <a *ngFor="let rating of [1, 2, 3, 4, 5]"
-                                [ngClass]="{'br-selected': rating <= reviewForm.value.rating_goodwill}"
-                                (click)="setRating(rating, 'rating_goodwill')"></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="review-overall-stars-sec">
-                        <span class="rating-text">Overall Rating</span>
-                        <span class="rating-num">{{reviewForm.value.rating_overall}}</span>
-                        <div class="jobsearch-company-rating"><span class="jobsearch-company-rating-box"
-                            [style.width.%]="reviewForm.value.rating_overall*20"></span>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <textarea name="user_comment" placeholder="Your Review" formControlName="review"></textarea>
-                    </li>
-                    <li>
-                      <input type="submit" id="jobsearch-review-submit-btn" value="Submit now"
-                        [disabled]="!reviewForm.valid">
-                    </li>
-                  </ul>
-                </form>
+                      </li>
+                      <li>
+                        <textarea name="user_comment" placeholder="Your Review" formControlName="review"></textarea>
+                      </li>
+                      <li>
+                        <input type="submit" id="jobsearch-review-submit-btn" value="Submit now"
+                          [disabled]="!reviewForm.valid">
+                      </li>
+                    </ul>
+                  </form>
+                </div>
               </div>
             </div>
 

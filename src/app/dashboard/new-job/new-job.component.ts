@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
@@ -71,49 +71,54 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getJobSectors();
     this.initializeGoogleMap();
 
+    const subs = [this.jobService.getCurrentPackage()];
+
     const jobId = this.route.snapshot.paramMap.get('job_id');
     if (jobId != null) {
       this.editJobId = parseInt(jobId);
 
-      this.spinnerService.show();
-      this.jobService.getUserJob(this.editJobId).subscribe(
-        (result: any) => {
-          this.spinnerService.hide();
-
-          this.prepareForm(result.data);
-        },
-        (error) => {
-          this.spinnerService.hide();
-
-          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-        }
-      );
+      subs.push(this.jobService.getUserJob(this.editJobId));
     }
 
     this.spinnerService.show();
-    const subscription = this.jobService.getCurrentPackage().subscribe(
-      (result: any) => {
+    forkJoin(subs).subscribe(
+      (results: any) => {
         this.spinnerService.hide();
 
-        if (
-          jobId == null &&
-          result.data.currentPackage?.number_of_jobs > 0 &&
-          result.data.currentPackage?.number_of_jobs <= result.data.jobs?.length
-        ) {
+        const currentPackageResult = results[0].data;
+        const jobLimitReached =
+          currentPackageResult.currentPackage?.number_of_jobs > 0 &&
+          currentPackageResult.currentPackage?.number_of_jobs <= currentPackageResult.jobs?.length;
+
+        const expiryDate = currentPackageResult.meta_values.find(
+          (value: any) => value.meta_key === 'package_expire_date'
+        )?.meta_value;
+
+        const isExpired = new Date(expiryDate) < new Date();
+
+        if (jobId == null && (jobLimitReached || isExpired) ) {
           this.router.navigate(['dashboard/packages']);
           return;
         }
 
-        const expiry = result.data.currentPackage?.job_expiry || 14;
-        this.maxDeadlineDate = moment().add(expiry, 'days').toDate();
+        const expiry = currentPackageResult.currentPackage?.job_expiry || 30;
+
+        if (results.length > 1) {
+          const jobDetails = results[1].data;
+
+          this.prepareForm(jobDetails);
+
+          this.minDeadlineDate = moment(jobDetails.created_at).toDate();
+          this.maxDeadlineDate = moment(jobDetails.created_at).add(expiry, 'days').toDate();
+        } else {
+          this.maxDeadlineDate = moment().add(expiry, 'days').toDate();
+        }
       },
       (error) => {
         this.spinnerService.hide();
         this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
-
-    this.subscriptions.add(subscription);
   }
 
   ngAfterViewInit() {
@@ -152,10 +157,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       deadline: new FormControl('', Validators.required),
       job_sector_id: new FormControl('', Validators.required),
       job_type: new FormControl('', Validators.required),
-      job_apply_type: new FormControl(''),
+      job_apply_type: new FormControl('', Validators.required),
       job_industry: new FormControl(''),
       experience: new FormControl(''),
-      salary: new FormControl(5000, Validators.required),
+      salary: new FormControl(0),
 
       address: new FormControl('', Validators.required),
       latitude: new FormControl(''),
@@ -166,6 +171,24 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       job_apply_email: new FormControl(''),
       external_url: new FormControl(''),
     });
+
+    const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe((val) => {
+      if (val === 'external') {
+        this.jobForm.controls['external_url'].setValidators([Validators.required]);
+        this.jobForm.controls['job_apply_email'].clearValidators();
+      } else if (val === 'with_email') {
+        this.jobForm.controls['job_apply_email'].setValidators([Validators.required]);
+        this.jobForm.controls['external_url'].clearValidators();
+      } else {
+        this.jobForm.controls['job_apply_email'].clearValidators();
+        this.jobForm.controls['external_url'].clearValidators();
+      }
+
+      this.jobForm.controls['job_apply_email'].updateValueAndValidity();
+      this.jobForm.controls['external_url'].updateValueAndValidity();
+    });
+
+    this.subscriptions.add(valueChangeSub);
   }
 
   prepareForm(job: any) {
@@ -415,6 +438,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   formatSalarySliderLabel(value: number) {
+    if (value === 0) {
+      return '0';
+    }
+
     return Math.round(value / 1000) + 'k';
   }
 

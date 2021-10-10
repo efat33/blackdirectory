@@ -14,7 +14,7 @@
           <div>
             <form [formGroup]="portfolioForm" (ngSubmit)="onSubmit()">
               <mat-form-field>
-                <mat-label>Title *</mat-label>
+                <mat-label>Title <span class="mat-form-field-required-marker">*</span></mat-label>
                 <input matInput formControlName="title" placeholder="Title" />
               </mat-form-field>
 

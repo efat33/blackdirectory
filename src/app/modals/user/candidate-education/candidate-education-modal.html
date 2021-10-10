@@ -14,20 +14,20 @@
           <div>
             <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
               <mat-form-field>
-                <mat-label>Title *</mat-label>
+                <mat-label>Title <span class="mat-form-field-required-marker">*</span></mat-label>
                 <input matInput formControlName="title" placeholder="Title" />
               </mat-form-field>
 
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field>
-                    <mat-label>Year *</mat-label>
+                    <mat-label>Year <span class="mat-form-field-required-marker">*</span></mat-label>
                     <input matInput formControlName="year" placeholder="Year" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field>
-                    <mat-label>Institute *</mat-label>
+                    <mat-label>Institute <span class="mat-form-field-required-marker">*</span></mat-label>
                     <input matInput formControlName="institute" placeholder="Institute" />
                   </mat-form-field>
                 </div>

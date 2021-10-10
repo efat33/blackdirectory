@@ -34,6 +34,12 @@ import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
 import { HeroSliderComponent } from './hero-slider/hero-slider.component';
 import { AddHeroSlidesModalComponent } from './hero-slider/add-hero-slides-modal/add-hero-slides-modal';
+import { EventCategoriesComponent } from './events/event-categories/event-categories.component';
+import { AddEventCategoryModalComponent } from './events/event-categories/add-event-category-modal/add-event-category-modal';
+import { EventTagsComponent } from './events/event-tags/event-tags.component';
+import { AddEventTagModalComponent } from './events/event-tags/add-event-tag-modal/add-event-tag-modal';
+import { EventOrganizersComponent } from './events/event-organizers/event-organizers.component';
+import { AddEventOrganizerModalComponent } from './events/event-organizers/add-event-organizer-modal/add-event-organizer-modal';
 
 @NgModule({
   declarations: [
@@ -65,7 +71,13 @@ import { AddHeroSlidesModalComponent } from './hero-slider/add-hero-slides-modal
     AllOrdersListComponent,
     AllWithdrawRequestsComponent,
     HeroSliderComponent,
-    AddHeroSlidesModalComponent
+    AddHeroSlidesModalComponent,
+    EventCategoriesComponent,
+    AddEventCategoryModalComponent,
+    EventTagsComponent,
+    AddEventTagModalComponent,
+    EventOrganizersComponent,
+    AddEventOrganizerModalComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

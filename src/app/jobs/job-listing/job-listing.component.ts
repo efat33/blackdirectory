@@ -69,7 +69,7 @@ export class JobListingComponent implements OnInit, OnDestroy {
       sector: new FormControl(this.selectedSector || ''),
       datePosted: new FormControl(''),
       jobType: new FormControl(''),
-      salary: new FormControl([5000, 250000]),
+      salary: new FormControl([0, 250000]),
     });
   }
 

@@ -247,7 +247,7 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   numericOnly(event: any): boolean {
-    const patt = /^([0-9])$/;
+    const patt = /^([0-9.])$/;
     const result = patt.test(event.key);
 
     return result;
