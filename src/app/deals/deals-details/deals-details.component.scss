@@ -1,0 +1,116 @@
+.row {
+  margin-bottom: 16px;
+}
+
+.deal-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-height: 150px;
+  }
+}
+
+.dates {
+  border: 1px dashed #bfbfbb;
+  border-radius: 4px;
+  padding: 8px;
+
+  .expires-at {
+    margin-right: 16px;
+  }
+}
+
+.deal-title {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.price-shipping-dealer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.price-shipping {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 16px;
+  flex-wrap: wrap;
+
+  > * {
+    margin-right: 8px;
+  }
+
+  ::ng-deep p {
+    margin: 0;
+  }
+}
+
+.deal-discount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  flex-wrap: wrap;
+
+  .deal-link {
+    width: 49%;
+  }
+
+  .discount {
+    align-items: center;
+    border: 1px dashed #bfbfbb;
+    cursor: pointer;
+    display: flex;
+    width: 49%;
+
+    span {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+}
+
+.fa {
+  margin: 0 4px;
+}
+
+.thread-divider {
+  background-color: #d6d6d2;
+  display: inline-block;
+  margin-right: 8px;
+  min-width: 1px;
+  width: 1px;
+  height: 23px;
+}
+
+@media only screen and (max-width: 767px) {
+  .deal-image img {
+    max-height: 250px;
+  }
+
+  .deal-title {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .deal-discount {
+    .deal-link {
+      order: 1;
+      margin-top: 8px;
+      width: 100% !important;
+    }
+
+    .discount {
+      width: 100% !important;
+    }
+  }
+
+  .deal-link-small {
+    margin-top: 12px;
+    width: 100%;
+  }
+}

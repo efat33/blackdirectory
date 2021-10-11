@@ -1,0 +1,126 @@
+.single-deal {
+  border: 2px solid #d4d4d4;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 3px 0 rgb(0 0 0 / 10%);
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .deal-image {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+  }
+
+  .dates {
+    display: flex;
+    justify-content: flex-end;
+
+    .expires-at {
+      margin-right: 16px;
+    }
+  }
+
+  .deal-title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .price-shipping-dealer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .price-shipping {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 16px;
+    flex-wrap: wrap;
+
+    > * {
+      margin-right: 8px;
+    }
+
+    ::ng-deep p {
+      margin: 0;
+    }
+  }
+
+  .description {
+    margin-top: 8px;
+  }
+
+  .deal-discount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+
+    .deal-link {
+      width: 49%;
+    }
+
+    .discount {
+      align-items: center;
+      border: 1px dashed #bfbfbb;
+      cursor: pointer;
+      display: flex;
+      width: 49%;
+
+      span {
+        flex-grow: 1;
+        text-align: center;
+      }
+    }
+  }
+
+  .fa-external-link {
+    margin-left: 8px;
+  }
+
+  .thread-divider {
+    background-color: #d6d6d2;
+    display: inline-block;
+    margin-right: 8px;
+    min-width: 1px;
+    width: 1px;
+    height: 23px;
+  }
+}
+
+.single-deal:nth-child(2n) {
+  border-color: #005484;
+  box-shadow: 0 0 10px 0 rgb(0 84 132 / 10%);
+}
+
+@media only screen and (max-width: 767px) {
+  .single-deal {
+    .deal-title {
+      font-size: 14px;
+    }
+
+    .deal-link {
+      margin-bottom: 8px;
+      width: 100% !important;
+    }
+
+    .discount {
+      width: 100% !important;
+    }
+
+    .deal-discount {
+      flex-wrap: wrap;
+    }
+
+    .description {
+      margin-bottom: 8px;
+    }
+
+    .mobile-view.dates {
+      margin-bottom: 8px;
+    }
+  }
+}

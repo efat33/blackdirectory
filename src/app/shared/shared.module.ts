@@ -68,7 +68,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe, fileSrc } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe, fileSrc, SafeHtmlPipe } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -107,6 +107,7 @@ import { ProductPriceComponent } from './components/product-price/product-price.
 import { BdyImagePipe } from './pipes/bdy-image.pipe';
 import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
 import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -146,6 +147,7 @@ import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal'
     AdminSidebarComponent,
     pluralPipe,
     decimalPipe,
+    SafeHtmlPipe,
     excerpt,
     rsvpTimeLeft,
     ListingGalleryModal,
@@ -224,6 +226,7 @@ import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal'
     HttpClientJsonpModule,
     MatTreeModule,
     MatListModule,
+    ClipboardModule,
   ],
   exports: [
     FormsModule,
@@ -288,6 +291,7 @@ import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal'
     ShareIconsModule,
     pluralPipe,
     decimalPipe,
+    SafeHtmlPipe,
     excerpt,
     ImageInputComponent,
     DropFileDirective,
@@ -305,6 +309,7 @@ import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal'
     InformationDialogComponent,
     SendEmailModalComponent,
     EmailJobModalComponent,
+    ClipboardModule,
   ],
   entryComponents: [
     RegistrationModal,

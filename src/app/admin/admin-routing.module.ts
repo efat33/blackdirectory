@@ -35,6 +35,9 @@ import { HeroSliderComponent } from './hero-slider/hero-slider.component';
 import { EventCategoriesComponent } from './events/event-categories/event-categories.component';
 import { EventTagsComponent } from './events/event-tags/event-tags.component';
 import { EventOrganizersComponent } from './events/event-organizers/event-organizers.component';
+import { DealersComponent } from './deals/dealers/dealers.component';
+import { NewDealComponent } from './deals/new-deal/new-deal.component';
+import { ManageDealsComponent } from './deals/manage-deals/manage-deals.component';
 
 const routes: Routes = [
   {
@@ -73,6 +76,11 @@ const routes: Routes = [
       { path: 'mobiles-edit/:mobile_id', component: NewMobileComponent },
       { path: 'mobiles-all', component: ManageMobilesComponent },
       { path: 'mobiles-providers', component: MobileProvidersComponent },
+
+      { path: 'deals-add', component: NewDealComponent },
+      { path: 'deals-edit/:deal_id', component: NewDealComponent },
+      { path: 'deals-all', component: ManageDealsComponent },
+      { path: 'dealers', component: DealersComponent },
 
       { path: 'page-add', component: NewPageComponent },
       { path: 'page-edit/:page_slug', component: NewPageComponent },
