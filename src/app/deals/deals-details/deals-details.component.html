@@ -1,0 +1,61 @@
+<div class="wil-content wilcity-archive">
+  <section class="wil-section">
+    <div class="container" *ngIf="deal">
+      <div class="row deal-header">
+        <div class="col-xs-12 col-md-2 col-md-offset-1 deal-image">
+          <img src="{{deal.image | imageSrc :'deal' : 'thumb' }}" alt="">
+        </div>
+
+        <div class="col-xs-12 col-md-8">
+          <h4 class="deal-title">{{deal.title}}</h4>
+
+          <div class="price-shipping-dealer">
+            <div class="price-shipping">
+              <span class="price-description" [innerHTML]="deal.price_description | safeHtml"></span>
+              <span *ngIf="deal.free_shipping"><i class="fa fa-truck" aria-hidden="true"></i> Free P&P</span>
+
+              <span class="thread-divider"></span>
+              <a [routerLink]="['/deals', deal.dealer_slug]"><span class="dealer-name">{{deal.dealer_name}}</span>
+                Deals</a>
+            </div>
+
+            <a *ngIf="!deal.discount_code" mat-flat-button color="primary" class="deal-link-small"
+              href="{{deal.deal_link}}" target="_blank">Get deal* <i class="fa fa-external-link"
+                aria-hidden="true"></i></a>
+          </div>
+
+          <div *ngIf="deal.discount_code" class="deal-discount">
+            <a mat-flat-button class="deal-link" color="primary" href="{{deal.deal_link}}" target="_blank">Get deal* <i
+                class="fa fa-external-link" aria-hidden="true"></i></a>
+
+            <div class="discount">
+              <span (click)="copyDiscount(deal, tooltip)" #tooltip="matTooltip" matTooltip="Copied to clipboard"
+                matTooltipPosition="above" [matTooltipDisabled]="true"
+                [cdkCopyToClipboard]="deal.discount_code">{{deal.discount_code}}</span>
+
+              <button mat-flat-button color="primary" (click)="copyDiscount(deal, tooltipBtn)" #tooltipBtn="matTooltip"
+                matTooltip="Copied to clipboard" matTooltipPosition="above" [matTooltipDisabled]="true"
+                [cdkCopyToClipboard]="deal.discount_code"><i class="fa fa-scissors" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-xs-12 dates">
+          <span *ngIf="deal.expiry_date" class="expires-at"><i class="fa fa-calendar" aria-hidden="true"></i>
+            Expires on <strong>{{deal.expiry_date | date: 'dd/MM/yyyy'}}</strong></span>
+
+          <span class="published-at"><i class="fa fa-clock-o" aria-hidden="true"></i>Posted {{deal.created_at | date:
+            'dd MMM yyyy'}}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-xs-12">
+          <div [innerHTML]="deal.description"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -44,6 +44,10 @@ const routes: Routes = [
     loadChildren: () => import('./shop/shop.module').then((m) => m.ShopModule),
   },
   {
+    path: 'deals',
+    loadChildren: () => import('./deals/deals.module').then((m) => m.DealsModule),
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
     canLoad: [AdminGuard],
