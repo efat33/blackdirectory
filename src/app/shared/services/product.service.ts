@@ -129,13 +129,14 @@ export interface GetProductListParams {
   choices?: number[];
   tag?: number;
   user_id?: number;
+  ids?: number[];
 }
 
 export interface GetProductListBody {
-  limit: number;
-  offset: number;
-  orderby: string;
-  order: 'DESC' | 'ASC';
+  limit?: number;
+  offset?: number;
+  orderby?: string;
+  order?: 'DESC' | 'ASC';
   params?: GetProductListParams;
 }
 

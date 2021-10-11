@@ -31,9 +31,13 @@ import { ProductCategoriesComponent } from './products/product-categories/produc
 import { ProductCategoryOptionsComponent } from './products/product-category-options/product-category-options.component';
 import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
+import { HeroSliderComponent } from './hero-slider/hero-slider.component';
 import { EventCategoriesComponent } from './events/event-categories/event-categories.component';
 import { EventTagsComponent } from './events/event-tags/event-tags.component';
 import { EventOrganizersComponent } from './events/event-organizers/event-organizers.component';
+import { DealersComponent } from './deals/dealers/dealers.component';
+import { NewDealComponent } from './deals/new-deal/new-deal.component';
+import { ManageDealsComponent } from './deals/manage-deals/manage-deals.component';
 
 const routes: Routes = [
   {
@@ -73,6 +77,11 @@ const routes: Routes = [
       { path: 'mobiles-all', component: ManageMobilesComponent },
       { path: 'mobiles-providers', component: MobileProvidersComponent },
 
+      { path: 'deals-add', component: NewDealComponent },
+      { path: 'deals-edit/:deal_id', component: NewDealComponent },
+      { path: 'deals-all', component: ManageDealsComponent },
+      { path: 'dealers', component: DealersComponent },
+
       { path: 'page-add', component: NewPageComponent },
       { path: 'page-edit/:page_slug', component: NewPageComponent },
       { path: 'page-all', component: ManagePagesComponent },
@@ -85,6 +94,8 @@ const routes: Routes = [
       { path: 'product-options', component: ProductCategoryOptionsComponent },
       { path: 'all-orders', component: AllOrdersListComponent },
       { path: 'withdraw-requests', component: AllWithdrawRequestsComponent },
+
+      { path: 'hero-slider', component: HeroSliderComponent },
     ],
   },
 ];

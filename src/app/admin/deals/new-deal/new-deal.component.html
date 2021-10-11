@@ -1,0 +1,103 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="dealForm">
+  <div id="new-deal-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <div class="content-box_body__3tSRB">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" required />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Link</mat-label>
+            <input matInput formControlName="deal_link" required />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Dealer</mat-label>
+            <mat-select formControlName="dealer_id" required>
+              <mat-option *ngFor="let dealer of dealers" [value]="dealer.id">
+                {{dealer.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Discount Code</mat-label>
+            <input matInput formControlName="discount_code" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Expiry Date</mat-label>
+            <input matInput formControlName="expiry_date" [matDatepicker]="app_expiry_date"
+              (focus)="app_expiry_date.open()">
+            <mat-datepicker-toggle matSuffix [for]="app_expiry_date"></mat-datepicker-toggle>
+            <mat-datepicker #app_expiry_date></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Free Shipping</mat-label>
+            <mat-select formControlName="free_shipping">
+              <mat-option [value]="1">Yes</mat-option>
+              <mat-option [value]="0">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="">
+        <section class="section-mat-form-field section-field-file section-field-preview-img">
+          <mat-label>Image <span class="mat-form-field-required-marker">*</span></mat-label>
+          <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
+          <span *ngIf="imageSrc" [ngStyle]="{'background-image': 'url('+imageSrc+')'}"></span>
+          <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputAttachment.click()">Upload</a>
+        </section>
+        <mat-progress-bar *ngIf="progressFeaturedImage" mode="determinate" [value]="progressFeaturedImage"
+          class="mb-15">
+        </mat-progress-bar>
+        <p class="form-error" *ngIf="!formCustomvalidation.image.validated">
+          {{formCustomvalidation.image.message}}</p>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Short description</mat-label>
+          <textarea matInput placeholder="Short description" formControlName="short_description" rows="5"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="deal-content-ckeditor price-editor">
+        <ckeditor [editor]="ckEditor" [config]="{placeholder: 'Price'}" (ready)="onCkeditorReady($event)"
+          formControlName="price_description">
+        </ckeditor>
+      </div>
+
+      <div class="deal-content-ckeditor">
+        <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
+          formControlName="description">
+        </ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!dealForm.valid">
+    {{editDealId ? 'Update Deal' : 'Add Deal'}}
+  </button>
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+</form>

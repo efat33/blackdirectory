@@ -20,6 +20,7 @@ input[type='file'],
   box-shadow: none;
 }
 a {
+  color: #337ab7;
   cursor: pointer;
   text-decoration: none;
 }
@@ -545,4 +546,18 @@ section.wil-section.has-page-heading {
 section.wil-section.has-page-heading .heading_title__1bzno {
   max-width: 100%;
   margin-bottom: 40px;
+}
+
+@media only screen and (min-width: 768px) {
+  .d-md-block {
+    display: block !important;
+  }
+
+  .d-md-flex {
+    display: flex !important;
+  }
+
+  .d-md-none {
+    display: none !important;
+  }
 }

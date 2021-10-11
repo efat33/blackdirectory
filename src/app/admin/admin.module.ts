@@ -32,12 +32,18 @@ import { AddProductOptionChoiceModalComponent } from './products/product-categor
 import { AssignCategoryOptionsModalComponent } from './products/product-categories/assign-option-modal/assign-option-modal';
 import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
+import { HeroSliderComponent } from './hero-slider/hero-slider.component';
+import { AddHeroSlidesModalComponent } from './hero-slider/add-hero-slides-modal/add-hero-slides-modal';
 import { EventCategoriesComponent } from './events/event-categories/event-categories.component';
 import { AddEventCategoryModalComponent } from './events/event-categories/add-event-category-modal/add-event-category-modal';
 import { EventTagsComponent } from './events/event-tags/event-tags.component';
 import { AddEventTagModalComponent } from './events/event-tags/add-event-tag-modal/add-event-tag-modal';
 import { EventOrganizersComponent } from './events/event-organizers/event-organizers.component';
 import { AddEventOrganizerModalComponent } from './events/event-organizers/add-event-organizer-modal/add-event-organizer-modal';
+import { AddDealerModalComponent } from './deals/dealers/add-dealer-modal/add-dealer-modal';
+import { DealersComponent } from './deals/dealers/dealers.component';
+import { NewDealComponent } from './deals/new-deal/new-deal.component';
+import { ManageDealsComponent } from './deals/manage-deals/manage-deals.component';
 
 @NgModule({
   declarations: [
@@ -68,12 +74,18 @@ import { AddEventOrganizerModalComponent } from './events/event-organizers/add-e
     AssignCategoryOptionsModalComponent,
     AllOrdersListComponent,
     AllWithdrawRequestsComponent,
+    HeroSliderComponent,
+    AddHeroSlidesModalComponent,
     EventCategoriesComponent,
     AddEventCategoryModalComponent,
     EventTagsComponent,
     AddEventTagModalComponent,
     EventOrganizersComponent,
-    AddEventOrganizerModalComponent
+    AddEventOrganizerModalComponent,
+    DealersComponent,
+    AddDealerModalComponent,
+    NewDealComponent,
+    ManageDealsComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })
