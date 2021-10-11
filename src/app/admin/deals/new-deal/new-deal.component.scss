@@ -1,0 +1,13 @@
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 400px !important;
+  max-height: 800px;
+}
+
+:host ::ng-deep .price-editor .ck-editor__editable_inline {
+  min-height: 100px !important;
+  max-height: 100px;
+}
+
+.price-editor {
+  margin-bottom: 20px;
+}
