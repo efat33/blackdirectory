@@ -1,0 +1,127 @@
+<div class="wil-section">
+    <div class="container">
+        <div class="attendee-overview-area">
+            <div *ngIf="!overview.isFetched" class="section-loading">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+            <div *ngIf="overview.isFetched" class="attendee-overview-left">
+                <h5>Overview</h5>
+                <ul>
+                    <li *ngFor="let item of overview.tickets">
+                        <span>{{ item.title }}: </span>{{ item.sold }} {{ item.type == 'rsvp' ? 'going' : 'issued' }}
+                        ({{ item.available ? item.available : 'Unlimited' }}
+                        available)
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="overview.isFetched" class="attendee-overview-right">
+                <h5>Checked in:&nbsp;</h5><span id="total_checkedin">{{ overview.checked_in }}</span>
+                <ul>
+                    <li>
+                        <span>Total Tickets: </span>{{ overview.total_ticket }}
+                    </li>
+                    <li>
+                        <span>Total RSVPs: </span>{{ overview.total_rsvp }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wil-listings-managent-wrapper">
+            <div class=" mt-15">
+                <div class="content-box_body__3tSRB content-event-attendee-btn">
+                    <div class="event-attendee-btn-area">
+                        <div class="event-attendee-btn-left">
+                            <a href="{{ siteUrl + '/events/attendees/rsvp/event/' + eventID }}"
+                                class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
+                                [ngClass]="{'active': queryParams.attendee_type == 'rsvp'}">RSVP Attendee</a>
+                            <a href="{{ siteUrl + '/events/attendees/ticket/event/' + eventID }}"
+                                class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
+                                [ngClass]="{'active': queryParams.attendee_type == 'ticket'}">Ticket
+                                Attendee</a>
+                        </div>
+                        <div class="event-attendee-btn-right">
+                            <div class="searchbox_wrap__37JXq">
+                                <div class="searchbox_searchInput__2p4ds">
+                                    <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+                                        <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+                                            <div class="field_module__1H6kT field_style2__2Znhe active"
+                                                posttype="listing">
+                                                <div id="">
+                                                    <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                                                        aria-owns="autosuggest-autosuggest__results"
+                                                        class="hasAttribute">
+                                                        <input [(ngModel)]="queryParams.keyword" type="text"
+                                                            autocomplete="off"
+                                                            placeholder="Search by name, email, or code"
+                                                            class="field_field__3U_Rt">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="searchbox_searchButton__1c9iK">
+                                    <button (click)="getAttendees()"
+                                        class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button">
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="listing-table_module__2vE05 table-module pos-r">
+                <div>
+                    <table
+                        class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table attendee-list-table">
+                        <thead>
+                            <tr>
+                                <th class="wi-th-title"><span><span>Name</span></span>
+                                </th>
+                                <th class="wi-th-average-rating"><span>
+                                        <span>Email</span>
+                                    </span></th>
+                                <th class="wi-th-view"><span>
+                                        <span>Code</span>
+                                    </span></th>
+                                <th class="wil-text-right wil-th-more"><span>
+                                        <span></span>
+                                    </span></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="totalAttendees == 0">
+                            <tr>
+                                <td colspan="8" style="text-align: center;">
+                                    <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                                        <div class="alert_content__1ntU3">No attendee found</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="totalAttendees > 0">
+                            <tr *ngFor="let item of attendees; let index=index">
+                                <td data-th="Title" class="">
+                                    <span>{{ item.name }}</span>
+                                </td>
+                                <td data-th="Views" class="wil-td-view"><span>{{ item.email }}</span></td>
+                                <td data-th="Favorites" class="wil-td-favorite"><span>{{ item.code }}</span></td>
+
+                                <td data-th="More" class="before-hide wil-text-right wil-td-more">
+                                    <a (click)="onClickCheckin(item.code, index)"
+                                        class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
+                                            class="list_text__35R07">{{ item.checked_in ? 'Undo Check In' : 'Check In'
+                                            }}</span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <pagination [totalItems]="totalAttendees" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+                (pageChange)="onPageChange($event)"></pagination>
+        </div>
+    </div>
+</div>

@@ -35,3 +35,14 @@
         margin-bottom: 10px;
     }
 }
+
+.event-list-actions > a {
+	padding: 0 5px;
+	border: 1px solid;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	line-height: 20.5px;
+	margin: 0 3px;
+	font-size: 12px;
+}
