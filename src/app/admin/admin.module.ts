@@ -32,6 +32,8 @@ import { AddProductOptionChoiceModalComponent } from './products/product-categor
 import { AssignCategoryOptionsModalComponent } from './products/product-categories/assign-option-modal/assign-option-modal';
 import { AllOrdersListComponent } from './products/orders/orders.component';
 import { AllWithdrawRequestsComponent } from './products/withdraw-requests/withdraw-requests.component';
+import { HeroSliderComponent } from './hero-slider/hero-slider.component';
+import { AddHeroSlidesModalComponent } from './hero-slider/add-hero-slides-modal/add-hero-slides-modal';
 import { EventCategoriesComponent } from './events/event-categories/event-categories.component';
 import { AddEventCategoryModalComponent } from './events/event-categories/add-event-category-modal/add-event-category-modal';
 import { EventTagsComponent } from './events/event-tags/event-tags.component';
@@ -72,6 +74,8 @@ import { ManageDealsComponent } from './deals/manage-deals/manage-deals.componen
     AssignCategoryOptionsModalComponent,
     AllOrdersListComponent,
     AllWithdrawRequestsComponent,
+    HeroSliderComponent,
+    AddHeroSlidesModalComponent,
     EventCategoriesComponent,
     AddEventCategoryModalComponent,
     EventTagsComponent,
