@@ -1,0 +1,71 @@
+.searchbox_searchButton__1c9iK .wil-btn--primary {
+    background-color: #069;
+    color: #fff;
+    margin-left: 15px;
+    border-radius: 3px;
+}
+.searchbox_searchButton__1c9iK .wil-btn--primary:after {
+    border-left-color: #069;
+}
+.searchbox_wrap__37JXq .autosuggest__results, .searchbox_searchInput__2p4ds div[class*=wrap] {
+    border-color: #069;
+}
+.field_style5__3OR3T .field_wrap__Gv92k {
+    background: rgba(0, 0, 0, 0);
+}
+
+::ng-deep {
+    .dashboard__content .wil-dashboard-add-listing-wrapper {
+        text-align: right;
+    }
+}
+.event-attendee-btn-left > a:not(:last-child) {
+    margin-right: 15px;
+}
+.event-attendee-btn-right .searchbox_searchButton__1c9iK {
+    padding: 0;
+}
+.event-attendee-btn-area {
+    display: flex;
+    justify-content: space-between;
+}
+.content-box_body__3tSRB.content-event-attendee-btn {
+    padding-left: 0;
+    padding-right: 0;
+}
+.event-attendee-btn-right input.field_field__3U_Rt {
+    min-width: 300px;
+}
+.table-module .attendee-list-table .wil-btn {
+    text-overflow: unset;
+    max-width: unset;
+}
+a.wil-btn.wil-btn--primary.active {
+    background: #252c41;
+}
+
+.attendee-overview-area {
+	border: 1px solid #f3f3f6;
+	display: flex;
+	flex-wrap: wrap;
+}
+.attendee-overview-area > div {
+	width: 50%;
+	padding: 20px;
+}
+.attendee-overview-area h5 {
+	margin: 0;
+	display: inline-block;
+}
+.attendee-overview-area ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.attendee-overview-left {
+	border-right: 1px solid #f3f3f6;
+}
+.attendee-overview-area > div.section-loading {
+	width: 100%;
+	min-height: 200px;
+}

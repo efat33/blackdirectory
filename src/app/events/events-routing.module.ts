@@ -8,6 +8,7 @@ import { AuthVerifiedGuard } from "../shared/route-guards/auth-guard.service";
 import { EventTicketsComponent } from './tickets/event-tickets.component';
 import { EventPaymentReturnComponent } from './event-payment-return/event-payment-return.component';
 import { AuthGuard } from '../shared/route-guards/auth-guard.service';
+import { EventAttendeesComponent } from "./attendees/event-attendees.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "all", pathMatch: "full" },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'details/:slug/payment', component: EventPaymentReturnComponent, canActivate: [AuthGuard] },
   { path: "new", component: NewEventComponent, canActivate: [AuthVerifiedGuard] },
   { path: "edit/:slug", component: NewEventComponent, canActivate: [AuthVerifiedGuard] },
+  { path: "attendees/:type/event/:id", component: EventAttendeesComponent, canActivate: [AuthVerifiedGuard] },
 ];
 
 @NgModule({
