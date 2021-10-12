@@ -25,6 +25,7 @@ declare const google: any;
 export class ListingNewComponent implements OnInit {
 
   categories = [];
+  users = [];
   prices = [
     { value: 'nottosay', viewValue: 'Not to say' },
     { value: 'cheap', viewValue: 'Cheap' },
@@ -241,6 +242,7 @@ export class ListingNewComponent implements OnInit {
       lat: new FormControl('', Validators.required),
       lng: new FormControl('', Validators.required),
       categories: new FormControl('', Validators.required),
+      claimer_id: new FormControl(''),
       products: new FormControl(''),
 
       price_range: new FormControl(''),
@@ -364,6 +366,23 @@ export class ListingNewComponent implements OnInit {
       }
     );
     this.subscriptions.add(subsListingCategories);
+
+    // get users for form users dropdown
+    const subsAllUsers = this.userService.getAllUsers().subscribe(
+      (res:any) => {
+        if(res.length > 0){
+          for (const item of res) {
+            const tmp = { value: item.id, viewValue: item.email};
+            this.users.push(tmp);
+          }
+        }
+        console.log(this.users);
+      },
+      (res:any) => {
+        
+      }
+    );
+    this.subscriptions.add(subsAllUsers);
 
     // get products for form category dropdown
     const pParams = {'params': {'user_id': this.helperservice.currentUserInfo.id}}
@@ -920,6 +939,16 @@ export class ListingNewComponent implements OnInit {
     if (this.categories) {
       return this.categories.filter((category) =>
         category.viewValue.toLowerCase().includes(searchString.toLowerCase())
+      );
+    }
+
+    return [];
+  }
+
+  filteredListingClaimer(searchString: any) {
+    if (this.users) {
+      return this.users.filter((user) =>
+      user.viewValue.toLowerCase().includes(searchString.toLowerCase())
       );
     }
 
