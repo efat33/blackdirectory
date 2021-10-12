@@ -9,6 +9,7 @@ import { NewEventComponent } from './new/new-event.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { EventTicketsComponent } from './tickets/event-tickets.component';
 import { EventPaymentReturnComponent } from './event-payment-return/event-payment-return.component';
+import { EventAttendeesComponent } from './attendees/event-attendees.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { EventPaymentReturnComponent } from './event-payment-return/event-paymen
     NewEventComponent,
     EventTicketsComponent,
     EventPaymentReturnComponent,
+    EventAttendeesComponent
   ],
   imports: [CommonModule, SharedModule, EventsRoutingModule, CKEditorModule],
 })
