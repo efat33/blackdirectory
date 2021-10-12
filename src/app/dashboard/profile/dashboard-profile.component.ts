@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { ConfirmationDialog } from '../../modals/confirmation-dialog/confirmation-dialog';
 import { UserService } from 'src/app/user/user.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import * as moment from 'moment';
 import { UploadService } from 'src/app/shared/services/upload.service';
@@ -49,7 +49,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   submitted = false;
   profileImageSrc: string;
   coverImageSrc: string;
-  userType = this.helperservice.currentUserInfo.role;
+  userType: string;
   candidateEducations: FormArray;
   removedEducations: any = [];
   candidateExperiences: FormArray;
@@ -73,12 +73,15 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   map: any;
   mapMarker: any;
 
+  adminEditId: number;
+
   constructor(
     public dialog: MatDialog,
     private helperservice: HelperService,
     public userService: UserService,
     private spinnerService: SpinnerService,
     private router: Router,
+    private route: ActivatedRoute,
     private snackbar: SnackBarService,
     private uploadService: UploadService,
     private jobService: JobService,
@@ -97,15 +100,20 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
     this.getJobSectors();
 
+    this.adminEditId = parseInt(this.route.snapshot.paramMap.get('id'));
+
     // show spinner, wait until user data is fetched
     this.spinnerService.show();
 
     // get current user detail
-    this.userService.getProfile().subscribe(
+    this.userService.getProfile(this.adminEditId).subscribe(
       (res: any) => {
         this.userDetails = res.data.data;
         this.userMeta = res.data.meta_data;
         this.userProfile = res.data;
+        this.userType = this.userDetails.role;
+
+        this.setupConditionalFormControls();
 
         // populate form fields with the existing data
         this.populateFormFields();
@@ -146,7 +154,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       instagram_link: this.helperservice.getMetaData(this.userMeta, 'instagram_link'),
     });
 
-    if (this.helperservice.currentUserInfo.role == 'candidate') {
+    if (this.userDetails.role == 'candidate') {
       this.profileForm.get('job_title').patchValue(this.helperservice.getMetaData(this.userMeta, 'job_title'));
       this.profileForm.get('job_industry').patchValue(this.helperservice.getMetaData(this.userMeta, 'job_industry'));
       this.profileForm.get('salary_type').patchValue(this.helperservice.getMetaData(this.userMeta, 'salary_type'));
@@ -167,7 +175,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.helperservice.currentUserInfo.role == 'employer') {
+    if (this.userDetails.role === 'employer' || this.userDetails.role === 'admin' ) {
       this.profileForm.get('website').patchValue(this.helperservice.getMetaData(this.userMeta, 'website'));
       this.profileForm.get('founded_date').patchValue(this.helperservice.getMetaData(this.userMeta, 'founded_date'));
     }
@@ -263,9 +271,11 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       linkedin_link: new FormControl(''),
       instagram_link: new FormControl(''),
     });
+  }
 
+  setupConditionalFormControls() {
     // add candidate fields
-    if (this.helperservice.currentUserInfo.role == 'candidate') {
+    if (this.userDetails?.role == 'candidate') {
       this.profileForm.addControl('job_title', new FormControl(''));
       this.profileForm.addControl('job_industry', new FormControl(''));
       this.profileForm.addControl('salary_type', new FormControl(''));
@@ -292,7 +302,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     }
 
     // add employer fields
-    if (this.helperservice.currentUserInfo.role == 'employer') {
+    if (this.userDetails?.role == 'employer' || this.userDetails?.role == 'admin') {
       this.profileForm.addControl('website', new FormControl(''));
       this.profileForm.addControl('founded_date', new FormControl(''));
     }
@@ -418,7 +428,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     // show spinner
     this.spinnerService.show();
 
-    this.userService.update(formData).subscribe(
+    this.userService.update(formData, this.adminEditId).subscribe(
       (res: any) => {
         // hide spinner
         this.spinnerService.hide();
@@ -602,7 +612,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     if (isEdit) {
       const eduGroup = this.candidateEducations.at(index) as FormGroup;
       eduGroup.get('id').patchValue(formData.id);
-      eduGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
+      eduGroup.get('user_id').patchValue(this.userDetails.id);
       eduGroup.get('title').patchValue(formData.title);
       eduGroup.get('institute').patchValue(formData.institute);
       eduGroup.get('year').patchValue(formData.year);
@@ -610,7 +620,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     } else {
       const variationGroup = new FormGroup({
         id: new FormControl(formData.id || ''),
-        user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
+        user_id: new FormControl(this.userDetails.id || 0),
         title: new FormControl(formData.title || ''),
         institute: new FormControl(formData.institute || ''),
         year: new FormControl(formData.year || ''),
@@ -656,7 +666,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     if (isEdit) {
       const expGroup = this.candidateExperiences.at(index) as FormGroup;
       expGroup.get('id').patchValue(formData.id);
-      expGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
+      expGroup.get('user_id').patchValue(this.userDetails.id);
       expGroup.get('title').patchValue(formData.title);
       expGroup.get('start_date').patchValue(formData.start_date);
       expGroup.get('end_date').patchValue(formData.end_date);
@@ -666,7 +676,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     } else {
       const variationGroup = new FormGroup({
         id: new FormControl(formData.id || ''),
-        user_id: new FormControl(this.helperservice.currentUserInfo.id || 0),
+        user_id: new FormControl(this.userDetails.id || 0),
         title: new FormControl(formData.title || ''),
         start_date: new FormControl(formData.start_date || ''),
         end_date: new FormControl(formData.end_date || ''),
@@ -714,7 +724,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     if (isEdit) {
       const expGroup = this.candidatePortfolios.at(index) as FormGroup;
       expGroup.get('id').patchValue(formData.id);
-      expGroup.get('user_id').patchValue(this.helperservice.currentUserInfo.id);
+      expGroup.get('user_id').patchValue(this.userDetails.id);
       expGroup.get('title').patchValue(formData.title);
       expGroup.get('image').patchValue('');
       expGroup.get('image_name').patchValue(formData.image_name);
@@ -724,7 +734,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     } else {
       const variationGroup = new FormGroup({
         id: new FormControl(formData.id || ''),
-        user_id: new FormControl(this.helperservice.currentUserInfo.id),
+        user_id: new FormControl(this.userDetails.id),
         title: new FormControl(formData.title || ''),
         image: new FormControl(formData.image || ''),
         image_name: new FormControl(formData.image_name || ''),
