@@ -308,10 +308,4 @@ export class UserService {
 
     return this.httpClient.get<any>(url, httpOptions);
   }
-
-  getAllUsers() {
-    const url = `api/users/get-all-users`;
-
-    return this.httpClient.get<any>(url, this.headerOptions);
-  }
 }
