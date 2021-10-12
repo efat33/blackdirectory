@@ -58,6 +58,15 @@ export class ManageUsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(subscription);
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
