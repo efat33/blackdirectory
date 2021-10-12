@@ -263,6 +263,12 @@ export class UserService {
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
 
+  getAllUsers(): Observable<any> {
+    const url = `api/users/get-all-users`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
   forgotPassword(body: any): Observable<APIReponse> {
     const url = 'api/users/forgot-password';
 
