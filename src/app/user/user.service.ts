@@ -121,8 +121,12 @@ export class UserService {
       .pipe(map((body: UserAPIReponse) => body));
   }
 
-  getProfile(): Observable<UserAPIReponse> {
-    const url = 'api/users/user-profile';
+  getProfile(id: number = null): Observable<UserAPIReponse> {
+    let url = 'api/users/user-profile';
+
+    if (id) {
+      url += `/${id}`;
+    }
 
     return this.httpClient.get<UserAPIReponse>(url, this.headerOptions);
   }
@@ -191,8 +195,12 @@ export class UserService {
     return this.httpClient.get<UserAPIReponse>(url, this.headerOptions).toPromise();
   }
 
-  update(body: any): Observable<UserAPIReponse> {
-    const url = 'api/users/user-update';
+  update(body: any, id: number = null): Observable<UserAPIReponse> {
+    let url = 'api/users/user-update';
+
+    if (id) {
+      url += `/${id}`;
+    }
 
     return this.httpClient
       .post<UserAPIReponse>(url, JSON.stringify(body), this.headerOptions)
@@ -293,5 +301,11 @@ export class UserService {
     };
 
     return this.httpClient.get<any>(url, httpOptions);
+  }
+
+  getAllUsers() {
+    const url = `api/users/get-all-users`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
   }
 }
