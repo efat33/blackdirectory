@@ -103,13 +103,13 @@
                 | date : 'MMMM d,
                 y @ h:mm a' }}</span></td>
 
-            <td data-th="More" class="before-hide wil-text-right wil-td-more">
-              <a href="{{ siteUrl + '/events/edit/' + item.slug  }}"
-                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
-                  class="list_text__35R07">Edit</span></a>
-              <!-- <a (click)="onRemoveListing(item.id, index)"
-                                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
-                                    class="list_text__35R07">Remove</span></a> -->
+            <td data-th="More" class="before-hide wil-text-right wil-td-more event-list-actions">
+              <a href="{{ siteUrl + '/events/edit/' + item.slug  }}" matTooltip="Edit" class=""><span
+                  class="list_text__35R07"><i class="fa fa-pencil" aria-hidden="true"></i>
+                </span></a>
+              <a href="{{ siteUrl + '/events/attendees/rsvp/event/' + item.id }}" matTooltip="View Attendee"
+                class=""><span class="list_text__35R07"><i class="fa fa-user" aria-hidden="true"></i>
+                </span></a>
             </td>
           </tr>
         </tbody>

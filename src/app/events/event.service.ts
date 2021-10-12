@@ -126,6 +126,34 @@ export class EventService {
     return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
   }
 
+  getEventByID(id): Observable<APIReponse> {
+    let url = `api/events/get-event-by-id/${id}`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
+  getAttendees(body: any): Observable<APIReponse> {
+    const url = 'api/events/attendees';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  attendeeCheckin(body: any): Observable<APIReponse> {
+    const url = 'api/events/attendee-checkin';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  getRsvpTickets(id): Observable<APIReponse> {
+    const url = `api/events/get-rsvp-tickets/${id}`;
+
+    return this.httpClient.get<APIReponse>(url).pipe(map((body: APIReponse) => body));
+  }
+
   getRelatedEvents(id): Observable<APIReponse> {
     const url = `api/events/get-related-events/${id}`;
 

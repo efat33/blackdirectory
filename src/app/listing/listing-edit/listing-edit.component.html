@@ -118,7 +118,8 @@
                                     {{formCustomvalidation.logo.message}}</p>
 
                                 <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Cover Image <span class="mat-form-field-required-marker">*</span></mat-label>
+                                    <mat-label>Cover Image <span class="mat-form-field-required-marker">*</span>
+                                    </mat-label>
                                     <input accept="image/*" type="file" formControlName="cover_img_input"
                                         #fileInputCoverImg (change)="onCoverImageChange($event)" />
                                     <span *ngIf="coverImageSrc"
@@ -215,6 +216,33 @@
                                                 *ngFor="let category of filteredListingCategory(listingCategoryFilterInput.value)"
                                                 [value]="category.value">
                                                 {{category.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div><!-- wilcity_addlisting_listing_cat -->
+
+                        <div class="content-box_module__333d9 content-box_lg__3v3a- enable">
+                            <header class="content-box_header__xPnGx clearfix">
+                                <div class="wil-float-left">
+                                    <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
+                                        <span>Claimed By</span>
+                                    </h4>
+                                </div>
+                            </header>
+                            <div>
+                                <div class="content-box_body__3tSRB">
+                                    <mat-form-field>
+                                        <mat-label>Select User</mat-label>
+                                        <mat-select (openedChange)="onSelectOpen($event, listingClaimerFilterInput)"
+                                            formControlName="claimer_id">
+                                            <input class="selectSearch" #listingClaimerFilterInput matInput
+                                                placeholder="Search User" />
+                                            <mat-option
+                                                *ngFor="let item of filteredListingClaimer(listingClaimerFilterInput.value)"
+                                                [value]="item.value">
+                                                {{item.viewValue}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -505,7 +533,8 @@
                             <header class="content-box_header__xPnGx clearfix">
                                 <div class="wil-float-left">
                                     <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
-                                        <span>Featured Image <span class="mat-form-field-required-marker">*</span></span>
+                                        <span>Featured Image <span
+                                                class="mat-form-field-required-marker">*</span></span>
                                     </h4>
                                 </div>
                             </header>
