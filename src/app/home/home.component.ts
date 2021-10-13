@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
 import SwiperCore, { Navigation } from 'swiper/core';
 import { EventService } from '../events/event.service';
 import { ListingService } from '../listing/listing.service';
-import { LoginModal } from '../modals/user/login/login-modal';
 import { NewsService } from '../news/news.service';
 import { HelperService } from '../shared/helper.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { HomeService } from './home.service';
+import { UserService } from '../user/user.service';
 
 declare const google: any;
 
@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
   locationModified = false;
 
   constructor(
+    private userService: UserService,
     private listingService: ListingService,
     private homeService: HomeService,
     private eventService: EventService,
@@ -135,7 +136,7 @@ export class HomeComponent implements OnInit {
   }
 
   populateGallery() {
-    
+
     const subsHeroSlides = this.homeService.getHeroSlides().subscribe(
       (res:any) => {
         const galleries = res.data;
@@ -145,7 +146,7 @@ export class HomeComponent implements OnInit {
             medium: this.helperService.getImageUrl(item.image, 'gallery'),
             big: this.helperService.getImageUrl(item.image, 'gallery')
           }
-    
+
           this.galleryImages.push(obj);
         }
       },
@@ -153,10 +154,10 @@ export class HomeComponent implements OnInit {
 
       }
     );
-    
+
     this.subscriptions.add(subsHeroSlides);
 
-    
+
   }
 
   initializeGoogleMap() {
@@ -256,9 +257,7 @@ export class HomeComponent implements OnInit {
 
       this.subscriptions.add(subsUpdateFavorite);
     } else {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
   }
 

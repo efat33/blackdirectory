@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { LoginModal } from '../login/login-modal';
 
 export interface DialogData {
   message: string;
@@ -149,9 +148,7 @@ export class RegistrationModal implements OnInit, OnDestroy {
   }
 
   openLoginModal(): void {
-    this.dialogRefLogin = this.dialog.open(LoginModal, {
-      width: '400px',
-    });
+    this.userService.onLoginLinkModal.emit();
   }
 
   ngOnDestroy() {

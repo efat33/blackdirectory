@@ -9,8 +9,6 @@ import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { ForgotPasswordModal } from '../forgot-password/forgot-password-modal';
-import { RegistrationModal } from '../registration/registration-modal';
 
 export interface DialogData {
   message: string;
@@ -159,15 +157,11 @@ export class LoginModal implements OnInit, OnDestroy {
   }
 
   openForgotPassModal(): void {
-    this.dialogRefForgotPass = this.dialog.open(ForgotPasswordModal, {
-      width: '400px',
-    });
+    this.userService.onRegisterLinkModal.emit();
   }
 
   openRegistrationModal(): void {
-    this.dialogRefReg = this.dialog.open(RegistrationModal, {
-      width: '400px',
-    });
+    this.userService.onRegisterLinkModal.emit();
   }
 
   ngOnDestroy() {
