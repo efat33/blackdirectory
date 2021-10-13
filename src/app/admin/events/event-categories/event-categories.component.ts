@@ -112,6 +112,7 @@ export class EventCategoriesComponent implements OnInit, AfterViewInit, OnDestro
 
   deleteCategory(category: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the category?' },
     });
 

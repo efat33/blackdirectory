@@ -173,7 +173,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   calculateTicketAvailability() {
     const NOW = moment().utc().format('YYYY-MM-DD HH:mm:ss');
-    
+
     if(this.event.tickets.length > 0){
       for (const [i, item] of this.event.tickets.entries()) {
         const start_time = moment(item.start_sale).utc().format('YYYY-MM-DD HH:mm:ss');
@@ -188,7 +188,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         else{
           this.tickets.availalbe.push(item);
         }
-      } 
+      }
       console.log(this.tickets);
     }
   }
@@ -314,6 +314,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   onDeleteComment(comment: any, index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 
@@ -336,6 +337,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   onDeleteReply(comment: any, commentIndex: number, replyIndex: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 

@@ -84,6 +84,7 @@ export class ManageMobilesComponent implements OnInit, AfterViewInit, OnDestroy 
 
   deleteMobiles(mobiles: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete?' },
     });
 

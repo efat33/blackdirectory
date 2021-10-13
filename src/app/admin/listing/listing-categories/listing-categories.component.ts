@@ -110,6 +110,7 @@ export class ListingCategoriesComponent implements OnInit, AfterViewInit, OnDest
 
   deleteCategory(category: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the category?' },
     });
 

@@ -141,6 +141,7 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
 
   onDeleteComment(comment: any, index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 
@@ -163,6 +164,7 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
 
   onDeleteReply(comment: any, commentIndex: number, replyIndex: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 
