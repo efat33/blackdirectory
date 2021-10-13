@@ -10,9 +10,9 @@ import { EventSearchCityModal } from 'src/app/modals/events/search/cities/event-
 import { EventSearchDateModal } from 'src/app/modals/events/search/date/event-search-date-modal';
 import { EventSearchOrganizersModal } from 'src/app/modals/events/search/organizers/event-search-organizers-modal';
 import { EventSearchVenueModal } from 'src/app/modals/events/search/venues/event-search-venues-modal';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
+import { UserService } from 'src/app/user/user.service';
 import { EventService } from '../event.service';
 
 declare const google: any;
@@ -79,6 +79,7 @@ export class EventsAllComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private userService: UserService,
     public eventService: EventService,
     public spinnerService: SpinnerService,
     public helperService: HelperService,
@@ -323,9 +324,7 @@ export class EventsAllComponent implements OnInit {
     if (this.helperService.currentUserInfo?.id) {
       this.router.navigate(['events/new']);
     } else {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
   }
 

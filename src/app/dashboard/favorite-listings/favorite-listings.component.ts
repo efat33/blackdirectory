@@ -72,6 +72,7 @@ export class FavoriteListingsComponent implements OnInit {
 
   onRemoveListing(listing_id: number, index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure you want to remove this listing"?' },
     });
 

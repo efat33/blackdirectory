@@ -76,6 +76,7 @@ export class ManagePagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deletePages(page: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete?' },
     });
 

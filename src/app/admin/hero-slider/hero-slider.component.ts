@@ -112,6 +112,7 @@ export class HeroSliderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteCategory(category: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the slide?' },
     });
 

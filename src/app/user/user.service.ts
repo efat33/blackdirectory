@@ -80,9 +80,10 @@ export class UserService {
     { value: 'Other', viewValue: 'Other' },
   ];
 
-  clickedRegisterLinkModal: EventEmitter<any> = new EventEmitter();
-  clickedForgotPassLinkModal: EventEmitter<any> = new EventEmitter();
-  clickedLoginLinkModal: EventEmitter<any> = new EventEmitter();
+  onRegisterLinkModal: EventEmitter<any> = new EventEmitter();
+  onForgotPassLinkModal: EventEmitter<any> = new EventEmitter();
+  onLoginLinkModal: EventEmitter<any> = new EventEmitter();
+  onResetPassLinkModal: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private httpClient: HttpClient,
