@@ -49,3 +49,12 @@ mat-accordion {
   display: block;
   margin-bottom: 1rem;
 }
+
+mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+mat-panel-title {
+  font-weight: 500;
+}
+
