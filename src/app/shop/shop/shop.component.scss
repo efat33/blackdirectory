@@ -11,6 +11,7 @@
 
 .shop-dashboard-content {
   border-left: 1px solid #e5e5e5;
+  border-radius: 4px;
   margin-bottom: 20px;
   padding: 0;
 }
@@ -45,6 +46,7 @@
   padding: 20px 20px 10px;
   border: 1px solid #e5e5e5;
   border-left: none;
+  border-radius: 4px 4px 4px 0;
 }
 
 ::ng-deep .product-search {
