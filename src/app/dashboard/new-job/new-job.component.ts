@@ -32,6 +32,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   minDeadlineDate = new Date();
   maxDeadlineDate: any = new Date();
+  salaryUnspecified: boolean = false;
 
   formCustomvalidation = {
     attachment: {
@@ -160,7 +161,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       job_apply_type: new FormControl('', Validators.required),
       job_industry: new FormControl(''),
       experience: new FormControl(''),
-      salary: new FormControl(0),
+      salary: new FormControl(''),
 
       address: new FormControl('', Validators.required),
       latitude: new FormControl(''),
@@ -202,7 +203,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       job_apply_type: job.job_apply_type,
       job_industry: job.job_industry,
       experience: job.experience,
-      salary: job.salary,
+      salary: job.salary === 0 ? '' : job.salary,
 
       address: job.address,
       latitude: job.latitude,
@@ -213,6 +214,12 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       job_apply_email: job.job_meta?.job_apply_email,
       external_url: job.job_meta?.external_url,
     });
+
+    this.salaryUnspecified = job.salary === 0;
+
+    if (this.salaryUnspecified) {
+      this.jobForm.get('salary').disable();
+    }
 
     this.map.setCenter({ lat: job.latitude, lng: job.longitude });
     this.mapMarker.setPosition({ lat: job.latitude, lng: job.longitude });
@@ -237,8 +244,8 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       anchorPoint: new google.maps.Point(0, -29),
     });
 
-    let initialLat = 52.49840357809672;
-    let initialLng = -1.4366882483060417;
+    const initialLat = 52.49840357809672;
+    const initialLng = -1.4366882483060417;
 
     this.map.setCenter({ lat: initialLat, lng: initialLng });
     this.mapMarker.setPosition({ lat: 23, lng: 90 });
@@ -250,8 +257,8 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     google.maps.event.addListener(this.map, 'click', (event: any) => {
-      let lat = event.latLng.lat(); // lat of clicked point
-      let lng = event.latLng.lng(); // lng of clicked point
+      const lat = event.latLng.lat(); // lat of clicked point
+      const lng = event.latLng.lng(); // lng of clicked point
 
       const latlng = { lat, lng };
 
@@ -265,7 +272,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
           latLng: latlng,
         },
         (results: any, status: any) => {
-          if (status == google.maps.GeocoderStatus.OK) {
+          if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
               address.setValue(results[0].formatted_address);
             }
@@ -385,6 +392,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     const formValues = this.jobForm.value;
     formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
 
+    if (this.salaryUnspecified) {
+      formValues.salary = 0;
+    }
+
     this.spinnerService.show();
     const newJobSubscription = this.jobService.newJob(formValues).subscribe(
       (result: any) => {
@@ -413,6 +424,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     const formValues = this.jobForm.value;
     formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
 
+    if (this.salaryUnspecified) {
+      formValues.salary = 0;
+    }
+
     this.spinnerService.show();
     const updateJobSubscription = this.jobService.editJob(this.editJobId, formValues).subscribe(
       (result: any) => {
@@ -437,12 +452,22 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(updateJobSubscription);
   }
 
-  formatSalarySliderLabel(value: number) {
-    if (value === 0) {
-      return '0';
+  numericOnly(event: any): boolean {
+    const patt = /^([0-9.])$/;
+    const result = patt.test(event.key);
+
+    return result;
+  }
+
+  onUnspecifiedSalary(value: boolean) {
+    const salaryFormField = this.jobForm.get('salary');
+
+    if (value) {
+      salaryFormField.disable();
+    } else {
+      salaryFormField.enable();
     }
 
-    return Math.round(value / 1000) + 'k';
   }
 
   ngOnDestroy() {
