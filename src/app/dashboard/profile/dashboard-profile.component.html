@@ -181,7 +181,7 @@
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Sector</mat-label>
-                <mat-select formControlName="job_sectors_id" required>
+                <mat-select formControlName="job_sectors_id">
                   <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
                   </mat-option>
                 </mat-select>
@@ -229,7 +229,7 @@
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Sector</mat-label>
-                <mat-select formControlName="job_sectors_id" required>
+                <mat-select formControlName="job_sectors_id">
                   <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
                   </mat-option>
                 </mat-select>

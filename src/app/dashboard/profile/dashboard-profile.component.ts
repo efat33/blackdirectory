@@ -262,7 +262,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       cover_photo: new FormControl(''),
       cover_photo_name: new FormControl(''),
       pubic_view: new FormControl(''),
-      job_sectors_id: new FormControl('', Validators.required),
+      job_sectors_id: new FormControl(''),
 
       address: new FormControl(''),
       latitude: new FormControl(''),
