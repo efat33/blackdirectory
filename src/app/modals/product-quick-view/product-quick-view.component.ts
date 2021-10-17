@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { ProductList, ProductService } from 'src/app/shared/services/product.service';
@@ -32,6 +32,7 @@ export class ProductQuickViewModal implements OnInit {
       thumbnailsAsLinks: false,
       preview: true,
       startIndex: 0,
+      imageSize: NgxGalleryImageSize.Contain,
     },
     {
       breakpoint: 720,
@@ -40,6 +41,7 @@ export class ProductQuickViewModal implements OnInit {
       thumbnailsPercent: 20,
       thumbnailsMargin: 20,
       thumbnailMargin: 20,
+      imageSize: NgxGalleryImageSize.Contain,
     },
   ];
   images: NgxGalleryImage[];
