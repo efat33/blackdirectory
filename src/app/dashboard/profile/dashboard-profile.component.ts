@@ -142,7 +142,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       profile_photo_name: this.userDetails.profile_photo,
       cover_photo_name: this.userDetails.cover_photo,
       pubic_view: this.userDetails.pubic_view,
-      job_sectors_id: this.userDetails.job_sectors_id,
+      job_sectors_id: this.userDetails.job_sectors_id || '',
 
       address: this.userDetails.address,
       latitude: this.userDetails.latitude,
