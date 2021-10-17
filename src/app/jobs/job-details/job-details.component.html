@@ -126,7 +126,7 @@
                   <div class="jobsearch-services-text">Experience <small>{{job.experience}}</small></div>
                 </li>
                 <li class="jobsearch-column-4"> <i class="jobsearch-icon jobsearch-salary"></i>
-                  <div class="jobsearch-services-text">Salary (£) <small>{{job.salary | number}}</small></div>
+                  <div class="jobsearch-services-text">Salary (£) <small>{{job.salary ? (job.salary | number) : 'Unspecified'}}</small></div>
                 </li>
               </ul>
             </div>

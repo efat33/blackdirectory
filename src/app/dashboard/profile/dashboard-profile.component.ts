@@ -136,13 +136,14 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       first_name: this.userDetails.first_name,
       last_name: this.userDetails.last_name,
       display_name: this.userDetails.display_name,
+      email: this.userDetails.email,
       phone: this.userDetails.phone,
       dob: this.userDetails.dob,
       description: this.userDetails.description,
       profile_photo_name: this.userDetails.profile_photo,
       cover_photo_name: this.userDetails.cover_photo,
       pubic_view: this.userDetails.pubic_view,
-      job_sectors_id: this.userDetails.job_sectors_id,
+      job_sectors_id: this.userDetails.job_sectors_id || '',
 
       address: this.userDetails.address,
       latitude: this.userDetails.latitude,
@@ -249,9 +250,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
   setupFormFields(): void {
     this.profileForm = new FormGroup({
-      first_name: new FormControl(''),
-      last_name: new FormControl(''),
-      display_name: new FormControl(''),
+      first_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      last_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      display_name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl(''),
       dob: new FormControl(''),
       description: new FormControl(''),
@@ -260,7 +262,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       cover_photo: new FormControl(''),
       cover_photo_name: new FormControl(''),
       pubic_view: new FormControl(''),
-      job_sectors_id: new FormControl('', Validators.required),
+      job_sectors_id: new FormControl(''),
 
       address: new FormControl(''),
       latitude: new FormControl(''),

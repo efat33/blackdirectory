@@ -14,8 +14,11 @@ import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
   styleUrls: ['./products-new.component.css'],
 })
 export class ProductsNewComponent implements OnInit {
+  titleLimit: number = 80;
+  shortDescriptionLimit: number = 200;
+
   productForm = new FormGroup({
-    title: new FormControl('', Validators.required),
+    title: new FormControl('', [Validators.required, Validators.maxLength(this.titleLimit)]),
     price: new FormControl(0, Validators.required),
     discounted_price: new FormControl(0),
     discount_start: new FormControl(null),
@@ -25,7 +28,7 @@ export class ProductsNewComponent implements OnInit {
     tags: new FormControl([]),
     image: new FormControl('', Validators.required),
     galleries: new FormArray([new FormControl('')]),
-    short_desc: new FormControl(''),
+    short_desc: new FormControl('', Validators.maxLength(this.shortDescriptionLimit)),
     description: new FormControl('', Validators.required),
     sku: new FormControl(''),
     stock_status: new FormControl('', Validators.required),
@@ -149,7 +152,7 @@ export class ProductsNewComponent implements OnInit {
         i++;
       }
     }
-    if (galleries.every((gallery) => gallery !== '')) {
+    if (galleries.every((gallery) => gallery !== '') && galleries.length < 5) {
       this.galleries.push(new FormControl(''));
     }
   };

@@ -11,12 +11,8 @@
     </mat-expansion-panel-header>
 
     <p *ngFor="let vendor of getVisibleVendors(); let i = index">
-      <mat-checkbox
-        color="primary"
-        [formControl]="vendor.get('checked')"
-        [value]="vendor.get('id').value"
-        (change)="onFiltersChange()"
-      >
+      <mat-checkbox color="primary" [formControl]="vendor.get('checked')" [value]="vendor.get('id').value"
+        (change)="onFiltersChange()">
         {{ vendor.get('name').value }}
       </mat-checkbox>
     </p>
@@ -37,15 +33,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <span>{{ priceControl.value[0] | currency }} - {{ priceControl.value[1] | currency }}</span>
-    <nouislider
-      [connect]="true"
-      [min]="priceMin"
-      [max]="priceMax"
-      [step]="5"
-      [formControl]="priceControl"
-      (end)="onFiltersChange()"
-    ></nouislider>
+    £ <input class="price-range-input" type="number" [(ngModel)]="priceMin"> - £ <input class="price-range-input"
+      type="number" [(ngModel)]="priceMax">
+    <button mat-icon-button (click)="onFiltersChange()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -59,22 +51,11 @@
     </mat-expansion-panel-header>
 
     <mat-radio-group class="vertical-radio-group" (change)="onFiltersChange()" [formControl]="reviewControl">
-      <mat-radio-button
-        class="vertical-radio-button"
-        color="primary"
-        *ngFor="let rating of [5, 4, 3, 2, 1, null]; let index = index"
-        [value]="rating"
-      >
+      <mat-radio-button class="vertical-radio-button" color="primary"
+        *ngFor="let rating of [5, 4, 3, 2, 1, null]; let index = index" [value]="rating">
         <div style="display: flex; align-items: center" *ngIf="index < 5">
-          <star-rating
-            [value]="rating"
-            [totalstars]="5"
-            size="18px"
-            checkedcolor="gold"
-            uncheckedcolor="gray"
-            readonly="true"
-            style="display: inline-block"
-          ></star-rating>
+          <star-rating [value]="rating" [totalstars]="5" size="18px" checkedcolor="gold" uncheckedcolor="gray"
+            readonly="true" style="display: inline-block"></star-rating>
           <span *ngIf="index > 0" style="margin-left: 4px"> & up </span>
         </div>
         <div style="display: flex; align-items: center" *ngIf="index === 5">No Review</div>

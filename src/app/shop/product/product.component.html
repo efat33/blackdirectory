@@ -1,13 +1,16 @@
 <div class="container">
   <div class="core-section">
     <div class="gallery-wrapper">
-      <div *ngIf="hasDiscount" class="sale-badge">SALE !</div>
+      <div *ngIf="p.stock_status === 'outstock'" class="outstock-badge product-badge">SOLD OUT</div>
+      <div *ngIf="hasDiscount && p.stock_status !== 'outstock'" class="sale-badge product-badge">SALE</div>
       <ngx-gallery [options]="galleryOptions" [images]="images" class="ngx-gallery"></ngx-gallery>
     </div>
     <div>
       <h1>{{ p.title }}</h1>
       <div class="short-description">
         <p>{{ p.short_desc }}</p>
+
+        <p *ngIf="p.stock_status === 'backorder'" class="back-order">Available on backorder</p>
       </div>
       <div *ngIf="p.rating_total > 0" class="total-rating">
         <star-rating
@@ -24,7 +27,10 @@
       <div class="price">
         <app-product-price [product]="p"></app-product-price>
       </div>
-      <div class="add-to-cart-section">
+
+      <p *ngIf="p.stock_status === 'outstock'" class="out-of-stock">Out of stock</p>
+
+      <div class="add-to-cart-section" *ngIf="p.stock_status !== 'outstock'">
         <div class="add-to-cart-count">
           <button
             mat-icon-button
@@ -55,6 +61,7 @@
           </button>
         </span>
       </div>
+
       <div class="category">
         Category:
         <a

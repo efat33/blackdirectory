@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError, distinctUntilChanged, finalize, switchMapTo, tap } from 'rxjs/operators';
 import { GetProductListParams, ProductList, ProductService } from 'src/app/shared/services/product.service';
@@ -7,7 +7,7 @@ import { GetProductListParams, ProductList, ProductService } from 'src/app/share
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css'],
+  styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
   params: GetProductListParams = {};
@@ -66,15 +66,16 @@ export class ShopComponent implements OnInit {
   loading$ = new BehaviorSubject<boolean>(false);
   trackByIdentity = (index: number, item: ProductList) => item.id;
 
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) {}
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .pipe(
         distinctUntilChanged(),
         tap(() => this.loading$.next(true)),
-        tap(({ category, tag, price_min, price_max, brands, rating, choices }) => {
+        tap(({ keyword, category, tag, price_min, price_max, brands, rating, choices }) => {
           this.currentPage = 1;
+          this.params.keyword = keyword;
           this.params.category = category;
           this.params.tag = tag;
           this.params.price_min = price_min;
@@ -100,6 +101,16 @@ export class ShopComponent implements OnInit {
     this.currentPage = 1;
     this.sort = value || this.sortOptions[0].value;
     this.loadProducts();
+  }
+
+  onSearchProduct() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        keyword: this.params.keyword
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   loadProducts(): void {
