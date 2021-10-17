@@ -14,10 +14,13 @@ import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
   styleUrls: ['./products-edit.component.css'],
 })
 export class ProductsEditComponent implements OnInit {
+  titleLimit: number = 80;
+  shortDescriptionLimit: number = 200;
+
   currentValues: ProductDetails;
   productForm = new FormGroup({
     id: new FormControl(null, Validators.required),
-    title: new FormControl('', Validators.required),
+    title: new FormControl('', [Validators.required, Validators.maxLength(this.titleLimit)]),
     price: new FormControl(0, Validators.required),
     discounted_price: new FormControl(0),
     discount_start: new FormControl(null),
@@ -27,7 +30,7 @@ export class ProductsEditComponent implements OnInit {
     tags: new FormControl([]),
     image: new FormControl('', Validators.required),
     galleries: new FormArray([new FormControl('')]),
-    short_desc: new FormControl(''),
+    short_desc: new FormControl('', Validators.maxLength(this.shortDescriptionLimit)),
     description: new FormControl('', Validators.required),
     sku: new FormControl(''),
     stock_status: new FormControl('', Validators.required),
