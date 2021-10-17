@@ -136,6 +136,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       first_name: this.userDetails.first_name,
       last_name: this.userDetails.last_name,
       display_name: this.userDetails.display_name,
+      email: this.userDetails.email,
       phone: this.userDetails.phone,
       dob: this.userDetails.dob,
       description: this.userDetails.description,
@@ -249,9 +250,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
   setupFormFields(): void {
     this.profileForm = new FormGroup({
-      first_name: new FormControl(''),
-      last_name: new FormControl(''),
-      display_name: new FormControl(''),
+      first_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      last_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      display_name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl(''),
       dob: new FormControl(''),
       description: new FormControl(''),

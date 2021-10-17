@@ -26,18 +26,22 @@
         <div class="content-box_body__3tSRB">
           <mat-form-field>
             <mat-label>First Name</mat-label>
-            <input matInput formControlName="first_name" />
+            <input matInput formControlName="first_name" required/>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Last Name</mat-label>
-            <input matInput formControlName="last_name" />
+            <input matInput formControlName="last_name" required/>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Display Name</mat-label>
-            <input matInput formControlName="display_name" />
+            <input matInput formControlName="display_name" required/>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Phone</mat-label>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Phone Number</mat-label>
             <input matInput formControlName="phone" />
           </mat-form-field>
           <mat-form-field>
@@ -76,21 +80,14 @@
           <p class="form-error" *ngIf="!formCustomvalidation.coverImage.validated">
             {{formCustomvalidation.coverImage.message}}</p>
 
-          <mat-form-field>
-            <mat-label>Sector</mat-label>
-            <mat-select formControlName="job_sectors_id" required>
-              <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
+          <!-- <mat-form-field>
             <mat-label>Profile for Public View</mat-label>
             <mat-select formControlName="pubic_view">
               <mat-option *ngFor="let publicView of userService.publicViews" [value]="publicView.value">
                 {{publicView.viewValue}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
       </div> <!-- dashboard-section-basic-info-info -->
 
@@ -123,9 +120,9 @@
           </div>
 
           <div class="row">
-              <div class="col-md-12">
-                  <div id="googleMap" style="width:100%;height:300px;"></div>
-              </div>
+            <div class="col-md-12">
+              <div id="googleMap" style="width:100%;height:300px;"></div>
+            </div>
           </div>
         </div>
       </div><!-- dashboard-section-address-location -->
@@ -170,7 +167,7 @@
         </div>
       </div><!-- dashboard-section-social-links -->
 
-      <div *ngIf="userType=='employer'" id="dashboard-section-other-info"
+      <div *ngIf="userType=='employer' || userType == 'admin'" id="dashboard-section-other-info"
         class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
         <header class="content-box_header__xPnGx clearfix">
           <div class="wil-float-left">
@@ -183,10 +180,21 @@
           <div class="row">
             <div class="col-md-6">
               <mat-form-field>
+                <mat-label>Sector</mat-label>
+                <mat-select formControlName="job_sectors_id" required>
+                  <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
                 <mat-label>Website</mat-label>
                 <input matInput formControlName="website" />
               </mat-form-field>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Founded Date</mat-label>
@@ -220,6 +228,17 @@
             </div>
             <div class="col-md-6">
               <mat-form-field>
+                <mat-label>Sector</mat-label>
+                <mat-select formControlName="job_sectors_id" required>
+                  <mat-option *ngFor="let sector of jobSectors" [value]="sector.id" [innerHTML]="sector.title">
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
                 <mat-label>Industry</mat-label>
                 <mat-select formControlName="job_industry">
                   <mat-option *ngFor="let jobIndustry of userService.jobIndustrys" [value]="jobIndustry.value">
@@ -228,8 +247,6 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Salary Type</mat-label>
@@ -240,14 +257,14 @@
                 </mat-select>
               </mat-form-field>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Salary Amount</mat-label>
                 <input matInput formControlName="salary_amount" />
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Age</mat-label>
@@ -258,6 +275,8 @@
                 </mat-select>
               </mat-form-field>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Gender</mat-label>
@@ -269,8 +288,6 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
             <div class="col-md-6">
               <section class="section-mat-form-field ">
                 <mat-checkbox class="" color='primary' formControlName="availble_now">
@@ -278,6 +295,8 @@
                 </mat-checkbox>
               </section>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Academic Level</mat-label>
