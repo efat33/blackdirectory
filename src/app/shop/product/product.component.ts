@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { map, pluck } from 'rxjs/operators';
 import { ProductDetails, ProductReview, ProductService } from 'src/app/shared/services/product.service';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -38,6 +38,7 @@ export class ProductComponent implements OnInit {
       thumbnailsAsLinks: false,
       preview: true,
       startIndex: 0,
+      imageSize: NgxGalleryImageSize.Contain,
     },
     {
       breakpoint: 720,
@@ -46,6 +47,7 @@ export class ProductComponent implements OnInit {
       thumbnailsPercent: 20,
       thumbnailsMargin: 20,
       thumbnailMargin: 20,
+      imageSize: NgxGalleryImageSize.Contain,
     },
   ];
   images: NgxGalleryImage[];
