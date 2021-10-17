@@ -168,7 +168,7 @@ export class ProductsEditComponent implements OnInit {
         i++;
       }
     }
-    if (galleries.every((gallery) => gallery !== '')) {
+    if (galleries.every((gallery) => gallery !== '') && galleries.length < 5) {
       this.galleries.push(new FormControl(''));
     }
   };
