@@ -139,6 +139,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       email: this.userDetails.email,
       phone: this.userDetails.phone,
       dob: this.userDetails.dob,
+      is_business: this.userDetails.is_business,
       description: this.userDetails.description,
       profile_photo_name: this.userDetails.profile_photo,
       cover_photo_name: this.userDetails.cover_photo,
@@ -256,6 +257,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl(''),
       dob: new FormControl(''),
+      is_business: new FormControl(0),
       description: new FormControl(''),
       profile_photo: new FormControl(''),
       profile_photo_name: new FormControl(''),
@@ -264,9 +266,9 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       pubic_view: new FormControl(''),
       job_sectors_id: new FormControl(''),
 
-      address: new FormControl(''),
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
+      address: new FormControl('', Validators.required),
+      latitude: new FormControl('', Validators.required),
+      longitude: new FormControl('', Validators.required),
 
       facebook_link: new FormControl(''),
       twitter_link: new FormControl(''),

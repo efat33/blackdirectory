@@ -50,7 +50,10 @@
             <mat-datepicker-toggle matSuffix [for]="date_birth"></mat-datepicker-toggle>
             <mat-datepicker #date_birth></mat-datepicker>
           </mat-form-field>
-          <mat-form-field>
+          <div style="margin-bottom: 10px;">
+            <mat-checkbox formControlName="is_business" color="primary">Business Account?</mat-checkbox>
+          </div>
+          <mat-form-field *ngIf="profileForm.controls.is_business.value">
             <mat-label>Description</mat-label>
             <textarea matInput rows="5" formControlName="description"></textarea>
           </mat-form-field>
@@ -102,19 +105,19 @@
         <div class="content-box_body__3tSRB">
           <mat-form-field>
             <mat-label>Full Address</mat-label>
-            <input matInput formControlName="address" />
+            <input matInput formControlName="address" required/>
           </mat-form-field>
           <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Latitude</mat-label>
-                <input matInput formControlName="latitude" />
+                <input matInput formControlName="latitude" required/>
               </mat-form-field>
             </div>
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Longitude</mat-label>
-                <input matInput formControlName="longitude" />
+                <input matInput formControlName="longitude" required/>
               </mat-form-field>
             </div>
           </div>
