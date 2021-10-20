@@ -26,7 +26,7 @@
     <div class="price">
       <app-product-price [product]="product"></app-product-price>
     </div>
-    <h3>{{ product.title }}</h3>
+    <h3 #productTitle class="product-title" title="{{product.title}}">{{ product.title }}</h3>
   </a>
   <a class="vendor-link" [routerLink]="['/shop', 'vendor', product.user_id]">
     {{ product.store_name || product.user_display_name + ' Store' || product.user_username + ' Store' }}

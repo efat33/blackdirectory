@@ -13,15 +13,8 @@
         <p *ngIf="p.stock_status === 'backorder'" class="back-order">Available on backorder</p>
       </div>
       <div *ngIf="p.rating_total > 0" class="total-rating">
-        <star-rating
-          [value]="p.rating_average"
-          [totalstars]="5"
-          size="24px"
-          checkedcolor="gold"
-          uncheckedcolor="gray"
-          readonly="true"
-          style="cursor: default"
-        ></star-rating>
+        <star-rating [value]="p.rating_average" [totalstars]="5" size="24px" checkedcolor="gold" uncheckedcolor="gray"
+          readonly="true" style="cursor: default"></star-rating>
         <span style="margin-left: 8px">( {{ p.rating_total }} )</span>
       </div>
       <div class="price">
@@ -32,12 +25,8 @@
 
       <div class="add-to-cart-section" *ngIf="p.stock_status !== 'outstock'">
         <div class="add-to-cart-count">
-          <button
-            mat-icon-button
-            color="primary"
-            [disabled]="addToCartCount === 1"
-            (click)="addToCartCount = addToCartCount - 1"
-          >
+          <button mat-icon-button color="primary" [disabled]="addToCartCount === 1"
+            (click)="addToCartCount = addToCartCount - 1">
             <mat-icon>remove_circle</mat-icon>
           </button>
           <span style="margin: 0 4px">{{ addToCartCount }}</span>
@@ -50,13 +39,8 @@
           <button *ngIf="!isInWishlist" style="height: 100%" mat-flat-button color="primary" (click)="addToWishlist()">
             <mat-icon>favorite_border</mat-icon>
           </button>
-          <button
-            *ngIf="isInWishlist"
-            style="height: 100%"
-            mat-flat-button
-            color="primary"
-            (click)="removeFromWishlist()"
-          >
+          <button *ngIf="isInWishlist" style="height: 100%" mat-flat-button color="primary"
+            (click)="removeFromWishlist()">
             <mat-icon>favorite</mat-icon>
           </button>
         </span>
@@ -64,22 +48,14 @@
 
       <div class="category">
         Category:
-        <a
-          *ngFor="let category of p.categories; let i = index"
-          [routerLink]="'/shop'"
-          [queryParams]="{ category: category.id }"
-          class="tag-link"
-          ><span *ngIf="i !== 0">, </span>{{ category.title }}</a
-        >
+        <a *ngFor="let category of p.categories; let i = index" [routerLink]="'/shop'"
+          [queryParams]="{ category: category.id }" class="tag-link"><span *ngIf="i !== 0">, </span>{{ category.title
+          }}</a>
       </div>
       <div *ngIf="p.tags.length > 0" class="tags">
         Tags:
-        <a
-          *ngFor="let tag of p.tags; let i = index"
-          class="tag-link"
-          [routerLink]="'/shop'"
-          [queryParams]="{ tag: tag.id }"
-        >
+        <a *ngFor="let tag of p.tags; let i = index" class="tag-link" [routerLink]="'/shop'"
+          [queryParams]="{ tag: tag.id }">
           {{ tag.title }}
           <ng-container *ngIf="i < p.tags.length - 1">,</ng-container>
         </a>
@@ -102,15 +78,8 @@
             <mat-list-item>
               <img matListAvatar [src]="review.user_profile_photo" alt="" />
               <div mat-line>
-                <star-rating
-                  [value]="review.rating"
-                  [totalstars]="5"
-                  size="16px"
-                  checkedcolor="gold"
-                  uncheckedcolor="gray"
-                  readonly="true"
-                  style="display: block; cursor: default"
-                ></star-rating>
+                <star-rating [value]="review.rating" [totalstars]="5" size="16px" checkedcolor="gold"
+                  uncheckedcolor="gray" readonly="true" style="display: block; cursor: default"></star-rating>
                 <span style="margin-left: 1rem; color: #666; font-size: 1.4rem">
                   {{ review.user_display_name }},
                   <span style="font-size: 1.3rem">{{ review.created_at | date }}</span>
@@ -127,16 +96,10 @@
           </mat-card-header>
           <form #form="ngForm" (ngSubmit)="submitReview()" [formGroup]="review">
             <mat-card-content>
-              <star-rating
-                [value]="review.get('rating').value"
-                [totalstars]="5"
-                size="24px"
-                checkedcolor="gold"
-                uncheckedcolor="gray"
-                readonly="false"
-                [ngClass]="{ 'rating-error': review.get('rating').invalid && reviewTouched }"
-                (rate)="onRate($event)"
-              ></star-rating>
+              <star-rating [value]="review.get('rating').value" [totalstars]="5" size="24px" checkedcolor="gold"
+                uncheckedcolor="gray" readonly="false"
+                [ngClass]="{ 'rating-error': review.get('rating').invalid && reviewTouched }" (rate)="onRate($event)">
+              </star-rating>
               <mat-form-field appearance="outline">
                 <mat-label>Review</mat-label>
                 <textarea matInput formControlName="review" rows="4"></textarea>
@@ -149,24 +112,23 @@
         </mat-card>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Vendor Info" *ngIf="storeDetails$ | async as vendor">
-      <ng-template matTabContent>
-        <h2>Vendor Info</h2>
-        <div class="vendor-info">
-          <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
-          <div class="core-section">
-            <img [src]="vendor.profile_picture" />
-            <div>
-              <strong> {{ vendor.store_name }} </strong>
-              <address>
-                {{ vendor.address }}
-              </address>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </mat-tab>
   </mat-tab-group>
+
+  <ng-container *ngIf="storeDetails$ | async as vendor">
+    <h2>Vendor Info</h2>
+    <div class="vendor-info">
+      <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
+      <div class="core-section">
+        <img [src]="vendor.profile_picture" />
+        <div>
+          <strong> {{ vendor.store_name }} </strong>
+          <address>
+            {{ vendor.address }}
+          </address>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 
   <h2>Related products</h2>
   <div class="related-products-container">

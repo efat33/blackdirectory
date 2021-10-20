@@ -19,6 +19,7 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
 
   @ViewChild('container') containerRef: ElementRef<HTMLDivElement>;
   @ViewChild('image') imageRef: ElementRef<HTMLImageElement>;
+  @ViewChild('productTitle') productTitle: ElementRef<HTMLHeadingElement>;
 
   resizeObservable$ = fromEvent(window, 'resize');
   width: number = 250;
@@ -55,8 +56,10 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.resizeObservable$.pipe(startWith(''), debounceTime(5)).subscribe((evt) => {
       this.width = this.containerRef.nativeElement.offsetWidth;
-      this.imageRef.nativeElement.style.maxWidth = `${this.width}px`;
-      this.imageRef.nativeElement.style.height = `${this.width}px`;
+      this.imageRef.nativeElement.style.maxWidth = `${this.width - 26}px`;
+      this.imageRef.nativeElement.style.height = `${this.width - 26}px`;
+
+      this.productTitle.nativeElement.style.maxWidth = `${this.width - 26 - 16 - 1}px`;
     });
   }
 
