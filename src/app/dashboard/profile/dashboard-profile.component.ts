@@ -266,9 +266,9 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       pubic_view: new FormControl(''),
       job_sectors_id: new FormControl(''),
 
-      address: new FormControl(''),
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
+      address: new FormControl('', Validators.required),
+      latitude: new FormControl('', Validators.required),
+      longitude: new FormControl('', Validators.required),
 
       facebook_link: new FormControl(''),
       twitter_link: new FormControl(''),
