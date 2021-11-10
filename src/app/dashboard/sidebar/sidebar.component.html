@@ -282,7 +282,7 @@
           ></span>
         </li>
 
-        <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-billings">
+        <li *ngIf="currentUser.verified && userType !== 'candidate'" class="dashboard-nav_item__2798B wilcity-dashboard-route-billings">
           <span
             ><a
               [routerLink]="['packages']"
