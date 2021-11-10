@@ -78,8 +78,15 @@ export class RegistrationModal implements OnInit, OnDestroy {
         // set current user to localstorage
         localStorage.setItem('currentUserInfo', JSON.stringify(result.data));
 
+        const firebaseUserInfo = {
+          id: result.data.id,
+          email: this.registrationForm.value.email,
+          password: this.registrationForm.value.password,
+        };
+
+        localStorage.setItem('firebase', JSON.stringify(firebaseUserInfo));
+
         this.closeDialog(result.message);
-        // this.firebaseSignUp(result);
       },
       (result: any) => {
         if (result.error.errors) {
@@ -96,29 +103,6 @@ export class RegistrationModal implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(subscriptionAddUser);
-  }
-
-  firebaseSignUp(result: any) {
-    this.auth
-      .createUserWithEmailAndPassword(this.registrationForm.value.email, this.registrationForm.value.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        const update = { [user.uid]: result.data.id };
-
-        this.database
-          .object('users')
-          .update(update)
-          .then(() => {
-            this.closeDialog(result.message);
-          })
-          .catch((error) => {
-            this.closeDialog(result.message);
-          });
-      })
-      .catch((error) => {
-        this.closeDialog(result.message);
-      });
   }
 
   closeDialog(message: string) {
