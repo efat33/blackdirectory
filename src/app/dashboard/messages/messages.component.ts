@@ -150,6 +150,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this.spinnerService.hide();
+          this.snackbar.openSnackBar('Something went wrong! Please logout and login.', 'Close', 'warn');
         }
       );
   }

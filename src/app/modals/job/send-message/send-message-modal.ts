@@ -52,11 +52,14 @@ export class SendMessageModalComponent implements OnInit {
       seen: false,
     };
 
-    const id1 = conversationId.split('_')[0];
-    const id2 = conversationId.split('_')[1];
+    const id1 = parseInt(conversationId.split('_')[0]);
+    const id2 = parseInt(conversationId.split('_')[1]);
 
-    this.database.object(`conversations/${id1}/${conversationId}`).update(updates);
-    this.database.object(`conversations/${id2}/${conversationId}`).update(updates);
+    const updates1 = {otherUser: id2, ...updates};
+    const updates2 = {otherUser: id1, ...updates};
+
+    this.database.object(`conversations/${id1}/${conversationId}`).update(updates1);
+    this.database.object(`conversations/${id2}/${conversationId}`).update(updates2);
 
     this.snackbar.openSnackBar('Message Sent');
 

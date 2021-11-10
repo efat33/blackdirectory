@@ -67,7 +67,7 @@
             </ng-container>
           </div>
 
-          <div class="type_msg">
+          <div class="type_msg" *ngIf="selectedConversation.id">
             <div class="input_msg_write">
               <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="newMessage"
                 (keydown.enter)="sendMessage()" />
