@@ -119,6 +119,7 @@ export class ProductCategoryOptionsComponent implements OnInit, AfterViewInit, O
 
   deleteOption(option: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the option?' },
     });
 
@@ -211,6 +212,7 @@ export class ProductCategoryOptionsComponent implements OnInit, AfterViewInit, O
 
   deleteChoice(choice: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the choice?' },
     });
 

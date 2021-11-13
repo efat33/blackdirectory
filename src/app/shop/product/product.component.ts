@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { map, pluck } from 'rxjs/operators';
 import { ProductDetails, ProductReview, ProductService } from 'src/app/shared/services/product.service';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -11,7 +11,6 @@ import { StoreService } from 'src/app/shared/services/store.service';
 import { UserService } from 'src/app/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { MatDialog } from '@angular/material/dialog';
 import { WishlistService } from 'src/app/shared/services/wishlist.service';
 
@@ -39,6 +38,7 @@ export class ProductComponent implements OnInit {
       thumbnailsAsLinks: false,
       preview: true,
       startIndex: 0,
+      imageSize: NgxGalleryImageSize.Contain,
     },
     {
       breakpoint: 720,
@@ -47,6 +47,7 @@ export class ProductComponent implements OnInit {
       thumbnailsPercent: 20,
       thumbnailsMargin: 20,
       thumbnailMargin: 20,
+      imageSize: NgxGalleryImageSize.Contain,
     },
   ];
   images: NgxGalleryImage[];
@@ -55,6 +56,7 @@ export class ProductComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private helperService: HelperService,
+    private userService: UserService,
     private cartService: CartService,
     private productService: ProductService,
     private storeService: StoreService,
@@ -102,9 +104,7 @@ export class ProductComponent implements OnInit {
   showLoginModalIfNotLoggedIn(): boolean {
     const isLoggedIn = this.helperService.currentUserInfo != null;
     if (!isLoggedIn) {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
     return !isLoggedIn;
   }

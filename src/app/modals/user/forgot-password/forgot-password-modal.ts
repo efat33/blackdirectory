@@ -7,8 +7,6 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { ResetPasswordModal } from '../reset-password/reset-password-modal';
-import { RegistrationModal } from '../registration/registration-modal';
 
 export interface DialogData {
   message: string;
@@ -85,9 +83,7 @@ export class ForgotPasswordModal implements OnInit, OnDestroy {
     this.dialogRef.close();
 
     // open reset password modal
-    this.dialog.open(ResetPasswordModal, {
-      width: '400px',
-    });
+    this.userService.onResetPassLinkModal.emit();
   }
 
   emptyErrorMsg() {
@@ -103,9 +99,7 @@ export class ForgotPasswordModal implements OnInit, OnDestroy {
   }
 
   openRegistrationModal(): void {
-    this.dialogRefReg = this.dialog.open(RegistrationModal, {
-      width: '400px',
-    });
+    this.userService.onRegisterLinkModal.emit();
   }
 
   ngOnDestroy() {

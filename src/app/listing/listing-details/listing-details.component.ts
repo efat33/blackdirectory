@@ -13,7 +13,6 @@ import { ListingVideoModal } from 'src/app/modals/listing/details/video/listing-
 import * as moment from 'moment';
 import { CouponModal } from 'src/app/modals/listing/details/coupon/coupon-modal';
 import { ListingReviewModal } from 'src/app/modals/listing/details/review/listing-review-modal';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import { forkJoin } from 'rxjs';
@@ -177,13 +176,13 @@ export class ListingDetailsComponent implements OnInit {
 
           // update listing view if the logged-in user is not the author of the listing
           if(
-            !this.helperservice.isUserLoggedIn() || 
-            (this.helperservice.currentUserInfo?.id != res[0].data.listing.user_id && 
+            !this.helperservice.isUserLoggedIn() ||
+            (this.helperservice.currentUserInfo?.id != res[0].data.listing.user_id &&
             this.helperservice.currentUserInfo?.id != res[0].data.listing.claimer_id)
           ){
             this.updateListingView(this.listing.id);
           }
-          
+
 
           this.initializeGoogleMap();
         },
@@ -249,9 +248,7 @@ export class ListingDetailsComponent implements OnInit {
 
       this.subscriptions.add(this.dialogClaim);
     } else {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
   }
 
@@ -275,9 +272,7 @@ export class ListingDetailsComponent implements OnInit {
 
       this.subscriptions.add(subsUpdateFavorite);
     } else {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
   }
 
@@ -292,6 +287,7 @@ export class ListingDetailsComponent implements OnInit {
 
   onDeleteComment(comment_id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 
@@ -368,6 +364,7 @@ export class ListingDetailsComponent implements OnInit {
 
   onDeleteReview(review_id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the review"?' },
     });
 
@@ -507,9 +504,7 @@ export class ListingDetailsComponent implements OnInit {
         this.subscriptions.add(this.dialogReview);
       },
       (res) => {
-        this.dialog.open(LoginModal, {
-          width: '400px',
-        });
+        this.userService.onLoginLinkModal.emit();
       }
     );
   }
@@ -537,7 +532,7 @@ export class ListingDetailsComponent implements OnInit {
       this.listing_coupon.valid = false;
       return;
     }
-    
+
     const expiry_date_utc = moment(this.listing.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
     const expiry_date = moment(this.listing.coupon_expiry_date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = this.helperservice.dateTimeNow();

@@ -112,6 +112,7 @@ export class DealersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteDealer(dealer: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the dealer?' },
     });
 

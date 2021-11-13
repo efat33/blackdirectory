@@ -111,6 +111,7 @@ export class ManageFaqsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteFaq(faq: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the FAQ?' },
     });
 

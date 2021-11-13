@@ -2,3 +2,17 @@ mat-accordion {
   display: block;
   margin-bottom: 1rem;
 }
+
+mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+mat-panel-title {
+  font-weight: 500;
+}
+
+.price-range-input {
+  height: auto;
+  padding: 4px;
+  width: 8ch;
+}

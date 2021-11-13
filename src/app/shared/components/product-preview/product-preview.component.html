@@ -1,57 +1,39 @@
 <div #container class="product-review-container" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
   <div class="overlay-buttons" *ngIf="hovered">
     <div>
-      <button
-        mat-flat-button
-        color="primary"
-        matTooltip="Quick View"
-        matTooltipPosition="left"
-        matTooltipClass="primary-color-tooltip"
-        (click)="showQuickView()"
-      >
+      <button mat-flat-button color="primary" matTooltip="Quick View" matTooltipPosition="left"
+        matTooltipClass="primary-color-tooltip" (click)="showQuickView()">
         <mat-icon>search</mat-icon>
       </button>
     </div>
     <div>
-      <button
-        *ngIf="!isInWishlist"
-        mat-flat-button
-        color="primary"
-        matTooltip="Add to Wishlist"
-        matTooltipPosition="left"
-        matTooltipClass="primary-color-tooltip"
-        (click)="addToWishlist()"
-      >
+      <button *ngIf="!isInWishlist" mat-flat-button color="primary" matTooltip="Add to Wishlist"
+        matTooltipPosition="left" matTooltipClass="primary-color-tooltip" (click)="addToWishlist()">
         <mat-icon>favorite_border</mat-icon>
       </button>
-      <button
-        *ngIf="isInWishlist"
-        mat-flat-button
-        color="primary"
-        matTooltip="Remove from Wishlist"
-        matTooltipPosition="left"
-        matTooltipClass="primary-color-tooltip"
-        (click)="removeFromWishlist()"
-      >
+      <button *ngIf="isInWishlist" mat-flat-button color="primary" matTooltip="Remove from Wishlist"
+        matTooltipPosition="left" matTooltipClass="primary-color-tooltip" (click)="removeFromWishlist()">
         <mat-icon>favorite</mat-icon>
       </button>
     </div>
   </div>
   <a [routerLink]="'/shop/product/' + product.slug">
-    <div
-      #image
-      class="image"
-      [ngStyle]="{ backgroundImage: 'url(\'' + (product.image | bdyImage: 'product':'medium') + '\')' }"
-    >
-      <div *ngIf="hasDiscount" class="sale-badge">SALE !</div>
+    <div #image class="image"
+      [ngStyle]="{ backgroundImage: 'url(\'' + (product.image | bdyImage: 'product':'medium') + '\')' }">
+      <div *ngIf="product.stock_status === 'outstock'" class="outstock-badge product-badge">SOLD OUT</div>
+      <div *ngIf="hasDiscount && product.stock_status !== 'outstock'" class="sale-badge product-badge">SALE</div>
     </div>
     <div class="price">
       <app-product-price [product]="product"></app-product-price>
     </div>
-    <h3>{{ product.title }}</h3>
+    <h3 #productTitle class="product-title" title="{{product.title}}">{{ product.title }}</h3>
   </a>
   <a class="vendor-link" [routerLink]="['/shop', 'vendor', product.user_id]">
     {{ product.store_name || product.user_display_name + ' Store' || product.user_username + ' Store' }}
   </a>
-  <button class="add-to-cart-button" (click)="addToCart()">ADD TO CART</button>
+
+  <button class="add-to-cart-button" *ngIf="product.stock_status === 'outstock'"
+    [routerLink]="'/shop/product/' + product.slug">READ MORE</button>
+  <button class="add-to-cart-button" *ngIf="product.stock_status !== 'outstock'" (click)="addToCart()">ADD TO
+    CART</button>
 </div>

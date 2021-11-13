@@ -1,4 +1,9 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordModal } from './modals/user/forgot-password/forgot-password-modal';
+import { LoginModal } from './modals/user/login/login-modal';
+import { RegistrationModal } from './modals/user/registration/registration-modal';
+import { ResetPasswordModal } from './modals/user/reset-password/reset-password-modal';
 import { WishlistService } from './shared/services/wishlist.service';
 import { SpinnerService } from './shared/spinner.service';
 import { UserService } from './user/user.service';
@@ -17,6 +22,7 @@ export class AppComponent {
     private spinnerService: SpinnerService,
     private cdk: ChangeDetectorRef,
     private userService: UserService,
+    private dialog: MatDialog,
     private wishlistService: WishlistService
   ) {}
 
@@ -27,6 +33,7 @@ export class AppComponent {
     });
 
     this.checkAuthentication();
+    this.registerAuthEvents();
   }
 
   checkAuthentication() {
@@ -44,6 +51,48 @@ export class AppComponent {
         localStorage.removeItem('currentUserInfo');
       }
     );
+  }
+
+  registerAuthEvents() {
+    this.userService.onLoginLinkModal.subscribe(() => {
+      this.openLoginModal();
+    });
+
+    this.userService.onRegisterLinkModal.subscribe(() => {
+      this.openRegistrationModal();
+    });
+
+    this.userService.onForgotPassLinkModal.subscribe(() => {
+      this.openForgotPassModal();
+    });
+
+    this.userService.onResetPassLinkModal.subscribe(() => {
+      this.openResetPasswordModal();
+    });
+  }
+
+  openForgotPassModal(): void {
+    this.dialog.open(ForgotPasswordModal, {
+      width: '400px',
+    });
+  }
+
+  openRegistrationModal(): void {
+    this.dialog.open(RegistrationModal, {
+      width: '400px',
+    });
+  }
+
+  openLoginModal(): void {
+    this.dialog.open(LoginModal, {
+      width: '400px',
+    });
+  }
+
+  openResetPasswordModal(): void {
+    this.dialog.open(ResetPasswordModal, {
+      width: '400px',
+    });
   }
 
   onActivate(event: Event) {

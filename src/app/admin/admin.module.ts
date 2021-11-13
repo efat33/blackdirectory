@@ -44,6 +44,7 @@ import { AddDealerModalComponent } from './deals/dealers/add-dealer-modal/add-de
 import { DealersComponent } from './deals/dealers/dealers.component';
 import { NewDealComponent } from './deals/new-deal/new-deal.component';
 import { ManageDealsComponent } from './deals/manage-deals/manage-deals.component';
+import { ManageUsersComponent } from './users/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { ManageDealsComponent } from './deals/manage-deals/manage-deals.componen
     DealersComponent,
     AddDealerModalComponent,
     NewDealComponent,
-    ManageDealsComponent
+    ManageDealsComponent,
+    ManageUsersComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

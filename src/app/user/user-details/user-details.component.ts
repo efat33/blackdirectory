@@ -13,7 +13,6 @@ import { PipeTransform } from '@angular/core';
 import { Pipe } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 
 declare const google: any;
 
@@ -603,9 +602,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   showLoginModal() {
-    this.dialog.open(LoginModal, {
-      width: '400px',
-    });
+    this.userService.onLoginLinkModal.emit();
   }
 
   ngOnDestroy() {

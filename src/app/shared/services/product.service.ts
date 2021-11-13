@@ -168,13 +168,16 @@ export class ProductService {
 
   hasDiscount(product: ProductDetails | ProductList): boolean {
     const { discount_end, discount_start, discounted_price } = product;
-    return (
-      discount_end &&
-      discount_end.getTime() > Date.now() &&
-      discount_start &&
-      discount_start.getTime() < Date.now() &&
-      discounted_price != null
-    );
+
+    if (discounted_price == null) {
+      return false;
+    }
+
+    if (discount_start && discount_end) {
+      return discount_end.getTime() > Date.now() && discount_start.getTime() < Date.now();
+    }
+
+    return true;
   }
 
   getActualPrice(product: ProductDetails | ProductList): number {

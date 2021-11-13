@@ -3,9 +3,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { fromEvent } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 import { ProductQuickViewModal } from 'src/app/modals/product-quick-view/product-quick-view.component';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { ProductList, ProductService } from 'src/app/shared/services/product.service';
+import { UserService } from 'src/app/user/user.service';
 import { HelperService } from '../../helper.service';
 import { WishlistService } from '../../services/wishlist.service';
 
@@ -19,6 +19,7 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
 
   @ViewChild('container') containerRef: ElementRef<HTMLDivElement>;
   @ViewChild('image') imageRef: ElementRef<HTMLImageElement>;
+  @ViewChild('productTitle') productTitle: ElementRef<HTMLHeadingElement>;
 
   resizeObservable$ = fromEvent(window, 'resize');
   width: number = 250;
@@ -26,6 +27,7 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
   quickViewModalRef: MatDialogRef<ProductQuickViewModal, { product: ProductList }>;
 
   constructor(
+    private userService: UserService,
     private productService: ProductService,
     private cartService: CartService,
     private dialog: MatDialog,
@@ -46,9 +48,7 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
   showLoginModalIfNotLoggedIn(): boolean {
     const isLoggedIn = this.helperService.currentUserInfo != null;
     if (!isLoggedIn) {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
     return !isLoggedIn;
   }
@@ -56,8 +56,10 @@ export class ProductPreviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.resizeObservable$.pipe(startWith(''), debounceTime(5)).subscribe((evt) => {
       this.width = this.containerRef.nativeElement.offsetWidth;
-      this.imageRef.nativeElement.style.maxWidth = `${this.width}px`;
-      this.imageRef.nativeElement.style.height = `${this.width}px`;
+      this.imageRef.nativeElement.style.maxWidth = `${this.width - 26}px`;
+      this.imageRef.nativeElement.style.height = `${this.width - 26}px`;
+
+      this.productTitle.nativeElement.style.maxWidth = `${this.width - 26 - 16 - 1}px`;
     });
   }
 

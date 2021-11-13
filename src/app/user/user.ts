@@ -8,6 +8,7 @@ export class CurrentUser {
   auth_type: string;
   cover_photo: string;
   created_at: string;
+  is_business: string;
   description: string;
   display_name: string;
   dob: string;

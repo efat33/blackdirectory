@@ -4,7 +4,6 @@ import { FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LoginModal } from '../modals/user/login/login-modal';
 import { CurrentUser } from '../user/user';
 
 @Injectable({
