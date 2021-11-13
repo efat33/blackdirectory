@@ -47,7 +47,7 @@ export const MenuItems = [
   },
   {
     title: 'Deals & Shopping',
-    route: 'shop',
+    route: 'deals',
   },
   {
     title: 'Forum',

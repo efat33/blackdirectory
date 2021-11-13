@@ -6,14 +6,10 @@
   margin: 10px 0;
 }
 
-.salary-labels {
+.salary-row {
   display: flex;
-  justify-content: space-between;
-
-  .salary-value {
-    color: red;
-    font-weight: 500;
-  }
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 mat-slider {

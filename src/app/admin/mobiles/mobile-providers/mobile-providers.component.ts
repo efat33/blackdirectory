@@ -110,6 +110,7 @@ export class MobileProvidersComponent implements OnInit, AfterViewInit, OnDestro
 
   deleteProvider(provider: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the provider?' },
     });
 

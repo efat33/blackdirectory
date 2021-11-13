@@ -38,6 +38,8 @@ import { EventOrganizersComponent } from './events/event-organizers/event-organi
 import { DealersComponent } from './deals/dealers/dealers.component';
 import { NewDealComponent } from './deals/new-deal/new-deal.component';
 import { ManageDealsComponent } from './deals/manage-deals/manage-deals.component';
+import { ManageUsersComponent } from './users/manage-users/manage-users.component';
+import { DashboardProfileComponent } from '../dashboard/profile/dashboard-profile.component';
 
 const routes: Routes = [
   {
@@ -96,6 +98,9 @@ const routes: Routes = [
       { path: 'withdraw-requests', component: AllWithdrawRequestsComponent },
 
       { path: 'hero-slider', component: HeroSliderComponent },
+
+      { path: 'users', component: ManageUsersComponent },
+      { path: 'users-edit/:id', component: DashboardProfileComponent },
     ],
   },
 ];

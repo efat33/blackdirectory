@@ -112,6 +112,7 @@ export class EventTagsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteTag(tag: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the tag?' },
     });
 

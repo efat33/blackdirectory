@@ -133,6 +133,7 @@ export class ProductCategoriesComponent implements OnInit, AfterViewInit, OnDest
 
   deleteCategory() {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the category?' },
     });
 

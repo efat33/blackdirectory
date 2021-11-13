@@ -113,6 +113,7 @@ export class EventOrganizersComponent implements OnInit, AfterViewInit, OnDestro
 
   deleteOrganizer(organizer: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the organizer?' },
     });
 

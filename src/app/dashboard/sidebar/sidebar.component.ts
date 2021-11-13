@@ -12,7 +12,7 @@ export class DashboardSidebarComponent implements OnInit {
   currentUser: any;
   profileImage: string = `${this.helperService.siteUrl}/assets/img/avatar-default.png`;
 
-  constructor(private helperService: HelperService, private userService: UserService) {}
+  constructor(private helperService: HelperService, public userService: UserService) {}
 
   ngOnInit() {
     if (this.helperService.currentUserInfo) {

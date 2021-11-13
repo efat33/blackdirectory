@@ -52,7 +52,7 @@ export class ListingClaimsComponent implements OnInit, AfterViewInit, OnDestroy 
     const subscription = this.listingService.getClaims({}).subscribe(
       (result: any) => {
         this.spinnerService.hide();
-        
+
         this.allClaims = result.data;
         this.dataSource.data = this.allClaims;
       },
@@ -76,52 +76,53 @@ export class ListingClaimsComponent implements OnInit, AfterViewInit, OnDestroy 
 
   approveClaim(claim:any){
     this.spinnerService.show();
-    
+
     const subsApproveClaim = this.listingService.approveClaim(claim.id).subscribe(
       (res:any) => {
-      
+
         this.spinnerService.hide();
         this.snackbar.openSnackBar(res.message);
         this.getClaims();
-    
+
       },
       (res:any) => {
         this.spinnerService.hide();
         this.snackbar.openSnackBar(res.error.message, 'Close', 'warn');
       }
     );
-    
+
     this.subscriptions.add(subsApproveClaim);
   }
 
   deleteClaim(claim:any){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the claim?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-    
+
         const subsDeleteClaim = this.listingService.deleteClaim(claim.id).subscribe(
           (res:any) => {
-          
+
             this.spinnerService.hide();
             this.getClaims();
-        
+
           },
           (res:any) => {
             this.spinnerService.hide();
             this.snackbar.openSnackBar(res.error.message, 'Close', 'warn');
           }
         );
-        
+
         this.subscriptions.add(subsDeleteClaim);
       }
     });
 
     this.subscriptions.add(dialogCloseSubscription);
-    
+
   }
 
 

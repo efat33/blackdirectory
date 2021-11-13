@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
-import { RegistrationModal } from '../modals/user/registration/registration-modal';
-import { LoginModal } from '../modals/user/login/login-modal';
 import { UserService } from '../user/user.service';
 import { Observable, of, Subscription } from 'rxjs';
 import { MenuItems, ProfileMenus } from './menu-items';
 import { HelperService } from '../shared/helper.service';
-import { ForgotPasswordModal } from '../modals/user/forgot-password/forgot-password-modal';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mapTo, mergeMapTo, pluck, tap } from 'rxjs/operators';
 
@@ -76,21 +73,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openForgotPassModal(): void {
-    this.dialogRefForgotPass = this.dialog.open(ForgotPasswordModal, {
-      width: '400px',
-    });
+    this.userService.onForgotPassLinkModal.emit();
   }
 
   openRegistrationModal(): void {
-    this.dialogRefReg = this.dialog.open(RegistrationModal, {
-      width: '400px',
-    });
+    this.userService.onRegisterLinkModal.emit();
   }
 
   openLoginModal(): void {
-    this.dialogRefLogin = this.dialog.open(LoginModal, {
-      width: '400px',
-    });
+    this.userService.onLoginLinkModal.emit();
   }
 
   ngOnDestroy() {

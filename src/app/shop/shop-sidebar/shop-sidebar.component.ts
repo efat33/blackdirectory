@@ -18,7 +18,6 @@ export class ShopSidebarComponent implements OnInit {
 
   priceMin = 0;
   priceMax = 500;
-  priceControl = new FormControl([this.priceMin, this.priceMax]);
 
   reviewControl = new FormControl();
 
@@ -53,12 +52,9 @@ export class ShopSidebarComponent implements OnInit {
         }))
       )
       .subscribe((values) => {
-        this.priceControl.setValue([
-          values.queryParams.price_min ? values.queryParams.price_min : values.filters.price.min,
-          values.queryParams.price_max ? values.queryParams.price_max : values.filters.price.max,
-        ]);
-        this.priceMax = values.filters.price.max;
-        this.priceMin = values.filters.price.min;
+        this.priceMin = values.queryParams.price_min ? values.queryParams.price_min : values.filters.price.min;
+        this.priceMax = values.queryParams.price_max ? values.queryParams.price_max : values.filters.price.max;
+
         if (values.queryParams.rating) {
           this.reviewControl.setValue(values.queryParams.rating);
         }
@@ -95,8 +91,8 @@ export class ShopSidebarComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: {
-        price_min: this.priceControl.value[0],
-        price_max: this.priceControl.value[1],
+        price_min: this.priceMin,
+        price_max: this.priceMax,
         brands: this.vendors.value.filter((v) => v.checked).map((v) => v.id),
         rating: this.reviewControl.value,
       },

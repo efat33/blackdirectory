@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartItemPopulated, CartService } from 'src/app/shared/services/cart.service';
 import { OrderService } from 'src/app/shared/services/order.service';
@@ -46,6 +45,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private userService: UserService,
     private cartService: CartService,
     private helperService: HelperService,
     private storeService: StoreService,
@@ -74,9 +74,7 @@ export class CheckoutComponent implements OnInit {
   showLoginModalIfNotLoggedIn(): boolean {
     const isLoggedIn = this.helperService.currentUserInfo != null;
     if (!isLoggedIn) {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
     return !isLoggedIn;
   }

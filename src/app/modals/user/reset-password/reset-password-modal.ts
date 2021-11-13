@@ -7,7 +7,6 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { LoginModal } from '../login/login-modal';
 
 export interface DialogData {
   message: string;
@@ -95,9 +94,7 @@ export class ResetPasswordModal implements OnInit, OnDestroy {
     this.dialogRef.close();
 
     // open reset password modal
-    this.dialog.open(LoginModal, {
-      width: '400px',
-    });
+    this.userService.onLoginLinkModal.emit();
   }
 
   ngOnDestroy() {

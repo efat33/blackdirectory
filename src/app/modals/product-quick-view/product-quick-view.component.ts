@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { ProductList, ProductService } from 'src/app/shared/services/product.service';
 import { WishlistService } from 'src/app/shared/services/wishlist.service';
-import { LoginModal } from '../user/login/login-modal';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-product-quick-view-modal',
@@ -17,6 +17,7 @@ export class ProductQuickViewModal implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ProductQuickViewModal>,
     @Inject(MAT_DIALOG_DATA) public data: { product: ProductList },
+    private userService: UserService,
     private productService: ProductService,
     private cartService: CartService,
     private helperService: HelperService,
@@ -31,6 +32,7 @@ export class ProductQuickViewModal implements OnInit {
       thumbnailsAsLinks: false,
       preview: true,
       startIndex: 0,
+      imageSize: NgxGalleryImageSize.Contain,
     },
     {
       breakpoint: 720,
@@ -39,6 +41,7 @@ export class ProductQuickViewModal implements OnInit {
       thumbnailsPercent: 20,
       thumbnailsMargin: 20,
       thumbnailMargin: 20,
+      imageSize: NgxGalleryImageSize.Contain,
     },
   ];
   images: NgxGalleryImage[];
@@ -70,9 +73,7 @@ export class ProductQuickViewModal implements OnInit {
   showLoginModalIfNotLoggedIn(): boolean {
     const isLoggedIn = this.helperService.currentUserInfo != null;
     if (!isLoggedIn) {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
     return !isLoggedIn;
   }

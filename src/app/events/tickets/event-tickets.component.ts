@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { RsvpApplyModal } from 'src/app/modals/events/details/rsvp-apply/rsvp-apply-modal';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';

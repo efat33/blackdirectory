@@ -7,12 +7,12 @@ import { Subscription } from 'rxjs';
 import { ListingSearchCatModal } from 'src/app/modals/listing/search/category/listing-search-cat-modal';
 import { ListingSearchPriceModal } from 'src/app/modals/listing/search/price/listing-search-price-modal';
 import { ListingSearchSortModal } from 'src/app/modals/listing/search/sortby/listing-search-sortby-modal';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { ListingService } from '../listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { UserService } from 'src/app/user/user.service';
 
 declare const google: any;
 
@@ -72,6 +72,7 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialog: MatDialog,
+    private userService: UserService,
     public listingService: ListingService,
     public spinnerService: SpinnerService,
     public snackbar: SnackBarService,
@@ -182,9 +183,7 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
 
       this.subscriptions.add(subsUpdateFavorite);
     } else {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
   }
 
@@ -336,16 +335,16 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
 
         this.queryParams.nearme = 1;
       }
-      
+
     }
     else{
       this.f.lat.setValue('');
       this.f.lng.setValue('');
       this.onSubmitListingForm();
-      
+
       this.queryParams.nearme = 0;
     }
-    
+
   }
 
   openListingSortModal(): void {

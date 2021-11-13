@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { JobService } from 'src/app/jobs/jobs.service';
 import { RsvpApplyModal } from 'src/app/modals/events/details/rsvp-apply/rsvp-apply-modal';
-import { LoginModal } from 'src/app/modals/user/login/login-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
@@ -173,7 +172,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   calculateTicketAvailability() {
     const NOW = moment().utc().format('YYYY-MM-DD HH:mm:ss');
-    
+
     if(this.event.tickets.length > 0){
       for (const [i, item] of this.event.tickets.entries()) {
         const start_time = moment(item.start_sale).utc().format('YYYY-MM-DD HH:mm:ss');
@@ -188,7 +187,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         else{
           this.tickets.availalbe.push(item);
         }
-      } 
+      }
       console.log(this.tickets);
     }
   }
@@ -276,9 +275,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
       this.subscriptions.add(this.dialogRsvpApply);
     } else {
-      this.dialog.open(LoginModal, {
-        width: '400px',
-      });
+      this.userService.onLoginLinkModal.emit();
     }
   }
 
@@ -314,6 +311,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   onDeleteComment(comment: any, index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 
@@ -336,6 +334,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   onDeleteReply(comment: any, commentIndex: number, replyIndex: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
       data: { message: 'Are you sure to delete the comment"?' },
     });
 
@@ -510,9 +509,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   }
 
   showLoginModal() {
-    this.dialog.open(LoginModal, {
-      width: '400px',
-    });
+    this.userService.onLoginLinkModal.emit();
   }
 
   addTicketQuantity(ticket: any, amount: number = 1) {
