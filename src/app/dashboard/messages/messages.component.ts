@@ -218,6 +218,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
 
     if (conversation.messages?.length) {
+      this.scrollToNewMessage();
       return;
     }
 

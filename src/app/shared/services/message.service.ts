@@ -7,20 +7,12 @@ import { AngularFireDatabase } from '@angular/fire/database';
 export class MessageService {
   constructor(private database: AngularFireDatabase) {}
 
-  sendMessage(from: any, to: any, messageText: string, conversationId: string = null) {
+  async sendMessage(from: any, to: any, messageText: string, conversationId: string = null) {
     if (conversationId == null) {
       conversationId = this.getConversationId(from, to);
     }
 
     const time = Date.now();
-
-    const message = {
-      message: messageText,
-      sender: from,
-      timestamp: time,
-    };
-
-    this.database.list(`messages/${conversationId}`).push(message);
 
     const updates = {
       id: conversationId,
@@ -36,8 +28,16 @@ export class MessageService {
     const updates1 = { otherUser: id2, ...updates };
     const updates2 = { otherUser: id1, ...updates };
 
-    this.database.object(`conversations/${id1}/${conversationId}`).update(updates1);
-    this.database.object(`conversations/${id2}/${conversationId}`).update(updates2);
+    await this.database.object(`conversations/${id1}/${conversationId}`).update(updates1);
+    await this.database.object(`conversations/${id2}/${conversationId}`).update(updates2);
+
+    const message = {
+      message: messageText,
+      sender: from,
+      timestamp: time,
+    };
+
+    this.database.list(`messages/${conversationId}`).push(message);
   }
 
   private getConversationId(from: any, to: any): string {

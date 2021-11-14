@@ -19,6 +19,7 @@ import { forkJoin } from 'rxjs';
 import { ListingClaimModal } from 'src/app/modals/listing/details/claim/listing-claim-modal';
 import { GetProductListParams, ProductList, ProductService } from 'src/app/shared/services/product.service';
 import { catchError, finalize, tap } from 'rxjs/operators';
+import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
 
 declare const google: any;
 
@@ -130,12 +131,14 @@ export class ListingDetailsComponent implements OnInit {
           const products = res[0].data.allproducts;
           this.favoriteListings = res[1].data;
 
-          const prod_ids = products.map(product => product.id);
-          if(prod_ids.length > 0) this.fetchListingProducts(prod_ids);
+          const prod_ids = products.map((product) => product.id);
+          if (prod_ids.length > 0) this.fetchListingProducts(prod_ids);
 
           // restrict the page if the status is draft
           if (
-            this.listing.status == 'draft' && this.helperservice.currentUserInfo?.id != this.listing.user_id && this.helperservice.currentUserInfo?.id != this.listing.claimer_id
+            this.listing.status == 'draft' &&
+            this.helperservice.currentUserInfo?.id != this.listing.user_id &&
+            this.helperservice.currentUserInfo?.id != this.listing.claimer_id
           ) {
             this.spinnerService.hide();
             this.router.navigate(['home']);
@@ -175,14 +178,13 @@ export class ListingDetailsComponent implements OnInit {
           if (fl) this.listing.is_favorite = true;
 
           // update listing view if the logged-in user is not the author of the listing
-          if(
+          if (
             !this.helperservice.isUserLoggedIn() ||
             (this.helperservice.currentUserInfo?.id != res[0].data.listing.user_id &&
-            this.helperservice.currentUserInfo?.id != res[0].data.listing.claimer_id)
-          ){
+              this.helperservice.currentUserInfo?.id != res[0].data.listing.claimer_id)
+          ) {
             this.updateListingView(this.listing.id);
           }
-
 
           this.initializeGoogleMap();
         },
@@ -202,13 +204,14 @@ export class ListingDetailsComponent implements OnInit {
     this.productService
       .getProductList(params, false)
       .pipe(
-        tap((products) => {this.listing_products = products; console.log(this.listing_products);}),
+        tap((products) => {
+          this.listing_products = products;
+          console.log(this.listing_products);
+        }),
         catchError(() => of([])),
         finalize(() => this.loading$.next(false))
       )
       .subscribe();
-
-
   }
 
   initializeGoogleMap() {
@@ -694,6 +697,60 @@ export class ListingDetailsComponent implements OnInit {
         width: '550px',
         data: { id: this.listing_owner.id, username: this.listing_owner.username },
       });
+    }
+  }
+
+  sendMessage() {
+    if (!this.helperservice.currentUserInfo) {
+      this.userService.onLoginLinkModal.emit();
+      return;
+    }
+
+    if (!this.listing_owner?.id) {
+      this.spinnerService.show();
+
+      const subscriptionListingOwner = this.userService.getDetailsByID(this.listing.user_id).subscribe(
+        (res: any) => {
+          this.spinnerService.hide();
+
+          this.listing_owner = res.data.data;
+
+          if (this.listing_owner.id === this.helperservice.currentUserInfo.id) {
+            this.snackbar.openSnackBar('Cannot send message to yourself', 'Close', 'warn');
+            return;
+          }
+
+          const dialogConfig = {
+            width: '400px',
+            data: {
+              toUser: this.listing_owner.id,
+              fromUser: this.helperservice.currentUserInfo.id,
+            },
+          };
+
+          this.dialog.open(SendMessageModalComponent, dialogConfig);
+        },
+        (res: any) => {
+          this.spinnerService.hide();
+        }
+      );
+
+      this.subscriptions.add(subscriptionListingOwner);
+    } else {
+      if (this.listing_owner.id === this.helperservice.currentUserInfo.id) {
+        this.snackbar.openSnackBar('Cannot send message to yourself', 'Close', 'warn');
+        return;
+      }
+
+      const dialogConfig = {
+        width: '400px',
+        data: {
+          toUser: this.listing_owner.id,
+          fromUser: this.helperservice.currentUserInfo.id,
+        },
+      };
+
+      this.dialog.open(SendMessageModalComponent, dialogConfig);
     }
   }
 

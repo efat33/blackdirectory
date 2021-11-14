@@ -44,6 +44,12 @@
             <mat-icon>favorite</mat-icon>
           </button>
         </span>
+        <span style="margin-left: 8px">
+          <button style="height: 100%" mat-flat-button color="primary"
+            (click)="sendMessage()">
+            <mat-icon>mail_outline</mat-icon>
+          </button>
+        </span>
       </div>
 
       <div class="category">
@@ -112,23 +118,25 @@
         </mat-card>
       </ng-template>
     </mat-tab>
-  </mat-tab-group>
 
-  <ng-container *ngIf="storeDetails$ | async as vendor">
-    <h2>Vendor Info</h2>
-    <div class="vendor-info">
-      <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
-      <div class="core-section">
-        <img [src]="vendor.profile_picture" />
-        <div>
-          <strong> {{ vendor.store_name }} </strong>
-          <address>
-            {{ vendor.address }}
-          </address>
+    <mat-tab label="Vendor Info" *ngIf="storeDetails$ | async as vendor">
+      <ng-template matTabContent>
+        <h2>Vendor Info</h2>
+        <div class="vendor-info">
+          <img *ngIf="vendor.banner" [src]="vendor.banner" class="banner" />
+          <div class="core-section">
+            <img [src]="vendor.profile_picture" />
+            <div>
+              <strong> {{ vendor.store_name }} </strong>
+              <address>
+                {{ vendor.address }}
+              </address>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </ng-container>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 
   <h2>Related products</h2>
   <div class="related-products-container">
