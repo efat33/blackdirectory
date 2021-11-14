@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
@@ -81,6 +81,12 @@ export interface OrderDetails extends OrderList {
 export class OrderService {
   BASE_URL = 'api/shop';
 
+  headerOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
   constructor(private http: HttpClient) {}
 
   private _mapOrderList(list: any[]): OrderList[] {
@@ -140,5 +146,11 @@ export class OrderService {
 
   putOrderStatus({ orderId, status }: { orderId: number; status: string }): Observable<any> {
     return this.http.put<ApiResponse<any>>(`${this.BASE_URL}/order/${orderId}/status`, { status }).pipe(pluck('data'));
+  }
+
+  createStripeCheckoutSession(body: any): Observable<any> {
+    const url = `${this.BASE_URL}/create-checkout-session`;
+
+    return this.http.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
 }

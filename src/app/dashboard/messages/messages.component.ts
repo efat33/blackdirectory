@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
@@ -36,7 +37,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService,
     private database: AngularFireDatabase,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -150,6 +152,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this.spinnerService.hide();
+          this.snackbar.openSnackBar('Something went wrong! Please logout and login.', 'Close', 'warn');
         }
       );
   }
@@ -215,6 +218,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
 
     if (conversation.messages?.length) {
+      this.scrollToNewMessage();
       return;
     }
 
@@ -283,43 +287,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   sendMessage() {
     const conversationId = this.selectedConversation.id;
-    const time = Date.now();
 
-    const message = {
-      message: this.newMessage,
-      sender: this.userId,
-      timestamp: time,
-    };
-
-    this.database
-      .list(`messages/${conversationId}`)
-      .push(message)
-      .catch((error) => {
-        this.spinnerService.hide();
-      });
-
-    const updates = {
-      lastMessage: this.newMessage,
-      timestamp: time,
-      lastMessageSenderId: this.userId,
-      seen: false,
-    };
-
-    const id1 = conversationId.split('_')[0];
-    const id2 = conversationId.split('_')[1];
-
-    this.database
-      .object(`conversations/${id1}/${conversationId}`)
-      .update(updates)
-      .catch((error) => {
-        this.spinnerService.hide();
-      });
-    this.database
-      .object(`conversations/${id2}/${conversationId}`)
-      .update(updates)
-      .catch((error) => {
-        this.spinnerService.hide();
-      });
+    this.messageService.sendMessage(this.userId, null, this.newMessage, conversationId);
 
     this.newMessage = '';
   }

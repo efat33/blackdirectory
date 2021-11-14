@@ -11,6 +11,8 @@ import { EmptyCartGuard } from './checkout/empty-cart.guard';
 import { CheckoutFailComponent } from './checkout-fail/checkout-fail.component';
 import { VendorComponent } from './vendor/vendor.component';
 import { VendorResolver } from './vendor/vendor-resolver';
+import { AuthGuard } from '../shared/route-guards/auth-guard.service';
+import { CheckoutPaymentReturnComponent } from './checkout-payment-return/checkout-payment-return.component';
 
 const routes: Routes = [
   { path: '', component: ShopComponent },
@@ -20,6 +22,7 @@ const routes: Routes = [
   { path: 'success/:id', component: CheckoutSuccessComponent, resolve: { order: OrderResolver } },
   { path: 'checkout-fail', component: CheckoutFailComponent },
   { path: 'vendor/:id', component: VendorComponent, resolve: { data: VendorResolver } },
+  { path: 'payment', component: CheckoutPaymentReturnComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

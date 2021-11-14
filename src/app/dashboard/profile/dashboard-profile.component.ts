@@ -96,7 +96,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // initiate form fields
     this.setupFormFields();
-    this.initializeGoogleMap();
+
+    setTimeout(() => {
+      this.initializeGoogleMap();
+    }, 0);
 
     this.getJobSectors();
 
