@@ -93,6 +93,11 @@ export class CartService {
   private initCart(): void {
     const localCart = this.getLocalCart();
     if (this.isLoggedIn) {
+      if (window.location.pathname === '/shop/payment' && window.location.search === '?success=true') {
+        this.cart$.next([]);
+        return;
+      }
+
       this.getCartItems()
         .pipe(
           map<Cart, { local: Cart; server: Cart }>((server) => ({ server, local: localCart })),
