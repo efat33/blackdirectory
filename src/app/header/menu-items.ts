@@ -4,8 +4,8 @@ export const MenuItems = [
     route: 'home',
   },
   {
-    title: 'Find A Business',
-    route: 'find-a-business',
+    title: 'Find a Business',
+    route: 'listing',
   },
   {
     title: 'News',
