@@ -266,7 +266,7 @@ export class ListingEditComponent implements OnInit {
 
   populateFormData() {
     const listing = this.listing.listing;
-    
+
     this.listingForm.patchValue({
       id: listing.id,
       user_id: listing.user_id,
@@ -299,7 +299,7 @@ export class ListingEditComponent implements OnInit {
       coupon_link: listing.coupon_link,
       coupon_expiry_date: listing.coupon_expiry_date,
 
-      products: JSON.parse(listing.products),
+      products: JSON.parse(listing.products || '[]'),
     });
 
     this.selectedBushinessHour = listing.business_hour;
@@ -321,7 +321,7 @@ export class ListingEditComponent implements OnInit {
     }
 
     // set gallery images
-    const galleries = JSON.parse(listing.galleries);
+    const galleries = JSON.parse(listing.galleries || '[]');
     if (galleries && galleries.length > 0) {
       for (const item of galleries) {
         const variationGroup = new FormGroup({
@@ -334,7 +334,7 @@ export class ListingEditComponent implements OnInit {
     }
 
     // set videos
-    const videos = JSON.parse(listing.video_urls);
+    const videos = JSON.parse(listing.video_urls || '[]');
     if (videos && videos.length > 0) {
       for (const item of videos) {
         (this.listingForm.get('video_urls') as FormArray).push(new FormControl(item));
@@ -702,7 +702,7 @@ export class ListingEditComponent implements OnInit {
         console.log(this.users);
       },
       (res:any) => {
-        
+
       }
     );
     this.subscriptions.add(subsAllUsers);

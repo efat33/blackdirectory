@@ -137,6 +137,7 @@ export class ListingDetailsComponent implements OnInit {
           // restrict the page if the status is draft
           if (
             this.listing.status == 'draft' &&
+            !this.helperservice.isAdmin() &&
             this.helperservice.currentUserInfo?.id != this.listing.user_id &&
             this.helperservice.currentUserInfo?.id != this.listing.claimer_id
           ) {
@@ -161,11 +162,14 @@ export class ListingDetailsComponent implements OnInit {
           // display edit or submit button
           if (
             this.helperservice.isUserLoggedIn() &&
-            (this.helperservice.currentUserInfo?.id == res[0].data.listing.user_id ||
+            (this.helperservice.isAdmin() ||
+              this.helperservice.currentUserInfo?.id == res[0].data.listing.user_id ||
               this.helperservice.currentUserInfo?.id == res[0].data.listing.claimer_id)
           ) {
             this.showEditButton = true;
-            if (res[0].data.listing.status == 'draft') this.showSubmitButton = true;
+            if (res[0].data.listing.status == 'draft') {
+              this.showSubmitButton = true;
+            }
           }
 
           this.spinnerService.hide();
