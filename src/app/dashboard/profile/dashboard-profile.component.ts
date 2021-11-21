@@ -77,7 +77,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    private helperservice: HelperService,
+    public helperservice: HelperService,
     public userService: UserService,
     private spinnerService: SpinnerService,
     private router: Router,
@@ -147,6 +147,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       profile_photo_name: this.userDetails.profile_photo,
       cover_photo_name: this.userDetails.cover_photo,
       pubic_view: this.userDetails.pubic_view,
+      forum_role: this.userDetails.forum_role,
       job_sectors_id: this.userDetails.job_sectors_id || '',
 
       address: this.userDetails.address,
@@ -271,6 +272,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       cover_photo: new FormControl(''),
       cover_photo_name: new FormControl(''),
       pubic_view: new FormControl(''),
+      forum_role: new FormControl(''),
       job_sectors_id: new FormControl(''),
 
       address: new FormControl('', Validators.required),

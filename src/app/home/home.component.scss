@@ -162,3 +162,20 @@
     width: 70%;
   }
 }
+
+.wil-flex-wrap {
+  height: 80vh;
+
+  .hero-header-left, .wilcity-hero-header, .wil-tb {
+    height: 100%;
+  }
+
+  .hero-header-left {
+    border-right: 1px solid #fff;
+  }
+
+  .wil-text-center {
+    margin: 0;
+    padding: 0;
+  }
+}
