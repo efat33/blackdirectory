@@ -76,6 +76,19 @@ export class excerpt implements PipeTransform {
   }
 }
 
+@Pipe({ name: 'topicVoiceNumber' })
+export class topicVoiceNumber implements PipeTransform {
+  transform(participants: any): number {
+    let output = 0;
+    
+    if(participants){
+      output = JSON.parse(participants).length;
+    }
+    
+    return output;
+  }
+}
+
 @Pipe({ name: 'decimalPipe' })
 export class decimalPipe implements PipeTransform {
   transform(input: any): any {

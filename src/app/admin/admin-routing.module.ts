@@ -40,6 +40,12 @@ import { NewDealComponent } from './deals/new-deal/new-deal.component';
 import { ManageDealsComponent } from './deals/manage-deals/manage-deals.component';
 import { ManageUsersComponent } from './users/manage-users/manage-users.component';
 import { DashboardProfileComponent } from '../dashboard/profile/dashboard-profile.component';
+import { AllForumsComponent } from '../dashboard/forums/forums.component';
+import { NewForumComponent } from '../dashboard/forums-new/forums-new.component';
+import { AllTopicsComponent } from '../dashboard/topics/topics.component';
+import { NewTopicComponent } from '../dashboard/topics-new/topics-new.component';
+import { AllRepliesComponent } from '../dashboard/replies/replies.component';
+import { NewReplyComponent } from '../dashboard/reply-new/reply-new.component';
 
 const routes: Routes = [
   {
@@ -52,6 +58,17 @@ const routes: Routes = [
 
       { path: 'listings', component: ListingsComponent },
       { path: 'favorite-listings', component: FavoriteListingsComponent },
+
+      { path: 'forums/all', component: AllForumsComponent },
+      { path: 'forums/new', component: NewForumComponent },
+      { path: 'forums/forum/edit/:forum_id', component: NewForumComponent },
+
+      { path: 'topics/all', component: AllTopicsComponent },
+      { path: 'topics/new', component: NewTopicComponent },
+      { path: 'topics/topic/edit/:topic_id', component: NewTopicComponent },
+
+      { path: 'replies/all', component: AllRepliesComponent },
+      { path: 'forums/reply/edit/:reply_id', component: NewReplyComponent },
 
       { path: 'events', component: EventsComponent },
       { path: 'event-categories', component: EventCategoriesComponent },

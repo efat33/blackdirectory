@@ -1,0 +1,84 @@
+<div class="wil-content wilcity-archive">
+    <section class="wil-section has-page-heading">
+        <div class="container">
+            <h1 class="has-text-align-center heading_title__1bzno">Forums</h1>
+
+            <div class="searchbox_wrap__37JXq">
+                <div class="searchbox_searchInput__2p4ds">
+                    <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+                        <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+                            <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
+                                <div id="">
+                                    <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                                        aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
+                                        <input [(ngModel)]="queryParams.keyword" type="text" autocomplete="off"
+                                            placeholder="Search for forum ..." class="field_field__3U_Rt">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="searchbox_searchButton__1c9iK">
+                    <button (click)="getForums()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
+                        type="button">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="listing-table_module__2vE05 table-module pos-r mt-30">
+                <div>
+                    <table
+                        class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table table-all-forums">
+                        <thead>
+                            <tr>
+                                <th class="wi-th-title"><span>
+                                        <span>Forum</span></span>
+                                </th>
+                                <th class="wi-th-view"><span>
+                                        <span>Topics</span>
+                                    </span></th>
+                                <th class="wi-th-favorite"><span>
+                                        <span>Posts</span>
+                                    </span></th>
+                                <th class="wi-th-favorite"><span>
+                                        <span>Last Post</span>
+                                    </span></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="totalForums == 0">
+                            <tr>
+                                <td colspan="8" style="text-align: center;">
+                                    <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                                        <div class="alert_content__1ntU3">No forum created yet</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="totalForums > 0">
+                            <tr *ngFor="let item of forums; let index=index">
+                                <td data-th="Title" class="">
+                                    <a [routerLink]="['forum', item.slug]">{{
+                                        item.title }}</a>
+                                    <div [innerHTML]="item.description"></div>
+                                </td>
+                                <td data-th="Topics" class="wil-td-view"><span>{{ item.topics_no }}</span></td>
+                                <td data-th="Posts" class="wil-td-favorite"><span>{{ item.replies_no }}</span></td>
+                                <td data-th="Created" class="wil-td-favorite">
+                                    <span *ngIf="item.last_activity_time; else noTopic">{{item.last_activity_time |
+                                        timeAgo}}</span>
+                                    <ng-template #noTopic><span>No Topics</span></ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <pagination [totalItems]="totalForums" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+                (pageChange)="onPageChange($event)"></pagination>
+
+        </div>
+    </section>
+</div>
