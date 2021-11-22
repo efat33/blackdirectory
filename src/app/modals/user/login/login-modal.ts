@@ -34,8 +34,6 @@ export class LoginModal implements OnInit, OnDestroy {
     private spinnerService: SpinnerService,
     private router: Router,
     private snackbar: SnackBarService,
-    private auth: AngularFireAuth,
-    private database: AngularFireDatabase,
     public dialog: MatDialog
   ) {}
 
@@ -65,8 +63,15 @@ export class LoginModal implements OnInit, OnDestroy {
         // set current user to localstorage
         localStorage.setItem('currentUserInfo', JSON.stringify(result.data));
 
+        const firebaseUserInfo = {
+          id: result.data.id,
+          email: this.loginForm.value.email,
+          password: this.loginForm.value.password,
+        };
+
+        localStorage.setItem('firebase', JSON.stringify(firebaseUserInfo));
+
         this.closeDialog(result.message);
-        // this.firebaseSignIn(result);
       },
       (result: any) => {
         if (result.error.errors) {
@@ -83,44 +88,6 @@ export class LoginModal implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(subscriptionLoginUser);
-  }
-
-  firebaseSignIn(result: any) {
-    this.auth
-      .signInWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
-      .then((userCredential) => {
-        this.closeDialog(result.message);
-      })
-      .catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          this.firebaseSignUp(result);
-        } else {
-          this.closeDialog(result.message);
-        }
-      });
-  }
-
-  firebaseSignUp(result: any) {
-    this.auth
-      .createUserWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        const update = { [user.uid]: result.data.id };
-
-        this.database
-          .object('users')
-          .update(update)
-          .then(() => {
-            this.closeDialog(result.message);
-          })
-          .catch((error) => {
-            this.closeDialog(result.message);
-          });
-      })
-      .catch((error) => {
-        this.closeDialog(result.message);
-      });
   }
 
   closeDialog(message: string) {

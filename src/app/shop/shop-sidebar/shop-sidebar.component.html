@@ -1,46 +1,6 @@
 <!-- -------------------------- Category Selector -------------------------- -->
 <app-category-selector></app-category-selector>
 
-<!-- --------------------------- Vendor Filter ---------------------------- -->
-<mat-accordion>
-  <mat-expansion-panel [expanded]="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span> Vendor </span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <p *ngFor="let vendor of getVisibleVendors(); let i = index">
-      <mat-checkbox color="primary" [formControl]="vendor.get('checked')" [value]="vendor.get('id').value"
-        (change)="onFiltersChange()">
-        {{ vendor.get('name').value }}
-      </mat-checkbox>
-    </p>
-    <label>
-      <input style="display: none" type="checkbox" [formControl]="viewAllVendors" />
-      <strong *ngIf="showViewAllVendors()">View all</strong>
-      <strong *ngIf="showViewLessVendors()">View Less</strong>
-    </label>
-  </mat-expansion-panel>
-</mat-accordion>
-
-<!-- --------------------------- Price Filter ---------------------------- -->
-<mat-accordion>
-  <mat-expansion-panel [expanded]="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span> Price Range </span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    £ <input class="price-range-input" type="number" [(ngModel)]="priceMin"> - £ <input class="price-range-input"
-      type="number" [(ngModel)]="priceMax">
-    <button mat-icon-button (click)="onFiltersChange()">
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </mat-expansion-panel>
-</mat-accordion>
-
 <!-- ---------------------------- Review Filter ---------------------------- -->
 <mat-accordion>
   <mat-expansion-panel [expanded]="true">
@@ -61,5 +21,45 @@
         <div style="display: flex; align-items: center" *ngIf="index === 5">No Review</div>
       </mat-radio-button>
     </mat-radio-group>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- --------------------------- Price Filter ---------------------------- -->
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span> Price Range </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    £ <input class="price-range-input" type="number" [(ngModel)]="priceMin"> - £ <input class="price-range-input"
+      type="number" [(ngModel)]="priceMax">
+    <button mat-icon-button (click)="onFiltersChange()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- --------------------------- Vendor Filter ---------------------------- -->
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span> Vendor </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <p *ngFor="let vendor of getVisibleVendors(); let i = index">
+      <mat-checkbox color="primary" [formControl]="vendor.get('checked')" [value]="vendor.get('id').value"
+        (change)="onFiltersChange()">
+        {{ vendor.get('name').value }}
+      </mat-checkbox>
+    </p>
+    <label>
+      <input style="display: none" type="checkbox" [formControl]="viewAllVendors" />
+      <strong *ngIf="showViewAllVendors()">View all</strong>
+      <strong *ngIf="showViewLessVendors()">View Less</strong>
+    </label>
   </mat-expansion-panel>
 </mat-accordion>

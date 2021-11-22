@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WishlistService } from 'src/app/shared/services/wishlist.service';
+import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
 
 @Component({
   selector: 'app-product',
@@ -62,7 +63,8 @@ export class ProductComponent implements OnInit {
     private storeService: StoreService,
     private snackbar: SnackBarService,
     private dialog: MatDialog,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private helperservice: HelperService
   ) {}
 
   get hasDiscount(): boolean {
@@ -147,5 +149,27 @@ export class ProductComponent implements OnInit {
 
   removeFromWishlist(): void {
     this.wishlistService.removeProduct(this.p);
+  }
+
+  sendMessage() {
+    if (!this.helperservice.currentUserInfo) {
+      this.userService.onLoginLinkModal.emit();
+      return;
+    }
+
+    if (this.p.user_id === this.helperservice.currentUserInfo.id) {
+      this.snackbar.openSnackBar('Cannot send message to yourself', 'Close', 'warn');
+      return;
+    }
+
+    const dialogConfig = {
+      width: '400px',
+      data: {
+        toUser: this.p.user_id,
+        fromUser: this.helperservice.currentUserInfo.id,
+      },
+    };
+
+    this.dialog.open(SendMessageModalComponent, dialogConfig);
   }
 }

@@ -26,11 +26,6 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
-@media (min-width: 1800px) {
-  .products-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-}
 
 .filters-container {
   padding: 2rem 1rem;

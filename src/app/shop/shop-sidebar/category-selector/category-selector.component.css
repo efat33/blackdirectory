@@ -58,3 +58,6 @@ mat-panel-title {
   font-weight: 500;
 }
 
+::ng-deep .shob-tree-filter .mat-button-wrapper {
+  color: #70778b;
+}

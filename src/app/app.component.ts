@@ -1,4 +1,6 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { MatDialog } from '@angular/material/dialog';
 import { ForgotPasswordModal } from './modals/user/forgot-password/forgot-password-modal';
 import { LoginModal } from './modals/user/login/login-modal';
@@ -13,7 +15,7 @@ import { UserService } from './user/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'blackdirectory';
 
   showLoadingSpinner = false;
@@ -23,7 +25,9 @@ export class AppComponent {
     private cdk: ChangeDetectorRef,
     private userService: UserService,
     private dialog: MatDialog,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private auth: AngularFireAuth,
+    private database: AngularFireDatabase
   ) {}
 
   ngOnInit() {
@@ -34,6 +38,51 @@ export class AppComponent {
 
     this.checkAuthentication();
     this.registerAuthEvents();
+    this.firebaseSignIn();
+  }
+
+  firebaseSignIn() {
+    const userInfo = JSON.parse(localStorage.getItem('firebase'));
+
+    if (!userInfo) {
+      return;
+    }
+
+    this.auth
+      .signInWithEmailAndPassword(userInfo.email, userInfo.password)
+      .then((userCredential) => {
+        localStorage.removeItem('firebase');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          this.firebaseSignUp(userInfo);
+        } else {
+          localStorage.removeItem('firebase');
+        }
+      });
+  }
+
+  firebaseSignUp(userInfo: any) {
+    this.auth
+      .createUserWithEmailAndPassword(userInfo.email, userInfo.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const update = { [user.uid]: userInfo.id };
+
+        this.database
+          .object('users')
+          .update(update)
+          .then(() => {
+            localStorage.removeItem('firebase');
+          })
+          .catch((error) => {
+            localStorage.removeItem('firebase');
+          });
+      })
+      .catch((error) => {
+        localStorage.removeItem('firebase');
+      });
   }
 
   checkAuthentication() {
