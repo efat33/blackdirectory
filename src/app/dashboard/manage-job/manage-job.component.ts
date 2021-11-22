@@ -135,8 +135,8 @@ export class ManageJobComponent implements OnInit, OnDestroy {
     const dialogConfig = {
       width: '400px',
       data: {
-        candidateId: application.user.id,
-        employerId: application.employer_id,
+        toUser: application.user.id,
+        fromUser: application.employer_id,
       },
     };
 

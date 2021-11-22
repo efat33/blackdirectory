@@ -77,7 +77,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    private helperservice: HelperService,
+    public helperservice: HelperService,
     public userService: UserService,
     private spinnerService: SpinnerService,
     private router: Router,
@@ -96,7 +96,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // initiate form fields
     this.setupFormFields();
-    this.initializeGoogleMap();
+
+    setTimeout(() => {
+      this.initializeGoogleMap();
+    }, 0);
 
     this.getJobSectors();
 
@@ -144,6 +147,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       profile_photo_name: this.userDetails.profile_photo,
       cover_photo_name: this.userDetails.cover_photo,
       pubic_view: this.userDetails.pubic_view,
+      forum_role: this.userDetails.forum_role,
       job_sectors_id: this.userDetails.job_sectors_id || '',
 
       address: this.userDetails.address,
@@ -154,6 +158,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       twitter_link: this.helperservice.getMetaData(this.userMeta, 'twitter_link'),
       linkedin_link: this.helperservice.getMetaData(this.userMeta, 'linkedin_link'),
       instagram_link: this.helperservice.getMetaData(this.userMeta, 'instagram_link'),
+      pinterest_link: this.helperservice.getMetaData(this.userMeta, 'pinterest_link'),
+      snapchat_link: this.helperservice.getMetaData(this.userMeta, 'snapchat_link'),
+      tiktok_link: this.helperservice.getMetaData(this.userMeta, 'tiktok_link'),
+      youtube_link: this.helperservice.getMetaData(this.userMeta, 'youtube_link'),
     });
 
     if (this.userDetails.role == 'candidate') {
@@ -264,6 +272,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       cover_photo: new FormControl(''),
       cover_photo_name: new FormControl(''),
       pubic_view: new FormControl(''),
+      forum_role: new FormControl(''),
       job_sectors_id: new FormControl(''),
 
       address: new FormControl('', Validators.required),
@@ -274,6 +283,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       twitter_link: new FormControl(''),
       linkedin_link: new FormControl(''),
       instagram_link: new FormControl(''),
+      pinterest_link: new FormControl(''),
+      snapchat_link: new FormControl(''),
+      tiktok_link: new FormControl(''),
+      youtube_link: new FormControl(''),
     });
   }
 

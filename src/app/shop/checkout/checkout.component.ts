@@ -9,6 +9,8 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { CartItemPopulated, CartService } from 'src/app/shared/services/cart.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Country, StoreService } from 'src/app/shared/services/store.service';
+import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 
 @Component({
@@ -50,7 +52,9 @@ export class CheckoutComponent implements OnInit {
     private helperService: HelperService,
     private storeService: StoreService,
     private orderService: OrderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private spinnerService: SpinnerService,
+    private snackbar: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -83,9 +87,11 @@ export class CheckoutComponent implements OnInit {
     if (this.shippingForm.invalid) {
       return;
     }
+
     if (this.showLoginModalIfNotLoggedIn()) {
       return;
     }
+
     forkJoin({
       items: this.cartService.cart.pipe(
         take(1),
@@ -104,17 +110,35 @@ export class CheckoutComponent implements OnInit {
         take(1),
         map((coupon) => coupon.id)
       ),
-    })
-      .pipe(mergeMap((params) => this.orderService.postNewOrder(params)))
-      .subscribe(
-        (orderId) => {
-          this.cartService.clearCart();
-          this.router.navigate(['/shop', 'success', orderId]);
-        },
-        (err) => {
-          console.log(err);
-          this.router.navigate(['/shop', 'checkout-fail']);
+    }).subscribe(
+      (params) => {
+        this.startStripeCheckoutSession(params);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  startStripeCheckoutSession(order: any) {
+    const body = {
+      order,
+      returnUrl: `${this.helperService.siteUrl}/shop/payment`,
+    };
+
+    this.spinnerService.show();
+    this.orderService.createStripeCheckoutSession(body).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        if (result.data?.url) {
+          window.location.href = result.data.url;
         }
-      );
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
   }
 }

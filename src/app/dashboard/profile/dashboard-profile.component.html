@@ -26,37 +26,45 @@
         <div class="content-box_body__3tSRB">
           <mat-form-field>
             <mat-label>First Name</mat-label>
-            <input matInput formControlName="first_name" required/>
+            <input matInput formControlName="first_name" required />
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Last Name</mat-label>
-            <input matInput formControlName="last_name" required/>
+            <input matInput formControlName="last_name" required />
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Display Name</mat-label>
-            <input matInput formControlName="display_name" required/>
+            <input matInput formControlName="display_name" required />
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" required/>
+            <input matInput formControlName="email" required />
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Phone Number</mat-label>
             <input matInput formControlName="phone" />
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Date of Birth</mat-label>
             <input matInput formControlName="dob" [matDatepicker]="date_birth" (focus)="date_birth.open()">
             <mat-datepicker-toggle matSuffix [for]="date_birth"></mat-datepicker-toggle>
             <mat-datepicker #date_birth></mat-datepicker>
           </mat-form-field>
+
           <div style="margin-bottom: 10px;">
             <mat-checkbox formControlName="is_business" color="primary">Business Account?</mat-checkbox>
           </div>
+
           <mat-form-field *ngIf="profileForm.controls.is_business.value">
             <mat-label>Description</mat-label>
             <textarea matInput rows="5" formControlName="description"></textarea>
           </mat-form-field>
+
           <section class="section-mat-form-field section-field-file section-field-preview-img">
             <mat-label>Avatar</mat-label>
             <input accept="image/*" type="file" formControlName="profile_photo" #inputProfileImage
@@ -66,31 +74,34 @@
             <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
               (click)="inputProfileImage.click()">Upload</a>
           </section>
+
           <mat-progress-bar *ngIf="progressProfileImg > 0" mode="determinate" [value]="progressProfileImg"
             class="mb-15"></mat-progress-bar>
           <p class="form-error" *ngIf="!formCustomvalidation.profileImage.validated">
             {{formCustomvalidation.profileImage.message}}</p>
 
+
           <section class="section-mat-form-field section-field-file section-field-preview-img">
             <mat-label>Cover Image</mat-label>
             <input accept="image/*" type="file" formControlName="cover_photo" #inputCoverImage
               (change)="onCoverImageChange($event)" />
+
             <span *ngIf="coverImageSrc" [ngStyle]="{'background-image': 'url('+coverImageSrc+')'}"></span>
             <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputCoverImage.click()">Upload</a>
           </section>
+
           <mat-progress-bar *ngIf="progressCoverImg > 0" mode="determinate" [value]="progressCoverImg" class="mb-15">
           </mat-progress-bar>
           <p class="form-error" *ngIf="!formCustomvalidation.coverImage.validated">
             {{formCustomvalidation.coverImage.message}}</p>
 
-          <!-- <mat-form-field>
-            <mat-label>Profile for Public View</mat-label>
-            <mat-select formControlName="pubic_view">
-              <mat-option *ngFor="let publicView of userService.publicViews" [value]="publicView.value">
-                {{publicView.viewValue}}
+          <mat-form-field *ngIf="helperservice.isAdmin()">
+            <mat-label>Forum Role</mat-label>
+            <mat-select formControlName="forum_role">
+              <mat-option *ngFor="let role of userService.forumRoles" [value]="role.value" [innerHTML]="role.viewValue">
               </mat-option>
             </mat-select>
-          </mat-form-field> -->
+          </mat-form-field>
         </div>
       </div> <!-- dashboard-section-basic-info-info -->
 
@@ -105,19 +116,19 @@
         <div class="content-box_body__3tSRB">
           <mat-form-field>
             <mat-label>Full Address</mat-label>
-            <input matInput formControlName="address" required/>
+            <input matInput formControlName="address" required />
           </mat-form-field>
           <div class="row">
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Latitude</mat-label>
-                <input matInput formControlName="latitude" required/>
+                <input matInput formControlName="latitude" required />
               </mat-form-field>
             </div>
             <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Longitude</mat-label>
-                <input matInput formControlName="longitude" required/>
+                <input matInput formControlName="longitude" required />
               </mat-form-field>
             </div>
           </div>
@@ -164,6 +175,34 @@
               <mat-form-field>
                 <mat-label>Instagram</mat-label>
                 <input matInput formControlName="instagram_link" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Pinterest</mat-label>
+                <input matInput formControlName="pinterest_link" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Snapchat</mat-label>
+                <input matInput formControlName="snapchat_link" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>TikTok</mat-label>
+                <input matInput formControlName="tiktok_link" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Youtube</mat-label>
+                <input matInput formControlName="youtube_link" />
               </mat-form-field>
             </div>
           </div>

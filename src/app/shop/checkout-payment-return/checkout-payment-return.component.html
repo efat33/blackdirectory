@@ -1,0 +1,29 @@
+<div class="">
+  <h3 class="page-title">
+    <span _ngcontent-bps-c143="">Checkout</span>
+  </h3>
+
+  <div class="content-box_body__3tSRB">
+    <div style="text-align: center; padding: 10px 0;">
+      <ng-container *ngIf="success">
+        <h4 *ngIf="success">Payment successful.</h4>
+
+        <h5>
+          <a [routerLink]="['/dashboard/orders/buyer']">View my orders</a>
+        </h5>
+
+        <h5>
+          <a [routerLink]="['/shop']">Continue Shopping</a>
+        </h5>
+      </ng-container>
+
+      <ng-container *ngIf="!success">
+        <h4 *ngIf="!success">Payment cancelled.</h4>
+
+        <h5>
+          <a [routerLink]="['/shop']">Continue Shopping</a>
+        </h5>
+      </ng-container>
+    </div>
+  </div>
+</div>

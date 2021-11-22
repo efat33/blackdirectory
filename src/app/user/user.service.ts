@@ -80,6 +80,29 @@ export class UserService {
     { value: 'Other', viewValue: 'Other' },
   ];
 
+  forumRoles = [
+    {
+      value: 'keymaster',
+      viewValue: 'Keymaster',
+    },
+    {
+      value: 'moderator',
+      viewValue: 'Moderator',
+    },
+    {
+      value: 'participant',
+      viewValue: 'Participant',
+    },
+    {
+      value: 'spectator',
+      viewValue: 'Spectator',
+    },
+    {
+      value: 'blocked',
+      viewValue: 'Blocked',
+    }
+  ];
+
   onRegisterLinkModal: EventEmitter<any> = new EventEmitter();
   onForgotPassLinkModal: EventEmitter<any> = new EventEmitter();
   onLoginLinkModal: EventEmitter<any> = new EventEmitter();
@@ -304,7 +327,7 @@ export class UserService {
     const url = `api/users/get-candidate-cv/${applicationId}`;
 
     const httpOptions = {
-      responseType: 'blob' as any
+      responseType: 'blob' as any,
     };
 
     return this.httpClient.get<any>(url, httpOptions);
