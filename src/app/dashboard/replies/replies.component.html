@@ -1,0 +1,87 @@
+<div class="wil-listings-managent-wrapper">
+    <div class=" mt-15">
+        <div class="content-box_body__3tSRB">
+            <div class="container">
+                <div class="searchbox_wrap__37JXq">
+                    <div class="searchbox_searchInput__2p4ds">
+                        <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+                            <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+                                <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
+                                    <div id="">
+                                        <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                                            aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
+                                            <input [(ngModel)]="queryParams.keyword" type="text" autocomplete="off"
+                                                placeholder="Search for reply ..." class="field_field__3U_Rt">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="searchbox_searchButton__1c9iK">
+                        <button (click)="getReplies()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
+                            type="button">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="listing-table_module__2vE05 table-module pos-r">
+        <div>
+            <table class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table">
+                <thead>
+                    <tr>
+                        <th class="wi-th-average-rating"><span>
+                                <span>Post</span>
+                            </span></th>
+                        <th class="wi-th-favorite"><span>
+                                <span>Author</span>
+                            </span></th>
+                        <th class="wi-th-favorite"><span>
+                                <span>Created</span>
+                            </span></th>
+                        <th class="wil-text-right wil-th-more"><span>
+                                <span></span>
+                            </span></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="totalReplies == 0">
+                    <tr>
+                        <td colspan="8" style="text-align: center;">
+                            <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                                <div class="alert_content__1ntU3">No reply found</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="totalReplies > 0">
+                    <tr *ngFor="let item of replies; let index=index">
+                        <td data-th="Post" class="">
+                            <div [innerHTML]="item.content"></div>
+                        </td>
+                        <td data-th="Author" class="wil-td-favorite">
+                            <span>{{ item.display_name || item.username }}</span>
+                        </td>
+                        <td data-th="Created" class="wil-td-favorite"><span>{{ item.created_at | date:'longDate'
+                                }}</span></td>
+
+                        <td data-th="More" class="before-hide wil-text-right wil-td-more">
+                            <a [routerLink]="['/dashboard/forums/reply/edit/', item.id]"
+                                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
+                                    class="list_text__35R07">Edit</span></a>
+                            <a (click)="onRemoveListing(item.id, index)"
+                                class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
+                                    class="list_text__35R07">Remove</span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <pagination [totalItems]="totalReplies" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+        (pageChange)="onPageChange($event)"></pagination>
+</div>

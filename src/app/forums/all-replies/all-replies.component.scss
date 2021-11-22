@@ -1,0 +1,64 @@
+.searchbox_searchButton__1c9iK .wil-btn--primary {
+    background-color: #069;
+    color: #fff;
+    margin-left: 15px;
+    border-radius: 3px;
+}
+.searchbox_searchButton__1c9iK .wil-btn--primary:after {
+    border-left-color: #069;
+}
+.searchbox_wrap__37JXq .autosuggest__results, .searchbox_searchInput__2p4ds div[class*=wrap] {
+    border-color: #069;
+}
+.field_style5__3OR3T .field_wrap__Gv92k {
+    background: rgba(0, 0, 0, 0);
+}
+
+.table-all-topics thead {
+    background: #f0fbff;
+}
+.table-module .table-all-topics th {
+    padding: 15px 12px 10px;
+}
+
+::ng-deep {
+    .dashboard__content .wil-dashboard-add-listing-wrapper {
+        text-align: right;
+    }
+}
+
+.topic-reply-options ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.topic-reply-options ul li {
+    display: inline;
+}
+.topic-reply-options ul li a {
+    padding-right: 10px;
+    margin-right: 10px;
+    position: relative;
+    color: #70778b;
+}
+.topic-reply-options ul li a::after {
+    content: "";
+    height: 11px;
+    width: 1px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #70778b;
+}
+.topic-reply-options ul li:last-child a::after {
+    content: none;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 200px !important;
+    max-height: 800px;
+}
+.jobsearch-employer-wrap-section.replyform-wrapper {
+    border-top: 1px solid #efefef;
+}

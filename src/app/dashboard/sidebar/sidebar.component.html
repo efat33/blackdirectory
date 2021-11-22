@@ -1,17 +1,10 @@
-<div
-  data-margin-top="0"
-  class="dashboard__sidebar js-sticky"
-  style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px"
->
-  <div
-    class="theiaStickySidebar"
-    style="padding-top: 0px; padding-bottom: 0px; position: static; transform: none; top: 0px; left: 0px"
-  >
+<div data-margin-top="0" class="dashboard__sidebar js-sticky"
+  style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px">
+  <div class="theiaStickySidebar"
+    style="padding-top: 0px; padding-bottom: 0px; position: static; transform: none; top: 0px; left: 0px">
     <div class="utility-box-1_module__MYXpX wil-text-center dashboard-profile-img">
-      <div
-        class="utility-box-1_avatar__DB9c_ rounded-circle"
-        [ngStyle]="{ 'background-image': 'url(' + profileImage + ')' }"
-      >
+      <div class="utility-box-1_avatar__DB9c_ rounded-circle"
+        [ngStyle]="{ 'background-image': 'url(' + profileImage + ')' }">
         <img [src]="profileImage" alt="" />
       </div>
       <div class="utility-box-1_body__8qd9j">
@@ -26,15 +19,11 @@
     <div class="dashboard-nav_module__3c0Pb list-none mt-20 mb-30 pos-r">
       <ul>
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-profile">
-          <span
-            ><a
-              [routerLink]="['profile']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"> <i class="la la-user"></i></span>
+          <span><a [routerLink]="['profile']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"> <i class="la la-user"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Profile</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
 
         <!-- job dashboard menu -->
@@ -44,11 +33,10 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <span>
-                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Job Dashboard</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span
-                    ></a>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -56,77 +44,55 @@
               <ul *ngIf="userType == 'candidate'" class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['applied-jobs']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"
-                        ><i class="jobsearch-icon jobsearch-briefcase-1"></i
-                      ></span>
+                    <a [routerLink]="['applied-jobs']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Applied Jobs</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
-                    <a
-                      [routerLink]="['favorite-jobs']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i> </span>
+                    <a [routerLink]="['favorite-jobs']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i> </span>
                       <span class="dashboard-nav_text__x-_IZ">Favorite Jobs</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
               </ul>
               <ul *ngIf="userType == 'employer' || userType == 'admin'" class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['new-job']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-plus"></i></span>
+                    <a [routerLink]="['new-job']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-plus"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Post a New Job</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
-                    <a
-                      [routerLink]="['manage-jobs']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"
-                        ><i class="jobsearch-icon jobsearch-briefcase-1"></i>
+                    <a [routerLink]="['manage-jobs']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i>
                       </span>
                       <span class="dashboard-nav_text__x-_IZ">Manage Jobs</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
-                    <a
-                      [routerLink]="['all-applicants']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"
-                        ><i class="jobsearch-icon jobsearch-company-workers"></i
-                      ></span>
+                    <a [routerLink]="['all-applicants']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i
+                          class="jobsearch-icon jobsearch-company-workers"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">All Applicants</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
-                    <a
-                      [routerLink]="['saved-candidates']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-heart"></i> </span>
+                    <a [routerLink]="['saved-candidates']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-heart"></i> </span>
                       <span class="dashboard-nav_text__x-_IZ">Saved Candidates</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
               </ul>
             </mat-expansion-panel>
@@ -146,11 +112,10 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <span>
-                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="la la-shopping-cart"></i></span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-shopping-cart"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Vendor Dashboard</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span
-                    ></a>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -158,100 +123,74 @@
               <ul *ngIf="true" class="sidebar-menu-submenus">
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['products']"
-                      routerLinkActive="dashboard-link-active"
+                    <a [routerLink]="['products']" routerLinkActive="dashboard-link-active"
                       [routerLinkActiveOptions]="{ exact: true }"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-th-list"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Product List</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['wishlist']"
-                      routerLinkActive="dashboard-link-active"
+                    <a [routerLink]="['wishlist']" routerLinkActive="dashboard-link-active"
                       [routerLinkActiveOptions]="{ exact: true }"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-heart"></i></span>
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-heart"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Wishlist</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
-                    <a
-                      [routerLink]="['products/new']"
-                      routerLinkActive="dashboard-link-active"
+                    <a [routerLink]="['products/new']" routerLinkActive="dashboard-link-active"
                       [routerLinkActiveOptions]="{ exact: true }"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-plus"></i> </span>
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-plus"></i> </span>
                       <span class="dashboard-nav_text__x-_IZ">New Product</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['orders', 'buyer']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-address-card-o"></i></span>
+                    <a [routerLink]="['orders', 'buyer']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-address-card-o"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">My Orders</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['orders', 'seller']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-address-card"></i></span>
+                    <a [routerLink]="['orders', 'seller']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-address-card"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Customer Orders</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['withdraw']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                      ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-money"></i></span>
+                    <a [routerLink]="['withdraw']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="fa fa-fw fa-money"></i></span>
                       <span class="dashboard-nav_text__x-_IZ">Withdraw</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['shipping']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                    >
+                    <a [routerLink]="['shipping']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
                       <span class="dashboard-nav_icon__2gZV4">
                         <i class="fa fa-fw fa-truck"></i>
                       </span>
                       <span class="dashboard-nav_text__x-_IZ">Shipping</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
                 <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
-                    <a
-                      [routerLink]="['store-settings']"
-                      routerLinkActive="dashboard-link-active"
-                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-                    >
+                    <a [routerLink]="['store-settings']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
                       <span class="dashboard-nav_icon__2gZV4">
                         <i class="fa fa-fw fa-cog"></i>
                       </span>
                       <span class="dashboard-nav_text__x-_IZ">Store Settings</span>
-                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-                  ></span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
               </ul>
             </mat-expansion-panel>
@@ -260,117 +199,127 @@
         <!-- ------------------------ Vendor Dashboard Ends ------------------------ -->
 
         <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-listings">
-          <span
-            ><a
-              [routerLink]="['listings']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i></span>
+          <span><a [routerLink]="['listings']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-list"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Listings</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
         <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-events">
-          <span
-            ><a
-              [routerLink]="['events']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-calendar-o"></i></span>
+          <span><a [routerLink]="['events']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-calendar-o"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Events</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
 
         <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-billings">
-          <span
-            ><a
-              [routerLink]="['packages']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-money"></i></span>
+          <span><a [routerLink]="['packages']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-money"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Job Packages</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
 
         <li *ngIf="currentUser.verified" class="dashboard-nav_item__2798B wilcity-dashboard-route-favorites">
-          <span
-            ><a
-              [routerLink]="['favorite-listings']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i></span>
+          <span><a [routerLink]="['favorite-listings']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Favorites Listing</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
 
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
-          <span
-            ><a
-              [routerLink]="['messages']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-envelope"></i></span>
+          <span><a [routerLink]="['messages']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-envelope"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Messages</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-notifications">
-          <span
-            ><a
-              [routerLink]="['notifications']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-bell"></i></span>
+          <span><a [routerLink]="['notifications']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-bell"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Notifications</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
 
         <li *ngIf="userType == 'employer'" class="dashboard-nav_item__2798B wilcity-dashboard-route-follower">
           <span>
-            <a
-              [routerLink]="['followers']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-thumbs-o-up"></i></span>
+            <a [routerLink]="['followers']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="fa fa-thumbs-o-up"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Followers</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
         <li *ngIf="userType == 'candidate'" class="dashboard-nav_item__2798B wilcity-dashboard-route-following">
           <span>
-            <a
-              [routerLink]="['following']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="fa fa-thumbs-o-up"></i></span>
+            <a [routerLink]="['following']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="fa fa-thumbs-o-up"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Following</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
+
+        <!-- forum dashboard menu -->
+        <li *ngIf="currentUser.verified">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Forums</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                  <span>
+                    <a [routerLink]="['forums/all']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Forum List</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
+                  <span>
+                    <a [routerLink]="['topics/all']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Topic List</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
+                  <span>
+                    <a [routerLink]="['replies/all']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-heart-o"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Posts</span>
+                      <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-following">
           <span>
-            <a
-              [routerLink]="['change-password']"
-              routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-multimedia"></i></span>
+            <a [routerLink]="['change-password']" routerLinkActive="dashboard-link-active"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-multimedia"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Change Password</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-logout">
-          <span
-            ><a
-              (click)="userService.logout()"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"
-              ><span class="dashboard-nav_icon__2gZV4"><i class="la la-sign-out"></i></span>
+          <span><a (click)="userService.logout()"
+              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                class="dashboard-nav_icon__2gZV4"><i class="la la-sign-out"></i></span>
               <span class="dashboard-nav_text__x-_IZ">Logout</span>
-              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a
-          ></span>
+              <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
       </ul>
     </div>

@@ -36,6 +36,12 @@ import { FavoriteListingsComponent } from './favorite-listings/favorite-listings
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { ProductCategorySelectorComponent } from './product-category-selector/product-category-selector.component';
+import { NewForumComponent } from './forums-new/forums-new.component';
+import { AllForumsComponent } from './forums/forums.component';
+import { NewTopicComponent } from './topics-new/topics-new.component';
+import { AllTopicsComponent } from './topics/topics.component';
+import { NewReplyComponent } from './reply-new/reply-new.component';
+import { AllRepliesComponent } from './replies/replies.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +76,12 @@ import { ProductCategorySelectorComponent } from './product-category-selector/pr
     WishlistComponent,
     ShippingComponent,
     ProductCategorySelectorComponent,
+    NewForumComponent,
+    AllForumsComponent,
+    NewTopicComponent,
+    AllTopicsComponent,
+    NewReplyComponent,
+    AllRepliesComponent,
   ],
   imports: [CommonModule, SharedModule, DashboardRoutingModule, CKEditorModule],
 })

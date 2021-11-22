@@ -68,7 +68,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe, fileSrc, SafeHtmlPipe } from './custom-pipes';
+import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe, fileSrc, SafeHtmlPipe, topicVoiceNumber } from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -147,6 +147,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     AdminSidebarComponent,
     pluralPipe,
     decimalPipe,
+    topicVoiceNumber,
     SafeHtmlPipe,
     excerpt,
     rsvpTimeLeft,
@@ -291,6 +292,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ShareIconsModule,
     pluralPipe,
     decimalPipe,
+    topicVoiceNumber,
     SafeHtmlPipe,
     excerpt,
     ImageInputComponent,

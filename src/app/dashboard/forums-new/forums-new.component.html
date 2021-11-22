@@ -1,0 +1,31 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="forumForm">
+  <div id="new-news-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <div class="content-box_body__3tSRB">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="open">Open</mat-option>
+          <mat-option value="close">Closed</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="news-content-ckeditor">
+        <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
+          formControlName="description">
+        </ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!forumForm.valid">
+    {{editForumId ? 'Update Forum' : 'Add Forum'}}
+  </button>
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+</form>
