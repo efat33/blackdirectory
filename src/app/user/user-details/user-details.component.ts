@@ -54,6 +54,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   activeJobs: any[] = [];
   page: number = 1;
   favoriteJobIds = [];
+  socialLinks: any = {};
+  hasSocialLinks: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -89,6 +91,22 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.userType = res.data.data.role;
         this.userMeta = this.helperService.prepareMetaData(res.data.meta_data);
         this.userProfile = res.data;
+
+        this.socialLinks = {
+          instagram_link: this.userMeta.instagram_link,
+          facebook_link: this.userMeta.facebook_link,
+          twitter_link: this.userMeta.twitter_link,
+          linkedin_link: this.userMeta.linkedin_link,
+          tiktok_link: this.userMeta.tiktok_link,
+          pinterest_link: this.userMeta.pinterest_link,
+          youtube_link: this.userMeta.youtube_link,
+          spotify_link: this.userMeta.spotify_link,
+          apple_music_link: this.userMeta.apple_music_link,
+          tidal_link: this.userMeta.tidal_link,
+          soundcloud_link: this.userMeta.soundcloud_link,
+        };
+
+        this.hasSocialLinks = Object.keys(this.socialLinks).length > 0;
 
         // populdate data
         this.populateData();
