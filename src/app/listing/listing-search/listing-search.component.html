@@ -174,9 +174,9 @@
                                             <header class="listing_header__2pt4D is-verified">
                                                 <a href="{{ siteUrl + '/listing/' + item.slug }}"><span
                                                         class="wilcity-slider-gradient-before"></span>
-                                                    <div class="listing_img__3pwlB pos-a-full bg-cover"
+                                                    <div *ngIf="item.cover_img" class="listing_img__3pwlB pos-a-full bg-cover"
                                                         [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.cover_img, 'medium') + ')'}">
-                                                        <img src="{{ item.cover_img | imageSrc : 'listing' : 'medium' }}"
+                                                        <img *ngIf="item.cover_img" src="{{ item.cover_img | imageSrc : 'listing' : 'medium' }}"
                                                             alt="{{ item.title }}">
                                                     </div> <span class="wilcity-slider-gradient-after"></span>
                                                 </a>
@@ -184,7 +184,7 @@
                                             <div class="listing_body__31ndf">
                                                 <a href="{{ siteUrl + '/listing/' + item.slug }}"
                                                     class="listing_goo__3r7Tj">
-                                                    <div class="listing_logo__PIZwf bg-cover"
+                                                    <div *ngIf="item.logo" class="listing_logo__PIZwf bg-cover"
                                                         [ngStyle]="{'background-image': 'url(' + getListingImageSrc(item.logo, 'thumb') + ')'}">
                                                     </div>
                                                 </a>

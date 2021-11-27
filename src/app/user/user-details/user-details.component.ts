@@ -106,7 +106,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
           soundcloud_link: this.userMeta.soundcloud_link,
         };
 
-        this.hasSocialLinks = Object.keys(this.socialLinks).length > 0;
+        this.hasSocialLinks = Object.values(this.socialLinks).some((link: any) => !!link);
 
         // populdate data
         this.populateData();
