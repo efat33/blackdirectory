@@ -85,15 +85,15 @@ export class HelperService {
     return metaData;
   }
 
-  imageValidation(image: File): any {
+  imageValidation(image: File, maxSize: number = 1): any {
     const obj = {
       validated: true,
-      message: 'Supported image type are png, jpg, jpeg and image size cannot be greater than 1MB',
+      message: `Supported image type are png, jpg, jpeg and image size cannot be greater than ${maxSize}MB`,
     };
 
     if (
       (image.type != 'image/jpeg' && image.type != 'image/png' && image.type != 'image/jpg') ||
-      image.size / (1024 * 1024) > 1
+      image.size / (1024 * 1024) >= maxSize
     ) {
       obj.validated = false;
     }

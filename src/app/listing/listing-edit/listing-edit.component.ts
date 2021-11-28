@@ -1231,7 +1231,7 @@ export class ListingEditComponent implements OnInit {
       const file = event.target.files[0];
 
       // do validation
-      const res = this.helperservice.imageValidation(file);
+      const res = this.helperservice.imageValidation(file, 2);
       if (!res.validated) {
         this.formCustomvalidation.galleryImage[imageSrc] = true;
         return;

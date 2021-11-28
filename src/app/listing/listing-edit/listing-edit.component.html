@@ -531,7 +531,7 @@
                         <p class="form-error" *ngIf="formCustomvalidation.galleryImage[i]">
                           Supported image type are png,
                           jpg, jpeg and image size cannot
-                          be greater than 1MB
+                          be greater than 2MB
                         </p>
                       </div>
                       <a (click)="removeGalleryImage(i)"
@@ -542,7 +542,7 @@
                   </div>
                 </div>
 
-                <a *ngIf="listingForm.get('galleries')['controls'].length < 4" (click)="addGalleryImage()"
+                <a *ngIf="listingForm.get('galleries')['controls'].length < 10" (click)="addGalleryImage()"
                   class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs"><i class="la la-plus"></i>
                   Add More
                 </a>
