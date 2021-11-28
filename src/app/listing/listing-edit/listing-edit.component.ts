@@ -716,7 +716,6 @@ export class ListingEditComponent implements OnInit {
             this.users.push(tmp);
           }
         }
-        console.log(this.users);
       },
       (res:any) => {
 

@@ -1,3 +1,10 @@
+.not-activated {
+  text-align: center;
+  padding: 4px 0;
+  background: rgb(0 170 255);
+  color: #fff;
+}
+
 .loading-spinner-wrapper {
     position: fixed;
     left: 0;
@@ -6,7 +13,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.4);
     z-index: 9999999999;
-  
+
     @keyframes ldio-v4reu5effxf {
       0% {
         opacity: 1;
@@ -160,7 +167,7 @@
       box-sizing: content-box;
     }
 }
-  
+
 .gallery-wrapper {
   text-align: center;
   margin-top: 50px;

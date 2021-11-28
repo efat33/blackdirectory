@@ -6,6 +6,7 @@ import { ForgotPasswordModal } from './modals/user/forgot-password/forgot-passwo
 import { LoginModal } from './modals/user/login/login-modal';
 import { RegistrationModal } from './modals/user/registration/registration-modal';
 import { ResetPasswordModal } from './modals/user/reset-password/reset-password-modal';
+import { HelperService } from './shared/helper.service';
 import { WishlistService } from './shared/services/wishlist.service';
 import { SpinnerService } from './shared/spinner.service';
 import { UserService } from './user/user.service';
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
   showLoadingSpinner = false;
 
   constructor(
+    public helperService: HelperService,
     private spinnerService: SpinnerService,
     private cdk: ChangeDetectorRef,
     private userService: UserService,
@@ -91,6 +93,8 @@ export class AppComponent implements OnInit {
       (res) => {
         // set current user to localstorage
         localStorage.setItem('currentUserInfo', JSON.stringify(res.data));
+        this.helperService.setCurrentUserInfo();
+
         if (res.data) {
           this.wishlistService.setProducts();
         }
