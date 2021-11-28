@@ -134,7 +134,7 @@ export class ListingDetailsComponent implements OnInit {
           const products = res[0].data.allproducts;
           this.favoriteListings = res[1].data;
 
-          this.socialLinks = JSON.parse(this.listing_contact.social_links);
+          this.socialLinks = JSON.parse(this.listing_contact.social_links) || {};
           this.hasSocialLinks = Object.values(this.socialLinks).some((link: any) => !!link);
 
           const prod_ids = products.map((product) => product.id);
