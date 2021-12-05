@@ -100,7 +100,7 @@ export class UserService {
     {
       value: 'blocked',
       viewValue: 'Blocked',
-    }
+    },
   ];
 
   onRegisterLinkModal: EventEmitter<any> = new EventEmitter();
@@ -331,5 +331,11 @@ export class UserService {
     };
 
     return this.httpClient.get<any>(url, httpOptions);
+  }
+
+  resendVerificationMail(): Observable<APIReponse> {
+    const url = 'api/users/resend-email';
+
+    return this.httpClient.get<APIReponse>(url, this.headerOptions).pipe(map((body: APIReponse) => body));
   }
 }
