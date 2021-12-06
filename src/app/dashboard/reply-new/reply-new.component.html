@@ -1,0 +1,18 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="replyForm">
+  <div id="new-news-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <div class="content-box_body__3tSRB">
+
+      <div class="news-content-ckeditor">
+        <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)" formControlName="content">
+        </ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!replyForm.valid">
+    {{editReplyId ? 'Update Reply' : 'Add Reply'}}
+  </button>
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+</form>

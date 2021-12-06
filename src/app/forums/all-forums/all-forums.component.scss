@@ -1,0 +1,27 @@
+.searchbox_searchButton__1c9iK .wil-btn--primary {
+    background-color: #069;
+    color: #fff;
+    margin-left: 15px;
+    border-radius: 3px;
+}
+.searchbox_searchButton__1c9iK .wil-btn--primary:after {
+    border-left-color: #069;
+}
+.searchbox_wrap__37JXq .autosuggest__results, .searchbox_searchInput__2p4ds div[class*=wrap] {
+    border-color: #069;
+}
+.field_style5__3OR3T .field_wrap__Gv92k {
+    background: rgba(0, 0, 0, 0);
+}
+.table-all-forums thead {
+    background: #f0fbff;
+}
+.table-module .table-all-forums th {
+    padding: 15px 12px 10px;
+}
+
+::ng-deep {
+    .dashboard__content .wil-dashboard-add-listing-wrapper {
+        text-align: right;
+    }
+}

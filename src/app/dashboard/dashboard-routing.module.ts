@@ -36,6 +36,12 @@ import { OrdersResolver } from './orders/orders.resolver';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { AuthVerifiedGuard } from '../shared/route-guards/auth-guard.service';
+import { NewForumComponent } from './forums-new/forums-new.component';
+import { AllForumsComponent } from './forums/forums.component';
+import { NewTopicComponent } from './topics-new/topics-new.component';
+import { AllTopicsComponent } from './topics/topics.component';
+import { NewReplyComponent } from './reply-new/reply-new.component';
+import { AllRepliesComponent } from './replies/replies.component';
 
 const routes: Routes = [
   {
@@ -65,6 +71,18 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent, canActivate: [AuthVerifiedGuard] },
       { path: 'wishlist', component: WishlistComponent },
       { path: 'products/new', component: ProductsNewComponent, canActivate: [AuthVerifiedGuard] },
+
+      { path: 'forums/new', component: NewForumComponent, canActivate: [AuthVerifiedGuard] },
+      { path: 'forums/forum/edit/:forum_id', component: NewForumComponent, canActivate: [AuthVerifiedGuard] },
+      { path: 'forums/all', component: AllForumsComponent, canActivate: [AuthVerifiedGuard] },
+
+      { path: 'topics/new', component: NewTopicComponent, canActivate: [AuthVerifiedGuard] },
+      { path: 'topics/topic/edit/:topic_id', component: NewTopicComponent, canActivate: [AuthVerifiedGuard] },
+      { path: 'topics/all', component: AllTopicsComponent, canActivate: [AuthVerifiedGuard] },
+
+      { path: 'forums/reply/edit/:reply_id', component: NewReplyComponent, canActivate: [AuthVerifiedGuard] },
+      { path: 'replies/all', component: AllRepliesComponent, canActivate: [AuthVerifiedGuard] },
+
       {
         path: 'products/edit/:slug',
         component: ProductsEditComponent,
