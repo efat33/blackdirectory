@@ -72,16 +72,16 @@ export class AllTopicsComponent implements OnInit {
     this.getTopics(newPage);
   }
 
-  onRemoveListing(listing_id: number, index: number) {
+  onDeleteTopic(topic_id: number, index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       panelClass: 'confimation-dialog',
-      data: { message: 'Are you sure you want to delete this listing"?' },
+      data: { message: 'Deleting the topic would also delete all its replies. Are you sure you want to delete the Topic?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-        const subscriptionDeleteLlisting = this.listingService.deleteListing(listing_id).subscribe(
+        const subscriptionDeleteLlisting = this.forumService.deleteTopic(topic_id).subscribe(
           (res: any) => {
             this.spinnerService.hide();
             this.topics.splice(index, 1);

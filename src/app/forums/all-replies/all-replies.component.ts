@@ -95,6 +95,7 @@ export class AllRepliesComponent implements OnInit {
   initialiseReplyForm() {
     this.replyForm = new FormGroup({
       content: new FormControl('', Validators.required),
+      forum_id: new FormControl(''),
       topic_id: new FormControl(''),
       reply_to: new FormControl(null),
       notify_by_email: new FormControl(0)
@@ -116,7 +117,8 @@ export class AllRepliesComponent implements OnInit {
 
         // set topic id to reply form
         this.replyForm.get('topic_id').patchValue(this.topic.id);
-
+        this.replyForm.get('forum_id').patchValue(this.topic.forum_id);
+        
         setTimeout(() => {
           if(this.postId) {
             let el = document.getElementById('single_reply_'+this.postId);
@@ -147,7 +149,7 @@ export class AllRepliesComponent implements OnInit {
     const forum_role = this.helperService.currentUserInfo.forum_role;
 
     if(role == 'admin' || forum_role == 'keymaster' || forum_role == 'moderator' || forum_role == 'participant'){
-      this.router.navigate(['/dashboard/topics/new'], { queryParams: {forum_id: this.topic.id}});
+      this.router.navigate(['/dashboard/topics/new'], { queryParams: {forum_id: this.topic.forum_id}});
     }
     else{
       this.snackbarService.openSnackBar('You are not allowed to add topic.', 'Close', 'warn');
@@ -169,9 +171,10 @@ export class AllRepliesComponent implements OnInit {
     const newReplySubscription = this.forumService.addReply(formValues).subscribe(
       (result: any) => {
         this.spinnerService.hide();
-        // console.log(result);
+        const reply_id = result.data.reply_id;
 
-        // this.router.navigate(['/dashboard/forums/all']);
+        // this.router.navigate([`/forums/topic/${this.topic.slug}`], { queryParams: {post_id: reply_id }});
+        window.location.replace(`${this.siteUrl}/forums/topic/${this.topic.slug}/?post_id=${reply_id}`);
         this.snackbarService.openSnackBar(result.message);
       },
       (error) => {
@@ -205,6 +208,36 @@ export class AllRepliesComponent implements OnInit {
     } else {
       this.showLoginModal();
     }
+  }
+
+  onDeleteReply(reply) {
+
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'confimation-dialog',
+      data: { message: 'Are you sure to delete the reply?' },
+    });
+
+    const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.spinnerService.show();
+    
+        const subsDeleteReply = this.forumService.deleteReply(reply.id).subscribe(
+          (res:any) => {
+            this.spinnerService.hide();
+            this.snackbarService.openSnackBar(res.message);
+            window.location.replace(`${this.siteUrl}/forums/topic/${this.topic.slug}`);
+          },
+          (res:any) => {
+            this.spinnerService.hide();
+          }
+        );
+        
+        this.subscriptions.add(subsDeleteReply);
+      }
+    });
+
+    this.subscriptions.add(dialogCloseSubscription);
+    
   }
 
   scroll(el: HTMLElement) {

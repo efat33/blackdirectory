@@ -13,10 +13,11 @@
 .field_style5__3OR3T .field_wrap__Gv92k {
     background: rgba(0, 0, 0, 0);
 }
-.table-all-forums thead {
+
+.table-all-topics thead {
     background: #f0fbff;
 }
-.table-module .table-all-forums th {
+.table-module .table-all-topics th {
     padding: 15px 12px 10px;
 }
 
@@ -30,6 +31,9 @@
     border: 1px solid #f3f3f6;
     margin-bottom: 50px;
 }
+.forum-user-sidebar .dashboard-profile-img {
+    padding-top: 20px;
+}
 .forum-user-sidebar ul li:not(:last-child) {
     border-bottom: 1px solid #f3f3f6;
 }
@@ -37,14 +41,14 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.forum-user-sidebar ul  {
+ul.forum_user_profile_ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.forum-category-sidebar ul li:first-child {
-    background: #069;
-    color: #fff;
+ul.forum_user_profile_ul li span {
+    min-width: 150px;
+    display: inline-block;
 }
 .dashboard-link-active:focus {
     color: #069;

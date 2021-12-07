@@ -46,6 +46,7 @@ import { AllTopicsComponent } from '../dashboard/topics/topics.component';
 import { NewTopicComponent } from '../dashboard/topics-new/topics-new.component';
 import { AllRepliesComponent } from '../dashboard/replies/replies.component';
 import { NewReplyComponent } from '../dashboard/reply-new/reply-new.component';
+import { ForumCategoriesComponent } from './forums/forum-categories/forum-categories.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,8 @@ const routes: Routes = [
       { path: 'forums/all', component: AllForumsComponent },
       { path: 'forums/new', component: NewForumComponent },
       { path: 'forums/forum/edit/:forum_id', component: NewForumComponent },
+
+      { path: 'forum-categories', component: ForumCategoriesComponent },
 
       { path: 'topics/all', component: AllTopicsComponent },
       { path: 'topics/new', component: NewTopicComponent },

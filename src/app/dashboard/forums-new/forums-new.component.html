@@ -7,6 +7,15 @@
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category_id">
+          <mat-option *ngFor="let category of forumCategories" [value]="category.id">
+            {{category.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
           <mat-option value="open">Open</mat-option>
