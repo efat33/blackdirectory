@@ -541,7 +541,7 @@
                   </div>
                 </div>
 
-                <a *ngIf="listingForm.get('galleries')['controls'].length < 4" (click)="addGalleryImage()"
+                <a *ngIf="listingForm.get('galleries')['controls'].length < 10" (click)="addGalleryImage()"
                   class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs"><i class="la la-plus"></i>
                   Add More
                 </a>
@@ -1125,7 +1125,7 @@
 
             <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
               color="primary" type="submit" [disabled]="listingForm.invalid">
-              Save & Preview
+              Save & Publish
             </button>
             <!-- <button mat-raised-button
                             class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
