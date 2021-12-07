@@ -1,1184 +1,1133 @@
 <div class="wil-content">
-    <section class="wil-section bg-color-gray-2 pt-30">
-        <div class="container">
-            <div class="wil-addlisting row sticky-main-content">
-                <div stickySidebar class="col-md-4 col-lg-4 md-hide sticky-sidebar"
-                    containerSelector=".sticky-main-content" innerWrapperSelector=".sidebar__inner">
-                    <div class="sidebar__inner">
-                        <ul class="list_module__1eis9 list-none">
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_header)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-certificate"></i></span> <span
-                                        class="list_text__35R07">Header</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a
-                                    (click)="scrollToSection(wilcity_addlisting_listing_content)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-file-text"></i></span> <span
-                                        class="list_text__35R07">Listing Content</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a
-                                    (click)="scrollToSection(wilcity_addlisting_listing_address)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-globe"></i></span> <span
-                                        class="list_text__35R07">Listing Address</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_listing_cat)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-file-text"></i></span> <span
-                                        class="list_text__35R07">Category</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_price_range)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-money"></i></span> <span
-                                        class="list_text__35R07">Price Range</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_coupon)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-tag"></i></span> <span
-                                        class="list_text__35R07">Coupon</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_my_products)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-shopping-cart"></i></span> <span
-                                        class="list_text__35R07">My Shop</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a
-                                    (click)="scrollToSection(wilcity_addlisting_restaurant_menu)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-cutlery"></i></span> <span
-                                        class="list_text__35R07">Restaurant Menu</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_featured_image)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-image"></i></span> <span
-                                        class="list_text__35R07">Featured Image</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_gallery)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-image"></i></span> <span
-                                        class="list_text__35R07">Gallery</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_business_hours)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-clock-o"></i></span> <span
-                                        class="list_text__35R07">Business Hours</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_video)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-video-camera"></i></span> <span
-                                        class="list_text__35R07">Video Urls</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_contact_info)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-phone-square"></i></span> <span
-                                        class="list_text__35R07">Contact Information</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                            <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_custom_button)"
-                                    class="list_link__2rDA1 text-ellipsis color-primary--hover"><span
-                                        class="list_icon__2YpTp"><i class="la la-cog"></i></span> <span
-                                        class="list_text__35R07">Custom Button</span> <span
-                                        class="list_check__1FbUQ"></span></a></li>
-                        </ul>
-                    </div>
+  <section class="wil-section bg-color-gray-2 pt-30">
+    <div class="container">
+      <div class="wil-addlisting row sticky-main-content">
+        <div stickySidebar class="col-md-4 col-lg-4 md-hide sticky-sidebar" containerSelector=".sticky-main-content"
+          innerWrapperSelector=".sidebar__inner">
+          <div class="sidebar__inner">
+            <ul class="list_module__1eis9 list-none">
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_header)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-certificate"></i></span> <span class="list_text__35R07">Header</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_listing_content)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-file-text"></i></span> <span class="list_text__35R07">Listing Content</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_listing_address)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-globe"></i></span> <span class="list_text__35R07">Listing Address</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_listing_cat)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-file-text"></i></span> <span class="list_text__35R07">Category</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_price_range)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-money"></i></span> <span class="list_text__35R07">Price Range</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_coupon)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-tag"></i></span> <span class="list_text__35R07">Coupon</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_my_products)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-shopping-cart"></i></span> <span class="list_text__35R07">My Shop</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_restaurant_menu)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-cutlery"></i></span> <span class="list_text__35R07">Restaurant Menu</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_featured_image)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-image"></i></span> <span class="list_text__35R07">Featured Image</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_gallery)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-image"></i></span> <span class="list_text__35R07">Gallery</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_business_hours)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-clock-o"></i></span> <span class="list_text__35R07">Business Hours</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_video)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-video-camera"></i></span> <span class="list_text__35R07">Video Urls</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_contact_info)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-phone-square"></i></span> <span class="list_text__35R07">Contact Information</span>
+                  <span class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_custom_button)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-cog"></i></span> <span class="list_text__35R07">Custom Button</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-8 ">
+          <form (ngSubmit)="onSubmit()" [formGroup]="listingForm">
+
+            <div #wilcity_addlisting_header class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-certificate"></i>
+                    <span>Header</span>
+                  </h4>
                 </div>
-                <div class="col-md-8 col-lg-8 ">
-                    <form (ngSubmit)="onSubmit()" [formGroup]="listingForm">
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Listing Title</mat-label>
+                  <input required matInput formControlName="title" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Tagline</mat-label>
+                  <input matInput formControlName="tagline" />
+                </mat-form-field>
 
-                        <div #wilcity_addlisting_header class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-certificate"></i>
-                                        <span>Header</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <mat-form-field>
-                                    <mat-label>Listing Title</mat-label>
-                                    <input required matInput formControlName="title" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Tagline</mat-label>
-                                    <input matInput formControlName="tagline" />
-                                </mat-form-field>
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Logo</mat-label>
+                  <input accept="image/*" type="file" formControlName="logo_input" #fileInputLogo
+                    (change)="onLogoImageChange($event)" />
+                  <span *ngIf="logoImageSrc" [ngStyle]="{'background-image': 'url('+logoImageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="fileInputLogo.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressLogo > 0" mode="determinate" [value]="progressLogo" class="mb-15">
+                </mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.logo.validated">
+                  {{formCustomvalidation.logo.message}}</p>
 
-                                <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Logo <span class="mat-form-field-required-marker">*</span></mat-label>
-                                    <input accept="image/*" type="file" formControlName="logo_input" #fileInputLogo
-                                        (change)="onLogoImageChange($event)" />
-                                    <span *ngIf="logoImageSrc"
-                                        [ngStyle]="{'background-image': 'url('+logoImageSrc+')'}"></span>
-                                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                                        (click)="fileInputLogo.click()">Upload</a>
-                                </section>
-                                <mat-progress-bar *ngIf="progressLogo > 0" mode="determinate" [value]="progressLogo"
-                                    class="mb-15"></mat-progress-bar>
-                                <p class="form-error" *ngIf="!formCustomvalidation.logo.validated">
-                                    {{formCustomvalidation.logo.message}}</p>
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Cover Image
+                  </mat-label>
+                  <input accept="image/*" type="file" formControlName="cover_img_input" #fileInputCoverImg
+                    (change)="onCoverImageChange($event)" />
+                  <span *ngIf="coverImageSrc" [ngStyle]="{'background-image': 'url('+coverImageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="fileInputCoverImg.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressCoverImg > 0" mode="determinate" [value]="progressCoverImg"
+                  class="mb-15"></mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.coverImage.validated">
+                  {{formCustomvalidation.coverImage.message}}</p>
+              </div>
+            </div><!-- wilcity_addlisting_header -->
 
-                                <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Cover Image <span class="mat-form-field-required-marker">*</span>
-                                    </mat-label>
-                                    <input accept="image/*" type="file" formControlName="cover_img_input"
-                                        #fileInputCoverImg (change)="onCoverImageChange($event)" />
-                                    <span *ngIf="coverImageSrc"
-                                        [ngStyle]="{'background-image': 'url('+coverImageSrc+')'}"></span>
-                                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                                        (click)="fileInputCoverImg.click()">Upload</a>
-                                </section>
-                                <mat-progress-bar *ngIf="progressCoverImg > 0" mode="determinate"
-                                    [value]="progressCoverImg" class="mb-15"></mat-progress-bar>
-                                <p class="form-error" *ngIf="!formCustomvalidation.coverImage.validated">
-                                    {{formCustomvalidation.coverImage.message}}</p>
-                            </div>
-                        </div><!-- wilcity_addlisting_header -->
-
-                        <div #wilcity_addlisting_listing_content
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS "><i class="la la-file-text"></i>
-                                        <span>Listing Content</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div>
-                                <div class="content-box_body__3tSRB">
-                                    <!-- <mat-form-field>
+            <div #wilcity_addlisting_listing_content class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS "><i class="la la-file-text"></i>
+                    <span>Listing Content</span>
+                  </h4>
+                </div>
+              </header>
+              <div>
+                <div class="content-box_body__3tSRB">
+                  <!-- <mat-form-field>
                                         <mat-label>Description</mat-label>
                                         <textarea matInput rows="5" formControlName="description"></textarea>
                                     </mat-form-field> -->
-                                    <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
-                                        formControlName="description">
-                                    </ckeditor>
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_listing_content -->
+                  <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
+                    formControlName="description">
+                  </ckeditor>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_listing_content -->
 
-                        <div #wilcity_addlisting_listing_address
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-globe"></i> <span>Listing
-                                            Address</span></h4>
-                                </div>
-                            </header>
-                            <div>
-                                <div class="content-box_body__3tSRB">
-                                    <mat-form-field>
-                                        <mat-label>Full Address</mat-label>
-                                        <input matInput required formControlName="address" />
-                                    </mat-form-field>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <mat-form-field>
-                                                <mat-label>Latitude</mat-label>
-                                                <input matInput formControlName="lat" />
-                                            </mat-form-field>
+            <div #wilcity_addlisting_listing_address class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-globe"></i> <span>Listing
+                      Address</span></h4>
+                </div>
+              </header>
+              <div>
+                <div class="content-box_body__3tSRB">
+                  <mat-form-field>
+                    <mat-label>Full Address</mat-label>
+                    <input matInput required formControlName="address" />
+                  </mat-form-field>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-label>Latitude</mat-label>
+                        <input matInput formControlName="lat" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-label>Longitude</mat-label>
+                        <input matInput formControlName="lng" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div id="googleMap" style="width:100%;height:300px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_listing_address -->
+
+            <div #wilcity_addlisting_listing_cat class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
+                    <span>Category</span>
+                  </h4>
+                </div>
+              </header>
+              <div>
+                <div class="content-box_body__3tSRB">
+                  <mat-form-field>
+                    <mat-label>Select Categories</mat-label>
+                    <mat-select required (openedChange)="onSelectOpen($event, listingCategoryFilterInput)"
+                      formControlName="categories" multiple>
+                      <input class="selectSearch" #listingCategoryFilterInput matInput
+                        placeholder="Search Categories" />
+                      <mat-option *ngFor="let category of filteredListingCategory(listingCategoryFilterInput.value)"
+                        [value]="category.value">
+                        {{category.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_listing_cat -->
+
+            <div class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
+                    <span>Claimed By</span>
+                  </h4>
+                </div>
+              </header>
+              <div>
+                <div class="content-box_body__3tSRB">
+                  <mat-form-field>
+                    <mat-label>Select User</mat-label>
+                    <mat-select (openedChange)="onSelectOpen($event, listingClaimerFilterInput)"
+                      formControlName="claimer_id">
+                      <input class="selectSearch" #listingClaimerFilterInput matInput placeholder="Search User" />
+                      <mat-option *ngFor="let item of filteredListingClaimer(listingClaimerFilterInput.value)"
+                        [value]="item.value">
+                        {{item.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_listing_cat -->
+
+            <div #wilcity_addlisting_price_range class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-money"></i> <span>Price
+                      Range</span></h4>
+                </div>
+              </header>
+
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Price Range</mat-label>
+                  <mat-select formControlName="price_range">
+                    <mat-option *ngFor="let price of prices" [value]="price.value">
+                      {{price.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Minimum Price</mat-label>
+                  <input matInput formControlName="price_min" type="number" step="0.01" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Maximum Price</mat-label>
+                  <input matInput formControlName="price_max" type="number" step="0.01" />
+                </mat-form-field>
+              </div>
+            </div><!-- wilcity_addlisting_price_range -->
+
+            <div #wilcity_addlisting_coupon class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-tag"></i> <span>Coupon</span>
+                  </h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Title</mat-label>
+                  <input matInput formControlName="coupon_title" />
+                </mat-form-field>
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Coupon Image</mat-label>
+                  <input accept="image/*" type="file" formControlName="coupon_image_input" #fileInputCouponImg
+                    (change)="onCouponImageChange($event)" />
+                  <span *ngIf="couponImageSrc" [ngStyle]="{'background-image': 'url('+couponImageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="fileInputCouponImg.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressCouponImg > 0" mode="determinate" [value]="progressCouponImg"
+                  class="mb-15"></mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.couponImage.validated">
+                  {{formCustomvalidation.couponImage.message}}</p>
+                <mat-form-field>
+                  <mat-label>Description</mat-label>
+                  <textarea matInput rows="5" formControlName="coupon_description"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Coupon Code</mat-label>
+                  <input matInput formControlName="coupon_code" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Popup Description</mat-label>
+                  <input matInput formControlName="coupon_popup_desc" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Redirect To</mat-label>
+                  <input matInput formControlName="coupon_link" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Expiry Date</mat-label>
+                  <input matInput formControlName="coupon_expiry_date" [ngxMatDatetimePicker]="coupon_expiry_date"
+                    (focus)="coupon_expiry_date.open()">
+                  <mat-datepicker-toggle matSuffix [for]="coupon_expiry_date"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #coupon_expiry_date></ngx-mat-datetime-picker>
+                </mat-form-field>
+              </div>
+            </div><!-- wilcity_addlisting_coupon -->
+
+            <div #wilcity_addlisting_my_products class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-shopping-cart"></i> <span>My
+                      Shop</span></h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Products</mat-label>
+                  <mat-select (openedChange)="onSelectOpen($event, listingProductFilterInput)"
+                    formControlName="products" multiple>
+                    <input class="selectSearch" #listingProductFilterInput matInput placeholder="Search Products" />
+                    <mat-option *ngFor="let product of filteredListingProducts(listingProductFilterInput.value)"
+                      [value]="product.value">
+                      {{product.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div><!-- wilcity_addlisting_my_products -->
+
+            <div #wilcity_addlisting_restaurant_menu class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-cutlery"></i> <span>Restaurant
+                      Menu</span></h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <div formArrayName="restaurants" wrapper-classes="enable field_module__1H6kT field_style2__2Znhe"
+                  module="addlisting">
+
+                  <div *ngFor="let restaurant of listingForm.get('restaurants')['controls']; index as res"
+                    [formGroupName]="res" class="wil-group01_block__3X0D9 wil-group-header-wrapper">
+
+                    <mat-accordion>
+                      <mat-expansion-panel [expanded]="true">
+                        <mat-expansion-panel-header #panelH (click)="panelH._toggle()">
+                          <mat-panel-title>
+                            <div class="wil-group01_header__HJipl">
+                              <div (click)="panelH._toggle()" class="wil-group01_collapse__3_7gz"><i
+                                  class="fa fa-arrow-up"></i>
+                              </div>
+                              <div (click)="removeRestaurantMenu(res)" class="wil-group01_remove__3eU1D"><i
+                                  class="fa fa-times"></i></div>
+                            </div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+
+                        <div>
+                          <div class="wil-group01_content__1oeej">
+                            <mat-form-field>
+                              <mat-label>Title</mat-label>
+                              <input matInput formControlName="title" />
+                            </mat-form-field>
+                            <mat-form-field>
+                              <mat-label>Description</mat-label>
+                              <textarea matInput rows="5" formControlName="description"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                              <mat-label>Icon</mat-label>
+                              <mat-select formControlName="icon">
+                                <mat-option *ngFor="let icon of buttonIcons" [value]="icon.value">
+                                  <i class="la la-{{icon.icon}}"></i>
+                                  {{icon.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+
+                          <div formArrayName="items" class="wil-group01_List__2bgXD">
+
+                            <div *ngFor="let item of restaurant.get('items')['controls']; index as i"
+                              [formGroupName]="i" class="wil-group01_Item__AOJlj">
+
+                              <mat-accordion>
+                                <mat-expansion-panel [expanded]="true">
+                                  <mat-expansion-panel-header #panelHH (click)="panelHH._toggle()">
+                                    <mat-panel-title>
+                                      <div class="wil-group01_header__HJipl">
+                                        <div (click)="panelHH._toggle()" class="wil-group01_collapse__3_7gz">
+                                          <i class="fa fa-arrow-up"></i>
                                         </div>
-                                        <div class="col-md-6">
-                                            <mat-form-field>
-                                                <mat-label>Longitude</mat-label>
-                                                <input matInput formControlName="lng" />
-                                            </mat-form-field>
+                                        <div (click)="removeRestaurantMenuItem(res, i)"
+                                          class="wil-group01_remove__3eU1D">
+                                          <i class="fa fa-times"></i>
                                         </div>
-                                    </div>
+                                      </div>
+                                    </mat-panel-title>
+                                  </mat-expansion-panel-header>
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div id="googleMap" style="width:100%;height:300px;"></div>
+
+                                  <div>
+                                    <div class="wil-group01_content__1oeej">
+                                      <div class="menu-general-settings">
+                                        <div class="content-box_body__3tSRB">
+                                          <mat-form-field>
+                                            <mat-label>Title</mat-label>
+                                            <input matInput formControlName="title" />
+                                          </mat-form-field>
+                                          <mat-form-field>
+                                            <mat-label>Description
+                                            </mat-label>
+                                            <textarea matInput rows="5" formControlName="description"></textarea>
+                                          </mat-form-field>
+                                          <section
+                                            class="section-mat-form-field section-field-file section-field-preview-img">
+                                            <mat-label>Image</mat-label>
+                                            <input accept="image/*" type="file" formControlName="image_input"
+                                              #fileInputMenuImg
+                                              (change)="onMenuItemImageChange($event, 'menu_img_'+res+'_'+i, res, i)" />
+                                            <span *ngIf="menuItemImages['menu_img_'+res+'_'+i]"
+                                              [ngStyle]="{'background-image': 'url('+menuItemImages['menu_img_'+res+'_'+i]+')'}"></span>
+                                            <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                                              (click)="fileInputMenuImg.click()">Upload</a>
+                                          </section>
+                                          <mat-progress-bar *ngIf="progressMenuImages['menu_img_'+res+'_'+i] > 0"
+                                            mode="determinate" [value]="progressMenuImages['menu_img_'+res+'_'+i]"
+                                            class="mb-15">
+                                          </mat-progress-bar>
+                                          <p class="form-error"
+                                            *ngIf="formCustomvalidation.menuImage['menu_img_'+res+'_'+i]">
+                                            Supported image type are png,
+                                            jpg, jpeg and image size cannot
+                                            be greater than 1MB
+                                          </p>
+
+                                          <mat-form-field>
+                                            <mat-label>Price</mat-label>
+                                            <input matInput formControlName="price" />
+                                          </mat-form-field>
+                                          <mat-form-field>
+                                            <mat-label>Link To</mat-label>
+                                            <input matInput formControlName="link" />
+                                          </mat-form-field>
+                                          <mat-form-field>
+                                            <mat-label>Is Open New Window?
+                                            </mat-label>
+                                            <mat-select formControlName="is_new_window">
+                                              <mat-option value="yes">Yes
+                                              </mat-option>
+                                              <mat-option value="no">No
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
                                         </div>
+                                      </div>
                                     </div>
-                                </div>
+                                  </div>
+
+                                </mat-expansion-panel>
+                              </mat-accordion>
+
                             </div>
-                        </div><!-- wilcity_addlisting_listing_address -->
 
-                        <div #wilcity_addlisting_listing_cat
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
-                                        <span>Category</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div>
-                                <div class="content-box_body__3tSRB">
-                                    <mat-form-field>
-                                        <mat-label>Select Categories</mat-label>
-                                        <mat-select required
-                                            (openedChange)="onSelectOpen($event, listingCategoryFilterInput)"
-                                            formControlName="categories" multiple>
-                                            <input class="selectSearch" #listingCategoryFilterInput matInput
-                                                placeholder="Search Categories" />
-                                            <mat-option
-                                                *ngFor="let category of filteredListingCategory(listingCategoryFilterInput.value)"
-                                                [value]="category.value">
-                                                {{category.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_listing_cat -->
+                            <a (click)="addRestaurantMenuItem(res)"
+                              class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs">
+                              <i class="la la-plus"></i> <span class="">Add new</span>
+                            </a>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
 
-                        <div class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-file-text"></i>
-                                        <span>Claimed By</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div>
-                                <div class="content-box_body__3tSRB">
-                                    <mat-form-field>
-                                        <mat-label>Select User</mat-label>
-                                        <mat-select (openedChange)="onSelectOpen($event, listingClaimerFilterInput)"
-                                            formControlName="claimer_id">
-                                            <input class="selectSearch" #listingClaimerFilterInput matInput
-                                                placeholder="Search User" />
-                                            <mat-option
-                                                *ngFor="let item of filteredListingClaimer(listingClaimerFilterInput.value)"
-                                                [value]="item.value">
-                                                {{item.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_listing_cat -->
+                  </div>
 
-                        <div #wilcity_addlisting_price_range
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-money"></i> <span>Price
-                                            Range</span></h4>
-                                </div>
-                            </header>
+                  <a (click)="addRestaurantMenu()" class="wil-btn wil-btn--round wil-btn--sm wil-btn--primary "> <i
+                      class="la la-plus"></i> <span class="">Add new</span>
+                  </a>
 
-                            <div class="content-box_body__3tSRB">
-                                <mat-form-field>
-                                    <mat-label>Price Range</mat-label>
-                                    <mat-select formControlName="price_range">
-                                        <mat-option *ngFor="let price of prices" [value]="price.value">
-                                            {{price.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Minimum Price</mat-label>
-                                    <input matInput formControlName="price_min" type="number" step="0.01" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Maximum Price</mat-label>
-                                    <input matInput formControlName="price_max" type="number" step="0.01" />
-                                </mat-form-field>
-                            </div>
-                        </div><!-- wilcity_addlisting_price_range -->
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_restaurant_menu -->
 
-                        <div #wilcity_addlisting_coupon class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-tag"></i> <span>Coupon</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <mat-form-field>
-                                    <mat-label>Title</mat-label>
-                                    <input matInput formControlName="coupon_title" />
-                                </mat-form-field>
-                                <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Coupon Image</mat-label>
-                                    <input accept="image/*" type="file" formControlName="coupon_image_input"
-                                        #fileInputCouponImg (change)="onCouponImageChange($event)" />
-                                    <span *ngIf="couponImageSrc"
-                                        [ngStyle]="{'background-image': 'url('+couponImageSrc+')'}"></span>
-                                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                                        (click)="fileInputCouponImg.click()">Upload</a>
-                                </section>
-                                <mat-progress-bar *ngIf="progressCouponImg > 0" mode="determinate"
-                                    [value]="progressCouponImg" class="mb-15"></mat-progress-bar>
-                                <p class="form-error" *ngIf="!formCustomvalidation.couponImage.validated">
-                                    {{formCustomvalidation.couponImage.message}}</p>
-                                <mat-form-field>
-                                    <mat-label>Description</mat-label>
-                                    <textarea matInput rows="5" formControlName="coupon_description"></textarea>
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Coupon Code</mat-label>
-                                    <input matInput formControlName="coupon_code" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Popup Description</mat-label>
-                                    <input matInput formControlName="coupon_popup_desc" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Redirect To</mat-label>
-                                    <input matInput formControlName="coupon_link" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Expiry Date</mat-label>
-                                    <input matInput formControlName="coupon_expiry_date"
-                                        [ngxMatDatetimePicker]="coupon_expiry_date" (focus)="coupon_expiry_date.open()">
-                                    <mat-datepicker-toggle matSuffix [for]="coupon_expiry_date"></mat-datepicker-toggle>
-                                    <ngx-mat-datetime-picker #coupon_expiry_date></ngx-mat-datetime-picker>
-                                </mat-form-field>
-                            </div>
-                        </div><!-- wilcity_addlisting_coupon -->
+            <div #wilcity_addlisting_featured_image class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
+                    <span>Featured Image</span>
+                  </h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Featured Image</mat-label>
+                  <input accept="image/*" type="file" formControlName="featured_img_input" #fileInputFeaturedImg
+                    (change)="onFeaturedImageChange($event)" />
+                  <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="fileInputFeaturedImg.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressFeaturedImg > 0" mode="determinate" [value]="progressFeaturedImg"
+                  class="mb-15"></mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
+                  {{formCustomvalidation.featuredImage.message}}</p>
+              </div>
+            </div><!-- wilcity_addlisting_featured_image -->
 
-                        <div #wilcity_addlisting_my_products
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-shopping-cart"></i> <span>My
-                                            Shop</span></h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <mat-form-field>
-                                    <mat-label>Products</mat-label>
-                                    <mat-select (openedChange)="onSelectOpen($event, listingProductFilterInput)"
-                                        formControlName="products" multiple>
-                                        <input class="selectSearch" #listingProductFilterInput matInput
-                                            placeholder="Search Products" />
-                                        <mat-option
-                                            *ngFor="let product of filteredListingProducts(listingProductFilterInput.value)"
-                                            [value]="product.value">
-                                            {{product.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div><!-- wilcity_addlisting_my_products -->
+            <div #wilcity_addlisting_gallery class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
+                    <span>Gallery</span>
+                  </h4>
+                </div>
+              </header>
+              <div formArrayName="galleries" class="content-box_body__3tSRB">
+                <div *ngFor="let gallery of listingForm.get('galleries')['controls']; index as i" [formGroupName]="i"
+                  class="field-has-close">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                      <div class="field_module__1H6kT field_style2__2Znhe mb-15">
+                        <section class="section-mat-form-field section-field-file section-field-preview-img">
+                          <mat-label>Gallery</mat-label>
+                          <input accept="image/*" type="file" formControlName="image_input" #fileInputGallery
+                            (change)="onGalleryImageChange($event, i)" />
+                          <span *ngIf="galleryImages[i]"
+                            [ngStyle]="{'background-image': 'url('+galleryImages[i]+')'}"></span>
+                          <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                            (click)="fileInputGallery.click()">Upload</a>
+                        </section>
+                        <mat-progress-bar *ngIf="progressGalleryImages[i] > 0" mode="determinate"
+                          [value]="progressGalleryImages[i]" class="mb-15">
+                        </mat-progress-bar>
+                        <p class="form-error" *ngIf="formCustomvalidation.galleryImage[i]">
+                          Supported image type are png,
+                          jpg, jpeg and image size cannot
+                          be greater than 2MB
+                        </p>
+                      </div>
+                      <a (click)="removeGalleryImage(i)"
+                        class="wil-btn--remove wil-btn mb-15 wil-btn--gray wil-btn--round wil-btn--xs wil-btn--icon">
+                        <i class="la la-close"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
 
-                        <div #wilcity_addlisting_restaurant_menu
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-cutlery"></i> <span>Restaurant
-                                            Menu</span></h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <div formArrayName="restaurants"
-                                    wrapper-classes="enable field_module__1H6kT field_style2__2Znhe"
-                                    module="addlisting">
+                <a *ngIf="listingForm.get('galleries')['controls'].length < 10" (click)="addGalleryImage()"
+                  class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs"><i class="la la-plus"></i>
+                  Add More
+                </a>
+              </div>
+            </div><!-- wilcity_addlisting_gallery -->
 
-                                    <div *ngFor="let restaurant of listingForm.get('restaurants')['controls']; index as res"
-                                        [formGroupName]="res" class="wil-group01_block__3X0D9 wil-group-header-wrapper">
+            <div #wilcity_addlisting_business_hours class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-clock-o"></i> <span>Business
+                      Hours</span></h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-radio-group (change)="changeBusinessHour($event)" formControlName="business_hour"
+                  class="vertical-radio-group">
+                  <mat-radio-button class="vertical-radio-button" color='primary' value="open_for_selected_hours">
+                    Open for Selected Hours
+                  </mat-radio-button>
+                  <mat-radio-button class="vertical-radio-button" color='primary' value="always_open">
+                    Always open
+                  </mat-radio-button>
+                  <mat-radio-button class="vertical-radio-button" color='primary' value="no_hours_available">
+                    No hours available
+                  </mat-radio-button>
+                  <mat-radio-button class="vertical-radio-button" color='primary' value="business_closures">
+                    Business Closures
+                  </mat-radio-button>
+                </mat-radio-group>
 
-                                        <mat-accordion>
-                                            <mat-expansion-panel [expanded]="true">
-                                                <mat-expansion-panel-header #panelH (click)="panelH._toggle()">
-                                                    <mat-panel-title>
-                                                        <div class="wil-group01_header__HJipl">
-                                                            <div (click)="panelH._toggle()"
-                                                                class="wil-group01_collapse__3_7gz"><i
-                                                                    class="fa fa-arrow-up"></i>
-                                                            </div>
-                                                            <div (click)="removeRestaurantMenu(res)"
-                                                                class="wil-group01_remove__3eU1D"><i
-                                                                    class="fa fa-times"></i></div>
-                                                        </div>
-                                                    </mat-panel-title>
-                                                </mat-expansion-panel-header>
+                <div *ngIf="selectedBushinessHour == 'open_for_selected_hours'"
+                  class="list-hours_module__CE4hn js-list-hours">
+                  <div class="business-hours-container">
 
+                    <div formGroupName="businsessHourSunday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Sunday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourSunday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourSunday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
 
-                                                <div>
-                                                    <div class="wil-group01_content__1oeej">
-                                                        <mat-form-field>
-                                                            <mat-label>Title</mat-label>
-                                                            <input matInput formControlName="title" />
-                                                        </mat-form-field>
-                                                        <mat-form-field>
-                                                            <mat-label>Description</mat-label>
-                                                            <textarea matInput rows="5"
-                                                                formControlName="description"></textarea>
-                                                        </mat-form-field>
-                                                        <mat-form-field>
-                                                            <mat-label>Icon</mat-label>
-                                                            <mat-select formControlName="icon">
-                                                                <mat-option *ngFor="let icon of buttonIcons"
-                                                                    [value]="icon.value">
-                                                                    <i class="la la-{{icon.icon}}"></i>
-                                                                    {{icon.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-
-                                                    <div formArrayName="items" class="wil-group01_List__2bgXD">
-
-                                                        <div *ngFor="let item of restaurant.get('items')['controls']; index as i"
-                                                            [formGroupName]="i" class="wil-group01_Item__AOJlj">
-
-                                                            <mat-accordion>
-                                                                <mat-expansion-panel [expanded]="true">
-                                                                    <mat-expansion-panel-header #panelHH
-                                                                        (click)="panelHH._toggle()">
-                                                                        <mat-panel-title>
-                                                                            <div class="wil-group01_header__HJipl">
-                                                                                <div (click)="panelHH._toggle()"
-                                                                                    class="wil-group01_collapse__3_7gz">
-                                                                                    <i class="fa fa-arrow-up"></i>
-                                                                                </div>
-                                                                                <div (click)="removeRestaurantMenuItem(res, i)"
-                                                                                    class="wil-group01_remove__3eU1D">
-                                                                                    <i class="fa fa-times"></i>
-                                                                                </div>
-                                                                            </div>
-                                                                        </mat-panel-title>
-                                                                    </mat-expansion-panel-header>
-
-
-                                                                    <div>
-                                                                        <div class="wil-group01_content__1oeej">
-                                                                            <div class="menu-general-settings">
-                                                                                <div class="content-box_body__3tSRB">
-                                                                                    <mat-form-field>
-                                                                                        <mat-label>Title</mat-label>
-                                                                                        <input matInput
-                                                                                            formControlName="title" />
-                                                                                    </mat-form-field>
-                                                                                    <mat-form-field>
-                                                                                        <mat-label>Description
-                                                                                        </mat-label>
-                                                                                        <textarea matInput rows="5"
-                                                                                            formControlName="description"></textarea>
-                                                                                    </mat-form-field>
-                                                                                    <section
-                                                                                        class="section-mat-form-field section-field-file section-field-preview-img">
-                                                                                        <mat-label>Image</mat-label>
-                                                                                        <input accept="image/*"
-                                                                                            type="file"
-                                                                                            formControlName="image_input"
-                                                                                            #fileInputMenuImg
-                                                                                            (change)="onMenuItemImageChange($event, 'menu_img_'+res+'_'+i, res, i)" />
-                                                                                        <span
-                                                                                            *ngIf="menuItemImages['menu_img_'+res+'_'+i]"
-                                                                                            [ngStyle]="{'background-image': 'url('+menuItemImages['menu_img_'+res+'_'+i]+')'}"></span>
-                                                                                        <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                                                                                            (click)="fileInputMenuImg.click()">Upload</a>
-                                                                                    </section>
-                                                                                    <mat-progress-bar
-                                                                                        *ngIf="progressMenuImages['menu_img_'+res+'_'+i] > 0"
-                                                                                        mode="determinate"
-                                                                                        [value]="progressMenuImages['menu_img_'+res+'_'+i]"
-                                                                                        class="mb-15">
-                                                                                    </mat-progress-bar>
-                                                                                    <p class="form-error"
-                                                                                        *ngIf="formCustomvalidation.menuImage['menu_img_'+res+'_'+i]">
-                                                                                        Supported image type are png,
-                                                                                        jpg, jpeg and image size cannot
-                                                                                        be greater than 1MB
-                                                                                    </p>
-
-                                                                                    <mat-form-field>
-                                                                                        <mat-label>Price</mat-label>
-                                                                                        <input matInput
-                                                                                            formControlName="price" />
-                                                                                    </mat-form-field>
-                                                                                    <mat-form-field>
-                                                                                        <mat-label>Link To</mat-label>
-                                                                                        <input matInput
-                                                                                            formControlName="link" />
-                                                                                    </mat-form-field>
-                                                                                    <mat-form-field>
-                                                                                        <mat-label>Is Open New Window?
-                                                                                        </mat-label>
-                                                                                        <mat-select
-                                                                                            formControlName="is_new_window">
-                                                                                            <mat-option value="yes">Yes
-                                                                                            </mat-option>
-                                                                                            <mat-option value="no">No
-                                                                                            </mat-option>
-                                                                                        </mat-select>
-                                                                                    </mat-form-field>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </mat-expansion-panel>
-                                                            </mat-accordion>
-
-                                                        </div>
-
-                                                        <a (click)="addRestaurantMenuItem(res)"
-                                                            class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs">
-                                                            <i class="la la-plus"></i> <span class="">Add new</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-
-                                    </div>
-
-                                    <a (click)="addRestaurantMenu()"
-                                        class="wil-btn wil-btn--round wil-btn--sm wil-btn--primary "> <i
-                                            class="la la-plus"></i> <span class="">Add new</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_restaurant_menu -->
-
-                        <div #wilcity_addlisting_featured_image
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
-                                        <span>Featured Image <span
-                                                class="mat-form-field-required-marker">*</span></span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <section class="section-mat-form-field section-field-file section-field-preview-img">
-                                    <mat-label>Featured Image</mat-label>
-                                    <input accept="image/*" type="file" formControlName="featured_img_input"
-                                        #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
-                                    <span *ngIf="featuredImageSrc"
-                                        [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
-                                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                                        (click)="fileInputFeaturedImg.click()">Upload</a>
-                                </section>
-                                <mat-progress-bar *ngIf="progressFeaturedImg > 0" mode="determinate"
-                                    [value]="progressFeaturedImg" class="mb-15"></mat-progress-bar>
-                                <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
-                                    {{formCustomvalidation.featuredImage.message}}</p>
-                            </div>
-                        </div><!-- wilcity_addlisting_featured_image -->
-
-                        <div #wilcity_addlisting_gallery class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
-                                        <span>Gallery</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div formArrayName="galleries" class="content-box_body__3tSRB">
-                                <div *ngFor="let gallery of listingForm.get('galleries')['controls']; index as i"
-                                    [formGroupName]="i" class="field-has-close">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12">
-                                            <div class="field_module__1H6kT field_style2__2Znhe mb-15">
-                                                <section
-                                                    class="section-mat-form-field section-field-file section-field-preview-img">
-                                                    <mat-label>Gallery</mat-label>
-                                                    <input accept="image/*" type="file" formControlName="image_input"
-                                                        #fileInputGallery (change)="onGalleryImageChange($event, i)" />
-                                                    <span *ngIf="galleryImages[i]"
-                                                        [ngStyle]="{'background-image': 'url('+galleryImages[i]+')'}"></span>
-                                                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                                                        (click)="fileInputGallery.click()">Upload</a>
-                                                </section>
-                                                <mat-progress-bar *ngIf="progressGalleryImages[i] > 0"
-                                                    mode="determinate" [value]="progressGalleryImages[i]" class="mb-15">
-                                                </mat-progress-bar>
-                                                <p class="form-error" *ngIf="formCustomvalidation.galleryImage[i]">
-                                                    Supported image type are png,
-                                                    jpg, jpeg and image size cannot
-                                                    be greater than 1MB
-                                                </p>
-                                            </div>
-                                            <a (click)="removeGalleryImage(i)"
-                                                class="wil-btn--remove wil-btn mb-15 wil-btn--gray wil-btn--round wil-btn--xs wil-btn--icon">
-                                                <i class="la la-close"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a *ngIf="listingForm.get('galleries')['controls'].length < 4"
-                                    (click)="addGalleryImage()"
-                                    class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs"><i
-                                        class="la la-plus"></i>
-                                    Add More
-                                </a>
-                            </div>
-                        </div><!-- wilcity_addlisting_gallery -->
-
-                        <div #wilcity_addlisting_business_hours
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-clock-o"></i> <span>Business
-                                            Hours</span></h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <mat-radio-group (change)="changeBusinessHour($event)" formControlName="business_hour"
-                                    class="vertical-radio-group">
-                                    <mat-radio-button class="vertical-radio-button" color='primary'
-                                        value="open_for_selected_hours">
-                                        Open for Selected Hours
-                                    </mat-radio-button>
-                                    <mat-radio-button class="vertical-radio-button" color='primary' value="always_open">
-                                        Always open
-                                    </mat-radio-button>
-                                    <mat-radio-button class="vertical-radio-button" color='primary'
-                                        value="no_hours_available">
-                                        No hours available
-                                    </mat-radio-button>
-                                    <mat-radio-button class="vertical-radio-button" color='primary'
-                                        value="business_closures">
-                                        Business Closures
-                                    </mat-radio-button>
-                                </mat-radio-group>
-
-                                <div *ngIf="selectedBushinessHour == 'open_for_selected_hours'"
-                                    class="list-hours_module__CE4hn js-list-hours">
-                                    <div class="business-hours-container">
-
-                                        <div formGroupName="businsessHourSunday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Sunday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourSunday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourSunday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourSunday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourSunday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourSunday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourSunday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourSunday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Sunday -->
-
-                                        <div formGroupName="businsessHourMonday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Monday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourMonday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourMonday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourMonday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourMonday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourMonday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourMonday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourMonday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Monday -->
-
-                                        <div formGroupName="businsessHourTuesday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Tuesday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourTuesday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourTuesday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourTuesday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourTuesday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourTuesday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourTuesday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourTuesday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Tuesday -->
-
-                                        <div formGroupName="businsessHourWednesday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Wednesday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourWednesday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourWednesday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourWednesday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourWednesday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourWednesday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourWednesday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourWednesday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Wednesday -->
-
-                                        <div formGroupName="businsessHourThursday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Thursday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourThursday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourThursday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourThursday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourThursday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourThursday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourThursday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourThursday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Thursday -->
-
-                                        <div formGroupName="businsessHourFriday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Friday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourFriday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourFriday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourFriday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourFriday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourFriday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourFriday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourFriday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Friday -->
-
-                                        <div formGroupName="businsessHourSaturday" class="flex-table row">
-                                            <div class="flex-row day">
-                                                <div>Saturday</div>
-                                            </div>
-                                            <div class="flex-row toggle">
-                                                <mat-slide-toggle
-                                                    (change)="businessHourSlideToggle($event, 'businsessHourSaturday')"
-                                                    formControlName="is_open" color="primary">
-                                                </mat-slide-toggle>
-                                            </div>
-                                            <div *ngIf="listingForm.get('businsessHourSaturday').get('is_open').value"
-                                                formArrayName="times" class="hours_wrapper">
-
-                                                <div *ngFor="let businesHours of listingForm.get('businsessHourSaturday').get('times')['controls']; index as i"
-                                                    [formGroupName]="i" class="hours_inner flex-table row">
-                                                    <div class="flex-row hours open">
-                                                        <mat-form-field>
-                                                            <mat-label>Open</mat-label>
-                                                            <mat-select formControlName="open">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row dash">-</div>
-                                                    <div class="flex-row hours close">
-                                                        <mat-form-field>
-                                                            <mat-label>Closes</mat-label>
-                                                            <mat-select formControlName="closes">
-                                                                <mat-option *ngFor="let hour of hours"
-                                                                    [value]="hour.value">
-                                                                    {{hour.viewValue}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="flex-row remove">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourSaturday').get('times').value.length > 1"
-                                                            type="button" class="font-awesome-button"
-                                                            (click)="removeTimeOpenClose('businsessHourSaturday', i)">
-                                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="flex-row add">
-                                                        <button
-                                                            *ngIf="listingForm.get('businsessHourSaturday').get('times').value.length < 2"
-                                                            type="button" class="add-hours"
-                                                            (click)="addTimeOpenClose('businsessHourSaturday')"
-                                                            style="color: rgb(39, 121, 189);">Add hours</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> <!-- Saturday -->
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_business_hours -->
-
-                        <div #wilcity_addlisting_video class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-video-camera"></i> <span>Video
-                                            Urls</span></h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <div formArrayName="video_urls" class="field_module__1H6kT field_style2__2Znhe" mode=""
-                                    placeholder="Video Link" search-url="" select-value-format="id" options=""
-                                    module="addlisting">
-
-                                    <div *ngFor="let video of listingForm.get('video_urls')['controls']; index as i"
-                                        class="field-has-close">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12">
-                                                <div class="field_module__1H6kT field_style2__2Znhe mb-15">
-                                                    <mat-form-field>
-                                                        <mat-label>URL</mat-label>
-                                                        <input matInput [formControl]="video" />
-                                                    </mat-form-field>
-                                                </div>
-                                                <a (click)="removeVideoURLs(i)"
-                                                    class="wil-btn--remove wil-btn mb-15 wil-btn--gray wil-btn--round wil-btn--xs wil-btn--icon">
-                                                    <i class="la la-close"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <a *ngIf="listingForm.get('video_urls')['controls'].length < 3"
-                                        (click)="addVideoURLs()"
-                                        class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs"><i
-                                            class="la la-plus"></i>
-                                        Add More
-                                    </a>
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_video -->
-
-                        <div #wilcity_addlisting_contact_info
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-phone-square"></i>
-                                        <span>Contact Information</span>
-                                    </h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <mat-form-field>
-                                    <mat-label>Email</mat-label>
-                                    <input matInput formControlName="email" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Phone</mat-label>
-                                    <input matInput formControlName="phone" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Website</mat-label>
-                                    <input matInput formControlName="website" />
-                                </mat-form-field>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <mat-label>Facebook</mat-label>
-                                            <input matInput formControlName="facebook" />
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <mat-label>Tiktok</mat-label>
-                                            <input matInput formControlName="tiktok" />
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <mat-label>Twitter</mat-label>
-                                            <input matInput formControlName="twitter" />
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <mat-form-field>
-                                            <mat-label>Linkedin</mat-label>
-                                            <input matInput formControlName="linkedin" />
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- wilcity_addlisting_contact_info -->
-
-                        <div #wilcity_addlisting_custom_button
-                            class="content-box_module__333d9 content-box_lg__3v3a- enable">
-                            <header class="content-box_header__xPnGx clearfix">
-                                <div class="wil-float-left">
-                                    <h4 class="content-box_title__1gBHS"><i class="la la-cog"></i> <span>Custom
-                                            Button</span></h4>
-                                </div>
-                            </header>
-                            <div class="content-box_body__3tSRB">
-                                <mat-form-field>
-                                    <mat-label>Button Icon</mat-label>
-                                    <mat-select formControlName="button_icon">
-                                        <mat-option *ngFor="let icon of buttonIcons" [value]="icon.value">
-                                            <i class="la la-{{icon.icon}}"></i> {{icon.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Button Link</mat-label>
-                                    <input matInput formControlName="button_link" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Button Name</mat-label>
-                                    <input matInput formControlName="button_name" />
-                                </mat-form-field>
-                            </div>
-                        </div><!-- wilcity_addlisting_custom_button -->
-
-                        <div *ngIf="showError">
-                            <p *ngFor="let errorMessage of errorMessage" class="errorMessage">{{ errorMessage }}</p>
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourSunday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourSunday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourSunday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourSunday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourSunday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
                         </div>
 
-                        <button mat-raised-button
-                            class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
-                            type="submit" [disabled]="listingForm.invalid">
-                            Save & Preview
-                        </button>
-                        <!-- <button mat-raised-button
+                      </div>
+                    </div> <!-- Sunday -->
+
+                    <div formGroupName="businsessHourMonday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Monday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourMonday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourMonday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
+
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourMonday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourMonday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourMonday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourMonday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourMonday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> <!-- Monday -->
+
+                    <div formGroupName="businsessHourTuesday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Tuesday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourTuesday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourTuesday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
+
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourTuesday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourTuesday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourTuesday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourTuesday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourTuesday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> <!-- Tuesday -->
+
+                    <div formGroupName="businsessHourWednesday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Wednesday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourWednesday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourWednesday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
+
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourWednesday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourWednesday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourWednesday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourWednesday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourWednesday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> <!-- Wednesday -->
+
+                    <div formGroupName="businsessHourThursday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Thursday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourThursday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourThursday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
+
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourThursday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourThursday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourThursday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourThursday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourThursday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> <!-- Thursday -->
+
+                    <div formGroupName="businsessHourFriday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Friday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourFriday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourFriday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
+
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourFriday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourFriday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourFriday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourFriday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourFriday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> <!-- Friday -->
+
+                    <div formGroupName="businsessHourSaturday" class="flex-table row">
+                      <div class="flex-row day">
+                        <div>Saturday</div>
+                      </div>
+                      <div class="flex-row toggle">
+                        <mat-slide-toggle (change)="businessHourSlideToggle($event, 'businsessHourSaturday')"
+                          formControlName="is_open" color="primary">
+                        </mat-slide-toggle>
+                      </div>
+                      <div *ngIf="listingForm.get('businsessHourSaturday').get('is_open').value" formArrayName="times"
+                        class="hours_wrapper">
+
+                        <div
+                          *ngFor="let businesHours of listingForm.get('businsessHourSaturday').get('times')['controls']; index as i"
+                          [formGroupName]="i" class="hours_inner flex-table row">
+                          <div class="flex-row hours open">
+                            <mat-form-field>
+                              <mat-label>Open</mat-label>
+                              <mat-select formControlName="open">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row dash">-</div>
+                          <div class="flex-row hours close">
+                            <mat-form-field>
+                              <mat-label>Closes</mat-label>
+                              <mat-select formControlName="closes">
+                                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                  {{hour.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="flex-row remove">
+                            <button *ngIf="listingForm.get('businsessHourSaturday').get('times').value.length > 1"
+                              type="button" class="font-awesome-button"
+                              (click)="removeTimeOpenClose('businsessHourSaturday', i)">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                          <div class="flex-row add">
+                            <button *ngIf="listingForm.get('businsessHourSaturday').get('times').value.length < 2"
+                              type="button" class="add-hours" (click)="addTimeOpenClose('businsessHourSaturday')"
+                              style="color: rgb(39, 121, 189);">Add hours</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> <!-- Saturday -->
+
+                  </div>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_business_hours -->
+
+            <div #wilcity_addlisting_video class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-video-camera"></i> <span>Video
+                      Urls</span></h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <div formArrayName="video_urls" class="field_module__1H6kT field_style2__2Znhe" mode=""
+                  placeholder="Video Link" search-url="" select-value-format="id" options="" module="addlisting">
+
+                  <div *ngFor="let video of listingForm.get('video_urls')['controls']; index as i"
+                    class="field-has-close">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="field_module__1H6kT field_style2__2Znhe mb-15">
+                          <mat-form-field>
+                            <mat-label>URL</mat-label>
+                            <input matInput [formControl]="video" />
+                          </mat-form-field>
+                        </div>
+                        <a (click)="removeVideoURLs(i)"
+                          class="wil-btn--remove wil-btn mb-15 wil-btn--gray wil-btn--round wil-btn--xs wil-btn--icon">
+                          <i class="la la-close"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a *ngIf="listingForm.get('video_urls')['controls'].length < 3" (click)="addVideoURLs()"
+                    class="wil-btn mb-5 wil-btn--gray wil-btn--round wil-btn--xs"><i class="la la-plus"></i>
+                    Add More
+                  </a>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_video -->
+
+            <div #wilcity_addlisting_contact_info class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-phone-square"></i>
+                    <span>Contact Information</span>
+                  </h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Website</mat-label>
+                  <input matInput formControlName="website" />
+                </mat-form-field>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Instagram</mat-label>
+                      <input matInput formControlName="instagram" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Facebook</mat-label>
+                      <input matInput formControlName="facebook" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Twitter</mat-label>
+                      <input matInput formControlName="twitter" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Linkedin</mat-label>
+                      <input matInput formControlName="linkedin" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>TikTok</mat-label>
+                      <input matInput formControlName="tiktok" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Pinterest</mat-label>
+                      <input matInput formControlName="pinterest" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Youtube</mat-label>
+                      <input matInput formControlName="youtube" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Spotify</mat-label>
+                      <input matInput formControlName="spotify" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Apple Music</mat-label>
+                      <input matInput formControlName="apple_music" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Tidal</mat-label>
+                      <input matInput formControlName="tidal" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Soundcloud</mat-label>
+                      <input matInput formControlName="soundcloud" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_contact_info -->
+
+            <div #wilcity_addlisting_custom_button class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-cog"></i> <span>Custom
+                      Button</span></h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Button Icon</mat-label>
+                  <mat-select formControlName="button_icon">
+                    <mat-option *ngFor="let icon of buttonIcons" [value]="icon.value">
+                      <i class="la la-{{icon.icon}}"></i> {{icon.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Button Link</mat-label>
+                  <input matInput formControlName="button_link" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Button Name</mat-label>
+                  <input matInput formControlName="button_name" />
+                </mat-form-field>
+              </div>
+            </div><!-- wilcity_addlisting_custom_button -->
+
+            <div *ngIf="showError">
+              <p *ngFor="let errorMessage of errorMessage" class="errorMessage">{{ errorMessage }}</p>
+            </div>
+
+            <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+              color="primary" type="submit" [disabled]="listingForm.invalid">
+              Save & Preview
+            </button>
+            <!-- <button mat-raised-button
                             class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
                             type="submit">
                             Save Changes
@@ -1186,9 +1135,9 @@
 
 
 
-                    </form> <!-- listing form -->
-                </div>
-            </div>
+          </form> <!-- listing form -->
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>

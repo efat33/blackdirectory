@@ -159,9 +159,12 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       linkedin_link: this.helperservice.getMetaData(this.userMeta, 'linkedin_link'),
       instagram_link: this.helperservice.getMetaData(this.userMeta, 'instagram_link'),
       pinterest_link: this.helperservice.getMetaData(this.userMeta, 'pinterest_link'),
-      snapchat_link: this.helperservice.getMetaData(this.userMeta, 'snapchat_link'),
+      spotify_link: this.helperservice.getMetaData(this.userMeta, 'spotify_link'),
       tiktok_link: this.helperservice.getMetaData(this.userMeta, 'tiktok_link'),
       youtube_link: this.helperservice.getMetaData(this.userMeta, 'youtube_link'),
+      apple_music_link: this.helperservice.getMetaData(this.userMeta, 'apple_music_link'),
+      tidal_link: this.helperservice.getMetaData(this.userMeta, 'tidal_link'),
+      soundcloud_link: this.helperservice.getMetaData(this.userMeta, 'soundcloud_link'),
     });
 
     if (this.userDetails.role == 'candidate') {
@@ -284,9 +287,12 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       linkedin_link: new FormControl(''),
       instagram_link: new FormControl(''),
       pinterest_link: new FormControl(''),
-      snapchat_link: new FormControl(''),
+      spotify_link: new FormControl(''),
       tiktok_link: new FormControl(''),
       youtube_link: new FormControl(''),
+      apple_music_link: new FormControl(''),
+      tidal_link: new FormControl(''),
+      soundcloud_link: new FormControl(''),
     });
   }
 

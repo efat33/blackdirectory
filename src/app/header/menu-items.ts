@@ -51,7 +51,7 @@ export const MenuItems = [
   },
   {
     title: 'Forum',
-    route: 'forum',
+    route: 'forums',
   },
   {
     title: 'BD Market',

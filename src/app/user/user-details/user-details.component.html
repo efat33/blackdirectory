@@ -232,25 +232,75 @@
                     class="fa fa-user-plus"></i>
                   {{followingEmployer ? 'Following' : 'Follow'}}</a>
 
-                <!-- <ul
-                  *ngIf="userMeta.facebook_link || userMeta.instagram_link  || userMeta.linkedin_link || userMeta.twitter_link"
-                  class="jobsearch-jobdetail-media jobsearch-add-space">
+                <ul *ngIf="hasSocialLinks" class="jobsearch-jobdetail-media jobsearch-add-space">
                   <li><span>Social Links:</span></li>
-                  <li *ngIf="userMeta.facebook_link">
-                    <a href="{{ userMeta.facebook_link }}" target="_blank" data-original-title="facebook"
-                      class="jobsearch-icon jobsearch-facebook-logo"></a>
+
+                  <li *ngIf="socialLinks.instagram_link">
+                    <a href="{{ socialLinks.instagram_link }}" target="_blank">
+                      <img src="/assets/social/instagram.png" class="social-icon">
+                    </a>
                   </li>
-                  <li *ngIf="userMeta.twitter_link"><a href="{{ userMeta.twitter_link }}" target="_blank"
-                      data-original-title="twitter" class="jobsearch-icon jobsearch-twitter-logo"></a></li>
-                  <li *ngIf="userMeta.linkedin_link"><a href="{{ userMeta.linkedin_link }}" target="_blank"
-                      data-original-title="linkedin" class=""><i
-                        class="jobsearch-icon jobsearch-linkedin-button"></i></a>
+
+                  <li *ngIf="socialLinks.facebook_link">
+                    <a href="{{ socialLinks.facebook_link }}" target="_blank">
+                      <img src="/assets/social/facebook.png" class="social-icon">
+                    </a>
                   </li>
-                  <li *ngIf="userMeta.instagram_link">
-                    <a href="{{ userMeta.instagram_link }}" target="_blank" data-original-title="instagram"
-                      class="jobsearch-icon jobsearch-instagram-logo"></a>
+
+                  <li *ngIf="socialLinks.twitter_link">
+                    <a href="{{ socialLinks.twitter_link }}" target="_blank">
+                      <img src="/assets/social/twitter.png" class="social-icon">
+                    </a>
                   </li>
-                </ul> -->
+
+                  <li *ngIf="socialLinks.linkedin_link">
+                    <a href="{{ socialLinks.linkedin_link }}" target="_blank">
+                      <img src="/assets/social/linkedin.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.tiktok_link">
+                    <a href="{{ socialLinks.tiktok_link }}" target="_blank">
+                      <img src="/assets/social/tiktok.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.pinterest_link">
+                    <a href="{{ socialLinks.pinterest_link }}" target="_blank">
+                      <img src="/assets/social/pinterest.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.youtube_link">
+                    <a href="{{ socialLinks.youtube_link }}" target="_blank">
+                      <img src="/assets/social/youtube.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.spotify_link">
+                    <a href="{{ socialLinks.spotify_link }}" target="_blank">
+                      <img src="/assets/social/spotify.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.apple_music_link">
+                    <a href="{{ socialLinks.apple_music_link }}" target="_blank">
+                      <img src="/assets/social/apple_music.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.tidal_link">
+                    <a href="{{ socialLinks.tidal_link }}" target="_blank">
+                      <img src="/assets/social/tidal.png" class="social-icon">
+                    </a>
+                  </li>
+
+                  <li *ngIf="socialLinks.soundcloud_link">
+                    <a href="{{ socialLinks.soundcloud_link }}" target="_blank">
+                      <img src="/assets/social/soundcloud.png" class="social-icon">
+                    </a>
+                  </li>
+                </ul>
               </figcaption>
             </figure>
           </div>

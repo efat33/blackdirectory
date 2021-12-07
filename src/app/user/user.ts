@@ -24,6 +24,7 @@ export class CurrentUser {
   profile_photo: string;
   pubic_view: string;
   role: string;
+  forum_role: string;
   updated_at: string;
   username: string;
   verified: number;

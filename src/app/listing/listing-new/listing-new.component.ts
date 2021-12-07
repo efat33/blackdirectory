@@ -233,10 +233,10 @@ export class ListingNewComponent implements OnInit {
     this.listingForm = new FormGroup({
       title: new FormControl('', Validators.required),
       tagline: new FormControl(''),
-      logo_input: new FormControl('', Validators.required),
-      logo: new FormControl('', Validators.required),
-      cover_img_input: new FormControl('', Validators.required),
-      cover_img: new FormControl('', Validators.required),
+      logo_input: new FormControl(''),
+      logo: new FormControl(''),
+      cover_img_input: new FormControl(''),
+      cover_img: new FormControl(''),
       description: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
       lat: new FormControl('', Validators.required),
@@ -249,8 +249,8 @@ export class ListingNewComponent implements OnInit {
       price_min: new FormControl(null),
       price_max: new FormControl(null),
 
-      featured_img_input: new FormControl('', Validators.required),
-      featured_img: new FormControl('', Validators.required),
+      featured_img_input: new FormControl(''),
+      featured_img: new FormControl(''),
 
       galleries: new FormArray([
         new FormGroup({
@@ -267,10 +267,18 @@ export class ListingNewComponent implements OnInit {
       email: new FormControl(''),
       phone: new FormControl(''),
       website: new FormControl(''),
+
       facebook: new FormControl(''),
-      tiktok: new FormControl(''),
       twitter: new FormControl(''),
       linkedin: new FormControl(''),
+      instagram: new FormControl(''),
+      pinterest: new FormControl(''),
+      spotify: new FormControl(''),
+      tiktok: new FormControl(''),
+      youtube: new FormControl(''),
+      apple_music: new FormControl(''),
+      tidal: new FormControl(''),
+      soundcloud: new FormControl(''),
 
       coupon_title: new FormControl(''),
       coupon_description: new FormControl(''),
@@ -353,7 +361,7 @@ export class ListingNewComponent implements OnInit {
     // get categories for form category dropdown
     const subsListingCategories = this.listingService.getCategories().subscribe(
       (res:any) => {
-        
+
         if(res.data.length > 0){
           for (const item of res.data) {
             const tmp = { value: item.id, viewValue: item.title};
@@ -362,7 +370,7 @@ export class ListingNewComponent implements OnInit {
         }
       },
       (res:any) => {
-        
+
       }
     );
     this.subscriptions.add(subsListingCategories);
@@ -379,7 +387,7 @@ export class ListingNewComponent implements OnInit {
         console.log(this.users);
       },
       (res:any) => {
-        
+
       }
     );
     this.subscriptions.add(subsAllUsers);
@@ -388,7 +396,7 @@ export class ListingNewComponent implements OnInit {
     const pParams = {'params': {'user_id': this.helperservice.currentUserInfo.id}}
     const subsListingProducts = this.listingService.getProducts(pParams).subscribe(
       (res:any) => {
-        
+
         if(res.data.length > 0){
           for (const item of res.data) {
             const tmp = { value: item.id, viewValue: item.title};
@@ -397,7 +405,7 @@ export class ListingNewComponent implements OnInit {
         }
       },
       (res:any) => {
-        
+
       }
     );
     this.subscriptions.add(subsListingProducts);
@@ -509,7 +517,7 @@ export class ListingNewComponent implements OnInit {
       // remove timezone from date, using moment
       formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
     }
-    
+
     this.spinnerService.show();
     const subscriptionAddlisting = this.listingService.addListing(formData).subscribe(
       (res: any) => {

@@ -94,8 +94,25 @@
 .products-container button:hover {
     background-color: rgb(0, 74, 110);
 }
-  
+
 .row.row-listing-categories {
     flex-wrap: wrap;
 }
-  
+
+.social-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    margin-bottom: 4px;
+    margin-right: 8px;
+
+    .social-icon {
+      height: auto;
+      width: 28px;
+    }
+  }
+}
