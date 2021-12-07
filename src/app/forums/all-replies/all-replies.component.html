@@ -24,17 +24,10 @@
                 <div *ngIf="replies?.length > 0" id="wilcity-review-wrapper" class="pos-r">
                     <div *ngFor="let comment of replies; let index=index" class="comment-review_module__-Z5tr">
                         <div [id]="'single_reply_'+comment.id" class="reply-inner">
-                            <div class="comment-review_header__1si3M">
+                            <div class="comment-review_header__1si3M forum-reply-header">
                                 <div
                                     class="utility-box-1_module__MYXpX utility-box-1_boxLeft__3iS6b clearfix utility-box-1_sm__mopok review-author-avatar">
-                                    <a class="utility-box-1_avatar__DB9c_ rounded-circle"
-                                        [ngStyle]="{'background-image': 'url(' + getCommentAvatar(comment.profile_photo) + ')'}"></a>
                                     <div class="utility-box-1_body__8qd9j">
-                                        <div class="utility-box-1_group__2ZPA2">
-                                            <h3 class="utility-box-1_title__1I925"><a>{{
-                                                    comment.display_name || comment.username }}</a>
-                                            </h3>
-                                        </div>
                                         <div class="utility-box-1_description__2VDJ6">{{
                                             comment.created_at | date: 'longDate' }}
                                         </div>
@@ -48,7 +41,7 @@
                                             <a [routerLink]="['/dashboard/forums/reply/edit/', comment.id]">Edit</a>
                                         </li>
                                         <li *ngIf="canModifyReply || loggedUserId == comment.user_id">
-                                            <a>Delete</a>
+                                            <a (click)="onDeleteReply(comment)">Delete</a>
                                         </li>
                                         <li>
                                             <a (click)="onClickReplyTo(comment)">Reply</a>
@@ -57,59 +50,80 @@
                                 </div>
                             </div>
 
-                            <div class="comment-review_body__qhUqq">
-                                <div class="comment-review_content__1jFfZ">
-                                    <div class="wilcity-review-content wilcity-review-content-17458">
-                                        <div [innerHTML]="comment.content">
-                                            <!-- <ng-container *ngIf="comment.editing">
-                                                <textarea matInput #editComment rows="3"
-                                                    class="edit-comment-field">{{comment.comment}}</textarea>
-                                                <button mat-raised-button color="primary"
-                                                    [disabled]="!editComment.value.trim()"
-                                                    (click)="updateComment(editComment, comment)">Submit</button>
-                                                <button mat-button (click)="comment.editing = false">Cancel</button>
-                                            </ng-container> -->
+                            <div class="forum-reply-body">
+                                <div class="forum-reply-body-left">
+                                    <a class="utility-box-1_avatar__DB9c_ rounded-circle"
+                                        [ngStyle]="{'background-image': 'url(' + getCommentAvatar(comment.profile_photo) + ')'}"></a>
+                                    <div class="utility-box-1_group__2ZPA2">
+                                        <h3 class="utility-box-1_title__1I925"><a title="View Profile">{{
+                                                comment.display_name || comment.username }}</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="forum-reply-body-right">
+                                    <div class="comment-review_body__qhUqq">
+                                        <div class="comment-review_content__1jFfZ">
+                                            <div class="wilcity-review-content wilcity-review-content-17458">
+                                                <div [innerHTML]="comment.content">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
 
-                <div #replyFormWrapper class="jobsearch-employer-wrap-section jobsearch-margin-bottom replyform-wrapper"
-                    id="replyFormWrapper">
-                    <div id="add_review_form_sec">
-                        <div class="jobsearch-addmore-space">
-                            <span>Reply To: {{ topic?.title }}</span>
+                <div *ngIf="!isLoggedIn; else templateReplyForm" class="add-review_module__2KOQC">
+                    <header class="add-review_wrap__K1JtF">
+                        <div class="add-review_left__ziIv1">
+                            <h3 class="add-review_title__3ePFu">You must be logged in to post.
+                            </h3>
                         </div>
-                        <div class="jobsearch-add-review-con">
 
-                            <form (ngSubmit)="onSubmitReply()" [formGroup]="replyForm">
+                        <div class="wil-float-right">
+                            <button (click)="showLoginModal()" mat-raised-button color="primary">Login</button>
+                        </div>
+                    </header>
+                </div>
+                <ng-template #templateReplyForm>
+                    <div #replyFormWrapper
+                        class="jobsearch-employer-wrap-section jobsearch-margin-bottom replyform-wrapper"
+                        id="replyFormWrapper">
+                        <div id="add_review_form_sec">
+                            <div class="jobsearch-addmore-space">
+                                <span>Reply To: {{ topic?.title }}</span>
+                            </div>
+                            <div class="jobsearch-add-review-con">
 
-                                <div class="news-content-ckeditor">
-                                    <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)"
-                                        formControlName="content">
-                                    </ckeditor>
-                                </div>
-                                <div class="mt-15 mb-15">
-                                    <mat-checkbox formControlName="notify_by_email" color="primary">Notify me
-                                        of follow-up replies via email
-                                    </mat-checkbox>
-                                </div>
+                                <form (ngSubmit)="onSubmitReply()" [formGroup]="replyForm">
+
+                                    <div class="news-content-ckeditor">
+                                        <ckeditor [editor]="ckEditor" [config]="ckConfig"
+                                            (ready)="onCkeditorReady($event)" formControlName="content">
+                                        </ckeditor>
+                                    </div>
+                                    <div class="mt-15 mb-15">
+                                        <mat-checkbox formControlName="notify_by_email" color="primary">Notify me
+                                            of follow-up replies via email
+                                        </mat-checkbox>
+                                    </div>
 
 
-                                <button mat-raised-button
-                                    class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
-                                    color="primary" type="submit" [disabled]="!replyForm.valid">
-                                    Submit
-                                </button>
-                                <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+                                    <button mat-raised-button
+                                        class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+                                        color="primary" type="submit" [disabled]="!replyForm.valid">
+                                        Submit
+                                    </button>
+                                    <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ng-template>
             </div>
         </div>
     </section>

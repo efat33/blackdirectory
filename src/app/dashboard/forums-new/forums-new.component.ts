@@ -20,6 +20,7 @@ import { ForumService } from 'src/app/forums/forum.service';
 export class NewForumComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
+  forumCategories = [];
 
   editForumId: number = null;
   forumForm: FormGroup;
@@ -50,6 +51,8 @@ export class NewForumComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
+
+    this.getForumCategories();
 
     const forumId = this.route.snapshot.paramMap.get('forum_id');
     
@@ -84,10 +87,27 @@ export class NewForumComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  getForumCategories() {
+    this.spinnerService.show();
+    const getSectorsSubscription = this.forumService.getCategories().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.forumCategories = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getSectorsSubscription);
+  }
+
   initializeForm() {
     this.forumForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
+      category_id: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required)
     });
   }
@@ -100,6 +120,7 @@ export class NewForumComponent implements OnInit, AfterViewInit, OnDestroy {
     this.forumForm.patchValue({
       title: forum.title,
       description: forum.description,
+      category_id: forum.category_id,
       status: forum.status
     });
   }

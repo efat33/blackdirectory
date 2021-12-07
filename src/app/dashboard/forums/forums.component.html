@@ -73,14 +73,14 @@
                 <tbody *ngIf="totalForums > 0">
                     <tr *ngFor="let item of forums; let index=index">
                         <td data-th="Title" class="">
-                            <a href="#" target="_self">{{
+                            <a [routerLink]="['/forums/forum', item.slug]">{{
                                 item.title }}</a>
                         </td>
                         <td data-th="Description" class="wil-td-view"><span [innerHTML]="item.description"></span></td>
                         <td data-th="Topics" class="wil-td-view"><span>{{ item.topics_no }}</span></td>
                         <td data-th="Replies" class="wil-td-favorite"><span>{{ item.replies_no }}</span></td>
                         <td data-th="Author" class="wil-td-favorite">
-                            <span>{{ item.username }}</span>
+                            <span>{{ item.display_name || item.username }}</span>
                         </td>
                         <td data-th="Created" class="wil-td-favorite"><span>{{ item.created_at | date:'longDate'
                                 }}</span></td>
@@ -89,7 +89,7 @@
                             <a [routerLink]="['/dashboard/forums/forum/edit/', item.id]"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
                                     class="list_text__35R07">Edit</span></a>
-                            <a (click)="onRemoveListing(item.id, index)"
+                            <a (click)="onDeleteForum(item.id, index)"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
                                     class="list_text__35R07">Remove</span></a>
                         </td>

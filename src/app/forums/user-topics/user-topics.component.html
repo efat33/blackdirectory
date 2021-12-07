@@ -1,0 +1,106 @@
+<div class="tribe-common-l-container tribe-events-l-container">
+    <h1 class="heading_title__1bzno" style="margin-top: 30px;">{{ userDetails?.username }}: Topics</h1>
+</div>
+<div class="wil-dashboard wil-content container">
+    <section class="wil-section wil-dashboard-inner pd-0">
+        <div class="dashboard-content_module__zpEtP clearfix">
+            <div class="dashboard__sidebar js-sticky filters-container forum-user-sidebar">
+                <div class="utility-box-1_module__MYXpX wil-text-center dashboard-profile-img">
+                    <div class="utility-box-1_avatar__DB9c_ rounded-circle"
+                        [ngStyle]="{ 'background-image': 'url(' + profileImage + ')' }">
+                        <img alt="" [src]="profileImage">
+                    </div>
+                    <div class="utility-box-1_body__8qd9j">
+                        <div class="utility-box-1_group__2ZPA2 ng-star-inserted">
+                            <h3 class="utility-box-1_title__1I925">{{ userDetails?.display_name || userDetails?.username
+                                }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-nav_module__3c0Pb list-none pos-r">
+                    <ul>
+                        <li>
+                            <a [routerLink]="['/forums/users', userDetails?.username]"
+                                [routerLinkActiveOptions]="{exact: true}" routerLinkActive="dashboard-link-active"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
+                                <span class="dashboard-nav_text__x-_IZ">Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/forums/users', userDetails?.username, 'topics']"
+                                routerLinkActive="dashboard-link-active"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
+                                <span class="dashboard-nav_text__x-_IZ">Topics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/forums/users', userDetails?.username, 'replies']"
+                                routerLinkActive="dashboard-link-active"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
+                                <span class="dashboard-nav_text__x-_IZ">Replies</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dashboard__content forum-user-content pt-0">
+                <div class="listing-table_module__2vE05 table-module pos-r">
+                    <div>
+                        <table
+                            class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table table-all-topics">
+                            <thead>
+                                <tr>
+                                    <th class="wi-th-title"><span>
+                                            <span>Title</span></span>
+                                    </th>
+                                    <th class="wi-th-favorite"><span>
+                                            <span>Voices</span>
+                                        </span></th>
+                                    <th class="wi-th-view"><span>
+                                            <span>Posts</span>
+                                        </span></th>
+                                    <th class="wi-th-favorite"><span>
+                                            <span>Last Post</span>
+                                        </span></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="totalTopics == 0">
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">
+                                        <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                                            <div class="alert_content__1ntU3">No topic found</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="totalTopics > 0">
+                                <tr *ngFor="let item of topics; let index=index">
+                                    <td data-th="Title" class="">
+                                        <a [routerLink]="['/forums/topic/', item.slug]">{{
+                                            item.title }}</a>
+                                    </td>
+                                    <td data-th="Voices" class="wil-td-favorite"><span>{{ item.participants |
+                                            topicVoiceNumber
+                                            }}</span></td>
+                                    <td data-th="Posts" class="wil-td-view"><span>{{ item.replies_no }}</span></td>
+                                    <td data-th="Created" class="wil-td-favorite">
+                                        <a [routerLink]="['/forums/topic/', item.slug]"
+                                            [queryParams]="{post_id: item.last_activity_id}"
+                                            *ngIf="item.last_activity_time; else noReply"
+                                            [title]="item.last_activity_id ? 'Reply To: ' + item.title : item.title">{{item.created_at
+                                            |
+                                            timeAgo}}</a>
+                                        <ng-template #noReply><span>No Reply</span></ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <pagination [totalItems]="totalTopics" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+                    (pageChange)="onPageChange($event)"></pagination>
+            </div>
+        </div>
+    </section>
+</div>

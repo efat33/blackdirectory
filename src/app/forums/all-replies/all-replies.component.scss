@@ -39,7 +39,7 @@
     padding-right: 10px;
     margin-right: 10px;
     position: relative;
-    color: #70778b;
+    color: #fff;
 }
 .topic-reply-options ul li a::after {
     content: "";
@@ -49,7 +49,7 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #70778b;
+    background: #fff;
 }
 .topic-reply-options ul li:last-child a::after {
     content: none;
@@ -60,5 +60,25 @@
     max-height: 800px;
 }
 .jobsearch-employer-wrap-section.replyform-wrapper {
-    border-top: 1px solid #efefef;
+    border: 1px solid #f3f3f6;
+}
+.forum-reply-body {
+    display: flex;
+}
+.forum-reply-body-left {
+    padding: 15px 20px;
+    text-align: center;
+    background: #f0fbff;
+}
+.forum-reply-header {
+    background: #006699;
+}
+.forum-reply-header .utility-box-1_description__2VDJ6 {
+    color: #fff;
+}
+.forum-reply-body-left a {
+    color: #069;
+}
+.forum-reply-header .utility-box-1_description__2VDJ6 {
+    font-size: 14px;
 }
