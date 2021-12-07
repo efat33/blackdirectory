@@ -354,14 +354,23 @@ export class ListingEditComponent implements OnInit {
     // set contact Information
     if (this.listing.contacts && Object.keys(this.listing.contacts).length > 0) {
       const contact = this.listing.contacts;
+      const socialLinks = JSON.parse(contact.social_links) || {};
+
       this.listingForm.patchValue({
         email: contact.email,
         phone: contact.phone,
         website: contact.website,
-        facebook: contact.facebook,
-        tiktok: contact.tiktok,
-        twitter: contact.twitter,
-        linkedin: contact.linkedin,
+        instagram: socialLinks.instagram,
+        facebook: socialLinks.facebook,
+        twitter: socialLinks.twitter,
+        linkedin: socialLinks.linkedin,
+        tiktok: socialLinks.tiktok,
+        pinterest: socialLinks.pinterest,
+        youtube: socialLinks.youtube,
+        spotify: socialLinks.spotify,
+        apple_music: socialLinks.apple_music,
+        tidal: socialLinks.tidal,
+        soundcloud: socialLinks.soundcloud
       });
     }
 
@@ -559,9 +568,9 @@ export class ListingEditComponent implements OnInit {
       title: new FormControl('', Validators.required),
       tagline: new FormControl(''),
       logo_input: new FormControl(''),
-      logo: new FormControl('', Validators.required),
+      logo: new FormControl(''),
       cover_img_input: new FormControl(''),
-      cover_img: new FormControl('', Validators.required),
+      cover_img: new FormControl(''),
       description: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
       lat: new FormControl('', Validators.required),
@@ -574,7 +583,7 @@ export class ListingEditComponent implements OnInit {
       price_max: new FormControl(null),
 
       featured_img_input: new FormControl(''),
-      featured_img: new FormControl('', Validators.required),
+      featured_img: new FormControl(''),
 
       galleries: new FormArray([]),
 
@@ -586,10 +595,18 @@ export class ListingEditComponent implements OnInit {
       email: new FormControl(''),
       phone: new FormControl(''),
       website: new FormControl(''),
+
       facebook: new FormControl(''),
-      tiktok: new FormControl(''),
       twitter: new FormControl(''),
       linkedin: new FormControl(''),
+      instagram: new FormControl(''),
+      pinterest: new FormControl(''),
+      spotify: new FormControl(''),
+      tiktok: new FormControl(''),
+      youtube: new FormControl(''),
+      apple_music: new FormControl(''),
+      tidal: new FormControl(''),
+      soundcloud: new FormControl(''),
 
       coupon_title: new FormControl(''),
       coupon_description: new FormControl(''),
@@ -699,7 +716,6 @@ export class ListingEditComponent implements OnInit {
             this.users.push(tmp);
           }
         }
-        console.log(this.users);
       },
       (res:any) => {
 
@@ -1214,7 +1230,7 @@ export class ListingEditComponent implements OnInit {
       const file = event.target.files[0];
 
       // do validation
-      const res = this.helperservice.imageValidation(file);
+      const res = this.helperservice.imageValidation(file, 2);
       if (!res.validated) {
         this.formCustomvalidation.galleryImage[imageSrc] = true;
         return;

@@ -1,3 +1,7 @@
+<div *ngIf="helperService.currentUserInfo?.verified === 0" class="not-activated">
+  Your account is not verified. Please check your email to verify your account.
+</div>
+
 <app-header></app-header>
 <router-outlet (activate)="onActivate($event)"></router-outlet>
 <app-footer></app-footer>

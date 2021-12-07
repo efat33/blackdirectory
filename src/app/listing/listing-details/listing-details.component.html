@@ -2,7 +2,7 @@
   <div class="wil-content">
     <div class="listing-detail_module__2-bfH">
       <header class="listing-detail_header__18Cfs">
-        <div class="listing-detail_img__3DyYX pos-a-full bg-cover"
+        <div *ngIf="cover_img" class="listing-detail_img__3DyYX pos-a-full bg-cover"
           [ngStyle]="{ 'background-image': 'url(' + cover_img + ')' }"></div>
         <div *ngIf="listing_galleries.length > 0" class="wil-header-btn-wrapper" style="z-index: 1">
           <a (click)="openGalleryModal()" class="wil-btn wil-btn--overlay-dark wil-btn--sm wil-btn--round">
@@ -16,7 +16,7 @@
           <div class="listing-detail_left__22FMI">
             <div class="listing-detail_goo__1A8J-">
               <div class="listing-detail_logo__3fI4O bg-cover" [ngStyle]="{ 'background-image': 'url(' + logo + ')' }">
-                <a href="#"><img [src]="logo" alt="{{ listing.title }}" class="hidden" /></a>
+                <a href="#"><img *ngIf="logo" [src]="logo" alt="{{ listing.title }}" class="hidden" /></a>
               </div>
             </div>
             <div class="listing-detail_titleWrap__2A2Mm js-titleWrap-detail">
@@ -751,6 +751,75 @@
                         </a>
                       </div>
                     </div>
+
+                    <ul *ngIf="hasSocialLinks" class="social-links">
+                      <li *ngIf="socialLinks.instagram">
+                        <a href="{{ socialLinks.instagram }}" target="_blank">
+                          <img src="/assets/social/instagram.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.facebook">
+                        <a href="{{ socialLinks.facebook }}" target="_blank">
+                          <img src="/assets/social/facebook.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.twitter">
+                        <a href="{{ socialLinks.twitter }}" target="_blank">
+                          <img src="/assets/social/twitter.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.linkedin">
+                        <a href="{{ socialLinks.linkedin }}" target="_blank">
+                          <img src="/assets/social/linkedin.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.tiktok">
+                        <a href="{{ socialLinks.tiktok }}" target="_blank">
+                          <img src="/assets/social/tiktok.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.pinterest">
+                        <a href="{{ socialLinks.pinterest }}" target="_blank">
+                          <img src="/assets/social/pinterest.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.youtube">
+                        <a href="{{ socialLinks.youtube }}" target="_blank">
+                          <img src="/assets/social/youtube.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.spotify">
+                        <a href="{{ socialLinks.spotify }}" target="_blank">
+                          <img src="/assets/social/spotify.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.apple_music">
+                        <a href="{{ socialLinks.apple_music }}" target="_blank">
+                          <img src="/assets/social/apple_music.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.tidal">
+                        <a href="{{ socialLinks.tidal }}" target="_blank">
+                          <img src="/assets/social/tidal.png" class="social-icon">
+                        </a>
+                      </li>
+
+                      <li *ngIf="socialLinks.soundcloud">
+                        <a href="{{ socialLinks.soundcloud }}" target="_blank">
+                          <img src="/assets/social/soundcloud.png" class="social-icon">
+                        </a>
+                      </li>
+                    </ul>
+
                     <a (click)="openContactOwnerModal()" class="
                         wilcity-inbox-btn
                         wil-btn wil-btn--block

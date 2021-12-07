@@ -83,6 +83,9 @@ export class ListingDetailsComponent implements OnInit {
   dialogReview: any;
   dialogClaim: any;
 
+  socialLinks: any = {};
+  hasSocialLinks: boolean = false;
+
   loading$ = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -130,6 +133,9 @@ export class ListingDetailsComponent implements OnInit {
           this.listing_menus = res[0].data.menus;
           const products = res[0].data.allproducts;
           this.favoriteListings = res[1].data;
+
+          this.socialLinks = JSON.parse(this.listing_contact.social_links) || {};
+          this.hasSocialLinks = Object.values(this.socialLinks).some((link: any) => !!link);
 
           const prod_ids = products.map((product) => product.id);
           if (prod_ids.length > 0) this.fetchListingProducts(prod_ids);
@@ -652,8 +658,13 @@ export class ListingDetailsComponent implements OnInit {
   }
 
   setImagesPath() {
-    this.cover_img = this.helperservice.getImageUrl(this.listing.cover_img, 'listing', 'full');
-    this.logo = this.helperservice.getImageUrl(this.listing.logo, 'listing', 'thumb');
+    if (this.listing.cover_img) {
+      this.cover_img = this.helperservice.getImageUrl(this.listing.cover_img, 'listing', 'full');
+    }
+
+    if (this.listing.logo) {
+      this.logo = this.helperservice.getImageUrl(this.listing.logo, 'listing', 'thumb');
+    }
   }
 
   onSubmitListing() {

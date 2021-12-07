@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/user/user.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
+import { HelperService } from 'src/app/shared/helper.service';
 
 @Component({
   selector: 'app-page-email-verification',
@@ -22,7 +23,8 @@ export class PageEmailVerificationComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private helperService: HelperService
   ) {}
 
   ngOnInit() {
@@ -38,6 +40,7 @@ export class PageEmailVerificationComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.verified = true;
+        this.helperService.currentUserInfo.verified = 1;
       },
       (error) => {
         this.spinnerService.hide();

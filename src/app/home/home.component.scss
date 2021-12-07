@@ -164,8 +164,6 @@
 }
 
 .wil-flex-wrap {
-  height: 80vh;
-
   .hero-header-left, .wilcity-hero-header, .wil-tb {
     height: 100%;
   }
@@ -177,5 +175,13 @@
   .wil-text-center {
     margin: 0;
     padding: 0;
+  }
+}
+
+.hero-header-area {
+  height: min(80vh, 750px);
+
+  .listing-search-form {
+    margin: 0 auto;
   }
 }
