@@ -185,7 +185,7 @@
                 <div class="content-box_body__3tSRB">
                   <mat-form-field>
                     <mat-label>Select Categories</mat-label>
-                    <mat-select required (openedChange)="onSelectOpen($event, listingCategoryFilterInput)"
+                    <mat-select #categorySelect required (openedChange)="onSelectOpen($event, listingCategoryFilterInput)"
                       formControlName="categories" multiple>
                       <input class="selectSearch" #listingCategoryFilterInput matInput
                         placeholder="Search Categories" />

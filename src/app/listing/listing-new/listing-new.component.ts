@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
@@ -14,6 +14,8 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 import * as moment from 'moment';
+import { MatSelect } from '@angular/material/select';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 declare const google: any;
 
@@ -22,8 +24,10 @@ declare const google: any;
   templateUrl: './listing-new.component.html',
   styleUrls: ['./listing-new.component.scss'],
 })
-export class ListingNewComponent implements OnInit {
+export class ListingNewComponent implements OnInit, AfterViewInit {
+  @ViewChild('categorySelect') categorySelect: MatSelect;
 
+  selectedCategories = [];
   categories = [];
   users = [];
   prices = [
@@ -220,7 +224,20 @@ export class ListingNewComponent implements OnInit {
     this.userService.checkAuthentication();
 
     this.setupListingForm();
+  }
 
+  ngAfterViewInit() {
+    this.categorySelect.optionSelectionChanges.subscribe((option: MatOptionSelectionChange) => {
+      if (!option.isUserInput) {
+        return;
+      }
+
+      if (option.source.selected) {
+        this.selectedCategories.push(option.source.value);
+      } else {
+        this.selectedCategories = this.selectedCategories.filter((item) => item !== option.source.value);
+      }
+    });
   }
 
   onCkeditorReady(editor: DocumentEditor): void {
@@ -360,53 +377,45 @@ export class ListingNewComponent implements OnInit {
 
     // get categories for form category dropdown
     const subsListingCategories = this.listingService.getCategories().subscribe(
-      (res:any) => {
-
-        if(res.data.length > 0){
+      (res: any) => {
+        if (res.data.length > 0) {
           for (const item of res.data) {
-            const tmp = { value: item.id, viewValue: item.title};
+            const tmp = { value: item.id, viewValue: item.title };
             this.categories.push(tmp);
           }
         }
       },
-      (res:any) => {
-
-      }
+      (res: any) => {}
     );
     this.subscriptions.add(subsListingCategories);
 
     // get users for form users dropdown
     const subsAllUsers = this.userService.getAllUsers().subscribe(
-      (res:any) => {
-        if(res.length > 0){
+      (res: any) => {
+        if (res.length > 0) {
           for (const item of res) {
-            const tmp = { value: item.id, viewValue: item.email};
+            const tmp = { value: item.id, viewValue: item.email };
             this.users.push(tmp);
           }
         }
         console.log(this.users);
       },
-      (res:any) => {
-
-      }
+      (res: any) => {}
     );
     this.subscriptions.add(subsAllUsers);
 
     // get products for form category dropdown
-    const pParams = {'params': {'user_id': this.helperservice.currentUserInfo.id}}
+    const pParams = { params: { user_id: this.helperservice.currentUserInfo.id } };
     const subsListingProducts = this.listingService.getProducts(pParams).subscribe(
-      (res:any) => {
-
-        if(res.data.length > 0){
+      (res: any) => {
+        if (res.data.length > 0) {
           for (const item of res.data) {
-            const tmp = { value: item.id, viewValue: item.title};
+            const tmp = { value: item.id, viewValue: item.title };
             this.products.push(tmp);
           }
         }
       },
-      (res:any) => {
-
-      }
+      (res: any) => {}
     );
     this.subscriptions.add(subsListingProducts);
 
@@ -510,10 +519,9 @@ export class ListingNewComponent implements OnInit {
     if (this.listingForm.invalid) return;
 
     const formData = this.listingForm.value;
-    if(formData.coupon_expiry_date == null || formData.coupon_expiry_date == 'Invalid date'){
+    if (formData.coupon_expiry_date == null || formData.coupon_expiry_date == 'Invalid date') {
       formData.coupon_expiry_date = null;
-    }
-    else{
+    } else {
       // remove timezone from date, using moment
       formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
     }
@@ -940,6 +948,9 @@ export class ListingNewComponent implements OnInit {
   onSelectOpen(opened: boolean, searchInput: any) {
     if (opened) {
       searchInput.focus();
+    } else {
+      searchInput.value = '';
+      this.listingForm.get('categories').setValue(this.selectedCategories);
     }
   }
 
@@ -955,9 +966,7 @@ export class ListingNewComponent implements OnInit {
 
   filteredListingClaimer(searchString: any) {
     if (this.users) {
-      return this.users.filter((user) =>
-      user.viewValue.toLowerCase().includes(searchString.toLowerCase())
-      );
+      return this.users.filter((user) => user.viewValue.toLowerCase().includes(searchString.toLowerCase()));
     }
 
     return [];
