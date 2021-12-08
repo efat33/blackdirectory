@@ -3,6 +3,11 @@
   padding: 4px 0;
   background: rgb(0 170 255);
   color: #fff;
+
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
 }
 
 .loading-spinner-wrapper {

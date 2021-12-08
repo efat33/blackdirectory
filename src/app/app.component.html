@@ -1,5 +1,5 @@
 <div *ngIf="helperService.currentUserInfo?.verified === 0" class="not-activated">
-  Your account is not verified. Please check your email to verify your account.
+  Your account is not verified. Please check your email to verify your account. <a (click)="resendEmail()">Resend email</a>
 </div>
 
 <app-header></app-header>
