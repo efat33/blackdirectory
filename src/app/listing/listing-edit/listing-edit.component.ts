@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
@@ -14,6 +14,8 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 import * as moment from 'moment';
+import { MatSelect } from '@angular/material/select';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 declare const google: any;
 
@@ -22,7 +24,10 @@ declare const google: any;
   templateUrl: './listing-edit.component.html',
   styleUrls: ['./listing-edit.component.scss'],
 })
-export class ListingEditComponent implements OnInit {
+export class ListingEditComponent implements OnInit, AfterViewInit {
+  @ViewChild('categorySelect') categorySelect: MatSelect;
+
+  selectedCategories = [];
   categories = [];
   users = [];
   prices = [
@@ -240,8 +245,8 @@ export class ListingEditComponent implements OnInit {
         // redirect to home page if listing user_id OR claimer_id not equal to current user id
         if (
           !this.helperservice.isAdmin() &&
-          (this.helperservice.currentUserInfo?.id != this.listing.listing.user_id &&
-            this.helperservice.currentUserInfo?.id != this.listing.listing.claimer_id)
+          this.helperservice.currentUserInfo?.id != this.listing.listing.user_id &&
+          this.helperservice.currentUserInfo?.id != this.listing.listing.claimer_id
         ) {
           this.router.navigate(['home']);
           return;
@@ -256,6 +261,20 @@ export class ListingEditComponent implements OnInit {
     );
 
     this.subscriptions.add(subscriptionGetlisting);
+  }
+
+  ngAfterViewInit() {
+    this.categorySelect.optionSelectionChanges.subscribe((option: MatOptionSelectionChange) => {
+      if (!option.isUserInput) {
+        return;
+      }
+
+      if (option.source.selected) {
+        this.selectedCategories.push(option.source.value);
+      } else {
+        this.selectedCategories = this.selectedCategories.filter((item) => item !== option.source.value);
+      }
+    });
   }
 
   onCkeditorReady(editor: DocumentEditor): void {
@@ -348,7 +367,9 @@ export class ListingEditComponent implements OnInit {
       for (const item of categories) {
         categories_ids.push(item.listing_categories_id);
       }
+
       this.listingForm.get('categories').patchValue(categories_ids);
+      this.selectedCategories = categories_ids;
     }
 
     // set contact Information
@@ -370,7 +391,7 @@ export class ListingEditComponent implements OnInit {
         spotify: socialLinks.spotify,
         apple_music: socialLinks.apple_music,
         tidal: socialLinks.tidal,
-        soundcloud: socialLinks.soundcloud
+        soundcloud: socialLinks.soundcloud,
       });
     }
 
@@ -709,17 +730,15 @@ export class ListingEditComponent implements OnInit {
 
     // get users for form users dropdown
     const subsAllUsers = this.userService.getAllUsers().subscribe(
-      (res:any) => {
-        if(res.length > 0){
+      (res: any) => {
+        if (res.length > 0) {
           for (const item of res) {
-            const tmp = { value: item.id, viewValue: item.email};
+            const tmp = { value: item.id, viewValue: item.email };
             this.users.push(tmp);
           }
         }
       },
-      (res:any) => {
-
-      }
+      (res: any) => {}
     );
     this.subscriptions.add(subsAllUsers);
 
@@ -837,10 +856,9 @@ export class ListingEditComponent implements OnInit {
 
     const formData = this.listingForm.value;
 
-    if(formData.coupon_expiry_date == null || formData.coupon_expiry_date == 'Invalid date'){
+    if (formData.coupon_expiry_date == null || formData.coupon_expiry_date == 'Invalid date') {
       formData.coupon_expiry_date = null;
-    }
-    else{
+    } else {
       // remove timezone from date, using moment
       formData.coupon_expiry_date = moment(formData.coupon_expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
     }
@@ -1269,6 +1287,9 @@ export class ListingEditComponent implements OnInit {
   onSelectOpen(opened: boolean, searchInput: any) {
     if (opened) {
       searchInput.focus();
+    } else {
+      searchInput.value = '';
+      this.listingForm.get('categories').setValue(this.selectedCategories);
     }
   }
 
@@ -1284,9 +1305,7 @@ export class ListingEditComponent implements OnInit {
 
   filteredListingClaimer(searchString: any) {
     if (this.users) {
-      return this.users.filter((user) =>
-      user.viewValue.toLowerCase().includes(searchString.toLowerCase())
-      );
+      return this.users.filter((user) => user.viewValue.toLowerCase().includes(searchString.toLowerCase()));
     }
 
     return [];
