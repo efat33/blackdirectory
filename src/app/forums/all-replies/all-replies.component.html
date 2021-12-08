@@ -55,7 +55,9 @@
                                     <a class="utility-box-1_avatar__DB9c_ rounded-circle"
                                         [ngStyle]="{'background-image': 'url(' + getCommentAvatar(comment.profile_photo) + ')'}"></a>
                                     <div class="utility-box-1_group__2ZPA2">
-                                        <h3 class="utility-box-1_title__1I925"><a title="View Profile">{{
+                                        <h3 class="utility-box-1_title__1I925"><a
+                                                [routerLink]="['/forums/users', comment.username]"
+                                                title="View Profile">{{
                                                 comment.display_name || comment.username }}</a>
                                         </h3>
                                     </div>
