@@ -8,6 +8,7 @@ import { RegistrationModal } from './modals/user/registration/registration-modal
 import { ResetPasswordModal } from './modals/user/reset-password/reset-password-modal';
 import { HelperService } from './shared/helper.service';
 import { WishlistService } from './shared/services/wishlist.service';
+import { SnackBarService } from './shared/snackbar.service';
 import { SpinnerService } from './shared/spinner.service';
 import { UserService } from './user/user.service';
 
@@ -29,7 +30,8 @@ export class AppComponent implements OnInit {
     private dialog: MatDialog,
     private wishlistService: WishlistService,
     private auth: AngularFireAuth,
-    private database: AngularFireDatabase
+    private database: AngularFireDatabase,
+    public snackbarService: SnackBarService
   ) {}
 
   ngOnInit() {
@@ -150,5 +152,18 @@ export class AppComponent implements OnInit {
 
   onActivate(event: Event) {
     window.scrollTo(0, 0);
+  }
+
+  resendEmail() {
+    this.userService.resendVerificationMail().subscribe(
+      (res: any) => {
+        this.spinnerService.hide();
+        this.snackbarService.openSnackBar('Email sent. Please check your inbox.');
+      },
+      (res: any) => {
+        this.spinnerService.hide();
+        this.snackbarService.openSnackBar(res.error.message, '', 'warn');
+      }
+    );
   }
 }

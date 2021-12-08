@@ -27,57 +27,78 @@
                 </div>
             </div>
 
-            <div class="listing-table_module__2vE05 table-module pos-r mt-30">
-                <div>
-                    <table
-                        class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table table-all-forums">
-                        <thead>
-                            <tr>
-                                <th class="wi-th-title"><span>
-                                        <span>Forum</span></span>
-                                </th>
-                                <th class="wi-th-view"><span>
-                                        <span>Topics</span>
-                                    </span></th>
-                                <th class="wi-th-favorite"><span>
-                                        <span>Posts</span>
-                                    </span></th>
-                                <th class="wi-th-favorite"><span>
-                                        <span>Last Post</span>
-                                    </span></th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="totalForums == 0">
-                            <tr>
-                                <td colspan="8" style="text-align: center;">
-                                    <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
-                                        <div class="alert_content__1ntU3">No forum created yet</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="totalForums > 0">
-                            <tr *ngFor="let item of forums; let index=index">
-                                <td data-th="Title" class="">
-                                    <a [routerLink]="['forum', item.slug]">{{
-                                        item.title }}</a>
-                                    <div [innerHTML]="item.description"></div>
-                                </td>
-                                <td data-th="Topics" class="wil-td-view"><span>{{ item.topics_no }}</span></td>
-                                <td data-th="Posts" class="wil-td-favorite"><span>{{ item.replies_no }}</span></td>
-                                <td data-th="Created" class="wil-td-favorite">
-                                    <span *ngIf="item.last_activity_time; else noTopic">{{item.last_activity_time |
-                                        timeAgo}}</span>
-                                    <ng-template #noTopic><span>No Topics</span></ng-template>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="dashboard-content_module__zpEtP clearfix  mt-30">
+                <div class="dashboard__sidebar js-sticky filters-container forum-user-sidebar forum-category-sidebar">
+                    <ul>
+                        <li class="dashboard-nav_link__2BmK9 mr-0">Categories</li>
+                        <li *ngFor="let item of forumCategories">
+                            <a [routerLink]="['/forums/category', item?.id]"
+                                [ngClass]="{'dashboard-link-active': item?.id == catID}"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">{{
+                                item.title }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dashboard__content forum-user-content pt-0">
+                    <div class="listing-table_module__2vE05 table-module pos-r">
+                        <div>
+                            <table
+                                class="listing-table_table__2Cfzq wil-table-responsive-lg table-module__table table-all-forums">
+                                <thead>
+                                    <tr>
+                                        <th class="wi-th-title"><span>
+                                                <span>Forum</span></span>
+                                        </th>
+                                        <th class="wi-th-view"><span>
+                                                <span>Topics</span>
+                                            </span></th>
+                                        <th class="wi-th-favorite"><span>
+                                                <span>Posts</span>
+                                            </span></th>
+                                        <th class="wi-th-favorite"><span>
+                                                <span>Last Post</span>
+                                            </span></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="totalForums == 0">
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">
+                                            <div class=" alert_module__Q4QZx" style="padding-left: 15px;">
+                                                <div class="alert_content__1ntU3">No forum created yet</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="totalForums > 0">
+                                    <tr *ngFor="let item of forums; let index=index">
+                                        <td data-th="Title" class="">
+                                            <a [routerLink]="['/forums/forum', item.slug]">{{
+                                                item.title }}</a>
+                                            <div [innerHTML]="item.description"></div>
+                                        </td>
+                                        <td data-th="Topics" class="wil-td-view"><span>{{ item.topics_no }}</span></td>
+                                        <td data-th="Posts" class="wil-td-favorite"><span>{{ item.replies_no }}</span>
+                                        </td>
+                                        <td data-th="Created" class="wil-td-favorite">
+                                            <a [routerLink]="['/forums/topic/', item.last_post.topic.slug]"
+                                                [queryParams]="item.last_activity_type == 'reply' ? {post_id: item.last_activity_id} : ''"
+                                                *ngIf="item.last_activity_time; else noTopic"
+                                                [title]="item.last_activity_type == 'topic' ? item.last_post.topic.title : 'Reply To: ' + item.last_post.topic.title">{{item.last_activity_time
+                                                |
+                                                timeAgo}}</a>
+                                            <ng-template #noTopic><span>No Topics</span></ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <pagination [totalItems]="totalForums" [currentPage]="queryParams.page"
+                        [pageSize]="queryParams.limit" (pageChange)="onPageChange($event)"></pagination>
                 </div>
             </div>
 
-            <pagination [totalItems]="totalForums" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
-                (pageChange)="onPageChange($event)"></pagination>
 
         </div>
     </section>

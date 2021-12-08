@@ -42,8 +42,8 @@ export class ForumService {
     return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
   }
 
-  deleteNews(newsId: number): Observable<any> {
-    const url = `api/news/delete-news/${newsId}`;
+  deleteForum(forumId: number): Observable<any> {
+    const url = `api/forums/delete-forum/${forumId}`;
 
     return this.httpClient.delete<any>(url, this.headerOptions);
   }
@@ -78,12 +78,26 @@ export class ForumService {
 
     return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
   }
+  deleteTopic(topicId: number): Observable<any> {
+    const url = `api/topics/delete-topic/${topicId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
 
   /**
    * Replies
    * */ 
   getReplies(body: any): Observable<any> {
     const url = `api/replies/get-replies`;
+
+    return this.httpClient
+      .post<any>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: any) => body));
+  }
+
+  getUserReplies(body: any): Observable<any> {
+    const url = `api/replies/get-user-replies`;
 
     return this.httpClient
       .post<any>(url, JSON.stringify(body), this.headerOptions)
@@ -110,11 +124,39 @@ export class ForumService {
   }
 
 
-  deleteNewsComment(commentId: number): Observable<any> {
-    const url = `api/news/delete-comment/${commentId}`;
+  deleteReply(replyId: number): Observable<any> {
+    const url = `api/replies/delete-reply/${replyId}`;
 
     return this.httpClient.delete<any>(url, this.headerOptions);
   }
+
+  /**
+   * Categories
+   * */ 
+  getCategories(): Observable<any> {
+    const url = `api/forums/categories`;
+
+    return this.httpClient.get<any>(url).pipe(map((body: any) => body));
+  }
+
+  addCategory(body: any): Observable<any> {
+    const url = `api/forums/new-category`;
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  updateCategory(categoryId: number, body: any): Observable<any> {
+    const url = `api/forums/update-category/${categoryId}`;
+
+    return this.httpClient.put<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  deleteCategory(categoryId: number): Observable<any> {
+    const url = `api/forums/delete-category/${categoryId}`;
+
+    return this.httpClient.delete<any>(url, this.headerOptions);
+  }
+
 
 
 }

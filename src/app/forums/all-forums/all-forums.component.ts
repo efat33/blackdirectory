@@ -27,13 +27,24 @@ export class AllForumsComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     public snackbarService: SnackBarService
-  ) {}
+  ) {
+    this.route.params.subscribe((params) => {
+      this.catID = this.route.snapshot.paramMap.get('cat_id');
+      if(this.catID) this.queryParams.cat_id = this.catID;
+
+      this.getForums();
+    });
+  }
+
+  forumCategories = [];
+  catID: any;
 
   queryParams = {
     keyword: '',
     limit: 12,
     page: 1,
     status: 'open',
+    cat_id: '',
   };
 
   forums: any;
@@ -41,8 +52,8 @@ export class AllForumsComponent implements OnInit {
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
-
-    this.getForums();
+    
+    this.getForumCategories();
   }
 
   getForums(page: number = 1) {
@@ -63,6 +74,26 @@ export class AllForumsComponent implements OnInit {
     );
 
     this.subscriptions.add(subsForums);
+  }
+
+  getForumCategories() {
+    this.spinnerService.show();
+    const getSectorsSubscription = this.forumService.getCategories().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.forumCategories = result.data;
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbarService.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(getSectorsSubscription);
+  }
+
+  onClickCategory(catID) {
+    window.location.href = `${this.siteUrl}/forums/category/${catID}`;
   }
 
   onPageChange(newPage: number) {

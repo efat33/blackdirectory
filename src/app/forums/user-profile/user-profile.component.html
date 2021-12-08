@@ -1,0 +1,57 @@
+<div class="tribe-common-l-container tribe-events-l-container">
+    <h1 class="heading_title__1bzno" style="margin-top: 30px;">{{ userDetails?.username }}: Profile</h1>
+</div>
+<div class="wil-dashboard wil-content container">
+    <section class="wil-section wil-dashboard-inner pd-0">
+        <div class="dashboard-content_module__zpEtP clearfix">
+            <div class="dashboard__sidebar js-sticky filters-container forum-user-sidebar">
+                <div class="utility-box-1_module__MYXpX wil-text-center dashboard-profile-img">
+                    <div class="utility-box-1_avatar__DB9c_ rounded-circle"
+                        [ngStyle]="{ 'background-image': 'url(' + profileImage + ')' }">
+                        <img alt="" [src]="profileImage">
+                    </div>
+                    <div class="utility-box-1_body__8qd9j">
+                        <div class="utility-box-1_group__2ZPA2 ng-star-inserted">
+                            <h3 class="utility-box-1_title__1I925">{{ userDetails?.display_name || userDetails?.username
+                                }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-nav_module__3c0Pb list-none pos-r">
+                    <ul>
+                        <li>
+                            <a [routerLink]="['/forums/users', userDetails?.username]"
+                                [routerLinkActiveOptions]="{exact: true}" routerLinkActive="dashboard-link-active"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
+                                <span class="dashboard-nav_text__x-_IZ">Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/forums/users', userDetails?.username, 'topics']"
+                                routerLinkActive="dashboard-link-active"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
+                                <span class="dashboard-nav_text__x-_IZ">Topics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/forums/users', userDetails?.username, 'replies']"
+                                routerLinkActive="dashboard-link-active"
+                                class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover">
+                                <span class="dashboard-nav_text__x-_IZ">Replies</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dashboard__content forum-user-content pt-0">
+                <ul class="forum_user_profile_ul">
+                    <li><span>Joined: </span>{{ userDetails?.created_at | date:'medium' }}</li>
+                    <li><span>Last Active: </span>{{ userMeta?.last_activity | date:'medium' }}</li>
+                    <li><span>Topics Started: </span>{{ userMeta?.topics_no }}</li>
+                    <li><span>Replies Created: </span>{{ userMeta?.reply_no }}</li>
+                    <li><span>Forum Role: </span>{{ userDetails?.forum_role }}</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>

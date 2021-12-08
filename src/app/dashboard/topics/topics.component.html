@@ -73,7 +73,7 @@
                 <tbody *ngIf="totalTopics > 0">
                     <tr *ngFor="let item of topics; let index=index">
                         <td data-th="Title" class="">
-                            <a href="#" target="_self">{{
+                            <a [routerLink]="['/forums/topic/', item.slug]">{{
                                 item.title }}</a>
                         </td>
                         <td data-th="Forum" class="wil-td-view"><span>{{ item.forum_title }}</span></td>
@@ -91,7 +91,7 @@
                             <a [routerLink]="['/dashboard/topics/topic/edit/', item.id]"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
                                     class="list_text__35R07">Edit</span></a>
-                            <a (click)="onRemoveListing(item.id, index)"
+                            <a (click)="onDeleteTopic(item.id, index)"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
                                     class="list_text__35R07">Remove</span></a>
                         </td>

@@ -35,6 +35,7 @@ export class ListingsComponent implements OnInit {
     offset: 0,
     page: 1,
     user_id: this.helperService.currentUserInfo.id,
+    status: 'all'
   };
 
   listings: any;

@@ -11,16 +11,15 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 
 @Component({
-  selector: 'app-all-topics',
-  templateUrl: './all-topics.component.html',
-  styleUrls: ['./all-topics.component.scss'],
+  selector: 'app-forum-user-topics',
+  templateUrl: './user-topics.component.html',
+  styleUrls: ['./user-topics.component.scss'],
 })
-export class AllTopicsComponent implements OnInit {
+export class ForumUserTopicsComponent implements OnInit {
   siteUrl: string;
   subscriptions: Subscription = new Subscription();
 
   constructor(
-    public listingService: ListingService,
     public forumService: ForumService,
     public spinnerService: SpinnerService,
     public helperService: HelperService,
@@ -29,20 +28,17 @@ export class AllTopicsComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     public snackbarService: SnackBarService
-  ) {
-    this.route.params.subscribe((params) => {
-      this.forumSlug = this.route.snapshot.paramMap.get('forum_slug');
-      if(this.forumSlug) this.queryParams.slug = this.forumSlug;
+  ) {}
 
-      this.catID = this.route.snapshot.paramMap.get('cat_id');
-      if(this.catID) this.queryParams.cat_id = this.catID;
 
-      this.getTopics();
-    });
+  usernameSlug: any;
+  userDetails: any;
+  profileImage: string = `${this.helperService.siteUrl}/assets/img/avatar-default.png`;
+  userMeta = {
+    'last_activity': '',
+    'topics_no': '',
+    'reply_no': ''
   }
-
-  forumCategories = [];
-  catID: any;
 
   queryParams = {
     keyword: '',
@@ -50,34 +46,45 @@ export class AllTopicsComponent implements OnInit {
     page: 1,
     status: 'open',
     slug: '',
-    cat_id: '',
+    user_id: '',
   };
 
-  forumSlug: any;
-  forum: any;
   topics: any;
   totalTopics: any;
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
-    
-    this.getForumCategories();
+    this.usernameSlug = this.route.snapshot.paramMap.get('username');
+
+    if(this.usernameSlug) this.getUserDetails();
   }
 
-  getForumCategories() {
+  getUserDetails() {
     this.spinnerService.show();
-    const getSectorsSubscription = this.forumService.getCategories().subscribe(
-      (result: any) => {
+    
+    const subsUserDetails = this.userService.getDetails(this.usernameSlug).subscribe(
+      (res:any) => {
         this.spinnerService.hide();
-        this.forumCategories = result.data;
+        this.userDetails = res.data.data;
+        const meta_data = res.data.meta_data;
+        this.userMeta.last_activity = this.helperService.getMetaData(meta_data, 'forum_last_activity');
+        this.userMeta.topics_no = this.helperService.getMetaData(meta_data, 'topics_no');
+        this.userMeta.reply_no = this.helperService.getMetaData(meta_data, 'replies_no');
+
+        if (this.userDetails.profile_photo) {
+          this.profileImage = this.helperService.getImageUrl(this.userDetails.profile_photo, 'users', 'medium');
+        }
+
+        // get topics of the user
+        this.queryParams.user_id = this.userDetails.id;
+        this.getTopics();
       },
-      (error) => {
+      (res:any) => {
         this.spinnerService.hide();
-        this.snackbarService.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
-
-    this.subscriptions.add(getSectorsSubscription);
+    
+    this.subscriptions.add(subsUserDetails);
   }
 
   getTopics(page: number = 1) {
@@ -91,7 +98,7 @@ export class AllTopicsComponent implements OnInit {
 
         this.topics = res.data.data.topics;
         this.totalTopics = res.data.data.total_topics;
-        this.forum = res.data.data.forum;
+        console.log(this.topics);
       },
       (res: any) => {
         this.spinnerService.hide();
@@ -103,28 +110,6 @@ export class AllTopicsComponent implements OnInit {
 
   onPageChange(newPage: number) {
     this.getTopics(newPage);
-  }
-
-  addNewTopic(){
-    if (!this.helperService.currentUserInfo) {
-      this.showLoginModal();
-
-      return;
-    }
-
-    const role = this.helperService.currentUserInfo.role;
-    const forum_role = this.helperService.currentUserInfo.forum_role;
-
-    if(role == 'admin' || forum_role == 'keymaster' || forum_role == 'moderator' || forum_role == 'participant'){
-      this.router.navigate(['/dashboard/topics/new'], { queryParams: {forum_id: this.forum.id}});
-    }
-    else{
-      this.snackbarService.openSnackBar('You are not allowed to add topic.', 'Close', 'warn');
-    }
-  }
-
-  showLoginModal() {
-    this.userService.onLoginLinkModal.emit();
   }
 
   ngOnDestroy() {
