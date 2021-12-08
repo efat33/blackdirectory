@@ -29,8 +29,8 @@ export class ListingsComponent implements OnInit {
 
   queryParams = {
     keyword: '',
-    order: 'desc',
-    orderby: 'created_at',
+    order: 'asc',
+    orderby: 'title',
     limit: 12,
     offset: 0,
     page: 1,
