@@ -448,8 +448,21 @@ input[type='file'],
   transform: none !important;
 }
 
-.ngx-gallery .ngx-gallery-thumbnails .ngx-gallery-thumbnail.ngx-gallery-active {
-  border: 1px double #006699 !important;
+.ngx-gallery .ngx-gallery-thumbnails div.ngx-gallery-thumbnail.ngx-gallery-active {
+  border: 1px solid #e5e5e5 !important;
+}
+
+.ngx-gallery .ngx-gallery-thumbnails a.ngx-gallery-thumbnail.ngx-gallery-active {
+  border: none !important;
+}
+
+.ngx-gallery-thumbnails a.ngx-gallery-thumbnail {
+  border: none !important;
+}
+
+.ngx-gallery-thumbnails div.ngx-gallery-thumbnail {
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 2px;
 }
 /********/
 
