@@ -11,11 +11,13 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
+import { excerpt } from 'src/app/shared/custom-pipes';
 
 @Component({
   selector: 'app-all-replies',
   templateUrl: './all-replies.component.html',
   styleUrls: ['./all-replies.component.scss'],
+  providers: [ excerpt ]
 })
 export class AllRepliesComponent implements OnInit {
   siteUrl: string;
@@ -30,7 +32,8 @@ export class AllRepliesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-    public snackbarService: SnackBarService
+    public snackbarService: SnackBarService,
+    private excerpt: excerpt
   ) {}
 
   queryParams = {
@@ -118,6 +121,22 @@ export class AllRepliesComponent implements OnInit {
         // set topic id to reply form
         this.replyForm.get('topic_id').patchValue(this.topic.id);
         this.replyForm.get('forum_id').patchValue(this.topic.forum_id);
+
+        // prepare excerpt for replies 
+        for (let index = 0; index < this.replies.length; index++) {
+          const element = this.replies[index];
+          if(element.reply_to_details){
+            const excerpt = this.excerpt.transform(element.reply_to_details.content, 15, '...');
+            this.replies[index].reply_to_details['excerpt'] = excerpt;
+
+            const content = new DOMParser().parseFromString(element.reply_to_details.content, 'text/html').documentElement.textContent;
+            const content_length = content.split(' ').length;
+            const excerpt_length = excerpt.split(' ').length;
+
+            // show read more only when excerpt is less than original content
+            if(content_length > excerpt_length) this.replies[index].reply_to_details['show_read_more'] = true;
+          }
+        }
         
         setTimeout(() => {
           if(this.postId) {
