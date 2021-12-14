@@ -35,14 +35,6 @@
         </div>
       </div>
 
-      <!-- map section -->
-      <div *ngIf="!event.is_virtual" class="epta-map-area">
-        <div class="tribe-events-venue-map">
-          <div id="googleMap" style="width:100%; height:300px;"></div>
-        </div>
-      </div>
-
-
       <div class="epta-share-area">
         <h3 class="tecset-share-title">Share This Event</h3>
         <share-buttons [theme]="'material-dark'" [include]="['facebook','twitter','linkedin','pinterest','email']"
@@ -65,25 +57,27 @@
 
     <div class="col-md-4">
       <div class="epta-sidebar-area">
-        <div *ngIf="config.leftTime != null" class="epta-sidebar-box">
-          <!-- <div class="epta-countdown-cell">
-                        <div class="epta-countdown-number">169</div>
-                        <div class="epta-countdown-under">days</div>
-                    </div>
-                    <div class="epta-countdown-cell">
-                        <div class="epta-countdown-number">10</div>
-                        <div class="epta-countdown-under">hours</div>
-                    </div>
-                    <div class="epta-countdown-cell">
-                        <div class="epta-countdown-number">33</div>
-                        <div class="epta-countdown-under">min</div>
-                    </div>
-                    <div class="epta-countdown-cell">
-                        <div class="epta-countdown-number tecset-countdown-last">45</div>
-                        <div class="epta-countdown-under">sec</div>
-                    </div> -->
-
-          <countdown [config]="config" class="custom-countdown-style"></countdown>
+        <div *ngIf="config.leftTime" class="epta-sidebar-box">
+          <span class="ng-star-inserted">
+            <div class="epta-countdown-timer">
+              <div class="epta-countdown-cell">
+                <div class="epta-countdown-number">{{config.days}}</div>
+                <div class="epta-countdown-under">days</div>
+              </div>
+              <div class="epta-countdown-cell">
+                <div class="epta-countdown-number">{{config.hours}}</div>
+                <div class="epta-countdown-under">hours</div>
+              </div>
+              <div class="epta-countdown-cell">
+                <div class="epta-countdown-number">{{config.mins}}</div>
+                <div class="epta-countdown-under">min</div>
+              </div>
+              <div class="epta-countdown-cell">
+                <div class="epta-countdown-number tecset-countdown-last">{{config.secs}}</div>
+                <div class="epta-countdown-under">sec</div>
+              </div>
+            </div>
+          </span>
 
         </div>
 
@@ -145,6 +139,20 @@
                 <a href="{{ item.website }}" target="_blank" rel="external">{{ item.website }}</a>
               </dd>
             </dl>
+          </div>
+        </div>
+
+        <div *ngIf="!event.is_virtual" class="epta-sidebar-box">
+          <div class="tribe-events-meta-group">
+            <h2 class="tribe-events-single-section-title">Venue</h2>
+            <p><strong>Address:</strong> {{event.address}}</p>
+
+            <!-- map section -->
+            <div class="epta-map-area">
+              <div class="tribe-events-venue-map">
+                <div id="googleMap" style="width:100%; height:300px;"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -213,7 +221,7 @@
         </div>
 
         <!-- event tickets -->
-        <div class="epta-sidebar-box">
+        <div *ngIf="userTickets.length > 0 || event.tickets?.length > 0" class="epta-sidebar-box">
           <div class="tribe-link-view-attendee" *ngIf="userTickets.length > 0">
             You have {{userTickets.length}} Tickets for this Event.
             <!-- <a [routerLink]="['/events/details', eventSlug, 'tickets']">View your Tickets</a> -->
