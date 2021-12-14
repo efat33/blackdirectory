@@ -1,5 +1,5 @@
 <div class="hero-header-area row-clearfix wil-flex-wrap">
-  <div class="hero-header-left col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <!-- <div class="hero-header-left col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="wilcity-hero-header hero_module__Gwqkh hero_horizontal__1t27X hero_formWhite__3fCkB">
       <div class="hero_background__xrTbV">
         <div class="wil-overlay" style="background-color: rgba(0,0,0,0.44)"></div>
@@ -68,9 +68,66 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="hero-header-right col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  </div> -->
+  <div class="hero-header-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div *ngIf="galleryImages.length > 0" class="home-hero-gallery-wrapper">
+      <div class="hero_container__9jNUX hero_container_new wil-text-center listing-search-form">
+        <div class="hero_textWrapper__aU40s">
+          <h1 style="color: #ffffff; font-size: 30px" class="hero_title__47he3">UK’s Leading Black Directory
+          </h1>
+          <div class="hero_text__3ENGw" style="font-size: 35px"></div>
+        </div>
+        <div id="wilcity-hero-search-form" class="tab_module__3fEXT wil-tab home-listing-search">
+          <form [formGroup]="listingSearchForm" (ngSubmit)="onSubmitListingForm()">
+            <div class="wil-hero-form-wrapper">
+              <div class="tab_content__ndczY wil-tab__content">
+                <div class="hero_form__1ewus">
+                  <div id="1617938518268-tab-content-hero-tab-listing" class="hero-tab-listing wil-tab__panel active"
+                    icon="la la-list">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="field_module__1H6kT field_style2__2Znhe"
+                          [ngClass]="{'active': listingSearchForm.controls.keyword.value}"
+                          name="hero-search-form-field-complex">
+                          <div id="autosuggest">
+                            <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                              aria-owns="autosuggest-autosuggest__results">
+                              <input type="text" formControlName="keyword" placeholder="" class="field_field__3U_Rt">
+                            </div>
+                            <span class="field_label__2eCP7 text-ellipsis">What are
+                              you looking for?</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="field_module__1H6kT field_style2__2Znhe"
+                          [ngClass]="{'active': listingSearchForm.controls.address.value}"
+                          name="hero-search-form-field-complex">
+                          <div id="autosuggest">
+                            <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                              aria-owns="autosuggest-autosuggest__results">
+                              <input type="text" formControlName="address" placeholder="" class="field_field__3U_Rt"
+                                autocomplete="off" (keydown)="locationModified = true" (blur)="onLocationBlur()">
+
+                              <input formControlName="lat" type="hidden" />
+                              <input formControlName="lng" type="hidden" />
+                            </div>
+                            <span class="field_label__2eCP7 text-ellipsis">Address</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <button type="submit" class="wil-btn wil-btn--primary wil-btn--md wil-btn--round"><i
+                            class="la la-search"></i>Search</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
       <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
     </div>
     <div *ngIf="galleryImages.length == 0" class="section-loading section-loading-hero-slider">

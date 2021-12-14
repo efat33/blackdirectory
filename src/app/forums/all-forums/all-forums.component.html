@@ -1,7 +1,7 @@
 <div class="wil-content wilcity-archive">
     <section class="wil-section has-page-heading">
         <div class="container">
-            <h1 class="has-text-align-center heading_title__1bzno">Forums</h1>
+            <h1 class="has-text-align-center heading_title__1bzno">Forum</h1>
 
             <div class="searchbox_wrap__37JXq">
                 <div class="searchbox_searchInput__2p4ds">
@@ -30,7 +30,7 @@
             <div class="dashboard-content_module__zpEtP clearfix  mt-30">
                 <div class="dashboard__sidebar js-sticky filters-container forum-user-sidebar forum-category-sidebar">
                     <ul>
-                        <li class="dashboard-nav_link__2BmK9 mr-0">Categories</li>
+                        <li class="dashboard-nav_link__2BmK9 mr-0">Boards</li>
                         <li *ngFor="let item of forumCategories">
                             <a [routerLink]="['/forums/category', item?.id]"
                                 [ngClass]="{'dashboard-link-active': item?.id == catID}"
