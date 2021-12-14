@@ -66,6 +66,24 @@
                                     <div class="comment-review_body__qhUqq">
                                         <div class="comment-review_content__1jFfZ">
                                             <div class="wilcity-review-content wilcity-review-content-17458">
+                                                <div *ngIf="comment.reply_to" class="div-reply-to">
+                                                    <p class="mb-0"><a
+                                                            [routerLink]="['/forums/users', comment.reply_to_details.username]"
+                                                            title="View Profile">{{
+                                                            comment.reply_to_details.display_name ||
+                                                            comment.reply_to_details.username }}</a> {{
+                                                        comment.reply_to_details.created_at | date: 'd/M/y h:mm' }}</p>
+                                                    <p
+                                                        *ngIf="!comment.reply_to_details?.show_full_content; else fullReplyToContent">
+                                                        {{ comment.reply_to_details.excerpt }} <a
+                                                            *ngIf="comment.reply_to_details?.show_read_more"
+                                                            (click)="comment.reply_to_details.show_full_content = true">Read
+                                                            more</a></p>
+                                                    <ng-template #fullReplyToContent>
+                                                        <div [innerHTML]="comment.reply_to_details.content">
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
                                                 <div [innerHTML]="comment.content">
                                                 </div>
                                             </div>
@@ -77,6 +95,9 @@
                         </div>
                     </div>
                 </div>
+
+                <pagination [totalItems]="totalReplies" [currentPage]="queryParams.page" [pageSize]="queryParams.limit"
+                    (pageChange)="onPageChange($event)"></pagination>
 
                 <div *ngIf="!isLoggedIn; else templateReplyForm" class="add-review_module__2KOQC">
                     <header class="add-review_wrap__K1JtF">
