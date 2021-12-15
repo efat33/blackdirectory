@@ -38,41 +38,12 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   dialogRsvpApply: any;
 
-  config: CountdownConfig = {
+  config: any = {
     leftTime: null,
-    format: 'd:HH:mm:ss',
-    prettyText: (text) => {
-      const textArr = text.split(':');
-
-      const preText = [];
-      for (let index = 0; index < textArr.length; index++) {
-        const element = textArr[index];
-        if (index == 0) {
-          const rem = parseInt(element) - 1;
-          preText.push(`<div class="epta-countdown-cell">
-                            <div class="epta-countdown-number">${rem}</div>
-                            <div class="epta-countdown-under">days</div>
-                        </div>`);
-        } else if (index == 1) {
-          preText.push(`<div class="epta-countdown-cell">
-                            <div class="epta-countdown-number">${element}</div>
-                            <div class="epta-countdown-under">hours</div>
-                        </div>`);
-        } else if (index == 2) {
-          preText.push(`<div class="epta-countdown-cell">
-                            <div class="epta-countdown-number">${element}</div>
-                            <div class="epta-countdown-under">min</div>
-                        </div>`);
-        } else if (index == 3) {
-          preText.push(`<div class="epta-countdown-cell">
-                            <div class="epta-countdown-number tecset-countdown-last">${element}</div>
-                            <div class="epta-countdown-under">sec</div>
-                        </div>`);
-        }
-      }
-
-      return `<div class="epta-countdown-timer">${preText.join('')}</div>`;
-    },
+    days: 0,
+    hours: 0,
+    mins: 0,
+    secs: 0,
   };
 
   editCommentClickId: number;
@@ -84,8 +55,8 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   tickets: any = {
     nolonger_availalbe: 0,
     notyet_availalbe: 0,
-    availalbe: []
-  }
+    availalbe: [],
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -173,18 +144,18 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   calculateTicketAvailability() {
     const NOW = moment().utc().format('YYYY-MM-DD HH:mm:ss');
 
-    if(this.event.tickets.length > 0){
+    if (this.event.tickets.length > 0) {
       for (const [i, item] of this.event.tickets.entries()) {
         const start_time = moment(item.start_sale).utc().format('YYYY-MM-DD HH:mm:ss');
         const end_time = moment(item.end_sale).utc().format('YYYY-MM-DD HH:mm:ss');
 
-        if(start_time > NOW){ // not yet available
+        if (start_time > NOW) {
+          // not yet available
           this.tickets.notyet_availalbe = parseInt(this.tickets.notyet_availalbe) + 1;
-        }
-        else if(NOW > end_time || item.available == 0) { // no longer available
+        } else if (NOW > end_time || item.available == 0) {
+          // no longer available
           this.tickets.nolonger_availalbe = parseInt(this.tickets.nolonger_availalbe) + 1;
-        }
-        else{
+        } else {
           this.tickets.availalbe.push(item);
         }
       }
@@ -201,6 +172,29 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     const seconds = duration.asSeconds();
 
     this.config.leftTime = seconds;
+
+    this.calculateCountdownTime();
+  }
+
+  calculateCountdownTime() {
+    if (!this.config.leftTime || this.config.leftTime < 0) {
+      return;
+    }
+
+    this.config.days = Math.floor(this.config.leftTime / (3600 * 24));
+
+    const hours = this.config.leftTime % (3600 * 24);
+    this.config.hours = Math.floor(hours / 3600);
+
+    const minutes = hours % 3600;
+    this.config.mins = Math.floor(minutes / 60);
+    this.config.secs = minutes % 60;
+
+    this.config.leftTime--;
+
+    setTimeout(() => {
+      this.calculateCountdownTime();
+    }, 1000);
   }
 
   getUserTicketsRsvp() {
