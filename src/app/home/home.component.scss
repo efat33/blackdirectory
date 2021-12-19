@@ -153,15 +153,7 @@
 }
 
 .home-listing-search#wilcity-hero-search-form .hero_form__1ewus {
-  padding: 20px;
-}
-
-@media only screen and (min-width: 768px) {
-  .home-listing-search#wilcity-hero-search-form {
-    margin: 0 auto;
-    width: 70%;
-    max-width: 500px;
-  }
+  padding: 25px 30px 30px;
 }
 
 .wil-flex-wrap {
@@ -207,4 +199,10 @@
   top: 0;
   right: 0;
   background: rgba(0, 0, 0, .2);
+}
+
+@media screen and (min-width:768px) {
+  .hero_form__1ewus button {
+    margin-top: 5px;
+  }
 }

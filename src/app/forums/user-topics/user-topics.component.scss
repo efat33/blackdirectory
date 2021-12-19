@@ -40,6 +40,10 @@
 .forum-user-sidebar ul li a {
     padding-top: 5px;
     padding-bottom: 5px;
+    color: #485273;
+}
+.forum-user-sidebar ul li a.dashboard-link-active {
+    color: #069;
 }
 ul.forum_user_profile_ul {
     list-style: none;
@@ -52,4 +56,10 @@ ul.forum_user_profile_ul li span {
 }
 .dashboard-link-active:focus {
     color: #069;
+}
+.listing-table_module__2vE05 {
+    font-size: 14px;
+}
+.table-module__table thead th {
+    font-size: 12px;
 }
