@@ -50,7 +50,8 @@
               <div class="jobsearch-wdg-box-title">
                 <h2>Contact Form</h2>
               </div>
-              <form [formGroup]="contactCandidateForm" (ngSubmit)="onSubmitCandidate()">
+              <form [formGroup]="contactCandidateForm" (ngSubmit)="onSubmitContactForm(candidateContactForm)"
+                #candidateContactForm="ngForm">
 
                 <mat-form-field>
                   <mat-label>Name</mat-label>
@@ -73,11 +74,17 @@
                 </mat-form-field>
 
                 <button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
-                  [disabled]="!contactCandidateForm.valid">
+                  [disabled]="!contactCandidateForm.valid || loading">
                   Send
                 </button>
 
                 <p *ngIf="showCandidateError" class="errorMessage">{{ errorMessageCandidate }}</p>
+
+                <div class="loading-spinner" *ngIf="loading">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </div>
+
+                <p *ngIf="message" class="message">{{message}}</p>
               </form>
             </div>
           </aside>
@@ -546,7 +553,8 @@
               <div class="jobsearch-wdg-box-title">
                 <h2>Contact Form</h2>
               </div>
-              <form [formGroup]="contactEmployerForm" (ngSubmit)="onSubmitEmployer()">
+              <form [formGroup]="contactEmployerForm" (ngSubmit)="onSubmitContactForm(employerContactForm)"
+                #employerContactForm="ngForm">
 
                 <mat-form-field>
                   <mat-label>Name</mat-label>
@@ -569,11 +577,17 @@
                 </mat-form-field>
 
                 <button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
-                  [disabled]="!contactEmployerForm.valid">
+                  [disabled]="!contactEmployerForm.valid || loading">
                   Send
                 </button>
 
                 <p *ngIf="showEmployerError" class="errorMessage">{{ errorMessageEmployer }}</p>
+
+                <div class="loading-spinner" *ngIf="loading">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </div>
+
+                <p *ngIf="message" class="message">{{message}}</p>
               </form>
             </div>
             <div class="jobsearch_side_box jobsearch_box_map">

@@ -69,6 +69,7 @@ ${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}
 
     this.subscriptions.add(subscription);
   }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
