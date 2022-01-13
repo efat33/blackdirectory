@@ -4,7 +4,7 @@ export const MenuItems = [
     route: 'home',
   },
   {
-    title: 'Find a Business',
+    title: 'Businesses',
     route: 'listing',
   },
   {
@@ -38,6 +38,10 @@ export const MenuItems = [
       {
         title: 'Upgrades',
         route: 'mobiles/upgrades',
+      },
+      {
+        title: 'Broadband',
+        route: 'mobiles/broadband',
       },
     ]
   },
