@@ -105,8 +105,8 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     private spinnerService: SpinnerService
   ) {
     this.route.params.subscribe((params) => {
-      this.initialize();
       this.getTopMobiles();
+      this.initialize();
     });
   }
 
@@ -125,9 +125,6 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
 
     this.initializeFilterForm();
 
-    this.getTotalMobiles();
-    this.getMobiles();
-
     this.getProviders();
   }
 
@@ -138,6 +135,10 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
         this.spinnerService.hide();
 
         this.topMobile = result.data.find((mobile: any) => mobile.category === this.mobileCategory);
+
+        this.getTotalMobiles();
+        this.getMobiles();
+
       },
       (error) => {
         this.spinnerService.hide();
@@ -260,6 +261,7 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     }
 
     values.category = this.mobileCategory;
+    if(this.topMobile && Object.keys(this.topMobile).length > 0) values.topMobile = this.topMobile.id;
 
     return values;
   }
