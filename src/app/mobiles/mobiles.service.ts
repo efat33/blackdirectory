@@ -29,6 +29,10 @@ export class MobilesService {
       title: 'Upgrades',
       value: 'upgrades',
     },
+    {
+      title: 'Broadband',
+      value: 'broadband',
+    },
   ];
 
   constructor(private httpClient: HttpClient) {}

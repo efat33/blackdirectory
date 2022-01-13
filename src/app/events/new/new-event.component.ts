@@ -355,6 +355,7 @@ export class NewEventComponent implements OnInit {
       category_id: categories,
       tag_id: categories,
       address: event.address,
+      venue: event.venue,
       latitude: event.latitude,
       longitude: event.longitude,
       is_virtual: event.is_virtual,
@@ -426,6 +427,7 @@ export class NewEventComponent implements OnInit {
       featured_img: new FormControl('', Validators.required),
       category_id: new FormControl('', Validators.required),
       tag_id: new FormControl(''),
+      venue: new FormControl(''),
       address: new FormControl(''),
       latitude: new FormControl(''),
       longitude: new FormControl(''),
@@ -490,7 +492,6 @@ export class NewEventComponent implements OnInit {
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
         : formData.end_time;
     }
-
     if (this.eventSlug) {
       this.editEvent(formData);
     } else {
