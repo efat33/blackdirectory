@@ -94,7 +94,7 @@
               item.title
               }}</a>
 
-            <ul *ngIf="item.children?.length" class="dropdown-menu">
+            <ul *ngIf="item.children?.length" class="dropdown-menu" [class]="item.route">
               <li *ngFor="let child of item.children">
                 <a [routerLink]="[child.route]">{{ child.title }}</a>
               </li>

@@ -124,7 +124,7 @@ export class LoginModal implements OnInit, OnDestroy {
   }
 
   openForgotPassModal(): void {
-    this.userService.onRegisterLinkModal.emit();
+    this.userService.onForgotPassLinkModal.emit();
   }
 
   openRegistrationModal(): void {

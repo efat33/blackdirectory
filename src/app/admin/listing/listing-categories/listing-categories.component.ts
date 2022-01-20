@@ -22,7 +22,7 @@ export class ListingCategoriesComponent implements OnInit, AfterViewInit, OnDest
 
   categories = [];
 
-  displayedColumns: string[] = ['title', 'image', 'action'];
+  displayedColumns: string[] = ['title', 'icon', 'image', 'number_of_listing', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
