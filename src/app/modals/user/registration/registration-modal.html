@@ -34,8 +34,8 @@
 
               <section class="mb-10">
                 <mat-checkbox class="" color='primary' formControlName="agreed">I agree to the <a
-                    href="https://www.blackdirectory.co.uk/privacy-policy/" target="_blank">Privacy Policy</a> and
-                  <a href="https://www.blackdirectory.co.uk/term-of-services/" target="_blank">T&amp;C's</a>
+                    [routerLink]="['/privacy-policy']" target="_blank">Privacy Policy</a> and
+                  <a [routerLink]="['/terms--conditions']" target="_blank">T&amp;C's</a>
                 </mat-checkbox>
               </section>
               <p class="form-error" *ngIf="submitted && !f.agreed.value">You must agree to
@@ -52,8 +52,9 @@
                 <p *ngFor="let errorMessage of errorMessage" class="errorMessage">{{ errorMessage }}</p>
               </div>
 
-              <button mat-raised-button color="primary" class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
-                type="submit" [disabled]="!registrationForm.valid">
+              <button mat-raised-button color="primary"
+                class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round" type="submit"
+                [disabled]="!registrationForm.valid">
                 Register
               </button>
 

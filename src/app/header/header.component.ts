@@ -7,6 +7,7 @@ import { MenuItems, ProfileMenus } from './menu-items';
 import { HelperService } from '../shared/helper.service';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mapTo, mergeMapTo, pluck, tap } from 'rxjs/operators';
+import { NewsService } from '../news/news.service';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dialogRefLogin: any;
   dialogRefForgotPass: any;
 
+  newsCategories = [];
+
   isLoggedIn: boolean = false;
   profileImage: string;
   isCartVisible$: Observable<boolean> = this.router.events.pipe(
@@ -35,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private userService: UserService,
+    private newsService: NewsService,
     private helperService: HelperService,
     private router: Router
   ) {}
@@ -59,6 +63,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
     }
 
+    // this.getNewsCategories();
+
     // const subClickedRegisterLinkModal = this.userService.clickedRegisterLinkModal.subscribe(() => {
     //   if(this.dialogRefLogin) this.dialogRefLogin.close();
     //   if(this.dialogRefForgotPass) this.dialogRefForgotPass.close();
@@ -66,6 +72,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
 
     // this.subscriptions.add(subClickedRegisterLinkModal);
+  }
+
+  getNewsCategories() {
+    const newsCatSubscription = this.newsService.getNewsCategoriesList().subscribe(
+      (result: any) => {
+        this.newsCategories = result.data;
+      },
+      (error) => {
+        
+      }
+    );
+
+    this.subscriptions.add(newsCatSubscription);
   }
 
   logUserOut(): void {

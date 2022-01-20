@@ -58,6 +58,12 @@ export class NewsService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
+  getNewsCategoriesList(): Observable<any> {
+    const url = `api/news/get-categories-list`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
   addNewsCategory(body: any): Observable<any> {
     const url = `api/news/add-category`;
 

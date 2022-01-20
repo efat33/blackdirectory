@@ -195,7 +195,6 @@ export class HomeComponent implements OnInit {
     const subsTrendingCategories = this.listingService.getTrendingCategories().subscribe(
       (res: any) => {
         this.trendingCategories = res.data;
-        console.log(this.trendingCategories);
       },
       (res: any) => {}
     );

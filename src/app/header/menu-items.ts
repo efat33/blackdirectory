@@ -10,6 +10,44 @@ export const MenuItems = [
   {
     title: 'News',
     route: 'news',
+    children: [
+      {
+        title: 'Business',
+        route: 'news/business',
+      },
+      {
+        title: 'Celebrity News',
+        route: 'news/celebrity-news',
+      },
+      {
+        title: 'Community',
+        route: 'news/community',
+      },
+      {
+        title: 'Entertainment',
+        route: 'news/entertainment',
+      },
+      {
+        title: 'Health',
+        route: 'news/health',
+      },
+      {
+        title: 'Jobs',
+        route: 'news/jobs',
+      },
+      {
+        title: 'Music',
+        route: 'news/music',
+      },
+      {
+        title: 'Sport',
+        route: 'news/sport',
+      },
+      {
+        title: 'World News',
+        route: 'news/world-news',
+      },
+    ]
   },
   {
     title: 'Events',

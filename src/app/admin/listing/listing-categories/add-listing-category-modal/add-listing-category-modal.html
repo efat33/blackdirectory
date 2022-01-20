@@ -24,12 +24,28 @@
                   <mat-label>Category icon</mat-label>
                   <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
                   <span *ngIf="imageSrc" [ngStyle]="{'background-image': 'url('+imageSrc+')'}"></span>
-                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputAttachment.click()">Upload</a>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="inputAttachment.click()">Upload</a>
                 </section>
                 <mat-progress-bar *ngIf="progressImage" mode="determinate" [value]="progressImage" class="mb-15">
                 </mat-progress-bar>
                 <p class="form-error" *ngIf="!formCustomvalidation.image.validated">
                   {{formCustomvalidation.image.message}}</p>
+              </div>
+
+              <div class="">
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Category Image</mat-label>
+                  <input accept="image/*" type="file" #inputFeaturedImage (change)="onFeaturedImageChange($event)" />
+                  <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="inputFeaturedImage.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressFeaturedImage" mode="determinate" [value]="progressFeaturedImage"
+                  class="mb-15">
+                </mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.featured_image.validated">
+                  {{formCustomvalidation.featured_image.message}}</p>
               </div>
 
               <button mat-raised-button color="primary"

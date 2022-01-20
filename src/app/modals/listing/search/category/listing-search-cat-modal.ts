@@ -35,6 +35,7 @@ export class ListingSearchCatModal implements OnInit {
            this.chosenCategory = this.data.category;
        }
        this.categories = this.data.categories;
+       console.log('cat', this.categories);
     }
 
     
