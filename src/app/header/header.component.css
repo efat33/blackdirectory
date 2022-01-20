@@ -113,6 +113,10 @@ a.bd-header-account {
   display: block;
 }
 
+.menu-item:hover .dropdown-menu.news {
+  display: flex;
+}
+
 .menu-item .dropdown-menu li {
   padding: 6px 10px;
 }
@@ -134,6 +138,22 @@ ul.dropdown-menu a {
 
 .menu-item .dropdown-menu li:hover a {
   color: #70778b;
+}
+#wilcity-menu .dropdown-menu.news li {
+  position: relative;
+}
+#wilcity-menu .dropdown-menu.news li::after {
+  width: 1px;
+  content: "";
+  background: #fff;
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#wilcity-menu .dropdown-menu.news li:last-child::after {
+  content: none;
 }
 
 /* css for both mobile and tablet */
