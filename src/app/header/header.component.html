@@ -41,7 +41,7 @@
 
 
     <div class="header_logo__2HmDH js-header-logo">
-      <a class="wilcity-site-logo" href="https://www.blackdirectory.co.uk/">
+      <a [routerLink]="'home'" class="wilcity-site-logo">
         <img src="https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png" alt="Black Directory"
           class="lazyloaded" data-ll-status="loaded" />
       </a>
@@ -94,7 +94,7 @@
               item.title
               }}</a>
 
-            <ul *ngIf="item.children?.length" class="dropdown-menu">
+            <ul *ngIf="item.children?.length" class="dropdown-menu" [class]="item.route">
               <li *ngFor="let child of item.children">
                 <a [routerLink]="[child.route]">{{ child.title }}</a>
               </li>
@@ -140,11 +140,10 @@
                 id="wilcity-login-btn">
                 <i class="la la-unlock-alt"></i> <span class="">Account</span>
               </button>
-              <!-- <button (click)="openRegistrationModal()"
-                                class="wil-btn no-text-sm wil-btn--secondary wil-btn--round wil-btn--xs"
-                                id="wilcity-register-btn">
-                                <i class="la la-user-plus"></i> <span class="">Register</span>
-                            </button> -->
+              <button (click)="openRegistrationModal()"
+                class="wil-btn no-text-sm wil-btn--secondary wil-btn--round wil-btn--xs" id="wilcity-register-btn">
+                <i class="la la-user-plus"></i> <span class="">Register</span>
+              </button>
             </ng-template>
           </div>
         </div>

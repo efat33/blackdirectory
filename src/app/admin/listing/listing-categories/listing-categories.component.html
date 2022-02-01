@@ -20,16 +20,29 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort matSortActive="title" matSortDirection="asc">
 
-        <!-- Image Column -->
-        <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
-          <td mat-cell *matCellDef="let row"><img class="category-icon" [src]="row.image | imageSrc:'listing'"></td>
-        </ng-container>
-
         <!-- Name Column -->
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
           <td mat-cell *matCellDef="let row" [innerHTML]="row.title"></td>
+        </ng-container>
+
+        <!-- Image Column -->
+        <ng-container matColumnDef="icon">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Icon</th>
+          <td mat-cell *matCellDef="let row"><img class="category-icon" [src]="row.image | imageSrc:'listing'"></td>
+        </ng-container>
+
+        <!-- Image Column -->
+        <ng-container matColumnDef="image">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
+          <td mat-cell *matCellDef="let row"><img class="category-icon" [src]="row.featured_image | imageSrc:'listing'">
+          </td>
+        </ng-container>
+
+        <!-- Number of Listing Column -->
+        <ng-container matColumnDef="number_of_listing">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>No of Listing</th>
+          <td mat-cell *matCellDef="let row" [innerHTML]="row.listing_number"></td>
         </ng-container>
 
         <!-- Action Column -->
