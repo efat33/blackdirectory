@@ -13,7 +13,7 @@ export class WithdrawRequestsTableComponent implements OnInit, OnChanges, AfterV
   @Input() data: WithdrawRequestData[];
 
   dataSource = new MatTableDataSource<WithdrawRequestData>([]);
-  displayedColumns = ['id', 'amount', 'payment_method', 'status', 'date'];
+  displayedColumns = ['id', 'amount', 'status', 'date'];
 
   constructor(private withdrawService: WithdrawService) {}
 

@@ -1,27 +1,34 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AsyncValidatorFn, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of, Subscription } from 'rxjs';
 import { pluck, shareReplay, map, take } from 'rxjs/operators';
+import { StoreService } from 'src/app/shared/services/store.service';
 import { WithdrawData, WithdrawService } from 'src/app/shared/services/withdraw.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { SpinnerService } from 'src/app/shared/spinner.service';
 
 @Component({
   selector: 'app-withdraw',
   templateUrl: './withdraw.component.html',
   styleUrls: ['./withdraw.component.css'],
 })
-export class WithdrawComponent implements OnInit {
+export class WithdrawComponent implements OnInit, OnDestroy {
   @ViewChild('form') form;
+
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private withdrawService: WithdrawService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private storeService: StoreService,
+    private spinnerService: SpinnerService
   ) {}
 
   withdrawData$: Observable<WithdrawData> = this.activatedRoute.data.pipe(shareReplay(1), pluck('data'));
-  paymentMethods = this.withdrawService.paymentMethods;
+  paymentSettings: any;
 
   withdrawAmountValidator: AsyncValidatorFn = (c) => {
     return this.withdrawData$.pipe(
@@ -34,10 +41,31 @@ export class WithdrawComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   withdrawForm = new FormGroup({
     amount: new FormControl(null, [Validators.required], [this.withdrawAmountValidator]),
-    payment_method: new FormControl('card', [Validators.required]),
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getPaymentData();
+  }
+
+  getPaymentData() {
+    this.spinnerService.show();
+    const subscription = this.storeService.getPaymentSettings().subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+        this.paymentSettings = result.data;
+
+        if (!this.paymentSettings?.account_name) {
+          this.router.navigate(['/dashboard/payment-settings']);
+        }
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
 
   onSubmitWithdraw(): void {
     if (this.withdrawForm.invalid) {
@@ -54,5 +82,9 @@ export class WithdrawComponent implements OnInit {
         this.snackbar.openSnackBar('Withdraw request could not be made.');
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

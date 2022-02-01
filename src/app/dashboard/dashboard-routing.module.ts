@@ -42,6 +42,7 @@ import { NewTopicComponent } from './topics-new/topics-new.component';
 import { AllTopicsComponent } from './topics/topics.component';
 import { NewReplyComponent } from './reply-new/reply-new.component';
 import { AllRepliesComponent } from './replies/replies.component';
+import { PaymentSettingsComponent } from './payment-settings/payment-settings.component';
 
 const routes: Routes = [
   {
@@ -95,7 +96,12 @@ const routes: Routes = [
         canActivate: [AuthVerifiedGuard],
         resolve: { orders: OrdersResolver },
       },
-      { path: 'order/:id', component: OrderComponent, canActivate: [AuthVerifiedGuard], resolve: { order: OrderResolver } },
+      {
+        path: 'order/:id',
+        component: OrderComponent,
+        canActivate: [AuthVerifiedGuard],
+        resolve: { order: OrderResolver },
+      },
       {
         path: 'withdraw',
         component: WithdrawComponent,
@@ -108,6 +114,11 @@ const routes: Routes = [
         component: StoreSettingsComponent,
         canActivate: [AuthVerifiedGuard],
         resolve: { store: StoreResolver },
+      },
+      {
+        path: 'payment-settings',
+        component: PaymentSettingsComponent,
+        canActivate: [AuthVerifiedGuard],
       },
     ],
   },

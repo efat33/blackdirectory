@@ -31,6 +31,17 @@
             <strong> Current balance is insufficient! </strong>
           </div>
           <ng-template #withdrawSection>
+            <div *ngIf="paymentSettings" class="payment-settings">
+              <h5>Payment settings</h5>
+              <p><strong>Account Name:</strong> {{paymentSettings.account_name}}</p>
+              <p><strong>Account Number:</strong> {{paymentSettings.account_number}}</p>
+              <p><strong>Bank Name:</strong> {{paymentSettings.bank_name}}</p>
+              <p *ngIf="paymentSettings.bank_address"><strong>Bank Address:</strong> {{paymentSettings.bank_address}}</p>
+              <p *ngIf="paymentSettings.routing_number"><strong>Routing Number:</strong> {{paymentSettings.routing_number}}</p>
+              <p *ngIf="paymentSettings.iban"><strong>IBAN:</strong> {{paymentSettings.iban}}</p>
+              <p *ngIf="paymentSettings.swift_code"><strong>Swift Code:</strong> {{paymentSettings.swift_code}}</p>
+            </div>
+
             <form #form="ngForm" (ngSubmit)="onSubmitWithdraw()" [formGroup]="withdrawForm" style="margin-top: 2rem">
               <mat-form-field appearance="outline">
                 <mat-label>Withdraw Amount</mat-label>
@@ -46,14 +57,7 @@
                   <mat-icon>account_balance_wallet</mat-icon>
                 </button>
               </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Payment Method</mat-label>
-                <mat-select formControlName="payment_method">
-                  <mat-option *ngFor="let method of paymentMethods" [value]="method.value">
-                    {{ method.label }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+
               <div style="display: flex; flex-flow: row nowrap; justify-content: flex-end">
                 <button mat-flat-button color="primary" [disabled]="withdrawForm.invalid" type="submit">SUBMIT</button>
               </div>
