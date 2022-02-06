@@ -66,6 +66,19 @@
     <td mat-cell *matCellDef="let item">{{ item.created_at | date }}</td>
   </ng-container>
 
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let item" class="event-list-actions">
+      <a [routerLink]="getEditProductLink(item)" matTooltip="Edit" class=""><span class="list_text__35R07"><i
+            class="fa fa-pencil" aria-hidden="true"></i>
+        </span></a>
+      <a (click)="onDeleteProduct(item)" matTooltip="Delete" class=""><span class="list_text__35R07"><i
+            class="fa fa-trash" aria-hidden="true"></i>
+        </span></a>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
@@ -74,9 +87,5 @@
     <td class="mat-cell" colspan="4">No data matching.</td>
   </tr>
 </table>
-<mat-paginator
-  [pageSizeOptions]="[10, 25, 50, 100]"
-  [pageSize]="25"
-  [pageIndex]="0"
-  [length]="totalNumProducts$ | async"
-></mat-paginator>
+<mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="25" [pageIndex]="0"
+  [length]="totalNumProducts$ | async"></mat-paginator>

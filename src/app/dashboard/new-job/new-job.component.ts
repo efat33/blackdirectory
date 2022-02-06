@@ -34,6 +34,8 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   maxDeadlineDate: any = new Date();
   salaryUnspecified: boolean = false;
 
+  locationModified = false;
+
   formCustomvalidation = {
     attachment: {
       validated: true,
@@ -70,7 +72,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.initializeForm();
     this.getJobSectors();
-    this.initializeGoogleMap();
+
+    setTimeout(() => {
+      this.initializeGoogleMap();
+    }, 0);
 
     const subs = [this.jobService.getCurrentPackage()];
 
@@ -161,7 +166,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       job_apply_type: new FormControl('', Validators.required),
       job_industry: new FormControl(''),
       experience: new FormControl(''),
-      salary: new FormControl(''),
+      salary: new FormControl('', Validators.required),
 
       address: new FormControl('', Validators.required),
       latitude: new FormControl(''),
@@ -309,6 +314,8 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       latitude.setValue(place.geometry.location.lat());
       longitude.setValue(place.geometry.location.lng());
 
+      this.locationModified = false;
+
       this.cdk.detectChanges();
     });
   }
@@ -390,7 +397,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createJob() {
     const formValues = this.jobForm.value;
-    formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
+    formValues.deadline = moment(formValues.deadline).format('YYYY-MM-DD');
 
     if (this.salaryUnspecified) {
       formValues.salary = 0;
@@ -422,7 +429,8 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateJob() {
     const formValues = this.jobForm.value;
-    formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
+    // formValues.deadline = new Date(formValues.deadline).toLocaleDateString();
+    formValues.deadline = moment(formValues.deadline).format('YYYY-MM-DD');
 
     if (this.salaryUnspecified) {
       formValues.salary = 0;
@@ -468,6 +476,16 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
       salaryFormField.enable();
     }
 
+  }
+
+  onLocationBlur() {
+    if (this.locationModified) {
+      this.jobForm.patchValue({
+        latitude: '',
+        longitude: '',
+        address: '',
+      });
+    }
   }
 
   ngOnDestroy() {

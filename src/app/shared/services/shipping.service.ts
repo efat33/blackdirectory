@@ -7,6 +7,7 @@ import { ApiResponse } from './product.service';
 export interface ShippingOption {
   fee: number;
   id: number;
+  zones: any;
   shipping_order: number;
   title: string;
   vendor_id: number;
@@ -14,6 +15,7 @@ export interface ShippingOption {
 
 export interface PostShippingMethodBody {
   title: string;
+  zones: any;
   fee: number;
   shipping_order: number;
 }
@@ -33,6 +35,7 @@ export class ShippingService {
       map((data) =>
         data.map((opt) => ({
           ...opt,
+          zones: JSON.parse(opt.zones),
           fee: parseFloat(opt.fee),
         }))
       ),

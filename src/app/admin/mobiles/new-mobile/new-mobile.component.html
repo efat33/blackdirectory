@@ -5,7 +5,7 @@
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Provider</mat-label>
-            <mat-select formControlName="provider_id">
+            <mat-select required formControlName="provider_id">
               <mat-option *ngFor="let provider of mobilesProviders" [value]="provider.id">
                 {{provider.title}}
               </mat-option>
@@ -16,7 +16,7 @@
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Category</mat-label>
-            <mat-select formControlName="category">
+            <mat-select required formControlName="category" (selectionChange)="onChangeCategory($event.value)">
               <mat-option *ngFor="let category of mobilesService.categories" [value]="category.value">
                 {{category.title}}
               </mat-option>
@@ -24,17 +24,55 @@
           </mat-form-field>
         </div>
 
+        <div class="col-md-6" [ngClass]="{'d-none': mobilesForm.get('category').value != 'contract-phones'}">
+          <mat-form-field>
+            <mat-label>Brand</mat-label>
+            <mat-select [required]="mobilesForm.get('category').value == 'contract-phones'" formControlName="brand">
+              <mat-option *ngFor="let item of mobilesService.brands" [value]="item.value">
+                {{item.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6" [ngClass]="{'d-none': mobilesForm.get('category').value != 'contract-phones'}">
+          <mat-form-field>
+            <mat-label>Model</mat-label>
+            <mat-select [required]="mobilesForm.get('category').value == 'contract-phones'" formControlName="model">
+              <mat-option *ngFor="let item of mobilesService.brand_models[mobilesForm.get('brand').value]"
+                [value]="item.value">
+                {{item.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12" [ngClass]="{'d-none': mobilesForm.get('category').value != 'contract-phones'}">
+          <section class="section-mat-form-field section-field-file section-field-preview-img">
+            <mat-label>Image <span
+                class="mat-placeholder-required mat-form-field-required-marker ng-tns-c156-28 ng-star-inserted">
+                *</span></mat-label>
+            <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
+            <span *ngIf="imageSrc" [ngStyle]="{'background-image': 'url('+imageSrc+')'}"></span>
+            <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputAttachment.click()">Upload</a>
+          </section>
+          <mat-progress-bar *ngIf="progressImage" mode="determinate" [value]="progressImage" class="mb-15">
+          </mat-progress-bar>
+          <p class="form-error" *ngIf="!formCustomvalidation.image.validated">
+            {{formCustomvalidation.image.message}}</p>
+        </div>
+
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Link</mat-label>
-            <input matInput formControlName="link" />
+            <input required matInput formControlName="link" />
           </mat-form-field>
         </div>
 
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Monthly Cost</mat-label>
-            <input matInput formControlName="cost" (keypress)="numericOnly($event)" />
+            <input required matInput formControlName="cost" (keypress)="numericOnly($event)" />
             <span matPrefix>£ &nbsp;</span>
           </mat-form-field>
         </div>
@@ -44,7 +82,7 @@
             <div>
               <mat-form-field>
                 <mat-label>Data</mat-label>
-                <input matInput formControlName="data" (keypress)="numericOnly($event)" />
+                <input required matInput formControlName="data" (keypress)="numericOnly($event)" />
                 <span matSuffix>GB</span>
               </mat-form-field>
             </div>
@@ -61,7 +99,7 @@
             <div>
               <mat-form-field>
                 <mat-label>Minutes</mat-label>
-                <input matInput formControlName="minutes" (keypress)="numericOnly($event)" />
+                <input required matInput formControlName="minutes" (keypress)="numericOnly($event)" />
                 <span matSuffix></span>
               </mat-form-field>
             </div>
@@ -78,7 +116,7 @@
             <div>
               <mat-form-field>
                 <mat-label>Texts</mat-label>
-                <input matInput formControlName="texts" (keypress)="numericOnly($event)" />
+                <input required matInput formControlName="texts" (keypress)="numericOnly($event)" />
                 <span matSuffix></span>
               </mat-form-field>
             </div>
@@ -93,7 +131,7 @@
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Contract Length</mat-label>
-            <input matInput formControlName="contract_length" (keypress)="numericOnly($event)" />
+            <input required matInput formControlName="contract_length" (keypress)="numericOnly($event)" />
             <span matSuffix>Month(s)</span>
             <mat-hint align="start">Put 0 if 'No Contract'</mat-hint>
           </mat-form-field>

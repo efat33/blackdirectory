@@ -1,0 +1,36 @@
+<main id="tribe-events-pg-template" class="tribe-events-pg-template">
+  <div id="epta-template" class="epta-row epta-template-1">
+    <div class="epta-title-alone col-md-12">
+      <h2>{{ event.title }}</h2>
+    </div>
+    <div class="col-md-8">
+      <div class="epta-image-area">
+        <div class="tribe-events-event-image">
+          <img width="950" height="440" src="{{ event.featured_image | imageSrc : 'travels' : 'large' }}"
+            class="attachment-full size-full wp-post-image" alt="">
+        </div>
+      </div>
+      <div class="epta-content-area">
+        <div class="tribe-events-single-event-description tribe-events-content" [innerHTML]="event.content">
+
+        </div>
+      </div>
+
+      <div class="epta-share-area">
+        <h3 class="tecset-share-title">Share This Travel</h3>
+        <share-buttons [theme]="'material-dark'" [include]="['facebook','twitter','linkedin','pinterest','email']"
+          [title]="event.title" [url]="router.url" [image]="event.featured_image | imageSrc : 'event' : 'large'"
+          [autoSetMeta]="false"></share-buttons>
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="travel-details-sidebar text-center">
+        sidebar
+      </div>
+    </div>
+
+  </div>
+
+</main>

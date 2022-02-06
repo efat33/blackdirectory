@@ -35,6 +35,51 @@ export class MobilesService {
     },
   ];
 
+  brands = [
+    {
+      title: 'iPhone',
+      value: 'iphone',
+      logo: 'apple-logo.png',
+    },
+    {
+      title: 'Samsung',
+      value: 'samsung',
+      logo: 'samsung-logo.png',
+    }
+  ];
+
+  brand_models = 
+    {
+      iphone: [
+        {
+          title: 'iPhone 10',
+          value: 'iphone10',
+        },
+        {
+          title: 'iPhone 11',
+          value: 'iphone11',
+        },
+        {
+          title: 'iPhone 12',
+          value: 'iphone12',
+        },
+        {
+          title: 'iPhone 13',
+          value: 'iphone13',
+        }
+      ],
+      samsung: [
+        {
+          title: 'S20',
+          value: 's20',
+        },
+        {
+          title: 'S21',
+          value: 's21',
+        }
+      ]
+    };
+
   constructor(private httpClient: HttpClient) {}
 
   getMobiles(params: any = {}): Observable<any> {
