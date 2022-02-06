@@ -158,7 +158,9 @@ export class JobApplyEmailModal implements OnInit, OnDestroy {
   }
 
   prepareEmailOptions() {
-    const emailBody = `New job application for job: ${this.job.title}
+    const emailBody = `Hi ${this.job.user.display_name},
+
+You have recieved a new application for your job "<a href='${location.origin}/jobs/details/${this.job.slug}'>${this.job.title}</a>".
 
 First Name: ${this.jobApplyForm.value.first_name}
 Last Name: ${this.jobApplyForm.value.last_name}
@@ -170,11 +172,15 @@ academics: ${this.jobApplyForm.value.academics.join(', ')}
 age: ${this.jobApplyForm.value.age}
 industry: ${this.jobApplyForm.value.industry}
 gender: ${this.jobApplyForm.value.gender}
-message: ${this.jobApplyForm.value.message}`;
+message: ${this.jobApplyForm.value.message}
+
+Best regards,
+
+Black Directory Team`;
 
     const options = {
       to: this.job.job_meta.job_apply_email,
-      subject: 'New Job Application',
+      subject: 'Black Directory - Job Application',
       body: emailBody,
       resume: this.jobApplyForm.value.resume
     };
