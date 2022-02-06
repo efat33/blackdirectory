@@ -12,6 +12,7 @@
         <tr>
           <th>Title</th>
           <th>Amount</th>
+          <th>Countries</th>
           <th></th>
           <th></th>
         </tr>
@@ -20,6 +21,7 @@
         <tr *ngFor="let opt of options">
           <td>{{ opt.title }}</td>
           <td>{{ opt.fee | currency }}</td>
+          <td>{{ getShippingCountries( opt.zones) }}</td>
           <td>
             <button mat-icon-button color="warn" (click)="removeOption(opt.id)">
               <mat-icon>highlight_off</mat-icon>
@@ -29,19 +31,15 @@
             <button *ngIf="editingOptionId !== opt.id" mat-icon-button color="primary" (click)="f.patchValue(opt)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button
-              *ngIf="editingOptionId === opt.id"
-              mat-flat-button
-              style="min-width: 40px; padding: 0"
-              color="warn"
+            <button *ngIf="editingOptionId === opt.id" mat-flat-button style="min-width: 40px; padding: 0" color="warn"
               (click)="
                 f.patchValue({
                   id: null,
                   title: '',
+                  zones: '',
                   fee: null
                 })
-              "
-            >
+              ">
               <mat-icon>edit</mat-icon>
             </button>
           </td>
@@ -69,25 +67,20 @@
         <mat-label>Amount</mat-label>
         <input matInput type="number" required formControlName="fee" />
       </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="zones" required multiple>
+          <mat-option *ngFor="let country of countries | async" [value]="country.id"> {{ country.title }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div style="display: flex; justify-content: flex-end">
-        <button
-          mat-flat-button
-          color="primary"
-          type="submit"
-          *ngIf="!isEditing"
-          [disabled]="f.invalid"
-          (click)="addOption(); shippingForm.resetForm()"
-        >
+        <button mat-flat-button color="primary" type="submit" *ngIf="!isEditing" [disabled]="f.invalid"
+          (click)="addOption(); shippingForm.resetForm()">
           ADD OPTION
         </button>
-        <button
-          mat-flat-button
-          color="primary"
-          type="submit"
-          *ngIf="isEditing"
-          [disabled]="f.invalid"
-          (click)="editOption(); shippingForm.resetForm()"
-        >
+        <button mat-flat-button color="primary" type="submit" *ngIf="isEditing" [disabled]="f.invalid"
+          (click)="editOption(); shippingForm.resetForm()">
           EDIT OPTION
         </button>
       </div>

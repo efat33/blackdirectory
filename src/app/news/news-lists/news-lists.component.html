@@ -23,9 +23,7 @@
               <ul class="article-icon-links cleared">
 
                 <li class="">
-                  <a class="comments-link"
-                    href="https://www.dailymail.co.uk/sport/sportsnews/article-9825497/Tokyo-Olympics-Great-Britain-claim-THREE-Olympic-golds-silver.html#comments"
-                    rel="nofollow">
+                  <a class="comments-link" [routerLink]="['/news/details', topNews.slug]">
                     <span class="icon"></span>
                     <span class="linktext">
                       <span class="readerCommentNo bold" rel="9825497">{{topNews.total_comments}}</span> comments
@@ -76,9 +74,7 @@
                       data-social-first-article-links="">
                       <ul class="article-icon-links cleared">
                         <li class="">
-                          <a class="comments-link"
-                            href="https://www.dailymail.co.uk/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html#comments"
-                            rel="nofollow">
+                          <a class="comments-link" [routerLink]="['/news/details', news.slug]" fragment="comments">
                             <span class="icon"></span>
                             <span class="linktext">
                               <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span> comments
@@ -140,9 +136,7 @@
                           data-social-first-article-links="">
                           <ul class="article-icon-links cleared">
                             <li class="">
-                              <a class="comments-link"
-                                href="https://www.dailymail.co.uk/tvshowbiz/article-9825193/Dieter-Brummer-dead-Home-Away-star-known-playing-Shane-Parrish-dies-aged-45.html#comments"
-                                rel="nofollow">
+                              <a class="comments-link" [routerLink]="['/news/details', news.slug]">
                                 <span class="icon"></span>
                                 <span class="linktext">
                                   <span class="readerCommentNo bold" rel="9825193">{{news.total_comments}}</span>

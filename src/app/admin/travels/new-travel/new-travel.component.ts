@@ -10,21 +10,20 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomUploadAdapter } from 'src/app/shared/ckeditorImageUploadAdapter';
 import { NewsService } from 'src/app/news/news.service';
+import { TravelService } from 'src/app/travels/travels.service';
 
 @Component({
-  selector: 'app-new-news',
-  templateUrl: './new-news.component.html',
-  styleUrls: ['./new-news.component.scss'],
+  selector: 'app-new-travel',
+  templateUrl: './new-travel.component.html',
+  styleUrls: ['./new-travel.component.scss'],
 })
-export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NewTravelComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
-
-  newsCategories = [];
 
   featuredImageSrc: string;
 
-  editNewsId: number = null;
-  newsForm: FormGroup;
+  editTravelId: number = null;
+  travelForm: FormGroup;
   showError = false;
   errorMessage = '';
   progressFeaturedImage: number = 0;
@@ -44,13 +43,14 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.newsForm.controls;
+    return this.travelForm.controls;
   }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private newsService: NewsService,
+    private travelService: TravelService,
     private uploadService: UploadService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
@@ -60,24 +60,24 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-    this.getNewsCategories();
 
-    const newsId = this.route.snapshot.paramMap.get('news_id');
-    if (newsId != null) {
-      this.editNewsId = parseInt(newsId);
+    const travelId = this.route.snapshot.paramMap.get('travel_id');
+    
+    if (travelId != null) {
+      this.editTravelId = parseInt(travelId);
 
       this.spinnerService.show();
-      this.newsService.getSingleNews(this.editNewsId).subscribe(
+      this.travelService.getSingleTravel(this.editTravelId).subscribe(
         (result: any) => {
           this.spinnerService.hide();
 
-          const news = result.data[0];
+          const travel = result.data[0];
           
-          if (news) {
-            this.prepareForm(news);
+          if (travel) {
+            this.prepareForm(travel);
 
-            if (news.featured_image) {
-              this.featuredImageSrc = this.helperService.getImageUrl(news.featured_image, 'news', 'thumb');
+            if (travel.featured_image) {
+              this.featuredImageSrc = this.helperService.getImageUrl(travel.featured_image, 'travels', 'thumb');
             }
           }
         },
@@ -97,52 +97,28 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
       .parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
 
     editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-      return new CustomUploadAdapter(loader, this.helperService.apiUrl, 'news', 'upload/image-news-ckeditor');
+      return new CustomUploadAdapter(loader, this.helperService.apiUrl, 'travels', 'upload/image-travel-ckeditor');
     };
   }
 
   initializeForm() {
-    this.newsForm = new FormGroup({
+    this.travelForm = new FormGroup({
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
-      short_content: new FormControl('', Validators.required),
-      category_id: new FormControl('', Validators.required),
       featured_image: new FormControl('', Validators.required),
-      featured: new FormControl(0),
     });
   }
 
-  prepareForm(news: any) {
-    if (!news) {
+  prepareForm(travel: any) {
+    if (!travel) {
       return;
     }
 
-    const categories = news.categories.map((c) => c.category_id);
-
-    this.newsForm.patchValue({
-      title: news.title,
-      content: news.content,
-      short_content: news.short_content,
-      category_id: categories,
-      featured_image: news.featured_image,
-      featured: news.featured,
+    this.travelForm.patchValue({
+      title: travel.title,
+      content: travel.content,
+      featured_image: travel.featured_image,
     });
-  }
-
-  getNewsCategories() {
-    this.spinnerService.show();
-    const getSectorsSubscription = this.newsService.getNewsCategories().subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
-        this.newsCategories = result.data;
-      },
-      (error) => {
-        this.spinnerService.hide();
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-      }
-    );
-
-    this.subscriptions.add(getSectorsSubscription);
   }
 
   onAttachmentChange(event) {
@@ -168,7 +144,7 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
       fd.append('image', file, file.name);
       fd.append('resize', 'yes');
 
-      this.uploadService.uploadImage(fd, 'news').subscribe((result: HttpEvent<any>) => {
+      this.uploadService.uploadImage(fd, 'travel').subscribe((result: HttpEvent<any>) => {
         switch (result.type) {
           case HttpEventType.UploadProgress:
             this.progressFeaturedImage = Math.round((result.loaded / result.total) * 100);
@@ -179,7 +155,7 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
               this.formCustomvalidation.featuredImage.validated = false;
               this.formCustomvalidation.featuredImage.message = result.body.data.fileValidationError;
             } else {
-              this.newsForm.get('featured_image').patchValue(result.body.data.filename);
+              this.travelForm.get('featured_image').patchValue(result.body.data.filename);
             }
 
             // hide progress bar
@@ -192,23 +168,23 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.editNewsId == null) {
-      this.createNews();
+    if (this.editTravelId == null) {
+      this.createTravel();
     } else {
-      this.updateNews();
+      this.updateTravel();
     }
   }
 
-  createNews() {
-    const formValues = this.newsForm.value;
-    
+  createTravel() {
+    const formValues = this.travelForm.getRawValue();
+
     this.spinnerService.show();
-    const newNewsSubscription = this.newsService.addNews(formValues).subscribe(
+    const newNewsSubscription = this.travelService.addTravel(formValues).subscribe(
       (result: any) => {
         this.spinnerService.hide();
         // console.log(result);
 
-        this.router.navigate(['/admin/news-all']);
+        this.router.navigate(['/admin/all-travels']);
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {
@@ -221,16 +197,16 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(newNewsSubscription);
   }
 
-  updateNews() {
-    const formValues = this.newsForm.value;
+  updateTravel() {
+    const formValues = this.travelForm.value;
 
     this.spinnerService.show();
-    const updateNewsSubscription = this.newsService.updateNews(this.editNewsId, formValues).subscribe(
+    const updateNewsSubscription = this.travelService.updateTravel(this.editTravelId, formValues).subscribe(
       (result: any) => {
         this.spinnerService.hide();
         // console.log(result);
 
-        this.router.navigate(['/admin/news-all']);
+        this.router.navigate(['/admin/all-travels']);
         this.snackbar.openSnackBar(result.message);
       },
       (error) => {
@@ -245,22 +221,6 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formatSalarySliderLabel(value: number) {
     return Math.round(value / 1000) + 'k';
-  }
-
-  onSelectOpen(opened: boolean, searchInput: any) {
-    if (opened) {
-      searchInput.focus();
-    }
-  }
-
-  filteredNewsCategory(searchString: any) {
-    if (this.newsCategories) {
-      return this.newsCategories.filter((category) =>
-        category.name.toLowerCase().includes(searchString.toLowerCase())
-      );
-    }
-
-    return [];
   }
 
   ngOnDestroy() {

@@ -28,6 +28,16 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
   showError = false;
   errorMessage = '';
 
+  progressImage: number = 0;
+  imageSrc: string = '';
+
+  formCustomvalidation = {
+    image: {
+      validated: true,
+      message: '',
+    },
+  };
+
   ckConfig = {
     placeholder: 'Description',
     toolbar: ['heading', '|', 'bold', 'italic', 'link'],
@@ -46,6 +56,7 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
     public mobilesService: MobilesService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
+    private uploadService: UploadService,
     private snackbar: SnackBarService
   ) {}
 
@@ -106,6 +117,9 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
       texts: new FormControl('', Validators.required),
       contract_length: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
+      brand: new FormControl(''),
+      model: new FormControl(''),
+      image: new FormControl(''),
       top_pick: new FormControl(0),
     });
   }
@@ -125,6 +139,9 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
       texts: this.getUnlimitedOrValue(mobile.texts),
       contract_length: mobile.contract_length,
       category: mobile.category,
+      brand: mobile.brand,
+      model: mobile.model,
+      image: mobile.image,
       top_pick: mobile.isTopPick,
     });
 
@@ -138,6 +155,10 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.isUnlimited('texts')) {
       this.mobilesForm.get('texts').disable();
+    }
+
+    if (mobile.image) {
+      this.imageSrc = this.helperService.getImageUrl(mobile.image, 'mobiles', 'thumb');
     }
   }
 
@@ -251,6 +272,66 @@ export class NewMobileComponent implements OnInit, AfterViewInit, OnDestroy {
     const result = patt.test(event.key);
 
     return result;
+  }
+
+  onChangeCategory(category) {
+    if (category == 'contract-phones') {
+      
+      this.mobilesForm.get('brand').setValidators([Validators.required]);
+      this.mobilesForm.get('model').setValidators([Validators.required]);
+      this.mobilesForm.get('image').setValidators([Validators.required]);
+    } else {
+
+      this.mobilesForm.get('brand').clearValidators();
+      this.mobilesForm.get('model').clearValidators();
+      this.mobilesForm.get('image').clearValidators();
+    }
+  }
+
+  onAttachmentChange(event: any) {
+    // reset validation
+    this.formCustomvalidation.image.validated = true;
+    this.formCustomvalidation.image.message = '';
+
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+
+      // do validation
+      const res = this.helperService.imageValidation(file);
+      if (!res.validated) {
+        this.formCustomvalidation.image.validated = false;
+        this.formCustomvalidation.image.message = res.message;
+        return;
+      }
+
+      this.imageSrc = URL.createObjectURL(file);
+
+      // send image to the server
+      const fd = new FormData();
+      fd.append('image', file, file.name);
+      fd.append('resize', 'yes');
+
+      this.uploadService.uploadImage(fd, 'mobiles').subscribe((result: HttpEvent<any>) => {
+        switch (result.type) {
+          case HttpEventType.UploadProgress:
+            this.progressImage = Math.round((result.loaded / result.total) * 100);
+            break;
+          case HttpEventType.Response:
+            // check for validation
+            if (result.body.data.fileValidationError) {
+              this.formCustomvalidation.image.validated = false;
+              this.formCustomvalidation.image.message = result.body.data.fileValidationError;
+            } else {
+              this.mobilesForm.get('image').patchValue(result.body.data.filename);
+            }
+
+            // hide progress bar
+            setTimeout(() => {
+              this.progressImage = 0;
+            }, 1500);
+        }
+      });
+    }
   }
 
   ngOnDestroy() {

@@ -48,6 +48,15 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.route.fragment.subscribe(f => {
+        const element = document.getElementById(f);
+        if (element) element.scrollIntoView({behavior: 'smooth'});
+      });
+    }, 200);
+  }
+
   getNews() {
     this.spinnerService.show();
     const subscription = this.newsService.getSingleNews(this.newsSlug).subscribe(

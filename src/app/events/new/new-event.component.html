@@ -66,9 +66,9 @@
                                                     </mat-datepicker-toggle>
                                                     <mat-datepicker #event_start_date></mat-datepicker> -->
 
-                                                    <input matInput formControlName="start_time" autocomplete="off"
-                                                        [owlDateTimeTrigger]="start_time" [owlDateTime]="start_time"
-                                                        (focus)="start_time.open()">
+                                                    <input required matInput formControlName="start_time"
+                                                        autocomplete="off" [owlDateTimeTrigger]="start_time"
+                                                        [owlDateTime]="start_time" (focus)="start_time.open()">
                                                     <span class="owldate-trigger" [owlDateTimeTrigger]="start_time">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
@@ -79,9 +79,9 @@
                                             <div class="col-md-6">
                                                 <mat-form-field>
                                                     <mat-label>End Time</mat-label>
-                                                    <input matInput formControlName="end_time" autocomplete="off"
-                                                        [owlDateTimeTrigger]="end_time" [owlDateTime]="end_time"
-                                                        (focus)="end_time.open()">
+                                                    <input required matInput formControlName="end_time"
+                                                        autocomplete="off" [owlDateTimeTrigger]="end_time"
+                                                        [owlDateTime]="end_time" (focus)="end_time.open()">
                                                     <span class="owldate-trigger" [owlDateTimeTrigger]="end_time">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
@@ -392,13 +392,14 @@
                                 <div class="content-box_body__3tSRB">
                                     <mat-form-field>
                                         <mat-label>Venue Name</mat-label>
-                                        <input matInput formControlName="venue" />
+                                        <input [required]="!isVirtual" matInput formControlName="venue" />
                                     </mat-form-field>
                                     <mat-form-field>
                                         <mat-label>Full Address</mat-label>
-                                        <input matInput formControlName="address" />
+                                        <input [required]="!isVirtual" matInput formControlName="address"
+                                            (keydown)="locationModified = true" (blur)="onLocationBlur()" />
                                     </mat-form-field>
-                                    <div class="row">
+                                    <div class="row d-none">
                                         <div class="col-md-6">
                                             <mat-form-field>
                                                 <mat-label>Latitude</mat-label>
@@ -434,13 +435,14 @@
                             <div>
                                 <div class="content-box_body__3tSRB">
                                     <section class="section-mat-form-field ">
-                                        <mat-checkbox color='primary' formControlName="is_virtual">
+                                        <mat-checkbox color='primary' formControlName="is_virtual"
+                                            (change)="onChangeVirtual($event)">
                                             Virtual
                                         </mat-checkbox>
                                     </section>
                                     <mat-form-field *ngIf="eventForm.get('is_virtual').value">
                                         <mat-label>Youtube URL</mat-label>
-                                        <input matInput formControlName="youtube_url" />
+                                        <input [required]="isVirtual" matInput formControlName="youtube_url" />
                                     </mat-form-field>
                                 </div>
                             </div>

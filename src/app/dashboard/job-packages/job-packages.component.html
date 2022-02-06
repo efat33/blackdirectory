@@ -23,21 +23,22 @@
             <th>Jobs you can post</th>
             <td>Total: {{currentPackage.number_of_jobs == -1 ? 'UNLIMITED' : currentPackage.number_of_jobs}}</td>
             <td>Used: {{jobsPosted}}</td>
-            <td>Remaininig: {{currentPackage.number_of_jobs == -1 ? '-' : currentPackage.number_of_jobs - jobsPosted}}
+            <td>Remaining: {{currentPackage.number_of_jobs == -1 ? '-' : currentPackage.number_of_jobs - jobsPosted}}
             </td>
           </tr>
           <tr class="">
             <th>Featured job credits</th>
             <td>Total: {{currentPackage.featured_jobs}}</td>
             <td>Used: {{featuredJobs}}</td>
-            <td>Remaininig: {{currentPackage.featured_jobs == 'UNLIMITED' ? '-' : currentPackage.featured_jobs -
+            <td>Remaining: {{currentPackage.featured_jobs == 'UNLIMITED' ? '-' : currentPackage.featured_jobs -
               featuredJobs}}</td>
           </tr>
           <tr class="">
             <th>Download candidate CVs from database</th>
             <td>Total: {{currentPackage.cv_download == -1 ? 'UNLIMITED' : currentPackage.cv_download}}</td>
             <td>Used: {{cvDownload}}</td>
-            <td class="">Remaininig: {{currentPackage.cv_download == -1 ? '-' : currentPackage.cv_download - cvDownload}}</td>
+            <td class="">Remaining: {{currentPackage.cv_download == -1 ? '-' : currentPackage.cv_download - cvDownload}}
+            </td>
           </tr>
         </tbody>
       </table>
