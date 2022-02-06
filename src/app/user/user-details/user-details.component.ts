@@ -351,14 +351,21 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
     const body = {
       to: this.currentUser.email,
-      subject: 'Message from Black Direcotory',
-      body: `
+      subject: 'Black Directory - Contact Form',
+      body: `Hello ${this.currentUser.first_name} ${this.currentUser.last_name},
+
+The below inquiry has been made by ${formValues.name} via your profile.
+
 <strong>Name:</strong> ${formValues.name}
 <strong>Email:</strong> ${formValues.email}
 <strong>Phone:</strong> ${formValues.phone}
 
 <strong>Message:</strong>
-${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}`,
+${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}
+
+Best regards,
+
+Black Directory Team`,
     };
 
     this.loading = true;

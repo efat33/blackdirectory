@@ -227,7 +227,7 @@ export class AllApplicantsComponent implements OnInit, OnDestroy {
   sendEmail(jobApplication: any) {
     this.dialog.open(SendEmailModalComponent, {
       minWidth: '35vw',
-      data: { to: jobApplication.user.email },
+      data: { to: jobApplication.user, job: jobApplication.job },
     });
   }
 
