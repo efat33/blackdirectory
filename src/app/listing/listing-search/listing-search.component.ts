@@ -123,7 +123,7 @@ export class ListingSearchComponent implements OnInit, AfterViewInit {
 
     const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
     const address = this.listingSearchForm.get('address');
-
+    
     const autocompleteOptions = {
       fields: ['formatted_address', 'geometry', 'name'],
     };

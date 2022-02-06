@@ -9,20 +9,21 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
+import { TravelService } from 'src/app/travels/travels.service';
 
 declare const google: any;
 
 @Component({
-  selector: 'app-manage-news',
-  templateUrl: './manage-news.component.html',
-  styleUrls: ['./manage-news.component.scss'],
+  selector: 'app-manage-travel',
+  templateUrl: './manage-travel.component.html',
+  styleUrls: ['./manage-travel.component.scss'],
 })
-export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ManageTravelComponent implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
   allNews = [];
 
-  displayedColumns: string[] = ['image', 'title', 'category', 'featured', 'updated_at', 'action'];
+  displayedColumns: string[] = ['image', 'title', 'updated_at', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,13 +32,14 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private newsService: NewsService,
+    private travelService: TravelService,
     private helperService: HelperService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
   ) {}
 
   ngOnInit() {
-    this.getNews();
+    this.getTravels();
   }
 
   ngAfterViewInit() {
@@ -57,19 +59,13 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  getCategoryNames(categories) {
-    const cat_arr = categories.map((c) => c.name);
-
-    return cat_arr.join(', ');
-  }
-
-  getNews() {
+  getTravels() {
     this.spinnerService.show();
-    const subscription = this.newsService.getNews().subscribe(
+    const subscription = this.travelService.getTravels().subscribe(
       (result: any) => {
         this.spinnerService.hide();
         
-        this.allNews = result.data;
+        this.allNews = result.data.travels;
         this.dataSource.data = this.allNews;
       },
       (error) => {
@@ -90,19 +86,19 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  deleteNews(news: any) {
+  deleteTravel(travel: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       panelClass: 'confimation-dialog',
-      data: { message: 'Are you sure to delete the news?' },
+      data: { message: 'Are you sure to delete the travel?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-        const subscription = this.newsService.deleteNews(news.id).subscribe(
+        const subscription = this.travelService.deleteTravel(travel.id).subscribe(
           (result: any) => {
             this.spinnerService.hide();
-            this.getNews();
+            this.getTravels();
           },
           (error) => {
             this.spinnerService.hide();
@@ -115,23 +111,6 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.subscriptions.add(dialogCloseSubscription);
-  }
-
-  featureNews(news: any) {
-    this.spinnerService.show();
-    const featuredNewsSubs = this.newsService.updateNews(news.id, { featured: !news.featured }).subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
-
-        news.featured = !news.featured;
-      },
-      (error) => {
-        this.spinnerService.hide();
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-      }
-    );
-
-    this.subscriptions.add(featuredNewsSubs);
   }
 
   ngOnDestroy() {

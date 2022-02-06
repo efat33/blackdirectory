@@ -112,13 +112,12 @@ export class NewsListComponent implements OnInit, OnDestroy {
       (result: any) => {
         this.allNews = result.data;
 
+        let excludeIds = this.allNews.map((news: any) => parseInt(news.id));
+        if (this.topNewsId) {
+          excludeIds = [...excludeIds, this.topNewsId];
+        }
+        
         for (const categoryId of Object.keys(this.newsByCategory)) {
-          let excludeIds = this.allNews.map((news: any) => parseInt(news.id));
-
-          if (this.topNewsId) {
-            excludeIds = [...excludeIds, this.topNewsId];
-          }
-
           const subscription = this.newsService
             .getNewsByQuery({ category_id: parseInt(categoryId), exclude: excludeIds }, this.newsPerSection)
             .subscribe(

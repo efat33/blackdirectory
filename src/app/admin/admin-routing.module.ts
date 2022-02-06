@@ -47,6 +47,8 @@ import { NewTopicComponent } from '../dashboard/topics-new/topics-new.component'
 import { AllRepliesComponent } from '../dashboard/replies/replies.component';
 import { NewReplyComponent } from '../dashboard/reply-new/reply-new.component';
 import { ForumCategoriesComponent } from './forums/forum-categories/forum-categories.component';
+import { NewTravelComponent } from './travels/new-travel/new-travel.component';
+import { ManageTravelComponent } from './travels/manage-travel/manage-travel.component';
 
 const routes: Routes = [
   {
@@ -88,6 +90,10 @@ const routes: Routes = [
       { path: 'news-all', component: ManageNewsComponent },
       { path: 'news-categories', component: NewsCategoriesComponent },
       { path: 'top-news', component: TopNewsComponent },
+
+      { path: 'new-travel', component: NewTravelComponent },
+      { path: 'edit-travel/:travel_id', component: NewTravelComponent },
+      { path: 'all-travels', component: ManageTravelComponent },
 
       { path: 'job-sectors', component: JobSectorsComponent },
 

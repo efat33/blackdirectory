@@ -1,4 +1,4 @@
-<div class="wil-content wilcity-archive">
+<div class="wil-content wilcity-archive" [ngClass]="{'contract-phones': mobileCategory == 'contract-phones'}">
   <section class="wil-section has-page-heading">
     <div class="container">
       <h1 class="has-text-align-center heading_title__1bzno">{{categoryName}} Deals</h1>
@@ -29,6 +29,34 @@
                     (click)="onClickProvider(provider)">
                     <img [src]="provider.logo | imageSrc:'mobiles':'thumb'">
                   </a>
+                </div>
+              </div>
+
+              <div class="jobsearch-checkbox-toggle single-mbl-filter" *ngIf="mobileCategory == 'contract-phones'">
+                <p>
+                  <label for="amount">Brands</label>
+                </p>
+                <div class="filter-provider-options">
+                  <a *ngFor="let item of mobilesService.brands"
+                    [ngClass]="{'active': selectedBrands.includes(item.value)}" (click)="onClickBrand(item)">
+                    <img [src]="siteUrl + '/assets/img/' + item.logo">
+                  </a>
+                </div>
+              </div>
+
+              <div class="jobsearch-checkbox-toggle single-mbl-filter" *ngIf="mobileCategory == 'contract-phones'">
+                <p>
+                  <label for="amount">Models</label>
+                </p>
+                <div class="filter-contract-length">
+                  <div class="fcl-row">
+
+                    <a *ngFor="let item of modelOptions" class="single-fcl"
+                      [ngClass]="{'active': selectedmodels.includes(item.value)}" (click)="onClickModel(item)">{{
+                      item.title
+                      }}</a>
+
+                  </div>
                 </div>
               </div>
 
@@ -155,6 +183,10 @@
               <div *ngIf="topMobile" class="single-mobile-row top-pick">
                 <span class="top-pick-leble">TOP PICK</span>
                 <div class="single-mobile-top">
+                  <div class="single-mobile-coln mobile-network" *ngIf="mobileCategory == 'contract-phones'">
+                    <img [src]="topMobile.image | imageSrc:'mobiles':'thumb'" alt="">
+                  </div>
+
                   <div class="single-mobile-coln mobile-network">
                     <img [src]="topMobile.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
                   </div>
@@ -195,6 +227,10 @@
               <div class="mobile-area-filtered" *ngIf="mobiles">
                 <div *ngFor="let mobile of mobiles" class="single-mobile-row">
                   <div class="single-mobile-top">
+                    <div class="single-mobile-coln mobile-network" *ngIf="mobileCategory == 'contract-phones'">
+                      <img [src]="mobile.image | imageSrc:'mobiles':'thumb'" alt="">
+                    </div>
+
                     <div class="single-mobile-coln mobile-network">
                       <img [src]="mobile.provider_logo | imageSrc:'mobiles':'thumb'" alt="">
                     </div>

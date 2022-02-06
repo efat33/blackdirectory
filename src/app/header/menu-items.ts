@@ -4,7 +4,7 @@ export const MenuItems = [
     route: 'home',
   },
   {
-    title: 'Businesses',
+    title: 'Directory',
     route: 'listing',
   },
   {
@@ -85,7 +85,7 @@ export const MenuItems = [
   },
   {
     title: 'Travel',
-    route: 'travel',
+    route: 'travels',
   },
   {
     title: 'Deals & Shopping',

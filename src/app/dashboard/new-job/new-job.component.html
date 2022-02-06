@@ -111,8 +111,8 @@
       <div class="row salary-row">
         <div class="col-md-6">
           <mat-form-field>
-            <label>Salary (£)</label>
-            <input matInput formControlName="salary" (keypress)="numericOnly($event)" />
+            <mat-label>Salary (£)</mat-label>
+            <input required matInput formControlName="salary" (keypress)="numericOnly($event)" />
           </mat-form-field>
         </div>
         <div class="col-md-6">
@@ -135,9 +135,11 @@
     <div class="content-box_body__3tSRB">
       <mat-form-field>
         <mat-label>Full Address</mat-label>
-        <input required matInput formControlName="address" />
+        <input required matInput formControlName="address" autocomplete="off" (keydown)="locationModified = true"
+          (blur)="onLocationBlur()" />
       </mat-form-field>
-      <div class="row">
+
+      <div class="row d-none">
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Latitude</mat-label>

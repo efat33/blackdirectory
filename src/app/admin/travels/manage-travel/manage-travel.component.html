@@ -2,7 +2,7 @@
   <header class="content-box_header__xPnGx clearfix">
     <div class="wil-float-left">
       <h4 class="content-box_title__1gBHS">
-        <span>Manage News</span>
+        <span>Manage Travels</span>
       </h4>
     </div>
   </header>
@@ -20,7 +20,7 @@
         <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Featured Image</th>
           <td mat-cell *matCellDef="let row"> <img class="featured-image"
-              [src]="row.featured_image | imageSrc: 'news':'thumb'"> </td>
+              [src]="row.featured_image | imageSrc: 'travels':'thumb'"> </td>
         </ng-container>
 
         <!-- Title Column -->
@@ -29,37 +29,21 @@
           <td mat-cell *matCellDef="let row"> {{row.title}} </td>
         </ng-container>
 
-        <!-- Category Column -->
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-          <td mat-cell *matCellDef="let row"> {{ getCategoryNames(row.categories) }} </td>
-        </ng-container>
-
         <!-- Date Column -->
         <ng-container matColumnDef="updated_at">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Last updated</th>
           <td mat-cell *matCellDef="let row"> {{row.updated_at | date: 'MMM d, y h:mm a'}} </td>
         </ng-container>
 
-        <!-- Featured Column -->
-        <ng-container matColumnDef="featured">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Featured</th>
-          <td mat-cell *matCellDef="let row">
-            <a (click)="featureNews(row)" [ngStyle]="{'color': row.featured ? 'gold' : 'inherit'}"
-              class="jobsearch-featureto-job" title="Make Featured Job"><i class="fa"
-                [ngClass]="row.featured ? 'fa-star' : 'fa-star-o'"></i></a>
-          </td>
-        </ng-container>
-
         <!-- Action Column -->
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let row">
-            <button mat-icon-button [routerLink]="['/admin/news-edit/', row.id]">
+            <button mat-icon-button [routerLink]="['/admin/edit-travel/', row.id]">
               <mat-icon>edit</mat-icon>
             </button>
 
-            <button mat-icon-button (click)="deleteNews(row)">
+            <button mat-icon-button (click)="deleteTravel(row)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

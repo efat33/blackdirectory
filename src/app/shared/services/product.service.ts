@@ -208,6 +208,10 @@ export class ProductService {
     return this.http.post<ApiResponse<any>>(`${this.BASE_URL}/product/edit`, form);
   }
 
+  deleteProduct(optionId: number): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}/delete-product/${optionId}`);
+  }
+
   getProductDetails(slug: string, populateImages = true): Observable<ProductDetails> {
     return this.http.get<ApiResponse<any>>(`${this.BASE_URL}/product/${slug}`).pipe(
       pluck('data'),
