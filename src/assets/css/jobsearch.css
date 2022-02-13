@@ -152,12 +152,12 @@ button,select {
 }
 .jobsearch-banner-search ul li {
     float: left;
-    width: 31.333%;
+    width: 28.333%;
     list-style: none;
     position: relative;
 }
 .jobsearch-banner-search input[type="text"]:focus { border-color: #f2f2f2; }
-.jobsearch-banner-search ul li:last-child { width: 6%; }
+.jobsearch-banner-search ul li:last-child { width: 15%; }
 .jobsearch-banner-search input[type="text"],
 .jobsearch-banner-search ul li input[type="number"] {
     background-color: #ffffff;

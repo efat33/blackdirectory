@@ -92,6 +92,25 @@
   }
 }
 
+.searchbox_searchButton__1c9iK .wil-btn--primary {
+  background-color: #069;
+  color: #fff;
+  margin-left: 15px;
+  border-radius: 3px;
+}
+.searchbox_searchButton__1c9iK .wil-btn--primary:after {
+  border-left-color: #069;
+}
+.searchbox_wrap__37JXq .autosuggest__results, .searchbox_searchInput__2p4ds div[class*=wrap] {
+  border-color: #069;
+}
+.searchbox_wrap__37JXq.searchbox_wrap_deals {
+  justify-content: start;
+}
+.searchbox_wrap_deals .searchbox_searchInput__2p4ds {
+  max-width: 300px;
+}
+
 .single-deal:nth-child(2n) {
   border-color: #005484;
   box-shadow: 0 0 10px 0 rgb(0 84 132 / 10%);

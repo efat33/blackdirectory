@@ -299,7 +299,7 @@ input:checked ~ .bd-color-primary--checked {
   width: calc(100% - 32px);
 }
 #wilcity-menu li a.mainmenu-link-active {
-  border-bottom-color: #fff;
+  border-bottom-color: #C3D117;
 }
 .has-text-align-center {
   text-align: center;
@@ -559,6 +559,18 @@ section.wil-section.has-page-heading {
 section.wil-section.has-page-heading .heading_title__1bzno {
   max-width: 100%;
   margin-bottom: 40px;
+}
+
+.bd-form-submit i {
+  background: rgba(0, 0, 0, 0) !important;
+  position: relative !important;
+  border: 0 !important;
+  display: inline-block;
+  margin-right: 5px !important;
+  width: auto !important;
+  height: unset !important;
+  padding: 0 !important;
+  font-size: 22px !important;
 }
 
 @media only screen and (min-width: 768px) {

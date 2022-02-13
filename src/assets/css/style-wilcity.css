@@ -96,7 +96,7 @@ footer > .social-icon_module__HOrwr > div {
     display: none;
 }
 #wilcity-menu li a {
-    border-bottom: 1px solid transparent;
+    border-bottom: 5px solid transparent;
 }
 #wilcity-menu li.current-menu-item a {
     border-bottom-color: #fff;
