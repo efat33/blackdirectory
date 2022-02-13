@@ -1,0 +1,62 @@
+<div id="new-job-basic-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <header class="content-box_header__xPnGx clearfix">
+    <div class="wil-float-left">
+      <h4 class="content-box_title__1gBHS">
+        <span>User Requests</span>
+      </h4>
+    </div>
+  </header>
+
+  <div class="content-box_body__3tSRB">
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.user_email }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="request_type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.request_type }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="requested_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Requested At</th>
+          <td mat-cell *matCellDef="let element">{{ element.created_at | date:'medium' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let element">
+            <button *ngIf="element.request_type == 'deactivate'"
+              class="wil-btn wil-btn--xs wil-btn--primary wil-btn--round"
+              (click)="onClickDeactivateAccount(element)">Deactivate Account</button>
+            <button *ngIf="element.request_type == 'delete'"
+              class="wil-btn wil-btn--xs wil-btn--warning wil-btn--round">Delete Account</button>
+
+            <!-- <button mat-icon-button (click)="deleteUser(row)">
+        <mat-icon>delete</mat-icon>
+      </button> -->
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[20, 50, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -497,6 +497,42 @@
           </mat-accordion>
         </li>
 
+        <!-- finance menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Finance</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['new-finance']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-plus"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Add Finance</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['all-finance']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Manage Finance</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+
         <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
             <a [routerLink]="['hero-slider']" routerLinkActive="dashboard-link-active"
               class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
@@ -504,12 +540,48 @@
               <span class="dashboard-nav_text__x-_IZ">Home Hero Slider</span> <span
                 class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
         </li>
-        <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
-            <a [routerLink]="['users']" routerLinkActive="dashboard-link-active"
-              class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
-                class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
-              <span class="dashboard-nav_text__x-_IZ">Users</span> <span
-                class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+
+        <!-- user menu -->
+        <li>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <a class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">Users</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a>
+                  </span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="sidebar-menu-submenus">
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews"><span>
+                    <a [routerLink]="['users']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="la la-home"></i></span>
+                      <span class="dashboard-nav_text__x-_IZ">All Users</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['users-request']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Users Requests</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages"><span>
+                    <a [routerLink]="['users-deactivated']" routerLinkActive="dashboard-link-active"
+                      class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
+                        class="dashboard-nav_icon__2gZV4"><i class="jobsearch-icon jobsearch-briefcase-1"></i> </span>
+                      <span class="dashboard-nav_text__x-_IZ">Deactivated Users</span> <span
+                        class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
+                </li>
+              </ul>
+
+            </mat-expansion-panel>
+          </mat-accordion>
         </li>
       </ul>
     </div>

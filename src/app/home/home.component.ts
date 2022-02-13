@@ -101,9 +101,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.initializeGoogleMap();
-    }, 100);
+   
   }
 
   initiateGallery() {
@@ -154,6 +152,10 @@ export class HomeComponent implements OnInit {
 
           this.galleryImages.push(obj);
         }
+        // initiate google autocomplete
+        setTimeout(() => {
+          this.initializeGoogleMap();
+        }, 100);
       },
       (res:any) => {
 

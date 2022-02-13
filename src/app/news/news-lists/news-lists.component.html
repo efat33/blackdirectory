@@ -2,6 +2,32 @@
   <section class="wil-section has-page-heading">
     <div class="container news-lists">
       <h1 class="has-text-align-center heading_title__1bzno">{{ pageHeadline }}</h1>
+
+      <div class="news-categories-submenus">
+        <ul class="">
+          <li [ngClass]="{'active': categorySlug == 'business'}"><a [routerLink]="'/news/business'">Business</a></li>
+          <li [ngClass]="{'active': categorySlug == 'celebrity-news'}"><a
+              [routerLink]="'/news/celebrity-news'">Celebrity News</a></li>
+          <li [ngClass]="{'active': categorySlug == 'community'}"><a [routerLink]="'/news/community'">Community</a></li>
+          <li [ngClass]="{'active': categorySlug == 'entertainment'}"><a
+              [routerLink]="'/news/entertainment'">Entertainment</a></li>
+          <li [ngClass]="{'active': categorySlug == 'health'}"><a [routerLink]="'/news/health'">Health</a></li>
+          <li [ngClass]="{'active': categorySlug == 'jobs'}"><a [routerLink]="'/news/jobs'">Jobs</a></li>
+          <li [ngClass]="{'active': categorySlug == 'music'}"><a [routerLink]="'/news/music'">Music</a></li>
+          <li [ngClass]="{'active': categorySlug == 'sport'}"><a [routerLink]="'/news/sport'">Sport</a></li>
+          <li [ngClass]="{'active': categorySlug == 'world-news'}"><a [routerLink]="'/news/world-news'">World News</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="">
+        <div class="home item thin_divide module">
+          <div class="thin-split ccox link-ccox linkro-box bdrcc">
+            <h6></h6>
+          </div>
+        </div>
+      </div>
+
       <div class="row" *ngIf="topNews">
         <!-- Top News -->
         <div class="col-xs-12 gamma">
@@ -33,16 +59,18 @@
               </ul>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="">
-        <div class="home item thin_divide module">
-          <div class="thin-split ccox link-ccox linkro-box bdrcc">
-            <h6></h6>
+          <div class="">
+            <div class="home item thin_divide module">
+              <div class="thin-split ccox link-ccox linkro-box bdrcc">
+                <h6></h6>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+
 
       <div class="row cleared lead-alpha">
         <div class="col-md-8 col-xs-12">
@@ -163,6 +191,31 @@
         </div>
 
         <div class="col-md-4 col-xs-12">
+
+          <div class="searchbox_wrap__37JXq searchbox_wrap_news mb-30">
+            <div class="searchbox_searchInput__2p4ds">
+              <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+                <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+                  <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
+                    <div id="">
+                      <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                        aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
+                        <input [(ngModel)]="queryParams.keyword" type="text" autocomplete="off"
+                          placeholder="Search News" class="field_field__3U_Rt" (keyup.enter)="onSubmitSearch()">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="searchbox_searchButton__1c9iK">
+              <button (click)="onSubmitSearch()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
+                type="button">
+                <i class="la la-search"></i> Search
+              </button>
+            </div>
+          </div>
+
           <div class="femail item">
             <div class="puff cleared" id="p-716" data-track-module="llg-1000113^puff">
               <span class="tl"> </span>

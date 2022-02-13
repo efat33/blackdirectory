@@ -301,6 +301,12 @@ export class UserService {
     return this.httpClient.get<any>(url, this.headerOptions);
   }
 
+  getDeactivatedUsers(): Observable<any> {
+    const url = `api/users/get-deactivated-users`;
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
   forgotPassword(body: any): Observable<APIReponse> {
     const url = 'api/users/forgot-password';
 
@@ -337,5 +343,35 @@ export class UserService {
     const url = 'api/users/resend-email';
 
     return this.httpClient.get<APIReponse>(url, this.headerOptions).pipe(map((body: APIReponse) => body));
+  }
+
+  userRequest(body: any): Observable<APIReponse> {
+    const url = 'api/users/user-request';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  getUserRequest(): Observable<APIReponse> {
+    const url = 'api/users/user-request';
+
+    return this.httpClient.get<any>(url, this.headerOptions);
+  }
+
+  userRequestDeactivate(body: any): Observable<APIReponse> {
+    const url = 'api/users/user-request-deactivate';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
+  userRequestReactivate(body: any): Observable<APIReponse> {
+    const url = 'api/users/user-request-reactivate';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
   }
 }

@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { JobService } from 'src/app/jobs/jobs.service';
+import { AccountDeactivateModal } from 'src/app/modals/user/account-deactivate/account-deactivate-modal';
 
 declare const google: any;
 
@@ -61,6 +62,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   userMeta: any;
   userProfile: any;
 
+  dialogRefDeac: any;
   dialogRefEdu: any;
   dialogRefExp: any;
   dialogRefPort: any;
@@ -623,6 +625,43 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  /**
+   * ======================================
+   * account delete or deactivate
+   * ======================================
+   */
+  openDeactivateModal(): void {
+    this.dialogRefDeac = this.dialog.open(AccountDeactivateModal, {
+      width: '500px',
+      data: { },
+    });
+
+    this.dialogRefDeac.afterClosed().subscribe((result) => {
+      if (result) this.onSubmitDeactivateForm(result);
+    });
+
+    this.subscriptions.add(this.dialogRefDeac);
+  }
+
+  onSubmitDeactivateForm(formData?: any) {
+    
+    this.spinnerService.show();
+    
+    formData.user_email = this.userDetails.email;
+    const subsUserRequest = this.userService.userRequest(formData).subscribe(
+      (res:any) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar('Submitted Successfully', 'Close');
+      },
+      (res:any) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar('Something went wrong. Please try again.', 'Close', 'warn');
+      }
+    );
+    
+    this.subscriptions.add(subsUserRequest);
   }
 
   /**
