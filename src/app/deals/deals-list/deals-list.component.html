@@ -3,6 +3,29 @@
     <div class="container news-lists">
       <h1 class="has-text-align-center heading_title__1bzno">{{ pageHeadline }}</h1>
 
+      <div class="row searchbox_wrap__37JXq searchbox_wrap_deals mb-30">
+        <div class="searchbox_searchInput__2p4ds">
+          <div class="field_module__1H6kT field_style5__3OR3T mb-0 js-field">
+            <div class="field_wrap__Gv92k wil-autocomplete-field-wrapper">
+              <div class="field_module__1H6kT field_style2__2Znhe active" posttype="listing">
+                <div id="">
+                  <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                    aria-owns="autosuggest-autosuggest__results" class="hasAttribute">
+                    <input [(ngModel)]="filter.title" type="text" autocomplete="off" placeholder="Search Deal"
+                      class="field_field__3U_Rt" (keyup.enter)="getAllDeals(1)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="searchbox_searchButton__1c9iK">
+          <button (click)="getAllDeals(1)" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md" type="button">
+            <i class="la la-search"></i> Search
+          </button>
+        </div>
+      </div>
+
       <div class="row single-deal" *ngFor="let deal of deals">
         <div class="col-xs-12 dates d-md-none mobile-view">
           <span *ngIf="deal.expiry_date" class="expires-at"><i class="fa fa-calendar" aria-hidden="true"></i>
@@ -35,8 +58,9 @@
                 Deals</a>
             </div>
 
-            <a *ngIf="!deal.discount_code" mat-flat-button color="primary" class="d-none d-md-block" href="{{deal.deal_link}}"
-              target="_blank">Get deal* <i class="fa fa-external-link" aria-hidden="true"></i></a>
+            <a *ngIf="!deal.discount_code" mat-flat-button color="primary" class="d-none d-md-block"
+              href="{{deal.deal_link}}" target="_blank">Get deal* <i class="fa fa-external-link"
+                aria-hidden="true"></i></a>
           </div>
 
           <div *ngIf="deal.discount_code" class="deal-discount d-none d-md-flex">

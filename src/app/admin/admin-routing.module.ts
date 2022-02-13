@@ -49,6 +49,10 @@ import { NewReplyComponent } from '../dashboard/reply-new/reply-new.component';
 import { ForumCategoriesComponent } from './forums/forum-categories/forum-categories.component';
 import { NewTravelComponent } from './travels/new-travel/new-travel.component';
 import { ManageTravelComponent } from './travels/manage-travel/manage-travel.component';
+import { NewFinanceComponent } from './finance/new-finance/new-finance.component';
+import { ManageFinanceComponent } from './finance/manage-finance/manage-finance.component';
+import { UserRequestsComponent } from './users/user-requests/user-requests.component';
+import { DeactivatedUsersComponent } from './users/deactivated-users/deactivated-users.component';
 
 const routes: Routes = [
   {
@@ -95,6 +99,10 @@ const routes: Routes = [
       { path: 'edit-travel/:travel_id', component: NewTravelComponent },
       { path: 'all-travels', component: ManageTravelComponent },
 
+      { path: 'new-finance', component: NewFinanceComponent },
+      { path: 'edit-finance/:finance_id', component: NewFinanceComponent },
+      { path: 'all-finance', component: ManageFinanceComponent },
+
       { path: 'job-sectors', component: JobSectorsComponent },
 
       { path: 'listing-categories', component: ListingCategoriesComponent },
@@ -127,6 +135,8 @@ const routes: Routes = [
 
       { path: 'users', component: ManageUsersComponent },
       { path: 'users-edit/:id', component: DashboardProfileComponent },
+      { path: 'users-request', component: UserRequestsComponent },
+      { path: 'users-deactivated', component: DeactivatedUsersComponent },
     ],
   },
 ];

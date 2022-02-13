@@ -49,12 +49,7 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.route.fragment.subscribe(f => {
-        const element = document.getElementById(f);
-        if (element) element.scrollIntoView({behavior: 'smooth'});
-      });
-    }, 200);
+    
   }
 
   getNews() {
@@ -65,6 +60,13 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
         this.news = result.data[0];
 
         this.getUserLikes();
+
+        setTimeout(() => {
+          this.route.fragment.subscribe(f => {
+            const element = document.getElementById(f);
+            if (element) element.scrollIntoView({behavior: 'smooth'});
+          });
+        }, 500);
       },
       (error) => {
         this.spinnerService.hide();

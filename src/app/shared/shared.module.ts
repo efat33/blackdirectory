@@ -35,6 +35,7 @@ import { ContactOwnerModal } from '../modals/listing/details/contact-owner/conta
 import { RsvpApplyModal } from '../modals/events/details/rsvp-apply/rsvp-apply-modal';
 import { ProductQuickViewModal } from '../modals/product-quick-view/product-quick-view.component';
 import { InformationDialogComponent } from '../modals/information-dialog/information-dialog';
+import { AccountDeactivateModal } from '../modals/user/account-deactivate/account-deactivate-modal';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -110,6 +111,7 @@ import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal'
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -170,6 +172,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     InformationDialogComponent,
     SendEmailModalComponent,
     EmailJobModalComponent,
+    AccountDeactivateModal,
   ],
   imports: [
     CommonModule,
@@ -344,6 +347,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ListingClaimModal,
     ForgotPasswordModal,
     ResetPasswordModal,
+    AccountDeactivateModal
   ],
 })
 export class SharedModule {}

@@ -5,9 +5,13 @@
         <div class="promo-item_group__2ZJhC">
           <p class="promo-item_description__2nc26"></p>
         </div>
-        <div class="promo-item_action__pd8hZ"><a class="wil-btn wil-btn--xs wil-btn--primary wil-btn--round"
+        <div class="promo-item_action__pd8hZ dasboard-profile-topbar">
+          <a class="wil-btn wil-btn--xs wil-btn--primary wil-btn--round"
             [routerLink]="['/user-details/', userDetails?.username]"><i class="la la-user"></i>
-            <span>View Profile</span></a></div>
+            <span>View Profile</span></a>
+          <a class="wil-btn wil-btn--xs wil-btn--primary wil-btn--round" (click)="openDeactivateModal()">
+            <span>Delete or Deactivate Account</span></a>
+        </div>
       </div>
     </div>
   </div>

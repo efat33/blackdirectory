@@ -24,7 +24,10 @@ export class DealsListComponent implements OnInit, OnDestroy {
   dealsPerPage: number = 12;
   page: number = 1;
 
-  filter: any = {};
+  filter: any = {
+    dealer_slug: '',
+    title: '',
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -38,10 +41,14 @@ export class DealsListComponent implements OnInit, OnDestroy {
     this.dealerSlug = this.route.snapshot.paramMap.get('dealer-slug');
 
     if (this.dealerSlug) {
-      this.filter = { dealer_slug: this.dealerSlug };
+      this.filter.dealer_slug = this.dealerSlug;
     }
 
-    this.getDeals();
+    this.getAllDeals();
+  }
+
+  getAllDeals(page: number = null) {
+    this.getDeals(page);
     this.getTotalDeals();
   }
 

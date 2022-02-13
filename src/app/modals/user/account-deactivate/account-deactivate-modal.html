@@ -1,0 +1,42 @@
+<header class="popup_header__2QTxC clearfix">
+  <h3 class="popup_title__3q6Xh"><span>User Request</span></h3>
+  <div class="popup_headerRight__c4FcP">
+    <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
+      <i class="la la-close"></i>
+    </span>
+  </div>
+</header>
+<div mat-dialog-content class="bdy-mat-dialog-content">
+  <div class="popup_body__1wtsy wil-scroll-bar ps">
+    <div class="wil-scroll-container">
+      <div>
+        <div>
+          <div>
+            <form [formGroup]="deactivateForm" (ngSubmit)="onSubmit()">
+
+              <div class="single-form-field">
+                <p>Choose your request type</p>
+                <mat-radio-group aria-label="Select an option" formControlName="request" color="primary">
+                  <mat-radio-button value="deactivate">Deactivate Account</mat-radio-button>
+                  <mat-radio-button value="delete">Delete Account</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <mat-form-field>
+                <mat-label>Tell us a little about why you want to make this request</mat-label>
+                <textarea matInput formControlName="description" rows="5"></textarea>
+              </mat-form-field>
+
+              <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
+                type="submit" [disabled]="!deactivateForm.valid">
+                Submit
+              </button>
+
+              <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

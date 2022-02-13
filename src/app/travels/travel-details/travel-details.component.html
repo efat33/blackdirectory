@@ -19,8 +19,8 @@
       <div class="epta-share-area">
         <h3 class="tecset-share-title">Share This Travel</h3>
         <share-buttons [theme]="'material-dark'" [include]="['facebook','twitter','linkedin','pinterest','email']"
-          [title]="event.title" [url]="router.url" [image]="event.featured_image | imageSrc : 'event' : 'large'"
-          [autoSetMeta]="false"></share-buttons>
+          [title]="event.title" [url]="siteUrl + router.url"
+          [image]="event.featured_image | imageSrc : 'travels' : 'large'" [autoSetMeta]="false"></share-buttons>
       </div>
 
     </div>
