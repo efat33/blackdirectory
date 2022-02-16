@@ -2,3 +2,17 @@
     width: 100%;
 }
 
+::ng-deep {
+    event-search-cat-modal .popup_body__1wtsy .wil-scroll-container {
+        overflow-y: scroll;
+        max-height: 450px;
+        padding-bottom: 60px !important;
+    }
+    event-search-cat-modal .filter_footer__104sU {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 0;
+        background: #fff;
+    }
+} 

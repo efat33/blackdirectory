@@ -40,8 +40,8 @@ export class AllRepliesComponent implements OnInit {
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
-
-    if (!this.helperService.isAdmin()) {
+    const current_user = this.helperService.currentUserInfo;
+    if (!this.helperService.isAdmin() && current_user.forum_role != 'keymaster' && current_user.forum_role != 'moderator') {
       this.queryParams['user_id'] = this.helperService.currentUserInfo.id;
     }
 
@@ -72,33 +72,34 @@ export class AllRepliesComponent implements OnInit {
     this.getReplies(newPage);
   }
 
-  onRemoveListing(listing_id: number, index: number) {
+  onDeleteReply(reply, index: number) {
+
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       panelClass: 'confimation-dialog',
-      data: { message: 'Are you sure you want to delete this listing"?' },
+      data: { message: 'Are you sure to delete the reply?' },
     });
 
     const dialogCloseSubscription = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.spinnerService.show();
-        const subscriptionDeleteLlisting = this.listingService.deleteListing(listing_id).subscribe(
-          (res: any) => {
+    
+        const subsDeleteReply = this.forumService.deleteReply(reply.id).subscribe(
+          (res:any) => {
             this.spinnerService.hide();
-            this.replies.splice(index, 1);
-
             this.snackbarService.openSnackBar(res.message);
+            this.replies.splice(index, 1);
           },
-          (res: any) => {
+          (res:any) => {
             this.spinnerService.hide();
-            this.snackbarService.openSnackBar(res.error.message, '', 'warn');
           }
         );
-
-        this.subscriptions.add(subscriptionDeleteLlisting);
+        
+        this.subscriptions.add(subsDeleteReply);
       }
     });
 
     this.subscriptions.add(dialogCloseSubscription);
+    
   }
 
   ngOnDestroy() {

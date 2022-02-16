@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { JobAlertModal } from 'src/app/modals/job/job-alert/job-alert-modal';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
@@ -31,12 +33,21 @@ export class JobListingComponent implements OnInit, OnDestroy {
 
   locationModified = false;
 
+  jobAlert = {
+    name: '',
+    email: '',
+    period: '1',
+  }
+  jobAlertError = [];
+  dialogRefJobAlert: any;
+
   // convenience getter for easy access to form fields
   get f() {
     return this.jobFilterForm.controls;
   }
 
   constructor(
+    public dialog: MatDialog,
     public route: ActivatedRoute,
     public jobService: JobService,
     public helperService: HelperService,
@@ -269,6 +280,33 @@ export class JobListingComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(saveFavoriteSubscription);
+  }
+
+  onSubmitJobAlert() {
+
+    // do the validation 
+    this.jobAlertError = [];
+    if(this.jobAlert.name == '') this.jobAlertError.push('Please provide name');
+    if(this.jobAlert.email == '' || !this.validateEmail(this.jobAlert.email)) this.jobAlertError.push('Please provide a valid email');
+    
+    if(this.jobAlertError.length == 0){
+      // show the job alert modal 
+      this.dialogRefJobAlert = this.dialog.open(JobAlertModal, {
+        width: '500px',
+        data: this.jobAlert,
+      });
+  
+      this.subscriptions.add(this.dialogRefJobAlert);
+    }
+
+  }
+
+  validateEmail(email) {
+    return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
   }
 
   ngOnDestroy() {

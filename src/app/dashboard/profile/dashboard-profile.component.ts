@@ -98,12 +98,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // initiate form fields
     this.setupFormFields();
-
-    setTimeout(() => {
-      this.initializeGoogleMap();
-    }, 0);
-
     this.getJobSectors();
+
+    // initialize google map
+    this.initializeGoogleMap();
 
     this.adminEditId = parseInt(this.route.snapshot.paramMap.get('id'));
 
@@ -252,8 +250,8 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     }
 
     const latlng = {
-      lat: parseFloat(this.userProfile.data.latitude),
-      lng: parseFloat(this.userProfile.data.longitude),
+      lat: parseFloat(this.userDetails.latitude),
+      lng: parseFloat(this.userDetails.longitude),
     };
 
     if (latlng.lat && latlng.lng) {
@@ -440,8 +438,8 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.submitted = true;
-    const formData = this.profileForm.value;
-
+    const formData = this.profileForm.getRawValue();
+    
     if(formData.dob == null || formData.dob == 'Invalid date'){
       formData.dob = null;
     }
@@ -657,7 +655,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
       },
       (res:any) => {
         this.spinnerService.hide();
-        this.snackbar.openSnackBar('Something went wrong. Please try again.', 'Close', 'warn');
+        this.snackbar.openSnackBar(res.error.message, 'Close', 'warn');
       }
     );
     

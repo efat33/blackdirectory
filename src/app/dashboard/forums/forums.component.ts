@@ -10,7 +10,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
 @Component({
-  selector: 'app-all-forums',
+  selector: 'app-dashboard-forums',
   templateUrl: './forums.component.html',
   styleUrls: ['./forums.component.scss'],
 })

@@ -113,7 +113,7 @@ export class AllRepliesComponent implements OnInit {
     const subsTopics = this.forumService.getReplies(this.queryParams).subscribe(
       (res: any) => {
         this.spinnerService.hide();
-
+        
         this.replies = res.data.data.replies;
         this.totalReplies = res.data.data.total_replies;
         this.topic = res.data.data.topic;
@@ -125,7 +125,7 @@ export class AllRepliesComponent implements OnInit {
         // prepare excerpt for replies 
         for (let index = 0; index < this.replies.length; index++) {
           const element = this.replies[index];
-          if(element.reply_to_details){
+          if(element.reply_to_details && element.reply_to_details != null){
             const excerpt = this.excerpt.transform(element.reply_to_details.content, 15, '...');
             this.replies[index].reply_to_details['excerpt'] = excerpt;
 
