@@ -37,6 +37,13 @@ export class JobService {
     { value: 'temporary', viewValue: 'Temporary' },
   ];
 
+  jobAlertPeriod = [
+    { value: '1', viewValue: 'Daily' },
+    { value: '7', viewValue: 'Weekly' },
+    { value: '14', viewValue: 'Fortnightly' },
+    { value: '30', viewValue: 'Monthly' },
+  ];
+
   jobApplyTypes = [
     { value: 'internal', viewValue: 'Internal (Receive Applications Here)' },
     { value: 'external', viewValue: 'External URL' },
@@ -251,4 +258,17 @@ export class JobService {
 
     return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
   }
+
+  newJobAlert(body: any): Observable<any> {
+    const url = 'api/jobs/create-job-alert';
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
+  unsubscribeJobAlert(body: any): Observable<any> {
+    const url = 'api/jobs/unsubscribe-job-alert';
+
+    return this.httpClient.post<any>(url, JSON.stringify(body), this.headerOptions);
+  }
+
 }
