@@ -47,6 +47,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.helperService.isUserLoggedIn()) {
       this.isLoggedIn = true;
     }
+    // const current_user = localStorage.getItem('currentUserInfo');
+    // console.log(current_user);
 
     if (this.helperService.isAdmin()) {
       this.profileMenus.unshift({

@@ -62,7 +62,7 @@ export class LoginModal implements OnInit, OnDestroy {
       (result: any) => {
         // set current user to localstorage
         localStorage.setItem('currentUserInfo', JSON.stringify(result.data));
-
+        
         const firebaseUserInfo = {
           id: result.data.id,
           email: this.loginForm.value.email,

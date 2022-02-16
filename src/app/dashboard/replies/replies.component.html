@@ -72,7 +72,7 @@
                             <a [routerLink]="['/dashboard/forums/reply/edit/', item.id]"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--round"><span
                                     class="list_text__35R07">Edit</span></a>
-                            <a (click)="onRemoveListing(item.id, index)"
+                            <a (click)="onDeleteReply(item, index)"
                                 class="wil-btn wil-btn--primary wil-btn--sm wil-btn--danger wil-btn--round"><span
                                     class="list_text__35R07">Remove</span></a>
                         </td>

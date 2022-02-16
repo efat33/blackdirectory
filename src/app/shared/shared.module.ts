@@ -109,6 +109,7 @@ import { BdyImagePipe } from './pipes/bdy-image.pipe';
 import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
 import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { JobAlertModal } from '../modals/job/job-alert/job-alert-modal';
 
 
 
@@ -173,6 +174,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     SendEmailModalComponent,
     EmailJobModalComponent,
     AccountDeactivateModal,
+    JobAlertModal
   ],
   imports: [
     CommonModule,
@@ -347,7 +349,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ListingClaimModal,
     ForgotPasswordModal,
     ResetPasswordModal,
-    AccountDeactivateModal
+    AccountDeactivateModal,
+    JobAlertModal
   ],
 })
 export class SharedModule {}
