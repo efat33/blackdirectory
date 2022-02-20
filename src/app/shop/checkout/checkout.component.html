@@ -45,7 +45,6 @@
         <th>DISCOUNT</th>
         <td>- {{ discountAmount$ | async | currency }}</td>
       </tr>
-      <tr app-shipping-method-selector [form]="form" *ngFor="let form of shippingOptionsForm.controls"></tr>
       <tr>
         <th>TOTAL</th>
         <td>{{ total$ | async | currency }}</td>
@@ -98,7 +97,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Country</mat-label>
-        <mat-select formControlName="country_id" required>
+        <mat-select formControlName="country_id" required (selectionChange)="onCountryChange($event)">
           <mat-option *ngFor="let country of countries$ | async" [value]="country.id"> {{ country.title }} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -107,16 +106,25 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Additional Information</mat-label>
-    <textarea
-      matInput
-      rows="4"
-      [formControl]="additionalInfo"
-      placeholder="Notes about your order, e.g. special notes for delivery."
-    ></textarea>
+    <textarea matInput rows="4" [formControl]="additionalInfo"
+      placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
   </mat-form-field>
 
+  <ng-container *ngIf="shippingForm.controls.country_id.value">
+    <table class="totals-table">
+      <tbody>
+        <tr app-shipping-method-selector [form]="form" *ngFor="let form of shippingOptionsForm.controls"></tr>
+        <tr>
+          <th>TOTAL with Shipping</th>
+          <td>{{ totalAfterShipping$ | async | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
   <div class="actions">
-    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()" [disabled]="shippingForm.invalid">
+    <button mat-flat-button type="submit" color="primary" (click)="onSubmit()"
+      [disabled]="shippingForm.invalid || shippingOptionsForm.invalid">
       CHECKOUT
     </button>
   </div>

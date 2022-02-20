@@ -75,12 +75,20 @@ export class CartService {
   get subtotal(): Observable<number> {
     return this.cart.pipe(map((cart) => cart.reduce((acc, item) => acc + item.quantity * item.product_price, 0)));
   }
+
   get discountAmount(): Observable<number> {
     return combineLatest([this.subtotal, this.appliedCoupon]).pipe(
       map(([subtotal]) => this.couponService.calculateDiscountAmount(subtotal))
     );
   }
+
   get total(): Observable<number> {
+    return combineLatest([this.subtotal, this.discountAmount]).pipe(
+      map(([subtotal, discountAmount]) => subtotal - discountAmount)
+    );
+  }
+
+  get totalAfterShipping(): Observable<number> {
     return combineLatest([this.subtotal, this.discountAmount, this.shippingOptionsService.totalShippingCost$]).pipe(
       map(([subtotal, discountAmount, shippingCosts]) => subtotal - discountAmount + shippingCosts)
     );
@@ -178,9 +186,9 @@ export class CartService {
     };
   }
 
-  setShippingMethods(cart: Cart) {
+  setShippingMethods(cart: Cart, countryID?: number) {
     const vendorsMap = this.shippingOptionsService.extractVendorsFromItems(cart || []);
-    this.shippingOptionsService.updateShippingOptionsForm(vendorsMap);
+    this.shippingOptionsService.updateShippingOptionsForm(vendorsMap, countryID);
   }
 
   private getCartItems(): Observable<Cart> {

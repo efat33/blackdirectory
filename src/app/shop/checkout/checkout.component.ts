@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -8,6 +9,7 @@ import { map, mergeMap, take, tap } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helper.service';
 import { CartItemPopulated, CartService } from 'src/app/shared/services/cart.service';
 import { OrderService } from 'src/app/shared/services/order.service';
+import { ShippingOptionsService } from 'src/app/shared/services/shipping-options.service';
 import { Country, StoreService } from 'src/app/shared/services/store.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
@@ -22,9 +24,11 @@ export class CheckoutComponent implements OnInit {
   dataSource = new MatTableDataSource<CartItemPopulated>([]);
   displayedColumns = ['product', 'product_price', 'subtotal'];
 
+  cartData: any;
   subtotal$: Observable<number> = this.cartService.subtotal;
   discountAmount$: Observable<number> = this.cartService.discountAmount;
   total$: Observable<number> = this.cartService.total;
+  totalAfterShipping$: Observable<number> = this.cartService.totalAfterShipping;
   countries$: Observable<Country[]> = this.storeService.getCountries();
 
   shippingForm = new FormGroup({
@@ -54,7 +58,8 @@ export class CheckoutComponent implements OnInit {
     private orderService: OrderService,
     private dialog: MatDialog,
     private spinnerService: SpinnerService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private shippingOptionsService: ShippingOptionsService,
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +74,9 @@ export class CheckoutComponent implements OnInit {
       )
       .subscribe((data) => {
         this.dataSource.data = data;
+        this.cartData = data;
+
+        this.cartService.setShippingMethods(data);
       });
     if (this.helperService.currentUserInfo) {
       this.shippingForm.patchValue(this.helperService.currentUserInfo);
@@ -140,5 +148,10 @@ export class CheckoutComponent implements OnInit {
         this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
       }
     );
+  }
+
+  onCountryChange(event: MatSelectChange) {
+    const countryID = event.value;
+    this.cartService.setShippingMethods(this.cartData, countryID);
   }
 }
