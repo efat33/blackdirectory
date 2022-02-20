@@ -146,6 +146,7 @@ export class CartService {
   }
 
   private updateLocalStorage(cart: Cart): void {
+    cart = cart.filter((cartItem: any) => cartItem.product_slug != null);
     localStorage.setItem(this.CART_LOCAL_STORAGE_KEY, JSON.stringify(cart));
   }
 
