@@ -96,9 +96,12 @@ export class HomeComponent implements OnInit {
     this.getEvents();
     this.getTrendingCategories();
     this.getNews();
-    this.initializeGoogleMap();
     this.initiateGallery();
     this.populateGallery();
+  }
+
+  ngAfterViewInit() {
+   
   }
 
   initiateGallery() {
@@ -149,6 +152,10 @@ export class HomeComponent implements OnInit {
 
           this.galleryImages.push(obj);
         }
+        // initiate google autocomplete
+        setTimeout(() => {
+          this.initializeGoogleMap();
+        }, 100);
       },
       (res:any) => {
 
@@ -166,7 +173,7 @@ export class HomeComponent implements OnInit {
 
     const input = document.querySelector('input[formControlName=address]') as HTMLInputElement;
     const address = this.listingSearchForm.get('address');
-
+    
     const autocompleteOptions = {
       fields: ['formatted_address', 'geometry', 'name'],
     };

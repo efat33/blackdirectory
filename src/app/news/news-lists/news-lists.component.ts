@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -28,17 +28,34 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
   newsPerSection: number = 7;
 
+  queryParams = {
+    keyword: ''
+  };
+
   constructor(
     private route: ActivatedRoute,
     private newsService: NewsService,
     private snackbar: SnackBarService,
-    private helperService: HelperService
-  ) {}
+    private helperService: HelperService,
+    public router: Router,
+  ) {
+    this.route.params.subscribe((params) => {
+      this.categorySlug = this.route.snapshot.paramMap.get('cat-slug');
+
+      // empty out all the previous data
+      this.topNews = '';
+      this.featuredNews = '';
+      this.allNews = '';
+      this.newsByCategory = {};
+      
+      this.getCategories();
+    });
+  }
 
   ngOnInit() {
-    this.categorySlug = this.route.snapshot.paramMap.get('cat-slug');
+    // this.categorySlug = this.route.snapshot.paramMap.get('cat-slug');
 
-    this.getCategories();
+    // this.getCategories();
   }
 
   getCategories() {
@@ -112,13 +129,12 @@ export class NewsListComponent implements OnInit, OnDestroy {
       (result: any) => {
         this.allNews = result.data;
 
+        let excludeIds = this.allNews.map((news: any) => parseInt(news.id));
+        if (this.topNewsId) {
+          excludeIds = [...excludeIds, this.topNewsId];
+        }
+        
         for (const categoryId of Object.keys(this.newsByCategory)) {
-          let excludeIds = this.allNews.map((news: any) => parseInt(news.id));
-
-          if (this.topNewsId) {
-            excludeIds = [...excludeIds, this.topNewsId];
-          }
-
           const subscription = this.newsService
             .getNewsByQuery({ category_id: parseInt(categoryId), exclude: excludeIds }, this.newsPerSection)
             .subscribe(
@@ -182,6 +198,13 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
   getCategory(categoryId: string) {
     return this.categories.find((cat: any) => cat.id === parseInt(categoryId));
+  }
+
+  onSubmitSearch() {
+    // redirect to news search page with the params
+    this.router.navigate([`news/search`], {
+      queryParams: this.queryParams,
+    });
   }
 
   ngOnDestroy() {

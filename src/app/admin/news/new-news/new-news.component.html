@@ -3,15 +3,19 @@
     <div class="content-box_body__3tSRB">
       <mat-form-field>
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title" />
+        <input required matInput formControlName="title" />
       </mat-form-field>
 
       <div class="row">
         <div class="col-md-6">
           <mat-form-field>
             <mat-label>Category</mat-label>
-            <mat-select formControlName="category_id">
-              <mat-option *ngFor="let category of newsCategories" [value]="category.id">
+            <mat-select #categorySelect required (openedChange)="onSelectOpen($event, categoryFilterInput)"
+              formControlName="category_id" multiple>
+              <input class="selectSearch" #categoryFilterInput matInput placeholder="Search Categories"
+                autocomplete="off" />
+              <mat-option *ngFor="let category of filteredNewsCategory(categoryFilterInput.value)"
+                [value]="category.id">
                 {{category.name}}
               </mat-option>
             </mat-select>
@@ -31,12 +35,14 @@
 
       <div class="">
         <section class="section-mat-form-field section-field-file section-field-preview-img">
-          <mat-label>Featured Image</mat-label>
+          <mat-label>Featured Image <span
+              class="mat-placeholder-required mat-form-field-required-marker ng-star-inserted"> *</span></mat-label>
           <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
           <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
           <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputAttachment.click()">Upload</a>
         </section>
-        <mat-progress-bar *ngIf="progressFeaturedImage" mode="determinate" [value]="progressFeaturedImage" class="mb-15">
+        <mat-progress-bar *ngIf="progressFeaturedImage" mode="determinate" [value]="progressFeaturedImage"
+          class="mb-15">
         </mat-progress-bar>
         <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
           {{formCustomvalidation.featuredImage.message}}</p>
@@ -45,7 +51,7 @@
       <div>
         <mat-form-field>
           <mat-label>Short content</mat-label>
-          <textarea matInput placeholder="Short content" formControlName="short_content" rows="5"></textarea>
+          <textarea required matInput placeholder="Short content" formControlName="short_content" rows="5"></textarea>
         </mat-form-field>
       </div>
 

@@ -1,0 +1,122 @@
+@import "../../../assets/css/events/views-full.min.css";
+@import "../../../assets/css/events/filters/views-filter-bar-skeleton.min.css";
+@import "../../../assets/css/events/filters/views-filter-bar-full.min.css";
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar {
+    margin-bottom: 10px;
+}
+button.tribe-common-c-btn.tribe-events-c-search__button {
+    margin-right: 15px;
+}
+.tribe-filter-bar  .tribe-filter-bar__filters-slider-nav{
+    display: none;
+}
+.tribe-common a.tribe-common-c-btn-border-small {
+    color: #5d5d5d;
+    font-size: 12px;
+    line-height: 1.38;
+    cursor: pointer;
+    border: 1px solid #d5d5d5;
+    border-radius: 4px;
+    transition: color .2s ease,border-color .2s ease;
+}
+.tribe-common a.tribe-common-c-btn-border-small:hover {
+    color: #141827;
+}
+
+
+::ng-deep {
+    .listingRadioSearch {
+        border: 1px solid #e7e7ed;
+        border-radius: 5px;
+        padding: 10px 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus {
+    border-color: #d5d5d5;
+    background-color: #fff;
+    color: #70778b !important;
+} 
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover {
+    border-color: #d5d5d5;
+    background-color: #fff;
+    color: #069 !important;
+}
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill.wil-btn--primary {
+    background-color: rgba(0,102,153,1);
+    color: #fff !important;
+    border-color: rgba(0,102,153,1);
+}
+.tribe-common .tribe-common-c-btn:focus, .tribe-common a.tribe-common-c-btn:focus {
+    background-color: rgba(0,102,153,1);
+}
+.tribe-events .tribe-events-virtual-virtual-event__icon-svg {
+    height: 10px;
+}
+.tribe-events .tribe-events-virtual-virtual-event__icon {
+    display: inline-block;
+    line-height: 0;
+    margin-right: 8px;
+}
+.div-travel-ads {
+    margin-top: 40px !important;
+    border: 1px solid #e4e4e4 !important;
+    padding: 50px 0 !important;
+}
+
+@media screen and (max-width:767px) {
+    .tribe-common--breakpoint-medium.tribe-common .tribe-common-l-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .tribe-filter-bar__filters-slider-wrapper.tribe-swiper-wrapper {
+        overflow-y: scroll;
+        white-space: nowrap;
+        padding-bottom: 12px;
+    }
+    .tribe-common--breakpoint-medium.tribe-events .tribe-events-header__events-bar {
+        margin-bottom: 10px;
+    }
+    .event-top-search-bar {
+        justify-content: center;
+        flex-direction: column;
+    }
+    .tribe-common--breakpoint-medium  .tribe-filter-bar--horizontal.tribe-filter-bar {
+        margin-top: 5px;
+    }
+    .event-top-search-bar-right {
+        order: 1;
+        margin-bottom: 10px;
+    }
+    .event-top-search-bar-left {
+        order: 2;
+    }
+    .event-top-search-bar-right a {
+        margin: 0 !important;
+    }
+    .tribe-common--breakpoint-medium.tribe-events  .tribe-events-c-search__input-control {
+        border-right: 0;
+    }
+    input#tribe-events-events-bar-keyword {
+        border-bottom: 1px solid #e4e4e4;
+    }
+    .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-search__input-group {
+        flex-direction: column;
+    }
+    .tribe-events .tribe-events-calendar-list__event {
+        flex-direction: column;
+    }
+    .tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-featured-image-wrapper {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    time.tribe-events-calendar-list__event-datetime {
+        font-size: 12px;
+    }
+    .tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-details {
+        width: 100%;
+    }
+}

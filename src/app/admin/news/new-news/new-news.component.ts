@@ -72,7 +72,7 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.spinnerService.hide();
 
           const news = result.data[0];
-
+          
           if (news) {
             this.prepareForm(news);
 
@@ -117,11 +117,13 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    const categories = news.categories.map((c) => c.category_id);
+
     this.newsForm.patchValue({
       title: news.title,
       content: news.content,
       short_content: news.short_content,
-      category_id: news.category_id,
+      category_id: categories,
       featured_image: news.featured_image,
       featured: news.featured,
     });
@@ -199,7 +201,7 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createNews() {
     const formValues = this.newsForm.value;
-
+    
     this.spinnerService.show();
     const newNewsSubscription = this.newsService.addNews(formValues).subscribe(
       (result: any) => {
@@ -243,6 +245,22 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formatSalarySliderLabel(value: number) {
     return Math.round(value / 1000) + 'k';
+  }
+
+  onSelectOpen(opened: boolean, searchInput: any) {
+    if (opened) {
+      searchInput.focus();
+    }
+  }
+
+  filteredNewsCategory(searchString: any) {
+    if (this.newsCategories) {
+      return this.newsCategories.filter((category) =>
+        category.name.toLowerCase().includes(searchString.toLowerCase())
+      );
+    }
+
+    return [];
   }
 
   ngOnDestroy() {

@@ -36,7 +36,7 @@ export class ShippingOptionsService {
       vendorName: new FormControl(vendorName),
       vendorId: new FormControl(vendorId),
       options: new FormControl(options),
-      selectedOption: new FormControl(options[0].id),
+      selectedOption: new FormControl(),
     });
   }
 

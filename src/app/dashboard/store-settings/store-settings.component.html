@@ -11,22 +11,16 @@
       <div class="banner-wrapper">
         <div class="banner">
           <div>
-            <app-image-input
-              uploadDirectory="shop"
-              text="SELECT A BANNER IMAGE"
-              [control]="settingsForm.get('banner')"
-            ></app-image-input>
+            <app-image-input uploadDirectory="shop" text="SELECT A BANNER IMAGE" [control]="settingsForm.get('banner')">
+            </app-image-input>
           </div>
         </div>
       </div>
 
       <div class="core-section">
         <div class="profile-image">
-          <app-image-input
-            uploadDirectory="shop"
-            text="SELECT A PROFILE IMAGE *"
-            [control]="settingsForm.get('profile_picture')"
-          ></app-image-input>
+          <app-image-input uploadDirectory="shop" text="SELECT A PROFILE IMAGE *"
+            [control]="settingsForm.get('profile_picture')"></app-image-input>
         </div>
         <div>
           <mat-form-field>
@@ -56,7 +50,7 @@
     <div class="content-box_body__3tSRB">
       <mat-form-field>
         <mat-label>Street</mat-label>
-        <input matInput formControlName="street" />
+        <input required matInput formControlName="street" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Street 2</mat-label>
@@ -64,19 +58,19 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>City</mat-label>
-        <input matInput formControlName="city" />
+        <input required matInput formControlName="city" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Post / ZIP Code</mat-label>
-        <input matInput formControlName="zip" />
+        <input required matInput formControlName="zip" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>State</mat-label>
-        <input matInput formControlName="state" />
+        <input required matInput formControlName="state" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Country</mat-label>
-        <mat-select formControlName="country">
+        <mat-select required formControlName="country">
           <mat-option *ngFor="let country of countries$ | async" [value]="country.title">
             {{ country.title }}
           </mat-option>
@@ -84,7 +78,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Phone Number</mat-label>
-        <input matInput formControlName="phone" placeholder="+123456..." />
+        <input required matInput formControlName="phone" placeholder="+123456..." />
       </mat-form-field>
       <mat-checkbox color="primary" formControlName="show_email"> Show email address in store </mat-checkbox>
     </div>
@@ -138,13 +132,8 @@
 
   <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
 
-  <button
-    mat-raised-button
-    class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
-    color="primary"
-    type="submit"
-    [disabled]="!settingsForm.valid"
-  >
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!settingsForm.valid">
     Save Settings
   </button>
 </form>

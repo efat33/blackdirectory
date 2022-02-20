@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { PageEmailVerificationComponent } from './pages/page-email-verification/page-email-verification.component';
+import { PageUnsubscribeJobalertComponent } from './pages/page-unsubscribe-jobalert/page-unsubscribe-jobalert.component';
 import { AdminGuard, AuthGuard } from './shared/route-guards/auth-guard.service';
 
 const routes: Routes = [
@@ -15,8 +16,20 @@ const routes: Routes = [
     component: PageEmailVerificationComponent,
   },
   {
+    path: 'unsubscribe-job-alert/:id/:key',
+    component: PageUnsubscribeJobalertComponent,
+  },
+  {
     path: 'news',
     loadChildren: () => import('./news/news.module').then((m) => m.NewsModule),
+  },
+  {
+    path: 'travels',
+    loadChildren: () => import('./travels/travels.module').then((m) => m.TravelModule),
+  },
+  {
+    path: 'finance',
+    loadChildren: () => import('./finance/finance.module').then((m) => m.FinanceModule),
   },
   {
     path: 'events',

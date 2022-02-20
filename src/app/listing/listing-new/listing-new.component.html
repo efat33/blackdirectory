@@ -22,25 +22,29 @@
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
                       class="la la-file-text"></i></span> <span class="list_text__35R07">Category</span> <span
                     class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_featured_image)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-image"></i></span> <span class="list_text__35R07">Featured Image</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_contact_info)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-phone-square"></i></span> <span class="list_text__35R07">Contact Information</span>
+                  <span class="list_check__1FbUQ"></span></a></li>
               <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_price_range)"
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
                       class="la la-money"></i></span> <span class="list_text__35R07">Price Range</span> <span
-                    class="list_check__1FbUQ"></span></a></li>
-              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_coupon)"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
-                      class="la la-tag"></i></span> <span class="list_text__35R07">Coupon</span> <span
                     class="list_check__1FbUQ"></span></a></li>
               <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_my_products)"
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
                       class="la la-shopping-cart"></i></span> <span class="list_text__35R07">My Shop</span> <span
                     class="list_check__1FbUQ"></span></a></li>
+              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_coupon)"
+                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
+                      class="la la-tag"></i></span> <span class="list_text__35R07">Coupon</span> <span
+                    class="list_check__1FbUQ"></span></a></li>
               <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_restaurant_menu)"
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
                       class="la la-cutlery"></i></span> <span class="list_text__35R07">Restaurant Menu</span> <span
-                    class="list_check__1FbUQ"></span></a></li>
-              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_featured_image)"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
-                      class="la la-image"></i></span> <span class="list_text__35R07">Featured Image</span> <span
                     class="list_check__1FbUQ"></span></a></li>
               <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_gallery)"
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
@@ -54,10 +58,6 @@
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
                       class="la la-video-camera"></i></span> <span class="list_text__35R07">Video Urls</span> <span
                     class="list_check__1FbUQ"></span></a></li>
-              <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_contact_info)"
-                  class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
-                      class="la la-phone-square"></i></span> <span class="list_text__35R07">Contact Information</span>
-                  <span class="list_check__1FbUQ"></span></a></li>
               <li class="list_item__3YghP"><a (click)="scrollToSection(wilcity_addlisting_custom_button)"
                   class="list_link__2rDA1 text-ellipsis color-primary--hover"><span class="list_icon__2YpTp"><i
                       class="la la-cog"></i></span> <span class="list_text__35R07">Custom Button</span> <span
@@ -146,9 +146,10 @@
                 <div class="content-box_body__3tSRB">
                   <mat-form-field>
                     <mat-label>Full Address</mat-label>
-                    <input matInput required formControlName="address" />
+                    <input matInput required formControlName="address" (keydown)="locationModified = true"
+                      (blur)="onLocationBlur()" />
                   </mat-form-field>
-                  <div class="row">
+                  <div class="row d-none">
                     <div class="col-md-6">
                       <mat-form-field>
                         <mat-label>Latitude</mat-label>
@@ -184,8 +185,9 @@
                 <div class="content-box_body__3tSRB">
                   <mat-form-field>
                     <mat-label>Select Categories</mat-label>
-                    <mat-select #categorySelect required (openedChange)="onSelectOpen($event, listingCategoryFilterInput)"
-                      formControlName="categories" multiple>
+                    <mat-select #categorySelect required
+                      (openedChange)="onSelectOpen($event, listingCategoryFilterInput)" formControlName="categories"
+                      multiple>
                       <input class="selectSearch" #listingCategoryFilterInput matInput
                         placeholder="Search Categories" />
                       <mat-option *ngFor="let category of filteredListingCategory(listingCategoryFilterInput.value)"
@@ -197,6 +199,133 @@
                 </div>
               </div>
             </div><!-- wilcity_addlisting_listing_cat -->
+
+            <div #wilcity_addlisting_featured_image class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
+                    <span>Featured Image</span>
+                  </h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <section class="section-mat-form-field section-field-file section-field-preview-img">
+                  <mat-label>Featured Image</mat-label>
+                  <input accept="image/*" type="file" formControlName="featured_img_input" #fileInputFeaturedImg
+                    (change)="onFeaturedImageChange($event)" />
+                  <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
+                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
+                    (click)="fileInputFeaturedImg.click()">Upload</a>
+                </section>
+                <mat-progress-bar *ngIf="progressFeaturedImg > 0" mode="determinate" [value]="progressFeaturedImg"
+                  class="mb-15"></mat-progress-bar>
+                <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
+                  {{formCustomvalidation.featuredImage.message}}</p>
+              </div>
+            </div><!-- wilcity_addlisting_featured_image -->
+
+            <div #wilcity_addlisting_contact_info class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-phone-square"></i>
+                    <span>Contact Information</span>
+                  </h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Website</mat-label>
+                  <input matInput formControlName="website" />
+                </mat-form-field>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Instagram</mat-label>
+                      <input matInput formControlName="instagram" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Facebook</mat-label>
+                      <input matInput formControlName="facebook" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Twitter</mat-label>
+                      <input matInput formControlName="twitter" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Linkedin</mat-label>
+                      <input matInput formControlName="linkedin" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>TikTok</mat-label>
+                      <input matInput formControlName="tiktok" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Pinterest</mat-label>
+                      <input matInput formControlName="pinterest" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Youtube</mat-label>
+                      <input matInput formControlName="youtube" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Spotify</mat-label>
+                      <input matInput formControlName="spotify" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Apple Music</mat-label>
+                      <input matInput formControlName="apple_music" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Tidal</mat-label>
+                      <input matInput formControlName="tidal" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <mat-label>Soundcloud</mat-label>
+                      <input matInput formControlName="soundcloud" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div><!-- wilcity_addlisting_contact_info -->
 
             <div class="content-box_module__333d9 content-box_lg__3v3a- enable">
               <header class="content-box_header__xPnGx clearfix">
@@ -221,7 +350,7 @@
                   </mat-form-field>
                 </div>
               </div>
-            </div><!-- wilcity_addlisting_listing_cat -->
+            </div><!-- wilcity_addlisting_listing_claimed_by -->
 
             <div #wilcity_addlisting_price_range class="content-box_module__333d9 content-box_lg__3v3a- enable">
               <header class="content-box_header__xPnGx clearfix">
@@ -250,6 +379,28 @@
                 </mat-form-field>
               </div>
             </div><!-- wilcity_addlisting_price_range -->
+
+            <div #wilcity_addlisting_my_products class="content-box_module__333d9 content-box_lg__3v3a- enable">
+              <header class="content-box_header__xPnGx clearfix">
+                <div class="wil-float-left">
+                  <h4 class="content-box_title__1gBHS"><i class="la la-shopping-cart"></i> <span>My
+                      Shop</span></h4>
+                </div>
+              </header>
+              <div class="content-box_body__3tSRB">
+                <mat-form-field>
+                  <mat-label>Products</mat-label>
+                  <mat-select (openedChange)="onSelectOpen($event, listingProductFilterInput)"
+                    formControlName="products" multiple>
+                    <input class="selectSearch" #listingProductFilterInput matInput placeholder="Search Products" />
+                    <mat-option *ngFor="let product of filteredListingProducts(listingProductFilterInput.value)"
+                      [value]="product.value">
+                      {{product.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div><!-- wilcity_addlisting_my_products -->
 
             <div #wilcity_addlisting_coupon class="content-box_module__333d9 content-box_lg__3v3a- enable">
               <header class="content-box_header__xPnGx clearfix">
@@ -300,28 +451,6 @@
                 </mat-form-field>
               </div>
             </div><!-- wilcity_addlisting_coupon -->
-
-            <div #wilcity_addlisting_my_products class="content-box_module__333d9 content-box_lg__3v3a- enable">
-              <header class="content-box_header__xPnGx clearfix">
-                <div class="wil-float-left">
-                  <h4 class="content-box_title__1gBHS"><i class="la la-shopping-cart"></i> <span>My
-                      Shop</span></h4>
-                </div>
-              </header>
-              <div class="content-box_body__3tSRB">
-                <mat-form-field>
-                  <mat-label>Products</mat-label>
-                  <mat-select (openedChange)="onSelectOpen($event, listingProductFilterInput)"
-                    formControlName="products" multiple>
-                    <input class="selectSearch" #listingProductFilterInput matInput placeholder="Search Products" />
-                    <mat-option *ngFor="let product of filteredListingProducts(listingProductFilterInput.value)"
-                      [value]="product.value">
-                      {{product.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div><!-- wilcity_addlisting_my_products -->
 
             <div #wilcity_addlisting_restaurant_menu class="content-box_module__333d9 content-box_lg__3v3a- enable">
               <header class="content-box_header__xPnGx clearfix">
@@ -476,30 +605,6 @@
                 </div>
               </div>
             </div><!-- wilcity_addlisting_restaurant_menu -->
-
-            <div #wilcity_addlisting_featured_image class="content-box_module__333d9 content-box_lg__3v3a- enable">
-              <header class="content-box_header__xPnGx clearfix">
-                <div class="wil-float-left">
-                  <h4 class="content-box_title__1gBHS"><i class="la la-image"></i>
-                    <span>Featured Image</span>
-                  </h4>
-                </div>
-              </header>
-              <div class="content-box_body__3tSRB">
-                <section class="section-mat-form-field section-field-file section-field-preview-img">
-                  <mat-label>Featured Image</mat-label>
-                  <input accept="image/*" type="file" formControlName="featured_img_input"
-                    #fileInputFeaturedImg (change)="onFeaturedImageChange($event)" />
-                  <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
-                  <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                    (click)="fileInputFeaturedImg.click()">Upload</a>
-                </section>
-                <mat-progress-bar *ngIf="progressFeaturedImg > 0" mode="determinate" [value]="progressFeaturedImg"
-                  class="mb-15"></mat-progress-bar>
-                <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
-                  {{formCustomvalidation.featuredImage.message}}</p>
-              </div>
-            </div><!-- wilcity_addlisting_featured_image -->
 
             <div #wilcity_addlisting_gallery class="content-box_module__333d9 content-box_lg__3v3a- enable">
               <header class="content-box_header__xPnGx clearfix">
@@ -988,109 +1093,6 @@
                 </div>
               </div>
             </div><!-- wilcity_addlisting_video -->
-
-            <div #wilcity_addlisting_contact_info class="content-box_module__333d9 content-box_lg__3v3a- enable">
-              <header class="content-box_header__xPnGx clearfix">
-                <div class="wil-float-left">
-                  <h4 class="content-box_title__1gBHS"><i class="la la-phone-square"></i>
-                    <span>Contact Information</span>
-                  </h4>
-                </div>
-              </header>
-              <div class="content-box_body__3tSRB">
-                <mat-form-field>
-                  <mat-label>Email</mat-label>
-                  <input matInput formControlName="email" />
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Phone</mat-label>
-                  <input matInput formControlName="phone" />
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Website</mat-label>
-                  <input matInput formControlName="website" />
-                </mat-form-field>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Instagram</mat-label>
-                      <input matInput formControlName="instagram" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Facebook</mat-label>
-                      <input matInput formControlName="facebook" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Twitter</mat-label>
-                      <input matInput formControlName="twitter" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Linkedin</mat-label>
-                      <input matInput formControlName="linkedin" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>TikTok</mat-label>
-                      <input matInput formControlName="tiktok" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Pinterest</mat-label>
-                      <input matInput formControlName="pinterest" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Youtube</mat-label>
-                      <input matInput formControlName="youtube" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Spotify</mat-label>
-                      <input matInput formControlName="spotify" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Apple Music</mat-label>
-                      <input matInput formControlName="apple_music" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Tidal</mat-label>
-                      <input matInput formControlName="tidal" />
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field>
-                      <mat-label>Soundcloud</mat-label>
-                      <input matInput formControlName="soundcloud" />
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-            </div><!-- wilcity_addlisting_contact_info -->
 
             <div #wilcity_addlisting_custom_button class="content-box_module__333d9 content-box_lg__3v3a- enable">
               <header class="content-box_header__xPnGx clearfix">

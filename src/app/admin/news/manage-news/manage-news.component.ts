@@ -57,12 +57,18 @@ export class ManageNewsComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
+  getCategoryNames(categories) {
+    const cat_arr = categories.map((c) => c.name);
+
+    return cat_arr.join(', ');
+  }
+
   getNews() {
     this.spinnerService.show();
     const subscription = this.newsService.getNews().subscribe(
       (result: any) => {
         this.spinnerService.hide();
-
+        
         this.allNews = result.data;
         this.dataSource.data = this.allNews;
       },

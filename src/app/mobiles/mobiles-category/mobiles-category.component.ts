@@ -19,6 +19,8 @@ import * as lodash from 'lodash';
 export class MobilesCategoryComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
+  siteUrl: string = `${this.helperService.siteUrl}`;
+
   filterForm: FormGroup;
 
   mobileCategory: string;
@@ -29,6 +31,9 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
 
   providers: any[] = [];
   selectedProviders: any[] = [];
+  selectedBrands: any[] = [];
+  selectedmodels: any[] = [];
+  modelOptions: any[] = [];
 
   contracts: any[] = [];
   selectedContracts: any[] = [];
@@ -100,7 +105,8 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private mobilesService: MobilesService,
+    public mobilesService: MobilesService,
+    private helperService: HelperService,
     private snackbar: SnackBarService,
     private spinnerService: SpinnerService
   ) {
@@ -110,7 +116,10 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getModelOptions();
+    this.getProviders();
+  }
 
   initialize() {
     this.mobileCategory = this.route.snapshot.paramMap.get('cat-slug');
@@ -124,8 +133,16 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     this.categoryName = category.title;
 
     this.initializeFilterForm();
+    this.resetFilterValues();
+    
+    
+  }
 
-    this.getProviders();
+  getModelOptions() {
+    const options = this.mobilesService.brand_models;
+    for (const [key, value] of Object.entries(options)) {
+      this.modelOptions.push(...value);
+    }
   }
 
   getTopMobiles() {
@@ -158,6 +175,13 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     });
   }
 
+  resetFilterValues() {
+    this.selectedProviders = [];
+    this.selectedBrands = [];
+    this.selectedmodels = [];
+    this.selectedContracts = [];
+  }
+
   getTotalMobiles() {
     const params = this.getFilterValues();
 
@@ -184,7 +208,7 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
 
   getMobiles(page: number = 1) {
     const params = this.getFilterValues();
-
+    
     params.page = page;
     params.limit = this.pageSize;
 
@@ -242,6 +266,8 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
   getFilterValues() {
     const values = lodash.cloneDeep(this.filterForm.value);
     values.providers = this.selectedProviders;
+    values.brands = this.selectedBrands;
+    values.models = this.selectedmodels;
     values.contracts = this.selectedContracts;
 
     if (this.unlimitedData) {
@@ -273,6 +299,26 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
       this.selectedProviders.push(provider.id);
     }
 
+    this.onFilter();
+  }
+
+  onClickBrand(brand: any) {
+    if (this.selectedBrands.includes(brand.value)) {
+      this.selectedBrands = this.selectedBrands.filter((id) => id !== brand.value);
+    } else {
+      this.selectedBrands.push(brand.value);
+    }
+    
+    this.onFilter();
+  }
+
+  onClickModel(model: any) {
+    if (this.selectedmodels.includes(model.value)) {
+      this.selectedmodels = this.selectedmodels.filter((id) => id !== model.value);
+    } else {
+      this.selectedmodels.push(model.value);
+    }
+    
     this.onFilter();
   }
 

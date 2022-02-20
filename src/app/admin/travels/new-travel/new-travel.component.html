@@ -1,0 +1,36 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="travelForm">
+  <div id="new-news-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <div class="content-box_body__3tSRB">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+
+      <div class="">
+        <section class="section-mat-form-field section-field-file section-field-preview-img">
+          <mat-label>Featured Image</mat-label>
+          <input accept="image/*" type="file" #inputAttachment (change)="onAttachmentChange($event)" />
+          <span *ngIf="featuredImageSrc" [ngStyle]="{'background-image': 'url('+featuredImageSrc+')'}"></span>
+          <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs" (click)="inputAttachment.click()">Upload</a>
+        </section>
+        <mat-progress-bar *ngIf="progressFeaturedImage" mode="determinate" [value]="progressFeaturedImage"
+          class="mb-15">
+        </mat-progress-bar>
+        <p class="form-error" *ngIf="!formCustomvalidation.featuredImage.validated">
+          {{formCustomvalidation.featuredImage.message}}</p>
+      </div>
+
+      <div class="news-content-ckeditor">
+        <ckeditor [editor]="ckEditor" [config]="ckConfig" (ready)="onCkeditorReady($event)" formControlName="content">
+        </ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block" color="primary"
+    type="submit" [disabled]="!travelForm.valid">
+    {{editTravelId ? 'Update Travel' : 'Add Travel'}}
+  </button>
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+</form>

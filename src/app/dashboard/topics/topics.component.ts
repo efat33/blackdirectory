@@ -10,7 +10,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
 @Component({
-  selector: 'app-all-topics',
+  selector: 'app-dashboard-topics',
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.scss'],
 })
@@ -40,8 +40,8 @@ export class AllTopicsComponent implements OnInit {
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
-
-    if (!this.helperService.isAdmin()) {
+    const current_user = this.helperService.currentUserInfo;
+    if (!this.helperService.isAdmin() && current_user.forum_role != 'keymaster' && current_user.forum_role != 'moderator') {
       this.queryParams['user_id'] = this.helperService.currentUserInfo.id;
     }
 

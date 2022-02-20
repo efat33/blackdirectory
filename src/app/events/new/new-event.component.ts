@@ -15,6 +15,7 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
 import { EventService } from '../event.service';
 import * as DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 declare const google: any;
 
@@ -135,7 +136,7 @@ export class NewEventComponent implements OnInit {
 
   ckEditor = DocumentEditor;
   ckConfig = {
-    placeholder: 'Event Description',
+    placeholder: 'Event Description *',
     height: 200,
     toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList'],
   };
@@ -151,6 +152,9 @@ export class NewEventComponent implements OnInit {
   dialogRefOrganizer: any;
   dialogRefTicket: any;
   dialogRefRsvp: any;
+
+  locationModified = false;
+  isVirtual = false;
 
   featuredImageSrc: string;
   progressFeaturedImg: number = 0;
@@ -339,6 +343,8 @@ export class NewEventComponent implements OnInit {
       latitude.setValue(place.geometry.location.lat());
       longitude.setValue(place.geometry.location.lng());
 
+      this.locationModified = false;
+
       this.cdk.detectChanges();
     });
   }
@@ -427,8 +433,8 @@ export class NewEventComponent implements OnInit {
       featured_img: new FormControl('', Validators.required),
       category_id: new FormControl('', Validators.required),
       tag_id: new FormControl(''),
-      venue: new FormControl(''),
-      address: new FormControl(''),
+      venue: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
       latitude: new FormControl(''),
       longitude: new FormControl(''),
       is_virtual: new FormControl(''),
@@ -441,8 +447,8 @@ export class NewEventComponent implements OnInit {
       rsvp: new FormArray([]),
 
       event_type: new FormControl('one_time'),
-      start_time: new FormControl(''),
-      end_time: new FormControl(''),
+      start_time: new FormControl('', Validators.required),
+      end_time: new FormControl('', Validators.required),
 
       recurrence_type: new FormControl(''),
       recurrence_interval: new FormControl(''),
@@ -741,6 +747,32 @@ export class NewEventComponent implements OnInit {
               this.progressFeaturedImg = 0;
             }, 1000);
         }
+      });
+    }
+  }
+
+  onChangeVirtual(ob: MatCheckboxChange) {
+    if (ob.checked) {
+      this.isVirtual = true;
+      
+      this.eventForm.get('venue').clearValidators();
+      this.eventForm.get('address').clearValidators();
+      this.eventForm.get('youtube_url').setValidators([Validators.required]);
+    } else {
+      this.isVirtual = false;
+
+      this.eventForm.get('youtube_url').clearValidators();
+      this.eventForm.get('venue').setValidators([Validators.required]);
+      this.eventForm.get('address').setValidators([Validators.required]);
+    }
+  }
+
+  onLocationBlur() {
+    if (this.locationModified) {
+      this.eventForm.patchValue({
+        latitude: '',
+        longitude: '',
+        address: '',
       });
     }
   }

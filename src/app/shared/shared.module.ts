@@ -35,6 +35,7 @@ import { ContactOwnerModal } from '../modals/listing/details/contact-owner/conta
 import { RsvpApplyModal } from '../modals/events/details/rsvp-apply/rsvp-apply-modal';
 import { ProductQuickViewModal } from '../modals/product-quick-view/product-quick-view.component';
 import { InformationDialogComponent } from '../modals/information-dialog/information-dialog';
+import { AccountDeactivateModal } from '../modals/user/account-deactivate/account-deactivate-modal';
 
 // import all modules
 import { SwiperModule } from 'swiper/angular';
@@ -108,6 +109,8 @@ import { BdyImagePipe } from './pipes/bdy-image.pipe';
 import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
 import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { JobAlertModal } from '../modals/job/job-alert/job-alert-modal';
+
 
 
 @NgModule({
@@ -170,6 +173,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     InformationDialogComponent,
     SendEmailModalComponent,
     EmailJobModalComponent,
+    AccountDeactivateModal,
+    JobAlertModal
   ],
   imports: [
     CommonModule,
@@ -344,6 +349,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ListingClaimModal,
     ForgotPasswordModal,
     ResetPasswordModal,
+    AccountDeactivateModal,
+    JobAlertModal
   ],
 })
 export class SharedModule {}

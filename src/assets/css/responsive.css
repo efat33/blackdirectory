@@ -66,4 +66,7 @@
         padding-left: 15px;
         padding-right: 15px;
     }
+    .bd-form-submit button {
+        min-width: 160px;
+    }
 }

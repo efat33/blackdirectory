@@ -47,6 +47,12 @@ import { ManageDealsComponent } from './deals/manage-deals/manage-deals.componen
 import { ManageUsersComponent } from './users/manage-users/manage-users.component';
 import { ForumCategoriesComponent } from './forums/forum-categories/forum-categories.component';
 import { AddForumCategoryModalComponent } from './forums/forum-categories/add-forum-category-modal/add-forum-category-modal';
+import { NewTravelComponent } from './travels/new-travel/new-travel.component';
+import { ManageTravelComponent } from './travels/manage-travel/manage-travel.component';
+import { NewFinanceComponent } from './finance/new-finance/new-finance.component';
+import { ManageFinanceComponent } from './finance/manage-finance/manage-finance.component';
+import { UserRequestsComponent } from './users/user-requests/user-requests.component';
+import { DeactivatedUsersComponent } from './users/deactivated-users/deactivated-users.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +97,13 @@ import { AddForumCategoryModalComponent } from './forums/forum-categories/add-fo
     ManageDealsComponent,
     ManageUsersComponent,
     ForumCategoriesComponent,
-    AddForumCategoryModalComponent
+    AddForumCategoryModalComponent,
+    NewTravelComponent,
+    ManageTravelComponent,
+    NewFinanceComponent,
+    ManageFinanceComponent,
+    UserRequestsComponent,
+    DeactivatedUsersComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule, CKEditorModule]
 })

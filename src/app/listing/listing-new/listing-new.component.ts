@@ -27,6 +27,7 @@ declare const google: any;
 export class ListingNewComponent implements OnInit, AfterViewInit {
   @ViewChild('categorySelect') categorySelect: MatSelect;
 
+  locationModified = false;
   selectedCategories = [];
   categories = [];
   users = [];
@@ -982,6 +983,16 @@ export class ListingNewComponent implements OnInit, AfterViewInit {
 
   scrollToSection(el: HTMLElement) {
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  onLocationBlur() {
+    if (this.locationModified) {
+      this.listingForm.patchValue({
+        lat: '',
+        lng: '',
+        address: '',
+      });
+    }
   }
 
   ngOnDestroy() {

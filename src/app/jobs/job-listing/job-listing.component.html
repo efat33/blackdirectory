@@ -49,10 +49,13 @@
                     </mat-form-field>
                   </div>
                 </li>
-                <li class="jobsearch-banner-submit">
-                  <button id="jobsearch-jobadvserach-submit" type="submit">
-                    <i class="jobsearch-icon jobsearch-search"></i>
-                  </button>
+                <li class="jobsearch-banner-submit bd-form-submit">
+                  <div class="mat-form-field-appearance-outline">
+                    <div class="mat-form-field-wrapper">
+                      <button type="submit" class="wil-btn wil-btn--primary wil-btn--md wil-btn--round"><i
+                          class="la la-search"></i>Search</button>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -141,31 +144,35 @@
               <div class="jobsearch-search-filter-wrap jobsearch-without-toggle jobsearch-add-padding">
                 <div class="job-alert-box job-alert job-alert-container-top">
                   <div class="alerts-fields">
-                    <input name="alerts-name" placeholder="Name" class="name-input-top" maxlength="75" type="text">
-                    <input type="email" class="email-input-top alerts-email" placeholder="Enter" email=""
-                      name="alerts-email" value="admin@blackdirectory.co.uk" disabled="disabled">
+                    <input [(ngModel)]="jobAlert.name" [ngModelOptions]="{standalone: true}" name="alerts-name"
+                      placeholder="Name*" class="name-input-top" maxlength="75" type="text">
+                    <input [(ngModel)]="jobAlert.email" [ngModelOptions]="{standalone: true}" type="email"
+                      class="email-input-top alerts-email" placeholder="Email*" email="" name="alerts-email" value="">
                   </div>
                   <div class="alert-frequency">
                     <ul class="jobsearch-checkbox">
-                      <li><input id="frequency47943020" name="alert-frequency" class="radio-frequency" maxlength="75"
-                          type="radio" value="job_alerts_frequency_daily" checked="checked"> <label
+                      <li><input [(ngModel)]="jobAlert.period" [ngModelOptions]="{standalone: true}"
+                          id="frequency47943020" name="alert-frequency" class="radio-frequency" maxlength="75"
+                          type="radio" value="1" checked="checked"> <label
                           for="frequency47943020"><span></span>Daily</label></li>
-                      <li><input id="frequency15661330" name="alert-frequency" class="radio-frequency" maxlength="75"
-                          type="radio" value="job_alerts_frequency_weekly"> <label
-                          for="frequency15661330"><span></span>Weekly</label></li>
-                      <li><input id="frequency20140351" name="alert-frequency" class="radio-frequency" maxlength="75"
-                          type="radio" value="job_alerts_frequency_fortnightly">
+                      <li><input [(ngModel)]="jobAlert.period" [ngModelOptions]="{standalone: true}"
+                          id="frequency15661330" name="alert-frequency" class="radio-frequency" maxlength="75"
+                          type="radio" value="7"> <label for="frequency15661330"><span></span>Weekly</label></li>
+                      <li><input [(ngModel)]="jobAlert.period" [ngModelOptions]="{standalone: true}"
+                          id="frequency20140351" name="alert-frequency" class="radio-frequency" maxlength="75"
+                          type="radio" value="14">
                         <label for="frequency20140351"><span></span>Fortnightly</label>
                       </li>
-                      <li><input id="frequency73017117" name="alert-frequency" class="radio-frequency" maxlength="75"
-                          type="radio" value="job_alerts_frequency_monthly"> <label
-                          for="frequency73017117"><span></span>Monthly</label></li>
+                      <li><input [(ngModel)]="jobAlert.period" [ngModelOptions]="{standalone: true}"
+                          id="frequency73017117" name="alert-frequency" class="radio-frequency" maxlength="75"
+                          type="radio" value="30"> <label for="frequency73017117"><span></span>Monthly</label></li>
                     </ul>
                   </div>
-                  <div class="validation error" style="display:none;">
-                    <label for="alerts-email-top"></label>
+                  <div *ngIf="jobAlertError.length > 0" class="validation error">
+                    <!-- <label for="alerts-email-top"></label> -->
+                    <label *ngFor="let item of jobAlertError">{{ item }}</label>
                   </div>
-                  <button class="jobalert-submit" type="submit">Create Alert</button>
+                  <button class="jobalert-submit" type="button" (click)="onSubmitJobAlert()">Create Alert</button>
                 </div>
               </div>
             </div>

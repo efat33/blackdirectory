@@ -8,7 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
 import { HomeModule } from './home/home.module';
@@ -24,13 +24,13 @@ import { PagesModule } from './pages/pages.module';
 // change date format through out the site
 export const DATE_FORMATS = {
   parse: {
-    dateInput: 'LL',
+    dateInput: 'DD-MM-YYYY',
   },
   display: {
-    dateInput: 'YYYY-MM-DD',
-    monthYearLabel: 'YYYY',
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMMM YYYY',
     dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY',
+    monthYearA11yLabel: 'MMMM YYYY'
   },
 };
 
@@ -51,7 +51,8 @@ export const DATE_FORMATS = {
     MomentDateModule,
   ],
   providers: [
-    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+    // { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,

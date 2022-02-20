@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { JobService } from 'src/app/jobs/jobs.service';
+import { AccountDeactivateModal } from 'src/app/modals/user/account-deactivate/account-deactivate-modal';
 
 declare const google: any;
 
@@ -61,6 +62,7 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   userMeta: any;
   userProfile: any;
 
+  dialogRefDeac: any;
   dialogRefEdu: any;
   dialogRefExp: any;
   dialogRefPort: any;
@@ -96,12 +98,10 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // initiate form fields
     this.setupFormFields();
-
-    setTimeout(() => {
-      this.initializeGoogleMap();
-    }, 0);
-
     this.getJobSectors();
+
+    // initialize google map
+    this.initializeGoogleMap();
 
     this.adminEditId = parseInt(this.route.snapshot.paramMap.get('id'));
 
@@ -223,8 +223,8 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
           id: new FormControl(item.id),
           user_id: new FormControl(item.user_id),
           title: new FormControl(item.title),
-          start_date: new FormControl(item.start_date),
-          end_date: new FormControl(item.end_date),
+          start_date: new FormControl(moment(item.start_date).format('YYYY-MM-DD')),
+          end_date: new FormControl(moment(item.end_date).format('YYYY-MM-DD')),
           present: new FormControl(item.present),
           company: new FormControl(item.company),
           description: new FormControl(item.description),
@@ -250,8 +250,8 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     }
 
     const latlng = {
-      lat: parseFloat(this.userProfile.data.latitude),
-      lng: parseFloat(this.userProfile.data.longitude),
+      lat: parseFloat(this.userDetails.latitude),
+      lng: parseFloat(this.userDetails.longitude),
     };
 
     if (latlng.lat && latlng.lng) {
@@ -438,8 +438,8 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.submitted = true;
-    const formData = this.profileForm.value;
-
+    const formData = this.profileForm.getRawValue();
+    
     if(formData.dob == null || formData.dob == 'Invalid date'){
       formData.dob = null;
     }
@@ -623,6 +623,43 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  /**
+   * ======================================
+   * account delete or deactivate
+   * ======================================
+   */
+  openDeactivateModal(): void {
+    this.dialogRefDeac = this.dialog.open(AccountDeactivateModal, {
+      width: '500px',
+      data: { },
+    });
+
+    this.dialogRefDeac.afterClosed().subscribe((result) => {
+      if (result) this.onSubmitDeactivateForm(result);
+    });
+
+    this.subscriptions.add(this.dialogRefDeac);
+  }
+
+  onSubmitDeactivateForm(formData?: any) {
+    
+    this.spinnerService.show();
+    
+    formData.user_email = this.userDetails.email;
+    const subsUserRequest = this.userService.userRequest(formData).subscribe(
+      (res:any) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar('Submitted Successfully', 'Close');
+      },
+      (res:any) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(res.error.message, 'Close', 'warn');
+      }
+    );
+    
+    this.subscriptions.add(subsUserRequest);
   }
 
   /**

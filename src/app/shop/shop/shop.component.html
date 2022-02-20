@@ -1,5 +1,5 @@
 <div class="tribe-common-l-container tribe-events-l-container">
-  <h1 class="heading_title__1bzno" style="margin-top: 30px">Shop</h1>
+  <h1 class="heading_title__1bzno" style="margin-top: 30px">BD Market</h1>
 </div>
 <div class="wil-dashboard wil-content container" id="wilcity-dashboard">
   <section id="wilcity-dashboard-inner" class="wil-section wil-dashboard-inner pd-0">
@@ -13,10 +13,14 @@
           <div class="product-search">
             <mat-form-field appearance="outline">
               <input matInput placeholder="Search Products" [(ngModel)]="params.keyword">
-              <mat-icon matPrefix>search</mat-icon>
+              <!-- <mat-icon matPrefix>search</mat-icon> -->
             </mat-form-field>
 
-            <button mat-stroked-button color="primary" (click)="onSearchProduct()">Search</button>
+            <!-- <button mat-stroked-button color="primary" (click)="onSearchProduct()">Search</button> -->
+            <button (click)="onSearchProduct()" class="wil-btn wil-btn--primary wil-btn--round wil-btn--md"
+              type="button">
+              <i class="la la-search"></i> Search
+            </button>
           </div>
 
           <mat-form-field style="width: unset" appearance="legacy">
@@ -36,12 +40,8 @@
           <mat-spinner></mat-spinner>
         </div>
 
-        <pagination
-          [totalItems]="totalItems"
-          [currentPage]="currentPage"
-          [pageSize]="pageSize"
-          (pageChange)="onPageChange($event)"
-        >
+        <pagination [totalItems]="totalItems" [currentPage]="currentPage" [pageSize]="pageSize"
+          (pageChange)="onPageChange($event)">
         </pagination>
       </div>
     </div>
