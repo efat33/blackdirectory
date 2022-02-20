@@ -165,14 +165,14 @@ You have recieved a new application for your job "<a href='${location.origin}/jo
 First Name: ${this.jobApplyForm.value.first_name}
 Last Name: ${this.jobApplyForm.value.last_name}
 Email: ${this.jobApplyForm.value.email}
-phone: ${this.jobApplyForm.value.phone}
-job_title: ${this.jobApplyForm.value.job_title}
-current_salary: ${this.jobApplyForm.value.current_salary}
-academics: ${this.jobApplyForm.value.academics.join(', ')}
-age: ${this.jobApplyForm.value.age}
-industry: ${this.jobApplyForm.value.industry}
-gender: ${this.jobApplyForm.value.gender}
-message: ${this.jobApplyForm.value.message}
+Phone: ${this.jobApplyForm.value.phone}
+Job Title: ${this.jobApplyForm.value.job_title}
+Current Salary: ${this.jobApplyForm.value.current_salary}
+Academics: ${this.jobApplyForm.value.academics.join(', ')}
+Age: ${this.jobApplyForm.value.age}
+Industry: ${this.jobApplyForm.value.industry}
+Gender: ${this.jobApplyForm.value.gender}
+Message: ${this.jobApplyForm.value.message}
 
 Best regards,
 
