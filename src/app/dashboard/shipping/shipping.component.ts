@@ -12,7 +12,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 })
 export class ShippingComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
-  
+
   f = new FormGroup({
     id: new FormControl(null),
     title: new FormControl('', [Validators.required]),
@@ -27,7 +27,7 @@ export class ShippingComponent implements OnInit {
   countriesObj: any = {};
 
   constructor(
-    private snackbar: SnackBarService, 
+    private snackbar: SnackBarService,
     private shippingService: ShippingService,
     private storeService: StoreService,
     ) {}
@@ -57,7 +57,7 @@ export class ShippingComponent implements OnInit {
     );
 
     this.subscriptions.add(subsShippingMethods);
-    
+
   }
 
   getCountries() {
@@ -68,7 +68,7 @@ export class ShippingComponent implements OnInit {
         })
       },
       (err) => {
-        
+
       }
     );
 
@@ -79,7 +79,7 @@ export class ShippingComponent implements OnInit {
     const countries = [];
     for (const [i, item] of ids.entries()) {
       countries.push(this.countriesObj[item]);
-    } 
+    }
     return countries.join(', ');
   }
 

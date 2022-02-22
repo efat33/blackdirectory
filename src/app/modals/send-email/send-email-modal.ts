@@ -15,12 +15,18 @@ export class SendEmailModalComponent implements OnInit {
   showError = false;
   errorMessage = '';
 
+  user: any;
+  job: any;
+
   constructor(
     public dialogRef: MatDialogRef<SendEmailModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-  ) {}
+  ) {
+    this.user = data.to;
+    this.job = data.job;
+  }
 
   ngOnInit(): void {
     this.emailForm = new FormGroup({
@@ -35,10 +41,22 @@ export class SendEmailModalComponent implements OnInit {
   }
 
   sendEmail() {
+    const currentUser = this.helperService.currentUserInfo;
+
     const emailOptions = {
-      to: this.data.to,
-      subject: this.emailForm.value.subject,
-      body: this.emailForm.value.message,
+      to: this.user.email,
+      subject: `Black Directory - Contact Form`,
+      body: `Hello ${this.user.display_name},
+
+The below inquiry has been made by ${currentUser.display_name} via your job application for the job "<a href="${location.origin}/jobs/details/${this.job.slug}">${this.job.title}</a>".
+
+Subject: ${this.emailForm.value.subject}
+Message:
+${this.emailForm.value.message}
+
+Best regards,
+
+Black Directory Team`,
     };
 
     this.helperService.sendMail(emailOptions).subscribe();

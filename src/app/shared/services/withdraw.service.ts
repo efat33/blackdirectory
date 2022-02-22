@@ -56,4 +56,8 @@ export class WithdrawService {
   getAllData(): Observable<WithdrawData> {
     return this.http.get<ApiResponse<WithdrawData>>(`${this.BASE_URL}s-all`).pipe(pluck('data'));
   }
+
+  completeWithdraw(id: number): Observable<WithdrawData> {
+    return this.http.put<any>(`${this.BASE_URL}/complete/${id}`, null).pipe(pluck('data'));
+  }
 }
