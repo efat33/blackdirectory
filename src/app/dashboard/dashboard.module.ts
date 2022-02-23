@@ -42,6 +42,7 @@ import { NewTopicComponent } from './topics-new/topics-new.component';
 import { AllTopicsComponent } from './topics/topics.component';
 import { NewReplyComponent } from './reply-new/reply-new.component';
 import { AllRepliesComponent } from './replies/replies.component';
+import { PaymentSettingsComponent } from './payment-settings/payment-settings.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { AllRepliesComponent } from './replies/replies.component';
     ProductsEditComponent,
     OrdersComponent,
     StoreSettingsComponent,
+    PaymentSettingsComponent,
     WithdrawComponent,
     FileInputComponent,
     ListingsComponent,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { forkJoin, Observable } from 'rxjs';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 import { ShippingOption, ShippingService } from './shipping.service';
@@ -36,24 +36,33 @@ export class ShippingOptionsService {
       vendorName: new FormControl(vendorName),
       vendorId: new FormControl(vendorId),
       options: new FormControl(options),
-      selectedOption: new FormControl(),
+      selectedOption: new FormControl(null, [Validators.required]),
     });
   }
 
-  private getShippingOptions(vendors: Map<number, string>): Observable<ShippingOptionForm[]> {
+  private getShippingOptions(vendors: Map<number, string>, countryID?: number): Observable<ShippingOptionForm[]> {
     return forkJoin(
       Array.from(vendors.keys()).map((vendor) =>
         this.shippingService.getShippingMethods(vendor).pipe(
-          map<ShippingOption[], ShippingOptionForm | null>((options) =>
-            options.length > 0
-              ? {
-                  vendorId: options[0].vendor_id,
-                  vendorName: vendors.get(options[0].vendor_id),
-                  options,
-                  selectedOption: options[0].id,
-                }
-              : null
-          )
+          map<ShippingOption[], ShippingOptionForm | null>((options) => {
+            const filteredOptions = options.filter((option: ShippingOption) => option.zones.includes(countryID));
+
+            if (options.length > 0) {
+              return {
+                vendorId: options[0].vendor_id,
+                vendorName: vendors.get(options[0].vendor_id),
+                options: filteredOptions,
+                selectedOption: options[0].id,
+              };
+            }
+
+            return {
+              vendorId: null,
+              vendorName: null,
+              options: null,
+              selectedOption: null,
+            };
+          })
         )
       )
     ).pipe(map((data) => data.filter((item) => item != null)));
@@ -75,28 +84,13 @@ export class ShippingOptionsService {
     return vendorsMap;
   }
 
-  updateShippingOptionsForm(vendors: Map<number, string>): void {
-    // Remove vendors
-    let i = 0;
-    while (i < this.form.length) {
-      const formVendorId = this.form.controls[i].value.vendorId;
-      if (vendors.has(formVendorId)) {
-        vendors.delete(formVendorId);
-        i++;
-      } else {
-        this.form.removeAt(i);
-      }
+  updateShippingOptionsForm(vendors: Map<number, string>, countryID?: number): void {
+    while (this.form.length !== 0) {
+      this.form.removeAt(0);
     }
 
-    // Filter out existing vendors
-    vendors.forEach((_, key) => {
-      if (this.isVendorInForm(key)) {
-        vendors.delete(key);
-      }
-    });
-
     // Add new FormGroups for non-existent vendors
-    this.getShippingOptions(vendors).subscribe((items) => {
+    this.getShippingOptions(vendors, countryID).subscribe((items) => {
       items.forEach((item) => {
         this.form.push(this.createShippingOptionFormGroup(item.vendorName, item.vendorId, item.options));
       });

@@ -158,23 +158,29 @@ export class JobApplyEmailModal implements OnInit, OnDestroy {
   }
 
   prepareEmailOptions() {
-    const emailBody = `New job application for job: ${this.job.title}<br>
-    <br>
-First Name: ${this.jobApplyForm.value.first_name}<br>
-Last Name: ${this.jobApplyForm.value.last_name}<br>
-Email: ${this.jobApplyForm.value.email}<br>
-phone: ${this.jobApplyForm.value.phone}<br>
-job_title: ${this.jobApplyForm.value.job_title}<br>
-current_salary: ${this.jobApplyForm.value.current_salary}<br>
-academics: ${this.jobApplyForm.value.academics.join(', ')}<br>
-age: ${this.jobApplyForm.value.age}<br>
-industry: ${this.jobApplyForm.value.industry}<br>
-gender: ${this.jobApplyForm.value.gender}<br>
-message: ${this.jobApplyForm.value.message}`;
+    const emailBody = `Hi ${this.job.user.display_name},
+
+You have recieved a new application for your job "<a href='${location.origin}/jobs/details/${this.job.slug}'>${this.job.title}</a>".
+
+First Name: ${this.jobApplyForm.value.first_name}
+Last Name: ${this.jobApplyForm.value.last_name}
+Email: ${this.jobApplyForm.value.email}
+Phone: ${this.jobApplyForm.value.phone}
+Job Title: ${this.jobApplyForm.value.job_title}
+Current Salary: ${this.jobApplyForm.value.current_salary}
+Academics: ${this.jobApplyForm.value.academics.join(', ')}
+Age: ${this.jobApplyForm.value.age}
+Industry: ${this.jobApplyForm.value.industry}
+Gender: ${this.jobApplyForm.value.gender}
+Message: ${this.jobApplyForm.value.message}
+
+Best regards,
+
+Black Directory Team`;
 
     const options = {
       to: this.job.job_meta.job_apply_email,
-      subject: 'New Job Application',
+      subject: 'Black Directory - Job Application',
       body: emailBody,
       resume: this.jobApplyForm.value.resume
     };
