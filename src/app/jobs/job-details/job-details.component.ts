@@ -291,9 +291,21 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   openContactEmployerModal(): void {
+    if (!this.helperService.isUserLoggedIn()) {
+      this.userService.onLoginLinkModal.next();
+
+      return;
+    }
+
+    if (!this.helperService.isCandidate()) {
+      this.snackbar.openSnackBar('Requires candidate login.', 'Close', 'warn');
+
+      return;
+    }
+
     this.dialog.open(ContactEmployerModal, {
       width: '550px',
-      data: { to: this.job.user.email },
+      data: { to: this.job.user, job: this.job },
     });
   }
 

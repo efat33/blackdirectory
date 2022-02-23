@@ -72,4 +72,12 @@ export class StoreService {
   postStoreSettings(params: PostStoreSettingsBody): Observable<any> {
     return this.http.post<ApiResponse<any>>(`api/shop/details`, params);
   }
+
+  postPaymentSettings(params: any): Observable<any> {
+    return this.http.post<ApiResponse<any>>(`api/shop/payment`, params);
+  }
+
+  getPaymentSettings(): Observable<any> {
+    return this.http.get<ApiResponse<any>>(`api/shop/payment`);
+  }
 }

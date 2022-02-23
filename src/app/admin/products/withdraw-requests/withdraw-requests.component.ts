@@ -62,6 +62,23 @@ export class AllWithdrawRequestsComponent implements OnInit, AfterViewInit, OnDe
     return this.withdrawService.paymentMethods.find((m) => m.value === paymentMethod)?.label || 'Unknown';
   }
 
+  completeWithdraw(request: any) {
+    this.spinnerService.show();
+    const subscription = this.withdrawService.completeWithdraw(request.id).subscribe(
+      (result: any) => {
+        this.spinnerService.hide();
+
+        request.status = 'Processed';
+      },
+      (error) => {
+        this.spinnerService.hide();
+        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }

@@ -34,14 +34,13 @@ export class PageContactUsComponent implements OnInit, OnDestroy {
     const formValues = this.contactUsForm.value;
 
     const body = {
-      subject: formValues.subject,
+      subject: `Contact form submission - ${formValues.subject}`,
       body: `
-<strong>Contact Name:</strong> ${formValues.name} <br>
-<strong>Contact Email:</strong> ${formValues.email} <br>
-<br>
-<strong>Message:</strong> <br>
-${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}
-`,
+<strong>From:</strong> ${formValues.name} <${formValues.email}>
+<strong>Subject:</strong> ${formValues.subject}
+
+<strong>Message Body:</strong>
+${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}`,
     };
 
     this.loading = true;

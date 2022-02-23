@@ -38,7 +38,6 @@ export class EmailJobModalComponent implements OnInit {
   sendEmail() {
     const jobUrl = `${window.location.origin}/jobs/details/${this.data.job.slug}`;
     const emailBody = `Job Link: <a href='${jobUrl}'>${this.data.job.title}</a>
-
 (${jobUrl})
 
 ${this.emailJobForm.value.message}

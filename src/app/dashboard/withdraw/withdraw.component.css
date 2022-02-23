@@ -36,3 +36,7 @@
   display: block;
   margin-top: 2rem;
 }
+
+.payment-settings p {
+  margin-bottom: 0;
+}

@@ -35,7 +35,7 @@ export class ShippingService {
       map((data) =>
         data.map((opt) => ({
           ...opt,
-          zones: JSON.parse(opt.zones),
+          zones: opt.zones ? JSON.parse(opt.zones) : [],
           fee: parseFloat(opt.fee),
         }))
       ),

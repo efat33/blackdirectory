@@ -52,7 +52,6 @@ export class CartComponent implements OnInit {
       )
       .subscribe((data) => {
         this.dataSource.data = data;
-        this.cartService.setShippingMethods(data);
       });
     this.appliedCoupon$.subscribe((coupon) => {
       if (coupon.discount > 0) {

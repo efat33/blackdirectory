@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -56,6 +56,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   favoriteJobIds = [];
   socialLinks: any = {};
   hasSocialLinks: boolean = false;
+
+  loading: boolean = false;
+  message: string = '';
 
   constructor(
     public dialog: MatDialog,
@@ -343,9 +346,53 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(saveCandidateSubscription);
   }
 
-  onSubmitCandidate() {}
+  onSubmitContactForm(form: FormGroupDirective) {
+    const formValues = this.contactEmployerForm.value;
 
-  onSubmitEmployer() {}
+    const body = {
+      to: this.currentUser.email,
+      subject: 'Black Directory - Contact Form',
+      body: `Hello ${this.currentUser.first_name} ${this.currentUser.last_name},
+
+The below inquiry has been made by ${formValues.name} via your profile.
+
+<strong>Name:</strong> ${formValues.name}
+<strong>Email:</strong> ${formValues.email}
+<strong>Phone:</strong> ${formValues.phone}
+
+<strong>Message:</strong>
+${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}
+
+Best regards,
+
+Black Directory Team`,
+    };
+
+    this.loading = true;
+    const subscription = this.helperService.sendMail(body).subscribe(
+      (result: any) => {
+        this.loading = false;
+        this.message = 'Message sent.';
+
+        this.contactEmployerForm.reset();
+        form.resetForm();
+
+        setTimeout(() => {
+          this.message = null;
+        }, 5000);
+      },
+      (error) => {
+        this.loading = false;
+        this.message = error.error.message || 'Something went wrong, please try again.';
+
+        setTimeout(() => {
+          this.message = null;
+        }, 5000);
+      }
+    );
+
+    this.subscriptions.add(subscription);
+  }
 
   onReviewSubmit() {
     if (!this.helperService.currentUserInfo) {

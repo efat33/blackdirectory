@@ -1,0 +1,60 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
+  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Payment Settings</span>
+        </h4>
+      </div>
+    </header>
+
+    <div class="content-box_body__3tSRB">
+      <mat-form-field>
+        <mat-label>Bank account name</mat-label>
+        <input matInput formControlName="account_name" required/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Bank account number</mat-label>
+        <input matInput formControlName="account_number" required/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Bank name</mat-label>
+        <input matInput formControlName="bank_name" required/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Bank address</mat-label>
+        <input matInput formControlName="bank_address" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Routing number</mat-label>
+        <input matInput formControlName="routing_number" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>IBAN</mat-label>
+        <input matInput formControlName="iban" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Swift code</mat-label>
+        <input matInput formControlName="swift_code" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <p *ngIf="showError" class="errorMessage">{{ errorMessage }}</p>
+
+  <button
+    mat-raised-button
+    class="wil-btn wil-btn--primary wil-btn--round wil-btn--lg wil-btn--block"
+    color="primary"
+    type="submit"
+    [disabled]="!paymentForm.valid"
+  >
+    Save Settings
+  </button>
+</form>
