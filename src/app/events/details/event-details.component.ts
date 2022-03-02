@@ -549,30 +549,49 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     const tickets = this.event.tickets
       .filter((ticket: any) => ticket.quantity)
       .map((ticket: any) => {
-        return { id: ticket.id, quantity: ticket.quantity };
+        return { id: ticket.id, price: ticket.price, quantity: ticket.quantity };
       });
 
-    const body = {
-      tickets,
-      returnUrl: `${this.helperService.siteUrl}/events/details/${this.eventSlug}/payment`,
-    };
+    const totalPrice = tickets.reduce((acc: number, ticket: any) => acc + ticket.price * ticket.quantity, 0);
 
-    this.spinnerService.show();
-    const subscription = this.eventService.createStripeCheckoutSession(body).subscribe(
-      (result: any) => {
-        this.spinnerService.hide();
+    if (totalPrice > 0) {
+      const body = {
+        tickets,
+        returnUrl: `${this.helperService.siteUrl}/events/details/${this.eventSlug}/payment`,
+      };
 
-        if (result.data?.url) {
-          window.location.href = result.data.url;
+      this.spinnerService.show();
+      const subscription = this.eventService.createStripeCheckoutSession(body).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+
+          if (result.data?.url) {
+            window.location.href = result.data.url;
+          }
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
         }
-      },
-      (error) => {
-        this.spinnerService.hide();
-        this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
-      }
-    );
+      );
 
-    this.subscriptions.add(subscription);
+      this.subscriptions.add(subscription);
+    } else {
+      this.spinnerService.show();
+      const subscription = this.eventService.buyEventTickets(this.event.id, tickets).subscribe(
+        (result: any) => {
+          this.spinnerService.hide();
+
+          this.router.navigate([`/events/details/${this.eventSlug}/payment`], { queryParams: { success: true } });
+        },
+        (error) => {
+          this.spinnerService.hide();
+          this.snackbar.openSnackBar(error.error.message, 'Close', 'warn');
+        }
+      );
+
+      this.subscriptions.add(subscription);
+    }
   }
 
   ngOnDestroy() {
