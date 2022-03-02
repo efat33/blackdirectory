@@ -1,5 +1,5 @@
 <header class="popup_header__2QTxC clearfix">
-  <h3 class="popup_title__3q6Xh"><span>Contact Employer</span></h3>
+  <h3 class="popup_title__3q6Xh"><span>Email Job</span></h3>
   <div class="popup_headerRight__c4FcP">
     <span [mat-dialog-close] class="popup_close__mJx2A color-primary--hover js-toggle-close">
       <i class="la la-close"></i>
@@ -14,18 +14,13 @@
           <div>
             <form [formGroup]="emailJobForm" (ngSubmit)="onSubmit()">
               <mat-form-field>
-                <mat-label>Subject</mat-label>
-                <input matInput formControlName="subject" placeholder="Subject" />
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name" />
               </mat-form-field>
 
               <mat-form-field>
                 <mat-label>Email Address</mat-label>
                 <input matInput type="email" formControlName="email" placeholder="Email Address" />
-              </mat-form-field>
-
-              <mat-form-field>
-                <mat-label>Message</mat-label>
-                <textarea matInput formControlName="message" rows="5"></textarea>
               </mat-form-field>
 
               <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"

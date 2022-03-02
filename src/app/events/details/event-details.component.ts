@@ -251,7 +251,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     if (this.helperService.currentUserInfo?.id) {
       this.dialogRsvpApply = this.dialog.open(RsvpApplyModal, {
         width: '400px',
-        data: { rsvp_id },
+        data: { rsvp_id, event: this.event },
       });
 
       this.dialogRsvpApply.afterClosed().subscribe((result) => {
