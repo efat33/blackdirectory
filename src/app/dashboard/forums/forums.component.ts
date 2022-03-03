@@ -40,8 +40,8 @@ export class AllForumsComponent implements OnInit {
 
   ngOnInit() {
     this.siteUrl = this.helperService.siteUrl;
-
-    if (!this.helperService.isAdmin()) {
+    const current_user = this.helperService.currentUserInfo;
+    if (!this.helperService.isAdmin() && current_user.forum_role != 'keymaster') {
       this.queryParams['user_id'] = this.helperService.currentUserInfo.id;
     }
 

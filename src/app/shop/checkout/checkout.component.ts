@@ -27,6 +27,7 @@ export class CheckoutComponent implements OnInit {
   cartData: any;
   subtotal$: Observable<number> = this.cartService.subtotal;
   discountAmount$: Observable<number> = this.cartService.discountAmount;
+  vatAmount$: Observable<number> = this.cartService.vatAmount;
   total$: Observable<number> = this.cartService.total;
   totalAfterShipping$: Observable<number> = this.cartService.totalAfterShipping;
   countries$: Observable<Country[]> = this.storeService.getCountries();

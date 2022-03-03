@@ -82,6 +82,12 @@ export class CartService {
     );
   }
 
+  get vatAmount(): Observable<number> {
+    return combineLatest([this.subtotal]).pipe(
+      map(([subtotal]) => subtotal * 0.2)
+    );
+  }
+
   get total(): Observable<number> {
     return combineLatest([this.subtotal, this.discountAmount]).pipe(
       map(([subtotal, discountAmount]) => subtotal - discountAmount)
@@ -89,8 +95,8 @@ export class CartService {
   }
 
   get totalAfterShipping(): Observable<number> {
-    return combineLatest([this.subtotal, this.discountAmount, this.shippingOptionsService.totalShippingCost$]).pipe(
-      map(([subtotal, discountAmount, shippingCosts]) => subtotal - discountAmount + shippingCosts)
+    return combineLatest([this.subtotal, this.vatAmount, this.discountAmount, this.shippingOptionsService.totalShippingCost$]).pipe(
+      map(([subtotal, vatAmount, discountAmount, shippingCosts]) => subtotal + vatAmount - discountAmount + shippingCosts)
     );
   }
 
