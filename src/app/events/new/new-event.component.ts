@@ -484,20 +484,23 @@ export class NewEventComponent implements OnInit {
       const element = formData.tickets[index];
       element.start_sale = element.start_sale
         ? moment(element.start_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.start_time;
+        : this.helperService.dateTimeNow();
       element.end_sale = element.end_sale
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.end_time;
+        : formData.start_time;
     }
     for (let index = 0; index < formData.rsvp.length; index++) {
       const element = formData.rsvp[index];
       element.start_sale = element.start_sale
         ? moment(element.start_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.start_time;
+        : this.helperService.dateTimeNow();
       element.end_sale = element.end_sale
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.end_time;
+        : formData.start_time;
     }
+
+    console.log(formData);
+    return;
     if (this.eventSlug) {
       this.editEvent(formData);
     } else {

@@ -35,7 +35,7 @@
     </table>
   </div>
 
-  <table class="totals-table">
+  <!-- <table class="totals-table">
     <tbody>
       <tr>
         <th>SUBTOTAL</th>
@@ -50,7 +50,7 @@
         <td>{{ total$ | async | currency }}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
   <h2>Shipping Details</h2>
   <form [formGroup]="shippingForm">
@@ -110,13 +110,26 @@
       placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
   </mat-form-field>
 
-  <ng-container *ngIf="shippingForm.controls.country_id.value">
+  <ng-container>
+    <h2>Payment Details</h2>
     <table class="totals-table">
       <tbody>
+        <tr>
+          <th>SUBTOTAL</th>
+          <td>{{ subtotal$ | async | currency }}</td>
+        </tr>
+        <tr>
+          <th>VAT</th>
+          <td>{{ vatAmount$ | async | currency }}</td>
+        </tr>
+        <tr *ngIf="(discountAmount$ | async) > 0">
+          <th>DISCOUNT</th>
+          <td>- {{ discountAmount$ | async | currency }}</td>
+        </tr>
         <tr app-shipping-method-selector [form]="form" *ngFor="let form of shippingOptionsForm.controls"></tr>
         <tr>
-          <th>TOTAL with Shipping</th>
-          <td>{{ totalAfterShipping$ | async | currency }}</td>
+          <th style="font-weight: bold;">TOTAL</th>
+          <td style="font-weight: bold;">{{ totalAfterShipping$ | async | currency }}</td>
         </tr>
       </tbody>
     </table>
