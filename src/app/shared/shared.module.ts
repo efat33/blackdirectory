@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -69,7 +69,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { imageSrc, encodeURL, pluralPipe, rsvpTimeLeft, excerpt, decimalPipe, fileSrc, SafeHtmlPipe, topicVoiceNumber } from './custom-pipes';
+import {
+  imageSrc,
+  encodeURL,
+  pluralPipe,
+  rsvpTimeLeft,
+  excerpt,
+  decimalPipe,
+  fileSrc,
+  SafeHtmlPipe,
+  topicVoiceNumber,
+} from './custom-pipes';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { MatSliderModule } from '@angular/material/slider';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -110,8 +120,6 @@ import { SendEmailModalComponent } from '../modals/send-email/send-email-modal';
 import { EmailJobModalComponent } from '../modals/job/email-job/email-job-modal';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { JobAlertModal } from '../modals/job/job-alert/job-alert-modal';
-
-
 
 @NgModule({
   declarations: [
@@ -174,7 +182,7 @@ import { JobAlertModal } from '../modals/job/job-alert/job-alert-modal';
     SendEmailModalComponent,
     EmailJobModalComponent,
     AccountDeactivateModal,
-    JobAlertModal
+    JobAlertModal,
   ],
   imports: [
     CommonModule,
@@ -317,6 +325,7 @@ import { JobAlertModal } from '../modals/job/job-alert/job-alert-modal';
     SendEmailModalComponent,
     EmailJobModalComponent,
     ClipboardModule,
+    DatePipe,
   ],
   entryComponents: [
     RegistrationModal,
@@ -350,7 +359,8 @@ import { JobAlertModal } from '../modals/job/job-alert/job-alert-modal';
     ForgotPasswordModal,
     ResetPasswordModal,
     AccountDeactivateModal,
-    JobAlertModal
+    JobAlertModal,
   ],
+  providers: [DatePipe],
 })
 export class SharedModule {}

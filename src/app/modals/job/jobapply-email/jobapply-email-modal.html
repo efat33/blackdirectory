@@ -18,13 +18,13 @@
                 <div class="col-md-6">
                   <mat-form-field>
                     <mat-label>First Name</mat-label>
-                    <input matInput formControlName="first_name" placeholder="First Name" />
+                    <input required matInput formControlName="first_name" placeholder="First Name" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field>
                     <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="last_name" placeholder="Last Name" />
+                    <input required matInput formControlName="last_name" placeholder="Last Name" />
                   </mat-form-field>
                 </div>
               </div>
@@ -44,85 +44,9 @@
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Current Job Title</mat-label>
-                    <input matInput formControlName="job_title" placeholder="Current Job Title" />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Current Salary</mat-label>
-                    <input matInput formControlName="current_salary" placeholder="Current Salary" />
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Academic Level</mat-label>
-                    <mat-select required formControlName="academics" multiple>
-                      <mat-option *ngFor="let academic of userService.academics" [value]="academic.value">
-                        {{academic.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Age</mat-label>
-                    <mat-select formControlName="age">
-                      <mat-option *ngFor="let age of userService.candidateAges" [value]="age.value">
-                        {{age.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Industry</mat-label>
-                    <mat-select formControlName="industry">
-                      <mat-option *ngFor="let industry of userService.jobIndustrys" [value]="industry.value">
-                        {{industry.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Gender</mat-label>
-                    <mat-select formControlName="gender">
-                      <mat-option *ngFor="let gender of userService.candidateGenders" [value]="gender.value">
-                        {{gender.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="">
-                <section class="section-mat-form-field section-field-file">
-                    <mat-label>Resume</mat-label>
-                    <input accept=".doc,.docx,.pdf" type="file" #inputResume (change)="onResumeChange($event)" />
-                    <span *ngIf="f.resume.value">{{f.resume.value}}</span>
-                    <a class="wil-btn wil-btn--primary wil-btn--round wil-btn--xxs"
-                        (click)="inputResume.click()">Upload</a>
-                </section>
-                <mat-progress-bar *ngIf="progressResume" mode="determinate" [value]="progressResume" class="mb-15">
-                </mat-progress-bar>
-                <p class="form-error" *ngIf="!formCustomvalidation.resume.validated">
-                    {{formCustomvalidation.resume.message}}</p>
-            </div>
-
-
               <mat-form-field>
                 <mat-label>Message</mat-label>
-                <textarea matInput formControlName="message" rows="5"></textarea>
+                <textarea required matInput formControlName="message" rows="5"></textarea>
               </mat-form-field>
 
               <button mat-raised-button class="wil-btn wil-btn--primary wil-btn--block wil-btn--md wil-btn--round"
