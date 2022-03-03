@@ -48,15 +48,15 @@ export class ContactEmployerModal implements OnInit {
       subject: 'Black Directory - Job Inquiry',
       body: `Hello ${this.employer.display_name},
 
-The below inquiry has been submitted by <a href='${location.origin}/user-details/${candidate.username}'>${candidate.display_name}</a> (${candidate.email}) for your job "<a href='${location.origin}/jobs/details/${this.job.slug}'>${this.job.title}</a>".
+The inquiry below has been submitted by <a href='${location.origin}/user-details/${candidate.username}'>${candidate.display_name}</a> (${candidate.email}) for your job "<a href='${location.origin}/jobs/details/${this.job.slug}'>${this.job.title}</a>".
 
 Subject: ${this.contactEmployerForm.value.subject}
 Message:
 ${this.contactEmployerForm.value.message}
 
-Best regards,
+Kind regards,
 
-Black Directory Team`,
+Black Directory`,
     };
 
     this.helperService.sendMail(emailOptions).subscribe();

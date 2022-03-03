@@ -23,7 +23,6 @@ export class JobApplyEmailModal implements OnInit, OnDestroy {
   jobApplyForm: FormGroup;
   showError = false;
   errorMessage = '';
-  progressResume: number = 0;
 
   formCustomvalidation = {
     resume: {
@@ -42,8 +41,6 @@ export class JobApplyEmailModal implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public jobService: JobService,
     public userService: UserService,
-    private uploadService: UploadService,
-    private helperService: HelperService,
     private spinnerService: SpinnerService,
     private snackbar: SnackBarService
   ) {}
@@ -52,18 +49,11 @@ export class JobApplyEmailModal implements OnInit, OnDestroy {
     this.job = this.data.job;
 
     this.jobApplyForm = new FormGroup({
-      first_name: new FormControl(''),
-      last_name: new FormControl(''),
+      first_name: new FormControl('', Validators.required),
+      last_name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       phone: new FormControl(''),
-      job_title: new FormControl(''),
-      current_salary: new FormControl(''),
-      academics: new FormControl('', Validators.required),
-      age: new FormControl(''),
-      industry: new FormControl(''),
-      gender: new FormControl(''),
-      resume: new FormControl(''),
-      message: new FormControl(''),
+      message: new FormControl('', Validators.required),
     });
   }
 
@@ -95,57 +85,6 @@ export class JobApplyEmailModal implements OnInit, OnDestroy {
     this.subscriptions.add(newJobSubscription);
   }
 
-
-  onResumeChange(event: any) {
-    // reset validation
-    this.formCustomvalidation.resume.validated = true;
-    this.formCustomvalidation.resume.message = '';
-
-    const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const file = event.target.files[0];
-
-      // do validation
-      const res = this.helperService.fileValidation(file);
-      if (!res.validated) {
-        this.formCustomvalidation.resume.validated = false;
-        this.formCustomvalidation.resume.message = res.message;
-        return;
-      }
-
-      // send image to the server
-      const fd = new FormData();
-      fd.append('file', file, file.name);
-
-      this.uploadService.uploadFile(fd, 'job').subscribe(
-        (event: HttpEvent<any>) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              this.progressResume = Math.round((event.loaded / event.total) * 100);
-              break;
-            case HttpEventType.Response:
-              // check for validation
-              if (event.body.data.fileValidationError) {
-                this.formCustomvalidation.resume.validated = false;
-                this.formCustomvalidation.resume.message = event.body.data.fileValidationError;
-              } else {
-                this.jobApplyForm.get('resume').patchValue(event.body.data.filename);
-              }
-
-              // hide progress bar
-              setTimeout(() => {
-                this.progressResume = 0;
-              }, 1500);
-          }
-        },
-        (res: any) => {
-          console.log(res);
-        }
-      );
-    }
-  }
-
   sendEmail() {
     const emailOptions = this.prepareEmailOptions();
 
@@ -166,17 +105,12 @@ First Name: ${this.jobApplyForm.value.first_name}
 Last Name: ${this.jobApplyForm.value.last_name}
 Email: ${this.jobApplyForm.value.email}
 Phone: ${this.jobApplyForm.value.phone}
-Job Title: ${this.jobApplyForm.value.job_title}
-Current Salary: ${this.jobApplyForm.value.current_salary}
-Academics: ${this.jobApplyForm.value.academics.join(', ')}
-Age: ${this.jobApplyForm.value.age}
-Industry: ${this.jobApplyForm.value.industry}
-Gender: ${this.jobApplyForm.value.gender}
+
 Message: ${this.jobApplyForm.value.message}
 
-Best regards,
+Kind regards,
 
-Black Directory Team`;
+Black Directory`;
 
     const options = {
       to: this.job.job_meta.job_apply_email,

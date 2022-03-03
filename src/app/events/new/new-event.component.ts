@@ -197,10 +197,7 @@ export class NewEventComponent implements OnInit {
           this.spinnerService.hide();
 
           // redirect to home page if listing user_id OR claimer_id not equal to current user id
-          if (
-            !this.helperService.isAdmin() &&
-            this.helperService.currentUserInfo.id !== res.data.user_id
-          ) {
+          if (!this.helperService.isAdmin() && this.helperService.currentUserInfo.id !== res.data.user_id) {
             this.router.navigate(['home']);
             return;
           }
@@ -482,22 +479,25 @@ export class NewEventComponent implements OnInit {
 
     for (let index = 0; index < formData.tickets.length; index++) {
       const element = formData.tickets[index];
+
       element.start_sale = element.start_sale
         ? moment(element.start_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.start_time;
+        : moment().utc().format('YYYY-MM-DD HH:mm:ss');
       element.end_sale = element.end_sale
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.end_time;
+        : formData.start_time;
     }
+
     for (let index = 0; index < formData.rsvp.length; index++) {
       const element = formData.rsvp[index];
       element.start_sale = element.start_sale
         ? moment(element.start_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.start_time;
+        : moment().utc().format('YYYY-MM-DD HH:mm:ss');
       element.end_sale = element.end_sale
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : formData.end_time;
+        : formData.start_time;
     }
+
     if (this.eventSlug) {
       this.editEvent(formData);
     } else {
@@ -575,8 +575,7 @@ export class NewEventComponent implements OnInit {
       formGroup.get('title').patchValue(formData.title);
       formGroup.get('capacity').patchValue(formData.capacity);
       formGroup.get('start_sale').patchValue(formData.start_sale);
-      formGroup.get('end_sale').patchValue(formData.end_sale); 
-
+      formGroup.get('end_sale').patchValue(formData.end_sale);
     } else {
       const variationGroup = new FormGroup({
         id: new FormControl(formData.id || null),
@@ -754,7 +753,7 @@ export class NewEventComponent implements OnInit {
   onChangeVirtual(ob: MatCheckboxChange) {
     if (ob.checked) {
       this.isVirtual = true;
-      
+
       this.eventForm.get('venue').clearValidators();
       this.eventForm.get('address').clearValidators();
       this.eventForm.get('youtube_url').setValidators([Validators.required]);

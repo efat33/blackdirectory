@@ -36,10 +36,10 @@ export class PagePromoteComponent implements OnInit, OnDestroy {
     const body = {
       subject: `Advertise form submission - ${formValues.subject}`,
       body: `
-<strong>From:</strong> ${formValues.name} <${formValues.email}>
-<strong>Subject:</strong> ${formValues.subject}
+From: ${formValues.name}
+Email: ${formValues.email}
+Subject: ${formValues.subject}
 
-<strong>Message Body:</strong>
 ${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}`,
     };
 

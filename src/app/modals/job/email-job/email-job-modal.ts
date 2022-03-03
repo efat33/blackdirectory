@@ -24,9 +24,8 @@ export class EmailJobModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailJobForm = new FormGroup({
-      subject: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      message: new FormControl('', Validators.required),
     });
   }
 
@@ -37,15 +36,18 @@ export class EmailJobModalComponent implements OnInit {
 
   sendEmail() {
     const jobUrl = `${window.location.origin}/jobs/details/${this.data.job.slug}`;
-    const emailBody = `Job Link: <a href='${jobUrl}'>${this.data.job.title}</a>
-(${jobUrl})
+    const emailBody = `Hello ${this.emailJobForm.value.name},
 
-${this.emailJobForm.value.message}
-    `;
+Here is a job that you may like.
+Job Link: <a href='${jobUrl}'>${this.data.job.title}</a>
+
+Kind regards,
+
+Black Directory`;
 
     const emailOptions = {
       to: this.emailJobForm.value.email,
-      subject: this.emailJobForm.value.subject,
+      subject: 'Check this job out!',
       body: emailBody,
     };
 
