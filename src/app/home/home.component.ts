@@ -14,6 +14,7 @@ import { HelperService } from '../shared/helper.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { HomeService } from './home.service';
 import { UserService } from '../user/user.service';
+import { SeoService } from '../shared/services/seo.service';
 
 declare const google: any;
 
@@ -71,7 +72,8 @@ export class HomeComponent implements OnInit {
     private helperService: HelperService,
     public dialog: MatDialog,
     public router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private seo: SeoService
   ) {}
 
   breakpoints = {
@@ -81,6 +83,16 @@ export class HomeComponent implements OnInit {
   };
 
   ngOnInit() {
+
+    // setup SEO data
+    this.seo.generateTags({
+      title: 'Home', 
+      description: 'Description Home Page', 
+      image: 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png',
+      slug: 'home',
+      keywords: 'home, BD home',
+    });
+
     this.siteUrl = this.helperService.siteUrl;
     if (this.helperService.currentUserInfo?.id) this.currentUserID = this.helperService.currentUserInfo.id;
 

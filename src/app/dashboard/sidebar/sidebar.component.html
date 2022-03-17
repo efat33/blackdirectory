@@ -288,7 +288,9 @@
               </mat-expansion-panel-header>
 
               <ul class="sidebar-menu-submenus">
-                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
+                <li
+                  *ngIf="currentUser?.role == 'admin' || currentUser?.forum_role == 'keymaster' || currentUser?.forum_role == 'moderator'"
+                  class="dashboard-nav_item__2798B wilcity-dashboard-route-reviews">
                   <span>
                     <a [routerLink]="['forums/all']" routerLinkActive="dashboard-link-active"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span
@@ -296,7 +298,9 @@
                       <span class="dashboard-nav_text__x-_IZ">Forum List</span>
                       <span class="dashboard-nav_number__5N1Ch color-primary"></span></a></span>
                 </li>
-                <li class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
+                <li
+                  *ngIf="currentUser?.role == 'admin' || currentUser?.forum_role == 'keymaster' || currentUser?.forum_role == 'moderator'"
+                  class="dashboard-nav_item__2798B wilcity-dashboard-route-messages">
                   <span>
                     <a [routerLink]="['topics/all']" routerLinkActive="dashboard-link-active"
                       class="dashboard-nav_link__2BmK9 text-ellipsis color-primary--hover"><span

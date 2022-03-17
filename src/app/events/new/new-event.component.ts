@@ -482,7 +482,7 @@ export class NewEventComponent implements OnInit {
 
       element.start_sale = element.start_sale
         ? moment(element.start_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : moment().utc().format('YYYY-MM-DD HH:mm:ss');
+        : this.helperService.dateTimeNow();
       element.end_sale = element.end_sale
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
         : formData.start_time;
@@ -492,7 +492,7 @@ export class NewEventComponent implements OnInit {
       const element = formData.rsvp[index];
       element.start_sale = element.start_sale
         ? moment(element.start_sale).utc().format('YYYY-MM-DD HH:mm:ss')
-        : moment().utc().format('YYYY-MM-DD HH:mm:ss');
+        : this.helperService.dateTimeNow();
       element.end_sale = element.end_sale
         ? moment(element.end_sale).utc().format('YYYY-MM-DD HH:mm:ss')
         : formData.start_time;
