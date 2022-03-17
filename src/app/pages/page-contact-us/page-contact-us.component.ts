@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/shared/helper.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-page-contact-us',
@@ -15,9 +16,22 @@ export class PageContactUsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   message: string = '';
 
-  constructor(private helperService: HelperService) {}
+  constructor(
+    private helperService: HelperService,
+    private seo: SeoService
+  ) {}
 
   ngOnInit() {
+
+    // setup SEO data
+    this.seo.generateTags({
+      title: 'Contact Us', 
+      description: 'Description Contact Us', 
+      image: 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png',
+      slug: 'contact-us',
+      keywords: 'contact us',
+    });
+
     this.initializeForm();
   }
 
