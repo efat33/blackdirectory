@@ -8,6 +8,7 @@ import { EmailJobModalComponent } from 'src/app/modals/job/email-job/email-job-m
 import { JobApplyEmailModal } from 'src/app/modals/job/jobapply-email/jobapply-email-modal';
 import { JobApplyInternalModal } from 'src/app/modals/job/jobapply-internal/jobapply-internal-modal';
 import { HelperService } from 'src/app/shared/helper.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
@@ -26,6 +27,8 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   job: any = {};
   coverLetter: string;
 
+  siteUrl: any;
+  jobSlug: any;
   applied: boolean = false;
   isJobFavorite: boolean = false;
   favoriteJobIds: any[] = [];
@@ -40,17 +43,29 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private spinnerService: SpinnerService,
     private helperService: HelperService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
-    const slug = this.route.snapshot.paramMap.get('job-slug');
+    this.siteUrl = this.helperService.siteUrl;
+    const slug = this.jobSlug = this.route.snapshot.paramMap.get('job-slug');
 
     this.getJobDetails(slug);
 
     if (this.helperService.currentUserInfo) {
       this.getUserDetails();
     }
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.job.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.defaultSeoImage || '',
+      slug: `jobs/details/${this.jobSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
   }
 
   getJobDetails(slug: string) {
@@ -64,6 +79,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
         this.getUserJobs();
         this.getOtherJobs();
         this.processJob();
+        this.setSeoData(this.job);
         this.initializeGoogleMap();
 
         if (this.helperService.currentUserInfo) {

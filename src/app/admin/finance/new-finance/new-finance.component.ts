@@ -106,6 +106,10 @@ export class NewFinanceComponent implements OnInit, AfterViewInit, OnDestroy {
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
       featured_image: new FormControl('', Validators.required),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
   }
 
@@ -118,6 +122,10 @@ export class NewFinanceComponent implements OnInit, AfterViewInit, OnDestroy {
       title: finance.title,
       content: finance.content,
       featured_image: finance.featured_image,
+
+      meta_title: finance.meta_title,
+      meta_keywords: finance.meta_keywords,
+      meta_desc: finance.meta_desc,
     });
   }
 

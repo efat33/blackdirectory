@@ -374,6 +374,10 @@ export class ListingNewComponent implements OnInit, AfterViewInit {
           }),
         ]),
       }),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
 
     // get categories for form category dropdown

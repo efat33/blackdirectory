@@ -12,6 +12,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 import { excerpt } from 'src/app/shared/custom-pipes';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-all-replies',
@@ -33,7 +34,8 @@ export class AllRepliesComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     public snackbarService: SnackBarService,
-    private excerpt: excerpt
+    private excerpt: excerpt,
+    private seo: SeoService,
   ) {}
 
   queryParams = {
@@ -67,7 +69,7 @@ export class AllRepliesComponent implements OnInit {
     this.initialiseReplyForm();
 
     this.siteUrl = this.helperService.siteUrl;
-    this.queryParams.slug = this.route.snapshot.paramMap.get('topic_slug');
+    this.queryParams.slug = this.topicSlug = this.route.snapshot.paramMap.get('topic_slug');
     this.postId = this.route.snapshot.queryParamMap.get('post_id');
 
     if(this.helperService.currentUserInfo){
@@ -82,6 +84,16 @@ export class AllRepliesComponent implements OnInit {
 
     this.getReplies();
     
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: this.topic.title, 
+      description: '', 
+      image: '',
+      slug: `forums/topic/${this.topicSlug}`,
+      keywords: this.topic.title,
+    });
   }
 
   ngAfterViewInit() {
@@ -137,6 +149,9 @@ export class AllRepliesComponent implements OnInit {
             if(content_length > excerpt_length) this.replies[index].reply_to_details['show_read_more'] = true;
           }
         }
+
+        // set seo data 
+        this.setSeoData(this.topic);
         
         setTimeout(() => {
           if(this.postId) {

@@ -13,7 +13,7 @@
 
             <div class="social-share">
               <share-buttons [theme]="'material-dark'" [include]="['facebook','twitter','linkedin','pinterest','email']"
-                [title]="news.title" [url]="router.url" [image]="news.featured_image | imageSrc: 'news'"
+                [title]="news.title" [url]="siteUrl + router.url" [image]="news.featured_image | imageSrc: 'news'"
                 [autoSetMeta]="false"></share-buttons>
             </div>
 

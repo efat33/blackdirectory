@@ -16,6 +16,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import * as lodash from 'lodash';
 import { TravelService } from '../travels.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 declare const google: any;
 
@@ -42,7 +43,8 @@ export class TravelDetailsComponent implements OnInit, OnDestroy {
     private spinnerService: SpinnerService,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,16 @@ export class TravelDetailsComponent implements OnInit, OnDestroy {
     this.getTravelDetails();
   }
 
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.event.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.getImageUrl(sData.featured_image, 'travels', 'medium') || this.helperService.defaultSeoImage,
+      slug: `travels/details/${this.travelSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
+  }
+
   getTravelDetails() {
     this.spinnerService.show();
 
@@ -60,6 +72,8 @@ export class TravelDetailsComponent implements OnInit, OnDestroy {
       (res: any) => {
         this.spinnerService.hide();
         this.event = res.data[0];
+
+        this.setSeoData(this.event);
       },
       (res: any) => {
         this.spinnerService.hide();

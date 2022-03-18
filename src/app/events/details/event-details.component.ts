@@ -15,6 +15,7 @@ import { EventService } from '../event.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import * as lodash from 'lodash';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 declare const google: any;
 
@@ -67,7 +68,8 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     private spinnerService: SpinnerService,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
@@ -78,6 +80,16 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     this.getEventDetails();
   }
 
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.event.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.getImageUrl(sData.featured_img, 'event', 'medium') || this.helperService.defaultSeoImage,
+      slug: `events/details/${this.eventSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
+  }
+
   getEventDetails() {
     this.spinnerService.show();
 
@@ -85,6 +97,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       (res: any) => {
         this.event = res.data;
 
+        this.setSeoData(this.event);
         this.getUserTicketsRsvp();
         this.setCoundownTime();
         this.calculateTicketAvailability();

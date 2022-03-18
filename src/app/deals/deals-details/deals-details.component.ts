@@ -2,6 +2,8 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HelperService } from 'src/app/shared/helper.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { DealsService } from '../deals.service';
@@ -21,8 +23,10 @@ export class DealDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dealService: DealsService,
+    private helperService: HelperService,
     private snackbar: SnackBarService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
@@ -33,12 +37,24 @@ export class DealDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.deal.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.getImageUrl(sData.image, 'deal', 'medium') || this.helperService.defaultSeoImage,
+      slug: `deals/details/${this.dealSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
+  }
+
   getDeal() {
     this.spinnerService.show();
     const subscription = this.dealService.getDeal(this.dealSlug).subscribe(
       (result: any) => {
         this.spinnerService.hide();
         this.deal = result.data[0];
+
+        this.setSeoData(this.deal);
       },
       (error) => {
         this.spinnerService.hide();

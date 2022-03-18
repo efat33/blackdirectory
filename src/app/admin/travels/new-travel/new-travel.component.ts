@@ -106,6 +106,10 @@ export class NewTravelComponent implements OnInit, AfterViewInit, OnDestroy {
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
       featured_image: new FormControl('', Validators.required),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
   }
 
@@ -118,6 +122,10 @@ export class NewTravelComponent implements OnInit, AfterViewInit, OnDestroy {
       title: travel.title,
       content: travel.content,
       featured_image: travel.featured_image,
+
+      meta_title: travel.meta_title,
+      meta_keywords: travel.meta_keywords,
+      meta_desc: travel.meta_desc,
     });
   }
 

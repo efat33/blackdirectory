@@ -47,6 +47,9 @@ export class ProductsEditComponent implements OnInit {
         }),
       ]),
     }),
+    meta_title: new FormControl(''),
+    meta_keywords: new FormControl(''),
+    meta_desc: new FormControl(''),
   });
 
   ckEditor = DocumentEditor;
