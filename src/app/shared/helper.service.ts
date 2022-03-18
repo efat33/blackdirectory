@@ -19,6 +19,7 @@ export class HelperService {
   currentUserInfo: CurrentUser;
   apiUrl: string;
   siteUrl: string;
+  defaultSeoImage: string;
   assetUrl = 'http://localhost:4200/assets';
   adminProfit = 0.05;
 
@@ -26,6 +27,8 @@ export class HelperService {
     this.setApiUrl();
     this.setSiteUrl();
     this.setCurrentUserInfo();
+
+    this.defaultSeoImage = 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png';
   }
 
   setApiUrl() {

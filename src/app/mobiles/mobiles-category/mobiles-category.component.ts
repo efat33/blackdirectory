@@ -10,6 +10,7 @@ import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
 import { MobilesService } from '../mobiles.service';
 import * as lodash from 'lodash';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-mobiles-category',
@@ -108,7 +109,8 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     public mobilesService: MobilesService,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private seo: SeoService,
   ) {
     this.route.params.subscribe((params) => {
       this.getTopMobiles();
@@ -119,6 +121,16 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getModelOptions();
     this.getProviders();
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.title || '', 
+      description: '', 
+      image: '',
+      slug: `mobiles/${this.mobileCategory}`,
+      keywords: sData.title || '',
+    });
   }
 
   initialize() {
@@ -135,7 +147,7 @@ export class MobilesCategoryComponent implements OnInit, OnDestroy {
     this.initializeFilterForm();
     this.resetFilterValues();
     
-    
+    this.setSeoData(category);
   }
 
   getModelOptions() {

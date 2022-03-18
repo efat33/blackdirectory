@@ -20,6 +20,7 @@ import { ListingClaimModal } from 'src/app/modals/listing/details/claim/listing-
 import { GetProductListParams, ProductList, ProductService } from 'src/app/shared/services/product.service';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 declare const google: any;
 
@@ -98,7 +99,8 @@ export class ListingDetailsComponent implements OnInit {
     private spinnerService: SpinnerService,
     public router: Router,
     private snackbar: SnackBarService,
-    private http: HttpClient
+    private http: HttpClient,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
@@ -152,6 +154,9 @@ export class ListingDetailsComponent implements OnInit {
             return;
           }
 
+          // set seo data
+          this.setSeoData(this.listing);
+
           // set images path
           this.setImagesPath();
           this.isTodayOpen = this.calTodayOpen();
@@ -204,6 +209,16 @@ export class ListingDetailsComponent implements OnInit {
         }
       );
     }
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.listing.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperservice.getImageUrl(sData.featured_img, 'listing', 'medium') || this.helperservice.defaultSeoImage,
+      slug: `listing/${this.listing_slug}`,
+      keywords: sData.meta_keywords || '',
+    });
   }
 
   fetchListingProducts(prod_ids) {

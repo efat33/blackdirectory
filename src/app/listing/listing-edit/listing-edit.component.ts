@@ -319,6 +319,10 @@ export class ListingEditComponent implements OnInit, AfterViewInit {
       coupon_expiry_date: listing.coupon_expiry_date,
 
       products: JSON.parse(listing.products || '[]'),
+
+      meta_title: listing.meta_title,
+      meta_keywords: listing.meta_keywords,
+      meta_desc: listing.meta_desc,
     });
 
     this.selectedBushinessHour = listing.business_hour;
@@ -712,6 +716,10 @@ export class ListingEditComponent implements OnInit, AfterViewInit {
           }),
         ]),
       }),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
 
     // get categories for form category dropdown

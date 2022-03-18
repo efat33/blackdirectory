@@ -6,6 +6,7 @@ import { ForumService } from 'src/app/forums/forum.service';
 import { ListingService } from 'src/app/listing/listing.service';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import { HelperService } from 'src/app/shared/helper.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
@@ -28,7 +29,8 @@ export class AllTopicsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-    public snackbarService: SnackBarService
+    public snackbarService: SnackBarService,
+    private seo: SeoService,
   ) {
     this.route.params.subscribe((params) => {
       this.forumSlug = this.route.snapshot.paramMap.get('forum_slug');
@@ -64,6 +66,16 @@ export class AllTopicsComponent implements OnInit {
     this.getForumCategories();
   }
 
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.forum.title, 
+      description: sData.meta_desc || '', 
+      image: '',
+      slug: `forums/forum/${this.forumSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
+  }
+
   getForumCategories() {
     this.spinnerService.show();
     const getSectorsSubscription = this.forumService.getCategories().subscribe(
@@ -92,6 +104,8 @@ export class AllTopicsComponent implements OnInit {
         this.topics = res.data.data.topics;
         this.totalTopics = res.data.data.total_topics;
         this.forum = res.data.data.forum;
+
+        this.setSeoData(this.forum);
       },
       (res: any) => {
         this.spinnerService.hide();

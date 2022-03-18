@@ -11,19 +11,14 @@
       <div class="general-inputs">
         <div>
           <div class="featured-image-input">
-            <app-image-input
-              uploadDirectory="product"
-              [control]="productForm.get('image')"
-              text="Add a Featured Image"
-            ></app-image-input>
+            <app-image-input uploadDirectory="product" [control]="productForm.get('image')" text="Add a Featured Image">
+            </app-image-input>
           </div>
           <h6>Gallery Images</h6>
           <div class="gallery-container">
             <div class="gallery-image" *ngFor="let gallery of galleries.controls; let i = index">
-              <app-image-input
-                uploadDirectory="product"
-                [control]="productForm.get('galleries.' + i)"
-              ></app-image-input>
+              <app-image-input uploadDirectory="product" [control]="productForm.get('galleries.' + i)">
+              </app-image-input>
             </div>
           </div>
         </div>
@@ -121,7 +116,7 @@
     </div>
   </div>
 
-  <div id="dashboard-section-basic-info-info" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+  <div id="id_product_clasification" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
     <header class="content-box_header__xPnGx clearfix">
       <div class="wil-float-left">
         <h4 class="content-box_title__1gBHS">
@@ -149,6 +144,44 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+    </div>
+  </div>
+
+  <div id="id_product_metadata" class="content-box_module__333d9 content-box_lg__3v3a- mb-10">
+    <header class="content-box_header__xPnGx clearfix">
+      <div class="wil-float-left">
+        <h4 class="content-box_title__1gBHS">
+          <span>Product Meta Data</span>
+        </h4>
+      </div>
+    </header>
+    <div class="content-box_body__3tSRB">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <mat-label>Meta Title</mat-label>
+            <input matInput formControlName="meta_title" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <mat-label>Meta Keywords</mat-label>
+            <input matInput formControlName="meta_keywords" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <mat-label>Meta Description</mat-label>
+            <textarea matInput formControlName="meta_desc" rows="5"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
   </div>
 

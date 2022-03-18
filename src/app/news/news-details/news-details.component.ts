@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import { HelperService } from 'src/app/shared/helper.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { UserService } from 'src/app/user/user.service';
@@ -20,6 +21,7 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
   featuredNews: any;
+  siteUrl: any;
   news: any;
   newsSlug: string;
 
@@ -36,10 +38,13 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
+    this.siteUrl = this.helperService.siteUrl;
+    
     this.route.params.subscribe((params) => {
       this.newsSlug = this.route.snapshot.paramMap.get('news-slug');
 
@@ -52,12 +57,24 @@ export class NewsDetailsComponent implements OnInit, OnDestroy {
     
   }
 
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.news.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.getImageUrl(sData.featured_image, 'news', 'medium') || this.helperService.defaultSeoImage,
+      slug: `news/details/${this.newsSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
+  }
+
   getNews() {
     this.spinnerService.show();
     const subscription = this.newsService.getSingleNews(this.newsSlug).subscribe(
       (result: any) => {
         this.spinnerService.hide();
         this.news = result.data[0];
+
+        this.setSeoData(this.news);
 
         this.getUserLikes();
 
