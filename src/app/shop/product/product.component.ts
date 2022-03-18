@@ -14,6 +14,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WishlistService } from 'src/app/shared/services/wishlist.service';
 import { SendMessageModalComponent } from 'src/app/modals/job/send-message/send-message-modal';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-product',
@@ -64,7 +65,8 @@ export class ProductComponent implements OnInit {
     private snackbar: SnackBarService,
     private dialog: MatDialog,
     private wishlistService: WishlistService,
-    private helperservice: HelperService
+    private helperservice: HelperService,
+    private seo: SeoService,
   ) {}
 
   get hasDiscount(): boolean {
@@ -96,6 +98,18 @@ export class ProductComponent implements OnInit {
         medium: this.helperService.getImageUrl(name, 'product', 'medium'),
         big: this.helperService.getImageUrl(name, 'product', 'full'),
       }));
+
+      this.setSeoData(this.p);
+    });
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.p.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.getImageUrl(sData.image, 'product', 'medium') || this.helperService.defaultSeoImage,
+      slug: `shop/product/${this.p.slug}`,
+      keywords: sData.meta_keywords || '',
     });
   }
 

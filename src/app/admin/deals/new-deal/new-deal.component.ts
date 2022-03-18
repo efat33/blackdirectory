@@ -10,6 +10,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomUploadAdapter } from 'src/app/shared/ckeditorImageUploadAdapter';
 import { DealsService } from 'src/app/deals/deals.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-deal',
@@ -112,6 +113,10 @@ export class NewDealComponent implements OnInit, AfterViewInit, OnDestroy {
       free_shipping: new FormControl(''),
       discount_code: new FormControl(''),
       expiry_date: new FormControl(''),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
   }
 
@@ -131,6 +136,9 @@ export class NewDealComponent implements OnInit, AfterViewInit, OnDestroy {
       free_shipping: deal.free_shipping,
       discount_code: deal.discount_code,
       expiry_date: deal.expiry_date,
+      meta_title: deal.meta_title,
+      meta_keywords: deal.meta_keywords,
+      meta_desc: deal.meta_desc,
     });
   }
 
@@ -228,6 +236,13 @@ export class NewDealComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateDeal() {
     const formValues = this.dealForm.value;
+
+    if (formValues.expiry_date == null || formValues.expiry_date == 'Invalid date') {
+      formValues.expiry_date = null;
+    } else {
+      // remove timezone from date, using moment
+      formValues.expiry_date = moment(formValues.expiry_date).utc().format('YYYY-MM-DD HH:mm:ss');
+    }
 
     this.spinnerService.show();
     const updateDealSubscription = this.dealsService.updateDeal(this.editDealId, formValues).subscribe(

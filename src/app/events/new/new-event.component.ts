@@ -366,6 +366,9 @@ export class NewEventComponent implements OnInit {
       website_url: event.website_url,
       start_time: event.start_time,
       end_time: event.end_time,
+      meta_title: event.meta_title,
+      meta_keywords: event.meta_keywords,
+      meta_desc: event.meta_desc,
     });
 
     // set images source
@@ -460,6 +463,10 @@ export class NewEventComponent implements OnInit {
       series_end_type: new FormControl(''),
       series_end_number: new FormControl(''),
       series_end_date: new FormControl(''),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
 
     if (this.eventSlug != null) {

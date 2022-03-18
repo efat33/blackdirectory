@@ -17,6 +17,7 @@ import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmat
 import * as lodash from 'lodash';
 import { TravelService } from '../../travels/travels.service';
 import { FinanceService } from '../finance.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 declare const google: any;
 
@@ -42,7 +43,8 @@ export class FinanceDetailsComponent implements OnInit, OnDestroy {
     private spinnerService: SpinnerService,
     private helperService: HelperService,
     private snackbar: SnackBarService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private seo: SeoService,
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,16 @@ export class FinanceDetailsComponent implements OnInit, OnDestroy {
     this.getFinanceDetails();
   }
 
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.event.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.getImageUrl(sData.featured_image, 'finance', 'medium') || this.helperService.defaultSeoImage,
+      slug: `finance/details/${this.financeSlug}`,
+      keywords: sData.meta_keywords || '',
+    });
+  }
+
   getFinanceDetails() {
     this.spinnerService.show();
 
@@ -60,6 +72,8 @@ export class FinanceDetailsComponent implements OnInit, OnDestroy {
       (res: any) => {
         this.spinnerService.hide();
         this.event = res.data[0];
+
+        this.setSeoData(this.event);
       },
       (res: any) => {
         this.spinnerService.hide();

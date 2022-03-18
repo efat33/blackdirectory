@@ -109,6 +109,9 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
       category_id: new FormControl('', Validators.required),
       featured_image: new FormControl('', Validators.required),
       featured: new FormControl(0),
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
   }
 
@@ -126,6 +129,9 @@ export class NewNewsComponent implements OnInit, AfterViewInit, OnDestroy {
       category_id: categories,
       featured_image: news.featured_image,
       featured: news.featured,
+      meta_title: news.meta_title,
+      meta_keywords: news.meta_keywords,
+      meta_desc: news.meta_desc,
     });
   }
 

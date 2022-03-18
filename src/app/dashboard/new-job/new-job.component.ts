@@ -92,6 +92,7 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
         this.spinnerService.hide();
 
         const currentPackageResult = results[0].data;
+        
         const jobLimitReached =
           currentPackageResult.currentPackage?.number_of_jobs > 0 &&
           currentPackageResult.currentPackage?.number_of_jobs <= currentPackageResult.jobs?.length;
@@ -176,6 +177,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
       job_apply_email: new FormControl(''),
       external_url: new FormControl(''),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
 
     const valueChangeSub = this.jobForm.get('job_apply_type').valueChanges.subscribe((val) => {
@@ -218,6 +223,10 @@ export class NewJobComponent implements OnInit, AfterViewInit, OnDestroy {
 
       job_apply_email: job.job_meta?.job_apply_email,
       external_url: job.job_meta?.external_url,
+
+      meta_title: job.meta_title,
+      meta_keywords: job.meta_keywords,
+      meta_desc: job.meta_desc,
     });
 
     this.salaryUnspecified = job.salary === 0;

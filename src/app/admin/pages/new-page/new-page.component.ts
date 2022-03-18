@@ -82,6 +82,9 @@ export class NewPageComponent implements OnInit, OnDestroy {
     this.pageForm = new FormGroup({
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
   }
 
@@ -93,6 +96,9 @@ export class NewPageComponent implements OnInit, OnDestroy {
     this.pageForm.patchValue({
       title: page.title,
       content: page.content,
+      meta_title: page.meta_title,
+      meta_keywords: page.meta_keywords,
+      meta_desc: page.meta_desc,
     });
   }
 

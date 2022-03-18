@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { PagesService } from '../pages.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SeoService } from 'src/app/shared/services/seo.service';
+import { HelperService } from 'src/app/shared/helper.service';
 
 @Component({
   selector: 'app-page',
@@ -22,6 +24,8 @@ export class PageComponent implements OnInit, OnDestroy {
     private pagesService: PagesService,
     private spinnerService: SpinnerService,
     private domSanitizer: DomSanitizer,
+    private seo: SeoService,
+    private helperService: HelperService,
   ) {}
 
   ngOnInit() {
@@ -29,6 +33,16 @@ export class PageComponent implements OnInit, OnDestroy {
       this.pageSlug = this.route.snapshot.paramMap.get('page-slug');
 
       this.getPage();
+    });
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: sData.meta_title || this.page.title, 
+      description: sData.meta_desc || '', 
+      image: this.helperService.defaultSeoImage || '',
+      slug: this.pageSlug,
+      keywords: sData.meta_keywords || '',
     });
   }
 
@@ -40,6 +54,8 @@ export class PageComponent implements OnInit, OnDestroy {
         this.page = result.data[0];
 
         this.page.content = this.domSanitizer.bypassSecurityTrustHtml(this.page.content);
+
+        this.setSeoData(this.page);
       },
       (error) => {
         this.spinnerService.hide();

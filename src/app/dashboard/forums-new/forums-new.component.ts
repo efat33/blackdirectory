@@ -108,7 +108,11 @@ export class NewForumComponent implements OnInit, AfterViewInit, OnDestroy {
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       category_id: new FormControl('', Validators.required),
-      status: new FormControl('', Validators.required)
+      status: new FormControl('', Validators.required),
+
+      meta_title: new FormControl(''),
+      meta_keywords: new FormControl(''),
+      meta_desc: new FormControl(''),
     });
   }
 
@@ -121,7 +125,10 @@ export class NewForumComponent implements OnInit, AfterViewInit, OnDestroy {
       title: forum.title,
       description: forum.description,
       category_id: forum.category_id,
-      status: forum.status
+      status: forum.status,
+      meta_title: forum.meta_title,
+      meta_keywords: forum.meta_keywords,
+      meta_desc: forum.meta_desc,
     });
   }
 

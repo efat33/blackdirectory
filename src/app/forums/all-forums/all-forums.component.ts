@@ -6,6 +6,7 @@ import { ForumService } from 'src/app/forums/forum.service';
 import { ListingService } from 'src/app/listing/listing.service';
 import { ConfirmationDialog } from 'src/app/modals/confirmation-dialog/confirmation-dialog';
 import { HelperService } from 'src/app/shared/helper.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 
@@ -26,7 +27,8 @@ export class AllForumsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-    public snackbarService: SnackBarService
+    public snackbarService: SnackBarService,
+    private seo: SeoService,
   ) {
     this.route.params.subscribe((params) => {
       this.catID = this.route.snapshot.paramMap.get('cat_id');
@@ -54,6 +56,16 @@ export class AllForumsComponent implements OnInit {
     this.siteUrl = this.helperService.siteUrl;
     
     this.getForumCategories();
+  }
+
+  setSeoData(sData) {
+    this.seo.generateTags({
+      title: '', 
+      description: '', 
+      image: '',
+      slug: `forums`,
+      keywords: '',
+    });
   }
 
   getForums(page: number = 1) {

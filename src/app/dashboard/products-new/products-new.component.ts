@@ -45,6 +45,9 @@ export class ProductsNewComponent implements OnInit {
         }),
       ]),
     }),
+    meta_title: new FormControl(''),
+    meta_keywords: new FormControl(''),
+    meta_desc: new FormControl(''),
   });
   ckEditor = DocumentEditor;
   ckConfig = {
@@ -194,6 +197,9 @@ export class ProductsNewComponent implements OnInit {
         expire_days?: number | null;
         files: { name: string; file: string }[];
       };
+      meta_title: string;
+      meta_keywords: string;
+      meta_desc: string;
     } = this.productForm.value;
 
     const form: PostNewProductBody = {
