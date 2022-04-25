@@ -323,6 +323,14 @@ export class UserService {
       .pipe(map((body: APIReponse) => body));
   }
 
+  changePassword(body: any): Observable<APIReponse> {
+    const url = 'api/users/change-password';
+
+    return this.httpClient
+      .post<APIReponse>(url, JSON.stringify(body), this.headerOptions)
+      .pipe(map((body: APIReponse) => body));
+  }
+
   verifyEmail(verificationKey: string): Observable<any> {
     const url = `api/users/verify-email/${verificationKey}`;
 

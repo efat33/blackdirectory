@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { PagesService } from '../pages.service';
 import { SpinnerService } from 'src/app/shared/spinner.service';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-page-faq',
@@ -19,10 +20,21 @@ export class PageFaqComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private pagesService: PagesService,
     private spinnerService: SpinnerService,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private seo: SeoService
   ) {}
 
   ngOnInit() {
+
+    // setup SEO data
+    this.seo.generateTags({
+      title: 'FAQ', 
+      description: 'FAQ', 
+      image: 'https://www.blackdirectory.co.uk/assets/img/BD-LOGO.png',
+      slug: 'faq',
+      keywords: 'faq',
+    });
+
     this.getFaqs();
   }
 

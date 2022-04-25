@@ -27,7 +27,7 @@ export class PageContactUsComponent implements OnInit, OnDestroy {
     this.seo.generateTags({
       title: 'Contact Us', 
       description: 'Description Contact Us', 
-      image: 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png',
+      image: 'https://www.blackdirectory.co.uk/assets/img/BD-LOGO.png',
       slug: 'contact-us',
       keywords: 'contact us',
     });

@@ -19,7 +19,7 @@ export class SeoService {
     config = { 
       title: 'Black Directory', 
       description: 'Black Directory', 
-      image: 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png',
+      image: 'https://www.blackdirectory.co.uk/assets/img/BD-LOGO.png',
       slug: '',
       keywords: '',
       ...config

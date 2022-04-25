@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
     this.seo.generateTags({
       title: 'Home', 
       description: 'Description Home Page', 
-      image: 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png',
+      image: 'https://www.blackdirectory.co.uk/assets/img/BD-LOGO.png',
       slug: 'home',
       keywords: 'home, BD home',
     });
