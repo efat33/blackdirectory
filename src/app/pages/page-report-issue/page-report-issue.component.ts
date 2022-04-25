@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/shared/helper.service';
 import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
-  selector: 'app-page-promote',
-  templateUrl: './page-promote.component.html',
-  styleUrls: ['./page-promote.component.scss'],
+  selector: 'app-page-report-issue',
+  templateUrl: './page-report-issue.component.html',
+  styleUrls: ['./page-report-issue.component.scss'],
 })
-export class PagePromoteComponent implements OnInit, OnDestroy {
+export class PageReportIssueComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
-  advertiseWithUsForm: FormGroup;
+  contactUsForm: FormGroup;
   loading: boolean = false;
   message: string = '';
 
@@ -25,18 +25,18 @@ export class PagePromoteComponent implements OnInit, OnDestroy {
 
     // setup SEO data
     this.seo.generateTags({
-      title: 'Advertise With Us', 
-      description: 'Advertise With Us', 
+      title: 'Report An Issue', 
+      description: 'Report An Issue', 
       image: 'https://www.blackdirectory.co.uk/assets/img/BD-LOGO.png',
-      slug: 'promote',
-      keywords: 'promote',
+      slug: 'report-issue',
+      keywords: 'report issue',
     });
 
     this.initializeForm();
   }
 
   initializeForm() {
-    this.advertiseWithUsForm = new FormGroup({
+    this.contactUsForm = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       subject: new FormControl('', Validators.required),
@@ -45,10 +45,10 @@ export class PagePromoteComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: FormGroupDirective) {
-    const formValues = this.advertiseWithUsForm.value;
+    const formValues = this.contactUsForm.value;
 
     const body = {
-      subject: `Advertise form submission - ${formValues.subject}`,
+      subject: `Report form submission - ${formValues.subject}`,
       body: `
 From: ${formValues.name}
 Email: ${formValues.email}
@@ -63,7 +63,7 @@ ${formValues.message.replace(/(?:\r\n|\r|\n)/g, '<br>')}`,
         this.loading = false;
         this.message = 'Thank you for contacting us. We will get in touch with you shortly.';
 
-        this.advertiseWithUsForm.reset();
+        this.contactUsForm.reset();
         form.resetForm();
 
         setTimeout(() => {

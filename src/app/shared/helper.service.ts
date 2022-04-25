@@ -28,21 +28,22 @@ export class HelperService {
     this.setSiteUrl();
     this.setCurrentUserInfo();
 
-    this.defaultSeoImage = 'https://www.blackdirectory.co.uk/wp-content/uploads/2020/08/BD-LOGO-1.png';
+    this.defaultSeoImage = 'https://www.blackdirectory.co.uk/assets/img/BD-LOGO.png';
   }
 
   setApiUrl() {
     if (environment.production) {
-      this.apiUrl = `https://mibrahimkhalil.com`;
+      // this.apiUrl = `https://mibrahimkhalil.com`;
+      this.apiUrl = `https://api.blackdirectory.co.uk/`;
     } else {
       this.apiUrl = `http://localhost:3000`;
     }
-    // this.apiUrl = `https://mibrahimkhalil.com`; // TODO:
   }
 
   setSiteUrl() {
     if (environment.production) {
-      this.siteUrl = `https://blackdir.mibrahimkhalil.com`;
+      // this.siteUrl = `https://blackdir.mibrahimkhalil.com`;
+      this.siteUrl = `https://blackdirectory.co.uk`;
     } else {
       this.siteUrl = `http://localhost:4200`;
     }
