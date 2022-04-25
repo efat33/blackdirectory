@@ -96,7 +96,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     const subsEventDetails = this.eventService.getEvent(this.eventSlug).subscribe(
       (res: any) => {
         this.event = res.data;
-
+        
         this.setSeoData(this.event);
         this.getUserTicketsRsvp();
         this.setCoundownTime();

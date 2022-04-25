@@ -3,6 +3,11 @@
 @import '~nouislider/dist/nouislider.min.css';
 @import '~ngx-sharebuttons/themes/material/material-dark-theme';
 
+body{
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+
 .section-wrapper {
   padding-top: 55px;
   padding-bottom: 30px;

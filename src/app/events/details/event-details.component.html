@@ -157,6 +157,11 @@
           </div>
         </div>
 
+        <!-- event external link -->
+        <a *ngIf="event.website_url" href="{{ event.website_url }}" target="_blank"
+          class="wil-btn wil-btn--primary wil-btn--md w-100 event-external-link">Visit
+          Event</a>
+
         <!-- event rsvp -->
         <div *ngIf="userRsvp?.total > 0" class="tribe-link-view-attendee">
           You have {{ userRsvp?.total }} RSVPs for this Event.
